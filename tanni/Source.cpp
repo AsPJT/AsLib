@@ -25,6 +25,8 @@ int32_t AsMain()
 	AsWritePos2("a.txt", UI_size);
 	AsWriteInit("b.txt", as);
 
+	Texture texture("mihon.jpg");
+
 	while (AsLoop())
 	{
 
@@ -32,6 +34,7 @@ int32_t AsMain()
 
 		AsStr(font_handle, "Ç±ÇÒÇ…ÇøÇÕÅIÇÊÇ§Ç±ÇªÅI", pos2_0, white);
 
+		texture(pos4R_all, as.windowSize(), TEXTURE_RATIO_X).draw();
 	}
 
 	return AsEnd();

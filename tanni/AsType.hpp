@@ -18,7 +18,7 @@ namespace AsLib
 	constexpr int FONT_INIT = -1;
 
 	//テクスチャ系
-	using AsTex = int;
+	using Tex = int;
 	constexpr int TEX_INIT = -1;
 
 #elif defined(SIV3D_INCLUDED) //Siv3D

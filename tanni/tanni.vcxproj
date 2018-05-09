@@ -147,6 +147,7 @@
     <ClInclude Include="AsRect.hpp" />
     <ClInclude Include="AsStd.hpp" />
     <ClInclude Include="AsStruct.hpp" />
+    <ClInclude Include="AsTex.hpp" />
     <ClInclude Include="AsType.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
