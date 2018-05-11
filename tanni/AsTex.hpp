@@ -26,9 +26,9 @@ namespace AsLib
 		return 0;
 	}
 
-	Tex AsLoadTex(const char* const name, Pos2& texture_size)
+	Tex AsLoadTex(const char* const add_name, Pos2& texture_size)
 	{
-		Tex texture_handle = Tex(DxLib::LoadGraph(name));
+		const Tex texture_handle = Tex(DxLib::LoadGraph(add_name));
 		AsTexSize(texture_handle, texture_size);
 		return texture_handle;
 	}
@@ -38,13 +38,13 @@ namespace AsLib
 		if (DxLib::DrawExtendGraph(int(pos4.x1), int(pos4.y1), int(pos4.x2), int(pos4.y2), tex, TRUE) != -1) return 0;
 
 		if (colorRGBA.a == 0) return -1;
-		if (AsRect(pos4, colorRGBA) == -1) return -1;
+		if (asRect(pos4, colorRGBA) == -1) return -1;
 		return -2;
 	}
 
 	int32_t AsTexAt(const Tex tex, const Pos4& pos4 = {}, const uint8_t alpha = 255, const ColorRGBA& colorRGBA = color_0) {
-		const int32_t sub_x = (pos4.x2 - pos4.x1) / 2;
-		const int32_t sub_y = (pos4.y2 - pos4.y1) / 2;
+		const int32_t sub_x = (pos4.x2 - pos4.x1) >> BIT_SHIFT_DIV_2;
+		const int32_t sub_y = (pos4.y2 - pos4.y1) >> BIT_SHIFT_DIV_2;
 		const int32_t x1 = pos4.x1 - sub_x;
 		const int32_t x2 = pos4.x2 - sub_x;
 		const int32_t y1 = pos4.y1 - sub_y;
@@ -69,7 +69,7 @@ namespace AsLib
 	class Texture
 	{
 	public:
-		Texture(const char* const name);
+		Texture(const char* const add_name);
 		int32_t draw();
 		int32_t drawAt();
 		Texture& operator=(const Tex& add_texture);
@@ -136,9 +136,9 @@ namespace AsLib
 		return *this;
 	}
 
-	inline Texture::Texture(const char* const name)
+	inline Texture::Texture(const char* const add_name)
 	{
-		handle = AsLoadTex(name, pixel_size);
+		handle = AsLoadTex(add_name, pixel_size);
 	}
 
 	inline int32_t Texture::draw()

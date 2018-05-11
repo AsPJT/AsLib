@@ -11,11 +11,11 @@ namespace AsLib
 {
 	constexpr size_t TITLE_STR_SIZE_MAX = 255;
 
-	class AsInitData
+	class MainData
 	{
 	public:
-		AsInitData(const char* const add_title = "", const Pos2& add_window_size = WINDOW_SIZE, const ColorRGB& add_BG_color = BG_COLOR);
-		~AsInitData();
+		MainData(const char* const add_title = "", const Pos2& add_window_size = WINDOW_SIZE, const ColorRGB& add_BG_color = BG_COLOR);
+		~MainData();
 
 		Pos2 windowSize();
 		ColorRGB colorBG();
@@ -32,7 +32,7 @@ namespace AsLib
 		char title_name[TITLE_STR_SIZE_MAX + 1] = {};
 	};
 
-	inline AsInitData::AsInitData(const char* const add_title, const Pos2& add_window_size, const ColorRGB& add_BG_color)
+	inline MainData::MainData(const char* const add_title, const Pos2& add_window_size, const ColorRGB& add_BG_color)
 	{
 		for (size_t i = 0; i < TITLE_STR_SIZE_MAX; ++i) {
 			if (add_title[i] == '\0') break;
@@ -46,37 +46,37 @@ namespace AsLib
 		AsInit(title_name, window_size, BG_color);
 	}
 
-	inline AsInitData::~AsInitData()
+	inline MainData::~MainData()
 	{
 	}
 
-	inline Pos2 AsInitData::windowSize()
+	inline Pos2 MainData::windowSize()
 	{
 		return window_size;
 	}
 
-	inline ColorRGB AsInitData::colorBG()
+	inline ColorRGB MainData::colorBG()
 	{
 		return BG_color;
 	}
 
-	inline const char * AsInitData::title()
+	inline const char * MainData::title()
 	{
 		return title_name;
 	}
 
 	//ファイル読み込み
-	AsInitData AsReadInit(const char* const file_name, const char* const add_title = "", const Pos2& add_window_size = WINDOW_SIZE, const ColorRGB& add_BG_color = BG_COLOR)
+	MainData asReadInit(const char* const file_name, const char* const add_title = "", const Pos2& add_window_size = WINDOW_SIZE, const ColorRGB& add_BG_color = BG_COLOR)
 	{
-		AsInitData init(add_title, add_window_size, add_BG_color);
-		if (AsRead(file_name, &init, sizeof(init), 1) == 0) AsChangeTitle(init.title());
+		MainData init(add_title, add_window_size, add_BG_color);
+		if (asRead(file_name, &init, sizeof(init), 1) == 0) AsChangeTitle(init.title());
 		return init;
 	}
 
 	//ファイル書き込み
-	int32_t AsWriteInit(const char* const file_name, AsInitData& init)
+	int32_t asWriteInit(const char* const file_name, MainData& init)
 	{
-		return AsWrite(file_name, &init, sizeof(init), 1);
+		return asWrite(file_name, &init, sizeof(init), 1);
 	}
 
 }

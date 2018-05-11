@@ -4,7 +4,7 @@
 //
 //                    制作者: がっちょ (wanotaitei@gmail.com)
 //
-//                                   Ver 0.0.3.0 Alpha
+//                                   Ver 0.0.4.0 Alpha Bug
 //
 //     ----------     ----------     ----------     ----------     ----------
 
@@ -16,16 +16,19 @@
 
 //AsLibバージョン
 constexpr int32_t ASLIB_VERSION = 0x0030;
-const char* ASLIB_VERSION_STR = "0.0.3.0 Alpha";
+const char* ASLIB_VERSION_STR = "0.0.4.0 Alpha Bug";
 
 //AsLibバージョン (UTF)
-const char* ASLIB_VERSION_STR8 = u8"0.0.3.0 Alpha";
-const char16_t* ASLIB_VERSION_STR16 = u"0.0.3.0 Alpha";
-const char32_t* ASLIB_VERSION_STR32 = U"0.0.3.0 Alpha";
+const char* ASLIB_VERSION_STR8 = u8"0.0.4.0 Alpha Bug";
+const char16_t* ASLIB_VERSION_STR16 = u"0.0.4.0 Alpha Bug";
+const char32_t* ASLIB_VERSION_STR32 = U"0.0.4.0 Alpha Bug";
 
 //基本インクルード
 #include <string>
-
+#include <iostream>
+#include <functional>
+#include <array>
+#include <vector>
 
 //基本変数型
 #include "AsType.hpp"
@@ -36,23 +39,35 @@ const char32_t* ASLIB_VERSION_STR32 = U"0.0.3.0 Alpha";
 //基本系
 #include "AsStd.hpp"
 
+//四角形
+#include "AsRect.hpp"
+
+//テクスチャ
+#include "AsTex.hpp"
+
 //主要クラス
 #include "AsClass.hpp"
 
 //メインループ
 #include "AsLoop.hpp"
 
-//四角形
-#include "AsRect.hpp"
-
 //フォント
 #include "AsFont.hpp"
 
-//テクスチャ
-#include "AsTex.hpp"
-
 //ファイル読み書き
 #include "AsFile.hpp"
+
+//一時停止
+#include "AsStop.hpp"
+
+//キーボード入力
+#include "AsKeyInput.hpp"
+
+//ゲームパッド
+#include "AsGamePad.hpp"
+
+//メイン管理
+#include "AsMainControl.hpp"
 
 //namespace使用
 #ifndef AS_NON_USING_NAMESPACE

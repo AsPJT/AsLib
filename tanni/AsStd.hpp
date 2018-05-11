@@ -12,7 +12,7 @@ namespace AsLib
 #if defined(_MSC_VER)
 
 	//ファイル読み込み
-	int32_t AsRead(const char* const file_name, void* const read_buf, const size_t read_size, const size_t read_nmemb)
+	int32_t asRead(const char* const file_name, void* const read_buf, const size_t read_size, const size_t read_nmemb)
 	{
 		FILE  *cfp_fp;
 		const errno_t cfp_error = fopen_s(&cfp_fp, file_name, "rb");
@@ -24,7 +24,7 @@ namespace AsLib
 	}
 
 	//ファイル書き込み
-	int32_t AsWrite(const char* const file_name, void* const write_buf, const size_t write_size, const size_t write_nmemb)
+	int32_t asWrite(const char* const file_name, void* const write_buf, const size_t write_size, const size_t write_nmemb)
 	{
 		FILE  *cfp_fp;
 		const errno_t cfp_error = fopen_s(&cfp_fp, file_name, "wb");
@@ -40,24 +40,24 @@ namespace AsLib
 #if defined(__DXLIB) //DxLib
 
 	//画面サイズ変更
-	int32_t AsChangeWindowSize(const Pos2& window_size = WINDOW_SIZE)
+	inline int32_t AsChangeWindowSize(const Pos2& window_size = WINDOW_SIZE)
 	{
 		return int32_t(DxLib::SetGraphMode(window_size.x, window_size.y, 32));
 	}
 
 	//背景色変更
-	int32_t AsChangeColorBG(const ColorRGB& BG_color = BG_COLOR)
+	inline int32_t AsChangeColorBG(const ColorRGB& BG_color = BG_COLOR)
 	{
 		return int32_t(DxLib::SetBackgroundColor(BG_color.r, BG_color.g, BG_color.b));
 	}
 
 	//タイトル変更
-	int32_t AsChangeTitle(const char* const title)
+	inline int32_t AsChangeTitle(const char* const title)
 	{
 		return int32_t(DxLib::SetMainWindowText(title));
 	}
 
-	int32_t AsChangeTitle(const std::string& title)
+	inline int32_t AsChangeTitle(const std::string& title)
 	{
 		return int32_t(DxLib::SetMainWindowText(title.c_str()));
 	}
@@ -77,14 +77,27 @@ namespace AsLib
 		if (DxLib::SetDXArchiveExtension("as") == -1) return -1;
 
 		if (DxLib::SetDrawScreen(DX_SCREEN_BACK)) return -1;
+
+		if (DxLib::SetFontSize(20) == -1) return -1;
+		if (DxLib::ChangeFontType(DX_FONTTYPE_NORMAL) == -1) return -1;
+		if (DxLib::SetKeyInputStringColor(
+			0xff000000, 0xff000000,
+			0xffffffff, 0xff000000,
+			0xff000000, 0xffcde8ff,
+			0xff000000, 0xffffffff,
+			0xff9f9f9f, 0xffffffff,
+			0xffa0a0a0, 0xffffffff,
+			0xffadd6ff, 0xff000000,
+			0xffffffff, 0xff000000,
+			0xffffffff) == -1) return -1;
+
 		return 0;
 	}
 
 	//終了処理
-	int32_t AsEnd()
+	inline int32_t asEnd()
 	{
-		if (DxLib::DxLib_End() == -1) return -1;
-		return 0;
+		return int32_t(DxLib::DxLib_End());
 	}
 
 	//DxLib専用カラーコード変換
@@ -100,18 +113,26 @@ namespace AsLib
 
 	//文字出力
 	template<typename... Rest>
-	inline int32_t AsPrint(const char* format_string, const Rest&... rest)
+	inline int32_t asPrint(const char* const format_string, const Rest&... rest)
 	{
-		if (DxLib::printfDx(format_string, rest...) == -1) return -1;
-		return 0;
+		return int32_t(DxLib::printfDx(format_string, rest...));
 	}
 
 	template<typename... Rest>
-	inline int32_t AsPrint(const std::string& format_string, const Rest&... rest)
+	inline int32_t asPrint(const std::string& format_string, const Rest&... rest)
 	{
-		if (DxLib::printfDx(format_string.c_str(), rest...) == -1) return -1;
-		return 0;
-}
+		return int32_t(DxLib::printfDx(format_string.c_str(), rest...));
+	}
+
+	inline int32_t asPrint(const std::string& format_string)
+	{
+		return int32_t(DxLib::printfDx("%s", format_string.c_str()));
+	}
+
+	inline int32_t asPrint(const char* format_string)
+	{
+		return int32_t(DxLib::printfDx("%s", format_string));
+	}
 
 
 #elif defined(SIV3D_INCLUDED) //Siv3D

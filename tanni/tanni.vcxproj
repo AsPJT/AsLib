@@ -142,10 +142,14 @@
     <ClInclude Include="AsDef.hpp" />
     <ClInclude Include="AsFile.hpp" />
     <ClInclude Include="AsFont.hpp" />
+    <ClInclude Include="AsGamePad.hpp" />
+    <ClInclude Include="AsKeyInput.hpp" />
     <ClInclude Include="AsLib.hpp" />
     <ClInclude Include="AsLoop.hpp" />
+    <ClInclude Include="AsMainControl.hpp" />
     <ClInclude Include="AsRect.hpp" />
     <ClInclude Include="AsStd.hpp" />
+    <ClInclude Include="AsStop.hpp" />
     <ClInclude Include="AsStruct.hpp" />
     <ClInclude Include="AsTex.hpp" />
     <ClInclude Include="AsType.hpp" />

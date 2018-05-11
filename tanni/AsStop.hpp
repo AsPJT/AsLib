@@ -12,22 +12,21 @@ namespace AsLib
 
 #if defined(__DXLIB) //DxLib
 
-	//ÉÅÉCÉìÉãÅ[Év
-	bool AsLoop()
+	int32_t asStop()
 	{
-		return ((DxLib::ProcessMessage() == 0) && (DxLib::ScreenFlip() == 0) && (DxLib::ClearDrawScreen() == 0) && (DxLib::CheckHitKey(KEY_INPUT_ESCAPE) == 0));
-	}
-
-	bool AsLoop(MainData& as)
-	{
-		if (AsLoop() == false) return false;
-
-		return true;
+		if (DxLib::ScreenFlip() == -1) return -1;
+		if (DxLib::WaitKey() == -1) return -1;
+		return 0;
 	}
 
 #elif defined(SIV3D_INCLUDED) //Siv3D
 
 #else //Console
+
+	inline int32_t asStop()
+	{
+		return 0;
+	}
 
 #endif
 
