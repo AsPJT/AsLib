@@ -12,7 +12,7 @@ namespace AsLib
 
 #if defined(__DXLIB) //DxLib
 
-	Tex AsLoadTex(const char* const name)
+	inline Tex AsLoadTex(const char* const name)
 	{
 		return Tex(DxLib::LoadGraph(name));
 	}
@@ -26,14 +26,16 @@ namespace AsLib
 		return 0;
 	}
 
-	Tex AsLoadTex(const char* const add_name, Pos2& texture_size)
+	AS_Texture AsLoadAST(const char* const add_name)
 	{
-		const Tex texture_handle = Tex(DxLib::LoadGraph(add_name));
-		AsTexSize(texture_handle, texture_size);
+		AS_Texture texture_handle;
+		texture_handle.handle = Tex(DxLib::LoadGraph(add_name));
+		AsTexSize(texture_handle.handle, texture_handle.pixel_size);
 		return texture_handle;
 	}
 
-	int32_t AsTex(const Tex tex, const Pos4& pos4 = {}, const uint8_t alpha = 255, const ColorRGBA& colorRGBA = color_0) {
+	int32_t asTex(const Tex tex, const Pos4& pos4 = pos4_100, const uint8_t alpha = 255, const ColorRGBA& colorRGBA = color_0)
+	{
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
 		if (DxLib::DrawExtendGraph(int(pos4.x1), int(pos4.y1), int(pos4.x2), int(pos4.y2), tex, TRUE) != -1) return 0;
 
@@ -51,7 +53,7 @@ namespace AsLib
 		const int32_t y2 = pos4.y2 - sub_y;
 
 		const Pos4 new_pos4 = { x1,y1,x2,y2 };
-		return AsTex(tex, new_pos4, alpha, colorRGBA);
+		return asTex(tex, new_pos4, alpha, colorRGBA);
 	}
 
 #elif defined(SIV3D_INCLUDED) //Siv3D
@@ -66,6 +68,7 @@ namespace AsLib
 		TEXTURE_RATIO_Y
 	};
 
+	//todo
 	class Texture
 	{
 	public:
@@ -79,6 +82,8 @@ namespace AsLib
 
 		Texture& operator()(const Pos4& add_pos);
 		Texture& operator()(const Pos4R& add_pos, const Pos2& window_size, const uint8_t mode = 0);
+
+		Tex showID();
 
 	private:
 		Tex handle = TEX_INIT;
@@ -112,6 +117,11 @@ namespace AsLib
 		return *this;
 	}
 
+	inline Tex Texture::showID()
+	{
+		return handle;
+	}
+
 	inline Texture& Texture::operator=(const Tex& add_texture)
 	{
 		handle = add_texture;
@@ -138,12 +148,14 @@ namespace AsLib
 
 	inline Texture::Texture(const char* const add_name)
 	{
-		handle = AsLoadTex(add_name, pixel_size);
+		//handle = AsLoadTex(add_name, pixel_size);
+		asPrint("%d ", handle);
+		asPrint("%d ", asTex(handle, pos4, alpha, color));
 	}
 
 	inline int32_t Texture::draw()
 	{
-		return AsTex(handle, pos4, alpha, color);
+		return asTex(handle, pos4, alpha, color);
 	}
 
 	inline int32_t Texture::drawAt()

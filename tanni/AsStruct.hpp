@@ -402,6 +402,10 @@ namespace AsLib
 	constexpr Pos4 pos4_0 = { 0,0,0,0 };
 	constexpr Pos2R pos2R_0 = { 0.0f,0.0f };
 	constexpr Pos4R pos4R_0 = { 0.0f,0.0f,0.0f,0.0f };
+	
+	constexpr Pos2 pos2_100 = { 100,100 };
+	constexpr Pos4 pos4_100 = { 0,0,100,100 };
+
 
 	//‘S‘I‘ð
 	constexpr Pos2R pos2R_all = { 1.0f,1.0f };
@@ -443,4 +447,20 @@ namespace AsLib
 		pos4.y2 = int32_t(add_pos.y2 * float(window_size.y));
 		return pos4;
 	}
+
+
+#if defined(__DXLIB) //DxLib
+
+	struct AS_Texture
+	{
+		int handle;
+		Pos2 pixel_size;
+	};
+
+#elif defined(SIV3D_INCLUDED) //Siv3D
+
+#else //Console
+
+#endif
+
 }

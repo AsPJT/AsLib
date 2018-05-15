@@ -55,7 +55,10 @@ namespace AsLib
 		//テクスチャ系
 		MainControl& textureAdd(const char* const add_name);
 		MainControl& texDraw(const size_t select_texture);
-		std::vector<Texture> texture_render;
+		//std::vector<Texture> texture_render;
+
+		std::vector<AS_Texture> texture_render;
+
 	private:
 		
 		//基本データ
@@ -150,7 +153,10 @@ namespace AsLib
 	inline MainControl & MainControl::textureAdd(const char * const add_name)
 	{
 		//Texture add_texture(add_name);
-		//texture_render.emplace_back(add_texture);
+		AS_Texture add_texture;
+		add_texture.handle = AsLoadTex(add_name);
+
+		texture_render.emplace_back(add_texture);
 
 		//add_texture.draw();
 		//asStop();
@@ -162,7 +168,7 @@ namespace AsLib
 
 	inline MainControl & MainControl::texDraw(const size_t select_texture)
 	{
-		texture_render[select_texture].draw();
+		asTex(texture_render[select_texture].handle);
 		return *this;
 	}
 

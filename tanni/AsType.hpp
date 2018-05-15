@@ -25,8 +25,8 @@ namespace AsLib
 	using TEXTURE_VECTOR = Array<TextureRegion>;
 	using AsFont = Font;
 #define FONT_INIT Font(60)
-	using AsTex = Texture;
-#define TEX_INIT AsTex(U"a.png")
+	using asTex = Texture;
+#define TEX_INIT asTex(U"a.png")
 #else //Console
 
 #endif

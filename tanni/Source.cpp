@@ -6,81 +6,55 @@
 constexpr size_t ASLIB_GAME_PAD_MAX = 16;
 #include "AsLib.hpp"
 
+//シーン
 enum :size_t {
 	START_SCENE
 };
 
+//画像
 enum :size_t {
-	GAHAKU_TEXTURE
+	KURO_TEXTURE
 };
 
+//スタート画面
 void StartScene(MainControl& mc)
 {
-	mc.texture_render[0].draw();
-	//mc.texDraw(GAHAKU_TEXTURE);
+	mc.texDraw(KURO_TEXTURE);
 	return;
+}
+
+//シーンコントロール初期化
+inline void sceneInit(MainControl& mc)
+{
+	mc.AddScene(START_SCENE, StartScene);
+}
+
+//画像コントロール初期化
+inline void textureInit(MainControl& mc)
+{
+	mc.textureAdd("kuro.png");
 }
 
 //メイン関数
 int32_t AsMain()
 {
+	//基本設定
 	MainData as = asReadInit("b.txt", "あいうえお", {720,720}, BG_COLOR);
+	
+	//管理クラス
 	MainControl mc(as);
 
-	mc.AddScene(START_SCENE, StartScene);
+	//シーン追加
+	sceneInit(mc);
+
+	//画像追加
+	textureInit(mc);
 
 	//初期シーンをスタート画面にする
 	mc.sceneSelect(START_SCENE);
 
-	Texture astest("gahaku.png");
-	asPrint("%d ",astest.draw());
-	asStop();
-
-	//gahaku
-	//mc.textureAdd("gahaku.png");
-
 	//メインループ
-	//while (mc.isLoop()) mc.scenePlay();
-
-	////画面上部のUI情報
-	//constexpr int UI_DIVIDE_SIZE = 10;
-	//constexpr int UI_DIVIDE_STR_SIZE = 20;
-
-	//const Pos2 UI_size = asReadPos2("a.txt");
-
-	//ColorRGB UI_color = { 165, 212, 173 };
-
-	////フォント
-	//std::string select_font = "Meiryo UI";
-	//AsFont font_handle = asMakeFont(as.windowSize().y / UI_DIVIDE_STR_SIZE, select_font);
-
-	//Texture texture("mihon.jpg");
-
-	//ColorRGBA color1 = { 100,0,0,255 }, color2 = { 0,100,0,255 }, color3 = color1;
-	//Pos4 p1 = { 0,0,100,100 }, p2 = { 100,0,200,100 }, p3 = { 200,0,300,100 }, p4 = { 300,0,400,100 };
-
-	//asRect(p1, color1);
-	//asRect(p2, color2);
-
-	//color3 = color1 + color2;
-	//++color3;
-	//asRect(p3, color3);
-
-	//color3 = color1 * color2;
-	//asRect(p4, color3);
-
-	//std::string key_string = asKeyInput({200,200});
-	//asPrint(key_string);
-
-	//while (AsLoop())
-	//{
-
-	//	//asPrint(font_handle, "こんにちは！ようこそ！", pos2_0, white);
-
-	//	//texture(pos4R_all, as.windowSize(), TEXTURE_RATIO_X).draw();
-	//}
-
-	//asStop();
+	while (mc.isLoop()) mc.scenePlay();
 
 	//終了処理
 	asEnd();

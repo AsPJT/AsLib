@@ -4,7 +4,7 @@
 //
 //                    制作者: がっちょ (wanotaitei@gmail.com)
 //
-//                                   Ver 0.0.4.0 Alpha Bug
+//                                   Ver 0.0.5.0 Alpha
 //
 //     ----------     ----------     ----------     ----------     ----------
 
@@ -15,13 +15,13 @@
 #include <cstdint>
 
 //AsLibバージョン
-constexpr int32_t ASLIB_VERSION = 0x0030;
-const char* ASLIB_VERSION_STR = "0.0.4.0 Alpha Bug";
+constexpr int32_t ASLIB_VERSION = 0x0050;
+const char* ASLIB_VERSION_STR = "0.0.5.0 Alpha";
 
 //AsLibバージョン (UTF)
-const char* ASLIB_VERSION_STR8 = u8"0.0.4.0 Alpha Bug";
-const char16_t* ASLIB_VERSION_STR16 = u"0.0.4.0 Alpha Bug";
-const char32_t* ASLIB_VERSION_STR32 = U"0.0.4.0 Alpha Bug";
+const char* ASLIB_VERSION_STR8 = u8"0.0.5.0 Alpha";
+const char16_t* ASLIB_VERSION_STR16 = u"0.0.5.0 Alpha";
+const char32_t* ASLIB_VERSION_STR32 = U"0.0.5.0 Alpha";
 
 //基本インクルード
 #include <string>
@@ -43,7 +43,7 @@ const char32_t* ASLIB_VERSION_STR32 = U"0.0.4.0 Alpha Bug";
 #include "AsRect.hpp"
 
 //テクスチャ
-#include "AsTex.hpp"
+#include "asTex.hpp"
 
 //主要クラス
 #include "AsClass.hpp"
