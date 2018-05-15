@@ -17,10 +17,10 @@ namespace AsLib
 		return Tex(DxLib::LoadGraph(name));
 	}
 
-	int32_t AsTexSize(const Tex handle, Pos2& texture_size)
+	int32_t AsTexSize(const Tex id, Pos2& texture_size)
 	{
 		int size_x = 0, size_y = 0;
-		if (DxLib::GetGraphSize(handle, &size_x, &size_y) == -1) return -1;
+		if (DxLib::GetGraphSize(id, &size_x, &size_y) == -1) return -1;
 		texture_size.x = int32_t(size_x);
 		texture_size.y = int32_t(size_y);
 		return 0;
@@ -29,8 +29,8 @@ namespace AsLib
 	AS_Texture AsLoadAST(const char* const add_name)
 	{
 		AS_Texture texture_handle;
-		texture_handle.handle = Tex(DxLib::LoadGraph(add_name));
-		AsTexSize(texture_handle.handle, texture_handle.pixel_size);
+		texture_handle.id = Tex(DxLib::LoadGraph(add_name));
+		AsTexSize(texture_handle.id, texture_handle.pixel_size);
 		return texture_handle;
 	}
 
@@ -72,9 +72,6 @@ namespace AsLib
 	class Texture
 	{
 	public:
-		Texture(const char* const add_name);
-		int32_t draw();
-		int32_t drawAt();
 		Texture& operator=(const Tex& add_texture);
 		Texture& operator=(const uint8_t& add_alpha);
 		Texture& operator=(const ColorRGBA& add_color);
@@ -86,7 +83,7 @@ namespace AsLib
 		Tex showID();
 
 	private:
-		Tex handle = TEX_INIT;
+		Tex id = TEX_INIT;
 		uint8_t alpha = 255;
 
 		ColorRGBA color = color_0;
@@ -119,12 +116,12 @@ namespace AsLib
 
 	inline Tex Texture::showID()
 	{
-		return handle;
+		return id;
 	}
 
 	inline Texture& Texture::operator=(const Tex& add_texture)
 	{
-		handle = add_texture;
+		id = add_texture;
 		return *this;
 	}
 
@@ -145,24 +142,5 @@ namespace AsLib
 		color = add_color;
 		return *this;
 	}
-
-	inline Texture::Texture(const char* const add_name)
-	{
-		//handle = AsLoadTex(add_name, pixel_size);
-		asPrint("%d ", handle);
-		asPrint("%d ", asTex(handle, pos4, alpha, color));
-	}
-
-	inline int32_t Texture::draw()
-	{
-		return asTex(handle, pos4, alpha, color);
-	}
-
-	inline int32_t Texture::drawAt()
-	{
-		return AsTexAt(handle, pos4, alpha, color);
-	}
-
-
 
 }

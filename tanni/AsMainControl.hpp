@@ -118,7 +118,9 @@ namespace AsLib
 			return *this;
 		}
 
+		//選択されたシーンを実行
 		scene_func[select_scene](*this);
+
 		if (!AsLoop()) sceneEnd();
 		return *this;
 	}
@@ -154,7 +156,7 @@ namespace AsLib
 	{
 		//Texture add_texture(add_name);
 		AS_Texture add_texture;
-		add_texture.handle = AsLoadTex(add_name);
+		add_texture.id = AsLoadTex(add_name);
 
 		texture_render.emplace_back(add_texture);
 
@@ -168,7 +170,7 @@ namespace AsLib
 
 	inline MainControl & MainControl::texDraw(const size_t select_texture)
 	{
-		asTex(texture_render[select_texture].handle);
+		asTex(texture_render[select_texture].id);
 		return *this;
 	}
 

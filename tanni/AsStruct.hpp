@@ -453,8 +453,12 @@ namespace AsLib
 
 	struct AS_Texture
 	{
-		int handle;
-		Pos2 pixel_size;
+		int id = TEX_INIT;
+		uint8_t alpha = 255;
+
+		ColorRGBA color = color_0;
+		Pos4 pos4 = pos4_0;
+		Pos2 pixel_size = pos2_0;
 	};
 
 #elif defined(SIV3D_INCLUDED) //Siv3D

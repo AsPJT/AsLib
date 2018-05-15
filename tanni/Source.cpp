@@ -6,22 +6,13 @@
 constexpr size_t ASLIB_GAME_PAD_MAX = 16;
 #include "AsLib.hpp"
 
-//シーン
+void StartScene(MainControl& mc);
+void MainScene(MainControl& mc);
+
+//シーンID
 enum :size_t {
 	START_SCENE
 };
-
-//画像
-enum :size_t {
-	KURO_TEXTURE
-};
-
-//スタート画面
-void StartScene(MainControl& mc)
-{
-	mc.texDraw(KURO_TEXTURE);
-	return;
-}
 
 //シーンコントロール初期化
 inline void sceneInit(MainControl& mc)
@@ -29,17 +20,37 @@ inline void sceneInit(MainControl& mc)
 	mc.AddScene(START_SCENE, StartScene);
 }
 
+//画像ID
+enum :size_t {
+	GAHAKU_TEXTURE
+};
+
 //画像コントロール初期化
 inline void textureInit(MainControl& mc)
 {
-	mc.textureAdd("kuro.png");
+	mc.textureAdd("gahaku.png");
+}
+
+//スタート画面
+void StartScene(MainControl& mc)
+{
+	mc.texDraw(GAHAKU_TEXTURE);
+
+	return;
+}
+
+//メイン画面
+void MainScene(MainControl& mc)
+{
+	mc.texDraw(GAHAKU_TEXTURE);
+	return;
 }
 
 //メイン関数
 int32_t AsMain()
 {
 	//基本設定
-	MainData as = asReadInit("b.txt", "あいうえお", {720,720}, BG_COLOR);
+	MainData as("あいうえお", {720,720}, BG_COLOR);
 	
 	//管理クラス
 	MainControl mc(as);
