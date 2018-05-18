@@ -6,70 +6,107 @@
 constexpr size_t ASLIB_GAME_PAD_MAX = 16;
 #include "AsLib.hpp"
 
-void StartScene(MainControl& mc);
-void MainScene(MainControl& mc);
+
+//シーン関数
+void startScene(MainControl& mc);
+void mainScene(MainControl& mc);
+void endScene(MainControl& mc);
+void logoScene1(MainControl& mc);
+
 
 //シーンID
 enum :size_t {
-	START_SCENE
+	START_SCENE,
+	MAIN_SCENE,
+	END_SCENE,
+	LOGO_SCENE1,
 };
-
-//シーンコントロール初期化
-inline void sceneInit(MainControl& mc)
-{
-	mc.AddScene(START_SCENE, StartScene);
-}
 
 //画像ID
 enum :size_t {
-	GAHAKU_TEXTURE
+	GAHAKU_TEXTURE,
+	KURO_TEXTURE
 };
 
-//画像コントロール初期化
+//画像UIのID
+enum :size_t {
+	GAHAKU_TEXUI,
+	GAHAKU2_TEXUI
+};
+
+
+//シーン読み込み
+inline void sceneInit(MainControl& mc)
+{
+	mc.AddScene(START_SCENE, startScene);
+	mc.AddScene(MAIN_SCENE, mainScene);
+	mc.AddScene(END_SCENE, endScene);
+	mc.AddScene(LOGO_SCENE1, logoScene1);
+}
+
+//画像読み込み
 inline void textureInit(MainControl& mc)
 {
 	mc.textureAdd("gahaku.png");
+	mc.textureAdd("kuro.png");
 }
 
-//スタート画面
-void StartScene(MainControl& mc)
+//画像読み込み
+inline void UI_Init(MainControl& mc)
 {
-	mc.texDraw(GAHAKU_TEXTURE);
+	mc.textureUI_Add(GAHAKU_TEXTURE, 200, { 0,0,100,0,0,100,100,180 });
+	mc.textureUI_Add(GAHAKU_TEXTURE, 255, { 0,2,45,86,10,0,467,44 });
+}
 
+//開始画面
+void startScene(MainControl& mc)
+{
+	mc.draw8(GAHAKU_TEXUI);
+	mc.sceneSelect(MAIN_SCENE);
 	return;
 }
 
 //メイン画面
-void MainScene(MainControl& mc)
+void mainScene(MainControl& mc)
 {
-	mc.texDraw(GAHAKU_TEXTURE);
+	mc.draw8(GAHAKU2_TEXUI);
+	return;
+}
+
+//終了画面
+void endScene(MainControl& mc)
+{
+	mc.draw8(GAHAKU_TEXUI);
+
+	//mc.clickTex(KURO_TEXTURE);
+	return;
+}
+
+void logoScene1(MainControl& mc)
+{
+	mc.drawLogoOut(GAHAKU_TEXTURE, 2000,1000, START_SCENE);
 	return;
 }
 
 //メイン関数
 int32_t AsMain()
 {
-	//基本設定
-	MainData as("あいうえお", {720,720}, BG_COLOR);
-	
 	//管理クラス
-	MainControl mc(as);
+	MainControl mc("あいうえお", { 360,360 }, BG_COLOR);
 
-	//シーン追加
+	//読み込み
 	sceneInit(mc);
-
-	//画像追加
 	textureInit(mc);
+	UI_Init(mc);
 
-	//初期シーンをスタート画面にする
-	mc.sceneSelect(START_SCENE);
+	//
+	mc.sceneSelect(LOGO_SCENE1);
 
 	//メインループ
 	while (mc.isLoop()) mc.scenePlay();
 
 	//終了処理
 	asEnd();
-
 	return 0;
 }
 

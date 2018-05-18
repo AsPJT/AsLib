@@ -18,6 +18,10 @@ namespace AsLib
 	struct Pos2R;
 	struct Pos4;
 	struct Pos4R;
+
+	struct Pos8;
+	struct Pos8R;
+
 	struct ColorRGB;
 	struct ColorRGBA;
 
@@ -41,17 +45,18 @@ namespace AsLib
 		float y = 1.0f;
 	};
 
-	//四角形の大きさ
+	//長方形の大きさ
 	struct Pos4
 	{
 		Pos4& operator=(const Pos2& add_pos);
+		operator Pos8();
 		int32_t x1 = 0;
 		int32_t y1 = 0;
 		int32_t x2 = 0;
 		int32_t y2 = 0;
 	};
 
-	//画面比での四角形の大きさ
+	//画面比での長方形の大きさ
 	struct Pos4R
 	{
 		Pos4R& operator=(const Pos2R& add_pos);
@@ -60,6 +65,103 @@ namespace AsLib
 		float x2 = 1.0f;
 		float y2 = 1.0f;
 	};
+
+	//四角形の大きさ
+	struct Pos8
+	{
+		Pos8& operator=(const Pos2& add_pos);
+		Pos8& operator=(const Pos4& add_pos);
+		int32_t x1 = 0;
+		int32_t y1 = 0;
+		int32_t x2 = 0;
+		int32_t y2 = 0;
+		int32_t x3 = 0;
+		int32_t y3 = 0;
+		int32_t x4 = 0;
+		int32_t y4 = 0;
+	};
+
+	//画面比での四角形の大きさ
+	struct Pos8R
+	{
+		Pos8R& operator=(const Pos2R& add_pos);
+		Pos8R& operator=(const Pos4R& add_pos);
+		float x1 = 0.0f;
+		float y1 = 0.0f;
+		float x2 = 1.0f;
+		float y2 = 0.0f;
+		float x3 = 0.0f;
+		float y3 = 1.0f;
+		float x4 = 1.0f;
+		float y4 = 1.0f;
+	};
+
+	//todo
+	inline Pos4::operator Pos8()
+	{
+		Pos8 pos8;
+		pos8.x1 = this->x1;
+		pos8.y1 = this->y1;
+		pos8.x2 = this->x2;
+		pos8.y2 = this->y1;
+		pos8.x3 = this->x1;
+		pos8.y3 = this->y2;
+		pos8.x4 = this->x2;
+		pos8.y4 = this->y2;
+		return pos8;
+	}
+
+	inline Pos8R& Pos8R::operator=(const Pos4R& add_pos)
+	{
+		this->x1 = add_pos.x1;
+		this->y1 = add_pos.y1;
+		this->x2 = add_pos.x2;
+		this->y2 = add_pos.y1;
+		this->x3 = add_pos.x1;
+		this->y3 = add_pos.y2;
+		this->x4 = add_pos.x2;
+		this->y4 = add_pos.y2;
+		return *this;
+	}
+
+	inline Pos8& Pos8::operator=(const Pos4& add_pos)
+	{
+		this->x1 = add_pos.x1;
+		this->y1 = add_pos.y1;
+		this->x2 = add_pos.x2;
+		this->y2 = add_pos.y1;
+		this->x3 = add_pos.x1;
+		this->y3 = add_pos.y2;
+		this->x4 = add_pos.x2;
+		this->y4 = add_pos.y2;
+		return *this;
+	}
+
+	inline Pos8R& Pos8R::operator=(const Pos2R& add_pos)
+	{
+		this->x1 = 0.0f;
+		this->y1 = 0.0f;
+		this->x2 = add_pos.x;
+		this->y2 = 0.0f;
+		this->x3 = 0.0f;
+		this->y3 = add_pos.y;
+		this->x4 = add_pos.x;
+		this->y4 = add_pos.y;
+		return *this;
+	}
+
+	inline Pos8& Pos8::operator=(const Pos2& add_pos)
+	{
+		this->x1 = 0;
+		this->y1 = 0;
+		this->x2 = add_pos.x;
+		this->y2 = 0;
+		this->x3 = 0;
+		this->y3 = add_pos.y;
+		this->x4 = add_pos.x;
+		this->y4 = add_pos.y;
+		return *this;
+	}
 
 	inline Pos2& Pos2::operator()(const int32_t pos_x, const int32_t pos_y)
 	{
@@ -396,6 +498,7 @@ namespace AsLib
 	//色
 	constexpr ColorRGB white = { 250 ,250 ,250 };
 	constexpr ColorRGBA whiteA = { 250 ,250 ,250 ,255 };
+	constexpr ColorRGB blackRGB = { 0 ,0 ,0 };
 
 	//原点位置
 	constexpr Pos2 pos2_0 = { 0,0 };
@@ -405,6 +508,7 @@ namespace AsLib
 	
 	constexpr Pos2 pos2_100 = { 100,100 };
 	constexpr Pos4 pos4_100 = { 0,0,100,100 };
+	constexpr Pos8 pos8_100 = { 0,0,100,0,0,100,100,100 };
 
 
 	//全選択
@@ -450,16 +554,6 @@ namespace AsLib
 
 
 #if defined(__DXLIB) //DxLib
-
-	struct AS_Texture
-	{
-		int id = TEX_INIT;
-		uint8_t alpha = 255;
-
-		ColorRGBA color = color_0;
-		Pos4 pos4 = pos4_0;
-		Pos2 pixel_size = pos2_0;
-	};
 
 #elif defined(SIV3D_INCLUDED) //Siv3D
 

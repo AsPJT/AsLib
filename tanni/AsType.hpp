@@ -10,8 +10,6 @@
 namespace AsLib
 {
 #if defined(__DXLIB) //DxLib
-	//using TEXTURE_VECTOR_TYPE = int;
-	//using TEXTURE_VECTOR = vector<int>;
 
 	//ƒtƒHƒ“ƒgŒn
 	using AsFont = int;

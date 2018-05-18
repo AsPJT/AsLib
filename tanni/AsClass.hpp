@@ -41,9 +41,6 @@ namespace AsLib
 
 		window_size = add_window_size;
 		BG_color = add_BG_color;
-
-		
-		AsInit(title_name, window_size, BG_color);
 	}
 
 	inline MainData::~MainData()
