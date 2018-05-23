@@ -4,7 +4,7 @@
 //
 //                    制作者: がっちょ (wanotaitei@gmail.com)
 //
-//                                   Ver 0.0.6.0 Alpha
+//                                   Ver 0.0.7.0 Alpha
 //
 //     ----------     ----------     ----------     ----------     ----------
 
@@ -15,13 +15,13 @@
 #include <cstdint>
 
 //AsLibバージョン
-constexpr int32_t ASLIB_VERSION = 0x0060;
-const char* ASLIB_VERSION_STR = "0.0.6.0 Alpha";
+constexpr int32_t ASLIB_VERSION = 0x0070;
+const char* ASLIB_VERSION_STR = "0.0.7.0 Alpha";
 
 //AsLibバージョン (UTF)
-const char* ASLIB_VERSION_STR8 = u8"0.0.6.0 Alpha";
-const char16_t* ASLIB_VERSION_STR16 = u"0.0.6.0 Alpha";
-const char32_t* ASLIB_VERSION_STR32 = U"0.0.6.0 Alpha";
+const char* ASLIB_VERSION_STR8 = u8"0.0.7.0 Alpha";
+const char16_t* ASLIB_VERSION_STR16 = u"0.0.7.0 Alpha";
+const char32_t* ASLIB_VERSION_STR32 = U"0.0.7.0 Alpha";
 
 //基本インクルード
 #include <string>
@@ -33,8 +33,17 @@ const char32_t* ASLIB_VERSION_STR32 = U"0.0.6.0 Alpha";
 //基本変数型
 #include "AsType.hpp"
 
+//色構造体
+#include "AsColor.hpp"
+
 //基本構造体
 #include "AsStruct.hpp"
+
+//
+#include "AsConst.hpp"
+
+//
+#include "AsCounter.hpp"
 
 //基本系
 #include "AsStd.hpp"
@@ -68,6 +77,12 @@ const char32_t* ASLIB_VERSION_STR32 = U"0.0.6.0 Alpha";
 
 //メイン管理
 #include "AsMainControl.hpp"
+
+//MainControl関連----------------------------------------
+
+//タイトルロゴのシーンチェンジ関連
+#include "AsMC_LogoDraw.hpp"
+
 
 //namespace使用
 #ifndef AS_NON_USING_NAMESPACE

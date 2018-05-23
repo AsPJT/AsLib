@@ -63,8 +63,10 @@ namespace AsLib
 		MainControl& draw8(const size_t select_texture);
 		//std::vector<Texture> texture_ui_render;
 
+		//タイトルロゴ
 		MainControl& drawLogo(const size_t add_texture_ui, const int32_t add_time, const size_t add_scene);
-		MainControl& drawLogoOut(const size_t add_texture_ui, const int32_t add_time, const int32_t add_out_time, const size_t add_scene);
+		MainControl& drawLogoOut(const size_t add_texture_ui, const int32_t add_out_time, const int32_t add_time, const size_t add_scene);
+		MainControl& drawLogoInOut(const size_t add_texture_ui, const int32_t add_in_time, const int32_t add_out_time, const int32_t add_time, const size_t add_scene);
 
 		std::vector<TextureMainData> texture_main_data_render;
 		std::vector<TextureUI> texture_ui_render;
@@ -123,45 +125,7 @@ namespace AsLib
 		return *this;
 	}
 
-	inline MainControl& MainControl::drawLogo(const size_t add_texture_id, const int32_t add_time, const size_t add_scene)
-	{
-		asTex4(texture_main_data_render[add_texture_id].ID(), init_data.windowSize());
-		static int32_t time_counter = 0;
-		time_counter += time_counter_ms / this->fps;
 
-		if (time_counter >= add_time) {
-			time_counter = 0;
-			sceneSelect(add_scene);
-		}
-
-		return *this;
-	}
-
-	inline MainControl& MainControl::drawLogoOut(const size_t add_texture_id, const int32_t add_time, const int32_t add_out_time, const size_t add_scene)
-	{
-		static int32_t time_counter = 0;
-		time_counter += time_counter_ms / this->fps;
-
-		uint8_t alpha;
-		float before_alpha;
-
-		if (time_counter >= add_out_time) {
-			before_alpha = float(add_time - time_counter) / (add_time - add_out_time);
-			if (before_alpha < 0) alpha = 0;
-			else alpha = uint8_t(255*before_alpha);
-		}
-		else alpha = 255;
-
-		asRect(init_data.windowSize(), blackRGB);
-		asTex4(texture_main_data_render[add_texture_id].ID(), init_data.windowSize(), alpha);
-
-		if (time_counter >= add_time) {
-			time_counter = 0;
-			sceneSelect(add_scene);
-		}
-
-		return *this;
-	}
 
 	inline MainControl & MainControl::scenePlay()
 	{
@@ -233,6 +197,8 @@ namespace AsLib
 		asTex8(texture_ui_render[select_texture].point()->ID(), texture_ui_render[select_texture].pos(), texture_ui_render[select_texture].a());
 		return *this;
 	}
+
+
 
 	//コンストラクタ----------
 

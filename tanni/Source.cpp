@@ -6,13 +6,17 @@
 constexpr size_t ASLIB_GAME_PAD_MAX = 16;
 #include "AsLib.hpp"
 
+//管理クラス省略
+using MC = AsLib::MainControl;
 
 //シーン関数
-void startScene(MainControl& mc);
-void mainScene(MainControl& mc);
-void endScene(MainControl& mc);
-void logoScene1(MainControl& mc);
-
+void startScene(MC& mc);
+void mainScene(MC& mc);
+void endScene(MC& mc);
+void logoScene1(MC& mc);
+void logoScene2(MC& mc);
+void logoScene3(MC& mc);
+void logoScene4(MC& mc);
 
 //シーンID
 enum :size_t {
@@ -20,6 +24,9 @@ enum :size_t {
 	MAIN_SCENE,
 	END_SCENE,
 	LOGO_SCENE1,
+	LOGO_SCENE2,
+	LOGO_SCENE3,
+	LOGO_SCENE4,
 };
 
 //画像ID
@@ -36,68 +43,83 @@ enum :size_t {
 
 
 //シーン読み込み
-inline void sceneInit(MainControl& mc)
+inline void sceneInit(MC& mc)
 {
 	mc.AddScene(START_SCENE, startScene);
 	mc.AddScene(MAIN_SCENE, mainScene);
 	mc.AddScene(END_SCENE, endScene);
 	mc.AddScene(LOGO_SCENE1, logoScene1);
+	mc.AddScene(LOGO_SCENE2, logoScene2);
+	mc.AddScene(LOGO_SCENE3, logoScene3);
+	mc.AddScene(LOGO_SCENE4, logoScene4);
 }
 
 //画像読み込み
-inline void textureInit(MainControl& mc)
+inline void textureInit(MC& mc)
 {
 	mc.textureAdd("gahaku.png");
 	mc.textureAdd("kuro.png");
 }
 
 //画像読み込み
-inline void UI_Init(MainControl& mc)
+inline void UI_Init(MC& mc)
 {
 	mc.textureUI_Add(GAHAKU_TEXTURE, 200, { 0,0,100,0,0,100,100,180 });
 	mc.textureUI_Add(GAHAKU_TEXTURE, 255, { 0,2,45,86,10,0,467,44 });
 }
 
 //開始画面
-void startScene(MainControl& mc)
+void startScene(MC& mc)
 {
 	mc.draw8(GAHAKU_TEXUI);
 	mc.sceneSelect(MAIN_SCENE);
-	return;
 }
 
 //メイン画面
-void mainScene(MainControl& mc)
+void mainScene(MC& mc)
 {
 	mc.draw8(GAHAKU2_TEXUI);
-	return;
 }
 
 //終了画面
-void endScene(MainControl& mc)
+void endScene(MC& mc)
 {
 	mc.draw8(GAHAKU_TEXUI);
 
 	//mc.clickTex(KURO_TEXTURE);
-	return;
 }
 
-void logoScene1(MainControl& mc)
+//タイトルロゴ1
+void logoScene1(MC& mc)
 {
-	mc.drawLogoOut(GAHAKU_TEXTURE, 2000,1000, START_SCENE);
-	return;
+	mc.drawLogoInOut(GAHAKU_TEXTURE, 1000, 2000, 3000, LOGO_SCENE1);
+}
+
+void logoScene2(MC& mc)
+{
+	mc.drawLogoInOut(GAHAKU_TEXTURE, 1000, 2000, 3000, LOGO_SCENE2);
+}
+
+void logoScene3(MC& mc)
+{
+}
+
+void logoScene4(MC& mc)
+{
 }
 
 //メイン関数
 int32_t AsMain()
 {
 	//管理クラス
-	MainControl mc("あいうえお", { 360,360 }, BG_COLOR);
+	MC mc("あいうえお", { 720,360 }, BG_COLOR);
 
 	//読み込み
 	sceneInit(mc);
 	textureInit(mc);
 	UI_Init(mc);
+
+	const Counter c;
 
 	//
 	mc.sceneSelect(LOGO_SCENE1);

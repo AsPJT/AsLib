@@ -90,24 +90,78 @@ namespace AsLib
 
 	struct TextureMainData
 	{
-	public:
-		TextureMainData(const int add_id);
-		int ID();
-		Pos2 pixelSize();
-
 	private:
 
 		//画像番号
 		int id;
 
 		//画像サイズ
-		Pos2 pixel_size = pos2_0;
+		Pos2 pixel_size;
+
+	public:
+		TextureMainData(const int add_id);
+
+		TextureMainData& draw();
+		TextureMainData& draw(const uint8_t);
+		TextureMainData& draw(const Pos2&, const uint8_t = 255);
+		TextureMainData& draw(const Pos4&, const uint8_t = 255);
+		TextureMainData& draw(const Pos8&, const uint8_t = 255);
+
+		//表示
+		int ID();
+		Pos2 pixelSize();
+
 	};
 
-	TextureMainData::TextureMainData(const int add_id)
+	//サイズ等倍 位置指定
+	inline TextureMainData& TextureMainData::draw(const Pos8& add_pos, const uint8_t alpha)
+	{
+		DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+		DxLib::DrawModiGraph(add_pos.x1, add_pos.y1, add_pos.x2, add_pos.y2, add_pos.x4, add_pos.y4, add_pos.x3, add_pos.y3, this->id, TRUE);
+		return *this;
+	}
+
+	//サイズ等倍 位置指定
+	inline TextureMainData& TextureMainData::draw(const Pos4& add_pos, const uint8_t alpha)
+	{
+		DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+		DxLib::DrawExtendGraph(add_pos.x1, add_pos.y1, add_pos.x2, add_pos.y2, this->id, TRUE);
+		return *this;
+	}
+
+	//サイズ等倍 位置指定
+	inline TextureMainData& TextureMainData::draw(const Pos2& add_pos, const uint8_t alpha)
+	{
+		DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+		DxLib::DrawGraph(add_pos.x, add_pos.y, this->id, TRUE);
+		return *this;
+	}
+
+	//サイズ 指定なし 透明度 指定あり
+	inline TextureMainData& TextureMainData::draw(const uint8_t alpha)
+	{
+		DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+		DxLib::DrawGraph(0, 0, this->id, TRUE);
+		return *this;
+	}
+
+	//サイズ・透明度 指定なし
+	inline TextureMainData& TextureMainData::draw()
+	{
+		DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
+		DxLib::DrawGraph(0, 0, this->id, TRUE);
+		return *this;
+	}
+
+	inline TextureMainData::TextureMainData(const int add_id)
 	{
 		this->id = add_id;
-		AsTexSize(this->id, this->pixel_size);
+
+		//画像サイズ取得
+		int size_x = 0, size_y = 0;
+		DxLib::GetGraphSize(id, &size_x, &size_y);
+		this->pixel_size.x = int32_t(size_x);
+		this->pixel_size.y = int32_t(size_y);
 	}
 
 	struct TextureUI
@@ -124,8 +178,11 @@ namespace AsLib
 		//画像透明度
 		uint8_t alpha = 255;
 
-		//四角形描画位置
+		//四角形描画位置 (todo:Pos8R)
 		Pos8 pos8;
+
+		//あたり判定
+		Counter counter;
 
 	};
 
@@ -168,86 +225,5 @@ namespace AsLib
 #else //Console
 
 #endif
-
-	enum :uint8_t {
-		TEXTURE_RATIO,
-		TEXTURE_RATIO_X,
-		TEXTURE_RATIO_Y
-	};
-
-	//todo
-	class Texture
-	{
-	public:
-		Texture& operator=(const Tex& add_texture);
-		Texture& operator=(const uint8_t& add_alpha);
-		Texture& operator=(const ColorRGBA& add_color);
-		Texture& operator=(const ColorRGB& add_color);
-
-		Texture& operator()(const Pos4& add_pos);
-		Texture& operator()(const Pos4R& add_pos, const Pos2& window_size, const uint8_t mode = 0);
-
-		Tex showID();
-
-	private:
-		Tex id = TEX_INIT;
-		uint8_t alpha = 255;
-
-		ColorRGBA color = color_0;
-		Pos4 pos4 = pos4_0;
-		Pos2 pixel_size = pos2_0;
-	};
-
-	inline Texture& Texture::operator()(const Pos4& add_pos)
-	{
-		pos4 = add_pos;
-		return *this;
-	}
-
-	inline Texture& Texture::operator()(const Pos4R& add_pos, const Pos2& window_size, const uint8_t ratio_mode)
-	{
-		switch (ratio_mode)
-		{
-		case TEXTURE_RATIO_X:
-			pos4 = toPos4X(add_pos, window_size, pixel_size);
-			break;
-		case TEXTURE_RATIO_Y:
-			pos4 = toPos4Y(add_pos, window_size, pixel_size);
-			break;
-		default:
-			pos4 = toPos4(add_pos, window_size);
-			break;
-		}
-		return *this;
-	}
-
-	inline Tex Texture::showID()
-	{
-		return id;
-	}
-
-	inline Texture& Texture::operator=(const Tex& add_texture)
-	{
-		id = add_texture;
-		return *this;
-	}
-
-	inline Texture& Texture::operator=(const uint8_t& add_alpha)
-	{
-		alpha = add_alpha;
-		return *this;
-	}
-
-	inline Texture& Texture::operator=(const ColorRGBA& add_color)
-	{
-		color = add_color;
-		return *this;
-	}
-
-	inline Texture& Texture::operator=(const ColorRGB& add_color)
-	{
-		color = add_color;
-		return *this;
-	}
 
 }
