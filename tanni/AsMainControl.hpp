@@ -27,14 +27,17 @@ namespace AsLib
 	constexpr size_t GAME_PAD_MAX = 16;
 #endif
 
-	constexpr size_t TEXTURE_MAX = 10;
 
-
+	//1秒=1000ms
 	constexpr int32_t time_counter_ms = 1000;
 
 	//メイン管理クラス
 	class MainControl
 	{
+	private:
+		//ループ系
+		bool is_loop = true;
+
 	public:
 		MainControl(const MainData& init_data);
 		MainControl(const char* const add_title = "", const Pos2& add_window_size = WINDOW_SIZE, const ColorRGB& add_BG_color = BG_COLOR);
@@ -42,7 +45,7 @@ namespace AsLib
 
 		//メインループ
 		MainControl& loop();
-		bool isLoop();
+		bool isLoop() const;
 
 		//シーン系
 		MainControl& AddScene(const size_t scene_num, const std::function<void(MainControl&)>& add_scene_func);
@@ -51,16 +54,16 @@ namespace AsLib
 		MainControl& sceneEnd();
 
 		//キーボード入力
-		int32_t countKey(const uint8_t select_key);
-		uint8_t clickKey(const uint8_t select_key);
-		uint8_t releaseKey(const uint8_t select_key);
-		uint8_t keyConfig(const uint8_t select_key);
+		int32_t countKey(const uint8_t select_key) const;
+		uint8_t clickKey(const uint8_t select_key) const;
+		uint8_t releaseKey(const uint8_t select_key) const;
+		uint8_t keyConfig(const uint8_t select_key) const;
 
 		//テクスチャ系
 		MainControl& textureAdd(const char* const add_name);
-		MainControl& textureUI_Add(const size_t add_number, const uint8_t add_alpha, const Pos8& add_pos8);
-		MainControl& textureUI_Add(const size_t add_number, const uint8_t add_alpha, Pos4& add_pos4);
-		MainControl& draw8(const size_t select_texture);
+		//MainControl& textureUI_Add(const size_t add_number, const uint8_t add_alpha, const Pos4& add_pos4);
+		MainControl& textureUI_Add(const size_t add_number, const uint8_t add_alpha, const Pos4& add_pos4);
+		MainControl& draw4(const size_t select_texture);
 		//std::vector<Texture> texture_ui_render;
 
 		//タイトルロゴ
@@ -68,16 +71,29 @@ namespace AsLib
 		MainControl& drawLogoOut(const size_t add_texture_ui, const int32_t add_out_time, const int32_t add_time, const size_t add_scene);
 		MainControl& drawLogoInOut(const size_t add_texture_ui, const int32_t add_in_time, const int32_t add_out_time, const int32_t add_time, const size_t add_scene);
 
+		//出力
+		bool isTexUI_Touch(const size_t ui_id) const { return (this->texture_ui_render[ui_id].Touch() > 0); };
+		bool isTouch() const { return (asTouchNum() > 0); };
+
+		//描画スキップ処理判定
+		bool skip();
+
+		//テクスチャ系
 		std::vector<TextureMainData> texture_main_data_render;
 		std::vector<TextureUI> texture_ui_render;
 
+		//文字系
+		std::vector<int> font_render;
+
 	private:
 		
+		void checkTouch();
+
 		//基本データ
 		MainData init_data;
 
-		//ループ系
-		bool is_loop = true;
+		//描画スキップ
+		bool is_skip = false;
 
 		//シーン系
 		std::array<std::function<void(MainControl&)>, SCENE_MAX> scene_func = {};
@@ -95,7 +111,49 @@ namespace AsLib
 		//fps取得 todo
 		int32_t fps = 60;
 		
+		bool is_change_scene = false;
 };
+
+	inline bool MainControl::skip() {
+		if (asTouchNum() == 0 && is_change_scene==false) {
+			this->is_skip = true;
+			return true;
+		}
+
+		is_change_scene = false;
+		return false;
+	}
+
+	inline void MainControl::checkTouch()
+	{
+		//VS2017 (2018/05/26)
+		//for (TextureUI j : texture_ui_render) を使用することを推奨しない
+
+		const size_t ui_max = texture_ui_render.size();
+
+		//UIのタッチ回数を初期化
+		for (size_t j = 0; j < ui_max; ++j) {
+			texture_ui_render[j].initTouch();
+		}
+
+		//タッチされた数を取得
+		int32_t touch_n = asTouchNum();
+		Pos2 touch_pos = {};
+
+
+		for (int32_t i = 0; i < touch_n; ++i) {
+			asTouch(i, touch_pos);
+
+			for (size_t j = 0; j < ui_max; ++j) {
+				//タッチのあたり判定
+				texture_ui_render[j].touch(touch_pos);
+			}
+		}
+
+		for (size_t j = 0; j < ui_max; ++j) {
+			texture_ui_render[j].update();
+		}
+	}
 
 	MainControl::~MainControl()
 	{
@@ -108,7 +166,7 @@ namespace AsLib
 		return *this;
 	}
 
-	inline bool MainControl::isLoop()
+	inline bool MainControl::isLoop() const
 	{
 		return is_loop;
 	}
@@ -121,7 +179,9 @@ namespace AsLib
 
 	inline MainControl & MainControl::sceneSelect(const size_t add_select_scene)
 	{
+
 		if (add_select_scene >= 0 && add_select_scene < SCENE_MAX) select_scene = add_select_scene;
+		is_change_scene = true;
 		return *this;
 	}
 
@@ -138,8 +198,16 @@ namespace AsLib
 		//選択されたシーンを実行
 		scene_func[select_scene](*this);
 
-		//入力判定の処理
-		if (!AsLoop()) sceneEnd();
+		//フレームを更新
+		if (is_skip) {
+			is_skip = false;
+			if (!AsSkipLoop()) sceneEnd();
+		}
+		else if (!AsLoop()) sceneEnd();
+
+		//タッチを取得
+		this->checkTouch();
+
 		return *this;
 	}
 
@@ -150,37 +218,29 @@ namespace AsLib
 		return *this;
 	}
 
-	inline int32_t MainControl::countKey(const uint8_t select_key)
+	inline int32_t MainControl::countKey(const uint8_t select_key) const
 	{
 		return count_key[size_t(select_key)];
 	}
 
-	inline uint8_t MainControl::clickKey(const uint8_t select_key)
+	inline uint8_t MainControl::clickKey(const uint8_t select_key) const
 	{
 		return click_key[size_t(select_key)];
 	}
 
-	inline uint8_t MainControl::releaseKey(const uint8_t select_key)
+	inline uint8_t MainControl::releaseKey(const uint8_t select_key) const
 	{
 		return release_key[size_t(select_key)];
 	}
 
-	inline uint8_t MainControl::keyConfig(const uint8_t select_key)
+	inline uint8_t MainControl::keyConfig(const uint8_t select_key) const
 	{
 		return keyconfig[size_t(select_key)];
 	}
 
-	inline MainControl& MainControl::textureUI_Add(const size_t add_number, const uint8_t add_alpha, const Pos8& add_pos8=pos8_100)
+	inline MainControl& MainControl::textureUI_Add(const size_t add_number, const uint8_t add_alpha, const Pos4& add_pos4)
 	{
-		const TextureUI add_texture_ui(&texture_main_data_render[add_number], add_alpha, add_pos8);
-		texture_ui_render.emplace_back(add_texture_ui);
-		return *this;
-	}
-
-	inline MainControl& MainControl::textureUI_Add(const size_t add_number, const uint8_t add_alpha, Pos4& add_pos4)
-	{
-		const Pos8 add_pos8 = add_pos4;
-		const TextureUI add_texture_ui(&texture_main_data_render[add_number], add_alpha, add_pos8);
+		const TextureUI add_texture_ui(&texture_main_data_render[add_number], add_alpha, add_pos4);
 		texture_ui_render.emplace_back(add_texture_ui);
 		return *this;
 	}
@@ -192,9 +252,9 @@ namespace AsLib
 		return *this;
 	}
 
-	inline MainControl & MainControl::draw8(const size_t select_texture)
+	inline MainControl & MainControl::draw4(const size_t select_texture)
 	{
-		asTex8(texture_ui_render[select_texture].point()->ID(), texture_ui_render[select_texture].pos(), texture_ui_render[select_texture].a());
+		texture_ui_render[select_texture].draw();
 		return *this;
 	}
 

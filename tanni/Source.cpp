@@ -41,6 +41,10 @@ enum :size_t {
 	GAHAKU2_TEXUI
 };
 
+//変数ID
+enum :size_t {
+	game_score,
+};
 
 //シーン読み込み
 inline void sceneInit(MC& mc)
@@ -64,27 +68,34 @@ inline void textureInit(MC& mc)
 //画像読み込み
 inline void UI_Init(MC& mc)
 {
-	mc.textureUI_Add(GAHAKU_TEXTURE, 200, { 0,0,100,0,0,100,100,180 });
-	mc.textureUI_Add(GAHAKU_TEXTURE, 255, { 0,2,45,86,10,0,467,44 });
+	mc.textureUI_Add(KURO_TEXTURE, 200, { 200,200,500,500 });
+	mc.textureUI_Add(GAHAKU_TEXTURE, 255, { 0,0,200,200 });
 }
 
 //開始画面
 void startScene(MC& mc)
 {
-	mc.draw8(GAHAKU_TEXUI);
-	mc.sceneSelect(MAIN_SCENE);
+	//描画レイヤー
+	mc.draw4(GAHAKU_TEXUI);
+
+	//命令レイヤー
+	if (mc.isTexUI_Touch(GAHAKU_TEXUI)) mc.sceneSelect(MAIN_SCENE);
 }
 
 //メイン画面
 void mainScene(MC& mc)
 {
-	mc.draw8(GAHAKU2_TEXUI);
+
+	mc.draw4(GAHAKU2_TEXUI);
+
+	//命令レイヤー
+	if (mc.isTexUI_Touch(GAHAKU2_TEXUI)) mc.sceneSelect(LOGO_SCENE1);
 }
 
 //終了画面
 void endScene(MC& mc)
 {
-	mc.draw8(GAHAKU_TEXUI);
+	mc.draw4(GAHAKU_TEXUI);
 
 	//mc.clickTex(KURO_TEXTURE);
 }
@@ -92,7 +103,8 @@ void endScene(MC& mc)
 //タイトルロゴ1
 void logoScene1(MC& mc)
 {
-	mc.drawLogoInOut(GAHAKU_TEXTURE, 1000, 2000, 3000, LOGO_SCENE1);
+	mc.drawLogoInOut(GAHAKU_TEXTURE, 1000, 2000, 3000, START_SCENE);
+	//if (mc.isTouch()) mc.sceneSelect(START_SCENE);
 }
 
 void logoScene2(MC& mc)
@@ -119,9 +131,7 @@ int32_t AsMain()
 	textureInit(mc);
 	UI_Init(mc);
 
-	const Counter c;
-
-	//
+	//初期シーン
 	mc.sceneSelect(LOGO_SCENE1);
 
 	//メインループ

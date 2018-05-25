@@ -156,6 +156,7 @@
     <ClInclude Include="AsStop.hpp" />
     <ClInclude Include="AsStruct.hpp" />
     <ClInclude Include="AsTex.hpp" />
+    <ClInclude Include="AsTouch.hpp" />
     <ClInclude Include="AsType.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

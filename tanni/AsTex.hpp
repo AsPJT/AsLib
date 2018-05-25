@@ -164,12 +164,31 @@ namespace AsLib
 		this->pixel_size.y = int32_t(size_y);
 	}
 
+
+
 	struct TextureUI
 	{
-		TextureUI(TextureMainData* const add_tmd, const uint8_t add_alpha, const Pos8& add_pos8);
-		TextureMainData* point();
-		uint8_t a();
-		Pos8 pos();
+		TextureUI(TextureMainData* const add_tmd, const uint8_t add_alpha, const Pos4& add_pos4);
+
+		//出力
+		TextureMainData* Point() const { return this->tmd; };
+		uint8_t Alpha() const { return this->alpha; };
+		Pos4 Pos() const { return this->pos4; };
+		int32_t Touch() const { return this->touch_num; };
+
+		//カウンター出力
+		bool Down() const { return counter.Down(); };
+		bool Up() const { return counter.Up(); };
+		int32_t Count() const { return counter.Count(); };
+
+		TextureUI& touch(const Pos2&);
+		TextureUI& initTouch() { this->touch_num = 0; return *this; };
+
+		//描画
+		TextureUI& draw() { tmd->draw(pos4, alpha); return *this; };
+
+		//タッチカウント
+		TextureUI& update() { this->counter.update(this->touch_num); return *this; };
 
 	private:
 
@@ -179,33 +198,34 @@ namespace AsLib
 		uint8_t alpha = 255;
 
 		//四角形描画位置 (todo:Pos8R)
-		Pos8 pos8;
+		Pos4 pos4;
 
 		//あたり判定
 		Counter counter;
 
+		//タッチ数
+		int32_t touch_num = 0;
 	};
 
-	Pos8 TextureUI::pos()
+	inline TextureUI& TextureUI::touch(const Pos2& add_pos)
 	{
-		return this->pos8;
+		bool is_touch = false;
+		const Pos4 p = { pos4.x1 - add_pos.x ,pos4.y1 - add_pos.y ,pos4.x2 - add_pos.x ,pos4.y2 - add_pos.y };
+
+		//タッチのあたり判定
+		if (p.x1 <= 0 && p.y1 <= 0 && p.x2 >= 0 && p.y2 >= 0) is_touch = true;
+		else if (p.x1 > 0 && p.y1 > 0 && p.x2 < 0 && p.y2 < 0) is_touch = true;
+		
+		//タッチの数をカウント
+		if (is_touch && this->touch_num != INT32_MAX) this->touch_num++;
+		return *this;
 	}
 
-	uint8_t TextureUI::a()
-	{
-		return this->alpha;
-	}
-
-	TextureMainData* TextureUI::point()
-	{
-		return this->tmd;
-	}
-
-	TextureUI::TextureUI(TextureMainData* const add_tmd, const uint8_t add_alpha, const Pos8& add_pos8)
+	TextureUI::TextureUI(TextureMainData* const add_tmd, const uint8_t add_alpha, const Pos4& add_pos4)
 	{
 		tmd = add_tmd;
 		alpha = add_alpha;
-		pos8 = add_pos8;
+		pos4 = add_pos4;
 	}
 
 	int TextureMainData::ID()

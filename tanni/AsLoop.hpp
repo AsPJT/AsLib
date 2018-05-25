@@ -18,6 +18,11 @@ namespace AsLib
 		return ((DxLib::ProcessMessage() == 0) && (DxLib::ScreenFlip() == 0) && (DxLib::ClearDrawScreen() == 0) && (DxLib::CheckHitKey(KEY_INPUT_ESCAPE) == 0));
 	}
 
+	bool AsSkipLoop()
+	{
+		return ((DxLib::ProcessMessage() == 0) && (DxLib::ScreenFlip() == 0) && (DxLib::CheckHitKey(KEY_INPUT_ESCAPE) == 0));
+	}
+
 	bool AsLoop(MainData& as)
 	{
 		if (AsLoop() == false) return false;

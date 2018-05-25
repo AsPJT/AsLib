@@ -13,36 +13,23 @@ namespace AsLib
 	struct Counter
 	{
 	public:
-		Counter& update(const bool);
-		uint8_t Down();
-		uint8_t Up();
-		int32_t Count();
+		Counter& update(const int32_t);
+
+		//o—Í
+		bool Down() const { return down; };
+		bool Up() const { return up; };
+		int32_t Count() const { return count; };
 
 	private:
-		uint8_t down = false;
-		uint8_t up = false;
+		bool down = false;
+		bool up = false;
 		int32_t count = 0;
 	};
 
-	inline uint8_t Counter::Down()
-	{
-		return down;
-	}
-
-	inline uint8_t Counter::Up()
-	{
-		return up;
-	}
-
-	inline int32_t Counter::Count()
-	{
-		return count;
-	}
-
-	inline Counter& Counter::update(const bool is_down)
+	inline Counter& Counter::update(const int32_t is_down)
 	{
 		//‰Ÿ‚³‚ê‚½‚©
-		if (is_down) {
+		if (is_down > 0) {
 			//‰Ÿ‚³‚ê‚½uŠÔ‚©
 			if (count == 0) down = true;
 			else down = false;
