@@ -1,4 +1,4 @@
-//ƒQ[ƒ€ƒGƒ“ƒWƒ“
+ï»¿//ã‚²ãƒ¼ãƒ ã‚¨ãƒ³ã‚¸ãƒ³
 #define DX_NON_USING_NAMESPACE_DXLIB
 #include "DxLib.h"
 
@@ -6,10 +6,10 @@
 constexpr size_t ASLIB_GAME_PAD_MAX = 16;
 #include "AsLib.hpp"
 
-//ŠÇ—ƒNƒ‰ƒXÈ—ª
+//ç®¡ç†ã‚¯ãƒ©ã‚¹çœç•¥
 using MC = AsLib::MainControl;
 
-//ƒV[ƒ“ŠÖ”
+//ã‚·ãƒ¼ãƒ³é–¢æ•°
 void startScene(MC& mc);
 void mainScene(MC& mc);
 void endScene(MC& mc);
@@ -18,7 +18,7 @@ void logoScene2(MC& mc);
 void logoScene3(MC& mc);
 void logoScene4(MC& mc);
 
-//ƒV[ƒ“ID
+//ã‚·ãƒ¼ãƒ³ID
 enum :size_t {
 	START_SCENE,
 	MAIN_SCENE,
@@ -29,24 +29,24 @@ enum :size_t {
 	LOGO_SCENE4,
 };
 
-//‰æ‘œID
+//ç”»åƒID
 enum :size_t {
 	GAHAKU_TEXTURE,
 	KURO_TEXTURE
 };
 
-//‰æ‘œUI‚ÌID
+//ç”»åƒUIã®ID
 enum :size_t {
 	GAHAKU_TEXUI,
 	GAHAKU2_TEXUI
 };
 
-//•Ï”ID
+//å¤‰æ•°ID
 enum :size_t {
 	game_score,
 };
 
-//ƒV[ƒ““Ç‚İ‚İ
+//ã‚·ãƒ¼ãƒ³èª­ã¿è¾¼ã¿
 inline void sceneInit(MC& mc)
 {
 	mc.AddScene(START_SCENE, startScene);
@@ -58,41 +58,41 @@ inline void sceneInit(MC& mc)
 	mc.AddScene(LOGO_SCENE4, logoScene4);
 }
 
-//‰æ‘œ“Ç‚İ‚İ
+//ç”»åƒèª­ã¿è¾¼ã¿
 inline void textureInit(MC& mc)
 {
 	mc.textureAdd("gahaku.png");
 	mc.textureAdd("kuro.png");
 }
 
-//‰æ‘œ“Ç‚İ‚İ
+//ç”»åƒèª­ã¿è¾¼ã¿
 inline void UI_Init(MC& mc)
 {
 	mc.textureUI_Add(KURO_TEXTURE, 200, { 200,200,500,500 });
 	mc.textureUI_Add(GAHAKU_TEXTURE, 255, { 0,0,200,200 });
 }
 
-//ŠJn‰æ–Ê
+//é–‹å§‹ç”»é¢
 void startScene(MC& mc)
 {
-	//•`‰æƒŒƒCƒ„[
+	//æç”»ãƒ¬ã‚¤ãƒ¤ãƒ¼
 	mc.draw4(GAHAKU_TEXUI);
 
-	//–½—ßƒŒƒCƒ„[
+	//å‘½ä»¤ãƒ¬ã‚¤ãƒ¤ãƒ¼
 	if (mc.isTexUI_Touch(GAHAKU_TEXUI)) mc.sceneSelect(MAIN_SCENE);
 }
 
-//ƒƒCƒ“‰æ–Ê
+//ãƒ¡ã‚¤ãƒ³ç”»é¢
 void mainScene(MC& mc)
 {
 
 	mc.draw4(GAHAKU2_TEXUI);
 
-	//–½—ßƒŒƒCƒ„[
+	//å‘½ä»¤ãƒ¬ã‚¤ãƒ¤ãƒ¼
 	if (mc.isTexUI_Touch(GAHAKU2_TEXUI)) mc.sceneSelect(LOGO_SCENE1);
 }
 
-//I—¹‰æ–Ê
+//çµ‚äº†ç”»é¢
 void endScene(MC& mc)
 {
 	mc.draw4(GAHAKU_TEXUI);
@@ -100,7 +100,7 @@ void endScene(MC& mc)
 	//mc.clickTex(KURO_TEXTURE);
 }
 
-//ƒ^ƒCƒgƒ‹ƒƒS1
+//ã‚¿ã‚¤ãƒˆãƒ«ãƒ­ã‚´1
 void logoScene1(MC& mc)
 {
 	mc.drawLogoInOut(GAHAKU_TEXTURE, 1000, 2000, 3000, START_SCENE);
@@ -120,24 +120,24 @@ void logoScene4(MC& mc)
 {
 }
 
-//ƒƒCƒ“ŠÖ”
+//ãƒ¡ã‚¤ãƒ³é–¢æ•°
 int32_t AsMain()
 {
-	//ŠÇ—ƒNƒ‰ƒX
-	MC mc("‚ ‚¢‚¤‚¦‚¨", { 720,360 }, BG_COLOR);
+	//ç®¡ç†ã‚¯ãƒ©ã‚¹
+	MC mc(u8"Simple Counter", asWindowSize({ 720,360 }), BG_COLOR);
 
-	//“Ç‚İ‚İ
+	//èª­ã¿è¾¼ã¿
 	sceneInit(mc);
 	textureInit(mc);
 	UI_Init(mc);
 
-	//‰ŠúƒV[ƒ“
+	//åˆæœŸã‚·ãƒ¼ãƒ³
 	mc.sceneSelect(LOGO_SCENE1);
 
-	//ƒƒCƒ“ƒ‹[ƒv
+	//ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—
 	while (mc.isLoop()) mc.scenePlay();
 
-	//I—¹ˆ—
+	//çµ‚äº†å‡¦ç†
 	asEnd();
 	return 0;
 }
@@ -152,7 +152,7 @@ int32_t AsMain()
 
 
 
-//Šeƒ‰ƒCƒuƒ‰ƒŠ‚ÌƒƒCƒ“ŠÖ”
+//å„ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ãƒ¡ã‚¤ãƒ³é–¢æ•°
 #if defined(__DXLIB) //DxLib
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {

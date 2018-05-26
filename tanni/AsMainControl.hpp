@@ -106,7 +106,7 @@ namespace AsLib
 		std::array < uint8_t, KEY_MAX_1 > keyconfig = {};
 
 		//画像
-		size_t count_texture = 0;
+		//size_t count_texture = 0;
 
 		//fps取得 todo
 		int32_t fps = 60;
@@ -124,35 +124,26 @@ namespace AsLib
 		return false;
 	}
 
+	//毎フレームのタッチの箇所を入力する
 	inline void MainControl::checkTouch()
 	{
-		//VS2017 (2018/05/26)
-		//for (TextureUI j : texture_ui_render) を使用することを推奨しない
-
-		const size_t ui_max = texture_ui_render.size();
-
 		//UIのタッチ回数を初期化
-		for (size_t j = 0; j < ui_max; ++j) {
-			texture_ui_render[j].initTouch();
-		}
+		for (TextureUI &j : texture_ui_render) j.initTouch();
 
 		//タッチされた数を取得
-		int32_t touch_n = asTouchNum();
+		const int32_t touch_num = asTouchNum();
 		Pos2 touch_pos = {};
 
 
-		for (int32_t i = 0; i < touch_n; ++i) {
+		for (int32_t i = 0; i < touch_num; ++i) {
 			asTouch(i, touch_pos);
 
-			for (size_t j = 0; j < ui_max; ++j) {
-				//タッチのあたり判定
-				texture_ui_render[j].touch(touch_pos);
-			}
+			//タッチのあたり判定
+			for (TextureUI &j : texture_ui_render) j.touch(touch_pos);
 		}
 
-		for (size_t j = 0; j < ui_max; ++j) {
-			texture_ui_render[j].update();
-		}
+		//何回タッチされたかカウント
+		for (TextureUI &j : texture_ui_render) j.update();
 	}
 
 	MainControl::~MainControl()
@@ -180,7 +171,7 @@ namespace AsLib
 	inline MainControl & MainControl::sceneSelect(const size_t add_select_scene)
 	{
 
-		if (add_select_scene >= 0 && add_select_scene < SCENE_MAX) select_scene = add_select_scene;
+		if (add_select_scene < SCENE_MAX) select_scene = add_select_scene;
 		is_change_scene = true;
 		return *this;
 	}
@@ -264,15 +255,17 @@ namespace AsLib
 
 	MainControl::MainControl(const MainData& add_init_data)
 	{
-		init_data = add_init_data;
 		AsInit(init_data.title(), init_data.windowSize(), init_data.colorBG());
+		const MainData main_init_data(add_init_data.title(), asWindowSizeTrue(add_init_data.windowSize()), add_init_data.colorBG());
+		init_data = add_init_data;
+		
 	}
 
 	MainControl::MainControl(const char* const add_title, const Pos2& add_window_size, const ColorRGB& add_BG_color)
 	{
-		const MainData add_init_data(add_title, add_window_size, add_BG_color);
+		AsInit(add_title, add_window_size, add_BG_color);
+		const MainData add_init_data(add_title, asWindowSizeTrue(add_window_size), add_BG_color);
 		init_data = add_init_data;
-		AsInit(init_data.title(), init_data.windowSize(), init_data.colorBG());
 	}
 
 

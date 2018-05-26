@@ -75,6 +75,7 @@ namespace AsLib
 
 		//asRect(init_data.windowSize(), blackRGB);
 		asTex4(texture_main_data_render[add_texture_id].ID(), init_data.windowSize(), alpha);
+		//texture_main_data_render[add_texture_id].draw(init_data.windowSize(), alpha);
 
 		if (time_counter >= add_time) {
 			time_counter = 0;

@@ -149,6 +149,7 @@
     <ClInclude Include="AsLib.hpp" />
     <ClInclude Include="AsLoop.hpp" />
     <ClInclude Include="AsMainControl.hpp" />
+    <ClInclude Include="AsMap.hpp" />
     <ClInclude Include="AsMC_LogoDraw.hpp" />
     <ClInclude Include="AsColor.hpp" />
     <ClInclude Include="AsRect.hpp" />
