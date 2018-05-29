@@ -9,7 +9,11 @@
 
 namespace AsLib
 {
-
+	struct Map2D1Byte
+	{
+		uint8_t* id;
+	};
+	
 	struct Map3D
 	{
 	public:

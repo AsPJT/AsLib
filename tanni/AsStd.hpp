@@ -173,6 +173,8 @@ namespace AsLib
 		if (DxLib::SetOutApplicationLogValidFlag(FALSE) == -1) return -1;
 		if (DxLib::SetChangeScreenModeGraphicsSystemResetFlag(FALSE) == -1) return -1;
 #if defined(__WINDOWS__)
+		DxLib::SetWindowIconID(22);
+		DxLib::SetWindowSizeChangeEnableFlag(TRUE);
 		if (DxLib::ChangeWindowMode(TRUE) == -1) return -1;
 		if (DxLib::SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8) == -1) return -1;
 		if (AsChangeWindowSize(window_size) == -1) return -1;
