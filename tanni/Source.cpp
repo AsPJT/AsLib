@@ -46,6 +46,14 @@ enum :size_t {
 	game_score,
 };
 
+struct Pet
+{
+	Pos2 pos;
+	int32_t hp = 100;
+	int32_t water = 100;
+	int32_t status = 0;
+};
+
 //シーン読み込み
 inline void sceneInit(MC& mc)
 {
@@ -75,11 +83,19 @@ inline void UI_Init(MC& mc)
 //開始画面
 void startScene(MC& mc)
 {
+	std::vector<int32_t> gaccho;
+
+	while (mc.isLoop() && AsLoop())
+	{
+		
+	}
+	mc.loopEnd();
+
 	//描画レイヤー
-	mc.draw4(GAHAKU_TEXUI);
+	//mc.draw4(GAHAKU_TEXUI);
 
 	//命令レイヤー
-	if (mc.isTexUI_Touch(GAHAKU_TEXUI)) mc.sceneSelect(MAIN_SCENE);
+	//if (mc.isTexUI_Touch(GAHAKU_TEXUI)) mc.sceneSelect(MAIN_SCENE);
 }
 
 //メイン画面

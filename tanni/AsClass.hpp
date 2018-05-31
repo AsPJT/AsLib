@@ -17,9 +17,9 @@ namespace AsLib
 		MainData(const char* const add_title = "", const Pos2& add_window_size = WINDOW_SIZE, const ColorRGB& add_BG_color = BG_COLOR);
 		~MainData();
 
-		Pos2 windowSize() const;
-		ColorRGB colorBG() const;
-		const char* title() const;
+		Pos2 windowSize() const { return window_size; };
+		ColorRGB colorBG() const { return BG_color; };
+		const char* title() const { return title_name; };
 
 	private:
 		//ウィンドウサイズ
@@ -45,21 +45,6 @@ namespace AsLib
 
 	inline MainData::~MainData()
 	{
-	}
-
-	inline Pos2 MainData::windowSize() const
-	{
-		return window_size;
-	}
-
-	inline ColorRGB MainData::colorBG() const
-	{
-		return BG_color;
-	}
-
-	inline const char * MainData::title() const
-	{
-		return title_name;
 	}
 
 	//ファイル読み込み

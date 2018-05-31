@@ -152,6 +152,8 @@
     <ClInclude Include="AsMap.hpp" />
     <ClInclude Include="AsMC_LogoDraw.hpp" />
     <ClInclude Include="AsColor.hpp" />
+    <ClInclude Include="AsMC_Rand.hpp" />
+    <ClInclude Include="AsRand.hpp" />
     <ClInclude Include="AsRect.hpp" />
     <ClInclude Include="AsStd.hpp" />
     <ClInclude Include="AsStop.hpp" />

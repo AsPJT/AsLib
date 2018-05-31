@@ -16,6 +16,7 @@ namespace AsLib
 	//4点位置
 	struct Pos4;
 	struct Pos4R;
+	struct PosA4;
 
 	//8点位置
 	struct Pos8;
@@ -28,10 +29,18 @@ namespace AsLib
 		Pos2& operator=(const Pos8& add_pos);
 		Pos2& operator()(const int32_t pos_size = 0);
 		Pos2& operator()(const int32_t pos_x, const int32_t pos_y);
+		Pos2& rand(const Pos2&);
 
 		int32_t x = 0;
 		int32_t y = 0;
 	};
+
+	inline Pos2 & Pos2::rand(const Pos2& add_pos)
+	{
+		this->x = rand32(add_pos.x);
+		this->y = rand32(add_pos.y);
+		return *this;
+	}
 
 	//画面比での大きさ(2D)
 	struct Pos2R
@@ -56,6 +65,41 @@ namespace AsLib
 		int32_t x2 = 0;
 		int32_t y2 = 0;
 	};
+
+	struct PosA4
+	{
+		PosA4& operator=(const Pos2& add_pos);
+		operator Pos4();
+		PosA4& rand(const Pos2&);
+		int32_t x = 0;
+		int32_t y = 0;
+		int32_t w = 0;
+		int32_t h = 0;
+	};
+
+	inline PosA4 & PosA4::rand(const Pos2& add_pos)
+	{
+		this->x = rand32(add_pos.x);
+		this->y = rand32(add_pos.y);
+		return *this;
+	}
+
+	inline PosA4& PosA4::operator=(const Pos2& add_pos)
+	{
+		this->x = add_pos.x;
+		this->y = add_pos.y;
+		return *this;
+	}
+
+	inline PosA4::operator Pos4()
+	{
+		Pos4 pos;
+		pos.x1 = this->x - (this->w >> 1);
+		pos.y1 = this->y - (this->h >> 1);
+		pos.x2 = this->x + (this->w >> 1);
+		pos.y2 = this->y + (this->h >> 1);
+		return pos;
+	}
 
 	//画面比での長方形の大きさ
 	struct Pos4R

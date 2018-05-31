@@ -75,6 +75,9 @@ namespace AsLib
 		bool isTexUI_Touch(const size_t ui_id) const { return (this->texture_ui_render[ui_id].Touch() > 0); };
 		bool isTouch() const { return (asTouchNum() > 0); };
 
+		//
+		MainControl& loopEnd() { this->is_loop = 0; return *this; };
+
 		//描画スキップ処理判定
 		bool skip();
 
@@ -85,12 +88,31 @@ namespace AsLib
 		//文字系
 		std::vector<int> font_render;
 
-	private:
-		
-		void checkTouch();
 
-		//基本データ
+
+		//乱数系--------------------------------------------------
+	public:
+		uint8_t rand8(const uint8_t= 0);
+		MainControl& srand8(const uint8_t randSeed) { rand_8 = randSeed; return *this; }
+		uint8_t rand8_0toMax(const uint8_t i = UINT8_MAX);
+		uint32_t rand32();
+		MainControl& srand32(const uint32_t randSeed) { rand_32 = randSeed; return *this; }
+		int32_t rand32_0toMax(const int32_t i = INT32_MAX);
+	private:
+		uint8_t rand_8;
+		uint32_t rand_32;
+
+		//基本データ系
+	public:
+		Pos2 windowSize() const { return this->init_data.windowSize(); };
+		ColorRGB colorBG() const { return this->init_data.colorBG(); };
+		const char* title() const { return this->init_data.title(); };
+	private:
 		MainData init_data;
+
+	private:
+
+		void checkTouch();
 
 		//描画スキップ
 		bool is_skip = false;
@@ -190,11 +212,7 @@ namespace AsLib
 		scene_func[select_scene](*this);
 
 		//フレームを更新
-		if (is_skip) {
-			is_skip = false;
-			if (!AsSkipLoop()) sceneEnd();
-		}
-		else if (!AsLoop()) sceneEnd();
+		if (!AsLoop()) sceneEnd();
 
 		//タッチを取得
 		this->checkTouch();
