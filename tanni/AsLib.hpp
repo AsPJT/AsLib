@@ -4,7 +4,7 @@
 //
 //                    制作者: がっちょ (wanotaitei@gmail.com)
 //
-//                                   Ver 0.0.12.0 Alpha
+//                                   Ver 0.0.13.0 Alpha
 //
 //     ----------     ----------     ----------     ----------     ----------
 
@@ -15,13 +15,13 @@
 #include <cstdint>
 
 //AsLibバージョン
-constexpr int32_t ASLIB_VERSION = 0x00c0;
-const char* ASLIB_VERSION_STR = "0.0.12.0 Alpha";
+constexpr int32_t ASLIB_VERSION = 0x00d0;
+const char* ASLIB_VERSION_STR = "0.0.13.0 Alpha";
 
 //AsLibバージョン (UTF)
-const char* ASLIB_VERSION_STR8 = u8"0.0.12.0 Alpha";
-const char16_t* ASLIB_VERSION_STR16 = u"0.0.12.0 Alpha";
-const char32_t* ASLIB_VERSION_STR32 = U"0.0.12.0 Alpha";
+const char* ASLIB_VERSION_STR8 = u8"0.0.13.0 Alpha";
+const char16_t* ASLIB_VERSION_STR16 = u"0.0.13.0 Alpha";
+const char32_t* ASLIB_VERSION_STR32 = U"0.0.13.0 Alpha";
 
 int32_t AsMain();
 namespace AsLib { int32_t asEnd(); }
@@ -70,6 +70,7 @@ int main() { return int(AsMain() && AsLib::asEnd()); }
 #include <functional>
 #include <array>
 #include <vector>
+#include <memory>
 
 //基本変数型
 #include "AsType.hpp"
@@ -127,6 +128,9 @@ int main() { return int(AsMain() && AsLib::asEnd()); }
 
 //空間を扱う(All)
 #include "AsMap.hpp"
+
+//ライセンス
+#include "AsLicense.hpp"
 
 //メイン管理
 #include "AsMainControl.hpp"

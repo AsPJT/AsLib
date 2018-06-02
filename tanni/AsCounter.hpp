@@ -16,9 +16,12 @@ namespace AsLib
 		Counter& update(const int32_t);
 
 		//o—Í
-		bool Down() const { return down; };
-		bool Up() const { return up; };
-		int32_t Count() const { return count; };
+		bool Down() const { return this->down; };
+		bool Up() const { return this->up; };
+		int32_t Count() const { return this->count; };
+		bool Down0() { const bool isDown = down; this->down = false; return isDown; };
+		bool Up0() { const bool isUp = up; this->up = false; return isUp; };
+		int32_t Count0() { const int32_t isCount = count; this->count = 0; return isCount; };
 
 	private:
 		bool down = false;

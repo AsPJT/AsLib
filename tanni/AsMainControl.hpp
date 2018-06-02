@@ -34,6 +34,14 @@ namespace AsLib
 	//メイン管理クラス
 	class MainControl
 	{
+		//基本データ系
+	public:
+		Pos2 windowSize() const { return this->init_data.windowSize(); };
+		ColorRGB colorBG() const { return this->init_data.colorBG(); };
+		const char* title() const { return this->init_data.title(); };
+	private:
+		MainData init_data;
+
 	private:
 		//ループ系
 		bool is_loop = true;
@@ -48,8 +56,9 @@ namespace AsLib
 		bool isLoop() const;
 
 		//シーン系
-		MainControl& AddScene(const size_t scene_num, const std::function<void(MainControl&)>& add_scene_func);
-		MainControl& sceneSelect(const size_t add_select_scene);
+		MainControl& AddScene(const size_t, const std::function<void(MainControl&)>&);
+		MainControl& AddScene(const size_t, const std::function<void(MainControl&)>&, const ColorRGB&);
+		MainControl& scene(const size_t add_select_scene);
 		MainControl& scenePlay();
 		MainControl& sceneEnd();
 
@@ -61,29 +70,69 @@ namespace AsLib
 
 		//テクスチャ系
 		MainControl& textureAdd(const char* const add_name);
+		MainControl& animeAdd(const char* const add_name, const size_t);
 		//MainControl& textureUI_Add(const size_t add_number, const uint8_t add_alpha, const Pos4& add_pos4);
 		MainControl& textureUI_Add(const size_t add_number, const uint8_t add_alpha, const Pos4& add_pos4);
-		MainControl& draw4(const size_t select_texture);
+		MainControl& animeUI_Add(const size_t add_number, const uint8_t add_alpha, const Pos4& add_pos4);
+		MainControl& texture(const size_t select_texture);
+		MainControl& anime(const size_t select_texture);
 		//std::vector<Texture> texture_ui_render;
 
 		//タイトルロゴ
 		MainControl& drawLogo(const size_t add_texture_ui, const int32_t add_time, const size_t add_scene);
 		MainControl& drawLogoOut(const size_t add_texture_ui, const int32_t add_out_time, const int32_t add_time, const size_t add_scene);
-		MainControl& drawLogoInOut(const size_t add_texture_ui, const int32_t add_in_time, const int32_t add_out_time, const int32_t add_time, const size_t add_scene);
+		MainControl& logoTex(const size_t add_texture_ui, const int32_t add_in_time, const int32_t add_out_time, const int32_t add_time, const size_t add_scene);
+		MainControl& logoAnime(const size_t add_texture_ui, const int32_t add_in_time, const int32_t add_out_time, const int32_t add_time, const size_t add_scene);
 
-		//出力
-		bool isTexUI_Touch(const size_t ui_id) const { return (this->texture_ui_render[ui_id].Touch() > 0); };
-		bool isTouch() const { return (asTouchNum() > 0); };
+		//タッチ系
+	public:
+		bool touchTex(const size_t ui_id) const { return (this->texture_ui_render[ui_id].Touch() > 0); };
+		bool touchTex0(const size_t ui_id) { return (this->texture_ui_render[ui_id].Touch0() > 0); };
+		bool touchAnime(const size_t ui_id) const { return (this->anime_ui_render[ui_id].Touch() > 0); };
+		bool touchAnime0(const size_t ui_id) { return (this->anime_ui_render[ui_id].Touch0() > 0); };
+		bool upTex(const size_t ui_id) const { return (this->texture_ui_render[ui_id].Up()); };
+		bool upTex0(const size_t ui_id) { return (this->texture_ui_render[ui_id].Up0()); };
+		bool upAnime(const size_t ui_id) const { return (this->anime_ui_render[ui_id].Up()); };
+		bool upAnime0(const size_t ui_id) { return (this->anime_ui_render[ui_id].Up0()); };
+		bool downTex(const size_t ui_id) const { return (this->texture_ui_render[ui_id].Down()); };
+		bool downTex0(const size_t ui_id) { return (this->texture_ui_render[ui_id].Down0()); };
+		bool downAnime(const size_t ui_id) const { return (this->anime_ui_render[ui_id].Down()); };
+		bool downAnime0(const size_t ui_id) { return (this->anime_ui_render[ui_id].Down0()); };
+		bool isTouch() const { return (touch_all_num > 0); };
+		bool isTouch0() { const bool is_touch = (touch_all_num > 0); touch_all_num = 0; return is_touch; };
+		bool isUp() const { return this->is_up_all; };
+		bool isUp0() { const bool is_up = this->is_up_all; this->is_up_all = 0; return is_up; };
+		bool isDown() const { return this->is_down_all; };
+		bool isDown0() { const bool is_down = this->is_down_all; this->is_down_all = 0; return is_down; };
+	private:
+		int32_t touch_all_num = 0;
+		bool is_up_all = false;
+		bool is_down_all = false;
 
-		//
+	public:
+
+		Pos4 & aspect(const Pos2& pos_)
+		{
+			static Pos4 aspect_pos;
+			const Pos2 pos2 = init_data.windowSize();
+
+			aspect_pos.x2 = int32_t(pos_.x*pos2.y / float(pos_.y));
+			if (aspect_pos.x2 > pos2.x) {
+				aspect_pos.x2 = pos2.x;
+				aspect_pos.y2 = int32_t(pos_.y*pos2.x / float(pos_.x));
+			}
+			else aspect_pos.y2 = pos2.y;
+
+			return aspect_pos;
+		}
+		
 		MainControl& loopEnd() { this->is_loop = 0; return *this; };
-
-		//描画スキップ処理判定
-		bool skip();
 
 		//テクスチャ系
 		std::vector<TextureMainData> texture_main_data_render;
 		std::vector<TextureUI> texture_ui_render;
+		std::vector<AnimeMainData> anime_main_data_render;
+		std::vector<AnimeUI> anime_ui_render;
 
 		//std::vector<>
 
@@ -104,14 +153,6 @@ namespace AsLib
 		uint8_t rand_8;
 		uint32_t rand_32;
 
-		//基本データ系
-	public:
-		Pos2 windowSize() const { return this->init_data.windowSize(); };
-		ColorRGB colorBG() const { return this->init_data.colorBG(); };
-		const char* title() const { return this->init_data.title(); };
-	private:
-		MainData init_data;
-
 	private:
 
 		void checkTouch();
@@ -121,6 +162,7 @@ namespace AsLib
 
 		//シーン系
 		std::array<std::function<void(MainControl&)>, SCENE_MAX> scene_func = {};
+		std::array<ColorRGB, SCENE_MAX> scene_BG = {};
 		size_t select_scene = 0;
 
 		//キーボードの判定
@@ -138,36 +180,36 @@ namespace AsLib
 		bool is_change_scene = false;
 };
 
-	inline bool MainControl::skip() {
-		if (asTouchNum() == 0 && is_change_scene==false) {
-			this->is_skip = true;
-			return true;
-		}
-
-		is_change_scene = false;
-		return false;
-	}
-
 	//毎フレームのタッチの箇所を入力する
 	inline void MainControl::checkTouch()
 	{
+		this->is_down_all = false;
+		this->is_up_all = false;
+
 		//UIのタッチ回数を初期化
-		for (TextureUI &j : texture_ui_render) j.initTouch();
+		for (TextureUI &i : texture_ui_render) i.initTouch();
+		for (AnimeUI &i : anime_ui_render) i.initTouch();
 
 		//タッチされた数を取得
-		const int32_t touch_num = asTouchNum();
+		const int32_t check_touch_all_num = asTouchNum();
+
+		if (check_touch_all_num > 0 && this->touch_all_num == 0) this->is_down_all = true;
+		if (check_touch_all_num == 0 && this->touch_all_num > 0) this->is_up_all = true;
+		this->touch_all_num = check_touch_all_num;
 		Pos2 touch_pos = {};
 
 
-		for (int32_t i = 0; i < touch_num; ++i) {
+		for (int32_t i = 0; i < check_touch_all_num; ++i) {
 			asTouch(i, touch_pos);
 
 			//タッチのあたり判定
 			for (TextureUI &j : texture_ui_render) j.touch(touch_pos);
+			for (AnimeUI &j : anime_ui_render) j.touch(touch_pos);
 		}
 
 		//何回タッチされたかカウント
 		for (TextureUI &j : texture_ui_render) j.update();
+		for (AnimeUI &j : anime_ui_render) j.update();
 	}
 
 	MainControl::~MainControl()
@@ -183,17 +225,32 @@ namespace AsLib
 
 	inline bool MainControl::isLoop() const
 	{
+
 		return is_loop;
 	}
 
 	inline MainControl & MainControl::AddScene(const size_t scene_num, const std::function<void(MainControl&)>& add_scene_func)
 	{
+		scene_BG[scene_num] = this->init_data.colorBG();
 		scene_func[scene_num] = add_scene_func;
 		return *this;
 	}
 
-	inline MainControl & MainControl::sceneSelect(const size_t add_select_scene)
+	inline MainControl & MainControl::AddScene(const size_t scene_num, const std::function<void(MainControl&)>& add_scene_func, const ColorRGB& add_scene_BG)
 	{
+		scene_BG[scene_num] = add_scene_BG;
+		scene_func[scene_num] = add_scene_func;
+		return *this;
+	}
+
+	inline MainControl & MainControl::scene(const size_t add_select_scene)
+	{
+		//UIのタッチ回数を初期化
+		for (TextureUI &i : texture_ui_render) i.initTouch();
+		for (AnimeUI &i : anime_ui_render) i.initTouch();
+
+		//背景色変更
+		AsChangeColorBG(scene_BG[add_select_scene]);
 
 		if (add_select_scene < SCENE_MAX) select_scene = add_select_scene;
 		is_change_scene = true;
@@ -256,6 +313,13 @@ namespace AsLib
 		return *this;
 	}
 
+	inline MainControl& MainControl::animeUI_Add(const size_t add_number, const uint8_t add_alpha, const Pos4& add_pos4)
+	{
+		const AnimeUI add_texture_ui(&anime_main_data_render[add_number], add_alpha, add_pos4);
+		anime_ui_render.emplace_back(add_texture_ui);
+		return *this;
+	}
+
 	inline MainControl & MainControl::textureAdd(const char * const add_name)
 	{
 		const TextureMainData add_texture(AsLoadTex(add_name));
@@ -263,12 +327,25 @@ namespace AsLib
 		return *this;
 	}
 
-	inline MainControl & MainControl::draw4(const size_t select_texture)
+	inline MainControl & MainControl::animeAdd(const char * const add_name,const size_t add_num)
+	{
+		const AnimeMainData add_texture(add_num, AsLoadTex(add_name, add_num));
+		anime_main_data_render.emplace_back(add_texture);
+		return *this;
+	}
+
+	inline MainControl & MainControl::texture(const size_t select_texture)
 	{
 		texture_ui_render[select_texture].draw();
 		return *this;
 	}
 
+	inline MainControl & MainControl::anime(const size_t select_texture)
+	{
+		anime_ui_render[select_texture].fpsUpdate();
+		anime_ui_render[select_texture].draw();
+		return *this;
+	}
 
 
 	//コンストラクタ----------

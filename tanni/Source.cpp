@@ -36,6 +36,17 @@ enum :size_t {
 	GAHAKU2_TEXUI
 };
 
+//アニメID
+enum :size_t {
+	NUM_ANIME,
+};
+
+//アニメUIのID
+enum :size_t {
+	TITLE_ANIMEUI,
+	NUM_ANIMEUI,
+};
+
 //変数ID
 enum :size_t {
 	game_score,
@@ -52,7 +63,7 @@ struct Pet
 //シーン読み込み
 inline void sceneInit(MC& mc)
 {
-	mc.AddScene(START_SCENE, startScene);
+	mc.AddScene(START_SCENE, startScene, {100,100,200});
 	mc.AddScene(MAIN_SCENE, mainScene);
 	mc.AddScene(END_SCENE, endScene);
 	mc.AddScene(LOGO_SCENE1, logoScene1);
@@ -66,6 +77,8 @@ inline void textureInit(MC& mc)
 {
 	mc.textureAdd("gahaku.png");
 	mc.textureAdd("kuro.png");
+
+	mc.animeAdd("anime.png", 4);
 }
 
 //画像読み込み
@@ -73,40 +86,42 @@ inline void UI_Init(MC& mc)
 {
 	mc.textureUI_Add(KURO_TEXTURE, 200, { 200,200,500,500 });
 	mc.textureUI_Add(GAHAKU_TEXTURE, 255, { 0,0,200,200 });
+
+	mc.animeUI_Add(NUM_ANIME, 200, { 0,0,400,400 });
+	mc.animeUI_Add(NUM_ANIME, 200, { 50,50,400,400 });
 }
 
 //開始画面
 void startScene(MC& mc)
 {
-	std::vector<int32_t> gaccho;
 
-	while (mc.isLoop() && AsLoop())
-	{
-		
-	}
-	mc.loopEnd();
+	//while (mc.isLoop() && AsLoop())
+	//{
+		mc.anime(NUM_ANIME);
+	//}
+	//mc.loopEnd();
 
 	//描画レイヤー
-	//mc.draw4(GAHAKU_TEXUI);
+	//mc.texture(GAHAKU_TEXUI);
 
 	//命令レイヤー
-	//if (mc.isTexUI_Touch(GAHAKU_TEXUI)) mc.sceneSelect(MAIN_SCENE);
+	if (mc.upTex0(GAHAKU_TEXUI)) mc.scene(MAIN_SCENE);
 }
 
 //メイン画面
 void mainScene(MC& mc)
 {
 
-	mc.draw4(GAHAKU2_TEXUI);
+	mc.texture(GAHAKU2_TEXUI);
 
 	//命令レイヤー
-	if (mc.isTexUI_Touch(GAHAKU2_TEXUI)) mc.sceneSelect(LOGO_SCENE1);
+	if (mc.upTex0(GAHAKU2_TEXUI)) mc.scene(LOGO_SCENE1);
 }
 
 //終了画面
 void endScene(MC& mc)
 {
-	mc.draw4(GAHAKU_TEXUI);
+	mc.texture(GAHAKU_TEXUI);
 
 	//mc.clickTex(KURO_TEXTURE);
 }
@@ -114,13 +129,15 @@ void endScene(MC& mc)
 //タイトルロゴ1
 void logoScene1(MC& mc)
 {
-	mc.drawLogoInOut(GAHAKU_TEXTURE, 1000, 2000, 3000, START_SCENE);
-	//if (mc.isTouch()) mc.sceneSelect(START_SCENE);
+	//mc.logoAnime(TITLE_ANIMEUI, 600, 1700, 2000, START_SCENE);
+	mc.anime(NUM_ANIME);
+	mc.logoTex(GAHAKU_TEXTURE, 600, 1700, 2000, START_SCENE);
+	if (mc.isUp()) mc.scene(START_SCENE);
 }
 
 void logoScene2(MC& mc)
 {
-	mc.drawLogoInOut(GAHAKU_TEXTURE, 1000, 2000, 3000, LOGO_SCENE2);
+	mc.logoTex(GAHAKU_TEXTURE, 1000, 2000, 3000, LOGO_SCENE2);
 }
 
 void logoScene3(MC& mc)
@@ -135,7 +152,7 @@ void logoScene4(MC& mc)
 int32_t AsMain()
 {
 	//管理クラス
-	MC mc(u8"Simple Counter", asWindowSize({ 720,360 }), BG_COLOR);
+	MC mc(u8"Simple Counter", { 720,360 }, BG_COLOR);
 
 	//読み込み
 	sceneInit(mc);
@@ -143,7 +160,7 @@ int32_t AsMain()
 	UI_Init(mc);
 
 	//初期シーン
-	mc.sceneSelect(LOGO_SCENE1);
+	mc.scene(LOGO_SCENE1);
 
 	//メインループ
 	while (mc.isLoop()) mc.scenePlay();

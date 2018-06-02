@@ -30,6 +30,7 @@ namespace AsLib
 		Pos2& operator=(const Pos8& add_pos);
 		Pos2& operator()(const int32_t pos_size = 0);
 		Pos2& operator()(const int32_t pos_x, const int32_t pos_y);
+		operator Pos4();
 		Pos2& rand(const Pos2&);
 
 		int32_t x = 0;
@@ -142,6 +143,14 @@ namespace AsLib
 		float x4 = 1.0f;
 		float y4 = 1.0f;
 	};
+
+	inline Pos2::operator Pos4()
+	{
+		Pos4 pos;
+		pos.x2 = this->x;
+		pos.y2 = this->y;
+		return pos;
+	}
 
 	inline  PosL4& PosL4::operator=(const Pos4& add_pos)
 	{
