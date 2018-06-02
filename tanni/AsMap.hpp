@@ -57,6 +57,7 @@ namespace AsLib
 				a[i][j].resize(x_max);
 			}
 		}
+		return *this;
 	}
 
 

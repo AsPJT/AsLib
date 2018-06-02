@@ -108,7 +108,7 @@ namespace AsLib
 
 	inline ColorRGB::operator ColorRGBA() const
 	{
-		ColorRGB col;
+		ColorRGBA col;
 		col.r = this->r;
 		col.g = this->g;
 		col.b = this->b;

@@ -60,7 +60,7 @@ namespace AsLib
 
 	uint8_t rand8(const int64_t i)
 	{
-		if (i >= UINT8_MAX) return rand8(UINT8_MAX);
+		if (i >= UINT8_MAX) return rand8(uint8_t(UINT8_MAX));
 		else return rand8(uint8_t(i));
 	}
 

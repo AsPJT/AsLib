@@ -4,7 +4,7 @@
 //
 //                    制作者: がっちょ (wanotaitei@gmail.com)
 //
-//                                   Ver 0.0.11.0 Alpha
+//                                   Ver 0.0.12.0 Alpha
 //
 //     ----------     ----------     ----------     ----------     ----------
 
@@ -15,13 +15,13 @@
 #include <cstdint>
 
 //AsLibバージョン
-constexpr int32_t ASLIB_VERSION = 0x00b0;
-const char* ASLIB_VERSION_STR = "0.0.11.0 Alpha";
+constexpr int32_t ASLIB_VERSION = 0x00c0;
+const char* ASLIB_VERSION_STR = "0.0.12.0 Alpha";
 
 //AsLibバージョン (UTF)
-const char* ASLIB_VERSION_STR8 = u8"0.0.11.0 Alpha";
-const char16_t* ASLIB_VERSION_STR16 = u"0.0.11.0 Alpha";
-const char32_t* ASLIB_VERSION_STR32 = U"0.0.11.0 Alpha";
+const char* ASLIB_VERSION_STR8 = u8"0.0.12.0 Alpha";
+const char16_t* ASLIB_VERSION_STR16 = u"0.0.12.0 Alpha";
+const char32_t* ASLIB_VERSION_STR32 = U"0.0.12.0 Alpha";
 
 int32_t AsMain();
 namespace AsLib { int32_t asEnd(); }
@@ -29,7 +29,13 @@ namespace AsLib { int32_t asEnd(); }
 #if defined(ASLIB_INCLUDE_DL)
 #define DX_NON_USING_NAMESPACE_DXLIB
 #include "DxLib.h"
+
+#if defined(__WINDOWS__)
 int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { return int(AsMain() && AsLib::asEnd()); }
+#elif defined(__ANDROID__)
+int android_main() { const int i = int(AsMain()); AsLib::asEnd(); return i; }
+#endif
+
 #elif defined(ASLIB_INCLUDE_S3)
 #define NO_S3D_USING
 #include "Siv3D.hpp"
@@ -39,6 +45,23 @@ int main() { return int(AsMain() && AsLib::asEnd()); }
 #else
 #define ASLIB_INCLUDE_NO
 int main() { return int(AsMain() && AsLib::asEnd()); }
+#endif
+
+#if defined(__ANDROID__) //Android専用
+#if !defined(__STDINT_LIMITS)
+#define INT8_MIN         (-127 - 1)
+#define INT16_MIN        (-32767 - 1)
+#define INT32_MIN        (-2147483647 - 1)
+#define INT64_MIN        (-9223372036854775807 - 1)
+#define INT8_MAX         127
+#define INT16_MAX        32767
+#define INT32_MAX        2147483647
+#define INT64_MAX        9223372036854775807
+#define UINT8_MAX        0xff
+#define UINT16_MAX       0xffff
+#define UINT32_MAX       0xffffffff
+#define UINT64_MAX       0xffffffffffffffff
+#endif
 #endif
 
 //基本インクルード
