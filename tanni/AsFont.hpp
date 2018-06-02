@@ -10,7 +10,7 @@
 namespace AsLib
 {
 
-#if defined(__DXLIB) //DxLib
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 
 	constexpr int FONT_THICK = 7;
 
@@ -27,14 +27,14 @@ namespace AsLib
 	int32_t asPrint(const AsFont font, const char* const format_string = "", const Pos2& pos2 = pos2_0, const ColorRGB& color_rgb = white)
 	{
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255) == -1) return -1;
-		if (DxLib::DrawStringFToHandle(float(pos2.x), float(pos2.y), format_string, AsDxColor(color_rgb), font) == -1) return -1;
+		if (DxLib::DrawStringFToHandle(float(pos2.x), float(pos2.y), format_string, color_rgb, font) == -1) return -1;
 		return 0;
 	}
 
 	int32_t asPrint(const AsFont font, const char* const format_string = "", const Pos2& pos2 = pos2_0, const ColorRGBA& color_rgba = whiteA)
 	{
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, color_rgba.a) == -1) return -1;
-		if (DxLib::DrawStringFToHandle(float(pos2.x), float(pos2.y), format_string, AsDxColor(color_rgba), font) == -1) return -1;
+		if (DxLib::DrawStringFToHandle(float(pos2.x), float(pos2.y), format_string, color_rgba, font) == -1) return -1;
 		return 0;
 	}
 
@@ -71,19 +71,19 @@ namespace AsLib
 	inline FontMainData& FontMainData::draw(const std::string& format_string, const ColorRGB& color_rgb)
 	{
 		DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
-		DxLib::DrawStringToHandle(0, 0, format_string.c_str(), AsDxColor(color_rgb), this->id);
+		DxLib::DrawStringToHandle(0, 0, format_string.c_str(), color_rgb, this->id);
 		return *this;
 	}
 
 	inline FontMainData& FontMainData::draw(const std::string& format_string, const ColorRGBA& color_rgba)
 	{
 		DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, int(color_rgba.a));
-		DxLib::DrawStringToHandle(0, 0, format_string.c_str(), AsDxColor(color_rgba), this->id);
+		DxLib::DrawStringToHandle(0, 0, format_string.c_str(), color_rgba, this->id);
 		return *this;
 }
 
 
-#elif defined(SIV3D_INCLUDED) //Siv3D
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
 
 #else //Console
 

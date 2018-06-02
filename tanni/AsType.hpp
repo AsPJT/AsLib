@@ -9,7 +9,7 @@
 
 namespace AsLib
 {
-#if defined(__DXLIB) //DxLib
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 
 	//ƒtƒHƒ“ƒgŒn
 	using AsFont = int;
@@ -19,11 +19,11 @@ namespace AsLib
 	using Tex = int;
 	constexpr int TEX_INIT = -1;
 
-#elif defined(SIV3D_INCLUDED) //Siv3D
-	using TEXTURE_VECTOR = Array<TextureRegion>;
-	using AsFont = Font;
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+	using TEXTURE_VECTOR = s3d::Array<s3d::TextureRegion>;
+	using AsFont = s3d::Font;
 #define FONT_INIT Font(60)
-	using asTex = Texture;
+	using Tex = s3d::Texture;
 #define TEX_INIT asTex(U"a.png")
 #else //Console
 

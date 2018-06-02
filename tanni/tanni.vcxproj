@@ -142,6 +142,7 @@
     <ClInclude Include="AsConst.hpp" />
     <ClInclude Include="AsCounter.hpp" />
     <ClInclude Include="AsDef.hpp" />
+    <ClInclude Include="AsAsFile.hpp" />
     <ClInclude Include="AsFile.hpp" />
     <ClInclude Include="AsFont.hpp" />
     <ClInclude Include="AsGamePad.hpp" />

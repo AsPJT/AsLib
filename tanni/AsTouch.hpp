@@ -10,7 +10,7 @@
 namespace AsLib
 {
 
-#if defined(__DXLIB) //DxLib
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 
 	//タッチされている数を返す
 	inline int32_t asTouchNum()
@@ -28,7 +28,19 @@ namespace AsLib
 		return 0;
 	}
 
-#elif defined(SIV3D_INCLUDED) //Siv3D
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+	//todo(タッチが追加されていない)
+	inline int32_t asTouchNum()
+	{
+		return 0;
+	}
+
+	//todo(タッチが追加されていない)
+	int32_t asTouch(const int32_t touch_id, Pos2& add_pos)
+	{
+		touch_id; add_pos;
+		return 0;
+	}
 
 #else //Console
 

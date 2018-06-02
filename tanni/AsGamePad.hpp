@@ -10,9 +10,9 @@
 namespace AsLib
 {
 
-#if defined(__DXLIB) //DxLib
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 
-#elif defined(SIV3D_INCLUDED) //Siv3D
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
 
 #else //Console
 

@@ -1,9 +1,4 @@
-﻿//ゲームエンジン
-#define DX_NON_USING_NAMESPACE_DXLIB
-#include "DxLib.h"
-
-#define AS_USING_GAME_PAD_MAX
-constexpr size_t ASLIB_GAME_PAD_MAX = 16;
+﻿#define ASLIB_INCLUDE_DL
 #include "AsLib.hpp"
 
 //管理クラス省略
@@ -153,36 +148,5 @@ int32_t AsMain()
 	//メインループ
 	while (mc.isLoop()) mc.scenePlay();
 
-	//終了処理
-	asEnd();
 	return 0;
 }
-
-
-
-
-
-//----------------------------------------------------------------------------------------------------
-
-
-
-
-
-//各ライブラリのメイン関数
-#if defined(__DXLIB) //DxLib
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
-	return int(AsMain());
-}
-#elif defined(SIV3D_INCLUDED) //Siv3D
-void Main()
-{
-	AsMain();
-	return;
-}
-#else //Console
-int main()
-{
-	return int(AsMain());
-}
-#endif

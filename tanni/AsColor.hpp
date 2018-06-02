@@ -9,9 +9,6 @@
 
 namespace AsLib
 {
-	constexpr bool IS_HEIGHT = true;
-	constexpr bool IS_WIDTH = false;
-
 	constexpr int32_t BIT_SHIFT_DIV_2 = 1;
 	constexpr int32_t BIT_SHIFT_DIV_256 = 8;
 
@@ -34,11 +31,30 @@ namespace AsLib
 		ColorRGB& operator*=(const ColorRGBA& add_color);
 		ColorRGB& operator*(const ColorRGB& add_color);
 		ColorRGB& operator*(const ColorRGBA& add_color);
+		operator ColorRGBA() const;
 
 		uint8_t r = COLOR_MAX;
 		uint8_t g = COLOR_MAX;
 		uint8_t b = COLOR_MAX;
+#if defined(ASLIB_INCLUDE_DL)
+		operator unsigned int() const;
+#elif defined(ASLIB_INCLUDE_S3)
+		operator s3d::Color() const;
+#endif
 	};
+#if defined(ASLIB_INCLUDE_DL)
+	inline ColorRGB::operator unsigned int() const
+	{
+		const unsigned int col = DxLib::GetColor(int(this->r), int(this->g), int(this->b));
+		return col;
+	}
+#elif defined(ASLIB_INCLUDE_S3)
+	inline ColorRGB::operator s3d::Color() const
+	{
+		const s3d::Color col(uint32_t(this->r), uint32_t(this->g), uint32_t(this->b));
+		return col;
+	}
+#endif
 
 	//‚RF{“§‰ß
 	struct ColorRGBA
@@ -54,17 +70,54 @@ namespace AsLib
 		ColorRGBA& operator*=(const ColorRGBA& add_color);
 		ColorRGBA& operator*(const ColorRGB& add_color);
 		ColorRGBA& operator*(const ColorRGBA& add_color);
+		operator ColorRGB() const;
 
 		uint8_t r = COLOR_MAX;
 		uint8_t g = COLOR_MAX;
 		uint8_t b = COLOR_MAX;
 		uint8_t a = COLOR_MAX;
+#if defined(ASLIB_INCLUDE_DL)
+		operator unsigned int() const;
+#elif defined(ASLIB_INCLUDE_S3)
+		operator s3d::Color() const;
+#endif
 	};
+
+#if defined(ASLIB_INCLUDE_DL)
+	inline ColorRGBA::operator unsigned int() const
+	{
+		const unsigned int col = DxLib::GetColor(int(this->r), int(this->g), int(this->b));
+		return col;
+	}
+#elif defined(ASLIB_INCLUDE_S3)
+	inline ColorRGBA::operator s3d::Color() const
+	{
+		const s3d::Color col(uint32_t(this->r), uint32_t(this->g), uint32_t(this->b), uint32_t(this->a));
+		return col;
+	}
+#endif
+
+	inline ColorRGBA::operator ColorRGB() const
+	{
+		ColorRGB col;
+		col.r = this->r;
+		col.g = this->g;
+		col.b = this->b;
+		return col;
+	}
+
+	inline ColorRGB::operator ColorRGBA() const
+	{
+		ColorRGB col;
+		col.r = this->r;
+		col.g = this->g;
+		col.b = this->b;
+		return col;
+	}
 
 	void asColorMul(uint8_t& color1, const uint8_t color2)
 	{
 		color1 = uint8_t((int32_t(color1) * int32_t(color2)) >> BIT_SHIFT_DIV_256);
-		return;
 	}
 
 	void asColorMul(ColorRGB& color1, const ColorRGB& color2)
@@ -72,7 +125,6 @@ namespace AsLib
 		asColorMul(color1.r, color2.r);
 		asColorMul(color1.g, color2.g);
 		asColorMul(color1.b, color2.b);
-		return;
 	}
 
 	void asColorMul(ColorRGB& color1, const ColorRGBA& color2)
@@ -80,7 +132,6 @@ namespace AsLib
 		asColorMul(color1.r, color2.r);
 		asColorMul(color1.g, color2.g);
 		asColorMul(color1.b, color2.b);
-		return;
 	}
 
 	void asColorMul(ColorRGBA& color1, const ColorRGB& color2)
@@ -88,7 +139,6 @@ namespace AsLib
 		asColorMul(color1.r, color2.r);
 		asColorMul(color1.g, color2.g);
 		asColorMul(color1.b, color2.b);
-		return;
 	}
 
 	void asColorMul(ColorRGBA& color1, const ColorRGBA& color2)
@@ -97,7 +147,6 @@ namespace AsLib
 		asColorMul(color1.g, color2.g);
 		asColorMul(color1.b, color2.b);
 		asColorMul(color1.a, color2.a);
-		return;
 	}
 
 	void asColorAdd(uint8_t& color1, const uint8_t color2)
@@ -105,8 +154,6 @@ namespace AsLib
 		int32_t color32 = int32_t(color1) + int32_t(color2);
 		if (color32 >= COLOR_MAX) color1 = uint8_t(COLOR_MAX);
 		else color1 = uint8_t(color32);
-
-		return;
 	}
 
 	void asColorAdd(ColorRGB& color1, const ColorRGB& color2)
@@ -114,7 +161,6 @@ namespace AsLib
 		asColorAdd(color1.r, color2.r);
 		asColorAdd(color1.g, color2.g);
 		asColorAdd(color1.b, color2.b);
-		return;
 	}
 
 	void asColorAdd(ColorRGB& color1, const ColorRGBA& color2)
@@ -122,7 +168,6 @@ namespace AsLib
 		asColorAdd(color1.r, color2.r);
 		asColorAdd(color1.g, color2.g);
 		asColorAdd(color1.b, color2.b);
-		return;
 	}
 
 	void asColorAdd(ColorRGBA& color1, const ColorRGB& color2)
@@ -130,7 +175,6 @@ namespace AsLib
 		asColorAdd(color1.r, color2.r);
 		asColorAdd(color1.g, color2.g);
 		asColorAdd(color1.b, color2.b);
-		return;
 	}
 
 	void asColorAdd(ColorRGBA& color1, const ColorRGBA& color2)
@@ -139,7 +183,6 @@ namespace AsLib
 		asColorAdd(color1.g, color2.g);
 		asColorAdd(color1.b, color2.b);
 		asColorAdd(color1.a, color2.a);
-		return;
 	}
 
 	inline ColorRGB& ColorRGB::operator++()

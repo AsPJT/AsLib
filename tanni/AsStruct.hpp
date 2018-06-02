@@ -17,6 +17,7 @@ namespace AsLib
 	struct Pos4;
 	struct Pos4R;
 	struct PosA4;
+	struct PosL4;
 
 	//8点位置
 	struct Pos8;
@@ -53,53 +54,53 @@ namespace AsLib
 		float y = 1.0f;
 	};
 
-	//長方形の大きさ
+	//長方形の大きさ(左上と右下の位置)
 	struct Pos4
 	{
 		Pos4& operator=(const Pos2& add_pos);
 		Pos4& operator=(const Pos8& add_pos);
+		Pos4& operator=(const PosL4& add_pos);
 		operator Pos2();
 		operator Pos8();
-		int32_t x1 = 0;
-		int32_t y1 = 0;
-		int32_t x2 = 0;
-		int32_t y2 = 0;
+		operator PosA4();
+		operator PosL4();
+		int32_t x1;
+		int32_t y1;
+		int32_t x2;
+		int32_t y2;
+
+		//Pos4() {};
+		//Pos4(int32_t x1_, int32_t y1_, int32_t x2_, int32_t y2_) :x1(x1_), y1(y1_), x2(x2_), y2(y2_) {};
 	};
 
-	struct PosA4
+	//長方形の大きさ(位置と長さ)
+	struct PosL4
 	{
-		PosA4& operator=(const Pos2& add_pos);
+		PosL4& operator=(const Pos4& add_pos);
+		operator Pos8();
 		operator Pos4();
-		PosA4& rand(const Pos2&);
+		operator Pos2();
+		operator PosA4();
 		int32_t x = 0;
 		int32_t y = 0;
 		int32_t w = 0;
 		int32_t h = 0;
 	};
 
-	inline PosA4 & PosA4::rand(const Pos2& add_pos)
+	//中心位置と大きさを併せ持つ
+	struct PosA4
 	{
-		this->x = rand32(add_pos.x);
-		this->y = rand32(add_pos.y);
-		return *this;
-	}
-
-	inline PosA4& PosA4::operator=(const Pos2& add_pos)
-	{
-		this->x = add_pos.x;
-		this->y = add_pos.y;
-		return *this;
-	}
-
-	inline PosA4::operator Pos4()
-	{
-		Pos4 pos;
-		pos.x1 = this->x - (this->w >> 1);
-		pos.y1 = this->y - (this->h >> 1);
-		pos.x2 = this->x + (this->w >> 1);
-		pos.y2 = this->y + (this->h >> 1);
-		return pos;
-	}
+		PosA4& operator=(const Pos2& add_pos);
+		operator Pos8();
+		operator Pos4();
+		operator Pos2();
+		operator PosL4();
+		PosA4& rand(const Pos2&);
+		int32_t x = 0;
+		int32_t y = 0;
+		int32_t w = 0;
+		int32_t h = 0;
+	};
 
 	//画面比での長方形の大きさ
 	struct Pos4R
@@ -141,6 +142,146 @@ namespace AsLib
 		float x4 = 1.0f;
 		float y4 = 1.0f;
 	};
+
+	inline  PosL4& PosL4::operator=(const Pos4& add_pos)
+	{
+		this->w = add_pos.x2 - add_pos.x1;
+		this->h = add_pos.y2 - add_pos.y1;
+		this->x = add_pos.x1;
+		this->y = add_pos.y1;
+		return *this;
+	}
+
+	inline Pos4& Pos4::operator=(const PosL4& add_pos)
+	{
+		this->x1 = add_pos.x;
+		this->y1 = add_pos.y;
+		this->x2 = add_pos.x + add_pos.w;
+		this->y2 = add_pos.y + add_pos.h;
+		return *this;
+	}
+
+	inline Pos4::operator PosL4()
+	{
+		PosL4 pos;
+		pos.w = this->x2 - this->x1;
+		pos.h = this->y2 - this->y1;
+		pos.x = this->x1;
+		pos.y = this->y1;
+		return pos;
+	}
+
+	inline Pos4::operator PosA4()
+	{
+		PosA4 pos;
+		pos.w = this->x2 - this->x1;
+		pos.h = this->y2 - this->y1;
+		pos.x = this->x1 + (pos.w >> 1);
+		pos.y = this->y1 + (pos.h >> 1);
+		return pos;
+	}
+
+	inline PosL4::operator PosA4()
+	{
+		PosA4 pos;
+		const int32_t pos_w = this->w >> 1;
+		const int32_t pos_h = this->h >> 1;
+		pos.x = this->x + pos_w;
+		pos.y = this->y + pos_h;
+		pos.w = this->w;
+		pos.h = this->h;
+		return pos;
+	}
+
+	inline PosL4::operator Pos8()
+	{
+		Pos8 pos;
+		pos.x1 = this->x;
+		pos.y1 = this->y;
+		pos.x2 = this->x + this->w;
+		pos.y2 = this->y;
+		pos.x3 = this->x;
+		pos.y3 = this->y + this->h;
+		pos.x4 = this->x + this->w;
+		pos.y4 = this->y + this->h;
+		return pos;
+	}
+	inline PosL4::operator Pos4()
+	{
+		Pos4 pos;
+		pos.x1 = this->x;
+		pos.y1 = this->y;
+		pos.x2 = this->x + this->w;
+		pos.y2 = this->y + this->h;
+		return pos;
+	}
+	inline PosL4::operator Pos2()
+	{
+		Pos2 pos;
+		pos.x = this->x;
+		pos.y = this->y;
+		return pos;
+	}
+
+	inline PosA4::operator PosL4()
+	{
+		PosL4 pos;
+		pos.x = this->x - (this->w >> 1);
+		pos.y = this->y - (this->h >> 1);
+		pos.w = this->w;
+		pos.h = this->h;
+		return pos;
+	}
+
+	inline PosA4::operator Pos8()
+	{
+		Pos8 pos;
+		const int32_t pos_w = this->w >> 1;
+		const int32_t pos_h = this->h >> 1;
+		pos.x1 = this->x - pos_w;
+		pos.y1 = this->y - pos_h;
+		pos.x2 = this->x + pos_w;
+		pos.y2 = this->y - pos_h;
+		pos.x3 = this->x - pos_w;
+		pos.y3 = this->y + pos_h;
+		pos.x4 = this->x + pos_w;
+		pos.y4 = this->y + pos_h;
+		return pos;
+	}
+
+	inline PosA4::operator Pos2()
+	{
+		Pos2 pos;
+		pos.x = this->x;
+		pos.y = this->y;
+		return pos;
+	}
+
+	inline PosA4::operator Pos4()
+	{
+		Pos4 pos;
+		const int32_t pos_w = this->w >> 1;
+		const int32_t pos_h = this->h >> 1;
+		pos.x1 = this->x - pos_w;
+		pos.y1 = this->y - pos_h;
+		pos.x2 = this->x + pos_w;
+		pos.y2 = this->y + pos_h;
+		return pos;
+	}
+
+	inline PosA4 & PosA4::rand(const Pos2& add_pos)
+	{
+		this->x = rand32(add_pos.x);
+		this->y = rand32(add_pos.y);
+		return *this;
+	}
+
+	inline PosA4& PosA4::operator=(const Pos2& add_pos)
+	{
+		this->x = add_pos.x;
+		this->y = add_pos.y;
+		return *this;
+	}
 
 	//2点位置
 

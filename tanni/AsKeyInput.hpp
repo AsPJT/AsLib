@@ -12,7 +12,7 @@ namespace AsLib
 	constexpr size_t KEY_INPUT_CHAR_MAX = 255;
 	constexpr size_t KEY_INPUT_CHAR_MAX_1 = KEY_INPUT_CHAR_MAX + 1;
 
-#if defined(__DXLIB) //DxLib
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 
 #if defined(__ANDROID__)
 
@@ -123,7 +123,7 @@ namespace AsLib
 
 #endif
 
-#elif defined(SIV3D_INCLUDED) //Siv3D
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
 
 #else //Console
 

@@ -85,6 +85,8 @@ namespace AsLib
 		std::vector<TextureMainData> texture_main_data_render;
 		std::vector<TextureUI> texture_ui_render;
 
+		//std::vector<>
+
 		//•¶ŽšŒn
 		std::vector<int> font_render;
 
@@ -222,7 +224,7 @@ namespace AsLib
 
 	inline MainControl & MainControl::sceneEnd()
 	{
-		select_scene = -1;
+		select_scene = 0;
 		is_loop = false;
 		return *this;
 	}

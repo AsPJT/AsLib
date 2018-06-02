@@ -20,7 +20,7 @@ These codes are licensed under CC0.
 現在のバージョンでは基本的な動作のみ対応済み。
 
 ・OpenSiv3D
-対応度は低め。
+現在のバージョンでは基本的な動作のみ対応済み。
 
 ・Qt
 現在は対応予定無し。

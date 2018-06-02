@@ -10,7 +10,7 @@
 namespace AsLib
 {
 
-#if defined(__DXLIB) //DxLib
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 
 	//メインループ
 	bool AsLoop()
@@ -18,21 +18,21 @@ namespace AsLib
 		return ((DxLib::ProcessMessage() == 0) && (DxLib::ScreenFlip() == 0) && (DxLib::ClearDrawScreen() == 0) && (DxLib::CheckHitKey(KEY_INPUT_ESCAPE) == 0));
 	}
 
-	bool AsSkipLoop()
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+
+	//メインループ
+	bool AsLoop()
 	{
-		return ((DxLib::ProcessMessage() == 0) && (DxLib::ScreenFlip() == 0) && (DxLib::CheckHitKey(KEY_INPUT_ESCAPE) == 0));
+		return s3d::System::Update();
 	}
-
-	bool AsLoop(MainData& as)
-	{
-		if (AsLoop() == false) return false;
-
-		return true;
-	}
-
-#elif defined(SIV3D_INCLUDED) //Siv3D
 
 #else //Console
+
+	static bool ASLIB_CONSOLE_LOOP = true;
+	bool AsLoop()
+	{
+		return ASLIB_CONSOLE_LOOP;
+	}
 
 #endif
 

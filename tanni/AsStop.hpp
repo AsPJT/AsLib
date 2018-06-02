@@ -10,7 +10,7 @@
 namespace AsLib
 {
 
-#if defined(__DXLIB) //DxLib
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 
 	int32_t asStop()
 	{
@@ -19,7 +19,13 @@ namespace AsLib
 		return 0;
 	}
 
-#elif defined(SIV3D_INCLUDED) //Siv3D
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+
+	int32_t asStop()
+	{
+		//s3d::WaitKey();
+		return 0;
+	}
 
 #else //Console
 

@@ -9,83 +9,27 @@
 
 namespace AsLib
 {
-#if defined(__DXLIB) //DxLib
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 
-	int32_t asRect(const Pos4& pos4 = {}, const ColorRGB& colorRGB = {}) {
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255) == -1) return -1;
-		if (DxLib::DrawBox(int(pos4.x1), int(pos4.y1), int(pos4.x2), int(pos4.y2), AsDxColor(colorRGB), TRUE) == -1) return -1;
+	int32_t asRect(const Pos4& pos = {}, const ColorRGBA& col = {}) {
+		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, col.a) == -1) return -1;
+		if (DxLib::DrawBox(int(pos.x1), int(pos.y1), int(pos.x2), int(pos.y2), col, TRUE) == -1) return -1;
 		return 0;
 	}
 
-	int32_t asRect(const Pos4& pos4 = {}, const ColorRGBA& colorRGBA = {}) {
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, colorRGBA.a) == -1) return -1;
-		if (DxLib::DrawBox(int(pos4.x1), int(pos4.y1), int(pos4.x2), int(pos4.y2), AsDxColor(colorRGBA), TRUE) == -1) return -1;
-		return 0;
-	}
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
 
-	int32_t asRect(const Pos2& pos2 = {}, const ColorRGB& colorRGB = {}) {
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255) == -1) return -1;
-		if (DxLib::DrawBox(0, 0, int(pos2.x), int(pos2.y), AsDxColor(colorRGB), TRUE) == -1) return -1;
+	int32_t asRect(const Pos4& pos_ = {}, const ColorRGBA& colorRGBA = {}) {
+		static PosL4 pos;
+		pos = pos_;
+		s3d::Rect(pos.x, pos.y, pos.w, pos.h).draw(s3d::Color(colorRGBA));
 		return 0;
-	}
-
-	int32_t asRect(const Pos2& pos2 = {}, const ColorRGBA& colorRGBA = {}) {
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, colorRGBA.a) == -1) return -1;
-		if (DxLib::DrawBox(0, 0, int(pos2.x), int(pos2.y), AsDxColor(colorRGBA), TRUE) == -1) return -1;
-		return 0;
-	}
-
-	int32_t asRect(const int32_t xy = 0, const ColorRGBA& colorRGBA = {}) {
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, colorRGBA.a) == -1) return -1;
-		if (DxLib::DrawBox(0, 0, int(xy), int(xy), AsDxColor(colorRGBA), TRUE) == -1) return -1;
-		return 0;
-	}
-
-	int32_t asRect(const int32_t x = 0, const int32_t y = 0, const ColorRGBA& colorRGBA = {}) {
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, colorRGBA.a) == -1) return -1;
-		if (DxLib::DrawBox(0, 0, int(x), int(y), AsDxColor(colorRGBA), TRUE) == -1) return -1;
-		return 0;
-	}
-
-	int32_t asRect(const int32_t x1 = 0, const int32_t y1 = 0, const int32_t xy2 = 0, const ColorRGBA& colorRGBA = {}) {
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, colorRGBA.a) == -1) return -1;
-		if (DxLib::DrawBox(int(x1), int(y1), int(xy2), int(xy2), AsDxColor(colorRGBA), TRUE) == -1) return -1;
-		return 0;
-	}
-
-	int32_t asRect(const int32_t x1 = 0, const int32_t y1 = 0, const int32_t x2 = 0, const int32_t y2 = 0, const ColorRGBA& colorRGBA = {}) {
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, colorRGBA.a) == -1) return -1;
-		if (DxLib::DrawBox(int(x1), int(y1), int(x2), int(y2), AsDxColor(colorRGBA), TRUE) == -1) return -1;
-		return 0;
-	}
-
-	int32_t asRect(const int32_t xy = 0, const ColorRGB& colorRGB = {}) {
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255) == -1) return -1;
-		if (DxLib::DrawBox(0, 0, int(xy), int(xy), AsDxColor(colorRGB), TRUE) == -1) return -1;
-		return 0;
-	}
-
-	int32_t asRect(const int32_t x = 0, const int32_t y = 0, const ColorRGB& colorRGB = {}) {
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255) == -1) return -1;
-		if (DxLib::DrawBox(0, 0, int(x), int(y), AsDxColor(colorRGB), TRUE) == -1) return -1;
-		return 0;
-	}
-
-	int32_t asRect(const int32_t x1 = 0, const int32_t y1 = 0, const int32_t xy2 = 0, const ColorRGB& colorRGB = {}) {
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255) == -1) return -1;
-		if (DxLib::DrawBox(int(x1), int(y1), int(xy2), int(xy2), AsDxColor(colorRGB), TRUE) == -1) return -1;
-		return 0;
-	}
-
-	int32_t asRect(const int32_t x1 = 0, const int32_t y1 = 0, const int32_t x2 = 0, const int32_t y2 = 0, const ColorRGB& colorRGB = {}) {
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255) == -1) return -1;
-		if (DxLib::DrawBox(int(x1), int(y1), int(x2), int(y2), AsDxColor(colorRGB), TRUE) == -1) return -1;
-		return 0;
-	}
-
-#elif defined(SIV3D_INCLUDED) //Siv3D
+}
 
 #else //Console
 
 #endif
+
+	inline int32_t asRect(const ColorRGBA& col = {}, const Pos4& pos = {}) { return asRect(pos, col); }
+
 }
