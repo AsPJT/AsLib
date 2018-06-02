@@ -14,6 +14,7 @@ namespace AsLib
 	{
 	public:
 		Counter& update(const int32_t);
+		Counter& update(const bool);
 
 		//出力
 		bool Down() const { return this->down; };
@@ -28,6 +29,26 @@ namespace AsLib
 		bool up = false;
 		int32_t count = 0;
 	};
+
+	inline Counter& Counter::update(const bool is_down)
+	{
+		//押されたか
+		if (is_down) {
+			//押された瞬間か
+			if (count == 0) down = true;
+			else down = false;
+			//カウントを増やす
+			if (count < INT32_MAX) ++count;
+		}
+		else {
+			//離された瞬間か
+			if (count != 0) up = true;
+			else up = false;
+			//カウントをリセット
+			count = 0;
+		}
+		return *this;
+	}
 
 	inline Counter& Counter::update(const int32_t is_down)
 	{

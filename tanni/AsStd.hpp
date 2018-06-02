@@ -126,6 +126,7 @@ namespace AsLib
 			0xffffffff, 0xff000000,
 			0xffffffff) == -1) return -1;
 #endif
+		DxLib::SetUseDirectInputFlag(TRUE);
 		//if (DxLib::SetUseASyncLoadFlag(TRUE) == -1) return -1;
 
 		return 0;

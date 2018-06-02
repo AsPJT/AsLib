@@ -108,23 +108,9 @@ namespace AsLib
 		int32_t touch_all_num = 0;
 		bool is_up_all = false;
 		bool is_down_all = false;
+		Mouse mouse;
 
 	public:
-
-		Pos4 & aspect(const Pos2& pos_)
-		{
-			static Pos4 aspect_pos;
-			const Pos2 pos2 = init_data.windowSize();
-
-			aspect_pos.x2 = int32_t(pos_.x*pos2.y / float(pos_.y));
-			if (aspect_pos.x2 > pos2.x) {
-				aspect_pos.x2 = pos2.x;
-				aspect_pos.y2 = int32_t(pos_.y*pos2.x / float(pos_.x));
-			}
-			else aspect_pos.y2 = pos2.y;
-
-			return aspect_pos;
-		}
 		
 		MainControl& loopEnd() { this->is_loop = 0; return *this; };
 
@@ -192,13 +178,25 @@ namespace AsLib
 
 		//タッチされた数を取得
 		const int32_t check_touch_all_num = asTouchNum();
+		int32_t check_touch_mouse_all_num = check_touch_all_num;
 
-		if (check_touch_all_num > 0 && this->touch_all_num == 0) this->is_down_all = true;
-		if (check_touch_all_num == 0 && this->touch_all_num > 0) this->is_up_all = true;
-		this->touch_all_num = check_touch_all_num;
+		//マウスのタッチを導入
+		if (check_touch_all_num == 0) {
+			if (mouse.count() > 0) {
+				//マウスのあたり判定
+				for (TextureUI &j : texture_ui_render) j.touch(mouse.Pos());
+				for (AnimeUI &j : anime_ui_render) j.touch(mouse.Pos());
+				++check_touch_mouse_all_num;
+			}
+		}
+
+		//画面のクリック＆リリース
+		if (check_touch_mouse_all_num > 0 && this->touch_all_num == 0) this->is_down_all = true;
+		if (check_touch_mouse_all_num == 0 && this->touch_all_num > 0) this->is_up_all = true;
+		this->touch_all_num = check_touch_mouse_all_num;
 		Pos2 touch_pos = {};
 
-
+		//タッチのみ
 		for (int32_t i = 0; i < check_touch_all_num; ++i) {
 			asTouch(i, touch_pos);
 
@@ -274,6 +272,7 @@ namespace AsLib
 		if (!AsLoop()) sceneEnd();
 
 		//タッチを取得
+		this->mouse.update();
 		this->checkTouch();
 
 		return *this;

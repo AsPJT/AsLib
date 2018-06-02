@@ -97,12 +97,12 @@ void startScene(MC& mc)
 
 	//while (mc.isLoop() && AsLoop())
 	//{
-		mc.anime(NUM_ANIME);
+		//mc.anime(NUM_ANIME);
 	//}
 	//mc.loopEnd();
 
 	//描画レイヤー
-	//mc.texture(GAHAKU_TEXUI);
+	mc.texture(GAHAKU_TEXUI);
 
 	//命令レイヤー
 	if (mc.upTex0(GAHAKU_TEXUI)) mc.scene(MAIN_SCENE);
@@ -130,7 +130,7 @@ void endScene(MC& mc)
 void logoScene1(MC& mc)
 {
 	//mc.logoAnime(TITLE_ANIMEUI, 600, 1700, 2000, START_SCENE);
-	mc.anime(NUM_ANIME);
+	//mc.anime(NUM_ANIME);
 	mc.logoTex(GAHAKU_TEXTURE, 600, 1700, 2000, START_SCENE);
 	if (mc.isUp()) mc.scene(START_SCENE);
 }
