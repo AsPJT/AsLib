@@ -105,7 +105,7 @@ int main() { return int(AsMain() && AsLib::asEnd()); }
 //テクスチャ
 #include "AsTex.hpp"
 
-//主要クラス
+//主要クラス(All)
 #include "AsClass.hpp"
 
 //メインループ(DL/S3/NO)

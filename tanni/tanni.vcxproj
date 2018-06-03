@@ -164,7 +164,6 @@
     <ClInclude Include="AsTex.hpp" />
     <ClInclude Include="AsTouch.hpp" />
     <ClInclude Include="AsType.hpp" />
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc" />

@@ -143,9 +143,6 @@ namespace AsLib
 
 		void checkTouch();
 
-		//描画スキップ
-		bool is_skip = false;
-
 		//シーン系
 		std::array<std::function<void(MainControl&)>, SCENE_MAX> scene_func = {};
 		std::array<ColorRGB, SCENE_MAX> scene_BG = {};
