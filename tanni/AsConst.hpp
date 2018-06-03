@@ -29,6 +29,8 @@ namespace AsLib
 	constexpr ColorRGB black_RGB = { 0 ,0 ,0 };
 	constexpr ColorRGBA black_RGBA = { 0 ,0 ,0,255 };
 
+	//フルスクリーン
+	constexpr Pos2 FULL_SCREEN_POS = { -1,-1 };
 
 	//原点位置
 	constexpr Pos2 pos2_0 = { 0,0 };

@@ -4,7 +4,7 @@
 //
 //                    制作者: がっちょ (wanotaitei@gmail.com)
 //
-//                                   Ver 0.0.14.0 Alpha
+//                                   Ver 0.0.15.0 Alpha
 //
 //     ----------     ----------     ----------     ----------     ----------
 
@@ -15,23 +15,27 @@
 #include <cstdint>
 
 //AsLibバージョン
-constexpr int32_t ASLIB_VERSION = 0x00e0;
-const char* ASLIB_VERSION_STR = "0.0.14.0 Alpha";
+constexpr int32_t ASLIB_VERSION = 0x00f0;
+const char* ASLIB_VERSION_STR = "0.0.15.0 Alpha";
 
 //AsLibバージョン (UTF)
-const char* ASLIB_VERSION_STR8 = u8"0.0.14.0 Alpha";
-const char16_t* ASLIB_VERSION_STR16 = u"0.0.14.0 Alpha";
-const char32_t* ASLIB_VERSION_STR32 = U"0.0.14.0 Alpha";
+const char* ASLIB_VERSION_STR8 = u8"0.0.15.0 Alpha";
+const char16_t* ASLIB_VERSION_STR16 = u"0.0.15.0 Alpha";
+const char32_t* ASLIB_VERSION_STR32 = U"0.0.15.0 Alpha";
 
 int32_t AsMain();
 namespace AsLib { int32_t asEnd(); }
 //他ライブラリインクルード
-#if defined(ASLIB_INCLUDE_DL)
+#if defined(ASLIB_INCLUDE_AS)
+#include <Windows.h>
+int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int i = int(AsMain()); AsLib::asEnd(); return i; }
+
+#elif defined(ASLIB_INCLUDE_DL)
 #define DX_NON_USING_NAMESPACE_DXLIB
 #include "DxLib.h"
-
 #if defined(__WINDOWS__)
-int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { return int(AsMain() && AsLib::asEnd()); }
+#include <Windows.h>
+int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int i = int(AsMain()); AsLib::asEnd(); return i; }
 #elif defined(__ANDROID__)
 int android_main() { const int i = int(AsMain()); AsLib::asEnd(); return i; }
 #endif
@@ -40,6 +44,7 @@ int android_main() { const int i = int(AsMain()); AsLib::asEnd(); return i; }
 #define NO_S3D_USING
 #include "Siv3D.hpp"
 void Main() { AsMain(); AsLib::asEnd(); return; }
+
 #elif defined(ASLIB_INCLUDE_NO)
 int main() { return int(AsMain() && AsLib::asEnd()); }
 #else
@@ -128,6 +133,9 @@ int main() { return int(AsMain() && AsLib::asEnd()); }
 
 //空間を扱う(All)
 #include "AsMap.hpp"
+
+//電源
+#include "AsBattery.hpp"
 
 //マウス
 #include "AsMouse.hpp"

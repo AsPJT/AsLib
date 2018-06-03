@@ -37,7 +37,7 @@ namespace AsLib
 #endif
 
 #if defined(__WINDOWS__)
-	Pos2 asWindowSizeMain(const Pos2& pos2 = pos2_100)
+	inline Pos2 asWindowSizeMain(const Pos2& pos2 = pos2_100)
 	{
 		return pos2;
 	}
@@ -53,7 +53,12 @@ namespace AsLib
 #if defined(__WINDOWS__)
 	Pos2 asWindowSizeTrue(const Pos2& pos2 = pos2_100)
 	{
-		return pos2;
+		if (pos2.x != -1 || pos2.y != -1) return pos2;
+		RECT rc;
+		GetWindowRect(GetDesktopWindow(), &rc);
+		Pos2 full_pos;
+		full_pos(int32_t(rc.right - rc.left), int32_t(rc.bottom - rc.top));
+		return full_pos;
 	}
 #elif defined(__ANDROID__)
 	Pos2 asWindowSizeTrue(const Pos2& pos2 = pos2_100)
@@ -71,22 +76,33 @@ namespace AsLib
 	}
 #endif
 
+	bool is_asFullScreenSize(const Pos2& pos2)
+	{
+		if (pos2.x == -1 || pos2.y == -1) return true;
+		else return false;
+	}
+
+	inline Pos2 asFullScreenSize()
+	{
+		return { -1,-1 };
+	}
+
 #if defined(__WINDOWS__)
-	Pos2 asWindowSize(const Pos2& pos2 = pos2_100)
+	inline Pos2 asSP_FullScreenSize(const Pos2& pos2 = pos2_100)
 	{
 		return pos2;
 	}
 #elif defined(__ANDROID__)
-	Pos2 asWindowSize(const Pos2& pos2 = pos2_100)
+	Pos2 asSP_FullScreenSize(const Pos2& pos2 = { -1,-1 })
 	{
-		int window_x;
-		int window_y;
-		if (DxLib::GetAndroidDisplayResolution(&window_x, &window_y) == -1) return pos2;
+		//int window_x;
+		//int window_y;
+		//if (DxLib::GetAndroidDisplayResolution(&window_x, &window_y) == -1) return pos2;
 
-		Pos2 pos;
-		pos(int32_t(window_x), int32_t(window_y));
+		//Pos2 pos;
+		//pos(int32_t(window_x), int32_t(window_y));
 
-		return pos;
+		return { -1,-1 };
 	}
 #endif
 
@@ -98,15 +114,36 @@ namespace AsLib
 #if defined(__WINDOWS__)
 		DxLib::SetWindowIconID(22);
 		DxLib::SetWindowSizeChangeEnableFlag(TRUE);
-		if (DxLib::ChangeWindowMode(TRUE) == -1) return -1;
 		if (DxLib::SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8) == -1) return -1;
-		if (AsChangeWindowSize(window_size) == -1) return -1;
+
+		//フルスクリーンモード
+		if (is_asFullScreenSize(window_size)) {
+			DxLib::SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_NATIVE);
+			if (DxLib::ChangeWindowMode(FALSE) == -1) return -1;
+			RECT rc;
+			GetWindowRect(GetDesktopWindow(), &rc);
+			Pos2 full_pos;
+			full_pos(int32_t(rc.right - rc.left), int32_t(rc.bottom - rc.top));
+			if (AsChangeWindowSize(full_pos) == -1) return -1;
+		}
+		else {//通常のモード
+			if (DxLib::ChangeWindowMode(TRUE) == -1) return -1;
+			if (AsChangeWindowSize(window_size) == -1) return -1;
+		}
 #endif
 		if (AsChangeColorBG(BG_color) == -1) return -1;
+		//ここで初期化
 		if (DxLib::DxLib_Init() == -1) return -1;
 
+#if defined(__WINDOWS__)
+		//フルスクリーンモード
+		if (is_asFullScreenSize(window_size)) {
+			//マウスの表示をON
+			DxLib::SetMouseDispFlag(TRUE);
+		}
+#endif
 #if defined(__ANDROID__)
-		if (AsChangeWindowSize(asWindowSize(window_size)) == -1) return -1;
+		if (AsChangeWindowSize(asWindowSizeTrue(window_size)) == -1) return -1;
 #endif
 		if (DxLib::SetDXArchiveExtension("as") == -1) return -1;
 
@@ -128,7 +165,7 @@ namespace AsLib
 
 		DxLib::SetUseDirectInputFlag(TRUE);
 #endif
-		//if (DxLib::SetUseASyncLoadFlag(TRUE) == -1) return -1;
+		if (DxLib::SetUseASyncLoadFlag(FALSE) == -1) return -1;
 
 		return 0;
 	}
@@ -149,7 +186,6 @@ namespace AsLib
 	{
 		return int32_t(DxLib::printfDx("%s", format_string));
 	}
-
 
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 

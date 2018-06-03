@@ -97,12 +97,14 @@ void startScene(MC& mc)
 
 	//while (mc.isLoop() && AsLoop())
 	//{
-		//mc.anime(NUM_ANIME);
+		mc.anime(NUM_ANIME);
 	//}
 	//mc.loopEnd();
 
 	//描画レイヤー
 	mc.texture(GAHAKU_TEXUI);
+
+	asBatteryDraw({ 700,700,200,300 });
 
 	//命令レイヤー
 	if (mc.upTex0(GAHAKU_TEXUI)) mc.scene(MAIN_SCENE);
@@ -152,7 +154,7 @@ void logoScene4(MC& mc)
 int32_t AsMain()
 {
 	//管理クラス
-	MC mc(u8"Simple Counter", { 720,360 }, BG_COLOR);
+	MC mc(u8"Simple Counter", FULL_SCREEN_POS, BG_COLOR);
 
 	//読み込み
 	sceneInit(mc);
@@ -161,7 +163,7 @@ int32_t AsMain()
 
 	//初期シーン
 	mc.scene(LOGO_SCENE1);
-
+	
 	//メインループ
 	while (mc.isLoop()) mc.scenePlay();
 
