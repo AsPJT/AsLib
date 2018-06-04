@@ -91,23 +91,27 @@ inline void UI_Init(MC& mc)
 	mc.animeUI_Add(NUM_ANIME, 200, { 50,50,400,400 });
 }
 
+void batteryScene(MC& mc)
+{
+	asPrint("%d ",mc.battery.Power());
+}
+
 //開始画面
 void startScene(MC& mc)
 {
 
-	//while (mc.isLoop() && AsLoop())
-	//{
-		mc.anime(NUM_ANIME);
-	//}
-	//mc.loopEnd();
+	mc.anime(NUM_ANIME);
 
 	//描画レイヤー
-	mc.texture(GAHAKU_TEXUI);
+	mc.texture(GAHAKU2_TEXUI);
 
-	asBatteryDraw({ 700,700,200,300 });
+	mc.battery.draw();
+	if (mc.battery.Touch()) batteryScene(mc);
+
+	//asBatteryDraw({ 700,200,200,300 });
 
 	//命令レイヤー
-	if (mc.upTex0(GAHAKU_TEXUI)) mc.scene(MAIN_SCENE);
+	if (mc.upTex0(GAHAKU2_TEXUI)) mc.scene(LOGO_SCENE1);
 }
 
 //メイン画面
@@ -154,7 +158,8 @@ void logoScene4(MC& mc)
 int32_t AsMain()
 {
 	//管理クラス
-	MC mc(u8"Simple Counter", FULL_SCREEN_POS, BG_COLOR);
+	MC mc(u8"Simple Counter", {1000,600}, BG_COLOR);
+	mc.battery.make({ 700,200,200,300 });
 
 	//読み込み
 	sceneInit(mc);

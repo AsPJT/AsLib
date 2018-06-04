@@ -119,6 +119,7 @@ namespace AsLib
 		std::vector<TextureUI> texture_ui_render;
 		std::vector<AnimeMainData> anime_main_data_render;
 		std::vector<AnimeUI> anime_ui_render;
+		Battery battery;
 
 		//std::vector<>
 
@@ -172,6 +173,7 @@ namespace AsLib
 		//UIのタッチ回数を初期化
 		for (TextureUI &i : texture_ui_render) i.initTouch();
 		for (AnimeUI &i : anime_ui_render) i.initTouch();
+		this->battery.initTouch();
 
 		//タッチされた数を取得
 		const int32_t check_touch_all_num = asTouchNum();
@@ -183,6 +185,7 @@ namespace AsLib
 				//マウスのあたり判定
 				for (TextureUI &j : texture_ui_render) j.touch(mouse.Pos());
 				for (AnimeUI &j : anime_ui_render) j.touch(mouse.Pos());
+				this->battery.touch(mouse.Pos());
 				++check_touch_mouse_all_num;
 			}
 		}
@@ -200,11 +203,13 @@ namespace AsLib
 			//タッチのあたり判定
 			for (TextureUI &j : texture_ui_render) j.touch(touch_pos);
 			for (AnimeUI &j : anime_ui_render) j.touch(touch_pos);
+			this->battery.touch(touch_pos);
 		}
 
 		//何回タッチされたかカウント
 		for (TextureUI &j : texture_ui_render) j.update();
 		for (AnimeUI &j : anime_ui_render) j.update();
+		this->battery.update();
 	}
 
 	MainControl::~MainControl()
@@ -243,6 +248,7 @@ namespace AsLib
 		//UIのタッチ回数を初期化
 		for (TextureUI &i : texture_ui_render) i.initTouch();
 		for (AnimeUI &i : anime_ui_render) i.initTouch();
+		this->battery.initTouch();
 
 		//背景色変更
 		AsChangeColorBG(scene_BG[add_select_scene]);
