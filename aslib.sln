@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tanni", "tanni\tanni.vcxproj", "{ADF29D8E-3996-43B6-9819-1C247CFFAC98}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aslib", "aslib\aslib.vcxproj", "{ADF29D8E-3996-43B6-9819-1C247CFFAC98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

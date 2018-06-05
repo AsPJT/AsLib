@@ -125,13 +125,14 @@ namespace AsLib
 	{
 	private:
 		//Tex* id = nullptr;
-		//std::shared_ptr<Tex[]> id;
-		std::vector<Tex> id;
+		//std::unique_ptr<Tex[]> id;
+		//std::vector<Tex> id;
+		std::shared_ptr<Tex[]> id;
 
 		Pos2 pixel_size;
 		size_t num = 0;
 	public:
-		AnimeMainData(const size_t, const Tex*);
+		AnimeMainData(const size_t, std::unique_ptr<Tex[]>&&);
 		//~AnimeMainData() { delete[] this->id; };
 		//AnimeMainData & update();
 		AnimeMainData& draw(const size_t);
@@ -239,7 +240,8 @@ namespace AsLib
 		return Tex(DxLib::LoadGraph(name));
 	}
 
-	inline Tex* AsLoadTex(const char* const name, const size_t tex_num)
+	//画像を分割ロードする
+	inline std::unique_ptr<Tex[]> AsLoadTex(const char* const name, const size_t tex_num)
 	{
 		const Tex tex = DxLib::LoadGraph(name);
 		if (tex == -1) return nullptr;
@@ -247,15 +249,13 @@ namespace AsLib
 		DxLib::GetGraphSize(tex, &size_x, &size_y);
 		DxLib::DeleteGraph(tex);
 		if (size_x == 0 || size_y == 0) return nullptr;
-		
-		//std::vector<Tex> texs;
-		//texs.resize(tex_num);
+
 		std::unique_ptr<Tex[]> texs(new Tex[tex_num]);
 		DxLib::LoadDivGraph(name, int(tex_num), int(tex_num), 1, size_x / int(tex_num), size_y, &texs[0]);
-		return &texs[0];
+		return texs;
 	}
 
-	inline Tex* AsLoadTex(const char* const name, const size_t tex_num_x, const size_t tex_num_y)
+	inline std::unique_ptr<Tex[]> AsLoadTex(const char* const name, const size_t tex_num_x, const size_t tex_num_y)
 	{
 		const Tex tex = DxLib::LoadGraph(name);
 		if (tex == -1) return nullptr;
@@ -266,7 +266,7 @@ namespace AsLib
 
 		std::unique_ptr<Tex[]> texs(new Tex[tex_num_x * tex_num_y]);
 		DxLib::LoadDivGraph(name, int(tex_num_x), int(tex_num_y), 1, size_x / int(tex_num_x), size_y / int(tex_num_y), &texs[0]);
-		return &texs[0];
+		return texs;
 	}
 
 	int32_t AsTexSize(const Tex id, Pos2& texture_size)
@@ -342,148 +342,140 @@ namespace AsLib
 
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 
-inline Tex AsLoadTex(const char* const name)
-{
-	std::string string_name = std::string(name);
-	const s3d::Texture newTexture(s3d::Unicode::UTF8ToUTF32(string_name));
-	return newTexture;
-}
+	inline Tex AsLoadTex(const char* const name)
+	{
+		std::string string_name = std::string(name);
+		const s3d::Texture newTexture(s3d::Unicode::UTF8ToUTF32(string_name));
+		return newTexture;
+	}
 
-int32_t AsTexSize(const Tex id, Pos2& texture_size)
-{
-	texture_size.x = int32_t(id.size().x);
-	texture_size.y = int32_t(id.size().y);
-	return 0;
-}
+	int32_t AsTexSize(const Tex id, Pos2& texture_size)
+	{
+		texture_size.x = int32_t(id.size().x);
+		texture_size.y = int32_t(id.size().y);
+		return 0;
+	}
 
-//int32_t asTex4(const Tex tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
-//{
-//	tex.resized(pos8.x4 - pos8.x1, pos8.y4 - pos8.y1).draw(pos8.x1, pos8.y1, s3d::Alpha(alpha));
-//	return 0;
-//}
+	//int32_t asTex4(const Tex tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
+	//{
+	//	tex.resized(pos8.x4 - pos8.x1, pos8.y4 - pos8.y1).draw(pos8.x1, pos8.y1, s3d::Alpha(alpha));
+	//	return 0;
+	//}
 
-int32_t asTex4(const Tex tex, const Pos4& pos = pos4_100, const uint8_t alpha = 255)
-{
-	tex.resized(pos.x2 - pos.x1, pos.y2 - pos.y1).draw(pos.x1, pos.y1, s3d::Alpha(alpha));
-	return 0;
-}
+	int32_t asTex4(const Tex tex, const Pos4& pos = pos4_100, const uint8_t alpha = 255)
+	{
+		tex.resized(pos.x2 - pos.x1, pos.y2 - pos.y1).draw(pos.x1, pos.y1, s3d::Alpha(alpha));
+		return 0;
+	}
 
-int32_t asTex4(const Tex tex, const Pos2& pos2 = pos2_100, const uint8_t alpha = 255)
-{
-	tex.resized(pos2.x, pos2.y).draw(0, 0, s3d::Alpha(alpha));
+	int32_t asTex4(const Tex tex, const Pos2& pos2 = pos2_100, const uint8_t alpha = 255)
+	{
+		tex.resized(pos2.x, pos2.y).draw(0, 0, s3d::Alpha(alpha));
 
-	return -1;
+		return -1;
 	}
 
 #else //Console
 
 #endif
 
-inline TextureMainData::TextureMainData(const Tex add_id)
-{
-	this->id = add_id;
+	inline TextureMainData::TextureMainData(const Tex add_id)
+	{
+		this->id = add_id;
 
-	//画像サイズ取得
-	AsTexSize(this->id, this->pixel_size);
-}
-
-inline TextureUI& TextureUI::touch(const Pos2& add_pos)
-{
-	bool is_touch = false;
-	const Pos4 p = { pos4.x1 - add_pos.x ,pos4.y1 - add_pos.y ,pos4.x2 - add_pos.x ,pos4.y2 - add_pos.y };
-
-	//タッチのあたり判定
-	if (p.x1 <= 0 && p.y1 <= 0 && p.x2 >= 0 && p.y2 >= 0) is_touch = true;
-	else if (p.x1 > 0 && p.y1 > 0 && p.x2 < 0 && p.y2 < 0) is_touch = true;
-
-	//タッチの数をカウント
-	if (is_touch && this->touch_num != INT32_MAX) this->touch_num++;
-	return *this;
-}
-
-inline AnimeUI& AnimeUI::touch(const Pos2& add_pos)
-{
-	bool is_touch = false;
-	const Pos4 p = { pos4.x1 - add_pos.x ,pos4.y1 - add_pos.y ,pos4.x2 - add_pos.x ,pos4.y2 - add_pos.y };
-
-	//タッチのあたり判定
-	if (p.x1 <= 0 && p.y1 <= 0 && p.x2 >= 0 && p.y2 >= 0) is_touch = true;
-	else if (p.x1 > 0 && p.y1 > 0 && p.x2 < 0 && p.y2 < 0) is_touch = true;
-
-	//タッチの数をカウント
-	if (is_touch && this->touch_num != INT32_MAX) this->touch_num++;
-	return *this;
-}
-
-//サイズ等倍 位置指定
-inline TextureMainData& TextureMainData::draw(const Pos4& add_pos, const uint8_t alpha)
-{
-	asTex4(this->id, add_pos, alpha);
-	return *this;
-}
-
-//サイズ等倍 位置指定
-inline TextureMainData& TextureMainData::draw(const Pos2& add_pos, const uint8_t alpha)
-{
-	asTex4(this->id, add_pos, alpha);
-	return *this;
-}
-
-//サイズ 指定なし 透明度 指定あり
-inline TextureMainData& TextureMainData::draw(const uint8_t alpha)
-{
-	asTex4(this->id, this->pixel_size, alpha);
-	return *this;
-}
-
-//サイズ・透明度 指定なし
-inline TextureMainData& TextureMainData::draw()
-{
-	asTex4(this->id, this->pixel_size);
-	return *this;
-}
-
-inline AnimeMainData::AnimeMainData(const size_t id_num, const Tex* add_id)
-{
-	this->num = id_num;
-	this->id.resize(id_num);
-	//this->id.reset(new Tex[id_num]);
-	//this->id = new Tex[id_num];
-
-	for (size_t i = 0; i < id_num; ++i) {
-		this->id[i] = add_id[i];
+		//画像サイズ取得
+		AsTexSize(this->id, this->pixel_size);
 	}
 
-	//画像サイズ取得
-	AsTexSize(this->id[0], this->pixel_size);
-}
+	inline TextureUI& TextureUI::touch(const Pos2& add_pos)
+	{
+		bool is_touch = false;
+		const Pos4 p = { pos4.x1 - add_pos.x ,pos4.y1 - add_pos.y ,pos4.x2 - add_pos.x ,pos4.y2 - add_pos.y };
 
-//サイズ等倍 位置指定
-inline AnimeMainData& AnimeMainData::draw(const size_t anime_size, const Pos4& add_pos, const uint8_t alpha)
-{
-	asTex4(this->id[anime_size], add_pos, alpha);
-	return *this;
-}
+		//タッチのあたり判定
+		if (p.x1 <= 0 && p.y1 <= 0 && p.x2 >= 0 && p.y2 >= 0) is_touch = true;
+		else if (p.x1 > 0 && p.y1 > 0 && p.x2 < 0 && p.y2 < 0) is_touch = true;
 
-//サイズ等倍 位置指定
-inline AnimeMainData& AnimeMainData::draw(const size_t anime_size, const Pos2& add_pos, const uint8_t alpha)
-{
-	asTex4(this->id[anime_size], add_pos, alpha);
-	return *this;
-}
+		//タッチの数をカウント
+		if (is_touch && this->touch_num != INT32_MAX) this->touch_num++;
+		return *this;
+	}
 
-//サイズ 指定なし 透明度 指定あり
-inline AnimeMainData& AnimeMainData::draw(const size_t anime_size, const uint8_t alpha)
-{
-	asTex4(this->id[anime_size], this->pixel_size, alpha);
-	return *this;
-}
+	inline AnimeUI& AnimeUI::touch(const Pos2& add_pos)
+	{
+		bool is_touch = false;
+		const Pos4 p = { pos4.x1 - add_pos.x ,pos4.y1 - add_pos.y ,pos4.x2 - add_pos.x ,pos4.y2 - add_pos.y };
 
-//サイズ・透明度 指定なし
-inline AnimeMainData& AnimeMainData::draw(const size_t anime_size)
-{
-	asTex4(this->id[anime_size], this->pixel_size);
-	return *this;
-}
+		//タッチのあたり判定
+		if (p.x1 <= 0 && p.y1 <= 0 && p.x2 >= 0 && p.y2 >= 0) is_touch = true;
+		else if (p.x1 > 0 && p.y1 > 0 && p.x2 < 0 && p.y2 < 0) is_touch = true;
+
+		//タッチの数をカウント
+		if (is_touch && this->touch_num != INT32_MAX) this->touch_num++;
+		return *this;
+	}
+
+	//サイズ等倍 位置指定
+	inline TextureMainData& TextureMainData::draw(const Pos4& add_pos, const uint8_t alpha)
+	{
+		asTex4(this->id, add_pos, alpha);
+		return *this;
+	}
+
+	//サイズ等倍 位置指定
+	inline TextureMainData& TextureMainData::draw(const Pos2& add_pos, const uint8_t alpha)
+	{
+		asTex4(this->id, add_pos, alpha);
+		return *this;
+	}
+
+	//サイズ 指定なし 透明度 指定あり
+	inline TextureMainData& TextureMainData::draw(const uint8_t alpha)
+	{
+		asTex4(this->id, this->pixel_size, alpha);
+		return *this;
+	}
+
+	//サイズ・透明度 指定なし
+	inline TextureMainData& TextureMainData::draw()
+	{
+		asTex4(this->id, this->pixel_size);
+		return *this;
+	}
+
+	inline AnimeMainData::AnimeMainData(const size_t id_num, std::unique_ptr<Tex[]>&& add_id) 
+		:id(std::move(add_id)),num(id_num)
+	{
+		//画像サイズ取得
+		AsTexSize(this->id[0], this->pixel_size);
+	}
+
+	//サイズ等倍 位置指定
+	inline AnimeMainData& AnimeMainData::draw(const size_t anime_size, const Pos4& add_pos, const uint8_t alpha)
+	{
+		asTex4(this->id[anime_size], add_pos, alpha);
+		return *this;
+	}
+
+	//サイズ等倍 位置指定
+	inline AnimeMainData& AnimeMainData::draw(const size_t anime_size, const Pos2& add_pos, const uint8_t alpha)
+	{
+		asTex4(this->id[anime_size], add_pos, alpha);
+		return *this;
+	}
+
+	//サイズ 指定なし 透明度 指定あり
+	inline AnimeMainData& AnimeMainData::draw(const size_t anime_size, const uint8_t alpha)
+	{
+		asTex4(this->id[anime_size], this->pixel_size, alpha);
+		return *this;
+	}
+
+	//サイズ・透明度 指定なし
+	inline AnimeMainData& AnimeMainData::draw(const size_t anime_size)
+	{
+		asTex4(this->id[anime_size], this->pixel_size);
+		return *this;
+	}
 
 }

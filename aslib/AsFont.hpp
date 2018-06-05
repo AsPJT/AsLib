@@ -89,4 +89,9 @@ namespace AsLib
 
 #endif
 
+	struct FontUI
+	{
+
+	};
+
 }

@@ -100,7 +100,7 @@ namespace AsLib
 			touch_pos.x1 = out_pos.x;
 			touch_pos.y1 = out_pos.y;
 			touch_pos.x2 = out_pos.x + out_pos.w + plus_pos.w;
-			touch_pos.y2 = out_pos.y + out_pos.h + plus_pos.h;
+			touch_pos.y2 = out_pos.y + out_pos.h;
 			return *this;
 		}
 		Battery& draw()
