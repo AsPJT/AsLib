@@ -9,6 +9,144 @@
 
 namespace AsLib
 {
+#if defined(ASLIB_INCLUDE_DL) //DxLib
+
+	inline Tex AsLoadTex(const char* const name)
+	{
+		return Tex(DxLib::LoadGraph(name));
+	}
+
+	//画像を分割ロードする
+	inline std::unique_ptr<Tex[]> AsLoadTex(const char* const name, const size_t tex_num)
+	{
+		const Tex tex = DxLib::LoadGraph(name);
+		if (tex == -1) return nullptr;
+		int size_x = 0, size_y = 0;
+		DxLib::GetGraphSize(tex, &size_x, &size_y);
+		DxLib::DeleteGraph(tex);
+		if (size_x == 0 || size_y == 0) return nullptr;
+
+		std::unique_ptr<Tex[]> texs(new Tex[tex_num]);
+		DxLib::LoadDivGraph(name, int(tex_num), int(tex_num), 1, size_x / int(tex_num), size_y, texs.get());
+		return texs;
+	}
+
+	inline std::unique_ptr<Tex[]> AsLoadTex(const char* const name, const size_t tex_num_x, const size_t tex_num_y)
+	{
+		const Tex tex = DxLib::LoadGraph(name);
+		if (tex == -1) return nullptr;
+		int size_x = 0, size_y = 0;
+		DxLib::GetGraphSize(tex, &size_x, &size_y);
+		DxLib::DeleteGraph(tex);
+		if (size_x == 0 || size_y == 0) return nullptr;
+
+		std::unique_ptr<Tex[]> texs(new Tex[tex_num_x * tex_num_y]);
+		DxLib::LoadDivGraph(name, int(tex_num_x), int(tex_num_y), 1, size_x / int(tex_num_x), size_y / int(tex_num_y), &texs[0]);
+		return texs;
+	}
+
+	int32_t AsTexSize(const Tex id, Pos2& texture_size)
+	{
+		int size_x = 0, size_y = 0;
+		if (DxLib::GetGraphSize(id, &size_x, &size_y) == -1) return -1;
+		texture_size.x = int32_t(size_x);
+		texture_size.y = int32_t(size_y);
+		return 0;
+	}
+
+	int32_t asTex8(const Tex tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
+	{
+		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, int(alpha)) == -1) return -1;
+		if (DxLib::DrawModiGraph(int(pos8.x1), int(pos8.y1), int(pos8.x2), int(pos8.y2), int(pos8.x4), int(pos8.y4), int(pos8.x3), int(pos8.y3), tex, TRUE) != -1) return 0;
+
+		return -1;
+	}
+
+	int32_t asTex4(const Tex tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
+	{
+		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
+		if (DxLib::DrawExtendGraph(int(pos8.x1), int(pos8.y1), int(pos8.x4), int(pos8.y4), tex, TRUE) != -1) return 0;
+
+		return -1;
+	}
+
+	int32_t asTex4(const Tex tex, const Pos4& pos4 = pos4_100, const uint8_t alpha = 255)
+	{
+		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
+		if (DxLib::DrawExtendGraph(int(pos4.x1), int(pos4.y1), int(pos4.x2), int(pos4.y2), tex, TRUE) != -1) return 0;
+
+		return -1;
+	}
+
+	int32_t asTex4(const Tex tex, const Pos2& pos2 = pos2_100, const uint8_t alpha = 255)
+	{
+		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
+		if (DxLib::DrawExtendGraph(0, 0, int(pos2.x), int(pos2.y), tex, TRUE) != -1) return 0;
+
+		return -1;
+	}
+
+	//todo
+	int32_t asTex(const Tex tex, const Pos4& pos4 = pos4_100, const uint8_t alpha = 255, const ColorRGBA& colorRGBA = color_0)
+	{
+		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
+		if (DxLib::DrawExtendGraph(int(pos4.x1), int(pos4.y1), int(pos4.x2), int(pos4.y2), tex, TRUE) != -1) return 0;
+
+		if (colorRGBA.a == 0) return -1;
+		if (asRect(pos4, colorRGBA) == -1) return -1;
+		return -2;
+	}
+
+	int32_t AsTexAt(const Tex tex, const Pos4& pos4 = {}, const uint8_t alpha = 255, const ColorRGBA& colorRGBA = color_0) {
+		const int32_t sub_x = (pos4.x2 - pos4.x1) >> BIT_SHIFT_DIV_2;
+		const int32_t sub_y = (pos4.y2 - pos4.y1) >> BIT_SHIFT_DIV_2;
+		const int32_t x1 = pos4.x1 - sub_x;
+		const int32_t x2 = pos4.x2 - sub_x;
+		const int32_t y1 = pos4.y1 - sub_y;
+		const int32_t y2 = pos4.y2 - sub_y;
+
+		const Pos4 new_pos4 = { x1,y1,x2,y2 };
+		return asTex(tex, new_pos4, alpha, colorRGBA);
+	}
+
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+
+	inline Tex AsLoadTex(const char* const name)
+	{
+		std::string string_name = std::string(name);
+		const s3d::Texture newTexture(s3d::Unicode::UTF8ToUTF32(string_name));
+		return newTexture;
+	}
+
+	int32_t AsTexSize(const Tex id, Pos2& texture_size)
+	{
+		texture_size.x = int32_t(id.size().x);
+		texture_size.y = int32_t(id.size().y);
+		return 0;
+	}
+
+	//int32_t asTex4(const Tex tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
+	//{
+	//	tex.resized(pos8.x4 - pos8.x1, pos8.y4 - pos8.y1).draw(pos8.x1, pos8.y1, s3d::Alpha(alpha));
+	//	return 0;
+	//}
+
+	int32_t asTex4(const Tex tex, const Pos4& pos = pos4_100, const uint8_t alpha = 255)
+	{
+		tex.resized(pos.x2 - pos.x1, pos.y2 - pos.y1).draw(pos.x1, pos.y1, s3d::Alpha(alpha));
+		return 0;
+	}
+
+	int32_t asTex4(const Tex tex, const Pos2& pos2 = pos2_100, const uint8_t alpha = 255)
+	{
+		tex.resized(pos2.x, pos2.y).draw(0, 0, s3d::Alpha(alpha));
+
+		return -1;
+	}
+
+#else //Console
+
+#endif
 
 	//１つの画像を管理する
 	struct TextureMainData
@@ -124,22 +262,20 @@ namespace AsLib
 	struct AnimeMainData
 	{
 	private:
-		//Tex* id = nullptr;
-		//std::unique_ptr<Tex[]> id;
-		std::vector<Tex> id;
-		//std::shared_ptr<Tex[]> id;
+		std::unique_ptr<Tex[]> id;
 
 		Pos2 pixel_size;
 		size_t num = 0;
 	public:
-		AnimeMainData(const size_t, std::unique_ptr<Tex[]>);
-		//~AnimeMainData() { delete[] this->id; };
-		//AnimeMainData & update();
+		AnimeMainData(const size_t id_num, std::unique_ptr<Tex[]>&& add_id) :id(std::move(add_id)), num(id_num)
+		{
+			//画像サイズ取得
+			AsTexSize(this->id[0], this->pixel_size);
+		}
 		AnimeMainData& draw(const size_t);
 		AnimeMainData& draw(const size_t, const uint8_t);
 		AnimeMainData& draw(const size_t, const Pos2&, const uint8_t = 255);
 		AnimeMainData& draw(const size_t, const Pos4&, const uint8_t = 255);
-		//AnimeMainData& draw(const size_t, const Pos8&, const uint8_t = 255);
 		size_t Num() const { return this->num; };
 		Pos2 pixelSize() const { return this->pixel_size; };
 	};
@@ -232,152 +368,12 @@ namespace AsLib
 		return *this;
 	}
 
-
-#if defined(ASLIB_INCLUDE_DL) //DxLib
-
-	inline Tex AsLoadTex(const char* const name)
-	{
-		return Tex(DxLib::LoadGraph(name));
-	}
-
-	//画像を分割ロードする
-	inline std::unique_ptr<Tex[]> AsLoadTex(const char* const name, const size_t tex_num)
-	{
-		const Tex tex = DxLib::LoadGraph(name);
-		if (tex == -1) return nullptr;
-		int size_x = 0, size_y = 0;
-		DxLib::GetGraphSize(tex, &size_x, &size_y);
-		DxLib::DeleteGraph(tex);
-		if (size_x == 0 || size_y == 0) return nullptr;
-
-		std::unique_ptr<Tex[]> texs(new Tex[tex_num]);
-		DxLib::LoadDivGraph(name, int(tex_num), int(tex_num), 1, size_x / int(tex_num), size_y, texs.get());
-		return texs;
-	}
-
-	inline std::unique_ptr<Tex[]> AsLoadTex(const char* const name, const size_t tex_num_x, const size_t tex_num_y)
-	{
-		const Tex tex = DxLib::LoadGraph(name);
-		if (tex == -1) return nullptr;
-		int size_x = 0, size_y = 0;
-		DxLib::GetGraphSize(tex, &size_x, &size_y);
-		DxLib::DeleteGraph(tex);
-		if (size_x == 0 || size_y == 0) return nullptr;
-
-		std::unique_ptr<Tex[]> texs(new Tex[tex_num_x * tex_num_y]);
-		DxLib::LoadDivGraph(name, int(tex_num_x), int(tex_num_y), 1, size_x / int(tex_num_x), size_y / int(tex_num_y), &texs[0]);
-		return texs;
-	}
-
-	int32_t AsTexSize(const Tex id, Pos2& texture_size)
-	{
-		int size_x = 0, size_y = 0;
-		if (DxLib::GetGraphSize(id, &size_x, &size_y) == -1) return -1;
-		texture_size.x = int32_t(size_x);
-		texture_size.y = int32_t(size_y);
-		return 0;
-	}
-
-	int32_t asTex8(const Tex tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
-	{
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, int(alpha)) == -1) return -1;
-		if (DxLib::DrawModiGraph(int(pos8.x1), int(pos8.y1), int(pos8.x2), int(pos8.y2), int(pos8.x4), int(pos8.y4), int(pos8.x3), int(pos8.y3), tex, TRUE) != -1) return 0;
-
-		return -1;
-	}
-
-	int32_t asTex4(const Tex tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
-	{
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
-		if (DxLib::DrawExtendGraph(int(pos8.x1), int(pos8.y1), int(pos8.x4), int(pos8.y4), tex, TRUE) != -1) return 0;
-
-		return -1;
-	}
-
-	int32_t asTex4(const Tex tex, const Pos4& pos4 = pos4_100, const uint8_t alpha = 255)
-	{
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
-		if (DxLib::DrawExtendGraph(int(pos4.x1), int(pos4.y1), int(pos4.x2), int(pos4.y2), tex, TRUE) != -1) return 0;
-
-		return -1;
-	}
-
-	int32_t asTex4(const Tex tex, const Pos2& pos2 = pos2_100, const uint8_t alpha = 255)
-	{
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
-		if (DxLib::DrawExtendGraph(0, 0, int(pos2.x), int(pos2.y), tex, TRUE) != -1) return 0;
-
-		return -1;
-	}
-
-	//todo
-	int32_t asTex(const Tex tex, const Pos4& pos4 = pos4_100, const uint8_t alpha = 255, const ColorRGBA& colorRGBA = color_0)
-	{
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
-		if (DxLib::DrawExtendGraph(int(pos4.x1), int(pos4.y1), int(pos4.x2), int(pos4.y2), tex, TRUE) != -1) return 0;
-
-		if (colorRGBA.a == 0) return -1;
-		if (asRect(pos4, colorRGBA) == -1) return -1;
-		return -2;
-	}
-
-	int32_t AsTexAt(const Tex tex, const Pos4& pos4 = {}, const uint8_t alpha = 255, const ColorRGBA& colorRGBA = color_0) {
-		const int32_t sub_x = (pos4.x2 - pos4.x1) >> BIT_SHIFT_DIV_2;
-		const int32_t sub_y = (pos4.y2 - pos4.y1) >> BIT_SHIFT_DIV_2;
-		const int32_t x1 = pos4.x1 - sub_x;
-		const int32_t x2 = pos4.x2 - sub_x;
-		const int32_t y1 = pos4.y1 - sub_y;
-		const int32_t y2 = pos4.y2 - sub_y;
-
-		const Pos4 new_pos4 = { x1,y1,x2,y2 };
-		return asTex(tex, new_pos4, alpha, colorRGBA);
-	}
-
-	//サイズ等倍 位置指定
+//サイズ等倍 位置指定
 	inline TextureMainData& TextureMainData::draw(const Pos8& add_pos, const uint8_t alpha)
 	{
 		asTex8(this->id, add_pos, alpha);
 		return *this;
 	}
-
-#elif defined(ASLIB_INCLUDE_S3) //Siv3D
-
-	inline Tex AsLoadTex(const char* const name)
-	{
-		std::string string_name = std::string(name);
-		const s3d::Texture newTexture(s3d::Unicode::UTF8ToUTF32(string_name));
-		return newTexture;
-	}
-
-	int32_t AsTexSize(const Tex id, Pos2& texture_size)
-	{
-		texture_size.x = int32_t(id.size().x);
-		texture_size.y = int32_t(id.size().y);
-		return 0;
-	}
-
-	//int32_t asTex4(const Tex tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
-	//{
-	//	tex.resized(pos8.x4 - pos8.x1, pos8.y4 - pos8.y1).draw(pos8.x1, pos8.y1, s3d::Alpha(alpha));
-	//	return 0;
-	//}
-
-	int32_t asTex4(const Tex tex, const Pos4& pos = pos4_100, const uint8_t alpha = 255)
-	{
-		tex.resized(pos.x2 - pos.x1, pos.y2 - pos.y1).draw(pos.x1, pos.y1, s3d::Alpha(alpha));
-		return 0;
-	}
-
-	int32_t asTex4(const Tex tex, const Pos2& pos2 = pos2_100, const uint8_t alpha = 255)
-	{
-		tex.resized(pos2.x, pos2.y).draw(0, 0, s3d::Alpha(alpha));
-
-		return -1;
-	}
-
-#else //Console
-
-#endif
 
 	inline TextureMainData::TextureMainData(const Tex add_id)
 	{
@@ -441,17 +437,6 @@ namespace AsLib
 	{
 		asTex4(this->id, this->pixel_size);
 		return *this;
-	}
-
-	inline AnimeMainData::AnimeMainData(const size_t id_num, std::unique_ptr<Tex[]> add_id) //:id(std::move(add_id)),num(id_num)
-	{
-		id.resize(id_num);
-		for (size_t i = 0; i < id_num; ++i) {
-			this->id[i] = add_id[i];
-		}
-
-		//画像サイズ取得
-		AsTexSize(this->id[0], this->pixel_size);
 	}
 
 	//サイズ等倍 位置指定
