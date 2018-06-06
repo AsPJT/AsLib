@@ -43,11 +43,7 @@ namespace AsLib
 	//マウスのホイール回転量(奥:負 手前:正)
 	inline int32_t mouseWheel()
 	{
-#if defined(__WINDOWS__)
 		return int32_t(DxLib::GetMouseWheelRotVol(TRUE));
-#else
-		return 0;
-#endif
 	}
 
 	inline void mouseButton(Counter count[mouse_button_num])

@@ -126,13 +126,13 @@ namespace AsLib
 	private:
 		//Tex* id = nullptr;
 		//std::unique_ptr<Tex[]> id;
-		//std::vector<Tex> id;
-		std::shared_ptr<Tex[]> id;
+		std::vector<Tex> id;
+		//std::shared_ptr<Tex[]> id;
 
 		Pos2 pixel_size;
 		size_t num = 0;
 	public:
-		AnimeMainData(const size_t, std::unique_ptr<Tex[]>&&);
+		AnimeMainData(const size_t, std::unique_ptr<Tex[]>);
 		//~AnimeMainData() { delete[] this->id; };
 		//AnimeMainData & update();
 		AnimeMainData& draw(const size_t);
@@ -251,7 +251,7 @@ namespace AsLib
 		if (size_x == 0 || size_y == 0) return nullptr;
 
 		std::unique_ptr<Tex[]> texs(new Tex[tex_num]);
-		DxLib::LoadDivGraph(name, int(tex_num), int(tex_num), 1, size_x / int(tex_num), size_y, &texs[0]);
+		DxLib::LoadDivGraph(name, int(tex_num), int(tex_num), 1, size_x / int(tex_num), size_y, texs.get());
 		return texs;
 	}
 
@@ -443,9 +443,13 @@ namespace AsLib
 		return *this;
 	}
 
-	inline AnimeMainData::AnimeMainData(const size_t id_num, std::unique_ptr<Tex[]>&& add_id) 
-		:id(std::move(add_id)),num(id_num)
+	inline AnimeMainData::AnimeMainData(const size_t id_num, std::unique_ptr<Tex[]> add_id) //:id(std::move(add_id)),num(id_num)
 	{
+		id.resize(id_num);
+		for (size_t i = 0; i < id_num; ++i) {
+			this->id[i] = add_id[i];
+		}
+
 		//‰æ‘œƒTƒCƒYŽæ“¾
 		AsTexSize(this->id[0], this->pixel_size);
 	}

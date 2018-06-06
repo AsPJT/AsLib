@@ -161,6 +161,10 @@ int32_t AsMain()
 	MC mc(u8"Simple Counter", {1000,600}, BG_COLOR);
 	mc.battery.make({ 700,200,200,300 });
 
+	//Twitter t;
+	//t.makeUrl("https://play.google.com/store/apps/details?id=com.gaccho"); 
+	//t.text("がっちょテスト(TwitterAPI)").via("omisok").hashtags("gaccho").send();
+
 	//読み込み
 	sceneInit(mc);
 	textureInit(mc);
