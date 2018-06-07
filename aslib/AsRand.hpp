@@ -16,7 +16,7 @@ namespace AsLib
 		rand_32 = rand_32 ^ (rand_32 << 13);
 		rand_32 = rand_32 ^ (rand_32 >> 17);
 		return rand_32 = rand_32 ^ (rand_32 << 5);
-}
+	}
 
 	int32_t srand32(const uint32_t srand_32) {
 		if (srand_32 == 0) return -1;
@@ -32,6 +32,13 @@ namespace AsLib
 		case INT32_MAX:return int32_t(rand32() & INT32_MAX);
 		default:return (int32_t(rand32() & INT32_MAX) % (i + 1));
 		}
+	}
+
+	int32_t rand32(const uint32_t i)
+	{
+		if (i == 0) return 0;
+		if (i >= INT32_MAX) return int32_t(rand32() & INT32_MAX);
+		return (int32_t(rand32() & INT32_MAX) % (i + 1));
 	}
 
 

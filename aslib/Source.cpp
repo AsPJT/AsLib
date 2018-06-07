@@ -110,6 +110,9 @@ void startScene(MC& mc)
 
 	//asBatteryDraw({ 700,200,200,300 });
 
+	static Pos2 p_ = { 500,200 };
+	mc.font_main_data_render[0].draw(p_, u8"アニメーション%d", 1);
+
 	//命令レイヤー
 	if (mc.upTex0(GAHAKU2_TEXUI)) mc.scene(LOGO_SCENE1);
 }
@@ -159,11 +162,10 @@ int32_t AsMain()
 {
 	//管理クラス
 	MC mc(u8"Simple Counter", {1000,600}, BG_COLOR);
-	mc.battery.make({ 700,200,200,300 });
+	//mc.battery.make({ 700,200,200,300 });
 
-	//Twitter t;
-	//t.makeUrl("https://play.google.com/store/apps/details?id=com.gaccho"); 
-	//t.text("がっちょテスト(TwitterAPI)").via("omisok").hashtags("gaccho").send();
+	mc.battery.make(mc.asPos4({ 0.9f,0.02f,0.98f,0.3f }));
+	mc.fontAdd(30);
 
 	//読み込み
 	sceneInit(mc);

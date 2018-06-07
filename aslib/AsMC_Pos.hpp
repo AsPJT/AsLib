@@ -10,21 +10,12 @@
 namespace AsLib
 {
 
-#if defined(ASLIB_INCLUDE_DL) //DxLib
-
-#if defined(__ANDROID__)
-
-	//<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />’Ç‰Á‚ ‚è
-	inline int32_t asWifi()
+	inline Pos4 MainControl::asPos4(const Pos4R pos_)
 	{
-		return int32_t(DxLib::GetWifiSignalLevel());
-}
-#endif
+		Pos4 pos;
+		pos.conv(pos_, this->init_data.windowSize());
+		return pos;
+	}
 
-#elif defined(ASLIB_INCLUDE_S3) //Siv3D
-
-#else //Console
-
-#endif
 
 }

@@ -156,6 +156,7 @@
     <ClInclude Include="AsMap.hpp" />
     <ClInclude Include="AsMC_LogoDraw.hpp" />
     <ClInclude Include="AsColor.hpp" />
+    <ClInclude Include="AsMC_Pos.hpp" />
     <ClInclude Include="AsMC_Rand.hpp" />
     <ClInclude Include="AsMouse.hpp" />
     <ClInclude Include="AsRand.hpp" />

@@ -12,7 +12,7 @@ namespace AsLib
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 
 	//フォント系
-	using AsFont = int;
+	using Font = int;
 	constexpr int FONT_INIT = -1;
 
 	//テクスチャ系

@@ -83,6 +83,9 @@ namespace AsLib
 		MainControl& texture(const size_t select_texture);
 		MainControl& anime(const size_t select_texture);
 
+		//文字系--------------------------------------------------
+		MainControl& fontAdd(const int32_t&, const char* const = "Meiryo UI");
+
 		//タイトルロゴ--------------------------------------------------
 		MainControl& drawLogo(const size_t add_texture_ui, const int32_t add_time, const size_t add_scene);
 		MainControl& drawLogoOut(const size_t add_texture_ui, const int32_t add_out_time, const int32_t add_time, const size_t add_scene);
@@ -139,7 +142,7 @@ namespace AsLib
 		//std::vector<>
 
 		//文字系
-		std::vector<int> font_render;
+		std::vector<FontMainData> font_main_data_render;
 
 
 
@@ -154,6 +157,14 @@ namespace AsLib
 	private:
 		uint8_t rand_8 = 1;
 		uint32_t rand_32 = 1;
+
+		//位置
+	public:
+		Pos4 asPos4(const Pos4R pos_);
+
+	private:
+
+
 
 	private:
 
@@ -174,6 +185,7 @@ namespace AsLib
 		int32_t fps = 60;
 		
 		bool is_change_scene = false;
+
 };
 
 
@@ -286,7 +298,7 @@ namespace AsLib
 		scene_func[select_scene](*this);
 
 		//フレームを更新
-		if (!AsLoop()) sceneEnd();
+		if (!asLoop()) sceneEnd();
 
 		//タッチを取得
 		this->mouse.update();
@@ -333,6 +345,13 @@ namespace AsLib
 	{
 		const AnimeUI add_texture_ui(&anime_main_data_render[add_number], add_alpha, add_pos4);
 		anime_ui_render.emplace_back(add_texture_ui);
+		return *this;
+	}
+
+	inline MainControl & MainControl::fontAdd(const int32_t& font_size, const char* const add_name)
+	{
+		const FontMainData add_font(asMakeFont(font_size, add_name), font_size, add_name);
+		font_main_data_render.emplace_back(add_font);
 		return *this;
 	}
 
