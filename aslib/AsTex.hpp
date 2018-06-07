@@ -198,14 +198,14 @@ namespace AsLib
 	{
 		TextureUI(TextureMainData* const add_tmd, const uint8_t add_alpha, const Pos4& add_pos4) { tmd = add_tmd; alpha = add_alpha; pos4 = add_pos4; }
 
-		//出力
+		//メンバ変数を出力
 		TextureMainData* Point() const { return this->tmd; };
 		uint8_t Alpha() const { return this->alpha; };
 		Pos4 Pos() const { return this->pos4; };
 		int32_t Touch() const { return this->touch_num; };
 		int32_t Touch0() { const int32_t num = this->touch_num; this->touch_num = 0; return num; };
 
-		//カウンター出力
+		//カウンターを出力
 		bool Down() const { return counter.Down(); };
 		bool Up() const { return counter.Up(); };
 		int32_t Count() const { return counter.Count(); };
@@ -248,7 +248,7 @@ namespace AsLib
 		//画像透明度
 		uint8_t alpha = 255;
 
-		//四角形描画位置 (todo:Pos8R)
+		//四角形描画位置
 		Pos4 pos4;
 
 		//あたり判定
