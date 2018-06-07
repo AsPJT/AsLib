@@ -135,6 +135,9 @@ int main() { return int(AsMain() && AsLib::asEnd()); }
 //‹óŠÔ‚ðˆµ‚¤(All)
 #include "AsMap.hpp"
 
+//‰~•`‰æ
+#include "AsCircle.hpp"
+
 //“dŒ¹
 #include "AsBattery.hpp"
 

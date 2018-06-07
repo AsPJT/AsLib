@@ -139,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AsBattery.hpp" />
+    <ClInclude Include="AsCircle.hpp" />
     <ClInclude Include="AsClass.hpp" />
     <ClInclude Include="AsConst.hpp" />
     <ClInclude Include="AsCounter.hpp" />

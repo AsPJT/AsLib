@@ -113,6 +113,8 @@ void startScene(MC& mc)
 	static Pos2 p_ = { 500,200 };
 	mc.font_main_data_render[0].draw(p_, u8"アニメーション%d", 1);
 
+	Circle({ 700,400 }, 50).draw();
+
 	//命令レイヤー
 	if (mc.upTex0(GAHAKU2_TEXUI)) mc.scene(LOGO_SCENE1);
 }
