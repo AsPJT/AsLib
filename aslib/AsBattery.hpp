@@ -10,18 +10,21 @@
 namespace AsLib
 {
 
-#if defined(ASLIB_INCLUDE_DL) //DxLib
+
 
 	//バッテリー取得
 	inline int32_t asBattery() {
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 		return int32_t(DxLib::GetBatteryLifePercent());
-	}
-
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-
+		//todo
+		return 0;
 #else //Console
 
 #endif
+	}
+
+
 
 	//バッテリー描画
 	int32_t asBatteryDraw(const PosL4 pos_, const ColorRGBA battery_col = { 0,192,32,255 }, const ColorRGBA out_col = { 75,75,75,255 })

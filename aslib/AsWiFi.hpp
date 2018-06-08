@@ -17,7 +17,8 @@ namespace AsLib
 	//<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />’Ç‰Á‚ ‚è
 	inline int32_t asWifi()
 	{
-		return int32_t(DxLib::GetWifiSignalLevel());
+		//return int32_t(DxLib::GetWifiSignalLevel());
+		return 0;
 }
 #endif
 

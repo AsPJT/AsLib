@@ -10,10 +10,11 @@
 namespace AsLib
 {
 
-#if defined(ASLIB_INCLUDE_DL) //DxLib
+
 
 	inline int32_t asBrowser(const char* const url_str)
 	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__WINDOWS__)
 		const HWND hWnd = {};
 		ShellExecute(hWnd, "open", url_str, NULL, NULL, SW_SHOW);
@@ -21,10 +22,25 @@ namespace AsLib
 #elif defined(__ANDROID__)
 		return int32_t(DxLib::AndroidJumpURL(url_str));
 #endif
+
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+#if defined(SIV3D_TARGET_WINDOWS)
+		const HWND hWnd = {};
+		const std::string url_ = url_str;
+		const std::wstring stemp = std::wstring(url_.begin(), url_.end());
+		ShellExecute(hWnd, L"open", stemp.c_str(), NULL, NULL, SW_SHOW);
+		return 0;
+#else
+		return 0;
+#endif
+#else //Console
+
+#endif
 	}
 
 	inline int32_t asTwitter(const char* const url_str)
 	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__WINDOWS__)
 		const HWND hWnd = {};
 		ShellExecute(hWnd, "open", url_str, NULL, NULL, SW_SHOW);
@@ -32,13 +48,23 @@ namespace AsLib
 #elif defined(__ANDROID__)
 		return int32_t(DxLib::AndroidJumpURL(url_str, "com.twitter.android"));
 #endif
-	}
 
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-
+#if defined(SIV3D_TARGET_WINDOWS)
+		const HWND hWnd = {};
+		const std::string url_ = url_str;
+		const std::wstring stemp = std::wstring(url_.begin(), url_.end());
+		ShellExecute(hWnd, L"open", stemp.c_str(), NULL, NULL, SW_SHOW);
+		return 0;
+#else
+		return 0;
+#endif
 #else //Console
 
 #endif
+	}
+
+
 
 	struct Twitter
 	{

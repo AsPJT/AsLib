@@ -41,6 +41,27 @@ namespace AsLib
 
 		int32_t x = 0;
 		int32_t y = 0;
+#if defined(ASLIB_INCLUDE_S3) //Siv3D
+		operator s3d::Point()
+		{
+			s3d::Point p_;
+			p_.x = this->x;
+			p_.x = this->y;
+			return p_;
+		}
+		Pos2& operator=(const s3d::Point& add_pos)
+		{
+			Pos2 pos;
+			pos.x = add_pos.x;
+			pos.y = add_pos.y;
+			return pos;
+		}
+		operator s3d::Rect()
+		{
+			const s3d::Rect rect(this->x, this->y);
+			return rect;
+		}
+#endif
 	};
 
 	inline Pos2 & Pos2::rand(const Pos2& add_pos)

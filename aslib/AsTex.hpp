@@ -9,16 +9,24 @@
 
 namespace AsLib
 {
-#if defined(ASLIB_INCLUDE_DL) //DxLib
 
+
+	//画像読み込み
 	inline Tex AsLoadTex(const char* const name)
 	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 		return Tex(DxLib::LoadGraph(name));
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		std::string string_name = std::string(name);
+		const s3d::Texture newTexture(s3d::Unicode::UTF8ToUTF32(string_name));
+		return newTexture;
+#endif
 	}
 
 	//画像を分割ロードする
 	inline std::unique_ptr<Tex[]> AsLoadTex(const char* const name, const size_t tex_num)
 	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 		const Tex tex = DxLib::LoadGraph(name);
 		if (tex == -1) return nullptr;
 		int size_x = 0, size_y = 0;
@@ -29,10 +37,16 @@ namespace AsLib
 		std::unique_ptr<Tex[]> texs(new Tex[tex_num]);
 		DxLib::LoadDivGraph(name, int(tex_num), int(tex_num), 1, size_x / int(tex_num), size_y, texs.get());
 		return texs;
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		return nullptr;
+#else //Console
+
+#endif
 	}
 
 	inline std::unique_ptr<Tex[]> AsLoadTex(const char* const name, const size_t tex_num_x, const size_t tex_num_y)
 	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 		const Tex tex = DxLib::LoadGraph(name);
 		if (tex == -1) return nullptr;
 		int size_x = 0, size_y = 0;
@@ -43,7 +57,15 @@ namespace AsLib
 		std::unique_ptr<Tex[]> texs(new Tex[tex_num_x * tex_num_y]);
 		DxLib::LoadDivGraph(name, int(tex_num_x), int(tex_num_y), 1, size_x / int(tex_num_x), size_y / int(tex_num_y), &texs[0]);
 		return texs;
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		return nullptr;
+#else //Console
+
+#endif
 	}
+
+#if defined(ASLIB_INCLUDE_DL) //DxLib
+
 
 	int32_t AsTexSize(const Tex id, Pos2& texture_size)
 	{
@@ -111,13 +133,6 @@ namespace AsLib
 
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 
-	inline Tex AsLoadTex(const char* const name)
-	{
-		std::string string_name = std::string(name);
-		const s3d::Texture newTexture(s3d::Unicode::UTF8ToUTF32(string_name));
-		return newTexture;
-	}
-
 	int32_t AsTexSize(const Tex id, Pos2& texture_size)
 	{
 		texture_size.x = int32_t(id.size().x);
@@ -166,7 +181,7 @@ namespace AsLib
 		TextureMainData& draw(const uint8_t);
 		TextureMainData& draw(const Pos2&, const uint8_t = 255);
 		TextureMainData& draw(const Pos4&, const uint8_t = 255);
-		TextureMainData& draw(const Pos8&, const uint8_t = 255);
+		//TextureMainData& draw(const Pos8&, const uint8_t = 255);
 		TextureMainData& drawA(const Pos2 pos2, const uint8_t alpha_) {
 			static Pos4 aspect_pos;
 			const Pos2 posWS = this->pixelSize();
@@ -369,11 +384,11 @@ namespace AsLib
 	}
 
 //サイズ等倍 位置指定
-	inline TextureMainData& TextureMainData::draw(const Pos8& add_pos, const uint8_t alpha)
-	{
-		asTex8(this->id, add_pos, alpha);
-		return *this;
-	}
+	//inline TextureMainData& TextureMainData::draw(const Pos8& add_pos, const uint8_t alpha)
+	//{
+	//	asTex8(this->id, add_pos, alpha);
+	//	return *this;
+	//}
 
 	inline TextureMainData::TextureMainData(const Tex add_id)
 	{

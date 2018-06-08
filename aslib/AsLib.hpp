@@ -43,6 +43,9 @@ int android_main() { const int i = int(AsMain()); AsLib::asEnd(); return i; }
 #elif defined(ASLIB_INCLUDE_S3)
 #define NO_S3D_USING
 #include "Siv3D.hpp"
+#if defined(SIV3D_TARGET_WINDOWS)
+#include <Windows.h>
+#endif
 void Main() { AsMain(); AsLib::asEnd(); return; }
 
 #elif defined(ASLIB_INCLUDE_NO)
