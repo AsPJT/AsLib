@@ -33,6 +33,7 @@ int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int 
 #elif defined(ASLIB_INCLUDE_DL)
 #define DX_NON_USING_NAMESPACE_DXLIB
 #include "DxLib.h"
+#define ANIME_TEXTURE_2
 #if defined(__WINDOWS__)
 #include <Windows.h>
 int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int i = int(AsMain()); AsLib::asEnd(); return i; }
@@ -43,6 +44,7 @@ int android_main() { const int i = int(AsMain()); AsLib::asEnd(); return i; }
 #elif defined(ASLIB_INCLUDE_S3)
 #define NO_S3D_USING
 #include "Siv3D.hpp"
+#define ANIME_TEXTURE_1
 #if defined(SIV3D_TARGET_WINDOWS)
 #include <Windows.h>
 #endif
@@ -80,6 +82,7 @@ int main() { return int(AsMain() && AsLib::asEnd()); }
 #include <vector>
 #include <memory>
 #include <utility>
+#include <cmath>
 
 //äÓñ{ïœêîå^
 #include "AsType.hpp"

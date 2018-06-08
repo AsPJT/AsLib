@@ -17,9 +17,7 @@ namespace AsLib
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return Tex(DxLib::LoadGraph(name));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		std::string string_name = std::string(name);
-		const s3d::Texture newTexture(s3d::Unicode::UTF8ToUTF32(string_name));
-		return newTexture;
+		return s3d::Texture(s3d::Unicode::UTF8ToUTF32(std::string(name)));
 #endif
 	}
 
@@ -133,10 +131,10 @@ namespace AsLib
 
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 
-	int32_t AsTexSize(const Tex id, Pos2& texture_size)
+	int32_t AsTexSize(const Tex& id, Pos2& texture_size)
 	{
-		texture_size.x = int32_t(id.size().x);
-		texture_size.y = int32_t(id.size().y);
+		texture_size.x = int32_t(id.width());
+		texture_size.y = int32_t(id.height());
 		return 0;
 	}
 
@@ -146,16 +144,28 @@ namespace AsLib
 	//	return 0;
 	//}
 
-	int32_t asTex4(const Tex tex, const Pos4& pos = pos4_100, const uint8_t alpha = 255)
+	int32_t asTex4(const Tex& tex, const Pos4& pos = pos4_100, const uint8_t alpha = 255)
 	{
 		tex.resized(pos.x2 - pos.x1, pos.y2 - pos.y1).draw(pos.x1, pos.y1, s3d::Alpha(alpha));
 		return 0;
 	}
 
-	int32_t asTex4(const Tex tex, const Pos2& pos2 = pos2_100, const uint8_t alpha = 255)
+	int32_t asTex4(const Tex& tex, const Pos2& pos2 = pos2_100, const uint8_t alpha = 255)
 	{
 		tex.resized(pos2.x, pos2.y).draw(0, 0, s3d::Alpha(alpha));
 
+		return -1;
+	}
+
+	int32_t asTex4S3(const Tex& tex, const Pos4& pos, const PosL4& pos_, const uint8_t alpha = 255)
+	{
+		tex(pos_.x, pos_.y, pos_.w, pos_.h).resized(pos.x2 - pos.x1, pos.y2 - pos.y1).draw(pos.x1, pos.y1, s3d::Alpha(alpha));
+		return 0;
+	}
+
+	int32_t asTex4S3(const Tex& tex, const Pos2& pos2, const PosL4& pos_, const uint8_t alpha = 255)
+	{
+		tex(pos_.x, pos_.y, pos_.w, pos_.h).resized(pos2.x, pos2.y).draw(0, 0, s3d::Alpha(alpha));
 		return -1;
 	}
 
@@ -175,7 +185,7 @@ namespace AsLib
 		Pos2 pixel_size;
 
 	public:
-		TextureMainData(const Tex add_id);
+		TextureMainData(const Tex& add_id);
 
 		TextureMainData& draw();
 		TextureMainData& draw(const uint8_t);
@@ -277,16 +287,28 @@ namespace AsLib
 	struct AnimeMainData
 	{
 	private:
+#if defined(ANIME_TEXTURE_1)
+		Tex id;
+#elif defined(ANIME_TEXTURE_2)
 		std::unique_ptr<Tex[]> id;
-
+#endif
 		Pos2 pixel_size;
 		size_t num = 0;
 	public:
+#if defined(ANIME_TEXTURE_1)
+		AnimeMainData(const size_t id_num, const Tex& add_id) :id(std::move(add_id)), num(id_num)
+		{
+			//画像サイズ取得
+			AsTexSize(this->id, this->pixel_size);
+			this->pixel_size.x /= int32_t(id_num);
+		}
+#elif defined(ANIME_TEXTURE_2)
 		AnimeMainData(const size_t id_num, std::unique_ptr<Tex[]>&& add_id) :id(std::move(add_id)), num(id_num)
 		{
 			//画像サイズ取得
 			AsTexSize(this->id[0], this->pixel_size);
 		}
+#endif
 		AnimeMainData& draw(const size_t);
 		AnimeMainData& draw(const size_t, const uint8_t);
 		AnimeMainData& draw(const size_t, const Pos2&, const uint8_t = 255);
@@ -390,7 +412,7 @@ namespace AsLib
 	//	return *this;
 	//}
 
-	inline TextureMainData::TextureMainData(const Tex add_id)
+	inline TextureMainData::TextureMainData(const Tex& add_id)
 	{
 		this->id = add_id;
 
@@ -457,28 +479,60 @@ namespace AsLib
 	//サイズ等倍 位置指定
 	inline AnimeMainData& AnimeMainData::draw(const size_t anime_size, const Pos4& add_pos, const uint8_t alpha)
 	{
+#if defined(ANIME_TEXTURE_1)
+		PosL4 pos_;
+		pos_.w = this->pixel_size.x;
+		pos_.h = this->pixel_size.y;
+		pos_.x = this->pixel_size.x*anime_size;
+		asTex4S3(this->id, add_pos, pos_, alpha);
+#elif defined(ANIME_TEXTURE_2)
 		asTex4(this->id[anime_size], add_pos, alpha);
+#endif
 		return *this;
 	}
 
 	//サイズ等倍 位置指定
 	inline AnimeMainData& AnimeMainData::draw(const size_t anime_size, const Pos2& add_pos, const uint8_t alpha)
 	{
+#if defined(ANIME_TEXTURE_1)
+		PosL4 pos_;
+		pos_.w = this->pixel_size.x;
+		pos_.h = this->pixel_size.y;
+		pos_.x = this->pixel_size.x*anime_size;
+		asTex4S3(this->id, add_pos, pos_, alpha);
+#elif defined(ANIME_TEXTURE_2)
 		asTex4(this->id[anime_size], add_pos, alpha);
+#endif
 		return *this;
 	}
 
 	//サイズ 指定なし 透明度 指定あり
 	inline AnimeMainData& AnimeMainData::draw(const size_t anime_size, const uint8_t alpha)
 	{
+#if defined(ANIME_TEXTURE_1)
+		PosL4 pos_;
+		pos_.w = this->pixel_size.x;
+		pos_.h = this->pixel_size.y;
+		pos_.x = this->pixel_size.x*anime_size;
+		asTex4S3(this->id, this->pixel_size, pos_, alpha);
+#elif defined(ANIME_TEXTURE_2)
 		asTex4(this->id[anime_size], this->pixel_size, alpha);
+#endif
 		return *this;
 	}
 
 	//サイズ・透明度 指定なし
 	inline AnimeMainData& AnimeMainData::draw(const size_t anime_size)
 	{
+#if defined(ANIME_TEXTURE_1)
+		PosL4 pos_;
+		pos_.w = this->pixel_size.x;
+		pos_.h = this->pixel_size.y;
+		pos_.x = this->pixel_size.x*anime_size;
+		asTex4S3(this->id, this->pixel_size, pos_);
+#elif defined(ANIME_TEXTURE_2)
 		asTex4(this->id[anime_size], this->pixel_size);
+#endif
 		return *this;
 	}
 

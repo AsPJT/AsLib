@@ -238,14 +238,14 @@ namespace AsLib
 		constexpr int32_t PRINT_STRING_MAX = 1024;
 		char snString[PRINT_STRING_MAX];
 		snprintf(snString, sizeof(snString), FormatString, rest...);
-		return string(snString);
+		return std::string(snString);
 	}
 
 	//ï∂éöèoóÕ
 	template<typename... Rest>
 	inline int32_t asPrint(const char* const format_string, const Rest&... rest)
 	{
-		Print(Unicode::UTF8ToUTF32(printString(format_string, rest...)));
+		s3d::Print(s3d::Unicode::UTF8ToUTF32(printString(format_string, rest...)));
 		return 0;
 	}
 

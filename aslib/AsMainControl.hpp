@@ -364,9 +364,14 @@ namespace AsLib
 
 	inline MainControl & MainControl::animeAdd(const char * const add_name,const size_t add_num)
 	{
+#if defined(ANIME_TEXTURE_1)
+		const AnimeMainData add_texture(add_num, AsLoadTex(add_name));
+		anime_main_data_render.emplace_back(add_texture);
+#elif defined(ANIME_TEXTURE_2)
 		//”ñconst
 		AnimeMainData add_texture(add_num, AsLoadTex(add_name, add_num));
 		anime_main_data_render.emplace_back(std::move(add_texture));
+#endif
 		return *this;
 	}
 

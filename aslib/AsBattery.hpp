@@ -17,8 +17,12 @@ namespace AsLib
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return int32_t(DxLib::GetBatteryLifePercent());
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		//todo
-		return 0;
+#if defined(SIV3D_TARGET_WINDOWS)
+		SYSTEM_POWER_STATUS sps;
+		if (!GetSystemPowerStatus(&sps)) return 0;
+		if (sps.BatteryLifePercent == BATTERY_PERCENTAGE_UNKNOWN) return 0;
+		else return sps.BatteryLifePercent;
+#endif
 #else //Console
 
 #endif
