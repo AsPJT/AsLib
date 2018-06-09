@@ -36,25 +36,22 @@ namespace AsLib
 		uint8_t r = COLOR_MAX;
 		uint8_t g = COLOR_MAX;
 		uint8_t b = COLOR_MAX;
+
+		ColorRGB() = default;
+		constexpr ColorRGB(const int32_t r_, const int32_t g_, const int32_t b_, const int32_t a_) :r(r_), g(g_), b(b_) {};
+		constexpr ColorRGB(const int32_t r_, const int32_t g_, const int32_t b_) :r(r_), g(g_), b(b_) {};
+
+		//‘¼‚Ìƒ‰ƒCƒuƒ‰ƒŠ‘Î‰ž
 #if defined(ASLIB_INCLUDE_DL)
-		operator unsigned int() const;
+		operator unsigned int() const { return DxLib::GetColor(int(this->r), int(this->g), int(this->b)); };
 #elif defined(ASLIB_INCLUDE_S3)
-		operator s3d::Color() const;
+		operator s3d::Color() const
+		{
+			const s3d::Color col(uint32_t(this->r), uint32_t(this->g), uint32_t(this->b));
+			return col;
+		};
 #endif
 	};
-#if defined(ASLIB_INCLUDE_DL)
-	inline ColorRGB::operator unsigned int() const
-	{
-		const unsigned int col = DxLib::GetColor(int(this->r), int(this->g), int(this->b));
-		return col;
-	}
-#elif defined(ASLIB_INCLUDE_S3)
-	inline ColorRGB::operator s3d::Color() const
-	{
-		const s3d::Color col(uint32_t(this->r), uint32_t(this->g), uint32_t(this->b));
-		return col;
-	}
-#endif
 
 	//‚RF{“§‰ß
 	struct ColorRGBA
@@ -76,26 +73,20 @@ namespace AsLib
 		uint8_t g = COLOR_MAX;
 		uint8_t b = COLOR_MAX;
 		uint8_t a = COLOR_MAX;
+
+		ColorRGBA() = default;
+		constexpr ColorRGBA(const int32_t r_, const int32_t g_, const int32_t b_, const int32_t a_) :r(r_), g(g_), b(b_), a(a_) {};
+		constexpr ColorRGBA(const int32_t r_, const int32_t g_, const int32_t b_) :r(r_), g(g_), b(b_), a(255) {};
 #if defined(ASLIB_INCLUDE_DL)
-		operator unsigned int() const;
+		operator unsigned int() const { return DxLib::GetColor(int(this->r), int(this->g), int(this->b)); };
 #elif defined(ASLIB_INCLUDE_S3)
-		operator s3d::Color() const;
+		operator s3d::Color() const
+		{
+			const s3d::Color col(uint32_t(this->r), uint32_t(this->g), uint32_t(this->b), uint32_t(this->a));
+			return col;
+		};
 #endif
 	};
-
-#if defined(ASLIB_INCLUDE_DL)
-	inline ColorRGBA::operator unsigned int() const
-	{
-		const unsigned int col = DxLib::GetColor(int(this->r), int(this->g), int(this->b));
-		return col;
-	}
-#elif defined(ASLIB_INCLUDE_S3)
-	inline ColorRGBA::operator s3d::Color() const
-	{
-		const s3d::Color col(uint32_t(this->r), uint32_t(this->g), uint32_t(this->b), uint32_t(this->a));
-		return col;
-	}
-#endif
 
 	inline ColorRGBA::operator ColorRGB() const
 	{

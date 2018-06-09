@@ -63,7 +63,7 @@ struct Pet
 //シーン読み込み
 inline void sceneInit(MC& mc)
 {
-	mc.AddScene(START_SCENE, startScene, {100,100,200});
+	mc.AddScene(START_SCENE, startScene, ColorRGB(100,100,200));
 	mc.AddScene(MAIN_SCENE, mainScene);
 	mc.AddScene(END_SCENE, endScene);
 	mc.AddScene(LOGO_SCENE1, logoScene1);
@@ -84,11 +84,11 @@ inline void textureInit(MC& mc)
 //画像読み込み
 inline void UI_Init(MC& mc)
 {
-	mc.textureUI_Add(KURO_TEXTURE, 200, { 200,200,500,500 });
-	mc.textureUI_Add(GAHAKU_TEXTURE, 255, { 0,0,200,200 });
+	mc.textureUI_Add(KURO_TEXTURE, 200, Pos4(200, 200, 500, 500));
+	mc.textureUI_Add(GAHAKU_TEXTURE, 255, Pos4(0, 0, 200, 200));
 
-	mc.animeUI_Add(NUM_ANIME, 200, { 0,0,400,400 });
-	mc.animeUI_Add(NUM_ANIME, 200, { 50,50,400,400 });
+	mc.animeUI_Add(NUM_ANIME, 200, Pos4(0, 0, 400, 400));
+	mc.animeUI_Add(NUM_ANIME, 200, Pos4(50, 50, 400, 400));
 }
 
 void batteryScene(MC& mc)
@@ -110,10 +110,10 @@ void startScene(MC& mc)
 
 	//asBatteryDraw({ 700,200,200,300 });
 
-	static Pos2 p_ = { 500,200 };
+	static Pos2 p_{ 500,200 };
 	mc.font_main_data_render[0].draw(p_, u8"アニメーション%d", 1);
 
-	Circle({ 700,400 }, 50).draw();
+	Circle(Pos2(700, 400), 50).draw();
 
 	//命令レイヤー
 	if (mc.upTex0(GAHAKU2_TEXUI)) mc.scene(LOGO_SCENE1);
@@ -163,7 +163,7 @@ void logoScene4(MC& mc)
 int32_t AsMain()
 {
 	//管理クラス
-	MC mc(u8"Simple Counter", {1000,600}, BG_COLOR);
+	MC mc(u8"Simple Counter", Pos2(1000,600), BG_COLOR);
 	//mc.battery.make({ 700,200,200,300 });
 
 	mc.battery.make(mc.asPos4({ 0.9f,0.02f,0.98f,0.3f }));

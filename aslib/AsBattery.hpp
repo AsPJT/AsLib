@@ -28,8 +28,6 @@ namespace AsLib
 #endif
 	}
 
-
-
 	//バッテリー描画
 	int32_t asBatteryDraw(const PosL4 pos_, const ColorRGBA battery_col = { 0,192,32,255 }, const ColorRGBA out_col = { 75,75,75,255 })
 	{
