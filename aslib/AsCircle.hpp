@@ -28,6 +28,8 @@ namespace AsLib
 		Circle() = default;
 		constexpr Circle(const Pos2& pos_, const int32_t r_, const ColorRGBA& col_ = black_RGBA) :pos(pos_), r(r_), col(col_) {};
 		const Circle& draw() const { asCircle(pos, r, col); return *this; }
+		const Circle& draw(const Pos2& pos_) const { asCircle(pos_, r, col); return *this; }
+		const Circle& draw(const ColorRGBA& col_) const { asCircle(pos, r, col_); return *this; }
 		Pos2 pos;
 		int32_t r;
 		ColorRGBA col;

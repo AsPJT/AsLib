@@ -93,7 +93,7 @@ namespace AsLib
 	class Mouse 
 	{
 	public:
-		Pos2 Pos() const { return this->pos; };
+		Pos2 Pos() const { return mousePos(); };
 		int32_t Wheel() const { return this->wheel; };
 		Counter Count(const size_t count_num) const { return this->counter[count_num]; };
 

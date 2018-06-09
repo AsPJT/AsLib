@@ -84,7 +84,7 @@ namespace AsLib
 		MainControl& anime(const size_t select_texture);
 
 		//•¶ŽšŒn--------------------------------------------------
-		MainControl& fontAdd(const int32_t&, const char* const = "Meiryo UI");
+		size_t fontAdd(const int32_t&, const char* const = "Meiryo UI");
 
 		//ƒ^ƒCƒgƒ‹ƒƒS--------------------------------------------------
 		MainControl& drawLogo(const size_t add_texture_ui, const int32_t add_time, const size_t add_scene);
@@ -122,6 +122,7 @@ namespace AsLib
 		bool isUp0() { const bool is_up = this->is_up_all; this->is_up_all = 0; return is_up; };
 		bool isDown() const { return this->is_down_all; };
 		bool isDown0() { const bool is_down = this->is_down_all; this->is_down_all = 0; return is_down; };
+		Pos2 pos() const { return this->mouse.Pos(); };
 	private:
 		int32_t touch_all_num = 0;
 		bool is_up_all = false;
@@ -348,11 +349,11 @@ namespace AsLib
 		return *this;
 	}
 
-	inline MainControl & MainControl::fontAdd(const int32_t& font_size, const char* const add_name)
+	inline size_t MainControl::fontAdd(const int32_t& font_size, const char* const add_name)
 	{
 		const FontMainData add_font(asMakeFont(font_size, add_name), font_size, add_name);
 		font_main_data_render.emplace_back(add_font);
-		return *this;
+		return font_main_data_render.size() - 1;
 	}
 
 	inline MainControl & MainControl::textureAdd(const char * const add_name)

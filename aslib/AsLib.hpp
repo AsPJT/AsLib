@@ -8,7 +8,7 @@
 //
 //     ----------     ----------     ----------     ----------     ----------
 
-#ifndef ASLIB_ASCLL
+#if !defined(ASLIB_ASCLL)
 #define ASLIB_ASCLL
 
 #pragma once
@@ -31,9 +31,13 @@ namespace AsLib { int32_t asEnd(); }
 int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int i = int(AsMain()); AsLib::asEnd(); return i; }
 
 #elif defined(ASLIB_INCLUDE_DL)
+#if !defined(DX_NON_USING_NAMESPACE_DXLIB)
 #define DX_NON_USING_NAMESPACE_DXLIB
+#endif
 #include "DxLib.h"
+#if !defined(ANIME_TEXTURE_2)
 #define ANIME_TEXTURE_2
+#endif
 #if defined(__WINDOWS__)
 #include <Windows.h>
 int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int i = int(AsMain()); AsLib::asEnd(); return i; }
@@ -42,9 +46,13 @@ int android_main() { const int i = int(AsMain()); AsLib::asEnd(); return i; }
 #endif
 
 #elif defined(ASLIB_INCLUDE_S3)
+#if !defined(NO_S3D_USING)
 #define NO_S3D_USING
+#endif
 #include "Siv3D.hpp"
+#if !defined(ANIME_TEXTURE_1)
 #define ANIME_TEXTURE_1
+#endif
 #if defined(SIV3D_TARGET_WINDOWS)
 #include <Windows.h>
 #endif
@@ -53,7 +61,9 @@ void Main() { AsMain(); AsLib::asEnd(); return; }
 #elif defined(ASLIB_INCLUDE_NO)
 int main() { return int(AsMain() && AsLib::asEnd()); }
 #else
+#if !defined(ASLIB_INCLUDE_NO)
 #define ASLIB_INCLUDE_NO
+#endif
 int main() { return int(AsMain() && AsLib::asEnd()); }
 #endif
 
