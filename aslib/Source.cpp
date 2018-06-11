@@ -116,6 +116,20 @@ void startScene(MC& mc)
 	mc.vecFont[0].drawAt(p_, u8"アニメーション%d",1);
 
 
+
+	static TextureMainData texa(AsLoadTex("gahaku.png"));
+	//static const Pos8 a = Pos4(300, 300, 600, 700);
+	static const Pos8 a = Pos8(300,600,300,300,600,600,600,300);
+	static const Pos8 b = (Pos8(Pos4(a)));
+	//b(a, 1.57);
+	//Pos8 b = Pos8(a, 1.57);
+	static double c= 0.0;
+
+	texa.draw(Pos4(a), 150);
+	//Pos8 b(a, 1.7);
+	texa.draw(Pos8(a,c), 150);
+	//c += 0.04;
+
 	Circle(Pos2(700, 400), 50).draw();
 	Circle(mc.pos(), 60).draw(ColorRGBA(255, 0, 0, 127));
 
@@ -174,27 +188,27 @@ int32_t AsMain()
 	mc.battery.make(mc.asPos4({ 0.9f,0.02f,0.98f,0.3f }));
 	mc.fontAdd(60);
 
-	TextureMainData texa(AsLoadTex("kuro.png"));
-	Pos4 a = Pos4(300, 300, 600, 700);
-	Pos8 b;
-	b(a, 1.57);
+	//TextureMainData texa(AsLoadTex("kuro.png"));
+	//Pos8 a = Pos4(300, 300, 600, 700);
+	//Pos8 b=(Pos8(Pos4(a)));
+	//b(a, 1.57);
 	//Pos8 b = Pos8(a, 1.57);
 
-	texa.draw(a,150);
+	//texa.draw(Pos4(a),150);
 	//Pos8 b(a, 1.7);
-	texa.draw(b,150);
-	asStop();
+	//texa.draw(Pos4(b),150);
+	//asStop();
 
 	////読み込み
-	//sceneInit(mc);
-	//textureInit(mc);
-	//UI_Init(mc);
+	sceneInit(mc);
+	textureInit(mc);
+	UI_Init(mc);
 
-	////初期シーン
-	//mc.scene(LOGO_SCENE1);
-	//
-	////メインループ
-	//while (mc.sceneLoop()) mc.scenePlay();
+	//初期シーン
+	mc.scene(LOGO_SCENE1);
+	
+	//メインループ
+	while (mc.sceneLoop()) mc.scenePlay();
 
 	return 0;
 }
