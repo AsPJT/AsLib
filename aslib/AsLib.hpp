@@ -167,6 +167,9 @@ int main() { return int(AsMain() && AsLib::asEnd()); }
 //SNS
 #include "AsSNS.hpp"
 
+//キーボード
+#include "AsKey.hpp"
+
 //メイン管理
 #include "AsMainControl.hpp"
 
