@@ -16,7 +16,7 @@ namespace AsLib
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return 	(DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, int(col_.a)) == 0) && (DxLib::DrawCircle(int(pos_.x), int(pos_.y), int(r_), col_, TRUE) == 0);
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		//todo
+		s3d::Circle(double(pos_.x), double(pos_.y), r_).draw(col_);
 		return true;
 #else //Console
 

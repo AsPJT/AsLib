@@ -78,7 +78,7 @@ namespace AsLib
 			battery_col = in_col_;
 			out_col = out_col_;
 
-			empty_col = { 255,255,255,out_col.a };
+			empty_col = ColorRGBA( 255,255,255,out_col.a );
 
 			//バッテリー外枠
 			out_pos.h = pos_.w / 2;

@@ -110,10 +110,14 @@ void startScene(MC& mc)
 
 	//asBatteryDraw({ 700,200,200,300 });
 
-	static Pos2 p_{ 500,200 };
-	mc.font_main_data_render[0].draw(p_, u8"アニメーション%d", 1);
+	static Pos2 p_{ 300,200 };
+	mc.vecFont[0].changeSize(mc.wheel());
+	//mc.vecFont[0].draw(p_, u8"アニメーション%d",1);
+	mc.vecFont[0].drawAt(p_, u8"アニメーション%d",1);
+
 
 	Circle(Pos2(700, 400), 50).draw();
+	Circle(mc.pos(), 60).draw(ColorRGBA(255, 0, 0, 127));
 
 	//命令レイヤー
 	if (mc.upTex0(GAHAKU2_TEXUI)) mc.scene(LOGO_SCENE1);
@@ -153,32 +157,44 @@ void logoScene2(MC& mc)
 
 void logoScene3(MC& mc)
 {
+	mc;
 }
 
 void logoScene4(MC& mc)
 {
+	mc;
 }
 
 //メイン関数
 int32_t AsMain()
 {
 	//管理クラス
-	MC mc(u8"Simple Counter", Pos2(1000,600), BG_COLOR);
-	//mc.battery.make({ 700,200,200,300 });
+	MC mc(u8"Simple Counter", Pos2(1000, 800), BG_COLOR);
 
 	mc.battery.make(mc.asPos4({ 0.9f,0.02f,0.98f,0.3f }));
-	mc.fontAdd(30);
+	mc.fontAdd(60);
 
-	//読み込み
-	sceneInit(mc);
-	textureInit(mc);
-	UI_Init(mc);
+	TextureMainData texa(AsLoadTex("kuro.png"));
+	Pos4 a = Pos4(300, 300, 600, 700);
+	Pos8 b;
+	b(a, 1.57);
+	//Pos8 b = Pos8(a, 1.57);
 
-	//初期シーン
-	mc.scene(LOGO_SCENE1);
-	
-	//メインループ
-	while (mc.isLoop()) mc.scenePlay();
+	texa.draw(a,150);
+	//Pos8 b(a, 1.7);
+	texa.draw(b,150);
+	asStop();
+
+	////読み込み
+	//sceneInit(mc);
+	//textureInit(mc);
+	//UI_Init(mc);
+
+	////初期シーン
+	//mc.scene(LOGO_SCENE1);
+	//
+	////メインループ
+	//while (mc.sceneLoop()) mc.scenePlay();
 
 	return 0;
 }

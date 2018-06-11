@@ -24,7 +24,7 @@ These codes are licensed under CC0.
 | 連番画像表示 | Tex | 〇 | 〇 |
 | フォント文字表示 | Font | 〇 | 〇 |
 | 四角形描画 | Rect | 〇 | 〇 |
-| 円形描画 | Circle | 〇 | × |
+| 円形描画 | Circle | 〇 | 〇 |
 | 専用読み書き | AsFile | ◎ | ◎ |
 | バッテリー | Battery | 〇 | 〇 |
 | メイン情報クラス | Class | ◎ | ◎ |

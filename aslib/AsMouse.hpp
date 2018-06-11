@@ -40,10 +40,7 @@ namespace AsLib
 		pos(int32_t(mouse_x), int32_t(mouse_y));
 		return pos;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		//todo
-		Pos2 pos;
-		pos= s3d::Cursor::Pos();
-		return pos;
+		return Pos2(int32_t(s3d::Cursor::Pos().x), int32_t(s3d::Cursor::Pos().y));
 #else //Console
 
 #endif
@@ -53,7 +50,9 @@ namespace AsLib
 	inline int32_t mouseWheel()
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-		//return int32_t(DxLib::GetMouseWheelRotVol(TRUE));
+#if defined(__WINDOWS__)
+		return int32_t(DxLib::GetMouseWheelRotVol(TRUE));
+#endif
 		return 0;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return int32_t(s3d::Mouse::Wheel());
@@ -93,7 +92,7 @@ namespace AsLib
 	class Mouse 
 	{
 	public:
-		Pos2 Pos() const { return mousePos(); };
+		Pos2 Pos() const { return this->pos; };
 		int32_t Wheel() const { return this->wheel; };
 		Counter Count(const size_t count_num) const { return this->counter[count_num]; };
 

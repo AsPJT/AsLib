@@ -44,6 +44,7 @@ namespace AsLib
 
 		//コンストラクタ
 		Pos2() = default;
+		constexpr Pos2(const int32_t xy_) :x(xy_), y(xy_) {};
 		constexpr Pos2(const int32_t x_, const int32_t y_) :x(x_), y(y_) {};
 		constexpr Pos2(const Pos2& pos_);
 		constexpr Pos2(const Pos4& pos_);
@@ -58,13 +59,7 @@ namespace AsLib
 			p_.x = this->y;
 			return p_;
 		}
-		Pos2& operator=(const s3d::Point& add_pos)
-		{
-			Pos2 pos;
-			pos.x = add_pos.x;
-			pos.y = add_pos.y;
-			return pos;
-		}
+		Pos2 operator=(const s3d::Point& add_pos) { return Pos2(int32_t(add_pos.x), int32_t(add_pos.y)); }
 		operator s3d::Rect()
 		{
 			const s3d::Rect rect(this->x, this->y);
@@ -75,25 +70,25 @@ namespace AsLib
 
 	inline const Pos2 & Pos2::rand(const Pos2& add_pos)
 	{
-		this->x = rand32(add_pos.x);
-		this->y = rand32(add_pos.y);
+		this->x = asRand32(add_pos.x);
+		this->y = asRand32(add_pos.y);
 		return *this;
 	}
 
 	inline const Pos2 & Pos2::randPlus(const uint32_t add_pos)
 	{
-		this->x += (rand32(add_pos) - (add_pos >> 1));
-		this->y += (rand32(add_pos) - (add_pos >> 1));
+		this->x += (asRand32(add_pos) - (add_pos >> 1));
+		this->y += (asRand32(add_pos) - (add_pos >> 1));
 		return *this;
 	}
 
 	//長方形の大きさ(左上と右下の位置)
 	struct Pos4
 	{
-		Pos4& operator=(const Pos2& add_pos);
-		Pos4& operator=(const Pos8& add_pos);
-		Pos4& operator=(const PosA4& add_pos);
-		Pos4& operator=(const PosL4& add_pos);
+		const Pos4& operator=(const Pos2& add_pos);
+		const Pos4& operator=(const Pos8& add_pos);
+		const Pos4& operator=(const PosA4& add_pos);
+		const Pos4& operator=(const PosL4& add_pos);
 		operator Pos2();
 		operator Pos8();
 		operator PosA4();
@@ -102,8 +97,8 @@ namespace AsLib
 		int32_t y1;
 		int32_t x2;
 		int32_t y2;
-		Pos4& rand(const Pos2&);
-		Pos4& conv(const Pos4R&, const Pos2&);
+		const Pos4& rand(const Pos2&);
+		const Pos4& operator() (const Pos4R&, const Pos2&);
 
 		//コンストラクタ
 		Pos4() = default;
@@ -114,22 +109,25 @@ namespace AsLib
 		constexpr Pos4(const PosL4&);
 		constexpr Pos4(const PosA4&);
 		constexpr Pos4(const Pos8&);
+
+		//比率
+		constexpr Pos4(const Pos4R&, const Pos2&);
 	};
 
-	inline Pos4 & Pos4::rand(const Pos2& add_pos)
+	inline const Pos4 & Pos4::rand(const Pos2& add_pos)
 	{
-		this->x2 = this->x1 + rand32(add_pos.x);
-		this->y2 = this->y1 + rand32(add_pos.y);
+		this->x2 = this->x1 + asRand32(add_pos.x);
+		this->y2 = this->y1 + asRand32(add_pos.y);
 		return *this;
 	}
 
 	//長方形の大きさ(位置と長さ)
 	struct PosL4
 	{
-		PosL4& operator=(const Pos2& add_pos);
-		PosL4& operator=(const Pos4& add_pos);
-		PosL4& operator=(const PosA4& add_pos);
-		PosL4& operator=(const Pos8& add_pos);
+		const PosL4& operator=(const Pos2& add_pos);
+		const PosL4& operator=(const Pos4& add_pos);
+		const PosL4& operator=(const PosA4& add_pos);
+		const PosL4& operator=(const Pos8& add_pos);
 		operator Pos2();
 		operator Pos4();
 		operator PosA4();
@@ -153,16 +151,16 @@ namespace AsLib
 	//中心位置と大きさを併せ持つ
 	struct PosA4
 	{
-		PosA4& operator=(const Pos2& add_pos);
-		PosA4& operator=(const Pos4& add_pos);
-		PosA4& operator=(const PosL4& add_pos);
-		PosA4& operator=(const Pos8& add_pos);
+		const PosA4& operator=(const Pos2& add_pos);
+		const PosA4& operator=(const Pos4& add_pos);
+		const PosA4& operator=(const PosL4& add_pos);
+		const PosA4& operator=(const Pos8& add_pos);
 		operator Pos2();
 		operator Pos4();
 		operator PosL4();
 		operator Pos8();
-		PosA4& rand(const Pos2&);
-		PosA4& randPlus(const uint32_t);
+		const PosA4& rand(const Pos2&);
+		const PosA4& randPlus(const uint32_t);
 		int32_t x = 0;
 		int32_t y = 0;
 		int32_t w = 0;
@@ -179,20 +177,20 @@ namespace AsLib
 		constexpr PosA4(const Pos8&);
 	};
 
-	inline PosA4 & PosA4::randPlus(const uint32_t add_pos)
+	inline const PosA4 & PosA4::randPlus(const uint32_t add_pos)
 	{
-		this->x += (rand32(add_pos) - (add_pos >> 1));
-		this->y += (rand32(add_pos) - (add_pos >> 1));
+		this->x += (asRand32(add_pos) - (add_pos >> 1));
+		this->y += (asRand32(add_pos) - (add_pos >> 1));
 		return *this;
 	}
 
 	//四角形の大きさ
 	struct Pos8
 	{
-		Pos8& operator=(const Pos2& add_pos);
-		Pos8& operator=(const Pos4& add_pos);
-		Pos8& operator=(const PosL4& add_pos);
-		Pos8& operator=(const PosA4& add_pos);
+		const Pos8& operator=(const Pos2& add_pos);
+		const Pos8& operator=(const Pos4& add_pos);
+		const Pos8& operator=(const PosL4& add_pos);
+		const Pos8& operator=(const PosA4& add_pos);
 		int32_t x1 = 0;
 		int32_t y1 = 0;
 		int32_t x2 = 0;
@@ -204,14 +202,42 @@ namespace AsLib
 
 		//コンストラクタ
 		Pos8() = default;
-		constexpr Pos8(const int32_t x1_, const int32_t y1_, const int32_t x2_, const int32_t y2_, const int32_t x3_, const int32_t y3_, const int32_t x4_, const int32_t y4_) : x1(x1_), y1(y1_), x2(x2_), y2(y2_), x3(x3_), y3(y3_), x4(x4_), y4(y4_) {};
-		constexpr Pos8(const int32_t x1_, const int32_t y1_, const int32_t x2_, const int32_t y2_) : x1(x1_), y1(y1_), x2(x2_), y2(y1_), x3(x1_), y3(y2_), x4(x2_), y4(y2_) {};
-		constexpr Pos8(const int32_t x_, const int32_t y_) : x1(0), y1(0), x2(x_), y2(0), x3(0), y3(y_), x4(x_), y4(y_) {};
+		constexpr Pos8(const int32_t x1_, const int32_t y1_, const int32_t x2_, const int32_t y2_, const int32_t x3_, const int32_t y3_, const int32_t x4_, const int32_t y4_) : x1(x1_), y1(y1_), x2(x2_), y2(y2_), x3(x3_), y3(y3_), x4(x4_), y4(y4_) {}
+		constexpr Pos8(const int32_t x1_, const int32_t y1_, const int32_t x2_, const int32_t y2_) : x1(x1_), y1(y1_), x2(x2_), y2(y1_), x3(x1_), y3(y2_), x4(x2_), y4(y2_) {}
+		constexpr Pos8(const int32_t x_, const int32_t y_) : x1(0), y1(0), x2(x_), y2(0), x3(0), y3(y_), x4(x_), y4(y_) {}
 		constexpr Pos8(const Pos2& pos_);
 		constexpr Pos8(const Pos4& pos_);
 		constexpr Pos8(const PosL4&);
 		constexpr Pos8(const PosA4&);
 		constexpr Pos8(const Pos8&);
+
+		//回転
+		const Pos8(const Pos4& p_, const double r_) {
+			constexpr double pos_pi = 3.141592653589793238462643383279502884197;
+			//中心位置からの幅
+			const int32_t size_y = int32_t(abs((p_.y2 - p_.y1) / 2));
+			const int32_t size_x = int32_t(abs((p_.x2 - p_.x1) / 2));
+			//中心位置からの半径
+			const double size_r = sqrt(size_y * size_y + size_x * size_x);
+			//位置の角度
+			const double pos_r = r_ + atan2(size_y, size_x);
+
+			//中心位置
+			const int32_t pos_x = size_x + p_.x1;
+			const int32_t pos_y = size_y + p_.y1;
+
+			this->x1 = pos_x + int32_t(round(size_r*cos(pos_r + pos_pi)));
+			this->y1 = pos_y + int32_t(round(size_r*sin(pos_r + pos_pi)));
+			this->x2 = pos_x + int32_t(round(size_r*cos(-pos_r)));
+			this->y2 = pos_y + int32_t(round(size_r*sin(-pos_r)));
+			this->x3 = pos_x + int32_t(round(size_r*cos(-pos_r + pos_pi)));
+			this->y3 = pos_y + int32_t(round(size_r*sin(-pos_r + pos_pi)));
+			this->x4 = pos_x + int32_t(round(size_r*cos(pos_r)));
+			this->y4 = pos_y + int32_t(round(size_r*sin(pos_r)));
+		}
+
+		const Pos8& operator()(const Pos4& p_, const double r_) { *this = Pos8(p_, r_); return *this; };
+
 	};
 
 	//画面比での大きさ(2D)
@@ -315,100 +341,69 @@ namespace AsLib
 	//代入
 	//--------------------------------------------------------
 
-	inline  PosL4& PosL4::operator=(const Pos4& add_pos)
+	inline const PosL4& PosL4::operator=(const Pos4& add_pos)
 	{
-		this->w = add_pos.x2 - add_pos.x1;
-		this->h = add_pos.y2 - add_pos.y1;
-		this->x = add_pos.x1;
-		this->y = add_pos.y1;
+		*this = PosL4(add_pos);
 		return *this;
 	}
 
-	inline PosL4 & PosL4::operator=(const Pos2 & add_pos)
+	inline const PosL4 & PosL4::operator=(const Pos2 & add_pos)
 	{
-		this->x = add_pos.x;
-		this->y = add_pos.y;
+		*this = PosL4(add_pos);
 		return *this;
 	}
 
-	inline PosL4 & PosL4::operator=(const PosA4 & add_pos)
+	inline const PosL4 & PosL4::operator=(const PosA4 & add_pos)
 	{
-		this->x = add_pos.x - (add_pos.w >> 1);
-		this->y = add_pos.y - (add_pos.h >> 1);
-		this->w = add_pos.w;
-		this->h = add_pos.h;
+		*this = PosL4(add_pos);
 		return *this;
 	}
 
-	inline PosL4 & PosL4::operator=(const Pos8 & add_pos)
+	inline const PosL4 & PosL4::operator=(const Pos8 & add_pos)
 	{
-		this->w = add_pos.x4 - add_pos.x1;
-		this->h = add_pos.y4 - add_pos.y1;
-		this->x = add_pos.x1;
-		this->y = add_pos.y1;
+		*this = PosL4(add_pos);
 		return *this;
 	}
 
-	inline Pos4& Pos4::operator=(const PosL4& add_pos)
+	inline const Pos4& Pos4::operator=(const PosL4& add_pos)
 	{
-		this->x1 = add_pos.x;
-		this->y1 = add_pos.y;
-		this->x2 = add_pos.x + add_pos.w;
-		this->y2 = add_pos.y + add_pos.h;
+		*this = Pos4(add_pos);
 		return *this;
 	}
 
-	inline Pos4& Pos4::operator=(const PosA4& add_pos)
+	inline const Pos4& Pos4::operator=(const PosA4& add_pos)
 	{
-		const int32_t pos_w = add_pos.w >> 1;
-		const int32_t pos_h = add_pos.h >> 1;
-		this->x1 = add_pos.x - pos_w;
-		this->y1 = add_pos.y - pos_h;
-		this->x2 = add_pos.x + pos_w;
-		this->y2 = add_pos.y + pos_h;
+		*this = Pos4(add_pos);
 		return *this;
 	}
 
-	inline PosA4 & PosA4::rand(const Pos2& add_pos)
+	inline const PosA4 & PosA4::rand(const Pos2& add_pos)
 	{
-		this->x = rand32(add_pos.x);
-		this->y = rand32(add_pos.y);
+		*this = PosA4(add_pos);
 		return *this;
 	}
 
-	inline PosA4& PosA4::operator=(const Pos2& add_pos)
+	inline const PosA4& PosA4::operator=(const Pos2& add_pos)
 	{
-		this->x = add_pos.x;
-		this->y = add_pos.y;
+		*this = PosA4(add_pos);
 		return *this;
 	}
 
-	inline PosA4& PosA4::operator=(const Pos4& add_pos)
+	inline const PosA4& PosA4::operator=(const Pos4& add_pos)
 	{
-		this->w = add_pos.x2 - add_pos.x1;
-		this->h = add_pos.y2 - add_pos.y1;
-		this->x = add_pos.x1 + (this->w >> 1);
-		this->y = add_pos.y1 + (this->h >> 1);
+		*this = PosA4(add_pos);
 		return *this;
 	}
 
-	inline PosA4& PosA4::operator=(const PosL4& add_pos)
+	inline const PosA4& PosA4::operator=(const PosL4& add_pos)
 	{
-		const int32_t pos_w = add_pos.w >> 1;
-		const int32_t pos_h = add_pos.h >> 1;
-		this->x = add_pos.x + pos_w;
-		this->y = add_pos.y + pos_h;
-		this->w = add_pos.w;
-		this->h = add_pos.h;
+		*this = PosA4(add_pos);
 		return *this;
 	}
 
-	inline PosA4& PosA4::operator=(const Pos8& add_pos)
+	inline const PosA4& PosA4::operator=(const Pos8& add_pos)
 	{
-		this->w = add_pos.x4 - add_pos.x1;
-		this->h = add_pos.y4 - add_pos.y1;
-		this->x = add_pos.x1;
-		this->y = add_pos.y1;
+		*this = PosA4(add_pos);
 		return *this;
 	}
 
@@ -416,43 +411,43 @@ namespace AsLib
 
 	inline const Pos2 & Pos2::operator=(const Pos4 & add_pos)
 	{
-		this->x = add_pos.x2;
-		this->y = add_pos.y2;
+		*this = Pos2(add_pos);
 		return *this;
 	}
 
 	inline const Pos2 & Pos2::operator=(const PosL4 & add_pos)
 	{
-		this->x = add_pos.x;
-		this->y = add_pos.y;
+		*this = Pos2(add_pos);
 		return *this;
 	}
 
 	inline const Pos2 & Pos2::operator=(const PosA4 & add_pos)
 	{
-		this->x = add_pos.x;
-		this->y = add_pos.y;
+		*this = Pos2(add_pos);
 		return *this;
 	}
 
 	inline const Pos2& Pos2::operator=(const Pos8& add_pos)
 	{
-		this->x = add_pos.x4;
-		this->y = add_pos.y4;
+		*this = Pos2(add_pos);
 		return *this;
 	}
 
 	inline const Pos2& Pos2::operator()(const int32_t pos_x, const int32_t pos_y)
 	{
-		this->x = pos_x;
-		this->y = pos_y;
+		*this = Pos2(pos_x, pos_y);
 		return *this;
 	}
 
 	inline const Pos2& Pos2::operator()(const int32_t pos_size)
 	{
-		this->x = pos_size;
-		this->y = pos_size;
+		*this = Pos2(pos_size);
+		return *this;
+	}
+
+	inline const Pos4& Pos4::operator=(const Pos8& add_pos)
+	{
+		*this = Pos4(add_pos);
 		return *this;
 	}
 
@@ -462,16 +457,6 @@ namespace AsLib
 		this->y = add_pos.y4;
 		return *this;
 	}
-
-	inline Pos4& Pos4::operator=(const Pos8& add_pos)
-	{
-		this->x1 = add_pos.x1;
-		this->x2 = add_pos.x4;
-		this->y1 = add_pos.y1;
-		this->y2 = add_pos.y4;
-		return *this;
-	}
-
 	inline Pos4R& Pos4R::operator=(const Pos8R& add_pos)
 	{
 		this->x1 = add_pos.x1;
@@ -480,9 +465,6 @@ namespace AsLib
 		this->y2 = add_pos.y4;
 		return *this;
 	}
-
-
-
 	inline Pos8R& Pos8R::operator=(const Pos4R& add_pos)
 	{
 		this->x1 = add_pos.x1;
@@ -496,44 +478,21 @@ namespace AsLib
 		return *this;
 	}
 
-	inline Pos8& Pos8::operator=(const Pos4& add_pos)
+	inline const Pos8& Pos8::operator=(const Pos4& add_pos)
 	{
-		this->x1 = add_pos.x1;
-		this->y1 = add_pos.y1;
-		this->x2 = add_pos.x2;
-		this->y2 = add_pos.y1;
-		this->x3 = add_pos.x1;
-		this->y3 = add_pos.y2;
-		this->x4 = add_pos.x2;
-		this->y4 = add_pos.y2;
+		*this = Pos8(add_pos);
 		return *this;
 	}
 
-	inline Pos8& Pos8::operator=(const PosL4& add_pos)
+	inline const Pos8& Pos8::operator=(const PosL4& add_pos)
 	{
-		this->x1 = add_pos.x;
-		this->y1 = add_pos.y;
-		this->x2 = add_pos.x + add_pos.w;
-		this->y2 = add_pos.y;
-		this->x3 = add_pos.x;
-		this->y3 = add_pos.y + add_pos.h;
-		this->x4 = add_pos.x + add_pos.w;
-		this->y4 = add_pos.y + add_pos.h;
+		*this = Pos8(add_pos);
 		return *this;
 	}
 
-	inline Pos8& Pos8::operator=(const PosA4& add_pos)
+	inline const Pos8& Pos8::operator=(const PosA4& add_pos)
 	{
-		const int32_t pos_w = add_pos.w >> 1;
-		const int32_t pos_h = add_pos.h >> 1;
-		this->x1 = add_pos.x - pos_w;
-		this->y1 = add_pos.y - pos_h;
-		this->x2 = add_pos.x + pos_w;
-		this->y2 = add_pos.y - pos_h;
-		this->x3 = add_pos.x - pos_w;
-		this->y3 = add_pos.y + pos_h;
-		this->x4 = add_pos.x + pos_w;
-		this->y4 = add_pos.y + pos_h;
+		*this = Pos8(add_pos);
 		return *this;
 	}
 
@@ -550,18 +509,19 @@ namespace AsLib
 		return *this;
 	}
 
-	inline Pos8& Pos8::operator=(const Pos2& add_pos)
+	inline const Pos8& Pos8::operator=(const Pos2& add_pos)
 	{
-		this->x1 = 0;
-		this->y1 = 0;
-		this->x2 = add_pos.x;
-		this->y2 = 0;
-		this->x3 = 0;
-		this->y3 = add_pos.y;
-		this->x4 = add_pos.x;
-		this->y4 = add_pos.y;
+		*this = Pos8(add_pos);
 		return *this;
 	}
+
+	inline const Pos4& Pos4::operator=(const Pos2& add_pos)
+	{
+		*this = Pos4(add_pos);
+		return *this;
+	}
+
+//-------------------------------------------------------------------------------------
 
 	inline Pos2R& Pos2R::operator()(const float pos_x, const float pos_y)
 	{
@@ -574,15 +534,6 @@ namespace AsLib
 	{
 		this->x = pos_size;
 		this->y = pos_size;
-		return *this;
-	}
-
-	inline Pos4& Pos4::operator=(const Pos2& add_pos)
-	{
-		this->x1 = 0;
-		this->y1 = 0;
-		this->x2 = add_pos.x;
-		this->y2 = add_pos.y;
 		return *this;
 	}
 
@@ -602,12 +553,13 @@ namespace AsLib
 		return *this;
 	}
 
-	inline Pos4& Pos4::conv(const Pos4R& pos_, const Pos2& window_pos_)
+	//-------------------------------------------------------------------
+
+	inline constexpr Pos4::Pos4(const Pos4R& pos_, const Pos2& window_pos_) :x1(int32_t(pos_.x1*window_pos_.x)), y1(int32_t(pos_.y1*window_pos_.y)), x2(int32_t(pos_.x2*window_pos_.x)), y2(int32_t(pos_.y2*window_pos_.y)) {}
+
+	inline const Pos4& Pos4::operator()(const Pos4R& pos_, const Pos2& window_pos_)
 	{
-		this->x1 = int32_t(pos_.x1*window_pos_.x);
-		this->x2 = int32_t(pos_.x2*window_pos_.x);
-		this->y1 = int32_t(pos_.y1*window_pos_.y);
-		this->y2 = int32_t(pos_.y2*window_pos_.y);
+		*this = Pos4(pos_, window_pos_);
 		return *this;
 	}
 

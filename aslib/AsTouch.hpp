@@ -28,6 +28,13 @@ namespace AsLib
 		return 0;
 	}
 
+	Pos2 asTouch(const int32_t touch_id)
+	{
+		int touch_x = 0, touch_y = 0;
+		DxLib::GetTouchInput(touch_id, &touch_x, &touch_y, nullptr, nullptr);
+		return Pos2(int32_t(touch_x), int32_t(touch_y));
+	}
+
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 	//todo(ƒ^ƒbƒ`‚ª’Ç‰Á‚³‚ê‚Ä‚¢‚È‚¢)
 	inline int32_t asTouchNum()

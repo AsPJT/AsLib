@@ -38,8 +38,8 @@ namespace AsLib
 		uint8_t b = COLOR_MAX;
 
 		ColorRGB() = default;
-		constexpr ColorRGB(const int32_t r_, const int32_t g_, const int32_t b_, const int32_t a_) :r(r_), g(g_), b(b_) {};
-		constexpr ColorRGB(const int32_t r_, const int32_t g_, const int32_t b_) :r(r_), g(g_), b(b_) {};
+		constexpr ColorRGB(const uint8_t r_, const uint8_t g_, const uint8_t b_, const uint8_t a_) :r(r_), g(g_), b(b_) { };
+		constexpr ColorRGB(const uint8_t r_, const uint8_t g_, const uint8_t b_) :r(r_), g(g_), b(b_) {};
 
 		//‘¼‚Ìƒ‰ƒCƒuƒ‰ƒŠ‘Î‰ž
 #if defined(ASLIB_INCLUDE_DL)
@@ -75,16 +75,13 @@ namespace AsLib
 		uint8_t a = COLOR_MAX;
 
 		ColorRGBA() = default;
-		constexpr ColorRGBA(const int32_t r_, const int32_t g_, const int32_t b_, const int32_t a_) :r(r_), g(g_), b(b_), a(a_) {};
-		constexpr ColorRGBA(const int32_t r_, const int32_t g_, const int32_t b_) :r(r_), g(g_), b(b_), a(255) {};
+		constexpr ColorRGBA(const uint8_t r_, const uint8_t g_, const uint8_t b_, const uint8_t a_) :r(r_), g(g_), b(b_), a(a_) {};
+		constexpr ColorRGBA(const uint8_t r_, const uint8_t g_, const uint8_t b_) :r(r_), g(g_), b(b_), a(uint8_t(255)) {};
 #if defined(ASLIB_INCLUDE_DL)
 		operator unsigned int() const { return DxLib::GetColor(int(this->r), int(this->g), int(this->b)); };
 #elif defined(ASLIB_INCLUDE_S3)
-		operator s3d::Color() const
-		{
-			const s3d::Color col(uint32_t(this->r), uint32_t(this->g), uint32_t(this->b), uint32_t(this->a));
-			return col;
-		};
+		operator s3d::Color() const { return s3d::Color(uint32_t(this->r), uint32_t(this->g), uint32_t(this->b), uint32_t(this->a)); };
+		operator s3d::ColorF() const { return s3d::ColorF(s3d::Color(uint32_t(this->r), uint32_t(this->g), uint32_t(this->b), uint32_t(this->a))); };
 #endif
 	};
 

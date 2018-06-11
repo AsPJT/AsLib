@@ -13,7 +13,7 @@ namespace AsLib
 	//通常のタイトルロゴのシーンチェンジ
 	inline MainControl& MainControl::drawLogo(const size_t add_texture_id, const int32_t add_time, const size_t add_scene)
 	{
-		asTex4(texture_main_data_render[add_texture_id].ID(), init_data.windowSize());
+		asTex4(vecTexture[add_texture_id].ID(), init_data.windowSize());
 		static int32_t time_counter = 0;
 		time_counter += time_counter_ms / this->fps;
 
@@ -42,8 +42,8 @@ namespace AsLib
 		else alpha = 255;
 
 		//asRect(init_data.windowSize(), blackRGB);
-		//asTex4(texture_main_data_render[add_texture_id].ID(), init_data.windowSize(), alpha);
-		texture_main_data_render[add_texture_id].draw(init_data.windowSize(), alpha);
+		//asTex4(vecTexture[add_texture_id].ID(), init_data.windowSize(), alpha);
+		vecTexture[add_texture_id].draw(init_data.windowSize(), alpha);
 
 		if (time_counter >= add_time) {
 			time_counter = 0;
@@ -74,8 +74,8 @@ namespace AsLib
 		}
 		else alpha = 255;
 
-		//asTex4(texture_main_data_render[add_texture_id].ID(), init_data.windowSize(), alpha);
-		texture_main_data_render[add_texture_id].drawA(init_data.windowSize(), alpha);
+		//asTex4(vecTexture[add_texture_id].ID(), init_data.windowSize(), alpha);
+		vecTexture[add_texture_id].drawA(init_data.windowSize(), alpha);
 
 		if (time_counter >= add_time) {
 			time_counter = 0;
@@ -106,7 +106,7 @@ namespace AsLib
 		}
 		else alpha = 255;
 
-		anime_ui_render[add_texture_id].drawA(init_data.windowSize(), alpha).fpsUpdate();
+		vecAnimeUI[add_texture_id].drawA(init_data.windowSize(), alpha).fpsUpdate();
 
 		if (time_counter >= add_time) {
 			time_counter = 0;
