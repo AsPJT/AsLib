@@ -10,6 +10,7 @@
 namespace AsLib
 {
 
+	//配列サイズ
 	struct Size2
 	{
 		size_t x = 0;
@@ -30,19 +31,32 @@ namespace AsLib
 	public:
 		MapView() = default;
 		constexpr MapView(const PosA4R& p_) : p(p_) {}
+		const MapView(const PosA4R& p_,const char c_) : p(p_) {
+			switch (c_)
+			{
+				//正方形
+			case 'x': p.h = p.w*(float(asWindowSize().y) / float(asWindowSize().x)); break;
+			case 'y': p.w = p.h*(float(asWindowSize().x) / float(asWindowSize().y)); break;
+				//画面サイズと同比率
+			case 'X': p.h = p.w; break;
+			case 'Y': p.w = p.h; break;
+			}
+		}
 
 		//中心位置を指定
-		void setMob(const PosA4R p_) { p.x = p_.x; p.y = p_.y; }
-		void setMap(const PosA4R p_) { p = p_; }
+		void setMob(const PosA4R& p_) { p.x = p_.x; p.y = p_.y; }
+		void setMap(const PosA4R& p_) { p = p_; }
+		void setMapX(const PosA4R& p_) { p = p_; p.h = p.w*(float(asWindowSize().y) / float(asWindowSize().x)); }
 
-		void colorMap(const Pos4R& p_, const Pos2 w_, const ColorRGBA& c_)
+		void colorMob(const Pos4R& p_, const ColorRGBA& c_)
 		{
 			//範囲外は描画無し
 			const Pos4R Dp = Pos4R(this->p);
 			if (p_.x2 < Dp.x1 || p_.y2 < Dp.y1 || p_.x1 > Dp.x2 || p_.y1 > Dp.y2) return;
 
 			const PosL4R Lp = PosL4R(this->p);
-			asRect(Pos4(int32_t((p_.x1 - Lp.x) / Lp.w*w_.x), int32_t((p_.y1 - Lp.y) / Lp.w*w_.y), int32_t((p_.x2 - Lp.x) / Lp.w*w_.x), int32_t((p_.y2 - Lp.y) / Lp.w*w_.y)), c_);
+			const Pos2 w_ = asWindowSize();
+			asRect(Pos4(int32_t((p_.x1 - Lp.x) / Lp.w*w_.x), int32_t((p_.y1 - Lp.y) / Lp.h*w_.y), int32_t((p_.x2 - Lp.x) / Lp.w*w_.x), int32_t((p_.y2 - Lp.y) / Lp.h*w_.y)), c_);
 		}
 
 
@@ -68,13 +82,13 @@ namespace AsLib
 		const worldMap& clear() const { for (size_t i = 0; i < total_size; ++i) map_id[i] = 0; return *this; }
 		const worldMap& rand() const { for (size_t i = 0; i < total_size; ++i) map_id[i] = asRand32(); return *this; }
 
-		const worldMap& drawView(const Pos2& w_, MapView& m_) const {
+		const worldMap& drawView(MapView& m_) const {
 			int32_t a;
 			for (size_t j = 0; j < this->s.y; ++j) {
 				for (size_t i = 0; i < this->s.x; ++i) {
 					a = map_id[a2(this->s.x, i, j)];
 					//asRect(PosL4(i*size_, j*size_, size_, size_), ColorRGBA(a, a, a, a));
-					m_.colorMap(PosA4R(PosL4R(float(i), float(j), 1.0f, 1.0f)), w_, ColorRGBA(a, a, a, 255));
+					m_.colorMob(PosA4R(PosL4R(float(i), float(j), 1.0f, 1.0f)), ColorRGBA(a, a, a, 255));
 
 				}
 			}
@@ -86,7 +100,7 @@ namespace AsLib
 			for (size_t j = 0; j < this->s.y; ++j) {
 				for (size_t i = 0; i < this->s.x; ++i) {
 					a = map_id[a2(this->s.x, i, j)];
-					asRect(PosL4(i*size_, j*size_, size_, size_), ColorRGBA(a, a, a, a));
+					asRect(PosL4(i*size_, j*size_, int32_t(size_), int32_t(size_)), ColorRGBA(a, a, a, a));
 				}
 			}
 			return *this;

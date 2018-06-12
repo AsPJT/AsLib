@@ -122,20 +122,21 @@ void startScene(MC& mc)
 	static worldMap w(w_pos);
 	static bool is_w = true;
 	if (is_w) { w.rand(); is_w = false; }
-		w.draw(10);
+	//w.rand();
+		//w.draw(10);
 
-		static PosA4R pl(5.5f, 5.3f, 1.0f, 1.0f);
+		static PosA4R pl(5.5f, 5.3f, 2.0f, 1.0f);
 		static PosA4R pl2(7.5f, 8.5f, 1.0f, 1.0f);
-		static PosA4R map_p(0.0f, 0.0f, 10.0f, 10.0f);
-		static MapView mv(map_p);
+		static PosA4R map_p(0.0f, 0.0f, 5.0f, 100.0f);
+		static MapView mv(map_p,'y');
 
 		//pl.y += mouseWheel()/10.0f;
 		pl.y += mouseWheel();
 
 		mv.setMob(pl);
-		w.drawView(mc.windowSize(), mv);
-		mv.colorMap(pl, mc.windowSize(), ColorRGBA(255, 0, 0, 255));
-		mv.colorMap(pl2, mc.windowSize(), ColorRGBA(0, 255, 0, 255));
+		w.drawView(mv);
+		mv.colorMob(pl, ColorRGBA(255, 0, 0, 255));
+		mv.colorMob(pl2, ColorRGBA(0, 255, 0, 255));
 
 	static TextureMainData texa(AsLoadTex("gahaku.png"));
 	//static const Pos8 a = Pos4(300, 300, 600, 700);
@@ -145,13 +146,13 @@ void startScene(MC& mc)
 	//Pos8 b = Pos8(a, 1.57);
 	static double c= 0.0;
 
-	texa.draw(Pos4(a), 150);
+	//texa.draw(Pos4(a), 150);
 	//Pos8 b(a, 1.7);
-	texa.draw(Pos8(a,c), 150);
+	//texa.draw(Pos8(a,c), 150);
 	//c += 0.04;
 
-	Circle(Pos2(700, 400), 50).draw();
-	Circle(mc.pos(), 60).draw(ColorRGBA(255, 0, 0, 127));
+	//Circle(Pos2(700, 400), 50).draw();
+	//Circle(mc.pos(), 60).draw(ColorRGBA(255, 0, 0, 127));
 
 	//命令レイヤー
 	if (mc.upTex0(GAHAKU2_TEXUI)) mc.scene(LOGO_SCENE1);
@@ -207,17 +208,6 @@ int32_t AsMain()
 
 	mc.battery.make(mc.asPos4({ 0.9f,0.02f,0.98f,0.3f }));
 	mc.fontAdd(60);
-
-	//TextureMainData texa(AsLoadTex("kuro.png"));
-	//Pos8 a = Pos4(300, 300, 600, 700);
-	//Pos8 b=(Pos8(Pos4(a)));
-	//b(a, 1.57);
-	//Pos8 b = Pos8(a, 1.57);
-
-	//texa.draw(Pos4(a),150);
-	//Pos8 b(a, 1.7);
-	//texa.draw(Pos4(b),150);
-	//asStop();
 
 	////読み込み
 	sceneInit(mc);

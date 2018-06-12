@@ -9,11 +9,28 @@
 
 namespace AsLib
 {
+
+	//ウィンドウサイズを記録する関数
+	Pos2 asWindowSizeSave(const bool b_, const Pos2& p_ = pos2_0)
+	{
+		static Pos2 p(0, 0);
+		if (b_) p = p_;
+		return p;
+	}
+
+	//ウィンドウサイズを取得する関数
+	inline Pos2 asWindowSize()
+	{
+		return asWindowSizeSave(false);
+	}
+
+
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 
 	//画面サイズ変更
-	inline int32_t AsChangeWindowSize(const Pos2& window_size = WINDOW_SIZE)
+	int32_t AsChangeWindowSize(const Pos2& window_size = WINDOW_SIZE)
 	{
+		asWindowSizeSave(true, window_size);
 		return int32_t(DxLib::SetGraphMode(window_size.x, window_size.y, 32));
 	}
 
