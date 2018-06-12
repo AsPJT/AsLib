@@ -40,7 +40,7 @@ namespace AsLib
 		Keyboard_p,
 		Keyboard_left_square_bracketeft_curly_bracket,
 		Keyboard_right_square_bracketight_curly_bracket,
-		Keyboard_Å_ertical_line,
+		Keyboard_ertical_line,
 		Keyboard_Caps_Lock,
 		Keyboard_a,
 		Keyboard_s,

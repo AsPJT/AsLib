@@ -110,12 +110,32 @@ void startScene(MC& mc)
 
 	//asBatteryDraw({ 700,200,200,300 });
 
+
+
 	static Pos2 p_{ 300,200 };
 	mc.vecFont[0].changeSize(mc.wheel());
 	//mc.vecFont[0].draw(p_, u8"アニメーション%d",1);
 	mc.vecFont[0].drawAt(p_, u8"アニメーション%d",1);
 
 
+	static Size2 w_pos(64, 32);
+	static worldMap w(w_pos);
+	static bool is_w = true;
+	if (is_w) { w.rand(); is_w = false; }
+		w.draw(10);
+
+		static PosA4R pl(5.5f, 5.3f, 1.0f, 1.0f);
+		static PosA4R pl2(7.5f, 8.5f, 1.0f, 1.0f);
+		static PosA4R map_p(0.0f, 0.0f, 10.0f, 10.0f);
+		static MapView mv(map_p);
+
+		//pl.y += mouseWheel()/10.0f;
+		pl.y += mouseWheel();
+
+		mv.setMob(pl);
+		w.drawView(mc.windowSize(), mv);
+		mv.colorMap(pl, mc.windowSize(), ColorRGBA(255, 0, 0, 255));
+		mv.colorMap(pl2, mc.windowSize(), ColorRGBA(0, 255, 0, 255));
 
 	static TextureMainData texa(AsLoadTex("gahaku.png"));
 	//static const Pos8 a = Pos4(300, 300, 600, 700);

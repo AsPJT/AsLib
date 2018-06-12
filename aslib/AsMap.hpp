@@ -10,26 +10,98 @@
 namespace AsLib
 {
 
-	struct Map2D
+	struct Size2
 	{
-	public:
-		Map2D(std::unique_ptr<int32_t[]>&& map_, const size_t x_, const size_t y_) :map_id(std::move(map_)), x(x_), y(y_), xy(x_*y_) { map_id.reset(new int32_t[x_ * y_]); this->clear(); };
-		Map2D(const size_t x_, const size_t y_) :x(x_), y(y_), xy(x_*y_) { map_id.reset(new int32_t[x_ * y_]); this->clear(); };
-		Map2D(const size_t xy_) :x(xy_), y(1), xy(xy_) { map_id.reset(new int32_t[xy_]); this->clear(); };
-		int32_t id(const size_t y_, const size_t x_) const { return this->map_id[this->x*y_ + x_]; }
-		int32_t id(const size_t xy_) const { return this->map_id[xy_]; }
-		void clear() { for (size_t i = 0; i < this->xy; ++i) this->map_id[i] = 0; }
-		void reset(const size_t x_, const size_t y_) { this->x = x_; this->y = y_; this->xy = x_ * y_; map_id.reset(new int32_t[x_ * y_]); };
+		size_t x = 0;
+		size_t y = 0;
+		Size2() = default;
+		constexpr Size2(const size_t x_, const size_t y_) :x(x_), y(y_) {}
+	};
+	inline const size_t a2(const size_t& s_, const size_t& i_, const size_t& j_) { return (s_ * j_ + i_); }
 
-		std::unique_ptr<int32_t[]> map_id;
 
+	//マップの見える範囲
+	struct MapView
+	{
 	private:
-		size_t x;
-		size_t y;
-		size_t xy;
+		//マップの中心位置と幅
+		PosA4R p;
+
+	public:
+		MapView() = default;
+		constexpr MapView(const PosA4R& p_) : p(p_) {}
+
+		//中心位置を指定
+		void setMob(const PosA4R p_) { p.x = p_.x; p.y = p_.y; }
+		void setMap(const PosA4R p_) { p = p_; }
+
+		void colorMap(const Pos4R& p_, const Pos2 w_, const ColorRGBA& c_)
+		{
+			//範囲外は描画無し
+			const Pos4R Dp = Pos4R(this->p);
+			if (p_.x2 < Dp.x1 || p_.y2 < Dp.y1 || p_.x1 > Dp.x2 || p_.y1 > Dp.y2) return;
+
+			const PosL4R Lp = PosL4R(this->p);
+			asRect(Pos4(int32_t((p_.x1 - Lp.x) / Lp.w*w_.x), int32_t((p_.y1 - Lp.y) / Lp.w*w_.y), int32_t((p_.x2 - Lp.x) / Lp.w*w_.x), int32_t((p_.y2 - Lp.y) / Lp.w*w_.y)), c_);
+		}
+
+
 	};
 
 
 
+
+
+
+
+
+
+
+	struct worldMap
+	{
+		Size2 s;
+		size_t total_size;
+		std::unique_ptr<int32_t[]> map_id;
+
+		const worldMap(const Size2& xy_) :s({ xy_.x, xy_.y }), total_size(xy_.x*xy_.y), map_id(new int32_t[xy_.x*xy_.y]) { clear(); }
+		const worldMap(const size_t x_, const size_t y_) : s({ x_, y_ }), total_size(x_*y_), map_id(new int32_t[x_*y_]) { clear(); }
+		const worldMap& clear() const { for (size_t i = 0; i < total_size; ++i) map_id[i] = 0; return *this; }
+		const worldMap& rand() const { for (size_t i = 0; i < total_size; ++i) map_id[i] = asRand32(); return *this; }
+
+		const worldMap& drawView(const Pos2& w_, MapView& m_) const {
+			int32_t a;
+			for (size_t j = 0; j < this->s.y; ++j) {
+				for (size_t i = 0; i < this->s.x; ++i) {
+					a = map_id[a2(this->s.x, i, j)];
+					//asRect(PosL4(i*size_, j*size_, size_, size_), ColorRGBA(a, a, a, a));
+					m_.colorMap(PosA4R(PosL4R(float(i), float(j), 1.0f, 1.0f)), w_, ColorRGBA(a, a, a, 255));
+
+				}
+			}
+			return *this;
+		}
+
+		const worldMap& draw(const size_t size_) const {
+			int32_t a;
+			for (size_t j = 0; j < this->s.y; ++j) {
+				for (size_t i = 0; i < this->s.x; ++i) {
+					a = map_id[a2(this->s.x, i, j)];
+					asRect(PosL4(i*size_, j*size_, size_, size_), ColorRGBA(a, a, a, a));
+				}
+			}
+			return *this;
+		}
+
+		const worldMap& drawP(const size_t size_, const Pos2& p_) const {
+			const int32_t a = map_id[a2(this->s.x, p_.y, p_.x)];
+			asRect(PosL4(p_.x*size_, p_.y*size_, size_, size_), ColorRGBA(a, a, a, a));
+			return *this;
+		}
+
+		//const ColorRGBA drawP_c(const Pos2& p_) const {
+		//	const int32_t a = map_id[a2(this->s.x, p_.y, p_.x)];
+		//	return ColorRGBA(a, a, a, a);
+		//}
+	};
 
 }
