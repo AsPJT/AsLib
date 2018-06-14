@@ -50,9 +50,7 @@ namespace AsLib
 	inline int32_t mouseWheel()
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-#if defined(__WINDOWS__)
 		return int32_t(DxLib::GetMouseWheelRotVol(TRUE));
-#endif
 		return 0;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return int32_t(s3d::Mouse::Wheel());
