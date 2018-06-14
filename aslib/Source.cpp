@@ -210,7 +210,8 @@ int32_t AsMain()
 	mc.fontAdd(60);
 
 	int a = test::LoadGraph("gahaku.png");
-	test::DrawGraph(0, 0, a);
+	test::DrawExtendGraph(0, 0, 900, 200, a);
+	int x = 0, y = 0;
 	asStop();
 
 	////読み込み

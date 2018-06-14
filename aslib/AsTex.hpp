@@ -60,7 +60,8 @@ namespace AsLib
 
 	int32_t AsTexSize(const Tex id, Pos2& texture_size)
 	{
-		int size_x = 0, size_y = 0;
+		static int size_x, size_y;
+		size_x = size_y = 0;
 		if (DxLib::GetGraphSize(id, &size_x, &size_y) == -1) return -1;
 		texture_size.x = int32_t(size_x);
 		texture_size.y = int32_t(size_y);
@@ -180,6 +181,7 @@ namespace AsLib
 	public:
 		TextureMainData(const Tex& add_id);
 
+		TextureMainData& drawP(const Pos2&, const uint8_t = 255);
 		TextureMainData& draw();
 		TextureMainData& draw(const uint8_t);
 		TextureMainData& draw(const Pos2&, const uint8_t = 255);
@@ -206,8 +208,9 @@ namespace AsLib
 		};
 
 		//出力
-		Tex ID() { return this->id; };
-		Pos2 pixelSize() const { return this->pixel_size; };
+		Tex ID() { return this->id; }
+		Pos2 pixelSize() const { return this->pixel_size; }
+		int32_t return0() const { return 0; }
 
 	};
 
@@ -466,6 +469,14 @@ namespace AsLib
 	inline TextureMainData& TextureMainData::draw()
 	{
 		asTex4(this->id, this->pixel_size);
+		return *this;
+	}
+
+	//サイズ・透明度 指定なし・初期位置指定あり
+	inline TextureMainData& TextureMainData::drawP(const Pos2& add_pos, const uint8_t alpha)
+	{
+		const Pos4 p{ add_pos.x, add_pos.y, add_pos.x + this->pixel_size.x, add_pos.y + this->pixel_size.y };
+		asTex4(this->id, p, alpha);
 		return *this;
 	}
 
