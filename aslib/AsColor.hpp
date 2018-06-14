@@ -42,6 +42,8 @@ namespace AsLib
 		constexpr ColorRGB(const uint8_t r_, const uint8_t g_, const uint8_t b_) :r(r_), g(g_), b(b_) {};
 
 		//他のライブラリ対応
+		const unsigned int uint() { return (unsigned int(this->r << 0x10) + unsigned int(this->g << 0x8) + unsigned int(this->b & 0xff)); }
+		constexpr ColorRGB(const unsigned int col_) :r(uint8_t((col_ & 0xffffff) >> 0x10)), g(uint8_t((col_ & 0xffff) >> 0x8)), b(uint8_t(col_ & 0xff)) {}
 #if defined(ASLIB_INCLUDE_DL)
 		operator unsigned int() const { return DxLib::GetColor(int(this->r), int(this->g), int(this->b)); };
 #elif defined(ASLIB_INCLUDE_S3)
@@ -77,6 +79,10 @@ namespace AsLib
 		ColorRGBA() = default;
 		constexpr ColorRGBA(const uint8_t r_, const uint8_t g_, const uint8_t b_, const uint8_t a_) :r(r_), g(g_), b(b_), a(a_) {};
 		constexpr ColorRGBA(const uint8_t r_, const uint8_t g_, const uint8_t b_) :r(r_), g(g_), b(b_), a(uint8_t(255)) {};
+
+		//他のライブラリ対応
+		const unsigned int uint() { return (unsigned int(this->r << 0x10) + unsigned int(this->g << 0x8) + unsigned int(this->b & 0xff)); }
+		constexpr ColorRGBA(const unsigned int col_) :r(uint8_t((col_ & 0xffffff) >> 0x10)), g(uint8_t((col_ & 0xffff) >> 0x8)), b(uint8_t(col_ & 0xff)) {}
 #if defined(ASLIB_INCLUDE_DL)
 		operator unsigned int() const { return DxLib::GetColor(int(this->r), int(this->g), int(this->b)); };
 #elif defined(ASLIB_INCLUDE_S3)

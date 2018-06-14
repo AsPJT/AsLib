@@ -156,6 +156,12 @@ namespace AsLib
 		return -1;
 	}
 
+	//todo
+	int32_t asTex8(const Tex tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
+	{
+		return -1;
+	}
+
 #else //Console
 
 #endif

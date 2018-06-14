@@ -209,10 +209,14 @@ int32_t AsMain()
 	mc.battery.make(mc.asPos4({ 0.9f,0.02f,0.98f,0.3f }));
 	mc.fontAdd(60);
 
+	int a = test::LoadGraph("gahaku.png");
+	test::DrawGraph(0, 0, a);
+	asStop();
+
 	////読み込み
-	sceneInit(mc);
-	textureInit(mc);
-	UI_Init(mc);
+	//sceneInit(mc);
+	//textureInit(mc);
+	//UI_Init(mc);
 
 	//初期シーン
 	mc.scene(LOGO_SCENE1);

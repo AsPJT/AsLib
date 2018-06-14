@@ -184,6 +184,11 @@ int main() { return int(AsMain() && AsLib::asEnd()); }
 //ポジション
 #include "AsMC_Pos.hpp"
 
+
+//共存ライブラリ----------------------------------------
+
+#include "AsDL.hpp"
+
 //namespace使用
 #ifndef AS_NON_USING_NAMESPACE
 using namespace AsLib;

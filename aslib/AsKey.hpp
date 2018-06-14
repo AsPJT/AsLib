@@ -423,7 +423,7 @@ bba0
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 	
 	bool* checkKey() {
-		constexpr std::array<size_t, 256> AS_DL_key = {
+		constexpr std::array<size_t, 256> AS_DL_key{
 			Keyboard_Unknown,//Ka0 
 			Keyboard_ESCAPE,//KESCAPE0x01//EscキーD_DIK_ESCAPE 
 			Keyboard_1,//K10x02//１キーD_DIK_1 

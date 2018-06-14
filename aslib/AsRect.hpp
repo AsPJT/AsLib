@@ -11,7 +11,7 @@ namespace AsLib
 {
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 
-	int32_t asRect(const Pos4& pos = {}, const ColorRGBA& col = {}) {
+	const int32_t asRect(const Pos4& pos = {}, const ColorRGBA& col = {}) {
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, col.a) == -1) return -1;
 		if (DxLib::DrawBox(int(pos.x1), int(pos.y1), int(pos.x2), int(pos.y2), col, TRUE) == -1) return -1;
 		return 0;

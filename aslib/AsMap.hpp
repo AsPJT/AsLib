@@ -31,7 +31,7 @@ namespace AsLib
 	public:
 		MapView() = default;
 		constexpr MapView(const PosA4R& p_) : p(p_) {}
-		const MapView(const PosA4R& p_,const char c_) : p(p_) {
+		MapView(const PosA4R& p_,const char c_) : p(p_) {
 			switch (c_)
 			{
 				//ê≥ï˚å`
@@ -77,8 +77,8 @@ namespace AsLib
 		size_t total_size;
 		std::unique_ptr<int32_t[]> map_id;
 
-		const worldMap(const Size2& xy_) :s({ xy_.x, xy_.y }), total_size(xy_.x*xy_.y), map_id(new int32_t[xy_.x*xy_.y]) { clear(); }
-		const worldMap(const size_t x_, const size_t y_) : s({ x_, y_ }), total_size(x_*y_), map_id(new int32_t[x_*y_]) { clear(); }
+		worldMap(const Size2& xy_) :s({ xy_.x, xy_.y }), total_size(xy_.x*xy_.y), map_id(new int32_t[xy_.x*xy_.y]) { clear(); }
+		worldMap(const size_t x_, const size_t y_) : s({ x_, y_ }), total_size(x_*y_), map_id(new int32_t[x_*y_]) { clear(); }
 		const worldMap& clear() const { for (size_t i = 0; i < total_size; ++i) map_id[i] = 0; return *this; }
 		const worldMap& rand() const { for (size_t i = 0; i < total_size; ++i) map_id[i] = asRand32(); return *this; }
 
@@ -100,7 +100,7 @@ namespace AsLib
 			for (size_t j = 0; j < this->s.y; ++j) {
 				for (size_t i = 0; i < this->s.x; ++i) {
 					a = map_id[a2(this->s.x, i, j)];
-					asRect(PosL4(i*size_, j*size_, int32_t(size_), int32_t(size_)), ColorRGBA(a, a, a, a));
+					asRect(PosL4(int32_t(i*size_), int32_t(j*size_), int32_t(size_), int32_t(size_)), ColorRGBA(a, a, a, a));
 				}
 			}
 			return *this;
@@ -108,7 +108,7 @@ namespace AsLib
 
 		const worldMap& drawP(const size_t size_, const Pos2& p_) const {
 			const int32_t a = map_id[a2(this->s.x, p_.y, p_.x)];
-			asRect(PosL4(p_.x*size_, p_.y*size_, size_, size_), ColorRGBA(a, a, a, a));
+			asRect(PosL4(int32_t(p_.x*size_), int32_t(p_.y*size_), int32_t(size_), int32_t(size_)), ColorRGBA(a, a, a, a));
 			return *this;
 		}
 

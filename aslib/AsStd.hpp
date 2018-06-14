@@ -206,11 +206,6 @@ namespace AsLib
 
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 
-	Pos2 asWindowSize(const Pos2& pos2 = pos2_100)
-	{
-		return pos2;
-	}
-
 	//タイトル変更
 	inline int32_t AsChangeTitle(const char* const title)
 	{
