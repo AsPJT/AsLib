@@ -208,38 +208,38 @@ namespace AsLib
 		};
 
 		//出力
-		Tex ID() { return this->id; }
-		Pos2 pixelSize() const { return this->pixel_size; }
-		int32_t return0() const { return 0; }
+		const Tex ID() const { return this->id; }
+		const Pos2 pixelSize() const { return this->pixel_size; }
+		const int32_t return0() const { return 0; }
 
 	};
 
 	//１つの画像UIの情報を管理する
 	struct TextureUI
 	{
-		TextureUI(TextureMainData* const add_tmd, const uint8_t add_alpha, const Pos4& add_pos4) { tmd = add_tmd; alpha = add_alpha; pos4 = add_pos4; }
+		constexpr TextureUI(TextureMainData* const t_, const uint8_t a_, const Pos4& p_) :tmd(t_), alpha(a_), pos4(p_) {}
 
 		//メンバ変数を出力
-		TextureMainData* Point() const { return this->tmd; };
-		uint8_t Alpha() const { return this->alpha; };
-		Pos4 Pos() const { return this->pos4; };
-		int32_t Touch() const { return this->touch_num; };
-		int32_t Touch0() { const int32_t num = this->touch_num; this->touch_num = 0; return num; };
+		const TextureMainData* const Point() const { return this->tmd; };
+		const uint8_t Alpha() const { return this->alpha; };
+		const Pos4 Pos() const { return this->pos4; };
+		const int32_t Touch() const { return this->touch_num; };
+		const int32_t Touch0() { const int32_t num = this->touch_num; this->touch_num = 0; return num; };
 
 		//カウンターを出力
-		bool Down() const { return counter.Down(); };
-		bool Up() const { return counter.Up(); };
-		int32_t Count() const { return counter.Count(); };
-		bool Down0() { return counter.Down0(); };
-		bool Up0() { return counter.Up0(); };
-		int32_t Count0() { return counter.Count0(); };
+		const bool Down() const { return counter.Down(); };
+		const bool Up() const { return counter.Up(); };
+		const int32_t Count() const { return counter.Count(); };
+		const bool Down0() { return counter.Down0(); };
+		const bool Up0() { return counter.Up0(); };
+		const int32_t Count0() { return counter.Count0(); };
 
-		TextureUI& touch(const Pos2&);
-		TextureUI& initTouch() { this->touch_num = 0; return *this; };
+		const TextureUI& touch(const Pos2&);
+		const TextureUI& initTouch() { this->touch_num = 0; return *this; };
 
 		//描画
-		TextureUI& draw() { tmd->draw(pos4, alpha); return *this; };
-		TextureUI& drawA(const Pos2 pos2, const uint8_t alpha_) {
+		const TextureUI& draw() const { tmd->draw(pos4, alpha); return *this; };
+		const TextureUI& drawA(const Pos2 pos2, const uint8_t alpha_) {
 			static Pos4 aspect_pos;
 			const Pos2 posWS = this->tmd->pixelSize();
 			aspect_pos.x2 = int32_t(posWS.x*pos2.y / float(posWS.y));
@@ -260,7 +260,7 @@ namespace AsLib
 		};
 
 		//タッチカウント
-		TextureUI& update() { this->counter.update(this->touch_num); return *this; };
+		const TextureUI& update() { this->counter.update(this->touch_num); return *this; };
 
 	private:
 
@@ -416,7 +416,7 @@ namespace AsLib
 		AsTexSize(this->id, this->pixel_size);
 	}
 
-	inline TextureUI& TextureUI::touch(const Pos2& add_pos)
+	inline const TextureUI& TextureUI::touch(const Pos2& add_pos)
 	{
 		bool is_touch = false;
 		const Pos4 p = { pos4.x1 - add_pos.x ,pos4.y1 - add_pos.y ,pos4.x2 - add_pos.x ,pos4.y2 - add_pos.y };
