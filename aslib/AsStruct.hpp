@@ -185,8 +185,8 @@ namespace AsLib
 		const PosA4& operator()(const Pos4& add_pos);
 		const PosA4& operator()(const PosL4& add_pos);
 		const PosA4& operator()(const Pos8& add_pos);
-		const Pos2& operator()(const double pos_) { this->w = int32_t(this->w*pos_); this->h = int32_t(this->h*pos_); return *this; }
-		const Pos2& operator()(const double pos_x, const double pos_y) { this->w = int32_t(this->w*pos_x); this->h = int32_t(this->h*pos_y); return *this; }
+		const PosA4& operator()(const double pos_) { this->w = int32_t(this->w*pos_); this->h = int32_t(this->h*pos_); return *this; }
+		const PosA4& operator()(const double pos_x, const double pos_y) { this->w = int32_t(this->w*pos_x); this->h = int32_t(this->h*pos_y); return *this; }
 		operator Pos2();
 		operator Pos4();
 		operator PosL4();
@@ -407,8 +407,8 @@ namespace AsLib
 		const PosA4R& operator()(const Pos4R& add_pos);
 		const PosA4R& operator()(const PosL4R& add_pos);
 		const PosA4R& operator()(const Pos8R& add_pos);
-		const Pos2R& operator()(const double pos_) { this->w = float(this->w*pos_); this->h = float(this->h*pos_); return *this; }
-		const Pos2R& operator()(const double pos_x, const double pos_y) { this->w = float(this->w*pos_x); this->h = float(this->h*pos_y); return *this; }
+		const PosA4R& operator()(const double pos_) { this->w = float(this->w*pos_); this->h = float(this->h*pos_); return *this; }
+		const PosA4R& operator()(const double pos_x, const double pos_y) { this->w = float(this->w*pos_x); this->h = float(this->h*pos_y); return *this; }
 		operator Pos2R();
 		operator Pos4R();
 		operator PosL4R();

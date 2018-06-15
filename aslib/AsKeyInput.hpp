@@ -21,17 +21,15 @@ namespace AsLib
 		std::string InputString = {};
 
 		JNIEnv *env;
-		const ANativeActivity *NativeActivity;
+		const ANativeActivity* const NativeActivity = DxLib::GetNativeActivity();
 		int InputEnd;
-
-		NativeActivity = DxLib::GetNativeActivity();
 
 		{
 			if (NativeActivity->vm->AttachCurrentThreadAsDaemon(&env, NULL) != JNI_OK) return InputString.c_str();
-			jclass jclass_gaccho1 = env->GetObjectClass(NativeActivity->clazz);
-			jmethodID jmethodID_StartInputDialog = env->GetMethodID(jclass_gaccho1, "StartInputStringDialog", "()V");
+			jclass jclass_ = env->GetObjectClass(NativeActivity->clazz);
+			jmethodID jmethodID_StartInputDialog = env->GetMethodID(jclass_, "StartInputStringDialog", "()V");
 			env->CallVoidMethod(NativeActivity->clazz, jmethodID_StartInputDialog);
-			env->DeleteLocalRef(jclass_gaccho1);
+			env->DeleteLocalRef(jclass_);
 			NativeActivity->vm->DetachCurrentThread();
 		}
 
@@ -43,12 +41,12 @@ namespace AsLib
 			{
 				if (NativeActivity->vm->AttachCurrentThreadAsDaemon(&env, NULL) != JNI_OK) return InputString.c_str();
 
-				jclass jclass_gaccho1 = env->GetObjectClass(NativeActivity->clazz);
-				jfieldID jfieldID_InputEnd = env->GetFieldID(jclass_gaccho1, "InputEnd", "I");
+				jclass jclass_ = env->GetObjectClass(NativeActivity->clazz);
+				jfieldID jfieldID_InputEnd = env->GetFieldID(jclass_, "InputEnd", "I");
 				InputEnd = env->GetIntField(NativeActivity->clazz, jfieldID_InputEnd);
 
 				if (InputEnd == 1) {
-					jfieldID jfieldID_InputString = env->GetFieldID(jclass_gaccho1, "InputString", "Ljava/lang/String;");
+					jfieldID jfieldID_InputString = env->GetFieldID(jclass_, "InputString", "Ljava/lang/String;");
 					jstring jstring_InputString = (jstring)env->GetObjectField(NativeActivity->clazz, jfieldID_InputString);
 					const char *chars_InputString = env->GetStringUTFChars(jstring_InputString, NULL);
 
@@ -57,7 +55,7 @@ namespace AsLib
 					env->DeleteLocalRef(jstring_InputString);
 
 				}
-				env->DeleteLocalRef(jclass_gaccho1);
+				env->DeleteLocalRef(jclass_);
 				NativeActivity->vm->DetachCurrentThread();
 			}
 			else {

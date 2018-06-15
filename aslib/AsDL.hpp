@@ -1379,8 +1379,8 @@ constexpr int CTRL_CODE_CMP=0x20;
 		inline const int SetDrawArea(const Pos4& p_) { return 0; }//todo
 		inline const int ClearDrawScreen() { return 0; }
 		inline const int SetBackgroundColor(const int r_, const int g_, const int b_) { return AsChangeColorBG(ColorRGB(uint8_t(r_ & 0xff), uint8_t(g_ & 0xff), uint8_t(b_ & 0xff))); }
-		inline const unsigned int GetColor(const int r_, const int g_, const int b_) { return (unsigned int((r_ & 0xff) << 0x10) + unsigned int((g_ & 0xff) << 0x8) + unsigned int(b_ & 0xff)); }
-		inline const unsigned int GetColor(const ColorRGBA& col_) { return (unsigned int((col_.r & 0xff) << 0x10) + unsigned int((col_.g & 0xff) << 0x8) + unsigned int(col_.b & 0xff)); }
+		inline const unsigned int GetColor(const int r_, const int g_, const int b_) { return ((unsigned int)((r_ & 0xff) << 0x10) + (unsigned int)((g_ & 0xff) << 0x8) + (unsigned int)(b_ & 0xff)); }
+		inline const unsigned int GetColor(const ColorRGBA& col_) { return ((unsigned int)((col_.r & 0xff) << 0x10) + (unsigned int)((col_.g & 0xff) << 0x8) + (unsigned int)(col_.b & 0xff)); }
 		inline const int SetDrawScreen(const int draw_screen = 1) { return 0; }
 		const int ScreenFlip() { if (asLoop() == false) { ProcessMessageControl(true, true); return -1; } return 0; }
 

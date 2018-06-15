@@ -133,10 +133,11 @@ void startScene(MC& mc)
 
 		//pl.y += mouseWheel()/10.0f;
 		pl.y += mouseWheel();
-		if(DxLib::CheckHitKey(KEY_INPUT_RIGHT)) pl.x += 0.3f;
-		if (DxLib::CheckHitKey(KEY_INPUT_DOWN)) pl.y += 0.3f;
-		if (DxLib::CheckHitKey(KEY_INPUT_LEFT)) pl.x -= 0.3f;
-		if (DxLib::CheckHitKey(KEY_INPUT_UP)) pl.y -= 0.3f;
+		constexpr float fps = 0.5f;
+		if(DxLib::CheckHitKey(KEY_INPUT_RIGHT)) pl.x += fps;
+		if (DxLib::CheckHitKey(KEY_INPUT_DOWN)) pl.y += fps;
+		if (DxLib::CheckHitKey(KEY_INPUT_LEFT)) pl.x -= fps;
+		if (DxLib::CheckHitKey(KEY_INPUT_UP)) pl.y -= fps;
 
 		mv.setMob(pl, w_pos2);
 		w.drawView(mv);
