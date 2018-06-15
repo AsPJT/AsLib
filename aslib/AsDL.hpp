@@ -1,10 +1,10 @@
-//     ----------     ----------     ----------     ----------     ----------
+//    ----------     ----------     ----------     ----------     ----------
 //
-//                              AsLib - Asライブラリ
+//                             AsLib - Asライブラリ
 //
-//                    制作者: がっちょ (wanotaitei@gmail.com)
+//                   制作者: がっちょ (wanotaitei@gmail.com)
 //
-//     ----------     ----------     ----------     ----------     ----------
+//    ----------     ----------     ----------     ----------     ----------
 
 
 
@@ -62,7 +62,7 @@ constexpr int DEFAULT_FONT_EDGESIZE = 1;
 
 constexpr int MAX_USERIMAGEREAD_FUNCNUM = 10;
 
-	// ＷＩＮＤＯＷＳのバージョンマクロ
+	//ＷＩＮＤＯＷＳのバージョンマクロ
 constexpr int DX_WINDOWSVERSION_31 = 0x000;
 constexpr int DX_WINDOWSVERSION_95 = 0x001;
 constexpr int DX_WINDOWSVERSION_98 = 0x002;
@@ -78,7 +78,7 @@ constexpr int DX_WINDOWSVERSION_8_1 = 0x10B;
 constexpr int DX_WINDOWSVERSION_10 = 0x10C;
 constexpr int DX_WINDOWSVERSION_NT_TYPE = 0x100;
 
-	// DirectXのバージョン
+	//DirectXのバージョン
 constexpr int DX_DIRECTXVERSION_NON = 0;
 constexpr int DX_DIRECTXVERSION_1 = 0x10000;
 constexpr int DX_DIRECTXVERSION_2 = 0x20000;
@@ -91,7 +91,7 @@ constexpr int DX_DIRECTXVERSION_7 = 0x70000;
 constexpr int DX_DIRECTXVERSION_8 = 0x80000;
 constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 
-	// Direct3Dのバージョン
+	//Direct3Dのバージョン
 	enum :int {
 		DX_DIRECT3D_NONE,
 		DX_DIRECT3D_9,
@@ -99,7 +99,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_DIRECT3D_11,
 	};
 
-	// Direct3D11 の Feature Level
+	//Direct3D11 の Feature Level
 	constexpr int DX_DIRECT3D_11_FEATURE_LEVEL_9_1 = 0x9100;
 	constexpr int DX_DIRECT3D_11_FEATURE_LEVEL_9_2 = 0x9200;
 	constexpr int DX_DIRECT3D_11_FEATURE_LEVEL_9_3 = 0x9300;
@@ -108,7 +108,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int DX_DIRECT3D_11_FEATURE_LEVEL_11_0 = 0xb000;
 	constexpr int DX_DIRECT3D_11_FEATURE_LEVEL_11_1 = 0xb100;
 
-	// 文字セット
+	//文字セット
 	enum :int {
 		DX_CHARSET_DEFAULT,
 		DX_CHARSET_SHFTJIS,
@@ -121,7 +121,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_CHARSET_NUM,
 	};
 
-	// 文字コード形式
+	//文字コード形式
 	constexpr int DX_CHARCODEFORMAT_SHIFTJIS = 932;
 	constexpr int DX_CHARCODEFORMAT_GB2312 = 936;
 	constexpr int DX_CHARCODEFORMAT_UHC = 949;
@@ -135,7 +135,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int DX_CHARCODEFORMAT_UTF32LE = 32766;
 	constexpr int DX_CHARCODEFORMAT_UTF32BE = 32767;
 
-	// ＭＩＤＩの演奏モード定義
+	//ＭＩＤＩの演奏モード定義
 	enum :int {
 		DX_MIDIMODE_MCI,
 		DX_MIDIMODE_DM,
@@ -144,7 +144,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_MIDIMODE_NUM,
 	};
 
-	// 描画モード定義
+	//描画モード定義
 	enum :int {
 		DX_DRAWMODE_NEAREST,
 		DX_DRAWMODE_BILINEAR,
@@ -153,33 +153,33 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_DRAWMODE_NUM,
 	};
 
-	// フォントのタイプ
-	constexpr int DX_FONTTYPE_NORMAL=0x00;
-	constexpr int DX_FONTTYPE_EDGE=0x01;
-	constexpr int DX_FONTTYPE_ANTIALIASING=0x02;
-	constexpr int DX_FONTTYPE_ANTIALIASING_4X4=0x12;
-	constexpr int DX_FONTTYPE_ANTIALIASING_8X8=0x22;
-	constexpr int DX_FONTTYPE_ANTIALIASING_EDGE=0x03;
-	constexpr int DX_FONTTYPE_ANTIALIASING_EDGE_4X4=0x13;
-	constexpr int DX_FONTTYPE_ANTIALIASING_EDGE_8X8=0x23;
+	//フォントのタイプ
+	constexpr int DX_FONTTYPE_NORMAL = 0x00;
+	constexpr int DX_FONTTYPE_EDGE = 0x01;
+	constexpr int DX_FONTTYPE_ANTIALIASING = 0x02;
+	constexpr int DX_FONTTYPE_ANTIALIASING_4X4 = 0x12;
+	constexpr int DX_FONTTYPE_ANTIALIASING_8X8 = 0x22;
+	constexpr int DX_FONTTYPE_ANTIALIASING_EDGE = 0x03;
+	constexpr int DX_FONTTYPE_ANTIALIASING_EDGE_4X4 = 0x13;
+	constexpr int DX_FONTTYPE_ANTIALIASING_EDGE_8X8 = 0x23;
 
 	constexpr int DEFAULT_FONT_TYPE = DX_FONTTYPE_NORMAL;
 
-	// フォント画像の階調ビット数
+	//フォント画像の階調ビット数
 	enum :int {
 		DX_FONTIMAGE_BIT_1,
 		DX_FONTIMAGE_BIT_4,
 		DX_FONTIMAGE_BIT_8,
 	};
 
-	// 描画ブレンドモード定義
+	//描画ブレンドモード定義
 	enum :int {
 		DX_BLENDMODE_NOBLEND,
 		DX_BLENDMODE_ALPHA,
 		DX_BLENDMODE_ADD,
 		DX_BLENDMODE_SUB,
 		DX_BLENDMODE_MUL,
-		// (内部処理用)
+		//(内部処理用)
 		DX_BLENDMODE_SUB2,
 		DX_BLENDMODE_XOR,
 		DX_BLENDMODE_BLINEALPHA,//
@@ -201,13 +201,13 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_BLENDMODE_NUM,
 	};
 
-	// DrawGraphF 等の浮動小数点値で座標を指定する関数における座標タイプ
+	//DrawGraphF 等の浮動小数点値で座標を指定する関数における座標タイプ
 	enum :int {
 		DX_DRAWFLOATCOORDTYPE_DIRECT3D9,
 		DX_DRAWFLOATCOORDTYPE_DIRECT3D10,
 	};
 
-	// 画像合成タイプ
+	//画像合成タイプ
 	enum :int {
 		DX_BLENDGRAPHTYPE_NORMAL,
 		DX_BLENDGRAPHTYPE_WIPE,
@@ -215,14 +215,14 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_BLENDGRAPHTYPE_NUM,
 	};
 
-	// 画像合成座標タイプ
+	//画像合成座標タイプ
 	enum :int {
 		DX_BLENDGRAPH_POSMODE_DRAWGRAPH,
 		DX_BLENDGRAPH_POSMODE_SCREEN,
 		DX_BLENDGRAPH_POSMODE_NUM,
 	};
 
-	// グラフィックフィルタータイプ
+	//グラフィックフィルタータイプ
 	enum :int {
 		DX_GRAPH_FILTER_MONO,
 		DX_GRAPH_FILTER_GAUSS,
@@ -252,7 +252,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_GRAPH_FILTER_NUM,
 	};
 
-	// グラフィックブレンドタイプ
+	//グラフィックブレンドタイプ
 	enum :int {
 		DX_GRAPH_BLEND_NORMAL,
 		DX_GRAPH_BLEND_RGBA_SELECT_MIX,
@@ -291,7 +291,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_GRAPH_BLEND_NUM,
 	};
 
-	// DX_GRAPH_BLEND_RGBA_SELECT_MIX 用の色選択用定義
+	//DX_GRAPH_BLEND_RGBA_SELECT_MIX 用の色選択用定義
 	enum :int {
 		DX_RGBA_SELECT_SRC_R,
 		DX_RGBA_SELECT_SRC_G,
@@ -303,11 +303,11 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_RGBA_SELECT_BLEND_A,
 	};
 
-	// フィルモード
+	//フィルモード
 	constexpr int DX_FILL_WIREFRAME=2;
 	constexpr int DX_FILL_SOLID=3;
 
-	// ポリゴンカリングモード
+	//ポリゴンカリングモード
 	enum :int {
 		DX_CULLING_NONE,
 		DX_CULLING_LEFT,
@@ -315,7 +315,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_CULLING_NUM,
 	};
 
-	// クリッピング方向
+	//クリッピング方向
 	constexpr int DX_CAMERACLIP_LEFT=0x01;
 	constexpr int DX_CAMERACLIP_RIGHT=0x02;
 	constexpr int DX_CAMERACLIP_BOTTOM=0x04;
@@ -323,7 +323,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int DX_CAMERACLIP_BACK=0x10;
 	constexpr int DX_CAMERACLIP_FRONT=0x20;
 
-	// MV1モデルの頂点タイプ
+	//MV1モデルの頂点タイプ
 	enum :int {
 		DX_MV1_VERTEX_TYPE_1FRAME,
 		DX_MV1_VERTEX_TYPE_4FRAME,
@@ -336,7 +336,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_MV1_VERTEX_TYPE_NUM,
 	};
 
-	// メッシュの種類
+	//メッシュの種類
 	enum :int {
 		DX_MV1_MESHCATEGORY_NORMAL,
 		DX_MV1_MESHCATEGORY_OUTLINE,
@@ -344,12 +344,12 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_MV1_MESHCATEGORY_NUM,
 	};
 
-	// MV1ファイルの保存タイプ
+	//MV1ファイルの保存タイプ
 	constexpr int MV1_SAVETYPE_MESH=0x0001;
 	constexpr int MV1_SAVETYPE_ANIM=0x0002;
 	constexpr int MV1_SAVETYPE_NORMAL=(MV1_SAVETYPE_MESH | MV1_SAVETYPE_ANIM);
 
-	// アニメーションキーデータタイプ
+	//アニメーションキーデータタイプ
 	constexpr int MV1_ANIMKEY_DATATYPE_ROTATE = 0;
 	constexpr int MV1_ANIMKEY_DATATYPE_ROTATE_X = 1;
 	constexpr int MV1_ANIMKEY_DATATYPE_ROTATE_Y = 2;
@@ -367,13 +367,13 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int MV1_ANIMKEY_DATATYPE_SHAPE = 18;
 	constexpr int MV1_ANIMKEY_DATATYPE_OTHRE = 20;
 
-	// タイムタイプ
+	//タイムタイプ
 	enum :int {
 		MV1_ANIMKEY_TIME_TYPE_ONE,
 		MV1_ANIMKEY_TIME_TYPE_KEY,
 	};
 
-	// アニメーションキータイプ
+	//アニメーションキータイプ
 	enum :int {
 		MV1_ANIMKEY_TYPE_QUATERNION_X,
 		MV1_ANIMKEY_TYPE_VECTOR,
@@ -385,7 +385,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		MV1_ANIMKEY_TYPE_QUATERNION_VMD,
 	};
 
-	// 描画先画面指定用定義
+	//描画先画面指定用定義
 	constexpr int DX_SCREEN_FRONT = 0xfffffffc;
 	constexpr int DX_SCREEN_BACK = 0xfffffffe;
 	constexpr int DX_SCREEN_WORK = 0xfffffffd;
@@ -393,14 +393,14 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int DX_SCREEN_OTHER = 0xfffffffa;
 	constexpr int DX_NONE_GRAPH = 0xfffffffb;
 
-	// グラフィック減色時の画像劣化緩和処理モード
+	//グラフィック減色時の画像劣化緩和処理モード
 	enum :int {
 		DX_SHAVEDMODE_NONE,
 		DX_SHAVEDMODE_DITHER,
 		DX_SHAVEDMODE_DIFFUS,
 	};
 
-	// 画像の保存タイプ
+	//画像の保存タイプ
 	enum :int {
 		DX_IMAGESAVETYPE_BMP,
 		DX_IMAGESAVETYPE_JPEG,
@@ -408,7 +408,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_IMAGESAVETYPE_DDS,
 	};
 
-	// サウンド再生形態指定用定義
+	//サウンド再生形態指定用定義
 	constexpr int DX_PLAYTYPE_LOOPBIT = 0x0002;
 	constexpr int DX_PLAYTYPE_BACKBIT = 0x0001;
 
@@ -416,19 +416,19 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int DX_PLAYTYPE_BACK = DX_PLAYTYPE_BACKBIT;
 	constexpr int DX_PLAYTYPE_LOOP = (DX_PLAYTYPE_LOOPBIT | DX_PLAYTYPE_BACKBIT);
 
-	// 動画再生タイプ定義
+	//動画再生タイプ定義
 	enum :int {
 		DX_MOVIEPLAYTYPE_BCANCEL,
 		DX_MOVIEPLAYTYPE_NORMAL,
 	};
 
-	// サウンドのタイプ
+	//サウンドのタイプ
 	enum :int {
 		DX_SOUNDTYPE_NORMAL,
 		DX_SOUNDTYPE_STREAMSTYLE,
 	};
 
-	// サウンドデータタイプのマクロ
+	//サウンドデータタイプのマクロ
 	enum :int {
 		DX_SOUNDDATATYPE_MEMNOPRESS,
 		DX_SOUNDDATATYPE_MEMNOPRESS_PLUS,
@@ -436,13 +436,13 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_SOUNDDATATYPE_FILE,
 	};
 
-	// 読み込み処理のタイプ
+	//読み込み処理のタイプ
 	constexpr int DX_READSOUNDFUNCTION_PCM=(1 << 0);
 	constexpr int DX_READSOUNDFUNCTION_OGG=(1 << 1);
 	constexpr int DX_READSOUNDFUNCTION_OPUS=(1 << 2);
 	constexpr int DX_READSOUNDFUNCTION_DEFAULT_NUM=3;
 
-	// ３Ｄサウンドリバーブエフェクトのプリセット
+	//３Ｄサウンドリバーブエフェクトのプリセット
 	enum :int {
 		DX_REVERB_PRESET_DEFAULT,
 		DX_REVERB_PRESET_GENERIC,
@@ -477,14 +477,14 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_REVERB_PRESET_NUM,
 	};
 
-	// マスク透過色モード
+	//マスク透過色モード
 	enum :int {
 		DX_MASKTRANS_WHITE,
 		DX_MASKTRANS_BLACK,
 		DX_MASKTRANS_NONE,
 	};
 
-	// マスク画像チャンネル
+	//マスク画像チャンネル
 	enum :int {
 		DX_MASKGRAPH_CH_A,
 		DX_MASKGRAPH_CH_R,
@@ -492,13 +492,13 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_MASKGRAPH_CH_B,
 	};
 
-	// Ｚバッファ書き込みモード
+	//Ｚバッファ書き込みモード
 	enum :int {
 		DX_ZWRITE_MASK,
 		DX_ZWRITE_CLEAR,
 	};
 
-	// 比較モード
+	//比較モード
 	enum :int {
 		DX_CMP_NEVER = 1,
 		DX_CMP_LESS,
@@ -512,13 +512,13 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int DX_ZCMP_DEFAULT=DX_CMP_LESSEQUAL;
 	constexpr int DX_ZCMP_REVERSE=DX_CMP_GREATEREQUAL;
 
-	// シェーディングモード
+	//シェーディングモード
 	enum :int {
 		DX_SHADEMODE_FLAT = 1,
 		DX_SHADEMODE_GOURAUD,
 	};
 
-	// フォグモード
+	//フォグモード
 	enum :int {
 		DX_FOGMODE_NONE,
 		DX_FOGMODE_EXP,
@@ -526,7 +526,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_FOGMODE_LINEAR,
 	};
 
-	// マテリアルタイプ
+	//マテリアルタイプ
 	enum :int {
 		DX_MATERIAL_TYPE_NORMAL,
 		DX_MATERIAL_TYPE_TOON,
@@ -540,7 +540,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_MATERIAL_TYPE_NUM,
 	};
 
-	// マテリアルブレンドタイプ
+	//マテリアルブレンドタイプ
 	enum :int {
 		DX_MATERIAL_BLENDTYPE_TRANSLUCENT,
 		DX_MATERIAL_BLENDTYPE_ADDITIVE,
@@ -548,7 +548,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_MATERIAL_BLENDTYPE_NONE,
 	};
 
-	// テクスチャアドレスタイプ
+	//テクスチャアドレスタイプ
 	enum :int {
 		DX_TEXADDRESS_WRAP = 1,
 		DX_TEXADDRESS_MIRROR,
@@ -557,7 +557,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_TEXADDRESS_NUM,
 	};
 
-	// シェーダータイプ
+	//シェーダータイプ
 	enum :int {
 		DX_SHADERTYPE_VERTEX,
 		DX_SHADERTYPE_PIXEL,
@@ -567,47 +567,47 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_SHADERTYPE_HULL,
 	};
 
-	// 頂点データタイプ
+	//頂点データタイプ
 	enum :int {
 		DX_VERTEX_TYPE_NORMAL_3D,
 		DX_VERTEX_TYPE_SHADER_3D,
 		DX_VERTEX_TYPE_NUM,
 	};
 
-	// インデックスデータタイプ
+	//インデックスデータタイプ
 	enum :int {
 		DX_INDEX_TYPE_16BIT,
 		DX_INDEX_TYPE_32BIT,
 	};
 
-	// モデルファイル読み込み時の物理演算モード
+	//モデルファイル読み込み時の物理演算モード
 	enum :int {
 		DX_LOADMODEL_PHYSICS_LOADCALC,
 		DX_LOADMODEL_PHYSICS_DISABLE,
 		DX_LOADMODEL_PHYSICS_REALTIME,
 	};
 
-	// モデルファイル読み込み時の物理演算無効名前ワードのモード
+	//モデルファイル読み込み時の物理演算無効名前ワードのモード
 	enum :int {
 		DX_LOADMODEL_PHYSICS_DISABLENAMEWORD_ALWAYS,
 		DX_LOADMODEL_PHYSICS_DISABLENAMEWORD_DISABLEPHYSICSFILEONLY,
 		DX_LOADMODEL_PHYSICS_DISABLENAMEWORD_NUM,
 	};
 
-	// PMD, PMX ファイル読み込み時のアニメーションの FPS モード( 主に IK 部分の精度に影響します )
+	//PMD, PMX ファイル読み込み時のアニメーションの FPS モード( 主に IK 部分の精度に影響します )
 	enum :int {
 		DX_LOADMODEL_PMD_PMX_ANIMATION_FPSMODE_30,
 		DX_LOADMODEL_PMD_PMX_ANIMATION_FPSMODE_60,
 	};
 
-	// モデルの半透明要素がある箇所に関する描画モード
+	//モデルの半透明要素がある箇所に関する描画モード
 	enum :int {
 		DX_SEMITRANSDRAWMODE_ALWAYS,
 		DX_SEMITRANSDRAWMODE_SEMITRANS_ONLY,
 		DX_SEMITRANSDRAWMODE_NOT_SEMITRANS_ONLY,
 	};
 
-	// キューブマップの面番号
+	//キューブマップの面番号
 	enum :int {
 		DX_CUBEMAP_FACE_POSITIVE_X,
 		DX_CUBEMAP_FACE_NEGATIVE_X,
@@ -617,7 +617,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_CUBEMAP_FACE_NEGATIVE_Z,
 	};
 
-	// ポリゴン描画タイプ
+	//ポリゴン描画タイプ
 	constexpr int DX_PRIMTYPE_POINTLIST=1;
 	constexpr int DX_PRIMTYPE_LINELIST=2;
 	constexpr int DX_PRIMTYPE_LINESTRIP=3;
@@ -627,7 +627,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int DX_PRIMTYPE_MIN=1;
 	constexpr int DX_PRIMTYPE_MAX=6;
 
-	// ライトタイプ
+	//ライトタイプ
 	constexpr int DX_LIGHTTYPE_D3DLIGHT_POINT=1;
 	constexpr int DX_LIGHTTYPE_D3DLIGHT_SPOT=2;
 	constexpr int DX_LIGHTTYPE_D3DLIGHT_DIRECTIONAL=3;
@@ -635,7 +635,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int DX_LIGHTTYPE_SPOT=2;
 	constexpr int DX_LIGHTTYPE_DIRECTIONAL=3;
 
-	// グラフィックイメージフォーマットの定義
+	//グラフィックイメージフォーマットの定義
 	enum :int {
 		DX_GRAPHICSIMAGE_FORMAT_3D_PAL4,
 		DX_GRAPHICSIMAGE_FORMAT_3D_PAL8,
@@ -692,7 +692,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_GRAPHICSIMAGE_FORMAT_A8R8G8B8,
 		DX_GRAPHICSIMAGE_FORMAT_NUM,
 	};
-	// 基本イメージのピクセルフォーマット
+	//基本イメージのピクセルフォーマット
 	enum :int {
 		DX_BASEIMAGE_FORMAT_NORMAL,
 		DX_BASEIMAGE_FORMAT_DXT1,
@@ -707,14 +707,14 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_BASEIMAGE_FORMAT_YUV,
 	};
 
-	// ムービーのサーフェスモード
+	//ムービーのサーフェスモード
 	enum :int {
 		DX_MOVIESURFACE_NORMAL,
 		DX_MOVIESURFACE_OVERLAY,
 		DX_MOVIESURFACE_FULLCOLOR,
 	};
 
-	// ウインドウの奥行き位置設定タイプ
+	//ウインドウの奥行き位置設定タイプ
 	enum :int {
 		DX_WIN_ZTYPE_NORMAL,
 		DX_WIN_ZTYPE_BOTTOM,
@@ -722,7 +722,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_WIN_ZTYPE_TOPMOST,
 	};
 
-	// ツールバーのボタンの状態
+	//ツールバーのボタンの状態
 	enum :int {
 		TOOLBUTTON_STATE_ENABLE,
 		TOOLBUTTON_STATE_PRESSED,
@@ -731,7 +731,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		TOOLBUTTON_STATE_NUM,
 	};
 
-	// ツールバーのボタンのタイプ
+	//ツールバーのボタンのタイプ
 	enum :int {
 		TOOLBUTTON_TYPE_NORMAL,
 		TOOLBUTTON_TYPE_CHECK,
@@ -740,23 +740,23 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		TOOLBUTTON_TYPE_NUM,
 	};
 
-	// 親メニューのＩＤ
-#define MENUITEM_IDTOP (0xabababab)
+	//親メニューのＩＤ
+	constexpr int MENUITEM_IDTOP = (int)0xabababab;
 
-	// メニューに追加する際のタイプ
+	//メニューに追加する際のタイプ
 	enum :int {
 		MENUITEM_ADD_CHILD,
 		MENUITEM_ADD_INSERT,
 	};
 
-	// メニューの横に付くマークタイプ
+	//メニューの横に付くマークタイプ
 	enum :int {
 		MENUITEM_MARK_NONE,
 		MENUITEM_MARK_CHECK,
 		MENUITEM_MARK_RADIO,
 	};
 
-	// 文字変換タイプ定義
+	//文字変換タイプ定義
 	enum :int {
 		DX_NUMMODE_10,
 		DX_NUMMODE_16,
@@ -764,99 +764,99 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_STRMODE_USE0,
 	};
 
-	// CheckHitKeyAll で調べる入力タイプ
+	//CheckHitKeyAll で調べる入力タイプ
 	constexpr int DX_CHECKINPUT_KEY = 0x0001;
 	constexpr int DX_CHECKINPUT_PAD = 0x0002;
 	constexpr int DX_CHECKINPUT_MOUSE = 0x0004;
 	constexpr int DX_CHECKINPUT_ALL = (DX_CHECKINPUT_KEY | DX_CHECKINPUT_PAD | DX_CHECKINPUT_MOUSE);
 
-	// パッド入力取得パラメータ
-#define DX_INPUT_KEY_PAD1							(0x1001)		// キー入力とパッド１入力
-#define DX_INPUT_PAD1								(0x0001)		// パッド１入力
-#define DX_INPUT_PAD2								(0x0002)		// パッド２入力
-#define DX_INPUT_PAD3								(0x0003)		// パッド３入力
-#define DX_INPUT_PAD4								(0x0004)		// パッド４入力
-#define DX_INPUT_PAD5								(0x0005)		// パッド５入力
-#define DX_INPUT_PAD6								(0x0006)		// パッド６入力
-#define DX_INPUT_PAD7								(0x0007)		// パッド７入力
-#define DX_INPUT_PAD8								(0x0008)		// パッド８入力
-#define DX_INPUT_PAD9								(0x0009)		// パッド９入力
-#define DX_INPUT_PAD10								(0x000a)		// パッド１０入力
-#define DX_INPUT_PAD11								(0x000b)		// パッド１１入力
-#define DX_INPUT_PAD12								(0x000c)		// パッド１２入力
-#define DX_INPUT_PAD13								(0x000d)		// パッド１３入力
-#define DX_INPUT_PAD14								(0x000e)		// パッド１４入力
-#define DX_INPUT_PAD15								(0x000f)		// パッド１５入力
-#define DX_INPUT_PAD16								(0x0010)		// パッド１６入力
-#define DX_INPUT_KEY								(0x1000)		// キー入力
+	//パッド入力取得パラメータ
+	constexpr int DX_INPUT_KEY_PAD1 = 0x1001;
+	constexpr int DX_INPUT_PAD1 = 0x0001;
+	constexpr int DX_INPUT_PAD2 = 0x0002;
+	constexpr int DX_INPUT_PAD3 = 0x0003;
+	constexpr int DX_INPUT_PAD4 = 0x0004;
+	constexpr int DX_INPUT_PAD5 = 0x0005;
+	constexpr int DX_INPUT_PAD6 = 0x0006;
+	constexpr int DX_INPUT_PAD7 = 0x0007;
+	constexpr int DX_INPUT_PAD8 = 0x0008;
+	constexpr int DX_INPUT_PAD9 = 0x0009;
+	constexpr int DX_INPUT_PAD10 = 0x000a;
+	constexpr int DX_INPUT_PAD11 = 0x000b;
+	constexpr int DX_INPUT_PAD12 = 0x000c;
+	constexpr int DX_INPUT_PAD13 = 0x000d;
+	constexpr int DX_INPUT_PAD14 = 0x000e;
+	constexpr int DX_INPUT_PAD15 = 0x000f;
+	constexpr int DX_INPUT_PAD16 = 0x0010;
+	constexpr int DX_INPUT_KEY = 0x1000;
 
-	// タッチの同時接触検出対応最大数
+	//タッチの同時接触検出対応最大数
 	constexpr int TOUCHINPUTPOINT_MAX = 16;
 
-	// パッド入力定義
-#define PAD_INPUT_DOWN								(0x00000001)	// ↓チェックマスク
-#define PAD_INPUT_LEFT								(0x00000002)	// ←チェックマスク
-#define PAD_INPUT_RIGHT								(0x00000004)	// →チェックマスク
-#define PAD_INPUT_UP								(0x00000008)	// ↑チェックマスク
-#define PAD_INPUT_A									(0x00000010)	// Ａボタンチェックマスク
-#define PAD_INPUT_B									(0x00000020)	// Ｂボタンチェックマスク
-#define PAD_INPUT_C									(0x00000040)	// Ｃボタンチェックマスク
-#define PAD_INPUT_X									(0x00000080)	// Ｘボタンチェックマスク
-#define PAD_INPUT_Y									(0x00000100)	// Ｙボタンチェックマスク
-#define PAD_INPUT_Z									(0x00000200)	// Ｚボタンチェックマスク
-#define PAD_INPUT_L									(0x00000400)	// Ｌボタンチェックマスク
-#define PAD_INPUT_R									(0x00000800)	// Ｒボタンチェックマスク
-#define PAD_INPUT_START								(0x00001000)	// ＳＴＡＲＴボタンチェックマスク
-#define PAD_INPUT_M									(0x00002000)	// Ｍボタンチェックマスク
-#define PAD_INPUT_D									(0x00004000)
-#define PAD_INPUT_F									(0x00008000)
-#define PAD_INPUT_G									(0x00010000)
-#define PAD_INPUT_H									(0x00020000)
-#define PAD_INPUT_I									(0x00040000)
-#define PAD_INPUT_J									(0x00080000)
-#define PAD_INPUT_K									(0x00100000)
-#define PAD_INPUT_LL								(0x00200000)
-#define PAD_INPUT_N									(0x00400000)
-#define PAD_INPUT_O									(0x00800000)
-#define PAD_INPUT_P									(0x01000000)
-#define PAD_INPUT_RR								(0x02000000)
-#define PAD_INPUT_S									(0x04000000)
-#define PAD_INPUT_T									(0x08000000)
-#define PAD_INPUT_U									(0x10000000)
-#define PAD_INPUT_V									(0x20000000)
-#define PAD_INPUT_W									(0x40000000)
-#define PAD_INPUT_XX								(0x80000000)
+	//パッド入力定義
+	constexpr int PAD_INPUT_DOWN = 0x00000001;
+	constexpr int PAD_INPUT_LEFT = 0x00000002;
+	constexpr int PAD_INPUT_RIGHT = 0x00000004;
+	constexpr int PAD_INPUT_UP = 0x00000008;
+	constexpr int PAD_INPUT_A = 0x00000010;
+	constexpr int PAD_INPUT_B = 0x00000020;
+	constexpr int PAD_INPUT_C = 0x00000040;
+	constexpr int PAD_INPUT_X = 0x00000080;
+	constexpr int PAD_INPUT_Y = 0x00000100;
+	constexpr int PAD_INPUT_Z = 0x00000200;
+	constexpr int PAD_INPUT_L = 0x00000400;
+	constexpr int PAD_INPUT_R = 0x00000800;
+	constexpr int PAD_INPUT_START = 0x00001000;
+	constexpr int PAD_INPUT_M = 0x00002000;
+	constexpr int PAD_INPUT_D = 0x00004000;
+	constexpr int PAD_INPUT_F = 0x00008000;
+	constexpr int PAD_INPUT_G = 0x00010000;
+	constexpr int PAD_INPUT_H = 0x00020000;
+	constexpr int PAD_INPUT_I = 0x00040000;
+	constexpr int PAD_INPUT_J = 0x00080000;
+	constexpr int PAD_INPUT_K = 0x00100000;
+	constexpr int PAD_INPUT_LL = 0x00200000;
+	constexpr int PAD_INPUT_N = 0x00400000;
+	constexpr int PAD_INPUT_O = 0x00800000;
+	constexpr int PAD_INPUT_P = 0x01000000;
+	constexpr int PAD_INPUT_RR = 0x02000000;
+	constexpr int PAD_INPUT_S = 0x04000000;
+	constexpr int PAD_INPUT_T = 0x08000000;
+	constexpr int PAD_INPUT_U = 0x10000000;
+	constexpr int PAD_INPUT_V = 0x20000000;
+	constexpr int PAD_INPUT_W = 0x40000000;
+	constexpr int PAD_INPUT_XX = 0x80000000;
 
-#define PAD_INPUT_1									(0x00000010)
-#define PAD_INPUT_2									(0x00000020)
-#define PAD_INPUT_3									(0x00000040)
-#define PAD_INPUT_4									(0x00000080)
-#define PAD_INPUT_5									(0x00000100)
-#define PAD_INPUT_6									(0x00000200)
-#define PAD_INPUT_7									(0x00000400)
-#define PAD_INPUT_8									(0x00000800)
-#define PAD_INPUT_9									(0x00001000)
-#define PAD_INPUT_10								(0x00002000)
-#define PAD_INPUT_11								(0x00004000)
-#define PAD_INPUT_12								(0x00008000)
-#define PAD_INPUT_13								(0x00010000)
-#define PAD_INPUT_14								(0x00020000)
-#define PAD_INPUT_15								(0x00040000)
-#define PAD_INPUT_16								(0x00080000)
-#define PAD_INPUT_17								(0x00100000)
-#define PAD_INPUT_18								(0x00200000)
-#define PAD_INPUT_19								(0x00400000)
-#define PAD_INPUT_20								(0x00800000)
-#define PAD_INPUT_21								(0x01000000)
-#define PAD_INPUT_22								(0x02000000)
-#define PAD_INPUT_23								(0x04000000)
-#define PAD_INPUT_24								(0x08000000)
-#define PAD_INPUT_25								(0x10000000)
-#define PAD_INPUT_26								(0x20000000)
-#define PAD_INPUT_27								(0x40000000)
-#define PAD_INPUT_28								(0x80000000)
+	constexpr int PAD_INPUT_1 = 0x00000010;
+	constexpr int PAD_INPUT_2 = 0x00000020;
+	constexpr int PAD_INPUT_3 = 0x00000040;
+	constexpr int PAD_INPUT_4 = 0x00000080;
+	constexpr int PAD_INPUT_5 = 0x00000100;
+	constexpr int PAD_INPUT_6 = 0x00000200;
+	constexpr int PAD_INPUT_7 = 0x00000400;
+	constexpr int PAD_INPUT_8 = 0x00000800;
+	constexpr int PAD_INPUT_9 = 0x00001000;
+	constexpr int PAD_INPUT_10 = 0x00002000;
+	constexpr int PAD_INPUT_11 = 0x00004000;
+	constexpr int PAD_INPUT_12 = 0x00008000;
+	constexpr int PAD_INPUT_13 = 0x00010000;
+	constexpr int PAD_INPUT_14 = 0x00020000;
+	constexpr int PAD_INPUT_15 = 0x00040000;
+	constexpr int PAD_INPUT_16 = 0x00080000;
+	constexpr int PAD_INPUT_17 = 0x00100000;
+	constexpr int PAD_INPUT_18 = 0x00200000;
+	constexpr int PAD_INPUT_19 = 0x00400000;
+	constexpr int PAD_INPUT_20 = 0x00800000;
+	constexpr int PAD_INPUT_21 = 0x01000000;
+	constexpr int PAD_INPUT_22 = 0x02000000;
+	constexpr int PAD_INPUT_23 = 0x04000000;
+	constexpr int PAD_INPUT_24 = 0x08000000;
+	constexpr int PAD_INPUT_25 = 0x10000000;
+	constexpr int PAD_INPUT_26 = 0x20000000;
+	constexpr int PAD_INPUT_27 = 0x40000000;
+	constexpr int PAD_INPUT_28 = 0x80000000;
 
-	// XInputボタン入力定義
+	//XInputボタン入力定義
 	enum :int {
 		XINPUT_BUTTON_DPAD_UP,
 		XINPUT_BUTTON_DPAD_DOWN,
@@ -874,7 +874,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		XINPUT_BUTTON_Y,
 	};
 
-	// マウス入力定義
+	//マウス入力定義
 	constexpr int MOUSE_INPUT_LEFT = 0x0001;
 	constexpr int MOUSE_INPUT_RIGHT = 0x0002;
 	constexpr int MOUSE_INPUT_MIDDLE = 0x0004;
@@ -887,130 +887,274 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int MOUSE_INPUT_7 = 0x0040;
 	constexpr int MOUSE_INPUT_8 = 0x0080;
 
-	// マウスのログ情報タイプ
+	//マウスのログ情報タイプ
 	enum :int {
 		MOUSE_INPUT_LOG_DOWN,
 		MOUSE_INPUT_LOG_UP,
 	};
 
-	// キー定義
-#define KEY_INPUT_BACK								(0x0E)				// BackSpaceキー	D_DIK_BACK
-#define KEY_INPUT_TAB								(0x0F)				// Tabキー			D_DIK_TAB
-#define KEY_INPUT_RETURN							(0x1C)				// Enterキー		D_DIK_RETURN
+	//キー定義
+enum :size_t {
+	KEY_INPUT_NON0
+	, KEY_INPUT_ESCAPE
+	, KEY_INPUT_1
+	, KEY_INPUT_2
+	, KEY_INPUT_3
+	, KEY_INPUT_4
+	, KEY_INPUT_5
+	, KEY_INPUT_6
+	, KEY_INPUT_7
+	, KEY_INPUT_8
+	, KEY_INPUT_9
+	, KEY_INPUT_0
+	, KEY_INPUT_MINUS
+	, KEY_INPUT_NON13
+	, KEY_INPUT_BACK
+	, KEY_INPUT_TAB
+	, KEY_INPUT_Q
+	, KEY_INPUT_W
+	, KEY_INPUT_E
+	, KEY_INPUT_R
+	, KEY_INPUT_T
+	, KEY_INPUT_Y
+	, KEY_INPUT_U
+	, KEY_INPUT_I
+	, KEY_INPUT_O
+	, KEY_INPUT_P
+	, KEY_INPUT_LBRACKET
+	, KEY_INPUT_RBRACKET
+	, KEY_INPUT_RETURN
+	, KEY_INPUT_LCONTROL
+	, KEY_INPUT_A
+	, KEY_INPUT_S
+	, KEY_INPUT_D
+	, KEY_INPUT_F
+	, KEY_INPUT_G
+	, KEY_INPUT_H
+	, KEY_INPUT_J
+	, KEY_INPUT_K
+	, KEY_INPUT_L
+	, KEY_INPUT_SEMICOLON
+	, KEY_INPUT_NON40
+	, KEY_INPUT_NON41
+	, KEY_INPUT_LSHIFT
+	, KEY_INPUT_BACKSLASH
+	, KEY_INPUT_Z
+	, KEY_INPUT_X
+	, KEY_INPUT_C
+	, KEY_INPUT_V
+	, KEY_INPUT_B
+	, KEY_INPUT_N
+	, KEY_INPUT_M
+	, KEY_INPUT_COMMA
+	, KEY_INPUT_PERIOD
+	, KEY_INPUT_SLASH
+	, KEY_INPUT_RSHIFT
+	, KEY_INPUT_MULTIPLY
+	, KEY_INPUT_LALT
+	, KEY_INPUT_SPACE
+	, KEY_INPUT_CAPSLOCK
+	, KEY_INPUT_F1
+	, KEY_INPUT_F2
+	, KEY_INPUT_F3
+	, KEY_INPUT_F4
+	, KEY_INPUT_F5
+	, KEY_INPUT_F6
+	, KEY_INPUT_F7
+	, KEY_INPUT_F8
+	, KEY_INPUT_F9
+	, KEY_INPUT_F10
+	, KEY_INPUT_NUMLOCK
+	, KEY_INPUT_SCROLL
+	, KEY_INPUT_NUMPAD7
+	, KEY_INPUT_NUMPAD8
+	, KEY_INPUT_NUMPAD9
+	, KEY_INPUT_SUBTRACT
+	, KEY_INPUT_NUMPAD4
+	, KEY_INPUT_NUMPAD5
+	, KEY_INPUT_NUMPAD6
+	, KEY_INPUT_ADD
+	, KEY_INPUT_NUMPAD1
+	, KEY_INPUT_NUMPAD2
+	, KEY_INPUT_NUMPAD3
+	, KEY_INPUT_NUMPAD0
+	, KEY_INPUT_DECIMAL
+	, KEY_INPUT_NON84
+	, KEY_INPUT_NON85
+	, KEY_INPUT_NON86
+	, KEY_INPUT_F11
+	, KEY_INPUT_F12
+	, KEY_INPUT_NON89
+	, KEY_INPUT_NON90
+	, KEY_INPUT_NON91
+	, KEY_INPUT_NON92
+	, KEY_INPUT_NON93
+	, KEY_INPUT_NON94
+	, KEY_INPUT_NON95
+	, KEY_INPUT_NON96
+	, KEY_INPUT_NON97
+	, KEY_INPUT_NON98
+	, KEY_INPUT_NON99
+	, KEY_INPUT_NON100
+	, KEY_INPUT_NON101
+	, KEY_INPUT_NON102
+	, KEY_INPUT_NON103
+	, KEY_INPUT_NON104
+	, KEY_INPUT_NON105
+	, KEY_INPUT_NON106
+	, KEY_INPUT_NON107
+	, KEY_INPUT_NON108
+	, KEY_INPUT_NON109
+	, KEY_INPUT_NON110
+	, KEY_INPUT_NON111
+	, KEY_INPUT_NON112
+	, KEY_INPUT_KANA
+	, KEY_INPUT_NON114
+	, KEY_INPUT_NON115
+	, KEY_INPUT_NON116
+	, KEY_INPUT_NON117
+	, KEY_INPUT_NON118
+	, KEY_INPUT_NON119
+	, KEY_INPUT_NON120
+	, KEY_INPUT_CONVERT
+	, KEY_INPUT_NON122
+	, KEY_INPUT_NOCONVERT
+	, KEY_INPUT_NON124
+	, KEY_INPUT_YEN
+	, KEY_INPUT_NON126
+	, KEY_INPUT_NON127
+	, KEY_INPUT_NON128
+	, KEY_INPUT_NON129
+	, KEY_INPUT_NON130
+	, KEY_INPUT_NON131
+	, KEY_INPUT_NON132
+	, KEY_INPUT_NON133
+	, KEY_INPUT_NON134
+	, KEY_INPUT_NON135
+	, KEY_INPUT_NON136
+	, KEY_INPUT_NON137
+	, KEY_INPUT_NON138
+	, KEY_INPUT_NON139
+	, KEY_INPUT_NON140
+	, KEY_INPUT_NON141
+	, KEY_INPUT_NON142
+	, KEY_INPUT_NON143
+	, KEY_INPUT_PREVTRACK
+	, KEY_INPUT_AT
+	, KEY_INPUT_COLON
+	, KEY_INPUT_NON147
+	, KEY_INPUT_KANJI
+	, KEY_INPUT_NON149
+	, KEY_INPUT_NON150
+	, KEY_INPUT_NON151
+	, KEY_INPUT_NON152
+	, KEY_INPUT_NON153
+	, KEY_INPUT_NON154
+	, KEY_INPUT_NON155
+	, KEY_INPUT_NUMPADENTER
+	, KEY_INPUT_RCONTROL
+	, KEY_INPUT_NON158
+	, KEY_INPUT_NON159
+	, KEY_INPUT_NON160
+	, KEY_INPUT_NON161
+	, KEY_INPUT_NON162
+	, KEY_INPUT_NON163
+	, KEY_INPUT_NON164
+	, KEY_INPUT_NON165
+	, KEY_INPUT_NON166
+	, KEY_INPUT_NON167
+	, KEY_INPUT_NON168
+	, KEY_INPUT_NON169
+	, KEY_INPUT_NON170
+	, KEY_INPUT_NON171
+	, KEY_INPUT_NON172
+	, KEY_INPUT_NON173
+	, KEY_INPUT_NON174
+	, KEY_INPUT_NON175
+	, KEY_INPUT_NON176
+	, KEY_INPUT_NON177
+	, KEY_INPUT_NON178
+	, KEY_INPUT_NON179
+	, KEY_INPUT_NON180
+	, KEY_INPUT_DIVIDE
+	, KEY_INPUT_NON182
+	, KEY_INPUT_SYSRQ
+	, KEY_INPUT_RALT
+	, KEY_INPUT_NON185
+	, KEY_INPUT_NON186
+	, KEY_INPUT_NON187
+	, KEY_INPUT_NON188
+	, KEY_INPUT_NON189
+	, KEY_INPUT_NON190
+	, KEY_INPUT_NON191
+	, KEY_INPUT_NON192
+	, KEY_INPUT_NON193
+	, KEY_INPUT_NON194
+	, KEY_INPUT_NON195
+	, KEY_INPUT_NON196
+	, KEY_INPUT_PAUSE
+	, KEY_INPUT_NON198
+	, KEY_INPUT_HOME
+	, KEY_INPUT_UP
+	, KEY_INPUT_PGUP
+	, KEY_INPUT_NON202
+	, KEY_INPUT_LEFT
+	, KEY_INPUT_NON204
+	, KEY_INPUT_RIGHT
+	, KEY_INPUT_NON206
+	, KEY_INPUT_END
+	, KEY_INPUT_DOWN
+	, KEY_INPUT_PGDN
+	, KEY_INPUT_INSERT
+	, KEY_INPUT_DELETE
+	, KEY_INPUT_NON212
+	, KEY_INPUT_NON213
+	, KEY_INPUT_NON214
+	, KEY_INPUT_NON215
+	, KEY_INPUT_NON216
+	, KEY_INPUT_NON217
+	, KEY_INPUT_NON218
+	, KEY_INPUT_LWIN
+	, KEY_INPUT_RWIN
+	, KEY_INPUT_APPS
+	, KEY_INPUT_NON222
+	, KEY_INPUT_NON223
+	, KEY_INPUT_NON224
+	, KEY_INPUT_NON225
+	, KEY_INPUT_NON226
+	, KEY_INPUT_NON227
+	, KEY_INPUT_NON228
+	, KEY_INPUT_NON229
+	, KEY_INPUT_NON230
+	, KEY_INPUT_NON231
+	, KEY_INPUT_NON232
+	, KEY_INPUT_NON233
+	, KEY_INPUT_NON234
+	, KEY_INPUT_NON235
+	, KEY_INPUT_NON236
+	, KEY_INPUT_NON237
+	, KEY_INPUT_NON238
+	, KEY_INPUT_NON239
+	, KEY_INPUT_NON240
+	, KEY_INPUT_NON241
+	, KEY_INPUT_NON242
+	, KEY_INPUT_NON243
+	, KEY_INPUT_NON244
+	, KEY_INPUT_NON245
+	, KEY_INPUT_NON246
+	, KEY_INPUT_NON247
+	, KEY_INPUT_NON248
+	, KEY_INPUT_NON249
+	, KEY_INPUT_NON250
+	, KEY_INPUT_NON251
+	, KEY_INPUT_NON252
+	, KEY_INPUT_NON253
+	, KEY_INPUT_NON254
+	, KEY_INPUT_NON255
+	, KEY_INPUT_NON256
+};
 
-#define KEY_INPUT_LSHIFT							(0x2A)				// 左Shiftキー		D_DIK_LSHIFT
-#define KEY_INPUT_RSHIFT							(0x36)				// 右Shiftキー		D_DIK_RSHIFT
-#define KEY_INPUT_LCONTROL							(0x1D)				// 左Ctrlキー		D_DIK_LCONTROL
-#define KEY_INPUT_RCONTROL							(0x9D)				// 右Ctrlキー		D_DIK_RCONTROL
-#define KEY_INPUT_ESCAPE							(0x01)				// Escキー			D_DIK_ESCAPE
-#define KEY_INPUT_SPACE								(0x39)				// スペースキー		D_DIK_SPACE
-#define KEY_INPUT_PGUP								(0xC9)				// PageUpキー		D_DIK_PGUP
-#define KEY_INPUT_PGDN								(0xD1)				// PageDownキー		D_DIK_PGDN
-#define KEY_INPUT_END								(0xCF)				// Endキー			D_DIK_END
-#define KEY_INPUT_HOME								(0xC7)				// Homeキー			D_DIK_HOME
-#define KEY_INPUT_LEFT								(0xCB)				// 左キー			D_DIK_LEFT
-#define KEY_INPUT_UP								(0xC8)				// 上キー			D_DIK_UP
-#define KEY_INPUT_RIGHT								(0xCD)				// 右キー			D_DIK_RIGHT
-#define KEY_INPUT_DOWN								(0xD0)				// 下キー			D_DIK_DOWN
-#define KEY_INPUT_INSERT							(0xD2)				// Insertキー		D_DIK_INSERT
-#define KEY_INPUT_DELETE							(0xD3)				// Deleteキー		D_DIK_DELETE
-
-#define KEY_INPUT_MINUS								(0x0C)				// －キー			D_DIK_MINUS
-#define KEY_INPUT_YEN								(0x7D)				// ￥キー			D_DIK_YEN
-#define KEY_INPUT_PREVTRACK							(0x90)				// ＾キー			D_DIK_PREVTRACK
-#define KEY_INPUT_PERIOD							(0x34)				// ．キー			D_DIK_PERIOD
-#define KEY_INPUT_SLASH								(0x35)				// ／キー			D_DIK_SLASH
-#define KEY_INPUT_LALT								(0x38)				// 左Altキー		D_DIK_LALT
-#define KEY_INPUT_RALT								(0xB8)				// 右Altキー		D_DIK_RALT
-#define KEY_INPUT_SCROLL							(0x46)				// ScrollLockキー	D_DIK_SCROLL
-#define KEY_INPUT_SEMICOLON							(0x27)				// ；キー			D_DIK_SEMICOLON
-#define KEY_INPUT_COLON								(0x92)				// ：キー			D_DIK_COLON
-#define KEY_INPUT_LBRACKET							(0x1A)				// ［キー			D_DIK_LBRACKET
-#define KEY_INPUT_RBRACKET							(0x1B)				// ］キー			D_DIK_RBRACKET
-#define KEY_INPUT_AT								(0x91)				// ＠キー			D_DIK_AT
-#define KEY_INPUT_BACKSLASH							(0x2B)				// ＼キー			D_DIK_BACKSLASH
-#define KEY_INPUT_COMMA								(0x33)				// ，キー			D_DIK_COMMA
-#define KEY_INPUT_KANJI								(0x94)				// 漢字キー			D_DIK_KANJI
-#define KEY_INPUT_CONVERT							(0x79)				// 変換キー			D_DIK_CONVERT
-#define KEY_INPUT_NOCONVERT							(0x7B)				// 無変換キー		D_DIK_NOCONVERT
-#define KEY_INPUT_KANA								(0x70)				// カナキー			D_DIK_KANA
-#define KEY_INPUT_APPS								(0xDD)				// アプリケーションメニューキー		D_DIK_APPS
-#define KEY_INPUT_CAPSLOCK							(0x3A)				// CaspLockキー		D_DIK_CAPSLOCK
-#define KEY_INPUT_SYSRQ								(0xB7)				// PrintScreenキー	D_DIK_SYSRQ
-#define KEY_INPUT_PAUSE								(0xC5)				// PauseBreakキー	D_DIK_PAUSE
-#define KEY_INPUT_LWIN								(0xDB)				// 左Winキー		D_DIK_LWIN
-#define KEY_INPUT_RWIN								(0xDC)				// 右Winキー		D_DIK_RWIN
-
-#define KEY_INPUT_NUMLOCK							(0x45)				// テンキーNumLockキー		D_DIK_NUMLOCK
-#define KEY_INPUT_NUMPAD0							(0x52)				// テンキー０				D_DIK_NUMPAD0
-#define KEY_INPUT_NUMPAD1							(0x4F)				// テンキー１				D_DIK_NUMPAD1
-#define KEY_INPUT_NUMPAD2							(0x50)				// テンキー２				D_DIK_NUMPAD2
-#define KEY_INPUT_NUMPAD3							(0x51)				// テンキー３				D_DIK_NUMPAD3
-#define KEY_INPUT_NUMPAD4							(0x4B)				// テンキー４				D_DIK_NUMPAD4
-#define KEY_INPUT_NUMPAD5							(0x4C)				// テンキー５				D_DIK_NUMPAD5
-#define KEY_INPUT_NUMPAD6							(0x4D)				// テンキー６				D_DIK_NUMPAD6
-#define KEY_INPUT_NUMPAD7							(0x47)				// テンキー７				D_DIK_NUMPAD7
-#define KEY_INPUT_NUMPAD8							(0x48)				// テンキー８				D_DIK_NUMPAD8
-#define KEY_INPUT_NUMPAD9							(0x49)				// テンキー９				D_DIK_NUMPAD9
-#define KEY_INPUT_MULTIPLY							(0x37)				// テンキー＊キー			D_DIK_MULTIPLY
-#define KEY_INPUT_ADD								(0x4E)				// テンキー＋キー			D_DIK_ADD
-#define KEY_INPUT_SUBTRACT							(0x4A)				// テンキー－キー			D_DIK_SUBTRACT
-#define KEY_INPUT_DECIMAL							(0x53)				// テンキー．キー			D_DIK_DECIMAL
-#define KEY_INPUT_DIVIDE							(0xB5)				// テンキー／キー			D_DIK_DIVIDE
-#define KEY_INPUT_NUMPADENTER						(0x9C)				// テンキーのエンターキー	D_DIK_NUMPADENTER
-
-#define KEY_INPUT_F1								(0x3B)				// Ｆ１キー			D_DIK_F1
-#define KEY_INPUT_F2								(0x3C)				// Ｆ２キー			D_DIK_F2
-#define KEY_INPUT_F3								(0x3D)				// Ｆ３キー			D_DIK_F3
-#define KEY_INPUT_F4								(0x3E)				// Ｆ４キー			D_DIK_F4
-#define KEY_INPUT_F5								(0x3F)				// Ｆ５キー			D_DIK_F5
-#define KEY_INPUT_F6								(0x40)				// Ｆ６キー			D_DIK_F6
-#define KEY_INPUT_F7								(0x41)				// Ｆ７キー			D_DIK_F7
-#define KEY_INPUT_F8								(0x42)				// Ｆ８キー			D_DIK_F8
-#define KEY_INPUT_F9								(0x43)				// Ｆ９キー			D_DIK_F9
-#define KEY_INPUT_F10								(0x44)				// Ｆ１０キー		D_DIK_F10
-#define KEY_INPUT_F11								(0x57)				// Ｆ１１キー		D_DIK_F11
-#define KEY_INPUT_F12								(0x58)				// Ｆ１２キー		D_DIK_F12
-
-#define KEY_INPUT_A									(0x1E)				// Ａキー			D_DIK_A
-#define KEY_INPUT_B									(0x30)				// Ｂキー			D_DIK_B
-#define KEY_INPUT_C									(0x2E)				// Ｃキー			D_DIK_C
-#define KEY_INPUT_D									(0x20)				// Ｄキー			D_DIK_D
-#define KEY_INPUT_E									(0x12)				// Ｅキー			D_DIK_E
-#define KEY_INPUT_F									(0x21)				// Ｆキー			D_DIK_F
-#define KEY_INPUT_G									(0x22)				// Ｇキー			D_DIK_G
-#define KEY_INPUT_H									(0x23)				// Ｈキー			D_DIK_H
-#define KEY_INPUT_I									(0x17)				// Ｉキー			D_DIK_I
-#define KEY_INPUT_J									(0x24)				// Ｊキー			D_DIK_J
-#define KEY_INPUT_K									(0x25)				// Ｋキー			D_DIK_K
-#define KEY_INPUT_L									(0x26)				// Ｌキー			D_DIK_L
-#define KEY_INPUT_M									(0x32)				// Ｍキー			D_DIK_M
-#define KEY_INPUT_N									(0x31)				// Ｎキー			D_DIK_N
-#define KEY_INPUT_O									(0x18)				// Ｏキー			D_DIK_O
-#define KEY_INPUT_P									(0x19)				// Ｐキー			D_DIK_P
-#define KEY_INPUT_Q									(0x10)				// Ｑキー			D_DIK_Q
-#define KEY_INPUT_R									(0x13)				// Ｒキー			D_DIK_R
-#define KEY_INPUT_S									(0x1F)				// Ｓキー			D_DIK_S
-#define KEY_INPUT_T									(0x14)				// Ｔキー			D_DIK_T
-#define KEY_INPUT_U									(0x16)				// Ｕキー			D_DIK_U
-#define KEY_INPUT_V									(0x2F)				// Ｖキー			D_DIK_V
-#define KEY_INPUT_W									(0x11)				// Ｗキー			D_DIK_W
-#define KEY_INPUT_X									(0x2D)				// Ｘキー			D_DIK_X
-#define KEY_INPUT_Y									(0x15)				// Ｙキー			D_DIK_Y
-#define KEY_INPUT_Z									(0x2C)				// Ｚキー			D_DIK_Z
-
-#define KEY_INPUT_0 								(0x0B)				// ０キー			D_DIK_0
-#define KEY_INPUT_1									(0x02)				// １キー			D_DIK_1
-#define KEY_INPUT_2									(0x03)				// ２キー			D_DIK_2
-#define KEY_INPUT_3									(0x04)				// ３キー			D_DIK_3
-#define KEY_INPUT_4									(0x05)				// ４キー			D_DIK_4
-#define KEY_INPUT_5									(0x06)				// ５キー			D_DIK_5
-#define KEY_INPUT_6									(0x07)				// ６キー			D_DIK_6
-#define KEY_INPUT_7									(0x08)				// ７キー			D_DIK_7
-#define KEY_INPUT_8									(0x09)				// ８キー			D_DIK_8
-#define KEY_INPUT_9									(0x0A)				// ９キー			D_DIK_9
-
-	// アスキーコントロールキーコード
+	//アスキーコントロールキーコード
 constexpr int CTRL_CODE_BS=0x08;
 constexpr int CTRL_CODE_TAB=0x09;
 constexpr int CTRL_CODE_CR=0x0d;
@@ -1034,7 +1178,7 @@ constexpr int CTRL_CODE_PAGE_DOWN=0x15;
 constexpr int CTRL_CODE_ESC=0x1b;
 constexpr int CTRL_CODE_CMP=0x20;
 
-	// SetKeyInputStringColor2 に渡す色変更対象を指定するための識別子
+	//SetKeyInputStringColor2 に渡す色変更対象を指定するための識別子
 	enum :int {
 		DX_KEYINPSTRCOLOR_NORMAL_STR,
 		DX_KEYINPSTRCOLOR_NORMAL_STR_EDGE,
@@ -1062,32 +1206,32 @@ constexpr int CTRL_CODE_CMP=0x20;
 		DX_KEYINPSTRCOLOR_NUM,
 	};
 
-	// 文字列入力処理の入力文字数が限界に達している状態で、文字列の末端部分で入力が行われた場合の処理モード
+	//文字列入力処理の入力文字数が限界に達している状態で、文字列の末端部分で入力が行われた場合の処理モード
 	enum :int {
 		DX_KEYINPSTR_ENDCHARAMODE_OVERWRITE,
 		DX_KEYINPSTR_ENDCHARAMODE_NOTCHANGE,
 	};
 
-	// フルスクリーン解像度モード定義
+	//フルスクリーン解像度モード定義
 	enum :int {
 		DX_FSRESOLUTIONMODE_DESKTOP,
 		DX_FSRESOLUTIONMODE_NATIVE,
 		DX_FSRESOLUTIONMODE_MAXIMUM,
 	};
 
-	// フルスクリーン拡大モード定義
+	//フルスクリーン拡大モード定義
 	enum :int {
 		DX_FSSCALINGMODE_BILINEAR,
 		DX_FSSCALINGMODE_NEAREST,
 	};
 
-	// SetGraphMode 戻り値定義
+	//SetGraphMode 戻り値定義
 	constexpr int DX_CHANGESCREEN_OK = 0;
 	constexpr int DX_CHANGESCREEN_RETURN = -1;
 	constexpr int DX_CHANGESCREEN_DEFAULT = -2;
 	constexpr int DX_CHANGESCREEN_REFRESHNORMAL = -3;
 
-	// ストリームデータ読み込み処理コード簡略化関連
+	//ストリームデータ読み込み処理コード簡略化関連
 #define STTELL( st ) ((st)->ReadShred.Tell( (st)->DataPoint ))
 #define STSEEK( st, pos, type ) ((st)->ReadShred.Seek( (st)->DataPoint, (pos), (type) ))
 #define STREAD( buf, length, num, st ) ((st)->ReadShred.Read( (buf), (length), (num), (st)->DataPoint ))
@@ -1095,19 +1239,19 @@ constexpr int CTRL_CODE_CMP=0x20;
 #define STEOF( st ) ((st)->ReadShred.Eof( (st)->DataPoint ))
 #define STCLOSE( st )	 ((st)->ReadShred.Close( (st)->DataPoint ))
 
-	// ストリームデータ制御のシークタイプ定義
+	//ストリームデータ制御のシークタイプ定義
 	constexpr int STREAM_SEEKTYPE_SET = SEEK_SET;
 	constexpr int STREAM_SEEKTYPE_END = SEEK_END;
 	constexpr int STREAM_SEEKTYPE_CUR = SEEK_CUR;
 
-	// グラフィックロード時のイメージタイプ
+	//グラフィックロード時のイメージタイプ
 	enum :int {
 		LOADIMAGE_TYPE_FILE,
 		LOADIMAGE_TYPE_MEM,
 		LOADIMAGE_TYPE_NONE = -1,
 	};
 
-	// HTTP エラー
+	//HTTP エラー
 	enum :int {
 		HTTP_ERR_SERVER,
 		HTTP_ERR_NOTFOUND,
@@ -1116,7 +1260,7 @@ constexpr int CTRL_CODE_CMP=0x20;
 		HTTP_ERR_NONE = -1,
 	};
 
-	// HTTP 処理の結果
+	//HTTP 処理の結果
 	enum :int {
 		HTTP_RES_COMPLETE,
 		HTTP_RES_STOP,
