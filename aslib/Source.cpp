@@ -119,6 +119,7 @@ void startScene(MC& mc)
 
 
 	static Size2 w_pos(64, 32);
+	static Pos2 w_pos2(64, 32);
 	static worldMap w(w_pos);
 	static bool is_w = true;
 	if (is_w) { w.rand(); is_w = false; }
@@ -132,11 +133,15 @@ void startScene(MC& mc)
 
 		//pl.y += mouseWheel()/10.0f;
 		pl.y += mouseWheel();
+		if(DxLib::CheckHitKey(KEY_INPUT_RIGHT)) pl.x += 0.3f;
+		if (DxLib::CheckHitKey(KEY_INPUT_DOWN)) pl.y += 0.3f;
+		if (DxLib::CheckHitKey(KEY_INPUT_LEFT)) pl.x -= 0.3f;
+		if (DxLib::CheckHitKey(KEY_INPUT_UP)) pl.y -= 0.3f;
 
-		mv.setMob(pl);
+		mv.setMob(pl, w_pos2);
 		w.drawView(mv);
-		mv.colorMob(pl, ColorRGBA(255, 0, 0, 255));
-		mv.colorMob(pl2, ColorRGBA(0, 255, 0, 255));
+		mv.colorMob(pl, w_pos2, ColorRGBA(255, 0, 0, 255));
+		mv.colorMob(pl2, w_pos2, ColorRGBA(0, 255, 0, 255));
 
 	static TextureMainData texa(AsLoadTex("gahaku.png"));
 	//static const Pos8 a = Pos4(300, 300, 600, 700);

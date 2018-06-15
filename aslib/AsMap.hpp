@@ -44,19 +44,35 @@ namespace AsLib
 		}
 
 		//中心位置を指定
-		void setMob(const PosA4R& p_) { p.x = p_.x; p.y = p_.y; }
-		void setMap(const PosA4R& p_) { p = p_; }
-		void setMapX(const PosA4R& p_) { p = p_; p.h = p.w*(float(asWindowSize().y) / float(asWindowSize().x)); }
+		MapView& setMob(PosA4R& p_, const Pos2& p2_) {
+			if (Pos2(p2_).is_minus()) return *this;
+			if (p_.x < 0.0f) p_.x += float(p2_.x);
+			if (p_.y < 0.0f) p_.y += float(p2_.y);
+			p_.x += float(int32_t(p_.x) % p2_.x) - floor(p_.x);
+			p_.y += float(int32_t(p_.y) % p2_.y) - floor(p_.y);
+			p.x = p_.x;
+			p.y = p_.y;
+			return *this;
+		}
+		MapView& setMob(const PosA4R& p_) { p.x = p_.x; p.y = p_.y; return *this;}
+		MapView& setMap(const PosA4R& p_) { p = p_; return *this;}
+		MapView& setMapX(const PosA4R& p_) { p = p_; p.h = p.w*(float(asWindowSize().y) / float(asWindowSize().x)); return *this;}
 
-		void colorMob(const Pos4R& p_, const ColorRGBA& c_)
+		MapView& colorMob(const PosA4R& p_, const Pos2& p2_, const ColorRGBA& c_)
+		{
+			if (Pos2(p2_).is_minus()) return *this;
+			return this->colorMob(PosA4R(float((int32_t(p_.x) + p2_.x) % p2_.x) + p_.x - floor(p_.x), float((int32_t(p_.y) + p2_.y) % p2_.y) + p_.y - floor(p_.y), p_.w, p_.h), c_);
+		}
+		MapView& colorMob(const Pos4R& p_, const ColorRGBA& c_)
 		{
 			//範囲外は描画無し
 			const Pos4R Dp = Pos4R(this->p);
-			if (p_.x2 < Dp.x1 || p_.y2 < Dp.y1 || p_.x1 > Dp.x2 || p_.y1 > Dp.y2) return;
+			if (p_.x2 < Dp.x1 || p_.y2 < Dp.y1 || p_.x1 > Dp.x2 || p_.y1 > Dp.y2) return *this;
 
 			const PosL4R Lp = PosL4R(this->p);
 			const Pos2 w_ = asWindowSize();
 			asRect(Pos4(int32_t((p_.x1 - Lp.x) / Lp.w*w_.x), int32_t((p_.y1 - Lp.y) / Lp.h*w_.y), int32_t((p_.x2 - Lp.x) / Lp.w*w_.x), int32_t((p_.y2 - Lp.y) / Lp.h*w_.y)), c_);
+			return *this;
 		}
 
 
