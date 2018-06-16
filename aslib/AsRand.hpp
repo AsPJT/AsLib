@@ -17,12 +17,18 @@ namespace AsLib
 		rand_32 = rand_32 ^ (rand_32 >> 17);
 		return rand_32 = rand_32 ^ (rand_32 << 5);
 	}
-
 	int32_t asSRand32(const uint32_t srand_32) {
 		if (srand_32 == 0) return -1;
 		rand_32 = srand_32;
 		return 0;
 	}
+
+	inline void asRand32(int32_t* const i) { *i = int32_t(asRand32()); }
+	inline void asRand32(int32_t* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) array_[i] = int32_t(asRand32()); }
+	inline void asRand32(std::vector<int32_t>& array_) { const size_t s = array_.size(); for (size_t i = 0; i < s; ++i) array_[i] = int32_t(asRand32()); }
+
+	inline int32_t asRand() { return int32_t(asRand32()); }
+
 
 	int32_t asRand32(const int32_t i)
 	{

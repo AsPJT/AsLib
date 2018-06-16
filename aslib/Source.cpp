@@ -128,7 +128,7 @@ void startScene(MC& mc)
 
 		static PosA4R pl(5.5f, 5.3f, 2.0f, 1.0f);
 		static PosA4R pl2(7.5f, 8.5f, 1.0f, 1.0f);
-		static PosA4R map_p(0.0f, 0.0f, 5.0f, 100.0f);
+		static PosA4R map_p(0.0f, 0.0f, 5.0f, 10.0f);
 		static MapView mv(map_p,'y');
 
 		//pl.y += mouseWheel()/10.0f;

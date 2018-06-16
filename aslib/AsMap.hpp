@@ -43,7 +43,9 @@ namespace AsLib
 			}
 		}
 
-		//中心位置を指定
+		//中心位置を指定--------------------------------------------------------------
+
+		//マップ内に収める
 		MapView& setMob(PosA4R& p_, const Pos2& p2_) {
 			if (Pos2(p2_).is_minus()) return *this;
 			if (p_.x < 0.0f) p_.x += float(p2_.x);
@@ -74,12 +76,16 @@ namespace AsLib
 			asRect(Pos4(int32_t((p_.x1 - Lp.x) / Lp.w*w_.x), int32_t((p_.y1 - Lp.y) / Lp.h*w_.y), int32_t((p_.x2 - Lp.x) / Lp.w*w_.x), int32_t((p_.y2 - Lp.y) / Lp.h*w_.y)), c_);
 			return *this;
 		}
+		MapView& colorMob(ColorRGBA* col_)
+		{
+
+		}
 
 
 	};
 
 
-
+	
 
 
 
@@ -92,11 +98,12 @@ namespace AsLib
 		Size2 s;
 		size_t total_size;
 		std::unique_ptr<int32_t[]> map_id;
+		std::unique_ptr<ColorRGBA[]> col;
 
-		worldMap(const Size2& xy_) :s({ xy_.x, xy_.y }), total_size(xy_.x*xy_.y), map_id(new int32_t[xy_.x*xy_.y]) { clear(); }
-		worldMap(const size_t x_, const size_t y_) : s({ x_, y_ }), total_size(x_*y_), map_id(new int32_t[x_*y_]) { clear(); }
+		worldMap(const Size2& xy_) :s({ xy_.x, xy_.y }), total_size(xy_.x*xy_.y), map_id(new int32_t[xy_.x*xy_.y]), col(new ColorRGBA[xy_.x*xy_.y]) { clear(); }
+		worldMap(const size_t x_, const size_t y_) : s({ x_, y_ }), total_size(x_*y_), map_id(new int32_t[x_*y_]), col(new ColorRGBA[x_*y_]) { clear(); }
 		const worldMap& clear() const { for (size_t i = 0; i < total_size; ++i) map_id[i] = 0; return *this; }
-		const worldMap& rand() const { for (size_t i = 0; i < total_size; ++i) map_id[i] = asRand32(); return *this; }
+		const worldMap& rand() const { asRand32(&map_id[0], total_size); return *this; }
 
 		const worldMap& drawView(MapView& m_) const {
 			int32_t a;
