@@ -316,4 +316,6 @@ namespace AsLib
 		return *this;
 	}
 
+	inline void asRand(ColorRGBA& c_) { c_.r = asRand8(); c_.g = asRand8(); c_.b = asRand8(); c_.a = asRand8(); }
+	inline void asRand(ColorRGBA* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i]); }
 }

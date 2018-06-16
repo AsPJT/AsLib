@@ -24,6 +24,10 @@ namespace AsLib
 		return asWindowSizeSave(false);
 	}
 
+	inline Pos2R asWindowSizeF()
+	{
+		return Pos2R(asWindowSize());
+	}
 
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 

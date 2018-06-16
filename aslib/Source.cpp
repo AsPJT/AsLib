@@ -122,13 +122,13 @@ void startScene(MC& mc)
 	static Pos2 w_pos2(64, 32);
 	static worldMap w(w_pos);
 	static bool is_w = true;
-	if (is_w) { w.rand(); is_w = false; }
+	if (is_w) { w.rand().randC(); is_w = false; }
 	//w.rand();
 		//w.draw(10);
 
-		static PosA4R pl(5.5f, 5.3f, 2.0f, 1.0f);
+		static PosA4R pl(5.5f, 5.3f, 1.0f, 1.0f);
 		static PosA4R pl2(7.5f, 8.5f, 1.0f, 1.0f);
-		static PosA4R map_p(0.0f, 0.0f, 5.0f, 10.0f);
+		static PosA4R map_p(0.0f, 0.0f, 5.0f, 50.0f);
 		static MapView mv(map_p,'y');
 
 		//pl.y += mouseWheel()/10.0f;
@@ -140,7 +140,9 @@ void startScene(MC& mc)
 		if (DxLib::CheckHitKey(KEY_INPUT_UP)) pl.y -= fps;
 
 		mv.setMob(pl, w_pos2);
-		w.drawView(mv);
+		//w.drawView(mv);
+		mv.colorMob(&w.col[0], w_pos2);
+
 		mv.colorMob(pl, w_pos2, ColorRGBA(255, 0, 0, 255));
 		mv.colorMob(pl2, w_pos2, ColorRGBA(0, 255, 0, 255));
 

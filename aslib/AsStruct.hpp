@@ -869,4 +869,24 @@ namespace AsLib
 	inline void asRand(Pos8& p_) { p_.x1 = asRand(); p_.y1 = asRand(); p_.x2 = asRand(); p_.y2 = asRand(); p_.x3 = asRand(); p_.y3 = asRand(); p_.x4 = asRand(); p_.y4 = asRand(); }
 	inline void asRand(Pos8R& p_) { p_.x1 = float(asRand()); p_.y1 = float(asRand()); p_.x2 = float(asRand()); p_.y2 = float(asRand()); p_.x3 = float(asRand()); p_.y3 = float(asRand()); p_.x4 = float(asRand()); p_.y4 = float(asRand()); }
 
+	inline void asRand(Pos2* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<Pos2>& array_) { const size_t s = array_.size(); for (size_t i = 0; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(Pos2R* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<Pos2R>& array_) { const size_t s = array_.size(); for (size_t i = 0; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(Pos4* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<Pos4>& array_) { const size_t s = array_.size(); for (size_t i = 0; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(Pos4R* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<Pos4R>& array_) { const size_t s = array_.size(); for (size_t i = 0; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(PosL4* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<PosL4>& array_) { const size_t s = array_.size(); for (size_t i = 0; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(PosL4R* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<PosL4R>& array_) { const size_t s = array_.size(); for (size_t i = 0; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(PosA4* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<PosA4>& array_) { const size_t s = array_.size(); for (size_t i = 0; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(PosA4R* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<PosA4R>& array_) { const size_t s = array_.size(); for (size_t i = 0; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(Pos8* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<Pos8>& array_) { const size_t s = array_.size(); for (size_t i = 0; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(Pos8R* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<Pos8R>& array_) { const size_t s = array_.size(); for (size_t i = 0; i < s; ++i) asRand(array_[i]); }
 }

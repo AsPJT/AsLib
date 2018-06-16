@@ -20,47 +20,39 @@ namespace AsLib
 	{
 		std::string InputString = {};
 
-		JNIEnv *env;
+		JNIEnv* env;
 		const ANativeActivity* const NativeActivity = DxLib::GetNativeActivity();
-		int InputEnd;
+		int32_t InputEnd = 0;
 
-		{
-			if (NativeActivity->vm->AttachCurrentThreadAsDaemon(&env, NULL) != JNI_OK) return InputString.c_str();
-			jclass jclass_ = env->GetObjectClass(NativeActivity->clazz);
-			jmethodID jmethodID_StartInputDialog = env->GetMethodID(jclass_, "StartInputStringDialog", "()V");
-			env->CallVoidMethod(NativeActivity->clazz, jmethodID_StartInputDialog);
-			env->DeleteLocalRef(jclass_);
-			NativeActivity->vm->DetachCurrentThread();
-		}
-
-		InputEnd = 0;
+		if (NativeActivity->vm->AttachCurrentThreadAsDaemon(&env, NULL) != JNI_OK) return InputString.c_str();
+		const jclass jclass_ = env->GetObjectClass(NativeActivity->clazz);
+		const jmethodID jmethodID_StartInputDialog = env->GetMethodID(jclass_, "StartInputStringDialog", "()V");
+		env->CallVoidMethod(NativeActivity->clazz, jmethodID_StartInputDialog);
+		env->DeleteLocalRef(jclass_);
+		NativeActivity->vm->DetachCurrentThread();
 
 		while (!DxLib::ProcessMessage())
 		{
-			if (!InputEnd)
-			{
-				if (NativeActivity->vm->AttachCurrentThreadAsDaemon(&env, NULL) != JNI_OK) return InputString.c_str();
+			if (InputEnd) break;
 
-				jclass jclass_ = env->GetObjectClass(NativeActivity->clazz);
-				jfieldID jfieldID_InputEnd = env->GetFieldID(jclass_, "InputEnd", "I");
-				InputEnd = env->GetIntField(NativeActivity->clazz, jfieldID_InputEnd);
+			if (NativeActivity->vm->AttachCurrentThreadAsDaemon(&env, NULL) != JNI_OK) return InputString.c_str();
 
-				if (InputEnd == 1) {
-					jfieldID jfieldID_InputString = env->GetFieldID(jclass_, "InputString", "Ljava/lang/String;");
-					jstring jstring_InputString = (jstring)env->GetObjectField(NativeActivity->clazz, jfieldID_InputString);
-					const char *chars_InputString = env->GetStringUTFChars(jstring_InputString, NULL);
+			const jclass jclass_ = env->GetObjectClass(NativeActivity->clazz);
+			const jfieldID jfieldID_InputEnd = env->GetFieldID(jclass_, "InputEnd", "I");
+			InputEnd = int32_t(env->GetIntField(NativeActivity->clazz, jfieldID_InputEnd));
 
-					InputString = std::string(chars_InputString);
-					env->ReleaseStringUTFChars(jstring_InputString, chars_InputString);
-					env->DeleteLocalRef(jstring_InputString);
+			if (InputEnd == 1) {
+				const jfieldID jfieldID_InputString = env->GetFieldID(jclass_, "InputString", "Ljava/lang/String;");
+				const jstring jstring_InputString = (jstring)env->GetObjectField(NativeActivity->clazz, jfieldID_InputString);
+				const char *chars_InputString = env->GetStringUTFChars(jstring_InputString, NULL);
 
-				}
-				env->DeleteLocalRef(jclass_);
-				NativeActivity->vm->DetachCurrentThread();
+				InputString = std::string(chars_InputString);
+				env->ReleaseStringUTFChars(jstring_InputString, chars_InputString);
+				env->DeleteLocalRef(jstring_InputString);
+
 			}
-			else {
-				break;
-			}
+			env->DeleteLocalRef(jclass_);
+			NativeActivity->vm->DetachCurrentThread();
 		}
 		return InputString.c_str();
 	}
