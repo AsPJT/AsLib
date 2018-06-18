@@ -69,7 +69,7 @@ namespace AsLib
 		const Pos2& operator()(Pos2* const p_) const { *p_ = *this; return *this; }
 		const Pos2& operator()(int32_t* const x_, int32_t* const y_) const { *x_ = this->x; *y_ = this->y; return *this; }
 
-		const bool is_minus() { return (this->x < 0 || this->y < 0) ? true : false; };
+		const bool is_minus() const { return (this->x <= 0 || this->y <= 0) ? true : false; };
 #if defined(ASLIB_INCLUDE_S3) //Siv3D
 		operator s3d::Point()
 		{

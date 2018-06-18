@@ -122,12 +122,10 @@ void startScene(MC& mc)
 	static worldMap w(w_pos);
 	static bool is_w = true;
 	if (is_w) { w.rand().randC(100); is_w = false; }
-	//w.rand();
-		//w.draw(10);
 
 		static constexpr PosA4R pl2(7.5f, 8.5f, 1.0f, 1.0f);
 		static PosA4R pl(5.5f, 5.5f, 1.0f, 1.0f);
-		static constexpr PosA4R map_p(0.0f, 0.0f, 5.0f, 10.0f);
+		static constexpr PosA4R map_p(0.0f, 0.0f, 5.0f, 200.0f);
 		static MapView mv(map_p,'y');
 
 		//pl.y += mouseWheel()/10.0f;

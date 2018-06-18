@@ -10,6 +10,8 @@
 namespace AsLib
 {
 
+
+
 	//配列サイズ
 	struct Size2
 	{
@@ -47,13 +49,11 @@ namespace AsLib
 
 		//マップ内に収める
 		MapView& setMob(PosA4R& p_, const Pos2& p2_) {
-			if (Pos2(p2_).is_minus()) return *this;
-			if (p_.x < 0.0f) p_.x += float(p2_.x);
-			if (p_.y < 0.0f) p_.y += float(p2_.y);
-			p_.x += float(int32_t(p_.x) % p2_.x) - floor(p_.x);
-			p_.y += float(int32_t(p_.y) % p2_.y) - floor(p_.y);
-			p.x = p_.x;
-			p.y = p_.y;
+			if (p2_.is_minus()) return *this;
+			while (p_.x < 0.0f) { p_.x += float(p2_.x); }
+			while (p_.y < 0.0f) { p_.y += float(p2_.y); }
+			p.x = p_.x += float(int32_t(p_.x) % p2_.x) - floor(p_.x);
+			p.y = p_.y += float(int32_t(p_.y) % p2_.y) - floor(p_.y);
 			return *this;
 		}
 		MapView& setMob(const PosA4R& p_) { p.x = p_.x; p.y = p_.y; return *this;}
@@ -78,17 +78,17 @@ namespace AsLib
 		}
 		MapView& colorMob(ColorRGBA* const col_, const Pos2& p_)
 		{
-			if (Pos2(p_).is_minus()) return *this;
+			if (p_.is_minus()) return *this;
 
-			//1マスの描画幅o
+			//1マスの描画幅
 			const Pos2R m(asWindowSizeF().x / this->p.w, asWindowSizeF().y / this->p.h);
-			//描画ピクセル数o
+			//描画ピクセル数
 			const PosA4R in_mapA(this->p.x, this->p.y, m.x*(floor(this->p.w) + 2.0f), m.y*(floor(this->p.h) + 2.0f));
 			//描画マス数
 			const Pos4 in_map(PosA4(int32_t(p.x), int32_t(p.y), int32_t(this->p.w) + 2, int32_t(this->p.h) + 2));
 
-			//todo
-			const Pos2R in_draw((asWindowSizeF().x- in_mapA.w)/2 - m.x*(this->p.x - floor(this->p.x)), (asWindowSizeF().y - in_mapA.h) / 2 - m.y*(this->p.y - floor(this->p.y)));
+			//描画初期位置
+			const Pos2R in_draw((asWindowSizeF().x - in_mapA.w) / 2.0f - m.x*(this->p.x - floor(this->p.x)), (asWindowSizeF().y - in_mapA.h) / 2.0f - m.y*(this->p.y - floor(this->p.y)));
 
 			Pos2 select_map(0);
 			Pos2R draw_map(in_draw);
@@ -96,29 +96,20 @@ namespace AsLib
 			for (int32_t i = in_map.y1; i <= in_map.y2; ++i) {
 				draw_map.x = in_draw.x;
 				draw_map.y += m.y;
-
 				select_map.y = i;
-				while (1) { if (select_map.y >= 0) break; else select_map.y += p_.y; }
+				while (select_map.y < 0) { select_map.y += p_.y; }
 				select_map.y = select_map.y % p_.y;
 
 				for (int32_t j = in_map.x1; j <= in_map.x2; ++j) {
 					draw_map.x += m.x;
-
 					select_map.x = j;
-					while (1) { if (select_map.x >= 0) break; else select_map.x += p_.x; }
+					while (select_map.x < 0) { select_map.x += p_.x; }
 					select_map.x = select_map.x % p_.x;
+
 					//描画
 					asRect(PosL4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(m.x), int32_t(m.y)), col_[select_map.y*p_.x + select_map.x]);
 				}
 			}
-
-			DxLib::clsDx();
-			DxLib::printfDx("in_map:%d,%d,%d,%d\n", in_map.x1, in_map.y1, in_map.x2, in_map.y2);
-			DxLib::printfDx("in_map:%f,%f,%f,%f\n", in_mapA.x, in_mapA.y, in_mapA.w, in_mapA.h);
-			DxLib::printfDx("select_map:%d,%d\n", select_map.x, select_map.y);
-			DxLib::printfDx("draw_map:%f,%f\n", draw_map.x, draw_map.y);
-			DxLib::printfDx("m:%f,%f\n", m.x, m.y);
-
 			return *this;
 		}
 
