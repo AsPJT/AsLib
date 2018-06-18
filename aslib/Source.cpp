@@ -105,8 +105,7 @@ void startScene(MC& mc)
 	//描画レイヤー
 	mc.texture(GAHAKU2_TEXUI);
 
-	mc.battery.draw();
-	if (mc.battery.Touch()) batteryScene(mc);
+
 
 	//asBatteryDraw({ 700,200,200,300 });
 
@@ -118,17 +117,17 @@ void startScene(MC& mc)
 	mc.vecFont[0].drawAt(p_, u8"アニメーション%d",1);
 
 
-	static Size2 w_pos(64, 32);
-	static Pos2 w_pos2(64, 32);
+	static constexpr Size2 w_pos(64, 32);
+	static constexpr Pos2 w_pos2(64, 32);
 	static worldMap w(w_pos);
 	static bool is_w = true;
 	if (is_w) { w.rand().randC(100); is_w = false; }
 	//w.rand();
 		//w.draw(10);
 
+		static constexpr PosA4R pl2(7.5f, 8.5f, 1.0f, 1.0f);
 		static PosA4R pl(5.5f, 5.5f, 1.0f, 1.0f);
-		static PosA4R pl2(7.5f, 8.5f, 1.0f, 1.0f);
-		static PosA4R map_p(0.0f, 0.0f, 5.0f, 10.0f);
+		static constexpr PosA4R map_p(0.0f, 0.0f, 5.0f, 10.0f);
 		static MapView mv(map_p,'y');
 
 		//pl.y += mouseWheel()/10.0f;
@@ -143,8 +142,8 @@ void startScene(MC& mc)
 		//w.drawView(mv);
 		mv.colorMob(&w.col[0], w_pos2);
 
-		mv.colorMob(pl, w_pos2, ColorRGBA(255, 0, 0, 255));
 		mv.colorMob(pl2, w_pos2, ColorRGBA(0, 255, 0, 255));
+		mv.colorMob(pl, w_pos2, ColorRGBA(255, 0, 0, 255));
 
 	static TextureMainData texa(AsLoadTex("gahaku.png"));
 	//static const Pos8 a = Pos4(300, 300, 600, 700);
@@ -164,6 +163,9 @@ void startScene(MC& mc)
 
 	//命令レイヤー
 	if (mc.upTex0(GAHAKU2_TEXUI)) mc.scene(LOGO_SCENE1);
+
+	mc.battery.draw();
+	if (mc.battery.Touch()) batteryScene(mc);
 }
 
 //メイン画面

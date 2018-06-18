@@ -88,7 +88,7 @@ namespace AsLib
 			const Pos4 in_map(PosA4(int32_t(p.x), int32_t(p.y), int32_t(this->p.w) + 2, int32_t(this->p.h) + 2));
 
 			//todo
-			const Pos2R in_draw(0,0);
+			const Pos2R in_draw((asWindowSizeF().x- in_mapA.w)/2 - m.x*(this->p.x - floor(this->p.x)), (asWindowSizeF().y - in_mapA.h) / 2 - m.y*(this->p.y - floor(this->p.y)));
 
 			Pos2 select_map(0);
 			Pos2R draw_map(in_draw);
