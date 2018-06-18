@@ -122,13 +122,13 @@ void startScene(MC& mc)
 	static Pos2 w_pos2(64, 32);
 	static worldMap w(w_pos);
 	static bool is_w = true;
-	if (is_w) { w.rand().randC(); is_w = false; }
+	if (is_w) { w.rand().randC(100); is_w = false; }
 	//w.rand();
 		//w.draw(10);
 
-		static PosA4R pl(5.5f, 5.3f, 1.0f, 1.0f);
+		static PosA4R pl(5.5f, 5.5f, 1.0f, 1.0f);
 		static PosA4R pl2(7.5f, 8.5f, 1.0f, 1.0f);
-		static PosA4R map_p(0.0f, 0.0f, 5.0f, 50.0f);
+		static PosA4R map_p(0.0f, 0.0f, 5.0f, 10.0f);
 		static MapView mv(map_p,'y');
 
 		//pl.y += mouseWheel()/10.0f;
@@ -212,7 +212,7 @@ void logoScene4(MC& mc)
 int32_t AsMain()
 {
 	//管理クラス
-	MC mc(u8"Simple Counter", Pos2(1000, 800), BG_COLOR);
+	MC mc(u8"Simple Counter", Pos2(1000, 1000), BG_COLOR);
 
 	mc.battery.make(mc.asPos4({ 0.9f,0.02f,0.98f,0.3f }));
 	mc.fontAdd(60);

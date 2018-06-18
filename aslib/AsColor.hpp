@@ -316,6 +316,12 @@ namespace AsLib
 		return *this;
 	}
 
-	inline void asRand(ColorRGBA& c_) { c_.r = asRand8(); c_.g = asRand8(); c_.b = asRand8(); c_.a = asRand8(); }
+	inline void asRand(ColorRGBA& c_) { c_.r = asRand8(); c_.g = asRand8(); c_.b = asRand8(); c_.a = 255; }
+	inline void asRandA(ColorRGBA& c_) { c_.r = asRand8(); c_.g = asRand8(); c_.b = asRand8(); c_.a = asRand8(); }
 	inline void asRand(ColorRGBA* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i]); }
+	inline void asRandA(ColorRGBA* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRandA(array_[i]); }
+	inline void asRand(ColorRGBA& c_, const uint8_t m_) { c_.r = asRand8(m_); c_.g = asRand8(m_); c_.b = asRand8(m_); c_.a = 255; }
+	inline void asRandA(ColorRGBA& c_, const uint8_t m_) { c_.r = asRand8(m_); c_.g = asRand8(m_); c_.b = asRand8(m_); c_.a = asRand8(m_); }
+	inline void asRand(ColorRGBA* const array_, const size_t s_, const uint8_t m_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i], m_); }
+	inline void asRandA(ColorRGBA* const array_, const size_t s_, const uint8_t m_) { for (size_t i = 0; i < s_; ++i) asRandA(array_[i], m_); }
 }

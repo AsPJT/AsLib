@@ -79,47 +79,45 @@ namespace AsLib
 		MapView& colorMob(ColorRGBA* const col_, const Pos2& p_)
 		{
 			if (Pos2(p_).is_minus()) return *this;
-			const PosA4R in_mapA(p.x, p.y, ((this->p.w)*2.0f) + 2.0f, ((this->p.h)*2.0f) + 2.0f);
-			const Pos2R window_p(asWindowSizeF().x / this->p.w, asWindowSizeF().y / this->p.h);
 
-			const Pos4 in_map(in_mapA);
-			const Pos2R in_draw(window_p.x - window_p.x*(floor(in_mapA.w) / 2.0f), window_p.y - window_p.y*(floor(in_mapA.h) / 2.0f));
+			//1ƒ}ƒX‚Ì•`‰æ•o
+			const Pos2R m(asWindowSizeF().x / this->p.w, asWindowSizeF().y / this->p.h);
+			//•`‰æƒsƒNƒZƒ‹”o
+			const PosA4R in_mapA(this->p.x, this->p.y, m.x*(floor(this->p.w) + 2.0f), m.y*(floor(this->p.h) + 2.0f));
+			//•`‰æƒ}ƒX”
+			const Pos4 in_map(PosA4(int32_t(p.x), int32_t(p.y), int32_t(this->p.w) + 2, int32_t(this->p.h) + 2));
+
+			//todo
+			const Pos2R in_draw(0,0);
 
 			Pos2 select_map(0);
-			Pos2R draw_map(0);
-
-			draw_map.x = in_draw.x;
-			draw_map.y = in_draw.y;
-
-
+			Pos2R draw_map(in_draw);
 
 			for (int32_t i = in_map.y1; i <= in_map.y2; ++i) {
-
 				draw_map.x = in_draw.x;
-				draw_map.y += window_p.y;
+				draw_map.y += m.y;
 
 				select_map.y = i;
 				while (1) { if (select_map.y >= 0) break; else select_map.y += p_.y; }
 				select_map.y = select_map.y % p_.y;
 
 				for (int32_t j = in_map.x1; j <= in_map.x2; ++j) {
-
-					draw_map.x += window_p.x;
+					draw_map.x += m.x;
 
 					select_map.x = j;
 					while (1) { if (select_map.x >= 0) break; else select_map.x += p_.x; }
 					select_map.x = select_map.x % p_.x;
-
-					asRect(Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + window_p.x), int32_t(draw_map.y + window_p.y)), col_[select_map.y*p_.x + select_map.x]);
-					//asRect(Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + window_p.x), int32_t(draw_map.y + window_p.y)), col_[select_map.y*p_.x + select_map.x]);
+					//•`‰æ
+					asRect(PosL4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(m.x), int32_t(m.y)), col_[select_map.y*p_.x + select_map.x]);
 				}
 			}
 
 			DxLib::clsDx();
-			DxLib::printfDx("INM:%d,%d,%d,%d\n", in_map.x1, in_map.y1, in_map.x2, in_map.y2);
-			DxLib::printfDx("SLM:%d,%d\n", select_map.x, select_map.y);
-			DxLib::printfDx("DRM:%f,%f\n", draw_map.x, draw_map.y);
-			DxLib::printfDx("WIP:%f,%f\n", window_p.x, window_p.y);
+			DxLib::printfDx("in_map:%d,%d,%d,%d\n", in_map.x1, in_map.y1, in_map.x2, in_map.y2);
+			DxLib::printfDx("in_map:%f,%f,%f,%f\n", in_mapA.x, in_mapA.y, in_mapA.w, in_mapA.h);
+			DxLib::printfDx("select_map:%d,%d\n", select_map.x, select_map.y);
+			DxLib::printfDx("draw_map:%f,%f\n", draw_map.x, draw_map.y);
+			DxLib::printfDx("m:%f,%f\n", m.x, m.y);
 
 			return *this;
 		}
@@ -147,7 +145,7 @@ namespace AsLib
 		worldMap(const size_t x_, const size_t y_) : s({ x_, y_ }), total_size(x_*y_), map_id(new int32_t[x_*y_]), col(new ColorRGBA[x_*y_]) { clear(); }
 		const worldMap& clear() const { for (size_t i = 0; i < total_size; ++i) map_id[i] = 0; return *this; }
 		const worldMap& rand() const { asRand32(&map_id[0], total_size); return *this; }
-		const worldMap& randC() const { asRand(&col[0], total_size); return *this; }
+		const worldMap& randC(const uint8_t m_) const { asRand(&col[0], total_size,m_); return *this; }
 
 		const worldMap& drawView(MapView& m_) const {
 			int32_t a;

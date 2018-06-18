@@ -18,7 +18,8 @@ namespace AsLib
 
 	const char* asKeyInputAndroid()
 	{
-		std::string InputString = {};
+		static std::string InputString;
+		InputString = "Error!";
 
 		JNIEnv* env;
 		const ANativeActivity* const NativeActivity = DxLib::GetNativeActivity();
@@ -44,7 +45,7 @@ namespace AsLib
 			if (InputEnd == 1) {
 				const jfieldID jfieldID_InputString = env->GetFieldID(jclass_, "InputString", "Ljava/lang/String;");
 				const jstring jstring_InputString = (jstring)env->GetObjectField(NativeActivity->clazz, jfieldID_InputString);
-				const char *chars_InputString = env->GetStringUTFChars(jstring_InputString, NULL);
+				const char* const chars_InputString = env->GetStringUTFChars(jstring_InputString, NULL);
 
 				InputString = std::string(chars_InputString);
 				env->ReleaseStringUTFChars(jstring_InputString, chars_InputString);
