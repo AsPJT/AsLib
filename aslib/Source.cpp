@@ -99,6 +99,7 @@ void batteryScene(MC& mc)
 //開始画面
 void startScene(MC& mc)
 {
+	updateKey();
 
 	mc.anime(NUM_ANIME);
 
@@ -125,16 +126,16 @@ void startScene(MC& mc)
 
 		static constexpr PosA4R pl2(7.5f, 8.5f, 1.0f, 1.0f);
 		static PosA4R pl(5.5f, 5.5f, 1.0f, 1.0f);
-		static constexpr PosA4R map_p(0.0f, 0.0f, 5.0f, 200.0f);
+		static constexpr PosA4R map_p(0.0f, 0.0f, 5.0f, 10.0f);
 		static MapView mv(map_p,'y');
 
 		//pl.y += mouseWheel()/10.0f;
 		pl.y += mouseWheel();
 		constexpr float fps = 0.5f;
-		if(DxLib::CheckHitKey(KEY_INPUT_RIGHT)) pl.x += fps;
-		if (DxLib::CheckHitKey(KEY_INPUT_DOWN)) pl.y += fps;
-		if (DxLib::CheckHitKey(KEY_INPUT_LEFT)) pl.x -= fps;
-		if (DxLib::CheckHitKey(KEY_INPUT_UP)) pl.y -= fps;
+		if(asKey(Keyboard_RightArrow)) pl.x += fps;
+		if (asKey(Keyboard_DownArrow)) pl.y += fps;
+		if (asKey(Keyboard_LeftArrow)) pl.x -= fps;
+		if (asKey(Keyboard_UpArrow)) pl.y -= fps;
 
 		mv.setMob(pl, w_pos2);
 		//w.drawView(mv);
