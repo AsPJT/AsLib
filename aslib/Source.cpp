@@ -116,11 +116,10 @@ void startScene(MC& mc)
 	mc.vecFont[0].changeSize(mc.wheel());
 	//mc.vecFont[0].draw(p_, u8"アニメーション%d",1);
 	mc.vecFont[0].drawAt(p_, u8"アニメーション%d",1);
+	static TextureMainData feri(AsLoadTex("feri.png"));
 
-
-	static constexpr Size2 w_pos(64, 32);
 	static constexpr Pos2 w_pos2(64, 32);
-	static worldMap w(w_pos);
+	static worldMap w(w_pos2);
 	static bool is_w = true;
 	if (is_w) { w.rand().randC(100); is_w = false; }
 
@@ -131,7 +130,7 @@ void startScene(MC& mc)
 
 		//pl.y += mouseWheel()/10.0f;
 		pl.y += mouseWheel();
-		constexpr float fps = 0.5f;
+		constexpr float fps = 1.0f;
 		if(asKey(Keyboard_RightArrow)) pl.x += fps;
 		if (asKey(Keyboard_DownArrow)) pl.y += fps;
 		if (asKey(Keyboard_LeftArrow)) pl.x -= fps;
@@ -142,7 +141,8 @@ void startScene(MC& mc)
 		mv.colorMob(&w.col[0], w_pos2);
 
 		mv.colorMob(pl2, w_pos2, ColorRGBA(0, 255, 0, 255));
-		mv.colorMob(pl, w_pos2, ColorRGBA(255, 0, 0, 255));
+		//mv.colorMob(pl, w_pos2, ColorRGBA(255, 0, 0, 255));
+		mv.textureMob(pl, w_pos2, feri);
 
 	static TextureMainData texa(AsLoadTex("gahaku.png"));
 	//static const Pos8 a = Pos4(300, 300, 600, 700);

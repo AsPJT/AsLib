@@ -9,20 +9,6 @@
 
 namespace AsLib
 {
-
-
-
-	//配列サイズ
-	struct Size2
-	{
-		size_t x = 0;
-		size_t y = 0;
-		Size2() = default;
-		constexpr Size2(const size_t x_, const size_t y_) :x(x_), y(y_) {}
-	};
-	inline const size_t a2(const size_t& s_, const size_t& i_, const size_t& j_) { return (s_ * j_ + i_); }
-
-
 	//マップの見える範囲
 	struct MapView
 	{
@@ -60,11 +46,13 @@ namespace AsLib
 		MapView& setMap(const PosA4R& p_) { p = p_; return *this;}
 		MapView& setMapX(const PosA4R& p_) { p = p_; p.h = p.w*(float(asWindowSize().y) / float(asWindowSize().x)); return *this;}
 
+		//プレイヤーの位置、マップサイズ、カラー
 		MapView& colorMob(const PosA4R& p_, const Pos2& p2_, const ColorRGBA& c_)
 		{
 			if (Pos2(p2_).is_minus()) return *this;
 			return this->colorMob(PosA4R(float((int32_t(p_.x) + p2_.x) % p2_.x) + p_.x - floor(p_.x), float((int32_t(p_.y) + p2_.y) % p2_.y) + p_.y - floor(p_.y), p_.w, p_.h), c_);
 		}
+		//描画する物のサイズ、カラー
 		MapView& colorMob(const Pos4R& p_, const ColorRGBA& c_)
 		{
 			//範囲外は描画無し
@@ -76,6 +64,64 @@ namespace AsLib
 			asRect(Pos4(int32_t((p_.x1 - Lp.x) / Lp.w*w_.x), int32_t((p_.y1 - Lp.y) / Lp.h*w_.y), int32_t((p_.x2 - Lp.x) / Lp.w*w_.x), int32_t((p_.y2 - Lp.y) / Lp.h*w_.y)), c_);
 			return *this;
 		}
+
+		//プレイヤーの位置、マップサイズ、カラー
+		MapView& textureMob(const PosA4R& p_, const Pos2& p2_, TextureMainData& t_)
+		{
+			if (Pos2(p2_).is_minus()) return *this;
+			return this->textureMob(PosA4R(float((int32_t(p_.x) + p2_.x) % p2_.x) + p_.x - floor(p_.x), float((int32_t(p_.y) + p2_.y) % p2_.y) + p_.y - floor(p_.y), p_.w, p_.h), t_);
+		}
+		//描画する物のサイズ、カラー
+		MapView& textureMob(const Pos4R& p_, TextureMainData& t_)
+		{
+			//範囲外は描画無し
+			const Pos4R Dp = Pos4R(this->p);
+			if (p_.x2 < Dp.x1 || p_.y2 < Dp.y1 || p_.x1 > Dp.x2 || p_.y1 > Dp.y2) return *this;
+
+			const PosL4R Lp = PosL4R(this->p);
+			const Pos2 w_ = asWindowSize();
+			t_.draw(Pos4(int32_t((p_.x1 - Lp.x) / Lp.w*w_.x), int32_t((p_.y1 - Lp.y) / Lp.h*w_.y), int32_t((p_.x2 - Lp.x) / Lp.w*w_.x), int32_t((p_.y2 - Lp.y) / Lp.h*w_.y)));
+			return *this;
+		}
+
+
+		MapView& textureMob(TextureMainData& t_, const Pos2& p_)
+		{
+			if (p_.is_minus()) return *this;
+
+			//1マスの描画幅
+			const Pos2R m(asWindowSizeF().x / this->p.w, asWindowSizeF().y / this->p.h);
+			//描画ピクセル数
+			const PosA4R in_mapA(this->p.x, this->p.y, m.x*(floor(this->p.w) + 2.0f), m.y*(floor(this->p.h) + 2.0f));
+			//描画マス数
+			const Pos4 in_map(PosA4(int32_t(p.x), int32_t(p.y), int32_t(this->p.w) + 2, int32_t(this->p.h) + 2));
+
+			//描画初期位置
+			const Pos2R in_draw((asWindowSizeF().x - in_mapA.w) / 2.0f - m.x*(this->p.x - floor(this->p.x)), (asWindowSizeF().y - in_mapA.h) / 2.0f - m.y*(this->p.y - floor(this->p.y)));
+
+			Pos2 select_map(0);
+			Pos2R draw_map(in_draw);
+
+			for (int32_t i = in_map.y1; i <= in_map.y2; ++i) {
+				draw_map.x = in_draw.x;
+				draw_map.y += m.y;
+				select_map.y = i;
+				while (select_map.y < 0) { select_map.y += p_.y; }
+				select_map.y = select_map.y % p_.y;
+
+				for (int32_t j = in_map.x1; j <= in_map.x2; ++j) {
+					draw_map.x += m.x;
+					select_map.x = j;
+					while (select_map.x < 0) { select_map.x += p_.x; }
+					select_map.x = select_map.x % p_.x;
+
+					//描画
+					t_.draw(Pos4(PosL4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(m.x), int32_t(m.y))));
+				}
+			}
+			return *this;
+		}
+
 		MapView& colorMob(ColorRGBA* const col_, const Pos2& p_)
 		{
 			if (p_.is_minus()) return *this;
@@ -116,24 +162,16 @@ namespace AsLib
 
 	};
 
-
-	
-
-
-
-
-
-
-
+	inline static const size_t a2(const size_t& s_, const size_t& i_, const size_t& j_) { return (s_ * j_ + i_); }
 	struct worldMap
 	{
-		Size2 s;
+		Pos2 s;
 		size_t total_size;
 		std::unique_ptr<int32_t[]> map_id;
 		std::unique_ptr<ColorRGBA[]> col;
 
-		worldMap(const Size2& xy_) :s({ xy_.x, xy_.y }), total_size(xy_.x*xy_.y), map_id(new int32_t[xy_.x*xy_.y]), col(new ColorRGBA[xy_.x*xy_.y]) { clear(); }
-		worldMap(const size_t x_, const size_t y_) : s({ x_, y_ }), total_size(x_*y_), map_id(new int32_t[x_*y_]), col(new ColorRGBA[x_*y_]) { clear(); }
+		worldMap(const Pos2& xy_) :s({ xy_.x, xy_.y }), total_size(xy_.x*xy_.y), map_id(new int32_t[xy_.x*xy_.y]), col(new ColorRGBA[xy_.x*xy_.y]) { clear(); }
+		worldMap(const int32_t x_, const int32_t y_) : s({ x_, y_ }), total_size(x_*y_), map_id(new int32_t[x_*y_]), col(new ColorRGBA[x_*y_]) { clear(); }
 		const worldMap& clear() const { for (size_t i = 0; i < total_size; ++i) map_id[i] = 0; return *this; }
 		const worldMap& rand() const { asRand32(&map_id[0], total_size); return *this; }
 		const worldMap& randC(const uint8_t m_) const { asRand(&col[0], total_size,m_); return *this; }
