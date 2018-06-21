@@ -218,6 +218,31 @@ int32_t AsMain()
 	mc.battery.make(mc.asPos4({ 0.9f,0.02f,0.98f,0.3f }));
 	mc.fontAdd(60);
 
+	constexpr int32_t x1 = 5;
+	constexpr int32_t y1 = 4;
+	constexpr int32_t x2 = 7;
+	constexpr int32_t y2 = 8;
+	int32_t map[x2 * y2] = {};
+
+	for (int32_t i = 0; i < y1; ++i) {
+		for (int32_t j = 0; j < x1; ++j) {
+			map[i * x1 + j] = i * x1 + j;
+			asPrint("%2d,", map[i * x1 + j]);
+		}
+		asPrint("\n");
+	}
+	asPrint("\n");
+
+	mapSize(Pos2(x1, y1), Pos2(x2, y2), map);
+	for (int32_t i = 0; i < y2; ++i) {
+		for (int32_t j = 0; j < x2; ++j) {
+			//map[i * x2 + j] = i * x2 + j;
+			asPrint("%2d,", map[i * x2 + j]);
+		}
+		asPrint("\n");
+	}
+
+	asStop();
 	//int a = test::LoadGraph("gahaku.png");
 	//test::DrawExtendGraph(0, 0, 900, 200, a);
 	//int x = 0, y = 0;

@@ -162,6 +162,32 @@ namespace AsLib
 
 	};
 
+	//マップサイズを変更する
+	template<typename Map_> void mapSize(const Pos2& b_, const Pos2& a_, Map_& m_)
+	{
+		const int32_t b_max = b_.x*b_.y;
+		const int32_t a_max = a_.x*a_.y;
+
+		//空白部分を0で埋める
+		for (int32_t i = b_max; i < a_max; ++i) m_[i] = 0;
+
+		//値を移動
+		const int32_t f = ((a_.x < b_.x) ? a_.x : b_.x);
+		for (int32_t i = b_max - b_.x, ii = b_.y - 1; i > 0; i -= b_.x, --ii) {
+			for (int32_t j = 0; j < f; ++j) {
+				//asPrint("%d,", a_.x*(ii)+j);
+				m_[a_.x*ii + j] = m_[i + j];
+				m_[i + j] = 0;
+			}
+		}
+		return;
+	}
+
+
+
+
+
+
 	inline static const size_t a2(const size_t& s_, const size_t& i_, const size_t& j_) { return (s_ * j_ + i_); }
 	struct worldMap
 	{
