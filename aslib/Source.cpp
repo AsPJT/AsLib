@@ -220,8 +220,8 @@ int32_t AsMain()
 
 	constexpr int32_t x1 = 10;
 	constexpr int32_t y1 = 10;
-	constexpr int32_t x2 = 9;
-	constexpr int32_t y2 = 9;
+	constexpr int32_t x2 = 3;
+	constexpr int32_t y2 = 10;
 	//int32_t map[x2 * y2] = {};
 	std::vector<int32_t> map;
 	map.resize(x1*y1);

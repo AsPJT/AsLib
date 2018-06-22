@@ -198,8 +198,16 @@ namespace AsLib
 	template<typename Map_> void mapSize(const Pos2& b_, const Pos2& a_, std::vector<Map_>& m_, const Map_ count_ = Map_(0))
 	{
 		if (b_.is_minus() || a_.is_minus()) return;
-		m_.resize(a_.x*a_.y);
-		mapSize(b_, a_, m_.data(), count_);
+		const int32_t b_max = b_.x*b_.y;
+		const int32_t a_max = a_.x*a_.y;
+		if (a_max > b_max) {
+			m_.resize(a_.x*a_.y);
+			mapSize(b_, a_, m_.data(), count_);
+		}
+		else if (b_max > a_max) {
+			mapSize(b_, a_, m_.data(), count_);
+			m_.resize(a_.x*a_.y);
+		}
 		return;
 	}
 
