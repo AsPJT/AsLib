@@ -163,23 +163,43 @@ namespace AsLib
 	};
 
 	//マップサイズを変更する
-	template<typename Map_> void mapSize(const Pos2& b_, const Pos2& a_, Map_& m_)
+	template<typename Map_> void mapSize(const Pos2& b_, const Pos2& a_, Map_* m_, const Map_ count_ = Map_(0))
 	{
+		if (b_.is_minus() || a_.is_minus()) return;
 		const int32_t b_max = b_.x*b_.y;
 		const int32_t a_max = a_.x*a_.y;
 
-		//空白部分を0で埋める
-		for (int32_t i = b_max; i < a_max; ++i) m_[i] = 0;
+		//空白部分を任意の数字で埋める
+		for (int32_t i = b_max; i < a_max; ++i) m_[i] = count_;
 
-		//値を移動
-		const int32_t f = ((a_.x < b_.x) ? a_.x : b_.x);
-		for (int32_t i = b_max - b_.x, ii = b_.y - 1; i > 0; i -= b_.x, --ii) {
-			for (int32_t j = 0; j < f; ++j) {
-				//asPrint("%d,", a_.x*(ii)+j);
-				m_[a_.x*ii + j] = m_[i + j];
-				m_[i + j] = 0;
+		if (a_max > b_max) {
+			//値を移動
+			const int32_t f = ((a_.x < b_.x) ? (a_.x - 1) : (b_.x - 1));
+			for (int32_t i = b_max - b_.x, ii = (a_.x*b_.y) - a_.x; i > 0; i -= b_.x, ii -= a_.x) {
+				for (int32_t j = f; j >= 0; --j) {
+					m_[ii + j] = m_[i + j];
+					m_[i + j] = count_;
+				}
 			}
 		}
+		else if (a_max < b_max) {
+			//値を移動
+			const int32_t f = ((a_.x < b_.x) ? (a_.x) : (b_.x));
+			for (int32_t i = b_.x, ii = a_.x; i < b_max; i += b_.x, ii += a_.x) {
+				for (int32_t j = 0; j < f; ++j) {
+					m_[ii + j] = m_[i + j];
+					m_[i + j] = count_;
+				}
+			}
+		}
+		return;
+	}
+	//マップサイズを変更する(Vector)
+	template<typename Map_> void mapSize(const Pos2& b_, const Pos2& a_, std::vector<Map_>& m_, const Map_ count_ = Map_(0))
+	{
+		if (b_.is_minus() || a_.is_minus()) return;
+		m_.resize(a_.x*a_.y);
+		mapSize(b_, a_, m_.data(), count_);
 		return;
 	}
 
