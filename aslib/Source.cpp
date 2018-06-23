@@ -101,22 +101,7 @@ void startScene(MC& mc)
 {
 	updateKey();
 
-	mc.anime(NUM_ANIME);
-
-	//描画レイヤー
-	mc.texture(GAHAKU2_TEXUI);
-
-
-
-	//asBatteryDraw({ 700,200,200,300 });
-
-
-
-	static Pos2 p_{ 300,200 };
-	mc.vecFont[0].changeSize(mc.wheel());
-	//mc.vecFont[0].draw(p_, u8"アニメーション%d",1);
-	mc.vecFont[0].drawAt(p_, u8"アニメーション%d",1);
-	static TextureMainData feri(AsLoadTex("feri.png"));
+	static AnimeMainData feri(1, std::move(AsLoadTex("feri.png", 1)));
 
 	static constexpr Pos2 w_pos2(64, 32);
 	static worldMap w(w_pos2);
@@ -125,40 +110,22 @@ void startScene(MC& mc)
 
 		static constexpr PosA4R pl2(7.5f, 8.5f, 1.0f, 1.0f);
 		static PosA4R pl(5.5f, 5.5f, 1.0f, 1.0f);
-		static constexpr PosA4R map_p(0.0f, 0.0f, 5.0f, 10.0f);
+		static constexpr PosA4R map_p(0.0f, 0.0f, 5.0f, 16.0f);
 		static MapView mv(map_p,'y');
 
-		//pl.y += mouseWheel()/10.0f;
 		pl.y += mouseWheel();
-		constexpr float fps = 1.0f;
-		if(asKey(Keyboard_RightArrow)) pl.x += fps;
-		if (asKey(Keyboard_DownArrow)) pl.y += fps;
-		if (asKey(Keyboard_LeftArrow)) pl.x -= fps;
-		if (asKey(Keyboard_UpArrow)) pl.y -= fps;
+		static constexpr float fps = 1.0f;
+		//static MoveMobControl pll(pl);
+		moveMobCross(fps, pl);
 
 		mv.setMob(pl, w_pos2);
-		//w.drawView(mv);
-		mv.colorMob(&w.col[0], w_pos2);
+		mv.draw(&w.col[0], w_pos2);
 
-		mv.colorMob(pl2, w_pos2, ColorRGBA(0, 255, 0, 255));
-		//mv.colorMob(pl, w_pos2, ColorRGBA(255, 0, 0, 255));
-		mv.textureMob(pl, w_pos2, feri);
+		mv.draw(pl2, w_pos2, ColorRGBA(0, 255, 0, 255));
+		mv.draw(PosA4R(5.5f, 5.5f, 1.0f, 1.0f), w_pos2, ColorRGBA(0, 205, 50, 255));
+		mv.draw(PosA4R(0.5f, 0.5f, 1.0f, 1.0f), w_pos2, ColorRGBA(0, 255, 0, 255));
+		mv.draw(pl, w_pos2, feri);
 
-	static TextureMainData texa(AsLoadTex("gahaku.png"));
-	//static const Pos8 a = Pos4(300, 300, 600, 700);
-	static const Pos8 a = Pos8(300,600,300,300,600,600,600,300);
-	static const Pos8 b = (Pos8(Pos4(a)));
-	//b(a, 1.57);
-	//Pos8 b = Pos8(a, 1.57);
-	static double c= 0.0;
-
-	//texa.draw(Pos4(a), 150);
-	//Pos8 b(a, 1.7);
-	//texa.draw(Pos8(a,c), 150);
-	//c += 0.04;
-
-	//Circle(Pos2(700, 400), 50).draw();
-	//Circle(mc.pos(), 60).draw(ColorRGBA(255, 0, 0, 127));
 
 	//命令レイヤー
 	if (mc.upTex0(GAHAKU2_TEXUI)) mc.scene(LOGO_SCENE1);
@@ -217,37 +184,6 @@ int32_t AsMain()
 
 	mc.battery.make(mc.asPos4({ 0.9f,0.02f,0.98f,0.3f }));
 	mc.fontAdd(60);
-
-	constexpr int32_t x1 = 10;
-	constexpr int32_t y1 = 10;
-	constexpr int32_t x2 = 3;
-	constexpr int32_t y2 = 10;
-	//int32_t map[x2 * y2] = {};
-	std::vector<int32_t> map;
-	map.resize(x1*y1);
-
-	for (int32_t i = 0; i < y1; ++i) {
-		for (int32_t j = 0; j < x1; ++j) {
-			map[i * x1 + j] = i * x1 + j;
-			asPrint("%2d,", map[i * x1 + j]);
-		}
-		asPrint("\n");
-	}
-	asPrint("\n");
-
-	mapSize(Pos2(x1, y1), Pos2(x2, y2), map);
-	for (int32_t i = 0; i < y2; ++i) {
-		for (int32_t j = 0; j < x2; ++j) {
-			asPrint("%2d,", map[i * x2 + j]);
-		}
-		asPrint("\n");
-	}
-
-	asStop();
-	//int a = test::LoadGraph("gahaku.png");
-	//test::DrawExtendGraph(0, 0, 900, 200, a);
-	//int x = 0, y = 0;
-	//asStop();
 
 	////読み込み
 	sceneInit(mc);

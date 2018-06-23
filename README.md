@@ -17,7 +17,7 @@ These codes are licensed under CC0.
 | ライブラリ | Lib | ◎ | ◎ |
 | タッチ入力 | Touch | 〇 | ▲ |
 | マウス入力 | Mouse | 〇 | 〇 |
-| キーボード入力 | Key | × | × |
+| キーボード入力 | Key | 〇 | ▲ |
 | ゲームパッド入力 | GamePad | × | × |
 | 文字入力 | KeyInput | 〇 | × |
 | 画像表示 | Tex | 〇 | 〇 |
@@ -34,7 +34,7 @@ These codes are licensed under CC0.
 | ファイル読み書き | File | ◎ | ◎ |
 | ライセンス | License | ▲ | ▲ |
 | メインループ | Loop | 〇 | 〇 |
-| 2Dマップ | Map | ▲ | ▲ |
+| 2Dマップ | Map | 〇 | 〇 |
 | 乱数 | Rand | 〇 | 〇 |
 | SNS | SNS | 〇 | 〇 |
 | 初期化・基本処理 | Std | 〇 | 〇 |

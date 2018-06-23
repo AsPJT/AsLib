@@ -4,7 +4,7 @@
 //
 //                    制作者: がっちょ (wanotaitei@gmail.com)
 //
-//                                   Ver 0.1.11.0 Alpha
+//                                   Ver 0.1.12.0 Alpha
 //
 //     ----------     ----------     ----------     ----------     ----------
 
@@ -15,13 +15,13 @@
 #include <cstdint>
 
 //AsLibバージョン
-constexpr int32_t ASLIB_VERSION = 0x01b0;
-const char* ASLIB_VERSION_STR = "0.1.11.0 Alpha";
+constexpr int32_t ASLIB_VERSION = 0x01c0;
+const char* ASLIB_VERSION_STR = "0.1.12.0 Alpha";
 
 //AsLibバージョン (UTF)
-const char* ASLIB_VERSION_STR8 = u8"0.1.11.0 Alpha";
-const char16_t* ASLIB_VERSION_STR16 = u"0.1.11.0 Alpha";
-const char32_t* ASLIB_VERSION_STR32 = U"0.1.11.0 Alpha";
+const char* ASLIB_VERSION_STR8 = u8"0.1.12.0 Alpha";
+const char16_t* ASLIB_VERSION_STR16 = u"0.1.12.0 Alpha";
+const char32_t* ASLIB_VERSION_STR32 = U"0.1.12.0 Alpha";
 
 int32_t AsMain();
 namespace AsLib { int32_t asEnd(); }
@@ -143,6 +143,10 @@ int main() { return int(AsMain() && AsLib::asEnd()); }
 //キーボード入力
 #include "AsKeyInput.hpp"
 
+
+//キーボード
+#include "AsKey.hpp"
+
 //ゲームパッド
 #include "AsGamePad.hpp"
 
@@ -166,9 +170,6 @@ int main() { return int(AsMain() && AsLib::asEnd()); }
 
 //SNS
 #include "AsSNS.hpp"
-
-//キーボード
-#include "AsKey.hpp"
 
 //メイン管理
 #include "AsMainControl.hpp"

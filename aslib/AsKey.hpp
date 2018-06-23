@@ -571,17 +571,6 @@ void checkKey(bool* const AS_key)
 	return;
 }
 
-const bool updateKey_(const size_t id_ = 0, const bool is_update = false)
-{
-	static bool key[Keyboard_KeyLast];
-	if (is_update) checkKey(key);
-	return key[id_];
-}
-
-//
-inline const bool asKey(const size_t& id_) { return updateKey_(id_, false); }
-inline const int32_t updateKey() { updateKey_(0, true); return 0; }
-
 //	bool* checkKey9() {
 //		constexpr std::array<size_t, 256> AS_DL_key{
 //			Keyboard_Unknown,//Ka0 
@@ -855,8 +844,82 @@ inline const int32_t updateKey() { updateKey_(0, true); return 0; }
 
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 
+void checkKey(bool* const AS_key)
+{
+	AS_key[Keyboard_1] = bool(s3d::Key1.pressed());
+	AS_key[Keyboard_2] = bool(s3d::Key2.pressed());
+	AS_key[Keyboard_3] = bool(s3d::Key3.pressed());
+	AS_key[Keyboard_4] = bool(s3d::Key4.pressed());
+	AS_key[Keyboard_5] = bool(s3d::Key5.pressed());
+	AS_key[Keyboard_6] = bool(s3d::Key6.pressed());
+	AS_key[Keyboard_7] = bool(s3d::Key7.pressed());
+	AS_key[Keyboard_8] = bool(s3d::Key8.pressed());
+	AS_key[Keyboard_9] = bool(s3d::Key9.pressed());
+	AS_key[Keyboard_0] = bool(s3d::Key0.pressed());
+	AS_key[Keyboard_a] = bool(s3d::KeyA.pressed());
+	AS_key[Keyboard_b] = bool(s3d::KeyB.pressed());
+	AS_key[Keyboard_c] = bool(s3d::KeyC.pressed());
+	AS_key[Keyboard_d] = bool(s3d::KeyD.pressed());
+	AS_key[Keyboard_e] = bool(s3d::KeyE.pressed());
+	AS_key[Keyboard_f] = bool(s3d::KeyF.pressed());
+	AS_key[Keyboard_g] = bool(s3d::KeyG.pressed());
+	AS_key[Keyboard_h] = bool(s3d::KeyH.pressed());
+	AS_key[Keyboard_i] = bool(s3d::KeyI.pressed());
+	AS_key[Keyboard_j] = bool(s3d::KeyJ.pressed());
+	AS_key[Keyboard_k] = bool(s3d::KeyK.pressed());
+	AS_key[Keyboard_l] = bool(s3d::KeyL.pressed());
+	AS_key[Keyboard_m] = bool(s3d::KeyM.pressed());
+	AS_key[Keyboard_n] = bool(s3d::KeyN.pressed());
+	AS_key[Keyboard_o] = bool(s3d::KeyO.pressed());
+	AS_key[Keyboard_p] = bool(s3d::KeyP.pressed());
+	AS_key[Keyboard_q] = bool(s3d::KeyQ.pressed());
+	AS_key[Keyboard_r] = bool(s3d::KeyR.pressed());
+	AS_key[Keyboard_s] = bool(s3d::KeyS.pressed());
+	AS_key[Keyboard_t] = bool(s3d::KeyT.pressed());
+	AS_key[Keyboard_u] = bool(s3d::KeyU.pressed());
+	AS_key[Keyboard_v] = bool(s3d::KeyV.pressed());
+	AS_key[Keyboard_w] = bool(s3d::KeyW.pressed());
+	AS_key[Keyboard_x] = bool(s3d::KeyX.pressed());
+	AS_key[Keyboard_y] = bool(s3d::KeyY.pressed());
+	AS_key[Keyboard_z] = bool(s3d::KeyZ.pressed());
+	AS_key[Keyboard_F1] = bool(s3d::KeyF1.pressed());
+	AS_key[Keyboard_F2] = bool(s3d::KeyF2.pressed());
+	AS_key[Keyboard_F3] = bool(s3d::KeyF3.pressed());
+	AS_key[Keyboard_F4] = bool(s3d::KeyF4.pressed());
+	AS_key[Keyboard_F5] = bool(s3d::KeyF5.pressed());
+	AS_key[Keyboard_F6] = bool(s3d::KeyF6.pressed());
+	AS_key[Keyboard_F7] = bool(s3d::KeyF7.pressed());
+	AS_key[Keyboard_F8] = bool(s3d::KeyF8.pressed());
+	AS_key[Keyboard_F9] = bool(s3d::KeyF9.pressed());
+	AS_key[Keyboard_F10] = bool(s3d::KeyF10.pressed());
+	AS_key[Keyboard_F11] = bool(s3d::KeyF11.pressed());
+	AS_key[Keyboard_F12] = bool(s3d::KeyF12.pressed());
+	AS_key[Keyboard_LeftArrow] = bool(s3d::KeyLeft.pressed());
+	AS_key[Keyboard_RightArrow] = bool(s3d::KeyRight.pressed());
+	AS_key[Keyboard_UpArrow] = bool(s3d::KeyUp.pressed());
+	AS_key[Keyboard_DownArrow] = bool(s3d::KeyDown.pressed());
+	AS_key[Keyboard_left_shift] = bool(s3d::KeyLShift.pressed());
+	AS_key[Keyboard_right_shift] = bool(s3d::KeyRShift.pressed());
+	AS_key[Keyboard_left_control] = bool(s3d::KeyLControl.pressed());
+	AS_key[Keyboard_right_control] = bool(s3d::KeyRControl.pressed());
+	AS_key[Keyboard_left_alt] = bool(s3d::KeyLAlt.pressed());
+	AS_key[Keyboard_right_alt] = bool(s3d::KeyRAlt.pressed());
+	return;
+}
+
 #else //Console
 
 #endif
+
+const bool updateKey_(const size_t id_ = 0, const bool is_update = false)
+{
+	static bool key[Keyboard_KeyLast];
+	if (is_update) checkKey(key);
+	return key[id_];
+}
+
+//
+inline const bool asKey(const size_t& id_) { return updateKey_(id_, false); }
+inline const int32_t updateKey() { updateKey_(0, true); return 0; }
 
 }
