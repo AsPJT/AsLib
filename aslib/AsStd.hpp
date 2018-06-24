@@ -203,7 +203,7 @@ namespace AsLib
 	{
 		return int32_t(DxLib::printfDx(format_string, rest...));
 	}
-	inline int32_t asPrint(const char* format_string)
+	inline int32_t asPrint(const char* const format_string)
 	{
 		return int32_t(DxLib::printfDx("%s", format_string));
 	}
@@ -265,7 +265,7 @@ namespace AsLib
 		return 0;
 	}
 
-	inline int32_t asPrint(const char* format_string)
+	inline int32_t asPrint(const char* const format_string)
 	{
 		s3d::Print(s3d::Unicode::UTF8ToUTF32(format_string));
 		return 0;

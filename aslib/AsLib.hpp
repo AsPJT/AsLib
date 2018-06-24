@@ -16,12 +16,12 @@
 
 //AsLibバージョン
 constexpr int32_t ASLIB_VERSION = 0x01c0;
-const char* ASLIB_VERSION_STR = "0.1.12.0 Alpha";
+const char* const ASLIB_VERSION_STR = "0.1.12.0 Alpha";
 
 //AsLibバージョン (UTF)
-const char* ASLIB_VERSION_STR8 = u8"0.1.12.0 Alpha";
-const char16_t* ASLIB_VERSION_STR16 = u"0.1.12.0 Alpha";
-const char32_t* ASLIB_VERSION_STR32 = U"0.1.12.0 Alpha";
+const char* const ASLIB_VERSION_STR8 = u8"0.1.12.0 Alpha";
+const char16_t* const ASLIB_VERSION_STR16 = u"0.1.12.0 Alpha";
+const char32_t* const ASLIB_VERSION_STR32 = U"0.1.12.0 Alpha";
 
 int32_t AsMain();
 namespace AsLib { int32_t asEnd(); }

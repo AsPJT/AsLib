@@ -46,7 +46,7 @@ namespace AsLib
 		//o—Í
 		Pos2 windowSize() const { return this->init_data.windowSize(); };
 		ColorRGB colorBG() const { return this->init_data.colorBG(); };
-		const char* title() const { return this->init_data.title(); };
+		const char* const title() const { return this->init_data.title(); };
 	private:
 		MainData init_data;
 

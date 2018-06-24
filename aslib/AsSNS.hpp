@@ -80,7 +80,7 @@ namespace AsLib
 		Twitter& related(const char* const add_str) { this->url_str += "&related="; this->url_str += add_str; return *this; };
 		Twitter& hashtags(const char* const add_str) { this->url_str += "&hashtags="; this->url_str += add_str; return *this; };
 		Twitter& send() { asTwitter(url_str.c_str()); return *this; };
-		const char* c_str() const { return url_str.c_str(); };
+		const char* const c_str() const { return url_str.c_str(); };
 		size_t length() const { return url_str.length(); };
 	private:
 		std::string url_str;

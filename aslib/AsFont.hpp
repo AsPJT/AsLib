@@ -23,7 +23,7 @@ namespace AsLib
 #endif
 	}
 
-	Font asMakeFont(const int32_t& font_size = 10, const char* font_name = "Meiryo UI")
+	Font asMakeFont(const int32_t& font_size = 10, const char* const font_name = "Meiryo UI")
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return DxLib::CreateFontToHandle(font_name, font_size, FONT_THICK);
@@ -167,7 +167,7 @@ namespace AsLib
 		//出力
 		Font ID() const { return this->id; };
 		int32_t Size() const { return this->size; };
-		const char* fontName() const { return this->fontname.c_str(); };
+		const char* const fontName() const { return this->fontname.c_str(); };
 
 		FontMainData& changeSize(const int32_t& size_) { this->size += size_;
 #if defined(ASLIB_INCLUDE_DL) //DxLib

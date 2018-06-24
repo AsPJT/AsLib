@@ -287,6 +287,59 @@ namespace AsLib
 
 	//};
 
+	enum :size_t
+	{
+		MOB_DOWN,
+		MOB_UP,
+		MOB_LEFT,
+		MOB_RIGHT,
+		MOB_LEFT_UP,
+		MOB_RIGHT_UP,
+		MOB_LEFT_DOWN,
+		MOB_RIGHT_DOWN,
+		MOB_CENTER,
+	};
+
+	enum :size_t
+	{
+		//â‘Î‚É’Ê‚ê‚È‚¢êŠ or â‘Î‚É’Ê‚ê‚éÒ
+		MAP_MOVE_ID_100_0,
+		//‚Ù‚Æ‚ñ‚Ç’Ê‚ê‚È‚¢êŠ or ‚Ù‚Æ‚ñ‚Ç’Ê‚ê‚éÒ
+		MAP_MOVE_ID_95_0,
+		//’N‚Å‚à’Ê‚ê‚éêŠ or ‚Ç‚±‚à’Ê‚ê‚È‚¢Ò
+		MAP_MOVE_ID_0_0,
+	};
+	//4•ûŒü()
+	const bool movePassD4(const size_t mob_id, const size_t const around_id)
+	{
+		switch (mob_id)
+		{
+
+		case MAP_MOVE_ID_100_0:
+			//‘S‚Ä’Ê‚ê‚é
+			return true;
+
+		case MAP_MOVE_ID_95_0:
+			switch (around_id)
+			{
+			case MAP_MOVE_ID_100_0:
+				//â‘Î‚É’Ê‚ê‚È‚¢êŠ‚¾‚¯’Ê‚ê‚È‚¢
+				return false;
+			}
+			return true;
+
+		case MAP_MOVE_ID_0_0:
+			return false;
+		}
+		return false;
+	}
+
+	const bool movePass(const size_t mob_id, const size_t* const around_id)
+	{
+
+		return false;
+	}
+
 
 
 	//----------------------------------------------------------------------------------------------------------------------------

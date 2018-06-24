@@ -19,7 +19,7 @@ namespace AsLib
 
 		Pos2 windowSize() const { return window_size; };
 		ColorRGB colorBG() const { return BG_color; };
-		const char* title() const { return title_name; };
+		const char* const title() const { return title_name; };
 
 	private:
 		//ウィンドウサイズ
