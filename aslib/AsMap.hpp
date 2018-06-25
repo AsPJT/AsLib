@@ -23,7 +23,7 @@ namespace AsLib
 		PosA4R p;
 
 		//全体の描画
-		MapView& drawMob(const Pos2& p_, const size_t num_,ColorRGBA* const col_ = nullptr, TextureMainData* const t_ = nullptr, AnimeMainData* const a_ = nullptr)
+		MapView& drawMob(const Pos2& p_, const size_t num_, ColorRGBA* const col_ = nullptr, TextureMainData* const t_ = nullptr, AnimeMainData* const a_ = nullptr, const size_t id_ = 0)
 		{
 
 			if (p_.is_minus()) return *this;
@@ -63,7 +63,7 @@ namespace AsLib
 						t_->draw(Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)));
 						break;
 					case MAP_VIEW_DRAW_ANIME:
-						a_->draw(0, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)));
+						a_->draw(id_, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)));
 						break;
 					}
 				}
@@ -102,7 +102,7 @@ namespace AsLib
 		MapView& setMapX(const PosA4R& p_) { p = p_; p.h = p.w*(float(asWindowSize().y) / float(asWindowSize().x)); return *this;}
 
 		//描画する物のサイズ
-		MapView& drawMob(const Pos4R& p_, const size_t num_, const ColorRGBA* c_ = nullptr, TextureMainData* t_ = nullptr, AnimeMainData* a_ = nullptr)
+		MapView& drawMob(const Pos4R& p_, const size_t num_, const ColorRGBA* c_ = nullptr, TextureMainData* t_ = nullptr, AnimeMainData* a_ = nullptr,const size_t id_=0)
 		{
 			//範囲外は描画無し
 			const Pos4R Dp = Pos4R(this->p);
@@ -119,7 +119,7 @@ namespace AsLib
 				t_->draw(Pos4(int32_t((p_.x1 - Lp.x) / Lp.w*w_.x), int32_t((p_.y1 - Lp.y) / Lp.h*w_.y), int32_t((p_.x2 - Lp.x) / Lp.w*w_.x), int32_t((p_.y2 - Lp.y) / Lp.h*w_.y)));
 				break;
 			case MAP_VIEW_DRAW_ANIME:
-				a_->draw(0,Pos4(int32_t((p_.x1 - Lp.x) / Lp.w*w_.x), int32_t((p_.y1 - Lp.y) / Lp.h*w_.y), int32_t((p_.x2 - Lp.x) / Lp.w*w_.x), int32_t((p_.y2 - Lp.y) / Lp.h*w_.y)));
+				a_->draw(id_,Pos4(int32_t((p_.x1 - Lp.x) / Lp.w*w_.x), int32_t((p_.y1 - Lp.y) / Lp.h*w_.y), int32_t((p_.x2 - Lp.x) / Lp.w*w_.x), int32_t((p_.y2 - Lp.y) / Lp.h*w_.y)));
 				break;
 			}
 			return *this;
@@ -143,20 +143,20 @@ namespace AsLib
 		//描画する物のサイズ、カラー
 		MapView& draw(const Pos4R& p_, TextureMainData& t_) { return this->drawMob(p_, MAP_VIEW_DRAW_TEXTURE, nullptr, &t_, nullptr); }
 		//プレイヤーの位置、マップサイズ、画像
-		MapView& draw(const PosA4R& p_, const Pos2& p2_, AnimeMainData& a_)
+		MapView& draw(const PosA4R& p_, const Pos2& p2_, AnimeMainData& a_,const size_t id_=0)
 		{
 			if (Pos2(p2_).is_minus()) return *this;
-			return this->draw(PosA4R(float((int32_t(p_.x) + p2_.x) % p2_.x) + p_.x - floor(p_.x), float((int32_t(p_.y) + p2_.y) % p2_.y) + p_.y - floor(p_.y), p_.w, p_.h), a_);
+			return this->draw(PosA4R(float((int32_t(p_.x) + p2_.x) % p2_.x) + p_.x - floor(p_.x), float((int32_t(p_.y) + p2_.y) % p2_.y) + p_.y - floor(p_.y), p_.w, p_.h), a_, id_);
 		}
 		//描画する物のサイズ、カラー
-		MapView& draw(const Pos4R& p_, AnimeMainData& a_) { return this->drawMob(p_, MAP_VIEW_DRAW_ANIME, nullptr, nullptr, &a_); }
+		MapView& draw(const Pos4R& p_, AnimeMainData& a_, const size_t id_) { return this->drawMob(p_, MAP_VIEW_DRAW_ANIME, nullptr, nullptr, &a_, id_); }
 
 		//色の全体描画
 		MapView& draw(ColorRGBA* const col_, const Pos2& p_) { return this->drawMob(p_, MAP_VIEW_DRAW_COLOR, col_, nullptr, nullptr); }
 		//画像の全体描画
 		MapView& draw(TextureMainData* t_, const Pos2& p_) { return this->drawMob(p_, MAP_VIEW_DRAW_TEXTURE, nullptr, t_, nullptr); }
 		//画像の全体描画
-		MapView& draw(AnimeMainData* a_, const Pos2& p_) { return this->drawMob(p_, MAP_VIEW_DRAW_ANIME, nullptr, nullptr, a_); }
+		MapView& draw(AnimeMainData* a_, const Pos2& p_, const size_t id_) { return this->drawMob(p_, MAP_VIEW_DRAW_ANIME, nullptr, nullptr, a_, id_); }
 
 
 	};
@@ -310,7 +310,7 @@ namespace AsLib
 		MAP_MOVE_ID_0_0,
 	};
 	//4方向()
-	const bool movePassD4(const size_t mob_id, const size_t const around_id)
+	const bool movePassD4(const size_t mob_id, const size_t around_id)
 	{
 		switch (mob_id)
 		{

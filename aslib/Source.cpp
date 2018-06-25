@@ -101,7 +101,7 @@ void startScene(MC& mc)
 {
 	updateKey();
 
-	static AnimeMainData feri(1, std::move(AsLoadTex("feri.png", 1)));
+	static AnimeMainData feri(1, std::move(AsLoadTex("feri2.png", 2)));
 
 	static constexpr Pos2 w_pos2(64, 32);
 	static worldMap w(w_pos2);
@@ -116,15 +116,17 @@ void startScene(MC& mc)
 		pl.y += mouseWheel();
 		static constexpr float fps = 1.0f;
 		//static MoveMobControl pll(pl);
+		static size_t id = MOB_DOWN;
 		moveMobCross(fps, pl);
-
+		if (asKey(Keyboard_UpArrow)) id = MOB_UP;
+		if (asKey(Keyboard_DownArrow)) id = MOB_DOWN;
 		mv.setMob(pl, w_pos2);
 		mv.draw(&w.col[0], w_pos2);
 
 		mv.draw(pl2, w_pos2, ColorRGBA(0, 255, 0, 255));
 		mv.draw(PosA4R(5.5f, 5.5f, 1.0f, 1.0f), w_pos2, ColorRGBA(0, 205, 50, 255));
 		mv.draw(PosA4R(0.5f, 0.5f, 1.0f, 1.0f), w_pos2, ColorRGBA(0, 255, 0, 255));
-		mv.draw(pl, w_pos2, feri);
+		mv.draw(pl, w_pos2, feri, id);
 
 
 	//命令レイヤー
