@@ -50,7 +50,7 @@ namespace AsLib
 		if (size_x == 0 || size_y == 0) return nullptr;
 
 		std::unique_ptr<Tex[]> texs(new Tex[tex_num_x * tex_num_y]);
-		DxLib::LoadDivGraph(name, int(tex_num_x), int(tex_num_y), 1, size_x / int(tex_num_x), size_y / int(tex_num_y), &texs[0]);
+		DxLib::LoadDivGraph(name, int(tex_num_x * tex_num_y), int(tex_num_x), int(tex_num_y), size_x / int(tex_num_x), size_y / int(tex_num_y), &texs[0]);
 		return texs;
 	}
 #endif

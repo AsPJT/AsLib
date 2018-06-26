@@ -137,7 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="rl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AsBattery.hpp" />

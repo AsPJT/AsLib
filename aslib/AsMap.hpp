@@ -287,18 +287,7 @@ namespace AsLib
 
 	//};
 
-	enum :size_t
-	{
-		MOB_DOWN,
-		MOB_UP,
-		MOB_LEFT,
-		MOB_RIGHT,
-		MOB_LEFT_UP,
-		MOB_RIGHT_UP,
-		MOB_LEFT_DOWN,
-		MOB_RIGHT_DOWN,
-		MOB_CENTER,
-	};
+
 
 	enum :size_t
 	{
