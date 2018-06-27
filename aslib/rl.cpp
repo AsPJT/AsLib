@@ -1,6 +1,7 @@
 #define ASLIB_INCLUDE_DL
 #include "AsLib.hpp"
 
+//dir_move
 enum :size_t
 {
 	MOB_DOWN_MOVE1,
@@ -28,7 +29,7 @@ enum :size_t
 	MOB_RIGHT_UP_STOP,
 	MOB_RIGHT_UP_MOVE2,
 };
-
+//dir
 enum :size_t
 {
 	MOB_DOWN,
@@ -41,7 +42,7 @@ enum :size_t
 	MOB_RIGHT_DOWN,
 	MOB_CENTER,
 };
-
+//move
 enum :size_t
 {
 	MOB_STOP,//静止
@@ -51,6 +52,101 @@ enum :size_t
 	MOB_MOVE4,//真ん中
 };
 
+const size_t mobMoveDirect(const size_t mob_direct_id,const size_t mob_move_id)
+{
+	switch (mob_move_id)
+	{
+	case MOB_STOP:
+		switch (mob_direct_id) {
+		case MOB_DOWN:return MOB_DOWN_STOP;
+		case MOB_UP:return MOB_UP_STOP;
+		case MOB_LEFT:return MOB_LEFT_STOP;
+		case MOB_RIGHT:return MOB_RIGHT_STOP;
+		case MOB_LEFT_UP:return MOB_LEFT_UP_STOP;
+		case MOB_RIGHT_UP:return MOB_RIGHT_UP_STOP;
+		case MOB_LEFT_DOWN:return MOB_LEFT_DOWN_STOP;
+		case MOB_RIGHT_DOWN:return MOB_RIGHT_DOWN_STOP;
+		}
+		break;
+	case MOB_MOVE1:
+		switch (mob_direct_id) {
+		case MOB_DOWN:return MOB_DOWN_MOVE1;
+		case MOB_UP:return MOB_UP_MOVE1;
+		case MOB_LEFT:return MOB_LEFT_MOVE1;
+		case MOB_RIGHT:return MOB_RIGHT_MOVE1;
+		case MOB_LEFT_UP:return MOB_LEFT_UP_MOVE1;
+		case MOB_RIGHT_UP:return MOB_RIGHT_UP_MOVE1;
+		case MOB_LEFT_DOWN:return MOB_LEFT_DOWN_MOVE1;
+		case MOB_RIGHT_DOWN:return MOB_RIGHT_DOWN_MOVE1;
+		}
+		break;
+	case MOB_MOVE2:
+		switch (mob_direct_id) {
+		case MOB_DOWN:return MOB_DOWN_STOP;
+		case MOB_UP:return MOB_UP_STOP;
+		case MOB_LEFT:return MOB_LEFT_STOP;
+		case MOB_RIGHT:return MOB_RIGHT_STOP;
+		case MOB_LEFT_UP:return MOB_LEFT_UP_STOP;
+		case MOB_RIGHT_UP:return MOB_RIGHT_UP_STOP;
+		case MOB_LEFT_DOWN:return MOB_LEFT_DOWN_STOP;
+		case MOB_RIGHT_DOWN:return MOB_RIGHT_DOWN_STOP;
+		}
+		break;
+	case MOB_MOVE3:
+		switch (mob_direct_id) {
+		case MOB_DOWN:return MOB_DOWN_MOVE2;
+		case MOB_UP:return MOB_UP_MOVE2;
+		case MOB_LEFT:return MOB_LEFT_MOVE2;
+		case MOB_RIGHT:return MOB_RIGHT_MOVE2;
+		case MOB_LEFT_UP:return MOB_LEFT_UP_MOVE2;
+		case MOB_RIGHT_UP:return MOB_RIGHT_UP_MOVE2;
+		case MOB_LEFT_DOWN:return MOB_LEFT_DOWN_MOVE2;
+		case MOB_RIGHT_DOWN:return MOB_RIGHT_DOWN_MOVE2;
+		}
+		break;
+	case MOB_MOVE4:
+		switch (mob_direct_id) {
+		case MOB_DOWN:return MOB_DOWN_STOP;
+		case MOB_UP:return MOB_UP_STOP;
+		case MOB_LEFT:return MOB_LEFT_STOP;
+		case MOB_RIGHT:return MOB_RIGHT_STOP;
+		case MOB_LEFT_UP:return MOB_LEFT_UP_STOP;
+		case MOB_RIGHT_UP:return MOB_RIGHT_UP_STOP;
+		case MOB_LEFT_DOWN:return MOB_LEFT_DOWN_STOP;
+		case MOB_RIGHT_DOWN:return MOB_RIGHT_DOWN_STOP;
+		}
+		break;
+	}
+	return 0;
+}
+
+const bool mobMoveSet(size_t& move_id_, size_t& count, const size_t move_max = 6)
+{
+	switch (move_id_)
+	{
+	case MOB_STOP:
+		++move_id_;
+		return true;
+	case MOB_MOVE1:
+	case MOB_MOVE2:
+	case MOB_MOVE3:
+		++count;
+		if (count >= move_max) {
+			count = 0;
+			++move_id_;
+		}
+		return true;
+	case MOB_MOVE4:
+		++count;
+		if (count >= move_max) {
+			count = 0;
+			move_id_ = MOB_MOVE1;
+		}
+		return true;
+	}
+	return false;
+}
+
 //ダンジョンのサンプルプログラム
 int32_t AsMain()
 {
@@ -58,6 +154,11 @@ int32_t AsMain()
 	MainControl mc(u8"Simple Counter", Pos2(1000, 1000), BG_COLOR);
 
 	AnimeMainData feri(1, AsLoadTex("Picture/ikari.png", 6, 4));
+
+	//size_t id = MOB_DOWN_STOP;
+	size_t dir_id = MOB_DOWN;
+	size_t move_id = MOB_STOP;
+	size_t count = 0;
 
 	while (asLoop())
 	{
@@ -78,10 +179,15 @@ int32_t AsMain()
 		pl.y += mouseWheel();
 		
 		constexpr float fps = 1.0f;
-		static size_t id = MOB_DOWN_STOP;
-		moveMobCross(fps, pl);
-		if (asKey(Keyboard_UpArrow)) id = MOB_UP_STOP;
-		if (asKey(Keyboard_DownArrow)) id = MOB_DOWN_STOP;
+		if (moveMobCross(fps, pl)) {
+			mobMoveSet(move_id, count);
+		}
+		else move_id = MOB_STOP;
+
+		if (asKey(Keyboard_UpArrow)) dir_id = MOB_UP;
+		if (asKey(Keyboard_DownArrow)) dir_id = MOB_DOWN;
+		if (asKey(Keyboard_LeftArrow)) dir_id = MOB_LEFT;
+		if (asKey(Keyboard_RightArrow)) dir_id = MOB_RIGHT;
 
 		mv.setMob(pl, w_pos2);
 		mv.draw(&w.col[0], w_pos2);
@@ -89,7 +195,7 @@ int32_t AsMain()
 		mv.draw(pl2, w_pos2, ColorRGBA(0, 255, 0, 255));
 		mv.draw(PosA4R(5.5f, 5.5f, 1.0f, 1.0f), w_pos2, ColorRGBA(0, 205, 50, 255));
 		mv.draw(PosA4R(0.5f, 0.5f, 1.0f, 1.0f), w_pos2, ColorRGBA(0, 255, 0, 255));
-		mv.draw(pl, w_pos2, feri, id);
+		mv.draw(pl, w_pos2, feri, mobMoveDirect(dir_id, move_id));
 
 }
 
