@@ -173,6 +173,7 @@
     <ClInclude Include="AsTex.hpp" />
     <ClInclude Include="AsTouch.hpp" />
     <ClInclude Include="AsType.hpp" />
+    <ClInclude Include="AsUTF.hpp" />
     <ClInclude Include="AsWiFi.hpp" />
   </ItemGroup>
   <ItemGroup>

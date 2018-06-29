@@ -133,6 +133,12 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //基本系(DL/S3)
 #include "AsStd.hpp"
 
+//マウス
+#include "AsMouse.hpp"
+
+//UTF
+#include "AsUTF.hpp"
+
 //距離
 #include "AsDistance.hpp"
 
@@ -178,9 +184,6 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 
 //Wi-Fi
 #include "AsWiFi.hpp"
-
-//マウス
-#include "AsMouse.hpp"
 
 //ライセンス
 #include "AsLicense.hpp"

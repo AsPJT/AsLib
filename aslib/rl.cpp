@@ -173,7 +173,7 @@ int32_t asMain()
 
 		constexpr PosA4R pl2(7.5f, 8.5f, 1.0f, 1.0f);
 		static PosA4R pl(5.5f, 5.5f, 1.0f, 1.0f);
-		constexpr PosA4R map_p(0.0f, 0.0f, 5.0f, 16.0f);
+		constexpr PosA4R map_p(0.0f, 0.0f, 5.0f, 10.0f);
 		static MapView mv(map_p, 'y');
 
 		pl.y += mouseWheel();

@@ -56,17 +56,39 @@ namespace AsLib
 	}
 #endif
 
-#if defined(ASLIB_INCLUDE_DL) //DxLib
 
 
-	int32_t AsTexSize(const Tex id, Pos2& texture_size)
+
+	int32_t AsTexSize(const Tex& id, Pos2& texture_size)
 	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 		static int size_x, size_y;
 		size_x = size_y = 0;
 		if (DxLib::GetGraphSize(id, &size_x, &size_y) == -1) return -1;
-		texture_size.x = int32_t(size_x);
-		texture_size.y = int32_t(size_y);
+		texture_size(int32_t(size_x), int32_t(size_y));
 		return 0;
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		texture_size(int32_t(id.width()), int32_t(id.height()));
+		return 0;
+#endif
+	}
+
+	const Pos2 AsTexSize(const Tex& id)
+	{
+		Pos2 p;
+		AsTexSize(id, p);
+		return p;
+	}
+
+#if defined(ASLIB_INCLUDE_DL) //DxLib
+
+	int32_t asTex(const Tex tex, const PosA4R& p_ = pos4_0, const float r_ = 0.0f, const uint8_t alpha = 255)
+	{
+		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
+		const Pos2 s = AsTexSize(tex);
+		if (DxLib::DrawRotaGraphFast3(int(p_.x), int(p_.y), s.x/2, s.y/2, p_.w / s.x, p_.h / s.y, r_, tex, TRUE) != -1) return 0;
+
+		return -1;
 	}
 
 	int32_t asTex8(const Tex tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
@@ -168,12 +190,7 @@ namespace AsLib
 
 #endif
 
-const Pos2 AsTexSize(const Tex& id)
-{
-	Pos2 p;
-	AsTexSize(id, p);
-	return p;
-}
+
 
 	//１つの画像を管理する
 	struct TextureMainData
@@ -187,6 +204,7 @@ const Pos2 AsTexSize(const Tex& id)
 		const Pos2 pixel_size;
 
 	public:
+		const TextureMainData() = default;
 		const TextureMainData(const Tex& add_id) :id(add_id), pixel_size(AsTexSize(add_id)) {}
 		const TextureMainData& drawP(const Pos2&, const uint8_t = 255) const;
 		const TextureMainData& draw() const;
@@ -312,6 +330,7 @@ const Pos2 AsTexSize(const Tex& id)
 		const AnimeMainData& draw(const size_t, const uint8_t) const;
 		const AnimeMainData& draw(const size_t, const Pos2&, const uint8_t = 255) const;
 		const AnimeMainData& draw(const size_t, const Pos4&, const uint8_t = 255) const;
+		const AnimeMainData& draw(const size_t, const PosA4R&, const float, const uint8_t = 255) const;
 		const size_t Num() const { return this->num; };
 		const Pos2 pixelSize() const { return this->pixel_size; };
 	};
@@ -321,7 +340,7 @@ const Pos2 AsTexSize(const Tex& id)
 	{
 	private:
 		const AnimeMainData* id;
-		size_t anime_size = 0;
+		//size_t anime_size = 0;
 		size_t anime_count = 0;
 		//毎フレーム
 		size_t fps_size = 10;
@@ -330,7 +349,10 @@ const Pos2 AsTexSize(const Tex& id)
 		//画像透明度
 		uint8_t alpha = 255;
 
-		//四角形描画位置 (todo:Pos8R)
+		//画像回転率
+		float rota = 0.0f;
+
+		//四角形描画位置
 		Pos4 pos4;
 		PosA4R pR;
 
@@ -340,9 +362,9 @@ const Pos2 AsTexSize(const Tex& id)
 		//タッチ数
 		int32_t touch_num = 0;
 	public:
-		AnimeUI() = default;
-		const AnimeUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const Pos4& add_pos4) :id(add_tmd), anime_size(add_tmd->Num()), alpha(add_alpha), pos4(add_pos4) {}
-		const AnimeUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const PosA4R& add_pR) : id(add_tmd), anime_size(add_tmd->Num()), alpha(add_alpha), pR(add_pR) {}
+		const AnimeUI() = default;
+		const AnimeUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const Pos4& add_pos4) :id(add_tmd), alpha(add_alpha), pos4(add_pos4) {}
+		const AnimeUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const PosA4R& add_pR) : id(add_tmd), alpha(add_alpha), pR(add_pR) {}
 		AnimeUI & fpsUpdate();
 
 		//出力
@@ -367,7 +389,10 @@ const Pos2 AsTexSize(const Tex& id)
 		AnimeUI& p() { return *this; }
 
 		//
-		AnimeUI& setUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const PosA4R& add_pR) { id = add_tmd; anime_size = add_tmd->Num(); alpha = add_alpha; pR = add_pR; return *this; }
+		AnimeUI& setRota(const float r_) { rota = r_; return *this; }
+		AnimeUI& addRota(const float r_) { rota += r_; return *this; }
+
+		AnimeUI& setUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const PosA4R& add_pR) { id = add_tmd; alpha = add_alpha; pR = add_pR; return *this; }
 		AnimeUI& setPosF(const PosA4R pR_) { pR = pR_; return *this; }
 		bool isOutWindowF() {
 			const Pos2R w2(asWindowSizeF()); const Pos4R p4r(pR);
@@ -377,6 +402,7 @@ const Pos2 AsTexSize(const Tex& id)
 
 		//大きさ加算
 		AnimeUI& addSizeF(const Pos2R& p2_) { pR.w += p2_.x; pR.h += p2_.y; return *this; }
+		AnimeUI& addSizeF(const Pos2R& p2_, const Pos2R& p2_2) { if (pR.w < p2_2.x)pR.w += p2_.x; if (pR.h < p2_2.y)pR.h += p2_.y; return *this; }
 		AnimeUI& addPosF(const Pos2R& p2_) { pR.x += p2_.x; pR.y += p2_.y; return *this; }
 		AnimeUI& addPosF(const float p2_xy) { pR.x += p2_xy; pR.y += p2_xy; return *this; }
 		AnimeUI& addPosF(const float p2_x, const float p2_y) { pR.x += p2_x; pR.y += p2_y; return *this; }
@@ -393,6 +419,12 @@ const Pos2 AsTexSize(const Tex& id)
 		AnimeUI& drawF(const uint8_t alpha_, const PosA4R pR_) { this->id->draw(anime_count, Pos4(pR_), alpha_); return *this; };
 		AnimeUI& drawF(const PosA4R pR_) { this->id->draw(anime_count, Pos4(pR), alpha); return *this; };
 		AnimeUI& drawF(const PosA4R pR_, const uint8_t alpha_) { this->id->draw(anime_count, Pos4(pR), alpha_); return *this; };
+
+		AnimeUI& drawRF() { this->id->draw(anime_count, Pos4(pR), rota, alpha); return *this; };
+		AnimeUI& drawRF(const uint8_t alpha_) { this->id->draw(anime_count, Pos4(pR), rota, alpha_); return *this; };
+		AnimeUI& drawRF(const uint8_t alpha_, const PosA4R pR_) { this->id->draw(anime_count, Pos4(pR_), rota, alpha_); return *this; };
+		AnimeUI& drawRF(const PosA4R pR_) { this->id->draw(anime_count, Pos4(pR), rota, alpha); return *this; };
+		AnimeUI& drawRF(const PosA4R pR_, const uint8_t alpha_) { this->id->draw(anime_count, Pos4(pR), rota, alpha_); return *this; };
 
 		AnimeUI& drawA(const Pos2 pos2, const uint8_t alpha_) {
 			static Pos4 aspect_pos;
@@ -415,7 +447,27 @@ const Pos2 AsTexSize(const Tex& id)
 		};
 
 		//タッチカウント
-		AnimeUI& update() { this->counter.update(this->touch_num); return *this; };
+		AnimeUI& update() {
+			this->initTouch();
+				//タッチされた数を取得
+				const int32_t check_touch_all_num = asTouchNum();
+
+				//マウスのタッチを導入
+				const Mouse mouse;
+				if (check_touch_all_num == 0 && mouse.count() > 0) this->touch(mouse.Pos());
+
+				//画面のクリック＆リリース
+				Pos2 touch_pos;
+				//タッチのみ
+				for (int32_t i = 0; i < check_touch_all_num; ++i) {
+					asTouch(i, touch_pos);
+					//タッチのあたり判定
+					this->touch(touch_pos);
+				}
+				//何回タッチされたかカウント
+				this->counter.update(this->touch_num);
+				return *this;
+		}
 	};
 
 	inline AnimeUI& AnimeUI::fpsUpdate()
@@ -426,7 +478,7 @@ const Pos2 AsTexSize(const Tex& id)
 		if (fps_count == fps_size) {
 			fps_count = 0;
 			++anime_count;
-			if (anime_count >= anime_size) anime_count = 0;
+			if (anime_count >= this->id->Num()) anime_count = 0;
 		}
 
 		return *this;
@@ -456,14 +508,14 @@ const Pos2 AsTexSize(const Tex& id)
 	inline AnimeUI& AnimeUI::touch(const Pos2& add_pos)
 	{
 		bool is_touch = false;
-		const Pos4 p = { pos4.x1 - add_pos.x ,pos4.y1 - add_pos.y ,pos4.x2 - add_pos.x ,pos4.y2 - add_pos.y };
+		const Pos4 p(pos4.x1 - add_pos.x, pos4.y1 - add_pos.y, pos4.x2 - add_pos.x, pos4.y2 - add_pos.y);
 
 		//タッチのあたり判定
 		if (p.x1 <= 0 && p.y1 <= 0 && p.x2 >= 0 && p.y2 >= 0) is_touch = true;
 		else if (p.x1 > 0 && p.y1 > 0 && p.x2 < 0 && p.y2 < 0) is_touch = true;
 
 		//タッチの数をカウント
-		if (is_touch && this->touch_num != INT32_MAX) this->touch_num++;
+		if (is_touch && this->touch_num != INT32_MAX) ++this->touch_num;
 		return *this;
 	}
 
@@ -514,6 +566,21 @@ const Pos2 AsTexSize(const Tex& id)
 		asTex4S3(this->id, add_pos, pos_, alpha);
 #elif defined(ANIME_TEXTURE_2)
 		asTex4(this->id[anime_size], add_pos, alpha);
+#endif
+		return *this;
+	}
+
+	//サイズ等倍 位置指定 回転指定あり
+	inline const AnimeMainData& AnimeMainData::draw(const size_t anime_size, const PosA4R& add_pos, const float r_, const uint8_t alpha) const
+	{
+#if defined(ANIME_TEXTURE_1)
+		PosL4 pos_;
+		pos_.w = this->pixel_size.x;
+		pos_.h = this->pixel_size.y;
+		pos_.x = this->pixel_size.x*int32_t(anime_size);
+		asTex4S3(this->id, add_pos, pos_, alpha);
+#elif defined(ANIME_TEXTURE_2)
+		asTex(this->id[anime_size], add_pos,r_, alpha);
 #endif
 		return *this;
 	}

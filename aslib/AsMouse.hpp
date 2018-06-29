@@ -85,7 +85,12 @@ namespace AsLib
 #endif
 	}
 
-
+	inline Counter* const mouseButton()
+	{
+		static Counter count[mouse_button_num];
+		mouseButton(count);
+		return count;
+	}
 
 	class Mouse 
 	{
@@ -99,11 +104,14 @@ namespace AsLib
 		bool up() const { return this->counter[MOUSE_LEFT].Up(); };
 		int32_t count() const { return this->counter[MOUSE_LEFT].Count(); };
 
+		//const Mouse() = default;
+		const Mouse() :pos(mousePos()), wheel(mouseWheel()), counter(mouseButton()) {}
+
 	private:
 		Pos2 pos;
 		int32_t wheel;
 		
-		Counter counter[mouse_button_num];
+		Counter* const counter;
 	};
 
 	inline Mouse& Mouse::update()
