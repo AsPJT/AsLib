@@ -32,7 +32,7 @@ namespace AsLib
 		if (dis > now_) now_ = dis;
 	}
 
-	inline void asDistanceMin(const Pos2R& p_1, const Pos2R& p_2, float& now_, size_t& id_, const size_t& id2_)
+	inline void asHypotMin(const Pos2R& p_1, const Pos2R& p_2, float& now_, size_t& id_, const size_t& id2_)
 	{
 		const float dis = asHypot(p_1, p_2);
 		if (dis < now_) {
@@ -40,7 +40,7 @@ namespace AsLib
 			id_ = id2_;
 		}
 	}
-	inline void asDistanceMax(const Pos2R& p_1, const Pos2R& p_2, float& now_, size_t& id_, const size_t& id2_)
+	inline void asHypotMax(const Pos2R& p_1, const Pos2R& p_2, float& now_, size_t& id_, const size_t& id2_)
 	{
 		const float dis = asHypot(p_1, p_2);
 		if (dis > now_) {
