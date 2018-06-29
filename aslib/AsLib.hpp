@@ -23,12 +23,12 @@ const char* const ASLIB_VERSION_STR8 = u8"0.1.12.0 Alpha";
 const char16_t* const ASLIB_VERSION_STR16 = u"0.1.12.0 Alpha";
 const char32_t* const ASLIB_VERSION_STR32 = U"0.1.12.0 Alpha";
 
-int32_t AsMain();
+int32_t asMain();
 namespace AsLib { int32_t asEnd(); }
 //他ライブラリインクルード
 #if defined(ASLIB_INCLUDE_AS)
 #include <Windows.h>
-int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int i = int(AsMain()); AsLib::asEnd(); return i; }
+int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int i = int(asMain()); AsLib::asEnd(); return i; }
 
 #elif defined(ASLIB_INCLUDE_DL)
 #if !defined(DX_NON_USING_NAMESPACE_DXLIB)
@@ -40,7 +40,14 @@ int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int 
 #endif
 #if defined(__WINDOWS__)
 #include <Windows.h>
-int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int i = int(AsMain()); AsLib::asEnd(); return i; }
+int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int i = int(asMain()); AsLib::asEnd(); return i; }
+//プラットフォーム
+#if !defined(AS_PLATFORM_WINDOWS)
+#define AS_PLATFORM_WINDOWS
+#endif
+#if !defined(AS_PLATFORM_PC)
+#define AS_PLATFORM_PC
+#endif
 #elif defined(__ANDROID__)
 #if !defined(__STDINT_LIMITS)
 #define INT8_MIN         (-127 - 1)
@@ -56,7 +63,14 @@ int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int 
 #define UINT32_MAX       0xffffffff
 #define UINT64_MAX       0xffffffffffffffff
 #endif
-int android_main() { const int i = int(AsMain()); AsLib::asEnd(); return i; }
+int android_main() { const int i = int(asMain()); AsLib::asEnd(); return i; }
+//プラットフォーム
+#if !defined(AS_PLATFORM_ANDROID)
+#define AS_PLATFORM_ANDROID
+#endif
+#if !defined(AS_PLATFORM_SP)
+#define AS_PLATFORM_SP
+#endif
 #endif
 
 #elif defined(ASLIB_INCLUDE_S3)
@@ -70,15 +84,15 @@ int android_main() { const int i = int(AsMain()); AsLib::asEnd(); return i; }
 #if defined(SIV3D_TARGET_WINDOWS)
 #include <Windows.h>
 #endif
-void Main() { AsMain(); AsLib::asEnd(); return; }
+void Main() { asMain(); AsLib::asEnd(); return; }
 
 #elif defined(ASLIB_INCLUDE_NO)
-int main() { return int(AsMain() && AsLib::asEnd()); }
+int main() { return int(asMain() && AsLib::asEnd()); }
 #else
 #if !defined(ASLIB_INCLUDE_NO)
 #define ASLIB_INCLUDE_NO
 #endif
-int main() { return int(AsMain() && AsLib::asEnd()); }
+int main() { return int(asMain() && AsLib::asEnd()); }
 #endif
 
 //基本インクルード
@@ -118,6 +132,9 @@ int main() { return int(AsMain() && AsLib::asEnd()); }
 
 //基本系(DL/S3)
 #include "AsStd.hpp"
+
+//距離
+#include "AsDistance.hpp"
 
 //四角形
 #include "AsRect.hpp"
@@ -172,7 +189,7 @@ int main() { return int(AsMain() && AsLib::asEnd()); }
 #include "AsSNS.hpp"
 
 //メイン管理
-#include "AsMainControl.hpp"
+#include "asMainControl.hpp"
 
 //MainControl関連----------------------------------------
 

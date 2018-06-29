@@ -71,6 +71,8 @@ namespace AsLib
 		}
 	}
 
+	inline uint8_t asRand8(const int32_t i) { return asRand8(uint8_t(i)); }
+
 	uint8_t asRand8(const int64_t i)
 	{
 		if (i >= UINT8_MAX) return asRand8(uint8_t(UINT8_MAX));

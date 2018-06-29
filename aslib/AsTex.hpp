@@ -11,8 +11,9 @@ namespace AsLib
 {
 
 
+
 	//画像読み込み
-	inline Tex AsLoadTex(const char* const name)
+	inline Tex asLoadTex(const char* const name)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return Tex(DxLib::LoadGraph(name));
@@ -23,7 +24,7 @@ namespace AsLib
 
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 	//画像を分割ロードする
-	inline std::unique_ptr<Tex[]> AsLoadTex(const char* const name, const size_t tex_num)
+	inline std::unique_ptr<Tex[]> asLoadTex(const char* const name, const size_t tex_num)
 	{
 
 		const Tex tex = DxLib::LoadGraph(name);
@@ -40,7 +41,7 @@ namespace AsLib
 #endif
 
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-	inline std::unique_ptr<Tex[]> AsLoadTex(const char* const name, const size_t tex_num_x, const size_t tex_num_y)
+	inline std::unique_ptr<Tex[]> asLoadTex(const char* const name, const size_t tex_num_x, const size_t tex_num_y)
 	{
 		const Tex tex = DxLib::LoadGraph(name);
 		if (tex == -1) return nullptr;
@@ -167,27 +168,33 @@ namespace AsLib
 
 #endif
 
+const Pos2 AsTexSize(const Tex& id)
+{
+	Pos2 p;
+	AsTexSize(id, p);
+	return p;
+}
+
 	//１つの画像を管理する
 	struct TextureMainData
 	{
 	private:
 
 		//画像番号
-		Tex id;
+		const Tex id;
 
 		//画像サイズ
-		Pos2 pixel_size;
+		const Pos2 pixel_size;
 
 	public:
-		TextureMainData(const Tex& add_id);
-
-		TextureMainData& drawP(const Pos2&, const uint8_t = 255);
-		TextureMainData& draw();
-		TextureMainData& draw(const uint8_t);
-		TextureMainData& draw(const Pos2&, const uint8_t = 255);
-		TextureMainData& draw(const Pos4&, const uint8_t = 255);
-		TextureMainData& draw(const Pos8&, const uint8_t = 255);
-		TextureMainData& drawA(const Pos2 pos2, const uint8_t alpha_) {
+		const TextureMainData(const Tex& add_id) :id(add_id), pixel_size(AsTexSize(add_id)) {}
+		const TextureMainData& drawP(const Pos2&, const uint8_t = 255) const;
+		const TextureMainData& draw() const;
+		const TextureMainData& draw(const uint8_t) const;
+		const TextureMainData& draw(const Pos2&, const uint8_t = 255) const;
+		const TextureMainData& draw(const Pos4&, const uint8_t = 255) const;
+		const TextureMainData& draw(const Pos8&, const uint8_t = 255) const;
+		const TextureMainData& drawA(const Pos2 pos2, const uint8_t alpha_) const{
 			static Pos4 aspect_pos;
 			const Pos2 posWS = this->pixelSize();
 			aspect_pos.x2 = int32_t(posWS.x*pos2.y / float(posWS.y));
@@ -299,25 +306,21 @@ namespace AsLib
 			this->pixel_size.x /= int32_t(id_num);
 		}
 #elif defined(ANIME_TEXTURE_2)
-		AnimeMainData(const size_t id_num, std::unique_ptr<Tex[]>&& add_id) :id(std::move(add_id)), num(id_num)
-		{
-			//画像サイズ取得
-			AsTexSize(this->id[0], this->pixel_size);
-		}
+		const AnimeMainData(const size_t id_num, std::unique_ptr<Tex[]>&& add_id) :id(std::move(add_id)), pixel_size(AsTexSize(this->id[0])), num(id_num) {}
 #endif
-		AnimeMainData& draw(const size_t);
-		AnimeMainData& draw(const size_t, const uint8_t);
-		AnimeMainData& draw(const size_t, const Pos2&, const uint8_t = 255);
-		AnimeMainData& draw(const size_t, const Pos4&, const uint8_t = 255);
-		size_t Num() const { return this->num; };
-		Pos2 pixelSize() const { return this->pixel_size; };
+		const AnimeMainData& draw(const size_t) const;
+		const AnimeMainData& draw(const size_t, const uint8_t) const;
+		const AnimeMainData& draw(const size_t, const Pos2&, const uint8_t = 255) const;
+		const AnimeMainData& draw(const size_t, const Pos4&, const uint8_t = 255) const;
+		const size_t Num() const { return this->num; };
+		const Pos2 pixelSize() const { return this->pixel_size; };
 	};
 
 	//複数の画像UIの情報を管理する
 	struct AnimeUI
 	{
 	private:
-		AnimeMainData * id;
+		const AnimeMainData* id;
 		size_t anime_size = 0;
 		size_t anime_count = 0;
 		//毎フレーム
@@ -329,6 +332,7 @@ namespace AsLib
 
 		//四角形描画位置 (todo:Pos8R)
 		Pos4 pos4;
+		PosA4R pR;
 
 		//あたり判定
 		Counter counter;
@@ -336,13 +340,16 @@ namespace AsLib
 		//タッチ数
 		int32_t touch_num = 0;
 	public:
-		AnimeUI(AnimeMainData* const add_tmd, const uint8_t add_alpha, const Pos4& add_pos4) { id = add_tmd; anime_size = add_tmd->Num(); alpha = add_alpha; pos4 = add_pos4; }
+		AnimeUI() = default;
+		const AnimeUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const Pos4& add_pos4) :id(add_tmd), anime_size(add_tmd->Num()), alpha(add_alpha), pos4(add_pos4) {}
+		const AnimeUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const PosA4R& add_pR) : id(add_tmd), anime_size(add_tmd->Num()), alpha(add_alpha), pR(add_pR) {}
 		AnimeUI & fpsUpdate();
 
 		//出力
-		AnimeMainData* Point() const { return this->id; };
+		const AnimeMainData* const Point() const { return this->id; };
 		uint8_t Alpha() const { return this->alpha; };
 		Pos4 Pos() const { return this->pos4; };
+		PosA4R PosF() const { return this->pR; };
 		int32_t Touch() const { return this->touch_num; };
 		int32_t Touch0() { const int32_t num = this->touch_num; this->touch_num = 0; return num; };
 
@@ -357,12 +364,36 @@ namespace AsLib
 		AnimeUI& touch(const Pos2&);
 		AnimeUI& initTouch() { this->touch_num = 0; return *this; };
 
+		AnimeUI& p() { return *this; }
+
+		//
+		AnimeUI& setUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const PosA4R& add_pR) { id = add_tmd; anime_size = add_tmd->Num(); alpha = add_alpha; pR = add_pR; return *this; }
+		AnimeUI& setPosF(const PosA4R pR_) { pR = pR_; return *this; }
+		bool isOutWindowF() {
+			const Pos2R w2(asWindowSizeF()); const Pos4R p4r(pR);
+			if (p4r.x2<0.0f || p4r.y2<0.0f || p4r.x1>w2.x || p4r.y1>w2.y) return true;
+			return false;
+		}
+
+		//大きさ加算
+		AnimeUI& addSizeF(const Pos2R& p2_) { pR.w += p2_.x; pR.h += p2_.y; return *this; }
+		AnimeUI& addPosF(const Pos2R& p2_) { pR.x += p2_.x; pR.y += p2_.y; return *this; }
+		AnimeUI& addPosF(const float p2_xy) { pR.x += p2_xy; pR.y += p2_xy; return *this; }
+		AnimeUI& addPosF(const float p2_x, const float p2_y) { pR.x += p2_x; pR.y += p2_y; return *this; }
+
 		//描画
 		AnimeUI& draw() { this->id->draw(anime_count, pos4, alpha); return *this; };
 		AnimeUI& draw(const uint8_t alpha_) { this->id->draw(anime_count, pos4, alpha_); return *this; };
 		AnimeUI& draw(const uint8_t alpha_, const Pos4 pos_) { this->id->draw(anime_count, pos_, alpha_); return *this; };
 		AnimeUI& draw(const Pos4 pos_) { this->id->draw(anime_count, pos_, alpha); return *this; };
 		AnimeUI& draw(const Pos4 pos_, const uint8_t alpha_) { this->id->draw(anime_count, pos_, alpha_); return *this; };
+
+		AnimeUI& drawF() { this->id->draw(anime_count, Pos4(pR), alpha); return *this; };
+		AnimeUI& drawF(const uint8_t alpha_) { this->id->draw(anime_count, Pos4(pR), alpha_); return *this; };
+		AnimeUI& drawF(const uint8_t alpha_, const PosA4R pR_) { this->id->draw(anime_count, Pos4(pR_), alpha_); return *this; };
+		AnimeUI& drawF(const PosA4R pR_) { this->id->draw(anime_count, Pos4(pR), alpha); return *this; };
+		AnimeUI& drawF(const PosA4R pR_, const uint8_t alpha_) { this->id->draw(anime_count, Pos4(pR), alpha_); return *this; };
+
 		AnimeUI& drawA(const Pos2 pos2, const uint8_t alpha_) {
 			static Pos4 aspect_pos;
 			const Pos2 posWS = this->id->pixelSize();
@@ -402,18 +433,10 @@ namespace AsLib
 	}
 
 //サイズ等倍 位置指定
-	inline TextureMainData& TextureMainData::draw(const Pos8& add_pos, const uint8_t alpha)
+	inline const TextureMainData& TextureMainData::draw(const Pos8& add_pos, const uint8_t alpha)const
 	{
 		asTex8(this->id, add_pos, alpha);
 		return *this;
-	}
-
-	inline TextureMainData::TextureMainData(const Tex& add_id)
-	{
-		this->id = add_id;
-
-		//画像サイズ取得
-		AsTexSize(this->id, this->pixel_size);
 	}
 
 	inline const TextureUI& TextureUI::touch(const Pos2& add_pos)
@@ -445,35 +468,35 @@ namespace AsLib
 	}
 
 	//サイズ等倍 位置指定
-	inline TextureMainData& TextureMainData::draw(const Pos4& add_pos, const uint8_t alpha)
+	inline const TextureMainData& TextureMainData::draw(const Pos4& add_pos, const uint8_t alpha)const
 	{
 		asTex4(this->id, add_pos, alpha);
 		return *this;
 	}
 
 	//サイズ等倍 位置指定
-	inline TextureMainData& TextureMainData::draw(const Pos2& add_pos, const uint8_t alpha)
+	inline const TextureMainData& TextureMainData::draw(const Pos2& add_pos, const uint8_t alpha)const
 	{
 		asTex4(this->id, add_pos, alpha);
 		return *this;
 	}
 
 	//サイズ 指定なし 透明度 指定あり
-	inline TextureMainData& TextureMainData::draw(const uint8_t alpha)
+	inline const TextureMainData& TextureMainData::draw(const uint8_t alpha)const
 	{
 		asTex4(this->id, this->pixel_size, alpha);
 		return *this;
 	}
 
 	//サイズ・透明度 指定なし
-	inline TextureMainData& TextureMainData::draw()
+	inline const TextureMainData& TextureMainData::draw()const
 	{
 		asTex4(this->id, this->pixel_size);
 		return *this;
 	}
 
 	//サイズ・透明度 指定なし・初期位置指定あり
-	inline TextureMainData& TextureMainData::drawP(const Pos2& add_pos, const uint8_t alpha)
+	inline const TextureMainData& TextureMainData::drawP(const Pos2& add_pos, const uint8_t alpha)const
 	{
 		const Pos4 p{ add_pos.x, add_pos.y, add_pos.x + this->pixel_size.x, add_pos.y + this->pixel_size.y };
 		asTex4(this->id, p, alpha);
@@ -481,7 +504,7 @@ namespace AsLib
 	}
 
 	//サイズ等倍 位置指定
-	inline AnimeMainData& AnimeMainData::draw(const size_t anime_size, const Pos4& add_pos, const uint8_t alpha)
+	inline const AnimeMainData& AnimeMainData::draw(const size_t anime_size, const Pos4& add_pos, const uint8_t alpha) const
 	{
 #if defined(ANIME_TEXTURE_1)
 		PosL4 pos_;
@@ -496,7 +519,7 @@ namespace AsLib
 	}
 
 	//サイズ等倍 位置指定
-	inline AnimeMainData& AnimeMainData::draw(const size_t anime_size, const Pos2& add_pos, const uint8_t alpha)
+	inline const AnimeMainData& AnimeMainData::draw(const size_t anime_size, const Pos2& add_pos, const uint8_t alpha) const
 	{
 #if defined(ANIME_TEXTURE_1)
 		PosL4 pos_;
@@ -511,7 +534,7 @@ namespace AsLib
 	}
 
 	//サイズ 指定なし 透明度 指定あり
-	inline AnimeMainData& AnimeMainData::draw(const size_t anime_size, const uint8_t alpha)
+	inline const AnimeMainData& AnimeMainData::draw(const size_t anime_size, const uint8_t alpha) const
 	{
 #if defined(ANIME_TEXTURE_1)
 		PosL4 pos_;
@@ -526,7 +549,7 @@ namespace AsLib
 	}
 
 	//サイズ・透明度 指定なし
-	inline AnimeMainData& AnimeMainData::draw(const size_t anime_size)
+	inline const AnimeMainData& AnimeMainData::draw(const size_t anime_size) const
 	{
 #if defined(ANIME_TEXTURE_1)
 		PosL4 pos_;

@@ -350,8 +350,8 @@ namespace AsLib
 
 		const worldMap& drawView(MapView& m_) const {
 			int32_t a;
-			for (size_t j = 0; j < this->s.y; ++j) {
-				for (size_t i = 0; i < this->s.x; ++i) {
+			for (size_t j = 0; j < size_t(this->s.y); ++j) {
+				for (size_t i = 0; i < size_t(this->s.x); ++i) {
 					a = map_id[a2(this->s.x, i, j)];
 					m_.draw(PosA4R(PosL4R(float(i), float(j), 1.0f, 1.0f)), ColorRGBA(a, a, a, 255));
 
@@ -362,8 +362,8 @@ namespace AsLib
 
 		const worldMap& draw(const size_t size_) const {
 			int32_t a;
-			for (size_t j = 0; j < this->s.y; ++j) {
-				for (size_t i = 0; i < this->s.x; ++i) {
+			for (size_t j = 0; j < size_t(this->s.y); ++j) {
+				for (size_t i = 0; i < size_t(this->s.x); ++i) {
 					a = map_id[a2(this->s.x, i, j)];
 					asRect(PosL4(int32_t(i*size_), int32_t(j*size_), int32_t(size_), int32_t(size_)), ColorRGBA(a, a, a, a));
 				}

@@ -148,12 +148,12 @@ const bool mobMoveSet(size_t& move_id_, size_t& count, const size_t move_max = 6
 }
 
 //ダンジョンのサンプルプログラム
-int32_t AsMain()
+int32_t asMain()
 {
 	//管理クラス
 	MainControl mc(u8"Simple Counter", Pos2(1000, 1000), BG_COLOR);
 
-	AnimeMainData feri(1, AsLoadTex("Picture/ikari.png", 6, 4));
+	AnimeMainData feri(1, asLoadTex("Picture/ikari.png", 6, 4));
 
 	//size_t id = MOB_DOWN_STOP;
 	size_t dir_id = MOB_DOWN;
@@ -184,10 +184,11 @@ int32_t AsMain()
 		}
 		else move_id = MOB_STOP;
 
+
 		if (asKey(Keyboard_UpArrow)) dir_id = MOB_UP;
-		if (asKey(Keyboard_DownArrow)) dir_id = MOB_DOWN;
-		if (asKey(Keyboard_LeftArrow)) dir_id = MOB_LEFT;
-		if (asKey(Keyboard_RightArrow)) dir_id = MOB_RIGHT;
+		else if (asKey(Keyboard_DownArrow)) dir_id = MOB_DOWN;
+		else if (asKey(Keyboard_LeftArrow)) dir_id = MOB_LEFT;
+		else if (asKey(Keyboard_RightArrow)) dir_id = MOB_RIGHT;
 
 		mv.setMob(pl, w_pos2);
 		mv.draw(&w.col[0], w_pos2);

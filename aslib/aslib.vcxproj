@@ -147,6 +147,7 @@
     <ClInclude Include="AsCounter.hpp" />
     <ClInclude Include="AsDef.hpp" />
     <ClInclude Include="AsAsFile.hpp" />
+    <ClInclude Include="AsDistance.hpp" />
     <ClInclude Include="AsDL.hpp" />
     <ClInclude Include="AsFile.hpp" />
     <ClInclude Include="AsFont.hpp" />
