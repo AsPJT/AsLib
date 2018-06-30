@@ -49,6 +49,7 @@ int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int 
 #define AS_PLATFORM_PC
 #endif
 #elif defined(__ANDROID__)
+const float abs(const float f_) { return (f_ < 0.0f) ? -f_ : f_; }
 #if !defined(__STDINT_LIMITS)
 #define INT8_MIN         (-127 - 1)
 #define INT16_MIN        (-32767 - 1)

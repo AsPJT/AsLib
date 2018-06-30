@@ -315,6 +315,7 @@ namespace AsLib
 		const Pos2R& operator()(float* const x_, float* const y_) const { *x_ = this->x; *y_ = this->y; return *this; }
 
 		const float plus() const { return (this->x + this->y); }
+		const float Hypot() const { return hypot(this->x, this->y); }
 	};
 
 	//’·•ûŒ`‚Ì‘å‚«‚³(¶ã‚Æ‰E‰º‚ÌˆÊ’u)

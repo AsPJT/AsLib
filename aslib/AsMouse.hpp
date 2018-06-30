@@ -105,7 +105,12 @@ namespace AsLib
 		int32_t count() const { return this->counter[MOUSE_LEFT].Count(); };
 
 		//const Mouse() = default;
+#if defined(__ANDROID__)//todo
+		Mouse() :pos(mousePos()), wheel(mouseWheel()), counter(mouseButton()) {}
+#else
 		const Mouse() :pos(mousePos()), wheel(mouseWheel()), counter(mouseButton()) {}
+#endif
+		
 
 	private:
 		Pos2 pos;

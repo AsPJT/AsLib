@@ -493,14 +493,6 @@ namespace AsLib
 	// SJIS(char) ‚©‚ç UTF-32(char32_t*)‚Ö
 	const char32_t* utf32_s(const char src) { return utf32(utf16_s(src)); }
 
-	// ”’l ‚©‚ç UTF-8(char*)‚Ö
-	template <typename type_name>
-	const char* utf8(type_name src) {
-		static std::string u8str;
-		u8str = std::to_string(src);
-		return u8str.c_str();
-	}
-
 	// ”’l ‚©‚ç UTF-16(char16_t*)‚Ö
 	template <typename type_name>
 	const char16_t* utf16(type_name src) { return utf16(utf8(src)); }

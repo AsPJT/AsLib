@@ -342,8 +342,13 @@ namespace AsLib
 		std::unique_ptr<int32_t[]> map_id;
 		std::unique_ptr<ColorRGBA[]> col;
 
-		worldMap(const Pos2& xy_) :s({ xy_.x, xy_.y }), total_size(xy_.x*xy_.y), map_id(new int32_t[xy_.x*xy_.y]), col(new ColorRGBA[xy_.x*xy_.y]) { clear(); }
+#if defined(__ANDROID__)//todo
+		
+#else
+		worldMap(const Pos2& xy_) : s({ xy_.x, xy_.y }), total_size(xy_.x*xy_.y), map_id(new int32_t[xy_.x*xy_.y]), col(new ColorRGBA[xy_.x*xy_.y]) { clear(); }
 		worldMap(const int32_t x_, const int32_t y_) : s({ x_, y_ }), total_size(x_*y_), map_id(new int32_t[x_*y_]), col(new ColorRGBA[x_*y_]) { clear(); }
+#endif
+
 		const worldMap& clear() const { for (size_t i = 0; i < total_size; ++i) map_id[i] = 0; return *this; }
 		const worldMap& rand() const { asRand32(&map_id[0], total_size); return *this; }
 		const worldMap& randC(const uint8_t m_) const { asRand(&col[0], total_size,m_); return *this; }

@@ -28,6 +28,7 @@ namespace AsLib
 	{
 
 		const Tex tex = DxLib::LoadGraph(name);
+		//asPrint("%d,", tex);
 		if (tex == -1) return nullptr;
 		int size_x = 0, size_y = 0;
 		DxLib::GetGraphSize(tex, &size_x, &size_y);
@@ -204,8 +205,14 @@ namespace AsLib
 		const Pos2 pixel_size;
 
 	public:
+#if defined(__ANDROID__)//todo
+		TextureMainData() = default;
+		TextureMainData(const Tex& add_id) :id(add_id), pixel_size(AsTexSize(add_id)) {}
+#else
 		const TextureMainData() = default;
 		const TextureMainData(const Tex& add_id) :id(add_id), pixel_size(AsTexSize(add_id)) {}
+#endif
+
 		const TextureMainData& drawP(const Pos2&, const uint8_t = 255) const;
 		const TextureMainData& draw() const;
 		const TextureMainData& draw(const uint8_t) const;
@@ -324,7 +331,11 @@ namespace AsLib
 			this->pixel_size.x /= int32_t(id_num);
 		}
 #elif defined(ANIME_TEXTURE_2)
-		const AnimeMainData(const size_t id_num, std::unique_ptr<Tex[]>&& add_id) :id(std::move(add_id)), pixel_size(AsTexSize(this->id[0])), num(id_num) {}
+#if defined(__ANDROID__)//todo
+		AnimeMainData(const size_t id_num, std::unique_ptr<Tex[]>&& add_id) { id = std::move(add_id); num = id_num; }
+#else
+		const AnimeMainData(const size_t id_num, std::unique_ptr<Tex[]>&& add_id) : id(std::move(add_id)), pixel_size(AsTexSize(this->id[0])), num(id_num) {}
+#endif
 #endif
 		const AnimeMainData& draw(const size_t) const;
 		const AnimeMainData& draw(const size_t, const uint8_t) const;
@@ -340,10 +351,9 @@ namespace AsLib
 	{
 	private:
 		const AnimeMainData* id;
-		//size_t anime_size = 0;
 		size_t anime_count = 0;
 		//毎フレーム
-		size_t fps_size = 10;
+		size_t fps_size = 2;
 		size_t fps_count = 0;
 
 		//画像透明度
@@ -362,9 +372,15 @@ namespace AsLib
 		//タッチ数
 		int32_t touch_num = 0;
 	public:
+#if defined(__ANDROID__)//todo
+		AnimeUI() = default;
+		AnimeUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const Pos4& add_pos4) :id(add_tmd), alpha(add_alpha), pos4(add_pos4) {}
+		AnimeUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const PosA4R& add_pR) : id(add_tmd), alpha(add_alpha), pR(add_pR) {}
+#else
 		const AnimeUI() = default;
 		const AnimeUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const Pos4& add_pos4) :id(add_tmd), alpha(add_alpha), pos4(add_pos4) {}
 		const AnimeUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const PosA4R& add_pR) : id(add_tmd), alpha(add_alpha), pR(add_pR) {}
+#endif
 		AnimeUI & fpsUpdate();
 
 		//出力
@@ -389,8 +405,17 @@ namespace AsLib
 		AnimeUI& p() { return *this; }
 
 		//
-		AnimeUI& setRota(const float r_) { rota = r_; return *this; }
+		//AnimeUI& setRota(const float r_) { rota = r_; return *this; }
+		AnimeUI& setRota(const float r_, const float r_2) {
+			const float new_r = (rota - r_);
+			
+			if (new_r > abs(r_2)) rota -= abs(r_2);
+			else if (new_r < -abs(r_2)) rota += abs(r_2);
+			else rota += new_r;
+			return *this;
+		}
 		AnimeUI& addRota(const float r_) { rota += r_; return *this; }
+		const float Rota() const { return this->rota; };
 
 		AnimeUI& setUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const PosA4R& add_pR) { id = add_tmd; alpha = add_alpha; pR = add_pR; return *this; }
 		AnimeUI& setPosF(const PosA4R pR_) { pR = pR_; return *this; }
@@ -406,6 +431,7 @@ namespace AsLib
 		AnimeUI& addPosF(const Pos2R& p2_) { pR.x += p2_.x; pR.y += p2_.y; return *this; }
 		AnimeUI& addPosF(const float p2_xy) { pR.x += p2_xy; pR.y += p2_xy; return *this; }
 		AnimeUI& addPosF(const float p2_x, const float p2_y) { pR.x += p2_x; pR.y += p2_y; return *this; }
+		AnimeUI& setPosF(const Pos2R& p2_) { if (pR.x < 0.0f) pR.x = 0.0f; if (pR.y < 0.0f) pR.y = 0.0f; if (pR.x > p2_.x) pR.x = p2_.x; if (pR.y > p2_.y) pR.y = p2_.y; return *this; }
 
 		//描画
 		AnimeUI& draw() { this->id->draw(anime_count, pos4, alpha); return *this; };
