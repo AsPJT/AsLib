@@ -15,36 +15,36 @@ namespace AsLib
 	inline int32_t asReadPos(const char* const file_name, PosA4& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
 	inline int32_t asReadPos(const char* const file_name, PosL4& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
 	inline int32_t asReadPos(const char* const file_name, Pos8& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
-	inline int32_t asReadPos(const char* const file_name, Pos2R& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
-	inline int32_t asReadPos(const char* const file_name, Pos4R& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
-	inline int32_t asReadPos(const char* const file_name, PosA4R& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
-	inline int32_t asReadPos(const char* const file_name, PosL4R& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
-	inline int32_t asReadPos(const char* const file_name, Pos8R& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
+	inline int32_t asReadPos(const char* const file_name, Pos2F& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
+	inline int32_t asReadPos(const char* const file_name, Pos4F& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
+	inline int32_t asReadPos(const char* const file_name, PosA4F& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
+	inline int32_t asReadPos(const char* const file_name, PosL4F& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
+	inline int32_t asReadPos(const char* const file_name, Pos8F& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
 	//Pos
 	inline int32_t asWritePos(const char* const file_name, Pos2& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
 	inline int32_t asWritePos(const char* const file_name, Pos4& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
 	inline int32_t asWritePos(const char* const file_name, PosA4& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
 	inline int32_t asWritePos(const char* const file_name, PosL4& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
 	inline int32_t asWritePos(const char* const file_name, Pos8& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
-	inline int32_t asWritePos(const char* const file_name, Pos2R& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
-	inline int32_t asWritePos(const char* const file_name, Pos4R& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
-	inline int32_t asWritePos(const char* const file_name, PosA4R& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
-	inline int32_t asWritePos(const char* const file_name, PosL4R& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
-	inline int32_t asWritePos(const char* const file_name, Pos8R& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
+	inline int32_t asWritePos(const char* const file_name, Pos2F& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
+	inline int32_t asWritePos(const char* const file_name, Pos4F& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
+	inline int32_t asWritePos(const char* const file_name, PosA4F& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
+	inline int32_t asWritePos(const char* const file_name, PosL4F& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
+	inline int32_t asWritePos(const char* const file_name, Pos8F& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
 	//Pos
 #if defined(__ANDROID__)//todo
-	inline int32_t asWritePos(const char* const file_name, const PosA4R& p_) { PosA4R p(p_); return asWrite(file_name, &p, sizeof(p_), 1); }
+	inline int32_t asWritePos(const char* const file_name, const PosA4F& p_) { PosA4F p(p_); return asWrite(file_name, &p, sizeof(p_), 1); }
 #else
 	inline int32_t asWritePos(const char* const file_name, const Pos2& p_) { return asWrite(file_name, &Pos2(p_), sizeof(p_), 1); }
 	inline int32_t asWritePos(const char* const file_name, const Pos4& p_) { return asWrite(file_name, &Pos4(p_), sizeof(p_), 1); }
 	inline int32_t asWritePos(const char* const file_name, const PosA4& p_) { return asWrite(file_name, &PosA4(p_), sizeof(p_), 1); }
 	inline int32_t asWritePos(const char* const file_name, const PosL4& p_) { return asWrite(file_name, &PosL4(p_), sizeof(p_), 1); }
 	inline int32_t asWritePos(const char* const file_name, const Pos8& p_) { return asWrite(file_name, &Pos8(p_), sizeof(p_), 1); }
-	inline int32_t asWritePos(const char* const file_name, const Pos2R& p_) { return asWrite(file_name, &Pos2R(p_), sizeof(p_), 1); }
-	inline int32_t asWritePos(const char* const file_name, const Pos4R& p_) { return asWrite(file_name, &Pos4R(p_), sizeof(p_), 1); }
-	inline int32_t asWritePos(const char* const file_name, const PosA4R& p_) { return asWrite(file_name, &PosA4R(p_), sizeof(p_), 1); }
-	inline int32_t asWritePos(const char* const file_name, const PosL4R& p_) { return asWrite(file_name, &PosL4R(p_), sizeof(p_), 1); }
-	inline int32_t asWritePos(const char* const file_name, const Pos8R& p_) { return asWrite(file_name, &Pos8R(p_), sizeof(p_), 1); }
+	inline int32_t asWritePos(const char* const file_name, const Pos2F& p_) { return asWrite(file_name, &Pos2F(p_), sizeof(p_), 1); }
+	inline int32_t asWritePos(const char* const file_name, const Pos4F& p_) { return asWrite(file_name, &Pos4F(p_), sizeof(p_), 1); }
+	inline int32_t asWritePos(const char* const file_name, const PosA4F& p_) { return asWrite(file_name, &PosA4F(p_), sizeof(p_), 1); }
+	inline int32_t asWritePos(const char* const file_name, const PosL4F& p_) { return asWrite(file_name, &PosL4F(p_), sizeof(p_), 1); }
+	inline int32_t asWritePos(const char* const file_name, const Pos8F& p_) { return asWrite(file_name, &Pos8F(p_), sizeof(p_), 1); }
 #endif
 
 	Pos2 asReadPos2(const char* const file_name)

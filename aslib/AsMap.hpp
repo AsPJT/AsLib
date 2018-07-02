@@ -20,7 +20,7 @@ namespace AsLib
 	{
 	private:
 		//マップの中心位置と幅
-		PosA4R p;
+		PosA4F p;
 
 		//全体の描画
 		MapView& drawMob(const Pos2& p_, const size_t num_, ColorRGBA* const col_ = nullptr, TextureMainData* const t_ = nullptr, AnimeMainData* const a_ = nullptr, const size_t id_ = 0)
@@ -29,17 +29,17 @@ namespace AsLib
 			if (p_.is_minus()) return *this;
 
 			//1マスの描画幅
-			const Pos2R m(asWindowSizeF().x / this->p.w, asWindowSizeF().y / this->p.h);
+			const Pos2F m(asWindowSizeF().x / this->p.w, asWindowSizeF().y / this->p.h);
 			//描画ピクセル数
-			const PosA4R in_mapA(this->p.x, this->p.y, m.x*(floor(this->p.w) + 2.0f), m.y*(floor(this->p.h) + 2.0f));
+			const PosA4F in_mapA(this->p.x, this->p.y, m.x*(floor(this->p.w) + 2.0f), m.y*(floor(this->p.h) + 2.0f));
 			//描画マス数
 			const Pos4 in_map(PosA4(int32_t(p.x), int32_t(p.y), int32_t(this->p.w) + 2, int32_t(this->p.h) + 2));
 
 			//描画初期位置
-			const Pos2R in_draw((asWindowSizeF().x - in_mapA.w) / 2.0f - m.x*(this->p.x - floor(this->p.x)), (asWindowSizeF().y - in_mapA.h) / 2.0f - m.y*(this->p.y - floor(this->p.y)));
+			const Pos2F in_draw((asWindowSizeF().x - in_mapA.w) / 2.0f - m.x*(this->p.x - floor(this->p.x)), (asWindowSizeF().y - in_mapA.h) / 2.0f - m.y*(this->p.y - floor(this->p.y)));
 
 			Pos2 select_map(0);
-			Pos2R draw_map(in_draw);
+			Pos2F draw_map(in_draw);
 
 			for (int32_t i = in_map.y1; i <= in_map.y2; ++i) {
 				draw_map.x = in_draw.x;
@@ -73,8 +73,8 @@ namespace AsLib
 
 	public:
 		MapView() = default;
-		constexpr MapView(const PosA4R& p_) : p(p_) {}
-		MapView(const PosA4R& p_,const char c_) : p(p_) {
+		constexpr MapView(const PosA4F& p_) : p(p_) {}
+		MapView(const PosA4F& p_,const char c_) : p(p_) {
 			switch (c_)
 			{
 				//正方形
@@ -89,7 +89,7 @@ namespace AsLib
 		//中心位置を指定--------------------------------------------------------------
 
 		//視点変更
-		MapView& setMob(PosA4R& p_, const Pos2& p2_) {
+		MapView& setMob(PosA4F& p_, const Pos2& p2_) {
 			if (p2_.is_minus()) return *this;
 			while (p_.x < 0.0f) { p_.x += float(p2_.x); }
 			while (p_.y < 0.0f) { p_.y += float(p2_.y); }
@@ -97,18 +97,18 @@ namespace AsLib
 			p.y = p_.y += float(int32_t(p_.y) % p2_.y) - floor(p_.y);
 			return *this;
 		}
-		MapView& setMob(const PosA4R& p_) { p.x = p_.x; p.y = p_.y; return *this;}
-		MapView& setMap(const PosA4R& p_) { p = p_; return *this;}
-		MapView& setMapX(const PosA4R& p_) { p = p_; p.h = p.w*(float(asWindowSize().y) / float(asWindowSize().x)); return *this;}
+		MapView& setMob(const PosA4F& p_) { p.x = p_.x; p.y = p_.y; return *this;}
+		MapView& setMap(const PosA4F& p_) { p = p_; return *this;}
+		MapView& setMapX(const PosA4F& p_) { p = p_; p.h = p.w*(float(asWindowSize().y) / float(asWindowSize().x)); return *this;}
 
 		//描画する物のサイズ
-		MapView& drawMob(const Pos4R& p_, const size_t num_, const ColorRGBA* c_ = nullptr, TextureMainData* t_ = nullptr, AnimeMainData* a_ = nullptr,const size_t id_=0)
+		MapView& drawMob(const Pos4F& p_, const size_t num_, const ColorRGBA* c_ = nullptr, TextureMainData* t_ = nullptr, AnimeMainData* a_ = nullptr,const size_t id_=0)
 		{
 			//範囲外は描画無し
-			const Pos4R Dp = Pos4R(this->p);
+			const Pos4F Dp = Pos4F(this->p);
 			if (p_.x2 < Dp.x1 || p_.y2 < Dp.y1 || p_.x1 > Dp.x2 || p_.y1 > Dp.y2) return *this;
 
-			const PosL4R Lp = PosL4R(this->p);
+			const PosL4F Lp = PosL4F(this->p);
 			const Pos2 w_ = asWindowSize();
 			switch (num_)
 			{
@@ -126,30 +126,30 @@ namespace AsLib
 		}
 
 		//プレイヤーの位置、マップサイズ、カラー
-		MapView& draw(const PosA4R& p_, const Pos2& p2_, const ColorRGBA& c_)
+		MapView& draw(const PosA4F& p_, const Pos2& p2_, const ColorRGBA& c_)
 		{
 			if (Pos2(p2_).is_minus()) return *this;
-			return this->draw(PosA4R(float((int32_t(p_.x) + p2_.x) % p2_.x) + p_.x - floor(p_.x), float((int32_t(p_.y) + p2_.y) % p2_.y) + p_.y - floor(p_.y), p_.w, p_.h), c_);
+			return this->draw(PosA4F(float((int32_t(p_.x) + p2_.x) % p2_.x) + p_.x - floor(p_.x), float((int32_t(p_.y) + p2_.y) % p2_.y) + p_.y - floor(p_.y), p_.w, p_.h), c_);
 		}
 		//描画する物のサイズ、画像
-		MapView& draw(const Pos4R& p_, const ColorRGBA& c_) { return this->drawMob(p_, MAP_VIEW_DRAW_COLOR, &c_, nullptr, nullptr); }
+		MapView& draw(const Pos4F& p_, const ColorRGBA& c_) { return this->drawMob(p_, MAP_VIEW_DRAW_COLOR, &c_, nullptr, nullptr); }
 
 		//プレイヤーの位置、マップサイズ、画像
-		MapView& draw(const PosA4R& p_, const Pos2& p2_, TextureMainData& t_)
+		MapView& draw(const PosA4F& p_, const Pos2& p2_, TextureMainData& t_)
 		{
 			if (Pos2(p2_).is_minus()) return *this;
-			return this->draw(PosA4R(float((int32_t(p_.x) + p2_.x) % p2_.x) + p_.x - floor(p_.x), float((int32_t(p_.y) + p2_.y) % p2_.y) + p_.y - floor(p_.y), p_.w, p_.h), t_);
+			return this->draw(PosA4F(float((int32_t(p_.x) + p2_.x) % p2_.x) + p_.x - floor(p_.x), float((int32_t(p_.y) + p2_.y) % p2_.y) + p_.y - floor(p_.y), p_.w, p_.h), t_);
 		}
 		//描画する物のサイズ、カラー
-		MapView& draw(const Pos4R& p_, TextureMainData& t_) { return this->drawMob(p_, MAP_VIEW_DRAW_TEXTURE, nullptr, &t_, nullptr); }
+		MapView& draw(const Pos4F& p_, TextureMainData& t_) { return this->drawMob(p_, MAP_VIEW_DRAW_TEXTURE, nullptr, &t_, nullptr); }
 		//プレイヤーの位置、マップサイズ、画像
-		MapView& draw(const PosA4R& p_, const Pos2& p2_, AnimeMainData& a_,const size_t id_=0)
+		MapView& draw(const PosA4F& p_, const Pos2& p2_, AnimeMainData& a_,const size_t id_=0)
 		{
 			if (Pos2(p2_).is_minus()) return *this;
-			return this->draw(PosA4R(float((int32_t(p_.x) + p2_.x) % p2_.x) + p_.x - floor(p_.x), float((int32_t(p_.y) + p2_.y) % p2_.y) + p_.y - floor(p_.y), p_.w, p_.h), a_, id_);
+			return this->draw(PosA4F(float((int32_t(p_.x) + p2_.x) % p2_.x) + p_.x - floor(p_.x), float((int32_t(p_.y) + p2_.y) % p2_.y) + p_.y - floor(p_.y), p_.w, p_.h), a_, id_);
 		}
 		//描画する物のサイズ、カラー
-		MapView& draw(const Pos4R& p_, AnimeMainData& a_, const size_t id_) { return this->drawMob(p_, MAP_VIEW_DRAW_ANIME, nullptr, nullptr, &a_, id_); }
+		MapView& draw(const Pos4F& p_, AnimeMainData& a_, const size_t id_) { return this->drawMob(p_, MAP_VIEW_DRAW_ANIME, nullptr, nullptr, &a_, id_); }
 
 		//色の全体描画
 		MapView& draw(ColorRGBA* const col_, const Pos2& p_) { return this->drawMob(p_, MAP_VIEW_DRAW_COLOR, col_, nullptr, nullptr); }
@@ -210,7 +210,7 @@ namespace AsLib
 		return;
 	}
 	//動く判定
-	const bool moveMob(const bool d_, const bool u_, const bool l_, const bool r_, const float s_, PosA4R& p_)
+	const bool moveMob(const bool d_, const bool u_, const bool l_, const bool r_, const float s_, PosA4F& p_)
 	{
 		size_t count = 0;
 		if (d_) ++count;
@@ -237,7 +237,7 @@ namespace AsLib
 		return false;
 	}
 	//動く判定
-	const bool moveMobCross(const bool d_, const bool u_, const bool l_, const bool r_, const float s_, PosA4R& p_)
+	const bool moveMobCross(const bool d_, const bool u_, const bool l_, const bool r_, const float s_, PosA4F& p_)
 	{
 		if (d_) {
 			p_.y += s_; return true;
@@ -254,12 +254,12 @@ namespace AsLib
 		return false;
 	}
 
-	inline const bool moveMobCross(const float s_, PosA4R& p_)
+	inline const bool moveMobCross(const float s_, PosA4F& p_)
 	{
 		return moveMobCross(asKey(Keyboard_DownArrow), asKey(Keyboard_UpArrow), asKey(Keyboard_LeftArrow), asKey(Keyboard_RightArrow), s_, p_);
 	}
 
-	inline const bool moveMob(const float s_, PosA4R& p_)
+	inline const bool moveMob(const float s_, PosA4F& p_)
 	{
 		return moveMob(asKey(Keyboard_DownArrow), asKey(Keyboard_UpArrow), asKey(Keyboard_LeftArrow), asKey(Keyboard_RightArrow), s_, p_);
 	}
@@ -268,21 +268,21 @@ namespace AsLib
 	//class MoveMobControl
 	//{
 	//private:
-	//	PosA4R pos;
+	//	PosA4F pos;
 	//	float walk_time;
 	//	float time_count = 0.0f;
 
 	//public:
 	//	MoveMobControl() = default;
-	//	constexpr MoveMobControl(const PosA4R& p_, const float t_ = 1000.0f) :pos(p_), walk_time(t_) {};
+	//	constexpr MoveMobControl(const PosA4F& p_, const float t_ = 1000.0f) :pos(p_), walk_time(t_) {};
 	//	MoveMobControl& update() {
 	//		if()
 	//		time_count += (walk_time / (60.0f*1000.0f));
 	//		
 	//	}
 
-	//	MoveMobControl& setPos(const PosA4R& p_) { this->pos = p_; return *this; }
-	//	PosA4R Pos() const { return pos; }
+	//	MoveMobControl& setPos(const PosA4F& p_) { this->pos = p_; return *this; }
+	//	PosA4F Pos() const { return pos; }
 	//	
 
 	//};
@@ -358,7 +358,7 @@ namespace AsLib
 			for (size_t j = 0; j < size_t(this->s.y); ++j) {
 				for (size_t i = 0; i < size_t(this->s.x); ++i) {
 					a = map_id[a2(this->s.x, i, j)];
-					m_.draw(PosA4R(PosL4R(float(i), float(j), 1.0f, 1.0f)), ColorRGBA(a, a, a, 255));
+					m_.draw(PosA4F(PosL4F(float(i), float(j), 1.0f, 1.0f)), ColorRGBA(a, a, a, 255));
 
 				}
 			}

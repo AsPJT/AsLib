@@ -117,7 +117,7 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 #include "AsColor.hpp"
 
 //基本構造体(All)
-#include "AsStruct.hpp"
+#include "AsPos.hpp"
 
 //基本的な定数宣言(All)
 #include "AsConst.hpp"

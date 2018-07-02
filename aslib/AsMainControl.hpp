@@ -163,7 +163,7 @@ namespace AsLib
 
 		//ˆÊ’u
 	public:
-		Pos4 asPos4(const Pos4R pos_);
+		Pos4 asPos4(const Pos4F pos_);
 
 	private:
 

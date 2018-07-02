@@ -83,7 +83,7 @@ namespace AsLib
 
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 
-	int32_t asTex(const Tex tex, const PosA4R& p_ = pos4_0, const float r_ = 0.0f, const uint8_t alpha = 255)
+	int32_t asTex(const Tex tex, const PosA4F& p_ = pos4_0, const float r_ = 0.0f, const uint8_t alpha = 255)
 	{
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
 		const Pos2 s = AsTexSize(tex);
@@ -341,7 +341,7 @@ namespace AsLib
 		const AnimeMainData& draw(const size_t, const uint8_t) const;
 		const AnimeMainData& draw(const size_t, const Pos2&, const uint8_t = 255) const;
 		const AnimeMainData& draw(const size_t, const Pos4&, const uint8_t = 255) const;
-		const AnimeMainData& draw(const size_t, const PosA4R&, const float, const uint8_t = 255) const;
+		const AnimeMainData& draw(const size_t, const PosA4F&, const float, const uint8_t = 255) const;
 		const size_t Num() const { return this->num; };
 		const Pos2 pixelSize() const { return this->pixel_size; };
 	};
@@ -364,7 +364,7 @@ namespace AsLib
 
 		//ŽlŠpŒ`•`‰æˆÊ’u
 		Pos4 pos4;
-		PosA4R pR;
+		PosA4F pR;
 
 		//‚ ‚½‚è”»’è
 		Counter counter;
@@ -375,11 +375,11 @@ namespace AsLib
 #if defined(__ANDROID__)//todo
 		AnimeUI() = default;
 		AnimeUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const Pos4& add_pos4) :id(add_tmd), alpha(add_alpha), pos4(add_pos4) {}
-		AnimeUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const PosA4R& add_pR) : id(add_tmd), alpha(add_alpha), pR(add_pR) {}
+		AnimeUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const PosA4F& add_pR) : id(add_tmd), alpha(add_alpha), pR(add_pR) {}
 #else
 		const AnimeUI() = default;
 		const AnimeUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const Pos4& add_pos4) :id(add_tmd), alpha(add_alpha), pos4(add_pos4) {}
-		const AnimeUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const PosA4R& add_pR) : id(add_tmd), alpha(add_alpha), pR(add_pR) {}
+		const AnimeUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const PosA4F& add_pR) : id(add_tmd), alpha(add_alpha), pR(add_pR) {}
 #endif
 		AnimeUI & fpsUpdate();
 
@@ -387,7 +387,7 @@ namespace AsLib
 		const AnimeMainData* const Point() const { return this->id; };
 		uint8_t Alpha() const { return this->alpha; };
 		Pos4 Pos() const { return this->pos4; };
-		PosA4R PosF() const { return this->pR; };
+		PosA4F PosF() const { return this->pR; };
 		int32_t Touch() const { return this->touch_num; };
 		int32_t Touch0() { const int32_t num = this->touch_num; this->touch_num = 0; return num; };
 
@@ -417,21 +417,21 @@ namespace AsLib
 		AnimeUI& addRota(const float r_) { rota += r_; return *this; }
 		const float Rota() const { return this->rota; };
 
-		AnimeUI& setUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const PosA4R& add_pR) { id = add_tmd; alpha = add_alpha; pR = add_pR; return *this; }
-		AnimeUI& setPosF(const PosA4R pR_) { pR = pR_; return *this; }
+		AnimeUI& setUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const PosA4F& add_pR) { id = add_tmd; alpha = add_alpha; pR = add_pR; return *this; }
+		AnimeUI& setPosF(const PosA4F pR_) { pR = pR_; return *this; }
 		bool isOutWindowF() {
-			const Pos2R w2(asWindowSizeF()); const Pos4R p4r(pR);
+			const Pos2F w2(asWindowSizeF()); const Pos4F p4r(pR);
 			if (p4r.x2<0.0f || p4r.y2<0.0f || p4r.x1>w2.x || p4r.y1>w2.y) return true;
 			return false;
 		}
 
 		//‘å‚«‚³‰ÁŽZ
-		AnimeUI& addSizeF(const Pos2R& p2_) { pR.w += p2_.x; pR.h += p2_.y; return *this; }
-		AnimeUI& addSizeF(const Pos2R& p2_, const Pos2R& p2_2) { if (pR.w < p2_2.x)pR.w += p2_.x; if (pR.h < p2_2.y)pR.h += p2_.y; return *this; }
-		AnimeUI& addPosF(const Pos2R& p2_) { pR.x += p2_.x; pR.y += p2_.y; return *this; }
+		AnimeUI& addSizeF(const Pos2F& p2_) { pR.w += p2_.x; pR.h += p2_.y; return *this; }
+		AnimeUI& addSizeF(const Pos2F& p2_, const Pos2F& p2_2) { if (pR.w < p2_2.x)pR.w += p2_.x; if (pR.h < p2_2.y)pR.h += p2_.y; return *this; }
+		AnimeUI& addPosF(const Pos2F& p2_) { pR.x += p2_.x; pR.y += p2_.y; return *this; }
 		AnimeUI& addPosF(const float p2_xy) { pR.x += p2_xy; pR.y += p2_xy; return *this; }
 		AnimeUI& addPosF(const float p2_x, const float p2_y) { pR.x += p2_x; pR.y += p2_y; return *this; }
-		AnimeUI& setPosF(const Pos2R& p2_) { if (pR.x < 0.0f) pR.x = 0.0f; if (pR.y < 0.0f) pR.y = 0.0f; if (pR.x > p2_.x) pR.x = p2_.x; if (pR.y > p2_.y) pR.y = p2_.y; return *this; }
+		AnimeUI& setPosF(const Pos2F& p2_) { if (pR.x < 0.0f) pR.x = 0.0f; if (pR.y < 0.0f) pR.y = 0.0f; if (pR.x > p2_.x) pR.x = p2_.x; if (pR.y > p2_.y) pR.y = p2_.y; return *this; }
 
 		//•`‰æ
 		AnimeUI& draw() { this->id->draw(anime_count, pos4, alpha); return *this; };
@@ -442,15 +442,15 @@ namespace AsLib
 
 		AnimeUI& drawF() { this->id->draw(anime_count, Pos4(pR), alpha); return *this; };
 		AnimeUI& drawF(const uint8_t alpha_) { this->id->draw(anime_count, Pos4(pR), alpha_); return *this; };
-		AnimeUI& drawF(const uint8_t alpha_, const PosA4R pR_) { this->id->draw(anime_count, Pos4(pR_), alpha_); return *this; };
-		AnimeUI& drawF(const PosA4R pR_) { this->id->draw(anime_count, Pos4(pR), alpha); return *this; };
-		AnimeUI& drawF(const PosA4R pR_, const uint8_t alpha_) { this->id->draw(anime_count, Pos4(pR), alpha_); return *this; };
+		AnimeUI& drawF(const uint8_t alpha_, const PosA4F pR_) { this->id->draw(anime_count, Pos4(pR_), alpha_); return *this; };
+		AnimeUI& drawF(const PosA4F pR_) { this->id->draw(anime_count, Pos4(pR), alpha); return *this; };
+		AnimeUI& drawF(const PosA4F pR_, const uint8_t alpha_) { this->id->draw(anime_count, Pos4(pR), alpha_); return *this; };
 
 		AnimeUI& drawRF() { this->id->draw(anime_count, Pos4(pR), rota, alpha); return *this; };
 		AnimeUI& drawRF(const uint8_t alpha_) { this->id->draw(anime_count, Pos4(pR), rota, alpha_); return *this; };
-		AnimeUI& drawRF(const uint8_t alpha_, const PosA4R pR_) { this->id->draw(anime_count, Pos4(pR_), rota, alpha_); return *this; };
-		AnimeUI& drawRF(const PosA4R pR_) { this->id->draw(anime_count, Pos4(pR), rota, alpha); return *this; };
-		AnimeUI& drawRF(const PosA4R pR_, const uint8_t alpha_) { this->id->draw(anime_count, Pos4(pR), rota, alpha_); return *this; };
+		AnimeUI& drawRF(const uint8_t alpha_, const PosA4F pR_) { this->id->draw(anime_count, Pos4(pR_), rota, alpha_); return *this; };
+		AnimeUI& drawRF(const PosA4F pR_) { this->id->draw(anime_count, Pos4(pR), rota, alpha); return *this; };
+		AnimeUI& drawRF(const PosA4F pR_, const uint8_t alpha_) { this->id->draw(anime_count, Pos4(pR), rota, alpha_); return *this; };
 
 		AnimeUI& drawA(const Pos2 pos2, const uint8_t alpha_) {
 			static Pos4 aspect_pos;
@@ -597,7 +597,7 @@ namespace AsLib
 	}
 
 	//ƒTƒCƒY“™”{ ˆÊ’uŽw’è ‰ñ“]Žw’è‚ ‚è
-	inline const AnimeMainData& AnimeMainData::draw(const size_t anime_size, const PosA4R& add_pos, const float r_, const uint8_t alpha) const
+	inline const AnimeMainData& AnimeMainData::draw(const size_t anime_size, const PosA4F& add_pos, const float r_, const uint8_t alpha) const
 	{
 #if defined(ANIME_TEXTURE_1)
 		PosL4 pos_;

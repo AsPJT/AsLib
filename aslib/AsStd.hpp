@@ -24,9 +24,9 @@ namespace AsLib
 		return asWindowSizeSave(false);
 	}
 
-	inline Pos2R asWindowSizeF()
+	inline Pos2F asWindowSizeF()
 	{
-		return Pos2R(asWindowSize());
+		return Pos2F(asWindowSize());
 	}
 
 #if defined(ASLIB_INCLUDE_DL) //DxLib

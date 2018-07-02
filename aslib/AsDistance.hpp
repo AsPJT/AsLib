@@ -10,29 +10,29 @@
 namespace AsLib
 {
 	//ÇQì_ä‘ÇÃãóó£ÇãÅÇﬂÇÈ
-	inline const float asHypot(const Pos2R& p_1, const Pos2R& p_2) { return hypot(p_1.x - p_2.x, p_1.y - p_2.y); }
+	inline const float asHypot(const Pos2F& p_1, const Pos2F& p_2) { return hypot(p_1.x - p_2.x, p_1.y - p_2.y); }
 
-	inline const void asHypot(float& dis_, const Pos2R& p_1, const Pos2R& p_2) { dis_ = asHypot(p_1, p_2); }
-	inline const void asHypot(float* dis_, const Pos2R& p_1, const Pos2R& p_2) { *dis_ = asHypot(p_1, p_2); }
-	inline const void asHypot(const Pos2R& p_1, float& dis_, const Pos2R& p_2) { dis_ = asHypot(p_1, p_2); }
-	inline const void asHypot(const Pos2R& p_1, float* dis_, const Pos2R& p_2) { *dis_ = asHypot(p_1, p_2); }
-	inline const void asHypot(const Pos2R& p_1, const Pos2R& p_2, float& dis_) { dis_ = asHypot(p_1, p_2); }
-	inline const void asHypot(const Pos2R& p_1, const Pos2R& p_2, float* dis_) { *dis_ = asHypot(p_1, p_2); }
+	inline const void asHypot(float& dis_, const Pos2F& p_1, const Pos2F& p_2) { dis_ = asHypot(p_1, p_2); }
+	inline const void asHypot(float* dis_, const Pos2F& p_1, const Pos2F& p_2) { *dis_ = asHypot(p_1, p_2); }
+	inline const void asHypot(const Pos2F& p_1, float& dis_, const Pos2F& p_2) { dis_ = asHypot(p_1, p_2); }
+	inline const void asHypot(const Pos2F& p_1, float* dis_, const Pos2F& p_2) { *dis_ = asHypot(p_1, p_2); }
+	inline const void asHypot(const Pos2F& p_1, const Pos2F& p_2, float& dis_) { dis_ = asHypot(p_1, p_2); }
+	inline const void asHypot(const Pos2F& p_1, const Pos2F& p_2, float* dis_) { *dis_ = asHypot(p_1, p_2); }
 
 	//ÇQì_ä‘ÇÃãóó£Ç∆ç≈è¨ílÇî‰ärÇµÇƒè¨Ç≥Ç¢ílÇï‘Ç∑
-	inline void asHypotMin(const Pos2R& p_1, const Pos2R& p_2, float& now_)
+	inline void asHypotMin(const Pos2F& p_1, const Pos2F& p_2, float& now_)
 	{
 		const float dis = asHypot(p_1, p_2);
 		if (dis < now_) now_ = dis;
 	}
 	//ÇQì_ä‘ÇÃãóó£Ç∆ç≈è¨ílÇî‰ärÇµÇƒëÂÇ´Ç¢ílÇï‘Ç∑
-	inline void asHypotMax(const Pos2R& p_1, const Pos2R& p_2, float& now_)
+	inline void asHypotMax(const Pos2F& p_1, const Pos2F& p_2, float& now_)
 	{
 		const float dis = asHypot(p_1, p_2);
 		if (dis > now_) now_ = dis;
 	}
 
-	inline void asHypotMin(const Pos2R& p_1, const Pos2R& p_2, float& now_, size_t& id_, const size_t& id2_)
+	inline void asHypotMin(const Pos2F& p_1, const Pos2F& p_2, float& now_, size_t& id_, const size_t& id2_)
 	{
 		const float dis = asHypot(p_1, p_2);
 		if (dis < now_) {
@@ -40,7 +40,7 @@ namespace AsLib
 			id_ = id2_;
 		}
 	}
-	inline void asHypotMax(const Pos2R& p_1, const Pos2R& p_2, float& now_, size_t& id_, const size_t& id2_)
+	inline void asHypotMax(const Pos2F& p_1, const Pos2F& p_2, float& now_, size_t& id_, const size_t& id2_)
 	{
 		const float dis = asHypot(p_1, p_2);
 		if (dis > now_) {

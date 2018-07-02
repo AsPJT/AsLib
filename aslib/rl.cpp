@@ -171,9 +171,9 @@ int32_t asMain()
 		static bool is_w = true;
 		if (is_w) { w.rand().randC(100); is_w = false; }
 
-		constexpr PosA4R pl2(7.5f, 8.5f, 1.0f, 1.0f);
-		static PosA4R pl(5.5f, 5.5f, 1.0f, 1.0f);
-		constexpr PosA4R map_p(0.0f, 0.0f, 5.0f, 10.0f);
+		constexpr PosA4F pl2(7.5f, 8.5f, 1.0f, 1.0f);
+		static PosA4F pl(5.5f, 5.5f, 1.0f, 1.0f);
+		constexpr PosA4F map_p(0.0f, 0.0f, 5.0f, 10.0f);
 		static MapView mv(map_p, 'y');
 
 		pl.y += mouseWheel();
@@ -194,8 +194,8 @@ int32_t asMain()
 		mv.draw(&w.col[0], w_pos2);
 
 		mv.draw(pl2, w_pos2, ColorRGBA(0, 255, 0, 255));
-		mv.draw(PosA4R(5.5f, 5.5f, 1.0f, 1.0f), w_pos2, ColorRGBA(0, 205, 50, 255));
-		mv.draw(PosA4R(0.5f, 0.5f, 1.0f, 1.0f), w_pos2, ColorRGBA(0, 255, 0, 255));
+		mv.draw(PosA4F(5.5f, 5.5f, 1.0f, 1.0f), w_pos2, ColorRGBA(0, 205, 50, 255));
+		mv.draw(PosA4F(0.5f, 0.5f, 1.0f, 1.0f), w_pos2, ColorRGBA(0, 255, 0, 255));
 		mv.draw(pl, w_pos2, feri, mobMoveDirect(dir_id, move_id));
 
 }

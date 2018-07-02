@@ -35,8 +35,8 @@ namespace AsLib
 	//原点位置
 	constexpr Pos2 pos2_0 = { 0,0 };
 	constexpr Pos4 pos4_0 = { 0,0,0,0 };
-	constexpr Pos2R pos2R_0 = { 0.0f,0.0f };
-	constexpr Pos4R pos4R_0 = { 0.0f,0.0f,0.0f,0.0f };
+	constexpr Pos2F pos2R_0 = { 0.0f,0.0f };
+	constexpr Pos4F pos4R_0 = { 0.0f,0.0f,0.0f,0.0f };
 
 	constexpr Pos2 pos2_100 = { 100,100 };
 	constexpr Pos4 pos4_100 = { 0,0,100,100 };
@@ -44,15 +44,15 @@ namespace AsLib
 
 
 	//全選択
-	constexpr Pos2R pos2R_all = { 1.0f,1.0f };
-	constexpr Pos4R pos4R_all = { 0.0f,0.0f,1.0f,1.0f };
+	constexpr Pos2F pos2R_all = { 1.0f,1.0f };
+	constexpr Pos4F pos4R_all = { 0.0f,0.0f,1.0f,1.0f };
 
 	//無色
 	constexpr ColorRGBA color_0 = { 0,0,0,0 };
 	constexpr ColorRGB colorRGB_0 = { 0,0,0 };
 	constexpr ColorRGBA colorRGBA_0 = { 0,0,0,0 };
 
-	Pos4 toPos4(const Pos4R& add_pos, const Pos2& window_size)
+	Pos4 toPos4(const Pos4F& add_pos, const Pos2& window_size)
 	{
 		Pos4 pos4;
 		pos4.x1 = int32_t(add_pos.x1 * float(window_size.x));
@@ -62,7 +62,7 @@ namespace AsLib
 		return pos4;
 	}
 
-	Pos4 toPos4X(const Pos4R& add_pos, const Pos2& window_size, const Pos2& add_pixel)
+	Pos4 toPos4X(const Pos4F& add_pos, const Pos2& window_size, const Pos2& add_pixel)
 	{
 		const float pixel_size = float(add_pixel.x) / float(add_pixel.y);
 		Pos4 pos4;
@@ -73,7 +73,7 @@ namespace AsLib
 		return pos4;
 	}
 
-	Pos4 toPos4Y(const Pos4R& add_pos, const Pos2& window_size, const Pos2& add_pixel)
+	Pos4 toPos4Y(const Pos4F& add_pos, const Pos2& window_size, const Pos2& add_pixel)
 	{
 		const float pixel_size = float(add_pixel.y) / float(add_pixel.x);
 		Pos4 pos4;

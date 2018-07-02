@@ -169,7 +169,7 @@
     <ClInclude Include="AsSNS.hpp" />
     <ClInclude Include="AsStd.hpp" />
     <ClInclude Include="AsStop.hpp" />
-    <ClInclude Include="AsStruct.hpp" />
+    <ClInclude Include="AsPos.hpp" />
     <ClInclude Include="AsTex.hpp" />
     <ClInclude Include="AsTouch.hpp" />
     <ClInclude Include="AsType.hpp" />
