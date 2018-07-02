@@ -143,12 +143,12 @@ namespace AsLib
 
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 
-	int32_t AsTexSize(const Tex& id, Pos2& texture_size)
-	{
-		texture_size.x = int32_t(id.width());
-		texture_size.y = int32_t(id.height());
-		return 0;
-	}
+	//int32_t AsTexSize(const Tex& id, Pos2& texture_size)
+	//{
+	//	texture_size.x = int32_t(id.width());
+	//	texture_size.y = int32_t(id.height());
+	//	return 0;
+	//}
 
 	//int32_t asTex4(const Tex tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
 	//{
@@ -604,7 +604,7 @@ namespace AsLib
 		pos_.w = this->pixel_size.x;
 		pos_.h = this->pixel_size.y;
 		pos_.x = this->pixel_size.x*int32_t(anime_size);
-		asTex4S3(this->id, add_pos, pos_, alpha);
+		asTex4S3(this->id, Pos4(add_pos), pos_, alpha);
 #elif defined(ANIME_TEXTURE_2)
 		asTex(this->id[anime_size], add_pos,r_, alpha);
 #endif
