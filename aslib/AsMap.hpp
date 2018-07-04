@@ -358,7 +358,7 @@ namespace AsLib
 			for (size_t j = 0; j < size_t(this->s.y); ++j) {
 				for (size_t i = 0; i < size_t(this->s.x); ++i) {
 					a = map_id[a2(this->s.x, i, j)];
-					m_.draw(PosA4F(PosL4F(float(i), float(j), 1.0f, 1.0f)), ColorRGBA(a, a, a, 255));
+					m_.draw(PosA4F(PosL4F(float(i), float(j), 1.0f, 1.0f)), ColorRGBA(uint8_t(a), uint8_t(a), uint8_t(a), uint8_t(255)));
 
 				}
 			}
