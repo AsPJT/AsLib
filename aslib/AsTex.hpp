@@ -412,6 +412,7 @@ namespace AsLib
 			if (new_r > abs(r_2)) rota -= abs(r_2);
 			else if (new_r < -abs(r_2)) rota += abs(r_2);
 			else rota += new_r;
+			//rota = r_;
 			return *this;
 		}
 		AnimeUI& addRota(const float r_) { rota += r_; return *this; }

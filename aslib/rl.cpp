@@ -155,6 +155,11 @@ int32_t asMain()
 
 	AnimeMainData feri(1, asLoadTex("Picture/ikari.png", 6, 4));
 
+	Pos2 te(10,10);
+	-te;
+
+	asPrint("%d,%d", te.x, te.y);
+
 	//size_t id = MOB_DOWN_STOP;
 	size_t dir_id = MOB_DOWN;
 	size_t move_id = MOB_STOP;
