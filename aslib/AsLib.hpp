@@ -90,7 +90,7 @@ void Main() { asMain(); AsLib::asEnd(); return; }
 #elif defined(ASLIB_INCLUDE_NO)
 int main() { return int(asMain() && AsLib::asEnd()); }
 #elif defined(ASLIB_INCLUDE_TP)
-
+int main() { return int(asMain()); }
 #else
 #if !defined(ASLIB_INCLUDE_NO)
 #define ASLIB_INCLUDE_NO

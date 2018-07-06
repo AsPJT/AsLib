@@ -89,55 +89,77 @@ namespace AsLib
 		return p;
 	}
 
-#if defined(ASLIB_INCLUDE_DL) //DxLib
-
-	const int32_t asTex(const OriginatorTexture tex, const PosA4F& p_ = pos4_0, const float r_ = 0.0f, const uint8_t alpha = 255)
+	const int32_t asTex(const OriginatorTexture tex, const PosA4F& p_, const float r_, const uint8_t alpha = 255)
 	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
 		const Pos2 s = AsTexSize(tex);
 		if (DxLib::DrawRotaGraphFast3(int(p_.x), int(p_.y), s.x/2, s.y/2, p_.w / s.x, p_.h / s.y, r_, tex, TRUE) != -1) return 0;
 
 		return -1;
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		return 0;
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
+#else //Console
+		return 0;
+#endif
 	}
 
-	const int32_t asTex8(const OriginatorTexture tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
+	const int32_t asTex8(const OriginatorTexture tex, const Pos8& pos8, const uint8_t alpha = 255)
 	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, int(alpha)) == -1) return -1;
 		if (DxLib::DrawModiGraph(int(pos8.x1), int(pos8.y1), int(pos8.x2), int(pos8.y2), int(pos8.x4), int(pos8.y4), int(pos8.x3), int(pos8.y3), tex, TRUE) != -1) return 0;
 
 		return -1;
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		return 0;
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
+#else //Console
+		return 0;
+#endif
 	}
 
-	const int32_t asTex4(const OriginatorTexture tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
+	const int32_t asTex4(const OriginatorTexture tex, const Pos4& pos, const uint8_t alpha = 255)
 	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
-		if (DxLib::DrawExtendGraph(int(pos8.x1), int(pos8.y1), int(pos8.x4), int(pos8.y4), tex, TRUE) != -1) return 0;
+		if (DxLib::DrawExtendGraph(int(pos.x1), int(pos.y1), int(pos.x2), int(pos.y2), tex, TRUE) != -1) return 0;
 
 		return -1;
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		tex.resized(pos.x2 - pos.x1, pos.y2 - pos.y1).draw(pos.x1, pos.y1, s3d::Alpha(alpha));
+		return 0;
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
+#else //Console
+		return 0;
+#endif
 	}
-
-	const int32_t asTex4(const OriginatorTexture tex, const Pos4& pos4 = pos4_100, const uint8_t alpha = 255)
-	{
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
-		if (DxLib::DrawExtendGraph(int(pos4.x1), int(pos4.y1), int(pos4.x2), int(pos4.y2), tex, TRUE) != -1) return 0;
-
-		return -1;
-	}
-
-	inline const int32_t asTex4(const OriginatorTexture tex, const Pos2& pos2 = pos2_100, const uint8_t alpha = 255) { return asTex4(tex, Pos4(pos2), alpha); }
 
 	//todo
-	const int32_t asTex(const OriginatorTexture tex, const Pos4& pos4 = pos4_100, const uint8_t alpha = 255, const ColorRGBA& colorRGBA = color_0)
+	const int32_t asTex(const OriginatorTexture tex, const Pos4& pos4, const uint8_t alpha = 255, const ColorRGBA& colorRGBA = color_0)
 	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
 		if (DxLib::DrawExtendGraph(int(pos4.x1), int(pos4.y1), int(pos4.x2), int(pos4.y2), tex, TRUE) != -1) return 0;
 
 		if (colorRGBA.a == 0) return -1;
 		if (asRect(pos4, colorRGBA) == -1) return -1;
 		return -2;
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		return 0;
+#else //Console
+		return 0;
+#endif
 	}
 
-	const int32_t AsTexAt(const OriginatorTexture tex, const Pos4& pos4 = {}, const uint8_t alpha = 255, const ColorRGBA& colorRGBA = color_0) {
+	const int32_t AsTexAt(const OriginatorTexture tex, const Pos4& pos4, const uint8_t alpha = 255, const ColorRGBA& colorRGBA = color_0) {
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 		const int32_t sub_x = (pos4.x2 - pos4.x1) >> BIT_SHIFT_DIV_2;
 		const int32_t sub_y = (pos4.y2 - pos4.y1) >> BIT_SHIFT_DIV_2;
 		const int32_t x1 = pos4.x1 - sub_x;
@@ -147,36 +169,16 @@ namespace AsLib
 
 		const Pos4 new_pos4 = { x1,y1,x2,y2 };
 		return asTex(tex, new_pos4, alpha, colorRGBA);
-	}
-
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-
-	//int32_t AsTexSize(const OriginatorTexture& id, Pos2& texture_size)
-	//{
-	//	texture_size.x = int32_t(id.width());
-	//	texture_size.y = int32_t(id.height());
-	//	return 0;
-	//}
-
-	//int32_t asTex4(const OriginatorTexture tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
-	//{
-	//	tex.resized(pos8.x4 - pos8.x1, pos8.y4 - pos8.y1).draw(pos8.x1, pos8.y1, s3d::Alpha(alpha));
-	//	return 0;
-	//}
-
-	const int32_t asTex4(const OriginatorTexture& tex, const Pos4& pos = pos4_100, const uint8_t alpha = 255)
-	{
-		tex.resized(pos.x2 - pos.x1, pos.y2 - pos.y1).draw(pos.x1, pos.y1, s3d::Alpha(alpha));
 		return 0;
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
+#else //Console
+		return 0;
+#endif
 	}
 
-	const int32_t asTex4(const OriginatorTexture& tex, const Pos2& pos2 = pos2_100, const uint8_t alpha = 255)
-	{
-		tex.resized(pos2.x, pos2.y).draw(0, 0, s3d::Alpha(alpha));
-
-		return -1;
-	}
-
+#if defined(ASLIB_INCLUDE_S3) //Siv3D
 	const int32_t asTex4S3(const OriginatorTexture& tex, const Pos2& p_, const Pos4& l_, const PosL4& pos_, const uint8_t alpha = 255)
 	{
 		tex(pos_.x, pos_.y, pos_.w, pos_.h).resized(l_.x2 - l_.x1, l_.y2 - l_.y1).draw(p_.x, p_.y, s3d::Alpha(alpha));
@@ -194,18 +196,7 @@ namespace AsLib
 		tex(pos_.x, pos_.y, pos_.w, pos_.h).resized(l_.x, l_.y).rotated(double(r_)).draw(p_.x, p_.y, s3d::Alpha(alpha));
 		return -1;
 	}
-
-	//todo
-	const int32_t asTex8(const OriginatorTexture tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
-	{
-		return -1;
-	}
-
-#else //Console
-
 #endif
-
-
 
 	//ÇPÇ¬ÇÃâÊëúÇä«óùÇ∑ÇÈ
 	struct TextureMainData
