@@ -12,7 +12,14 @@ These codes are licensed under CC0.
 
 ## ゲームエンジン等の対応度
 
-| 機能 | ヘッダー | Default(TP) | openFrameworks(OF) | DxLib(DL) | OpenSiv3D(S3) |
+| エンジン名 | 2文字略称 | 対応バージョン |
+|:---:|:---:|:---:|
+| Default | TP | None |
+| openFrameworks | OF | 0.10.0 |
+| DxLib | DL | 3.19b |
+| OpenSiv3D | S3 | 0.2.7 |
+
+| 機能 | ヘッダー | TP | OF | DL | S3 |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 | ライブラリ | Lib | ◎ | ▲ | ◎ | ◎ |
 | タッチ入力 | Touch | × | × | 〇 | ▲ |
