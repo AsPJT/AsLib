@@ -25,6 +25,10 @@ namespace AsLib
 		return DxLib::LoadGraph(name);
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return s3d::Texture(s3d::Unicode::UTF8ToUTF32(std::string(name)));
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
+#else //Console
+		return 0;
 #endif
 	}
 
@@ -49,13 +53,18 @@ namespace AsLib
 	{
 		return TexSize2(s3d::Texture(s3d::Unicode::UTF8ToUTF32(std::string(name))), tex_num_x, tex_num_y);
 			}
+#else
+	inline int32_t asLoadTex(const char* const name, const size_t tex_num_x, const size_t tex_num_y = 1)
+	{
+		return 0;
+	}
 #endif
 
 
 
 
 
-	int32_t AsTexSize(const OriginatorTexture& id, Pos2& texture_size)
+	const int32_t AsTexSize(const OriginatorTexture& id, Pos2& texture_size)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		static int size_x, size_y;
@@ -65,6 +74,10 @@ namespace AsLib
 		return 0;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		texture_size(int32_t(id.width()), int32_t(id.height()));
+		return 0;
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
+#else //Console
 		return 0;
 #endif
 	}
@@ -78,7 +91,7 @@ namespace AsLib
 
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 
-	int32_t asTex(const OriginatorTexture tex, const PosA4F& p_ = pos4_0, const float r_ = 0.0f, const uint8_t alpha = 255)
+	const int32_t asTex(const OriginatorTexture tex, const PosA4F& p_ = pos4_0, const float r_ = 0.0f, const uint8_t alpha = 255)
 	{
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
 		const Pos2 s = AsTexSize(tex);
@@ -87,7 +100,7 @@ namespace AsLib
 		return -1;
 	}
 
-	int32_t asTex8(const OriginatorTexture tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
+	const int32_t asTex8(const OriginatorTexture tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
 	{
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, int(alpha)) == -1) return -1;
 		if (DxLib::DrawModiGraph(int(pos8.x1), int(pos8.y1), int(pos8.x2), int(pos8.y2), int(pos8.x4), int(pos8.y4), int(pos8.x3), int(pos8.y3), tex, TRUE) != -1) return 0;
@@ -95,7 +108,7 @@ namespace AsLib
 		return -1;
 	}
 
-	int32_t asTex4(const OriginatorTexture tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
+	const int32_t asTex4(const OriginatorTexture tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
 	{
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
 		if (DxLib::DrawExtendGraph(int(pos8.x1), int(pos8.y1), int(pos8.x4), int(pos8.y4), tex, TRUE) != -1) return 0;
@@ -103,7 +116,7 @@ namespace AsLib
 		return -1;
 	}
 
-	int32_t asTex4(const OriginatorTexture tex, const Pos4& pos4 = pos4_100, const uint8_t alpha = 255)
+	const int32_t asTex4(const OriginatorTexture tex, const Pos4& pos4 = pos4_100, const uint8_t alpha = 255)
 	{
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
 		if (DxLib::DrawExtendGraph(int(pos4.x1), int(pos4.y1), int(pos4.x2), int(pos4.y2), tex, TRUE) != -1) return 0;
@@ -111,10 +124,10 @@ namespace AsLib
 		return -1;
 	}
 
-	inline int32_t asTex4(const OriginatorTexture tex, const Pos2& pos2 = pos2_100, const uint8_t alpha = 255) { return asTex4(tex, Pos4(pos2), alpha); }
+	inline const int32_t asTex4(const OriginatorTexture tex, const Pos2& pos2 = pos2_100, const uint8_t alpha = 255) { return asTex4(tex, Pos4(pos2), alpha); }
 
 	//todo
-	int32_t asTex(const OriginatorTexture tex, const Pos4& pos4 = pos4_100, const uint8_t alpha = 255, const ColorRGBA& colorRGBA = color_0)
+	const int32_t asTex(const OriginatorTexture tex, const Pos4& pos4 = pos4_100, const uint8_t alpha = 255, const ColorRGBA& colorRGBA = color_0)
 	{
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
 		if (DxLib::DrawExtendGraph(int(pos4.x1), int(pos4.y1), int(pos4.x2), int(pos4.y2), tex, TRUE) != -1) return 0;
@@ -124,7 +137,7 @@ namespace AsLib
 		return -2;
 	}
 
-	int32_t AsTexAt(const OriginatorTexture tex, const Pos4& pos4 = {}, const uint8_t alpha = 255, const ColorRGBA& colorRGBA = color_0) {
+	const int32_t AsTexAt(const OriginatorTexture tex, const Pos4& pos4 = {}, const uint8_t alpha = 255, const ColorRGBA& colorRGBA = color_0) {
 		const int32_t sub_x = (pos4.x2 - pos4.x1) >> BIT_SHIFT_DIV_2;
 		const int32_t sub_y = (pos4.y2 - pos4.y1) >> BIT_SHIFT_DIV_2;
 		const int32_t x1 = pos4.x1 - sub_x;
@@ -151,39 +164,39 @@ namespace AsLib
 	//	return 0;
 	//}
 
-	int32_t asTex4(const OriginatorTexture& tex, const Pos4& pos = pos4_100, const uint8_t alpha = 255)
+	const int32_t asTex4(const OriginatorTexture& tex, const Pos4& pos = pos4_100, const uint8_t alpha = 255)
 	{
 		tex.resized(pos.x2 - pos.x1, pos.y2 - pos.y1).draw(pos.x1, pos.y1, s3d::Alpha(alpha));
 		return 0;
 	}
 
-	int32_t asTex4(const OriginatorTexture& tex, const Pos2& pos2 = pos2_100, const uint8_t alpha = 255)
+	const int32_t asTex4(const OriginatorTexture& tex, const Pos2& pos2 = pos2_100, const uint8_t alpha = 255)
 	{
 		tex.resized(pos2.x, pos2.y).draw(0, 0, s3d::Alpha(alpha));
 
 		return -1;
 	}
 
-	int32_t asTex4S3(const OriginatorTexture& tex, const Pos2& p_, const Pos4& l_, const PosL4& pos_, const uint8_t alpha = 255)
+	const int32_t asTex4S3(const OriginatorTexture& tex, const Pos2& p_, const Pos4& l_, const PosL4& pos_, const uint8_t alpha = 255)
 	{
 		tex(pos_.x, pos_.y, pos_.w, pos_.h).resized(l_.x2 - l_.x1, l_.y2 - l_.y1).draw(p_.x, p_.y, s3d::Alpha(alpha));
 		return 0;
 	}
 
-	int32_t asTex4S3(const OriginatorTexture& tex, const Pos2& p_, const Pos2& l_,const PosL4& pos_, const uint8_t alpha = 255)
+	const int32_t asTex4S3(const OriginatorTexture& tex, const Pos2& p_, const Pos2& l_,const PosL4& pos_, const uint8_t alpha = 255)
 	{
 		tex(pos_.x, pos_.y, pos_.w, pos_.h).resized(l_.x, l_.y).draw(0, 0, s3d::Alpha(alpha));
 		return -1;
 	}
 
-	int32_t asTex4S3(const OriginatorTexture& tex, const Pos2& p_, const Pos2& l_, const PosL4& pos_, const float r_,const uint8_t alpha = 255)
+	const int32_t asTex4S3(const OriginatorTexture& tex, const Pos2& p_, const Pos2& l_, const PosL4& pos_, const float r_,const uint8_t alpha = 255)
 	{
 		tex(pos_.x, pos_.y, pos_.w, pos_.h).resized(l_.x, l_.y).rotated(double(r_)).draw(p_.x, p_.y, s3d::Alpha(alpha));
 		return -1;
 	}
 
 	//todo
-	int32_t asTex8(const OriginatorTexture tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
+	const int32_t asTex8(const OriginatorTexture tex, const Pos8& pos8 = pos8_100, const uint8_t alpha = 255)
 	{
 		return -1;
 	}

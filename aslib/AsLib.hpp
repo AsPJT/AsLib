@@ -149,7 +149,7 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 #include "AsRect.hpp"
 
 //テクスチャ
-#include "AsTex.hpp"
+#include "AsTexure.hpp"
 
 //主要クラス(All) (N)
 #include "AsClass.hpp"
@@ -157,7 +157,7 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //メインループ(DL/S3/NO) (T)
 #include "AsLoop.hpp"
 
-//フォント
+//フォント (T)
 #include "AsFont.hpp"
 
 //ファイル読み書き(All) (N)
@@ -166,16 +166,16 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //一時停止(DL/S3?/NO) (T)
 #include "AsStop.hpp"
 
-//キーボード入力
+//キーボード入力 (T)
 #include "AsKeyInput.hpp"
 
-//キーボード
+//キーボード (T)
 #include "AsKey.hpp"
 
-//ゲームパッド
+//ゲームパッド (T)
 #include "AsGamePad.hpp"
 
-//空間を扱う(All)
+//空間を扱う(All) (N)
 #include "AsMap.hpp"
 
 //円描画 (T)
@@ -187,21 +187,21 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //Wi-Fi (T)
 #include "AsWiFi.hpp"
 
-//ライセンス
+//ライセンス (T)
 #include "AsLicense.hpp"
 
 //SNS (T)
 #include "AsSNS.hpp"
 
-//ログ(DL/S3/NO/All)
+//ログ(DL/S3/NO/All) (T)
 #include "AsLog.hpp"
 
-//メイン管理
+//メイン管理 (N)
 #include "AsMainControl.hpp"
 
 //MainControl関連----------------------------------------
 
-//タイトルロゴのシーンチェンジ関連(MC-All)
+//タイトルロゴのシーンチェンジ関連(MC-All) (N)
 #include "AsMC_LogoDraw.hpp"
 
 //管理クラス乱数(MC-All) (N)

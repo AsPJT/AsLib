@@ -13,7 +13,6 @@ namespace AsLib
 	constexpr size_t KEY_INPUT_CHAR_MAX_1 = KEY_INPUT_CHAR_MAX + 1;
 
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-
 #if defined(__ANDROID__)
 
 	const char* const asKeyInputAndroid()
@@ -86,40 +85,20 @@ namespace AsLib
 #endif
 	}
 
-#else
+#endif
+#endif
+
+
 
 	inline int32_t asKeyInput(char* name, const Pos2& pos2 = pos2_0, const size_t& max_char = KEY_INPUT_CHAR_MAX)
 	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 		return int32_t(DxLib::KeyInputString(int(pos2.x), int(pos2.y), max_char, name, TRUE));
-	}
-
-	inline int32_t asKeyInput1Byte(char* name, const Pos2& pos2 = pos2_0, const size_t& max_char = KEY_INPUT_CHAR_MAX)
-	{
-		return int32_t(DxLib::KeyInputSingleCharString(int(pos2.x), int(pos2.y), max_char, name, TRUE));
-	}
-
-	inline int32_t asKeyInputNum(const Pos2& pos2 = pos2_0, const int32_t& max_num = 10, const int32_t& min_num = 0)
-	{
-		return int32_t(DxLib::KeyInputNumber(pos2.x, pos2.y, max_num - 1, min_num + 1, TRUE));
-	}
-
-	const char* const asKeyInput(const Pos2& pos2 = pos2_0)
-	{
-		static char key_string[KEY_INPUT_CHAR_MAX_1];
-		for (size_t i = 0; i < KEY_INPUT_CHAR_MAX_1; ++i) key_string[i] = '\0';
-
-		asKeyInput(key_string, pos2);
-		return key_string;
-	}
-
-#endif
-
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-
+	return 0;
+#elif defined(ASLIB_INCLUDE_TP)
+	return 0;
 #else //Console
-
-	int32_t asKeyInput(char* name, const Pos2& pos2 = pos2_0, const size_t max_char = KEY_INPUT_CHAR_MAX)
-	{
 		std::string key_string;
 		std::cin >> key_string;
 
@@ -131,8 +110,52 @@ namespace AsLib
 		}
 
 		return 0;
+#endif
 	}
 
+	inline int32_t asKeyInput1Byte(char* name, const Pos2& pos2 = pos2_0, const size_t& max_char = KEY_INPUT_CHAR_MAX)
+	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
+		return int32_t(DxLib::KeyInputSingleCharString(int(pos2.x), int(pos2.y), max_char, name, TRUE));
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		return 0;
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
+#else //Console
+		return 0;
 #endif
+	}
+
+	inline int32_t asKeyInputNum(const Pos2& pos2 = pos2_0, const int32_t& max_num = 10, const int32_t& min_num = 0)
+	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
+		return int32_t(DxLib::KeyInputNumber(pos2.x, pos2.y, max_num - 1, min_num + 1, TRUE));
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		return 0;
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
+#else //Console
+		return 0;
+#endif
+	}
+
+	const char* const asKeyInput(const Pos2& pos2 = pos2_0)
+	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
+		static char key_string[KEY_INPUT_CHAR_MAX_1];
+		for (size_t i = 0; i < KEY_INPUT_CHAR_MAX_1; ++i) key_string[i] = '\0';
+
+		asKeyInput(key_string, pos2);
+		return key_string;
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		return 0;
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
+#else //Console
+		return 0;
+#endif
+	}
+
+
 
 }

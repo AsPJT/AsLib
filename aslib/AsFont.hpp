@@ -11,15 +11,17 @@ namespace AsLib
 {
 	constexpr int32_t FONT_THICK = 7;
 
-	inline Pos2 asMiddle(const OriginatorFont& id_, const char* const str_,const Pos2& pos_)
+	inline const Pos2 asMiddle(const OriginatorFont& id_, const char* const str_, const Pos2& pos_)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-		return Pos2(pos_.x - (DxLib::GetDrawStringWidthToHandle(str_, int(std::string(str_).length()),id_) / 2), pos_.y - (DxLib::GetFontSizeToHandle(id_) / 2));
+		return Pos2(pos_.x - (DxLib::GetDrawStringWidthToHandle(str_, int(std::string(str_).length()), id_) / 2), pos_.y - (DxLib::GetFontSizeToHandle(id_) / 2));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		id_; str_;
 		return pos_;
+#elif defined(ASLIB_INCLUDE_TP)
+		return Pos2();
 #else //Console
-
+		return Pos2();
 #endif
 	}
 
@@ -32,8 +34,10 @@ namespace AsLib
 		//todo
 		font_name;
 		return OriginatorFont(font_size, s3d::Typeface::Black);
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
 #else //Console
-
+		return 0;
 #endif
 	}
 
@@ -42,32 +46,39 @@ namespace AsLib
 		return asMakeFont(font_size, font_name.c_str());
 	}
 
-#if defined(ASLIB_INCLUDE_DL) //DxLib
 
-
-
-	int32_t asPrint(const OriginatorFont font, const char* const format_string = "", const Pos2& pos2 = pos2_0, const ColorRGB& color_rgb = white)
+	const int32_t asPrint(const OriginatorFont font, const char* const format_string = "", const Pos2& pos2 = pos2_0, const ColorRGB& color_rgb = white)
 	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255) == -1) return -1;
 		if (DxLib::DrawStringFToHandle(float(pos2.x), float(pos2.y), format_string, color_rgb, font) == -1) return -1;
 		return 0;
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		return 0;
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
+#else //Console
+		return 0;
+#endif
 	}
 
-	int32_t asPrint(const OriginatorFont font, const char* const format_string = "", const Pos2& pos2 = pos2_0, const ColorRGBA& color_rgba = whiteA)
+	const int32_t asPrint(const OriginatorFont font, const char* const format_string = "", const Pos2& pos2 = pos2_0, const ColorRGBA& color_rgba = whiteA)
 	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, color_rgba.a) == -1) return -1;
 		if (DxLib::DrawStringFToHandle(float(pos2.x), float(pos2.y), format_string, color_rgba, font) == -1) return -1;
 		return 0;
+#elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		return 0;
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
+#else //Console
+		return 0;
+#endif
 	}
 
-#elif defined(ASLIB_INCLUDE_S3) //Siv3D
-
-#else //Console
-
-#endif
-
 	template<typename... Rest>
-	std::string printStringS3(const char *format_string, const Rest&... rest)
+	const std::string printStringS3(const char *format_string, const Rest&... rest)
 	{
 		constexpr size_t PRINT_STRING_MAX = 1024;
 		char sn_string[PRINT_STRING_MAX];
@@ -75,53 +86,61 @@ namespace AsLib
 		return std::string(sn_string);
 	}
 
-	inline bool asFont(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const ColorRGBA& color_)
+	inline const bool asFont(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const ColorRGBA& color_)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, int(color_.a)) == 0) && (DxLib::DrawStringToHandle(int(pos_.x), int(pos_.y), format_string, color_, id_, id_) == 0);
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		id_(s3d::Unicode::UTF8ToUTF32(format_string)).draw(double(pos_.x), double(pos_.y), s3d::Color(color_));
 		return true;
+#elif defined(ASLIB_INCLUDE_TP)
+		return true;
 #else //Console
-		
+		return true;
 #endif
 	}
 
-	inline bool asFontAt(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const ColorRGBA& color_)
+	inline const bool asFontAt(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const ColorRGBA& color_)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return asFont(id_, format_string, asMiddle(id_, format_string, pos_), color_);
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		id_(s3d::Unicode::UTF8ToUTF32(format_string)).drawAt(double(pos_.x), double(pos_.y), s3d::Color(color_));
 		return true;
+#elif defined(ASLIB_INCLUDE_TP)
+		return true;
 #else //Console
-
+		return true;
 #endif
 	}
 
 	template<typename... Rest>
-	inline bool asFont(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const ColorRGBA& color_, const Rest&... rest)
+	inline const bool asFont(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const ColorRGBA& color_, const Rest&... rest)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, int(color_.a)) == 0) && (DxLib::DrawFormatStringToHandle(int(pos_.x), int(pos_.y), color_, id_, format_string, rest...) == 0);
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		id_(s3d::Unicode::UTF8ToUTF32(printStringS3(format_string, rest...))).draw(double(pos_.x), double(pos_.y), s3d::Color(color_));
 		return true;
+#elif defined(ASLIB_INCLUDE_TP)
+		return true;
 #else //Console
-
+		return true;
 #endif
 	}
 
 	template<typename... Rest>
-	inline bool asFontAt(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const ColorRGBA& color_, const Rest&... rest)
+	inline const bool asFontAt(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const ColorRGBA& color_, const Rest&... rest)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return asFont(id_, format_string, asMiddle(id_, printStringS3(format_string, rest...), pos_), color_, rest...);
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		id_(s3d::Unicode::UTF8ToUTF32(printStringS3(format_string, rest...))).drawAt(double(pos_.x), double(pos_.y), s3d::Color(color_));
 		return true;
+#elif defined(ASLIB_INCLUDE_TP)
+		return true;
 #else //Console
-
+		return true;
 #endif
 	}
 
@@ -169,16 +188,20 @@ namespace AsLib
 		int32_t Size() const { return this->size; };
 		const char* const fontName() const { return this->fontname.c_str(); };
 
-		FontMainData& changeSize(const int32_t& size_) { this->size += size_;
+		FontMainData& changeSize(const int32_t& size_) {
+			this->size += size_;
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-		DxLib::DeleteFontToHandle(this->id);
-		this->id = DxLib::CreateFontToHandle(this->fontname.c_str(), this->size, FONT_THICK);
+			DxLib::DeleteFontToHandle(this->id);
+			this->id = DxLib::CreateFontToHandle(this->fontname.c_str(), this->size, FONT_THICK);
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		this->id = OriginatorFont(size_);
+			this->id = OriginatorFont(size_);
+#elif defined(ASLIB_INCLUDE_TP)
+
 #else //Console
 
 #endif
-		return *this; }
+			return *this;
+		}
 
 	private:
 		//フォントデータのID
@@ -203,6 +226,8 @@ namespace AsLib
 		asFont(this->id, format_string, asMiddle(this->id, format_string, pos_), color_);
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		asFontAt(this->id, format_string, pos_, color_);
+#elif defined(ASLIB_INCLUDE_TP)
+
 #else //Console
 
 #endif
@@ -216,6 +241,8 @@ namespace AsLib
 		asFont(this->id, format_string, asMiddle(this->id, format_string, pos_), color_, rest...);
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		asFontAt(this->id, format_string, pos_, color_, rest...);
+#elif defined(ASLIB_INCLUDE_TP)
+
 #else //Console
 
 #endif
