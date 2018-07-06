@@ -103,6 +103,10 @@ void Main() { asMain(); AsLib::asEnd(); return; }
 #elif defined(ASLIB_INCLUDE_NO)
 int main() { return int(asMain() && AsLib::asEnd()); }
 #define ANIME_TEXTURE_3
+#elif defined(ASLIB_INCLUDE_OF)
+#include "ofMain.h"
+	int main() { return int(asMain()); }
+#define ANIME_TEXTURE_3
 #elif defined(ASLIB_INCLUDE_TP)
 int main() { return int(asMain()); }
 #define ANIME_TEXTURE_3

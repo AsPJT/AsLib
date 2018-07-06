@@ -36,6 +36,19 @@ namespace AsLib
 	//•¶šŒn
 	using OriginatorFont = s3d::Font;
 //#define TEX_INIT asTex(U"a.png")
+#elif defined(ASLIB_INCLUDE_OF)
+	//•`‰æ‰æ‘œŒn
+	using OriginatorTexture = ofImage;
+	//CPU‰æ‘œŒn
+	using OriginatorImage = int32_t;
+	//å‰¹ºŒn
+	using OriginatorBGM = int32_t;
+	//•›‰¹ºŒn
+	using OriginatorSE = int32_t;
+	//“®‰æŒn
+	using OriginatorMovie = int32_t;
+	//•¶šŒn
+	using OriginatorFont = int32_t;
 #elif defined(ASLIB_INCLUDE_TP)
 	//•`‰æ‰æ‘œŒn
 	using OriginatorTexture = int32_t;

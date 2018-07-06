@@ -18,6 +18,8 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		s3d::Circle(double(pos_.x), double(pos_.y), r_).draw(col_);
 		return true;
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 		return true;
 #else //Console

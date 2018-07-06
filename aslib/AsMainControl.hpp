@@ -276,7 +276,7 @@ namespace AsLib
 		this->battery.initTouch();
 
 		//îwåiêFïœçX
-		AsChangeColorBG(scene_BG[add_select_scene]);
+		asSetBackGround(scene_BG[add_select_scene]);
 
 		if (add_select_scene < SCENE_MAX) select_scene = add_select_scene;
 		is_change_scene = true;
@@ -417,6 +417,10 @@ namespace AsLib
 		this->srand32(uint32_t(std::time(nullptr) & 0xffffffff));
 		asSRand8(uint8_t(std::time(nullptr) & 0xff));
 		asSRand32(uint32_t(std::time(nullptr) & 0xffffffff));
+		//OFó·äOë[íu
+#if defined(ASLIB_INCLUDE_OF)
+		ofSetupOpenGL(add_window_size.x, add_window_size.y, OF_WINDOW);
+#endif
 		AsInit(add_title, add_window_size, add_BG_color);
 		const MainData add_init_data(add_title, asWindowSizeTrue(add_window_size), add_BG_color);
 		init_data = add_init_data;

@@ -25,6 +25,10 @@ namespace AsLib
 		return DxLib::LoadGraph(name);
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return s3d::Texture(s3d::Unicode::UTF8ToUTF32(std::string(name)));
+#elif defined(ASLIB_INCLUDE_OF)
+		ofImage image_of;
+		image_of.load(name);
+		return image_of;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -75,6 +79,8 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		texture_size(int32_t(id.width()), int32_t(id.height()));
 		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -99,6 +105,8 @@ namespace AsLib
 		return -1;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -114,6 +122,8 @@ namespace AsLib
 
 		return -1;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
 		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
@@ -132,6 +142,8 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		tex.resized(pos.x2 - pos.x1, pos.y2 - pos.y1).draw(pos.x1, pos.y1, s3d::Alpha(alpha));
 		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -149,6 +161,8 @@ namespace AsLib
 		if (colorRGBA.a == 0) return -1;
 		if (asRect(pos4, colorRGBA) == -1) return -1;
 		return -2;
+#elif defined(ASLIB_INCLUDE_OF)
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
@@ -170,6 +184,8 @@ namespace AsLib
 		const Pos4 new_pos4 = { x1,y1,x2,y2 };
 		return asTex(tex, new_pos4, alpha, colorRGBA);
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
 		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;

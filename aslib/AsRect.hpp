@@ -18,6 +18,8 @@ namespace AsLib
 		static PosL4 as_rect_pos(pos_);
 		s3d::Rect(as_rect_pos.x, as_rect_pos.y, as_rect_pos.w, as_rect_pos.h).draw(s3d::Color(col));
 		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console

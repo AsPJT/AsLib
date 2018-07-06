@@ -47,7 +47,7 @@ namespace AsLib
 	const MainData asReadInit(const char* const file_name, const char* const add_title = "", const Pos2& add_window_size = WINDOW_SIZE, const ColorRGB& add_BG_color = BG_COLOR)
 	{
 		MainData init(add_title, add_window_size, add_BG_color);
-		if (asRead(file_name, &init, sizeof(init), 1) == 0) AsChangeTitle(init.title());
+		if (asRead(file_name, &init, sizeof(init), 1) == 0) asSetTitle(init.title());
 		return init;
 	}
 

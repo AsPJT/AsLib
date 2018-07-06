@@ -33,6 +33,8 @@ namespace AsLib
 #else
 		return 0;
 #endif
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -61,6 +63,8 @@ namespace AsLib
 #else
 		return 0;
 #endif
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console

@@ -96,6 +96,8 @@ namespace AsLib
 		return int32_t(DxLib::KeyInputString(int(pos2.x), int(pos2.y), max_char, name, TRUE));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 	return 0;
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -119,6 +121,8 @@ namespace AsLib
 		return int32_t(DxLib::KeyInputSingleCharString(int(pos2.x), int(pos2.y), max_char, name, TRUE));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -132,6 +136,8 @@ namespace AsLib
 		return int32_t(DxLib::KeyInputNumber(pos2.x, pos2.y, max_num - 1, min_num + 1, TRUE));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -148,6 +154,8 @@ namespace AsLib
 		asKeyInput(key_string, pos2);
 		return key_string;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
 		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;

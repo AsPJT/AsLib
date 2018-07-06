@@ -17,6 +17,8 @@ namespace AsLib
 		return int32_t(DxLib::GetTouchInputNum());
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -34,6 +36,8 @@ namespace AsLib
 		return 0;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -48,6 +52,8 @@ namespace AsLib
 		DxLib::GetTouchInput(touch_id, &touch_x, &touch_y, nullptr, nullptr);
 		return Pos2(int32_t(touch_x), int32_t(touch_y));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
 		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;

@@ -23,6 +23,8 @@ namespace AsLib
 		if (sps.BatteryLifePercent == BATTERY_PERCENTAGE_UNKNOWN) return 0;
 		else return sps.BatteryLifePercent;
 #endif
+#elif defined(ASLIB_INCLUDE_OF)
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console

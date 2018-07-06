@@ -41,6 +41,8 @@ namespace AsLib
 		return pos;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return Pos2(int32_t(s3d::Cursor::Pos().x), int32_t(s3d::Cursor::Pos().y));
+#elif defined(ASLIB_INCLUDE_OF)
+		return Pos2();
 #elif defined(ASLIB_INCLUDE_TP)
 		return Pos2();
 #else //Console
@@ -55,6 +57,8 @@ namespace AsLib
 		return int32_t(DxLib::GetMouseWheelRotVol(TRUE));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return int32_t(s3d::Mouse::Wheel());
+#elif defined(ASLIB_INCLUDE_OF)
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -83,6 +87,8 @@ namespace AsLib
 		count[MOUSE_6].update(s3d::MouseX3.pressed() != 0);
 		count[MOUSE_7].update(s3d::MouseX4.pressed() != 0);
 		count[MOUSE_8].update(s3d::MouseX5.pressed() != 0);
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 
 #else //Console

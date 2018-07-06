@@ -906,6 +906,11 @@ void checkKey(bool* const AS_key)
 	AS_key[Keyboard_right_alt] = bool(s3d::KeyRAlt.pressed());
 	return;
 }
+#elif defined(ASLIB_INCLUDE_OF)
+void checkKey(bool* const AS_key)
+{
+	return;
+}
 #elif defined(ASLIB_INCLUDE_TP)
 void checkKey(bool* const AS_key)
 {

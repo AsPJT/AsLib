@@ -18,6 +18,8 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		id_; str_;
 		return pos_;
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 		return Pos2();
 #else //Console
@@ -34,6 +36,8 @@ namespace AsLib
 		//todo
 		font_name;
 		return OriginatorFont(font_size, s3d::Typeface::Black);
+#elif defined(ASLIB_INCLUDE_OF)
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -55,6 +59,8 @@ namespace AsLib
 		return 0;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -69,6 +75,8 @@ namespace AsLib
 		if (DxLib::DrawStringFToHandle(float(pos2.x), float(pos2.y), format_string, color_rgba, font) == -1) return -1;
 		return 0;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
+		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
 		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
@@ -93,6 +101,8 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		id_(s3d::Unicode::UTF8ToUTF32(format_string)).draw(double(pos_.x), double(pos_.y), s3d::Color(color_));
 		return true;
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 		return true;
 #else //Console
@@ -107,6 +117,8 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		id_(s3d::Unicode::UTF8ToUTF32(format_string)).drawAt(double(pos_.x), double(pos_.y), s3d::Color(color_));
 		return true;
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 		return true;
 #else //Console
@@ -122,6 +134,8 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		id_(s3d::Unicode::UTF8ToUTF32(printStringS3(format_string, rest...))).draw(double(pos_.x), double(pos_.y), s3d::Color(color_));
 		return true;
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 		return true;
 #else //Console
@@ -137,6 +151,8 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		id_(s3d::Unicode::UTF8ToUTF32(printStringS3(format_string, rest...))).drawAt(double(pos_.x), double(pos_.y), s3d::Color(color_));
 		return true;
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 		return true;
 #else //Console
@@ -194,6 +210,8 @@ namespace AsLib
 			this->id = DxLib::CreateFontToHandle(this->fontname.c_str(), this->size, FONT_THICK);
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 			this->id = OriginatorFont(size_);
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 
 #else //Console
@@ -225,6 +243,8 @@ namespace AsLib
 		asFont(this->id, format_string, asMiddle(this->id, format_string, pos_), color_);
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		asFontAt(this->id, format_string, pos_, color_);
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 
 #else //Console
@@ -240,6 +260,8 @@ namespace AsLib
 		asFont(this->id, format_string, asMiddle(this->id, format_string, pos_), color_, rest...);
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		asFontAt(this->id, format_string, pos_, color_, rest...);
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 
 #else //Console

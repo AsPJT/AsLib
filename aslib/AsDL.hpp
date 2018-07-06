@@ -1363,8 +1363,8 @@ constexpr int CTRL_CODE_CMP=0x20;
 		inline const int GetTouchInputNum() { return int(asTouchNum()); }
 
 		//その他画面操作系関数
-		inline const int SetGraphMode(const int x_, const int y_, const int bit_ = 32) { return int(AsChangeWindowSize(Pos2(int32_t(x_), int32_t(y_)))); }
-		inline const int SetGraphMode(const Pos2& pos_, const int bit_ = 32) { return int(AsChangeWindowSize(pos_)); }
+		inline const int SetGraphMode(const int x_, const int y_, const int bit_ = 32) { return int(asSetWindowSize(Pos2(int32_t(x_), int32_t(y_)))); }
+		inline const int SetGraphMode(const Pos2& pos_, const int bit_ = 32) { return int(asSetWindowSize(pos_)); }
 		inline const int SetFullScreenResolutionMode(const int ResolutionMode = 1) { return 0; }
 		inline const int SetFullScreenScalingMode(const int ScalingMode = 1) { return 0; }
 		const int GetScreenState(int* const x_, int* const y_, int* const col) { const Pos2 p = asWindowSize(); *x_ = int(p.x); *y_ = int(p.y); *col = 32; return 0; }
@@ -1378,7 +1378,7 @@ constexpr int CTRL_CODE_CMP=0x20;
 		inline const int SetDrawArea(const int x1, const int y1, const int x2, const int y2) { return 0; }//todo
 		inline const int SetDrawArea(const Pos4& p_) { return 0; }//todo
 		inline const int ClearDrawScreen() { return 0; }
-		inline const int SetBackgroundColor(const int r_, const int g_, const int b_) { return AsChangeColorBG(ColorRGB(uint8_t(r_ & 0xff), uint8_t(g_ & 0xff), uint8_t(b_ & 0xff))); }
+		inline const int SetBackgroundColor(const int r_, const int g_, const int b_) { return asSetBackGround(ColorRGB(uint8_t(r_ & 0xff), uint8_t(g_ & 0xff), uint8_t(b_ & 0xff))); }
 		inline const unsigned int GetColor(const int r_, const int g_, const int b_) { return ((unsigned int)((r_ & 0xff) << 0x10) + (unsigned int)((g_ & 0xff) << 0x8) + (unsigned int)(b_ & 0xff)); }
 		inline const unsigned int GetColor(const ColorRGBA& col_) { return ((unsigned int)((col_.r & 0xff) << 0x10) + (unsigned int)((col_.g & 0xff) << 0x8) + (unsigned int)(col_.b & 0xff)); }
 		inline const int SetDrawScreen(const int draw_screen = 1) { return 0; }
@@ -1386,7 +1386,7 @@ constexpr int CTRL_CODE_CMP=0x20;
 
 		//ウインドウモード関係
 		inline const int ChangeWindowMode(const int flag = 1) { return 0; }
-		inline const int SetMainWindowText(const char* const t_) { return int(AsChangeTitle(t_)); }
+		inline const int SetMainWindowText(const char* const t_) { return int(asSetTitle(t_)); }
 		inline const int SetWindowIconID(const int ID = 1) { return 0; }
 		inline const int SetWindowSizeChangeEnableFlag(const int flag = 1) { return 0; }
 		inline const int SetWindowSizeExtendRate(const double ExRate = 1.0) { return 0; }

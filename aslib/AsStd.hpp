@@ -36,6 +36,8 @@ namespace AsLib
 		return asWindowSizeSave(false);
 #elif defined(ASLIB_INCLUDE_S3)
 		return Pos2(s3d::Window::Width(), s3d::Window::Height());
+#elif defined(ASLIB_INCLUDE_OF)
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -48,13 +50,15 @@ namespace AsLib
 
 
 	//画面サイズ変更
-	int32_t AsChangeWindowSize(const Pos2& window_size = WINDOW_SIZE)
+	int32_t asSetWindowSize(const Pos2& window_size = WINDOW_SIZE)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		asWindowSizeSave(true, window_size);
 		return int32_t(DxLib::SetGraphMode(window_size.x, window_size.y, 32));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		s3d::Window::Resize(window_size.x, window_size.y);
+		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
 		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
@@ -64,12 +68,15 @@ namespace AsLib
 	}
 
 	//背景色変更
-	inline const int32_t AsChangeColorBG(const ColorRGB& BG_color = BG_COLOR)
+	inline const int32_t asSetBackGround(const ColorRGB& BG_color = BG_COLOR)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return int32_t(DxLib::SetBackgroundColor(BG_color.r, BG_color.g, BG_color.b));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		s3d::Graphics::SetBackground(s3d::Color(BG_color));
+		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
+		ofBackground(int(BG_color.r), int(BG_color.g), int(BG_color.b));
 		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
@@ -80,7 +87,7 @@ namespace AsLib
 
 
 	//タイトル変更
-	inline const int32_t AsChangeTitle(const char* const title)
+	inline const int32_t asSetTitle(const char* const title)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__WINDOWS__)
@@ -90,6 +97,9 @@ namespace AsLib
 #endif
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		s3d::Window::SetTitle(s3d::Unicode::UTF8ToUTF32(title));
+		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
+		ofSetWindowTitle(title);
 		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
@@ -109,6 +119,8 @@ namespace AsLib
 		pos(-1, -1);
 		return pos;
 #endif
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -140,6 +152,8 @@ namespace AsLib
 #endif
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return pos2;
+#elif defined(ASLIB_INCLUDE_OF)
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -152,6 +166,8 @@ namespace AsLib
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		if (pos2.x == -1 || pos2.y == -1) return true;
 		else return false;
+#elif defined(ASLIB_INCLUDE_OF)
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -163,6 +179,8 @@ namespace AsLib
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return { -1,-1 };
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -186,6 +204,8 @@ namespace AsLib
 
 		return { -1,-1 };
 #endif
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -212,14 +232,14 @@ namespace AsLib
 			GetWindowRect(GetDesktopWindow(), &rc);
 			Pos2 full_pos;
 			full_pos(int32_t(rc.right - rc.left), int32_t(rc.bottom - rc.top));
-			if (AsChangeWindowSize(full_pos) == -1) return -1;
+			if (asSetWindowSize(full_pos) == -1) return -1;
 		}
 		else {//通常のモード
 			if (DxLib::ChangeWindowMode(TRUE) == -1) return -1;
-			if (AsChangeWindowSize(window_size) == -1) return -1;
+			if (asSetWindowSize(window_size) == -1) return -1;
 		}
 #endif
-		if (AsChangeColorBG(BG_color) == -1) return -1;
+		if (asSetBackGround(BG_color) == -1) return -1;
 		//ここで初期化
 		if (DxLib::DxLib_Init() == -1) return -1;
 
@@ -231,7 +251,7 @@ namespace AsLib
 		}
 #endif
 #if defined(__ANDROID__)
-		if (AsChangeWindowSize(asWindowSizeTrue(window_size)) == -1) return -1;
+		if (asSetWindowSize(asWindowSizeTrue(window_size)) == -1) return -1;
 #endif
 		if (DxLib::SetDXArchiveExtension("as") == -1) return -1;
 
@@ -261,6 +281,10 @@ namespace AsLib
 		s3d::Graphics::SetBackground(s3d::Color(BG_color));
 		static s3d::RenderStateBlock2D wireframe(s3d::SamplerState::ClampNearest);
 		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
+		//asSetWindowSize(window_size);
+		asSetBackGround(BG_color);
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 return 0;
 #else //Console
@@ -275,6 +299,8 @@ return 0;
 		return int32_t(DxLib::DxLib_End());
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 return 0;
 #else //Console
@@ -291,6 +317,8 @@ return 0;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		s3d::Print(s3d::Unicode::UTF8ToUTF32(printString(format_string, rest...)));
 		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 return 0;
 #else //Console
@@ -304,6 +332,8 @@ return 0;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		s3d::Print(s3d::Unicode::UTF8ToUTF32(format_string));
 		return 0;
+#elif defined(ASLIB_INCLUDE_OF)
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 return 0;
 #else //Console
@@ -315,13 +345,13 @@ return 0;
 
 	const int32_t AsInit(const char* const title = "", const Pos2& window_size = WINDOW_SIZE, const ColorRGB& BG_color = BG_COLOR)
 	{
-		if (AsChangeTitle(title) == -1) return -1;
+		if (asSetTitle(title) == -1) return -1;
 		return AsInit(window_size, BG_color);
 	}
 
 	const int32_t AsInit(const std::string& title = "", const Pos2& window_size = WINDOW_SIZE, const ColorRGB& BG_color = BG_COLOR)
 	{
-		if (AsChangeTitle(title.c_str()) == -1) return -1;
+		if (asSetTitle(title.c_str()) == -1) return -1;
 		return AsInit(window_size, BG_color);
 	}
 
@@ -337,9 +367,9 @@ return 0;
 	}
 
 	//タイトル変更
-	inline const int32_t AsChangeTitle(const std::string& title)
+	inline const int32_t asSetTitle(const std::string& title)
 	{
-		return AsChangeTitle(title.c_str());
+		return asSetTitle(title.c_str());
 	}
 
 	//タイトルを記録する関数
