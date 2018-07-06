@@ -17,9 +17,9 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return s3d::System::Update();
 #elif defined(ASLIB_INCLUDE_TP)
-		return true;
+		return false;
 #else //Console
-		return true;
+		return false;
 #endif
 	}
 }

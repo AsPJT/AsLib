@@ -150,8 +150,7 @@ namespace AsLib
 	{
 	public:
 
-		FontMainData(const OriginatorFont& add_id, const int32_t add_size = 10, const char* const add_fontname = "Meiryo UI", const int32_t add_thick = FONT_THICK)
-			:id(add_id), size(add_size), thick(add_thick), fontname(std::string(add_fontname)) {}
+		FontMainData(const OriginatorFont& add_id, const int32_t add_size = 10, const char* const add_fontname = "Meiryo UI", const int32_t add_thick = FONT_THICK):id(add_id), size(add_size), thick(add_thick), fontname(std::string(add_fontname)) {}
 
 		FontMainData& draw(const char* const, const Pos2&, const ColorRGBA& = black_RGBA);
 		FontMainData& draw(const std::string& string_, const ColorRGBA& color_ = black_RGBA) { return this->draw(string_.c_str(), color_); }

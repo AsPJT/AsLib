@@ -4,7 +4,7 @@
 //
 //                    制作者: がっちょ (wanotaitei@gmail.com)
 //
-//                                   Ver 0.1.12.0 Alpha
+//                                   Ver 0.2.0.0 Alpha
 //
 //     ----------     ----------     ----------     ----------     ----------
 
@@ -15,17 +15,26 @@
 #include <cstdint>
 
 //AsLibバージョン
-constexpr int32_t ASLIB_VERSION = 0x01c0;
-const char* const ASLIB_VERSION_STR = "0.1.12.0 Alpha";
+constexpr int32_t ASLIB_VERSION = 0x0200;
+const char* const ASLIB_VERSION_STR = "0.2.0.0 Alpha";
 
 //AsLibバージョン (UTF)
-const char* const ASLIB_VERSION_STR8 = u8"0.1.12.0 Alpha";
-const char16_t* const ASLIB_VERSION_STR16 = u"0.1.12.0 Alpha";
-const char32_t* const ASLIB_VERSION_STR32 = U"0.1.12.0 Alpha";
+const char* const ASLIB_VERSION_STR8 = u8"0.2.0.0 Alpha";
+const char16_t* const ASLIB_VERSION_STR16 = u"0.2.0.0 Alpha";
+const char32_t* const ASLIB_VERSION_STR32 = U"0.2.0.0 Alpha";
 
 int32_t asMain();
 namespace AsLib { const int32_t asEnd(); }
 //他ライブラリインクルード
+#if defined(__DXLIB)
+#if !defined(ASLIB_INCLUDE_DL)
+#defined ASLIB_INCLUDE_DL
+#endif
+#elif defined(SIV3D_INCLUDED)
+#if !defined(ASLIB_INCLUDE_S3)
+#defined ASLIB_INCLUDE_S3
+#endif
+#endif
 #if defined(ASLIB_INCLUDE_AS)
 #include <Windows.h>
 int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int i = int(asMain()); AsLib::asEnd(); return i; }
@@ -34,7 +43,9 @@ int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int 
 #if !defined(DX_NON_USING_NAMESPACE_DXLIB)
 #define DX_NON_USING_NAMESPACE_DXLIB
 #endif
-#include "DxLib.h"
+#if !defined(__DXLIB)
+#include <DxLib.h>
+#endif
 #if !defined(ANIME_TEXTURE_2)
 #define ANIME_TEXTURE_2
 #endif
@@ -78,7 +89,9 @@ int android_main() { const int i = int(asMain()); AsLib::asEnd(); return i; }
 #if !defined(NO_S3D_USING)
 #define NO_S3D_USING
 #endif
-#include "Siv3D.hpp"
+#if !defined(SIV3D_INCLUDED)
+#include <Siv3D.hpp>
+#endif
 #if !defined(ANIME_TEXTURE_1)
 #define ANIME_TEXTURE_1
 #endif
@@ -89,13 +102,16 @@ void Main() { asMain(); AsLib::asEnd(); return; }
 
 #elif defined(ASLIB_INCLUDE_NO)
 int main() { return int(asMain() && AsLib::asEnd()); }
+#define ANIME_TEXTURE_3
 #elif defined(ASLIB_INCLUDE_TP)
 int main() { return int(asMain()); }
+#define ANIME_TEXTURE_3
 #else
 #if !defined(ASLIB_INCLUDE_NO)
 #define ASLIB_INCLUDE_NO
 #endif
 int main() { return int(asMain() && AsLib::asEnd()); }
+#define ANIME_TEXTURE_3
 #endif
 
 //基本インクルード

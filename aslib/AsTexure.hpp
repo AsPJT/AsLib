@@ -320,6 +320,8 @@ namespace AsLib
 		int32_t turn_id = 1;
 #elif defined(ANIME_TEXTURE_2)
 		std::unique_ptr<OriginatorTexture[]> id;
+#elif defined(ANIME_TEXTURE_3)
+		int32_t id;
 #endif
 		Pos2 pixel_size;
 		size_t num = 0;
@@ -335,6 +337,8 @@ namespace AsLib
 		}
 #elif defined(ANIME_TEXTURE_2)
 		AnimeMainData(const size_t id_num, std::unique_ptr<OriginatorTexture[]>&& add_id) : id(std::move(add_id)), pixel_size(AsTexSize(this->id[0])), num(id_num) {}
+#elif defined(ANIME_TEXTURE_3)
+		AnimeMainData(const size_t id_num, const int32_t add_id) {}
 #endif
 		const AnimeMainData& draw(const size_t) const;
 		const AnimeMainData& draw(const size_t, const uint8_t) const;
