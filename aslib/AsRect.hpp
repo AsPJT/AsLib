@@ -9,27 +9,20 @@
 
 namespace AsLib
 {
+	const int32_t asRect(const Pos4& pos_ = {}, const ColorRGBA& col = {}) {
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-
-	const int32_t asRect(const Pos4& pos = {}, const ColorRGBA& col = {}) {
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, col.a) == -1) return -1;
-		if (DxLib::DrawBox(int(pos.x1), int(pos.y1), int(pos.x2), int(pos.y2), col, TRUE) == -1) return -1;
+		if (DxLib::DrawBox(int(pos_.x1), int(pos_.y1), int(pos_.x2), int(pos_.y2), col, TRUE) == -1) return -1;
 		return 0;
-	}
-
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-
-	int32_t asRect(const Pos4& pos_ = {}, const ColorRGBA& colorRGBA = {}) {
-		static PosL4 pos;
-		pos = pos_;
-		s3d::Rect(pos.x, pos.y, pos.w, pos.h).draw(s3d::Color(colorRGBA));
+		static PosL4 as_rect_pos(pos_);
+		s3d::Rect(as_rect_pos.x, as_rect_pos.y, as_rect_pos.w, as_rect_pos.h).draw(s3d::Color(col));
 		return 0;
-}
-
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
 #else //Console
-
+		return 0;
 #endif
-
+	}
 	inline int32_t asRect(const ColorRGBA& col = {}, const Pos4& pos = {}) { return asRect(pos, col); }
-
 }

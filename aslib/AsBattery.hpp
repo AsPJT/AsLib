@@ -13,7 +13,7 @@ namespace AsLib
 
 
 	//バッテリー取得
-	inline int32_t asBattery() {
+	inline const int32_t asBattery() {
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return int32_t(DxLib::GetBatteryLifePercent());
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
@@ -23,13 +23,15 @@ namespace AsLib
 		if (sps.BatteryLifePercent == BATTERY_PERCENTAGE_UNKNOWN) return 0;
 		else return sps.BatteryLifePercent;
 #endif
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
 #else //Console
-
+		return 0;
 #endif
 	}
 
 	//バッテリー描画
-	int32_t asBatteryDraw(const PosL4 pos_, const ColorRGBA battery_col = { 0,192,32,255 }, const ColorRGBA out_col = { 75,75,75,255 })
+	const int32_t asBatteryDraw(const PosL4 pos_, const ColorRGBA battery_col = { 0,192,32,255 }, const ColorRGBA out_col = { 75,75,75,255 })
 	{
 		const ColorRGBA empty_col = { 255,255,255,out_col.a };
 

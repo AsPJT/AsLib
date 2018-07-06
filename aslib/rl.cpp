@@ -152,13 +152,14 @@ int32_t asMain()
 {
 	//ä«óùÉNÉâÉX
 	MainControl mc(u8"Simple Counter", Pos2(1000, 1000), BG_COLOR);
-
+	makeLog();
 	AnimeMainData feri(1, asLoadTex("Picture/ikari.png", 6, 4));
 
 	Pos2 te(10,10);
 	Pos2 te2 = (-te + Pos2(5, 5) + Pos2(10, 10) + Pos4(10, 10, 10, 10));
 	asPrint("%d,%d\n", te.x, te.y);
 	te -= te2;
+	te = Pos2(asWindowSizeF());
 	//te ^ 1;
 	asPrint("%d,%d,%d,%d", te.x, te.y,te2.x,te2.y);
 

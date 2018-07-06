@@ -14,6 +14,8 @@ namespace AsLib
 
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 
+#elif defined(ASLIB_INCLUDE_TP)
+
 #else //Console
 
 #endif

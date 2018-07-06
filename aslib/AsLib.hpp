@@ -24,7 +24,7 @@ const char16_t* const ASLIB_VERSION_STR16 = u"0.1.12.0 Alpha";
 const char32_t* const ASLIB_VERSION_STR32 = U"0.1.12.0 Alpha";
 
 int32_t asMain();
-namespace AsLib { int32_t asEnd(); }
+namespace AsLib { const int32_t asEnd(); }
 //他ライブラリインクルード
 #if defined(ASLIB_INCLUDE_AS)
 #include <Windows.h>
@@ -89,6 +89,8 @@ void Main() { asMain(); AsLib::asEnd(); return; }
 
 #elif defined(ASLIB_INCLUDE_NO)
 int main() { return int(asMain() && AsLib::asEnd()); }
+#elif defined(ASLIB_INCLUDE_TP)
+
 #else
 #if !defined(ASLIB_INCLUDE_NO)
 #define ASLIB_INCLUDE_NO
@@ -107,66 +109,65 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 #include <cmath>
 #include <ctime>
 
-//基本変数型
+//基本変数型 (T)
 #include "AsType.hpp"
 
-//乱数系(All)
+//乱数系(All) (N)
 #include "AsRand.hpp"
 
-//色構造体(All)
+//色構造体(All) (N)
 #include "AsColor.hpp"
 
-//基本構造体(All)
+//基本構造体(All) (N)
 #include "AsPos.hpp"
 
-//基本的な定数宣言(All)
+//基本的な定数宣言(All) (N)
 #include "AsConst.hpp"
 
-//タッチカウント(All)
+//タッチカウント(All) (N)
 #include "AsCounter.hpp"
 
-//タッチ系(DL/S3?)
+//タッチ系(DL/S3?) (T)
 #include "AsTouch.hpp"
 
-//基本ファイル読み書き(DL/S3/NO/All)
+//基本ファイル読み書き(DL/S3/NO/All) (N)
 #include "AsFile.hpp"
 
-//基本系(DL/S3)
+//基本系(DL/S3) (T)
 #include "AsStd.hpp"
 
-//マウス
+//マウス (T)
 #include "AsMouse.hpp"
 
-//UTF
+//UTF (N)
 #include "AsUTF.hpp"
 
-//距離
+//距離 (T)
 #include "AsDistance.hpp"
 
-//四角形
+//四角形 (T)
 #include "AsRect.hpp"
 
 //テクスチャ
 #include "AsTex.hpp"
 
-//主要クラス(All)
+//主要クラス(All) (N)
 #include "AsClass.hpp"
 
-//メインループ(DL/S3/NO)
+//メインループ(DL/S3/NO) (T)
 #include "AsLoop.hpp"
 
 //フォント
 #include "AsFont.hpp"
 
-//ファイル読み書き(All)
+//ファイル読み書き(All) (N)
 #include "AsAsFile.hpp"
 
-//一時停止(DL/S3?/NO)
+//一時停止(DL/S3?/NO) (T)
 #include "AsStop.hpp"
 
 //キーボード入力
 #include "AsKeyInput.hpp"
-
 
 //キーボード
 #include "AsKey.hpp"
@@ -177,33 +178,36 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //空間を扱う(All)
 #include "AsMap.hpp"
 
-//円描画
+//円描画 (T)
 #include "AsCircle.hpp"
 
-//電源
+//電源 (T)
 #include "AsBattery.hpp"
 
-//Wi-Fi
+//Wi-Fi (T)
 #include "AsWiFi.hpp"
 
 //ライセンス
 #include "AsLicense.hpp"
 
-//SNS
+//SNS (T)
 #include "AsSNS.hpp"
 
+//ログ(DL/S3/NO/All)
+#include "AsLog.hpp"
+
 //メイン管理
-#include "asMainControl.hpp"
+#include "AsMainControl.hpp"
 
 //MainControl関連----------------------------------------
 
 //タイトルロゴのシーンチェンジ関連(MC-All)
 #include "AsMC_LogoDraw.hpp"
 
-//管理クラス乱数(MC-All)
+//管理クラス乱数(MC-All) (N)
 #include "AsMC_Rand.hpp"
 
-//ポジション
+//ポジション(MC-All) (N)
 #include "AsMC_Pos.hpp"
 
 

@@ -30,7 +30,7 @@ namespace AsLib
 
 
 	//マウスの位置
-	Pos2 mousePos()
+	const Pos2 mousePos()
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		int mouse_x = 0, mouse_y = 0;
@@ -41,21 +41,24 @@ namespace AsLib
 		return pos;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return Pos2(int32_t(s3d::Cursor::Pos().x), int32_t(s3d::Cursor::Pos().y));
+#elif defined(ASLIB_INCLUDE_TP)
+		return Pos2();
 #else //Console
-
+		return Pos2();
 #endif
 	}
 
 	//マウスのホイール回転量(奥:負 手前:正)
-	inline int32_t mouseWheel()
+	inline const int32_t mouseWheel()
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return int32_t(DxLib::GetMouseWheelRotVol(TRUE));
-		return 0;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return int32_t(s3d::Mouse::Wheel());
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
 #else //Console
-
+		return 0;
 #endif
 	}
 
@@ -80,6 +83,8 @@ namespace AsLib
 		count[MOUSE_6].update(s3d::MouseX3.pressed() != 0);
 		count[MOUSE_7].update(s3d::MouseX4.pressed() != 0);
 		count[MOUSE_8].update(s3d::MouseX5.pressed() != 0);
+#elif defined(ASLIB_INCLUDE_TP)
+
 #else //Console
 
 #endif
@@ -104,14 +109,8 @@ namespace AsLib
 		bool up() const { return this->counter[MOUSE_LEFT].Up(); };
 		int32_t count() const { return this->counter[MOUSE_LEFT].Count(); };
 
-		//const Mouse() = default;
-#if defined(__ANDROID__)//todo
 		Mouse() :pos(mousePos()), wheel(mouseWheel()), counter(mouseButton()) {}
-#else
-		const Mouse() :pos(mousePos()), wheel(mouseWheel()), counter(mouseButton()) {}
-#endif
 		
-
 	private:
 		Pos2 pos;
 		int32_t wheel;

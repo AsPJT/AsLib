@@ -15,10 +15,10 @@ namespace AsLib
 	{
 	public:
 		MainData(const char* const add_title = "", const Pos2& add_window_size = WINDOW_SIZE, const ColorRGB& add_BG_color = BG_COLOR);
-		~MainData();
+		~MainData() = default;
 
-		Pos2 windowSize() const { return window_size; };
-		ColorRGB colorBG() const { return BG_color; };
+		const Pos2 windowSize() const { return window_size; };
+		const ColorRGB colorBG() const { return BG_color; };
 		const char* const title() const { return title_name; };
 
 	private:
@@ -43,12 +43,8 @@ namespace AsLib
 		BG_color = add_BG_color;
 	}
 
-	inline MainData::~MainData()
-	{
-	}
-
 	//ファイル読み込み
-	MainData asReadInit(const char* const file_name, const char* const add_title = "", const Pos2& add_window_size = WINDOW_SIZE, const ColorRGB& add_BG_color = BG_COLOR)
+	const MainData asReadInit(const char* const file_name, const char* const add_title = "", const Pos2& add_window_size = WINDOW_SIZE, const ColorRGB& add_BG_color = BG_COLOR)
 	{
 		MainData init(add_title, add_window_size, add_BG_color);
 		if (asRead(file_name, &init, sizeof(init), 1) == 0) AsChangeTitle(init.title());
@@ -56,7 +52,7 @@ namespace AsLib
 	}
 
 	//ファイル書き込み
-	int32_t asWriteInit(const char* const file_name, MainData& init)
+	const int32_t asWriteInit(const char* const file_name, MainData& init)
 	{
 		return asWrite(file_name, &init, sizeof(init), 1);
 	}

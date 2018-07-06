@@ -9,23 +9,21 @@
 
 namespace AsLib
 {
-
-#if defined(ASLIB_INCLUDE_DL) //DxLib
-
-#if defined(__ANDROID__)
-
-	//<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />’Ç‰Á‚ ‚è
 	inline int32_t asWifi()
 	{
-		//return int32_t(DxLib::GetWifiSignalLevel());
+#if defined(ASLIB_INCLUDE_DL) //DxLib
+#if defined(__ANDROID__)
+		//<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />’Ç‰Á‚ ‚è
+		return int32_t(DxLib::GetWifiSignalLevel());
+#else
 		return 0;
-}
 #endif
-
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-
-#else //Console
-
+		return 0;
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
+#else
+		return 0;
 #endif
-
+	}
 }

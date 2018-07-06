@@ -16,6 +16,9 @@ namespace AsLib
 		Counter& update(const int32_t);
 		Counter& update(const bool);
 
+		Counter() = default;
+		~Counter() = default;
+
 		//o—Í
 		bool Down() const { return this->down; };
 		bool Up() const { return this->up; };

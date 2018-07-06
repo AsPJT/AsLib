@@ -10,20 +10,57 @@
 namespace AsLib
 {
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-	//ƒtƒHƒ“ƒgŒn
-	using Font = int;
-	//ƒeƒNƒXƒ`ƒƒŒn
-	using Tex = int;
+	//•`‰æ‰æ‘œŒn
+	using OriginatorTexture = int;
+	//CPU‰æ‘œŒn
+	using OriginatorImage = int;
+	//å‰¹ºŒn
+	using OriginatorBGM = int;
+	//•›‰¹ºŒn
+	using OriginatorSE = int;
+	//“®‰æŒn
+	using OriginatorMovie = int;
+	//•¶šŒn
+	using OriginatorFont = int;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-	//ƒtƒHƒ“ƒgŒn
-	using Font = s3d::Font;
-	//ƒeƒNƒXƒ`ƒƒŒn
-	using Tex = s3d::Texture;
+	//•`‰æ‰æ‘œŒn
+	using OriginatorTexture = s3d::Texture;
+	//CPU‰æ‘œŒn
+	using OriginatorImage = int32_t;
+	//å‰¹ºŒn
+	using OriginatorBGM = int32_t;
+	//•›‰¹ºŒn
+	using OriginatorSE = int32_t;
+	//“®‰æŒn
+	using OriginatorMovie = int32_t;
+	//•¶šŒn
+	using OriginatorFont = s3d::Font;
 //#define TEX_INIT asTex(U"a.png")
+#elif defined(ASLIB_INCLUDE_TP)
+	//•`‰æ‰æ‘œŒn
+	using OriginatorTexture = int32_t;
+	//CPU‰æ‘œŒn
+	using OriginatorImage = int32_t;
+	//å‰¹ºŒn
+	using OriginatorBGM = int32_t;
+	//•›‰¹ºŒn
+	using OriginatorSE = int32_t;
+	//“®‰æŒn
+	using OriginatorMovie = int32_t;
+	//•¶šŒn
+	using OriginatorFont = int32_t;
 #else //Console
-	//ƒtƒHƒ“ƒgŒn
-	using Font = int32_t;
-	//ƒeƒNƒXƒ`ƒƒŒn
-	using Tex = int32_t;
+	//•`‰æ‰æ‘œŒn
+	using OriginatorTexture = int32_t;
+	//CPU‰æ‘œŒn
+	using OriginatorImage = int32_t;
+	//å‰¹ºŒn
+	using OriginatorBGM = int32_t;
+	//•›‰¹ºŒn
+	using OriginatorSE = int32_t;
+	//“®‰æŒn
+	using OriginatorMovie = int32_t;
+	//•¶šŒn
+	using OriginatorFont = int32_t;
 #endif
 }

@@ -50,7 +50,7 @@ namespace AsLib
 	}
 
 	template<typename T>
-	int32_t searchMin(const std::vector<T>& t_, const Pos2& p_, size_t& dis_id, float* const dis_ = nullptr)
+	const int32_t searchMin(const std::vector<T>& t_, const Pos2& p_, size_t& dis_id, float* const dis_ = nullptr)
 	{
 		if (t_.size() == 0) return -1;
 

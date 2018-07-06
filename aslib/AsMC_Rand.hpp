@@ -10,7 +10,7 @@
 namespace AsLib
 {
 
-	inline int32_t MainControl::rand32_0toMax(const int32_t i)
+	inline const int32_t MainControl::rand32_0toMax(const int32_t i)
 	{
 		if (i <= 0) return 0;
 
@@ -21,14 +21,14 @@ namespace AsLib
 	}
 
 
-	inline uint32_t MainControl::rand32()
+	inline const uint32_t MainControl::rand32()
 	{
 		rand_32 = rand_32 ^ (rand_32 << 13);
 		rand_32 = rand_32 ^ (rand_32 >> 17);
 		return rand_32 = rand_32 ^ (rand_32 << 5);
 	}
 
-	inline uint8_t MainControl::rand8_0toMax(const uint8_t i)
+	inline const uint8_t MainControl::rand8_0toMax(const uint8_t i)
 	{
 		switch (i) {
 		case 0:return 0;
@@ -37,7 +37,7 @@ namespace AsLib
 		}
 	}
 
-	inline uint8_t MainControl::rand8(const uint8_t number)
+	inline const uint8_t MainControl::rand8(const uint8_t number)
 	{
 		uint8_t shift_1, shift_2, shift_3;
 

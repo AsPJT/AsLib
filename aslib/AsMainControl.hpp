@@ -151,19 +151,19 @@ namespace AsLib
 
 		//óêêîån--------------------------------------------------
 	public:
-		uint8_t rand8(const uint8_t= 0);
+		const uint8_t rand8(const uint8_t= 0);
 		MainControl& srand8(const uint8_t randSeed) { rand_8 = randSeed; return *this; }
-		uint8_t rand8_0toMax(const uint8_t i = UINT8_MAX);
-		uint32_t rand32();
+		const uint8_t rand8_0toMax(const uint8_t i = UINT8_MAX);
+		const uint32_t rand32();
 		MainControl& srand32(const uint32_t randSeed) { rand_32 = randSeed; return *this; }
-		int32_t rand32_0toMax(const int32_t i = INT32_MAX);
+		const int32_t rand32_0toMax(const int32_t i = INT32_MAX);
 	private:
 		uint8_t rand_8 = 1;
 		uint32_t rand_32 = 1;
 
 		//à íu
 	public:
-		Pos4 asPos4(const Pos4F pos_);
+		const Pos4 asPos4(const Pos4F pos_);
 
 	private:
 
@@ -358,11 +358,11 @@ namespace AsLib
 	inline MainControl & MainControl::animeAdd(const char * const add_name,const size_t add_num)
 	{
 #if defined(ANIME_TEXTURE_1)
-		const AnimeMainData add_texture(add_num, asLoadTex(add_name));
+		const AnimeMainData add_texture(add_num, asLoadTex(add_name, 1));
 		vecAnime.emplace_back(add_texture);
 #elif defined(ANIME_TEXTURE_2)
 		//îÒconst
-		AnimeMainData add_texture(add_num, asLoadTex(add_name, add_num));
+		AnimeMainData add_texture(add_num, asLoadTex(add_name, add_num, 1));
 		vecAnime.emplace_back(std::move(add_texture));
 #endif
 		return *this;

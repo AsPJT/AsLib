@@ -10,10 +10,9 @@
 namespace AsLib
 {
 
-	inline Pos4 MainControl::asPos4(const Pos4F pos_)
+	inline const Pos4 MainControl::asPos4(const Pos4F pos_)
 	{
-		Pos4 pos;
-		pos(pos_, this->init_data.windowSize());
+		const Pos4 pos(pos_, this->init_data.windowSize());
 		return pos;
 	}
 

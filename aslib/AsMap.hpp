@@ -197,8 +197,8 @@ namespace AsLib
 	template<typename Map_> void mapSize(const Pos2& b_, const Pos2& a_, std::vector<Map_>& m_, const Map_ count_ = Map_(0))
 	{
 		if (b_.is_minus() || a_.is_minus()) return;
-		const int32_t b_max = b_.x*b_.y;
-		const int32_t a_max = a_.x*a_.y;
+		//const int32_t b_max = b_.x*b_.y;
+		//const int32_t a_max = a_.x*a_.y;
 		if (a_.x >= b_.x) {
 			m_.resize(a_.x*a_.y);
 			mapSize(b_, a_, m_.data(), count_);
@@ -331,9 +331,9 @@ namespace AsLib
 
 
 
-	//----------------------------------------------------------------------------------------------------------------------------
-	//ここから下は仮テスト機能
-	
+
+
+
 	inline static const size_t a2(const size_t& s_, const size_t& i_, const size_t& j_) { return (s_ * j_ + i_); }
 	struct worldMap
 	{

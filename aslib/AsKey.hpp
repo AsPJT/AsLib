@@ -154,8 +154,8 @@ namespace AsLib
 
 	private:
 		std::array<int32_t, 256>key = {};
-		std::array<int32_t, 256>config = {};
-		std::array<Counter, 256> counter = {};
+		//std::array<int32_t, 256>config = {};
+		//std::array<Counter, 256> counter = {};
 	};
 
 	enum :size_t {

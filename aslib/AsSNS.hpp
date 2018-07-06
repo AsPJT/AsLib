@@ -12,7 +12,7 @@ namespace AsLib
 
 
 
-	inline int32_t asBrowser(const char* const url_str)
+	inline const int32_t asBrowser(const char* const url_str)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__WINDOWS__)
@@ -33,12 +33,14 @@ namespace AsLib
 #else
 		return 0;
 #endif
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
 #else //Console
-
+		return 0;
 #endif
 	}
 
-	inline int32_t asTwitter(const char* const url_str)
+	inline const int32_t asTwitter(const char* const url_str)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__WINDOWS__)
@@ -59,8 +61,10 @@ namespace AsLib
 #else
 		return 0;
 #endif
+#elif defined(ASLIB_INCLUDE_TP)
+		return 0;
 #else //Console
-
+		return 0;
 #endif
 	}
 
