@@ -432,7 +432,7 @@ namespace AsLib
 		const float Rota() const { return this->rota; };
 
 		AnimeUI& setUI(const AnimeMainData* const add_tmd, const uint8_t add_alpha, const PosA4F& add_pR) { id = add_tmd; alpha = add_alpha; pR = add_pR; return *this; }
-		AnimeUI& setPosF(const PosA4F pR_) { pR = pR_; return *this; }
+		AnimeUI& setPosF(const PosA4F& pR_) { pR = pR_; return *this; }
 		bool isOutWindowF() {
 			const Pos2F w2(asWindowSizeF()); const Pos4F p4r(pR);
 			if (p4r.x2<0.0f || p4r.y2<0.0f || p4r.x1>w2.x || p4r.y1>w2.y) return true;

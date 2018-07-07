@@ -89,11 +89,15 @@ namespace AsLib
 #endif
 
 
-
-	inline int32_t asKeyInput(char* name, const Pos2& pos2 = pos2_0, const size_t& max_char = KEY_INPUT_CHAR_MAX)
+#if !defined(__ANDROID__)
+	inline int32_t asKeyInput(char* name, const Pos2& p_, const size_t& m_= KEY_INPUT_CHAR_MAX)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-		return int32_t(DxLib::KeyInputString(int(pos2.x), int(pos2.y), max_char, name, TRUE));
+#if defined(__WINDOWS__)
+		return int32_t(DxLib::KeyInputString(int(p_.x), int(p_.y), m_, name, TRUE));
+#else
+		return 0;
+#endif
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 	return 0;
 #elif defined(ASLIB_INCLUDE_OF)
@@ -104,7 +108,7 @@ namespace AsLib
 		std::string key_string;
 		std::cin >> key_string;
 
-		for (size_t i = 0; i <= max_char; ++i) {
+		for (size_t i = 0; i <= m_; ++i) {
 
 			name[i] = key_string[i];
 
@@ -114,11 +118,16 @@ namespace AsLib
 		return 0;
 #endif
 	}
+#endif
 
 	inline int32_t asKeyInput1Byte(char* name, const Pos2& pos2 = pos2_0, const size_t& max_char = KEY_INPUT_CHAR_MAX)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
+#if defined(__WINDOWS__)
 		return int32_t(DxLib::KeyInputSingleCharString(int(pos2.x), int(pos2.y), max_char, name, TRUE));
+#else
+		return 0;
+#endif
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
@@ -133,7 +142,11 @@ namespace AsLib
 	inline int32_t asKeyInputNum(const Pos2& pos2 = pos2_0, const int32_t& max_num = 10, const int32_t& min_num = 0)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
+#if defined(__WINDOWS__)
 		return int32_t(DxLib::KeyInputNumber(pos2.x, pos2.y, max_num - 1, min_num + 1, TRUE));
+#else
+		return 0;
+#endif
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
@@ -145,14 +158,19 @@ namespace AsLib
 #endif
 	}
 
-	const char* const asKeyInput(const Pos2& pos2 = pos2_0)
+#if !defined(__ANDROID__)
+	const char* const asKeyInput(const Pos2& p_)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
+#if defined(__WINDOWS__)
 		static char key_string[KEY_INPUT_CHAR_MAX_1];
 		for (size_t i = 0; i < KEY_INPUT_CHAR_MAX_1; ++i) key_string[i] = '\0';
 
-		asKeyInput(key_string, pos2);
+		asKeyInput(key_string, p_);
 		return key_string;
+#else
+		return nullptr;
+#endif
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
@@ -163,6 +181,7 @@ namespace AsLib
 		return 0;
 #endif
 	}
+#endif
 
 
 

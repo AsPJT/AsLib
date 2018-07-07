@@ -184,9 +184,9 @@ namespace AsLib
 		template<typename... Rest>
 		FontMainData& draw(const ColorRGBA& color_, const char* const str_, const Rest&... rest) { return this->draw(str_, pos2_0, color_, rest...); }
 		template<typename... Rest>
-		FontMainData& draw(const Pos2& pos_, const char* const str_, const Rest&... rest) { return this->draw(str_, pos_, black_RGBA, rest...); }
+		FontMainData& draw(const Pos2& pos_, const char* const str_, const Rest&... rest) { return this->draw(str_, pos_, whiteA, rest...); }
 		template<typename... Rest>
-		FontMainData& draw(const char* const str_, const Rest&... rest) { return this->draw(str_, pos2_0, black_RGBA, rest...); }
+		FontMainData& draw(const char* const str_, const Rest&... rest) { return this->draw(str_, pos2_0, whiteA, rest...); }
 
 		//書式付き
 		template<typename... Rest>
@@ -194,9 +194,9 @@ namespace AsLib
 		template<typename... Rest>
 		FontMainData& drawAt(const ColorRGBA& color_, const char* const str_, const Rest&... rest) { return this->drawAt(str_, pos2_0, color_, rest...); }
 		template<typename... Rest>
-		FontMainData& drawAt(const Pos2& pos_, const char* const str_, const Rest&... rest) { return this->drawAt(str_, pos_, black_RGBA, rest...); }
+		FontMainData& drawAt(const Pos2& pos_, const char* const str_, const Rest&... rest) { return this->drawAt(str_, pos_, whiteA, rest...); }
 		template<typename... Rest>
-		FontMainData& drawAt(const char* const str_, const Rest&... rest) { return this->drawAt(str_, pos2_0, black_RGBA, rest...); }
+		FontMainData& drawAt(const char* const str_, const Rest&... rest) { return this->drawAt(str_, pos2_0, whiteA, rest...); }
 
 		//出力
 		OriginatorFont ID() const { return this->id; };

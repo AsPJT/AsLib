@@ -20,6 +20,10 @@ namespace AsLib
 	inline const int32_t asReadPos(const char* const file_name, PosA4F& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
 	inline const int32_t asReadPos(const char* const file_name, PosL4F& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
 	inline const int32_t asReadPos(const char* const file_name, Pos8F& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
+
+	inline const int32_t asReadFloat(const char* const file_name, float& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
+	inline const int32_t asReadTime(const char* const file_name, time_t& p_) { return asRead(file_name, &p_, sizeof(p_), 1); }
+
 	//Pos
 	inline const int32_t asWritePos(const char* const file_name, Pos2& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
 	inline const int32_t asWritePos(const char* const file_name, Pos4& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
@@ -31,6 +35,10 @@ namespace AsLib
 	inline const int32_t asWritePos(const char* const file_name, PosA4F& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
 	inline const int32_t asWritePos(const char* const file_name, PosL4F& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
 	inline const int32_t asWritePos(const char* const file_name, Pos8F& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
+
+	inline const int32_t asWriteFloat(const char* const file_name, float& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
+	inline const int32_t asWriteTime(const char* const file_name, time_t& p_) { return asWrite(file_name, &p_, sizeof(p_), 1); }
+
 	//Pos
 	inline const int32_t asWritePos(const char* const file_name, const Pos2& p_) { Pos2 p(p_); return asWrite(file_name, &p, sizeof(p_), 1); }
 	inline const int32_t asWritePos(const char* const file_name, const Pos4& p_) { Pos4 p(p_); return asWrite(file_name, &p, sizeof(p_), 1); }
@@ -42,6 +50,9 @@ namespace AsLib
 	inline const int32_t asWritePos(const char* const file_name, const PosA4F& p_) { PosA4F p(p_); return asWrite(file_name, &p, sizeof(p_), 1); }
 	inline const int32_t asWritePos(const char* const file_name, const PosL4F& p_) { PosL4F p(p_); return asWrite(file_name, &p, sizeof(p_), 1); }
 	inline const int32_t asWritePos(const char* const file_name, const Pos8F& p_) { Pos8F p(p_); return asWrite(file_name, &p, sizeof(p_), 1); }
+
+	inline const int32_t asWriteFloat(const char* const file_name, const float& p_) { float p(p_); return asWrite(file_name, &p, sizeof(p_), 1); }
+	inline const int32_t asWriteTime(const char* const file_name, const time_t& p_) { time_t p(p_); return asWrite(file_name, &p, sizeof(p_), 1); }
 
 	const Pos2 asReadPos2(const char* const file_name)
 	{
