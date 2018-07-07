@@ -137,7 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="rl.cpp" />
+    <ClCompile Include="frame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AsBattery.hpp" />
@@ -151,6 +151,7 @@
     <ClInclude Include="AsDL.hpp" />
     <ClInclude Include="AsFile.hpp" />
     <ClInclude Include="AsFont.hpp" />
+    <ClInclude Include="AsFrameworks.hpp" />
     <ClInclude Include="AsGamePad.hpp" />
     <ClInclude Include="AsKey.hpp" />
     <ClInclude Include="AsKeyInput.hpp" />
