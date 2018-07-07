@@ -12,12 +12,12 @@ These codes are licensed under CC0.
 
 ## ゲームエンジン等の対応度
 
-| エンジン名 | 2文字略称 | 対応バージョン |
-|:---:|:---:|:---:|
-| Default | TP | None |
-| openFrameworks | OF | 0.10.0 |
-| DxLib | DL | 3.19b |
-| OpenSiv3D | S3 | 0.2.7 |
+| エンジン名 | 2文字略称 | 対応バージョン | 種類 |
+|:---:|:---:|:---:|:---:|
+| Default | TP | None | Library |
+| openFrameworks | OF | 0.10.0 | Framework |
+| DxLib | DL | 3.19b | Library |
+| OpenSiv3D | S3 | 0.2.7 | Library |
 
 | 機能 | ヘッダー | TP | OF | DL | S3 |
 |:---:|:---:|:---:|:---:|:---:|:---:|
@@ -31,18 +31,18 @@ These codes are licensed under CC0.
 | 連番画像表示 | Texture | × | × | 〇 | 〇 |
 | フォント文字表示 | Font | × | × | 〇 | 〇 |
 | 四角形描画 | Rect | × | × | 〇 | 〇 |
-| 円形描画 | Circle | × | × | 〇 | 〇 |
+| 円形描画 | Circle | × | 〇 | 〇 | 〇 |
 | 専用読み書き | AsFile | ◎ | ◎ | ◎ | ◎ |
 | バッテリー | Battery | × | × | 〇 | 〇 |
-| メイン情報クラス | Class | ◎ | × | ◎ | ◎ |
-| 色クラス | Color | ◎ | ▲ | ◎ | ◎ |
-| 位置クラス | Struct | ◎ | ▲ | ◎ | ◎ |
-| 定数変数 | Const | ◎ | 〇 | ◎ | ◎ |
-| マウスカウンター | Counter | ◎ | ▲ | ◎ | ◎ |
+| メイン情報クラス | Class | ◎ | ◎ | ◎ | ◎ |
+| 色クラス | Color | ◎ | ◎ | ◎ | ◎ |
+| 位置クラス | Struct | ◎ | ◎ | ◎ | ◎ |
+| 定数変数 | Const | ◎ | ◎ | ◎ | ◎ |
+| マウスカウンター | Counter | ◎ | ◎ | ◎ | ◎ |
 | ファイル読み書き | File | ◎ | ◎ | ◎ | ◎ |
 | ライセンス | License | ▲ | ▲ | ▲ | ▲ |
 | メインループ | Loop | 〇 | × | 〇 | 〇 |
-| 2Dマップ | Map | 〇 | ▲ | 〇 | 〇 |
+| 2Dマップ | Map | 〇 | 〇 | 〇 | 〇 |
 | 乱数 | Rand | 〇 | 〇 | 〇 | 〇 |
 | SNS | SNS | × | × | 〇 | 〇 |
 | 初期化・基本処理 | Std | 〇 | ▲ | 〇 | 〇 |

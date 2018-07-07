@@ -8,7 +8,11 @@
 //
 //     ----------     ----------     ----------     ----------     ----------
 
+#if defined(ASLIB_INCLUDE_OF)
+struct AsBaseApp : public ofBaseApp {
+#else
 struct AsBaseApp {
+#endif
 	AsBaseApp() {}
 	virtual ~AsBaseApp() {}
 
@@ -17,6 +21,14 @@ struct AsBaseApp {
 	virtual void asUpdate() {}
 	virtual void asDraw() {}
 	virtual void asExit() {}
+
+#if defined(ASLIB_INCLUDE_OF)
+	void setup() { asInit(); asSetup(); }
+	void update() { asUpdate(); }
+	void draw() { asDraw(); }
+	void exit() { asExit(); }
+#endif
+
 };
 
 template<typename AsApp>

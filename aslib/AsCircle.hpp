@@ -19,7 +19,9 @@ namespace AsLib
 		s3d::Circle(double(pos_.x), double(pos_.y), r_).draw(col_);
 		return true;
 #elif defined(ASLIB_INCLUDE_OF)
-
+		ofSetColor(col_.r, col_.g, col_.b, col_.a);
+		ofDrawCircle(float(pos_.x), float(pos_.y), float(r_));
+		return true;
 #elif defined(ASLIB_INCLUDE_TP)
 		return true;
 #else //Console
