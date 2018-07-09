@@ -4,7 +4,7 @@
 //
 //                    制作者: がっちょ (wanotaitei@gmail.com)
 //
-//                                   Ver 0.2.0.0 Alpha
+//                                   Ver 0.2.1.0 Alpha
 //
 //     ----------     ----------     ----------     ----------     ----------
 
@@ -15,13 +15,13 @@
 #include <cstdint>
 
 //AsLibバージョン
-constexpr int32_t ASLIB_VERSION = 0x0200;
-const char* const ASLIB_VERSION_STR = "0.2.0.0 Alpha";
+constexpr int32_t ASLIB_VERSION = 0x0210;
+const char* const ASLIB_VERSION_STR = "0.2.1.0 Alpha";
 
 //AsLibバージョン (UTF)
-const char* const ASLIB_VERSION_STR8 = u8"0.2.0.0 Alpha";
-const char16_t* const ASLIB_VERSION_STR16 = u"0.2.0.0 Alpha";
-const char32_t* const ASLIB_VERSION_STR32 = U"0.2.0.0 Alpha";
+const char* const ASLIB_VERSION_STR8 = u8"0.2.1.0 Alpha";
+const char16_t* const ASLIB_VERSION_STR16 = u"0.2.1.0 Alpha";
+const char32_t* const ASLIB_VERSION_STR32 = U"0.2.1.0 Alpha";
 
 int32_t asMain();
 namespace AsLib { const int32_t asEnd(); }

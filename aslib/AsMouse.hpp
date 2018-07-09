@@ -42,10 +42,7 @@ namespace AsLib
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		int mouse_x = 0, mouse_y = 0;
 		DxLib::GetMousePoint(&mouse_x, &mouse_y);
-
-		Pos2 pos;
-		pos(int32_t(mouse_x), int32_t(mouse_y));
-		return pos;
+		return Pos2(int32_t(mouse_x), int32_t(mouse_y));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return Pos2(int32_t(s3d::Cursor::Pos().x), int32_t(s3d::Cursor::Pos().y));
 #elif defined(ASLIB_INCLUDE_OF)
@@ -57,14 +54,8 @@ namespace AsLib
 #endif
 	}
 
-	inline const PosA4 mousePos(const int32_t l_)
-	{
-		return PosA4(mousePos(), l_);
-	}
-	inline const PosA4 mousePos(const int32_t w_, const int32_t h_)
-	{
-		return PosA4(mousePos(), w_, h_);
-	}
+	inline const PosA4 mousePos(const int32_t l_) { return PosA4(mousePos(), l_); }
+	inline const PosA4 mousePos(const int32_t w_, const int32_t h_) { return PosA4(mousePos(), w_, h_); }
 
 	//マウスのホイール回転量(奥:負 手前:正)
 	inline const int32_t mouseWheel()

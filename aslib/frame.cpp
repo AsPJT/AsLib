@@ -16,8 +16,6 @@ struct AsMainApp : public AsBaseApp {
 
 	//開始
 	void asInit() {}
-	//宣言・初期化
-	void asSetup() {}
 	//更新
 	void asUpdate() {
 		++aaa.x;

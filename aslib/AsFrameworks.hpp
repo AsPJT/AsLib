@@ -20,20 +20,21 @@ namespace AsLib
 
 		virtual void asInit() {}
 		virtual void asSetup() {}
+		virtual void asStart() {}
 		virtual void asUpdate() {}
 		virtual void asDraw() {}
 		virtual void asExit() {}
+		virtual void asQuit() {}
+		virtual void asEnd() {}
 
 #if defined(ASLIB_INCLUDE_OF)
-		void setup() { asInit(); asSetup(); }
+		void setup() { asInit(); asSetup(); asStart(); }
 		void update() {
 			asMousePosSave(true, Pos2(int32_t(mouseX), int32_t(mouseY)));
 			asUpdate();
 		}
-		void draw() { asDraw();
-		
-		}
-		void exit() { asExit(); }
+		void draw() { asDraw(); }
+		void exit() { asExit(); asQuit(); asEnd(); }
 		void mouseMoved(int x, int y) {
 			asMouseButtonSave(false, true); //todo
 		}
