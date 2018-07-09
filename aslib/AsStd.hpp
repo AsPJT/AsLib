@@ -180,7 +180,7 @@ namespace AsLib
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return { -1,-1 };
 #elif defined(ASLIB_INCLUDE_OF)
-
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -205,7 +205,7 @@ namespace AsLib
 		return { -1,-1 };
 #endif
 #elif defined(ASLIB_INCLUDE_OF)
-
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console

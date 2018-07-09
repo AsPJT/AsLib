@@ -35,7 +35,7 @@ namespace AsLib
 	using OriginatorMovie = int32_t;
 	//•¶ŽšŒn
 	using OriginatorFont = s3d::Font;
-//#define TEX_INIT asTex(U"a.png")
+//#define TEX_INIT asTexure(U"a.png")
 #elif defined(ASLIB_INCLUDE_OF)
 	//•`‰æ‰æ‘œŒn
 	using OriginatorTexture = ofImage;

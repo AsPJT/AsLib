@@ -95,22 +95,16 @@ namespace AsLib
 		//タッチ系--------------------------------------------------
 	public:
 		//手が触れているとき
-		bool touchTex(const size_t ui_id) const { return (this->vecTextureUI[ui_id].Touch() > 0); };
-		bool touchTex0(const size_t ui_id) { return (this->vecTextureUI[ui_id].Touch0() > 0); };
 		bool touchAnime(const size_t ui_id) const { return (this->vecAnimeUI[ui_id].Touch() > 0); };
 		bool touchAnime0(const size_t ui_id) { return (this->vecAnimeUI[ui_id].Touch0() > 0); };
 		bool touchBattery() const { return (this->battery.Touch() > 0); };
 		bool touchBattery0() { return (this->battery.Touch0() > 0); };
 		//手を離したとき
-		bool upTex(const size_t ui_id) const { return (this->vecTextureUI[ui_id].Up()); };
-		bool upTex0(const size_t ui_id) { return (this->vecTextureUI[ui_id].Up0()); };
 		bool upAnime(const size_t ui_id) const { return (this->vecAnimeUI[ui_id].Up()); };
 		bool upAnime0(const size_t ui_id) { return (this->vecAnimeUI[ui_id].Up0()); };
 		bool upBattery() const { return (this->battery.Up()); };
 		bool upBattery0() { return (this->battery.Up0()); };
 		//手が触れた瞬間
-		bool downTex(const size_t ui_id) const { return (this->vecTextureUI[ui_id].Down()); };
-		bool downTex0(const size_t ui_id) { return (this->vecTextureUI[ui_id].Down0()); };
 		bool downAnime(const size_t ui_id) const { return (this->vecAnimeUI[ui_id].Down()); };
 		bool downAnime0(const size_t ui_id) { return (this->vecAnimeUI[ui_id].Down0()); };
 		bool downBattery() const { return (this->battery.Down()); };
@@ -137,10 +131,8 @@ namespace AsLib
 		MainControl& loopEnd() { this->is_loop = false; return *this; };
 
 		//テクスチャ系--------------------------------------------------
-		std::vector<TextureMainData> vecTexture;
-		std::vector<TextureUI> vecTextureUI;
-		std::vector<AnimeMainData> vecAnime;
-		std::vector<AnimeUI> vecAnimeUI;
+		std::vector<Texture> vecAnime;
+		std::vector<TextureUI> vecAnimeUI;
 
 		Battery battery;
 
@@ -200,8 +192,7 @@ namespace AsLib
 		this->is_up_all = false;
 		
 		//UIのタッチ回数を初期化
-		for (TextureUI &i : vecTextureUI) i.initTouch();
-		for (AnimeUI &i : vecAnimeUI) i.initTouch();
+		for (TextureUI &i : vecAnimeUI) i.initTouch();
 		this->battery.initTouch();
 
 		//タッチされた数を取得
@@ -212,8 +203,7 @@ namespace AsLib
 		if (check_touch_all_num == 0) {
 			if (mouse.count() > 0) {
 				//マウスのあたり判定
-				for (TextureUI &j : vecTextureUI) j.touch(mouse.Pos());
-				for (AnimeUI &j : vecAnimeUI) j.touch(mouse.Pos());
+				for (TextureUI &j : vecAnimeUI) j.touch(mouse.Pos());
 				this->battery.touch(mouse.Pos());
 				++check_touch_mouse_all_num;
 				this->last_touch = mouse.Pos();
@@ -232,15 +222,13 @@ namespace AsLib
 			asTouch(i, touch_pos);
 
 			//タッチのあたり判定
-			for (TextureUI &j : vecTextureUI) j.touch(touch_pos);
-			for (AnimeUI &j : vecAnimeUI) j.touch(touch_pos);
+			for (TextureUI &j : vecAnimeUI) j.touch(touch_pos);
 			this->battery.touch(touch_pos);
 			this->last_touch = touch_pos;
 		}
 
 		//何回タッチされたかカウント
-		for (TextureUI &j : vecTextureUI) j.update();
-		for (AnimeUI &j : vecAnimeUI) j.update();
+		for (TextureUI &j : vecAnimeUI) j.update();
 		this->battery.update();
 	}
 
@@ -271,8 +259,7 @@ namespace AsLib
 	inline MainControl & MainControl::scene(const size_t add_select_scene)
 	{
 		//UIのタッチ回数を初期化
-		for (TextureUI &i : vecTextureUI) i.initTouch();
-		for (AnimeUI &i : vecAnimeUI) i.initTouch();
+		for (TextureUI &i : vecAnimeUI) i.initTouch();
 		this->battery.initTouch();
 
 		//背景色変更
@@ -327,16 +314,9 @@ namespace AsLib
 		return keyconfig[size_t(select_key)];
 	}
 
-	inline MainControl& MainControl::textureUI_Add(const size_t add_number, const uint8_t add_alpha, const Pos4& add_pos4)
-	{
-		const TextureUI add_texture_ui(&vecTexture[add_number], add_alpha, add_pos4);
-		vecTextureUI.emplace_back(add_texture_ui);
-		return *this;
-	}
-
 	inline MainControl& MainControl::animeUI_Add(const size_t add_number, const uint8_t add_alpha, const Pos4& add_pos4)
 	{
-		const AnimeUI add_texture_ui(&vecAnime[add_number], add_alpha, add_pos4);
+		const TextureUI add_texture_ui(&vecAnime[add_number], add_alpha, add_pos4);
 		vecAnimeUI.emplace_back(add_texture_ui);
 		return *this;
 	}
@@ -348,29 +328,16 @@ namespace AsLib
 		return vecFont.size() - 1;
 	}
 
-	inline size_t MainControl::textureAdd(const char * const add_name)
-	{
-		const TextureMainData add_texture(asLoadTex(add_name));
-		vecTexture.emplace_back(add_texture);
-		return vecTexture.size() - 1;
-	}
-
 	inline MainControl & MainControl::animeAdd(const char * const add_name,const size_t add_num)
 	{
 #if defined(ANIME_TEXTURE_1)
-		const AnimeMainData add_texture(add_num, asLoadTex(add_name, 1));
+		const Texture add_texture(add_num, asLoadTexure(add_name, 1));
 		vecAnime.emplace_back(add_texture);
 #elif defined(ANIME_TEXTURE_2)
 		//非const
-		AnimeMainData add_texture(add_num, asLoadTex(add_name, add_num, 1));
+		Texture add_texture(add_num, asLoadTexure(add_name, add_num, 1));
 		vecAnime.emplace_back(std::move(add_texture));
 #endif
-		return *this;
-	}
-
-	inline MainControl & MainControl::texture(const size_t select_texture)
-	{
-		vecTextureUI[select_texture].draw();
 		return *this;
 	}
 

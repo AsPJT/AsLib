@@ -74,7 +74,7 @@ namespace AsLib
 	}
 
 	//ウィンドウサイズを記録する関数
-	const bool* const asMouseButtonSave(const bool b_, const bool c_=false,const bool p_ = false, const size_t s_ = 0)
+	const bool* const asMouseButtonSave(const bool b_, const bool c_ = false, const bool p_ = false, const size_t s_ = 0)
 	{
 		static bool p[mouse_button_num];
 		if (c_) for (size_t i = 0; i < mouse_button_num; ++i) p[i] = false;
@@ -121,33 +121,60 @@ namespace AsLib
 		return count;
 	}
 
-	class Mouse 
+	class Mouse
 	{
 	public:
-		Pos2 Pos() const { return this->pos; };
-		int32_t Wheel() const { return this->wheel; };
-		Counter Count(const size_t count_num) const { return this->counter[count_num]; };
+		const Pos2 Pos() const { return this->pos; };
+		const int32_t Wheel() const { return this->wheel; };
+		const Counter Count(const size_t count_num) const { return this->counter[count_num]; };
 
-		Mouse& update();
-		bool down() const { return this->counter[MOUSE_LEFT].Down(); };
-		bool up() const { return this->counter[MOUSE_LEFT].Up(); };
-		int32_t count() const { return this->counter[MOUSE_LEFT].Count(); };
+		const bool down() const { return this->counter[MOUSE_LEFT].Down(); };
+		const bool up() const { return this->counter[MOUSE_LEFT].Up(); };
+		const int32_t count() const { return this->counter[MOUSE_LEFT].Count(); };
+
+		const bool downL() const { return this->counter[MOUSE_LEFT].Down(); };
+		const bool upL() const { return this->counter[MOUSE_LEFT].Up(); };
+		const int32_t countL() const { return this->counter[MOUSE_LEFT].Count(); };
+
+		const bool downR() const { return this->counter[MOUSE_RIGHT].Down(); };
+		const bool upR() const { return this->counter[MOUSE_RIGHT].Up(); };
+		const int32_t countR() const { return this->counter[MOUSE_RIGHT].Count(); };
+
+		const bool downM() const { return this->counter[MOUSE_MIDDLE].Down(); };
+		const bool upM() const { return this->counter[MOUSE_MIDDLE].Up(); };
+		const int32_t countM() const { return this->counter[MOUSE_MIDDLE].Count(); };
+
+		const bool down4() const { return this->counter[MOUSE_4].Down(); };
+		const bool up4() const { return this->counter[MOUSE_4].Up(); };
+		const int32_t count4() const { return this->counter[MOUSE_4].Count(); };
+
+		const bool down5() const { return this->counter[MOUSE_5].Down(); };
+		const bool up5() const { return this->counter[MOUSE_5].Up(); };
+		const int32_t count5() const { return this->counter[MOUSE_5].Count(); };
+
+		const bool down6() const { return this->counter[MOUSE_6].Down(); };
+		const bool up6() const { return this->counter[MOUSE_6].Up(); };
+		const int32_t count6() const { return this->counter[MOUSE_6].Count(); };
+
+		const bool down7() const { return this->counter[MOUSE_7].Down(); };
+		const bool up7() const { return this->counter[MOUSE_7].Up(); };
+		const int32_t count7() const { return this->counter[MOUSE_7].Count(); };
+
+		const bool down8() const { return this->counter[MOUSE_8].Down(); };
+		const bool up8() const { return this->counter[MOUSE_8].Up(); };
+		const int32_t count8() const { return this->counter[MOUSE_8].Count(); };
 
 		Mouse() :pos(mousePos()), wheel(mouseWheel()), counter(mouseButton()) {}
-		
+
+		void update() {
+			this->pos = mousePos();
+			this->wheel = mouseWheel();
+			mouseButton(this->counter);
+		}
+
 	private:
 		Pos2 pos;
 		int32_t wheel;
-		
 		Counter* const counter;
 	};
-
-	inline Mouse& Mouse::update()
-	{
-		this->pos = mousePos();
-		this->wheel = mouseWheel();
-		mouseButton(this->counter);
-		return *this;
-	}
-
 }
