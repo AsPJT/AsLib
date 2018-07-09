@@ -28,6 +28,13 @@ namespace AsLib
 	constexpr size_t mouse_button_num = 10;
 
 
+	//マウス位置を記録する関数
+	const Pos2 asMousePosSave(const bool b_, const Pos2& p_ = pos2_0)
+	{
+		static Pos2 p;
+		if (b_) p = p_;
+		return p;
+	}
 
 	//マウスの位置
 	const Pos2 mousePos()
@@ -42,12 +49,21 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return Pos2(int32_t(s3d::Cursor::Pos().x), int32_t(s3d::Cursor::Pos().y));
 #elif defined(ASLIB_INCLUDE_OF)
-		return Pos2();
+		return asMousePosSave(false);
 #elif defined(ASLIB_INCLUDE_TP)
 		return Pos2();
 #else //Console
 		return Pos2();
 #endif
+	}
+
+	inline const PosA4 mousePos(const int32_t l_)
+	{
+		return PosA4(mousePos(), l_);
+	}
+	inline const PosA4 mousePos(const int32_t w_, const int32_t h_)
+	{
+		return PosA4(mousePos(), w_, h_);
 	}
 
 	//マウスのホイール回転量(奥:負 手前:正)
@@ -64,6 +80,15 @@ namespace AsLib
 #else //Console
 		return 0;
 #endif
+	}
+
+	//ウィンドウサイズを記録する関数
+	const bool* const asMouseButtonSave(const bool b_, const bool c_=false,const bool p_ = false, const size_t s_ = 0)
+	{
+		static bool p[mouse_button_num];
+		if (c_) for (size_t i = 0; i < mouse_button_num; ++i) p[i] = false;
+		if (b_) p[s_] = p_;
+		return p;
 	}
 
 	inline void mouseButton(Counter count[mouse_button_num])
@@ -88,7 +113,9 @@ namespace AsLib
 		count[MOUSE_7].update(s3d::MouseX4.pressed() != 0);
 		count[MOUSE_8].update(s3d::MouseX5.pressed() != 0);
 #elif defined(ASLIB_INCLUDE_OF)
-
+		for (size_t i = 0; i < mouse_button_num; ++i) {
+			count[i].update(asMouseButtonSave(false)[i]);
+		}
 #elif defined(ASLIB_INCLUDE_TP)
 
 #else //Console

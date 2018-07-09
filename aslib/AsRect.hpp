@@ -15,10 +15,14 @@ namespace AsLib
 		if (DxLib::DrawBox(int(pos_.x1), int(pos_.y1), int(pos_.x2), int(pos_.y2), col, TRUE) == -1) return -1;
 		return 0;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		static PosL4 as_rect_pos(pos_);
+		const PosL4 as_rect_pos(pos_);
 		s3d::Rect(as_rect_pos.x, as_rect_pos.y, as_rect_pos.w, as_rect_pos.h).draw(s3d::Color(col));
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
+		const PosL4 as_rect_pos(pos_);
+		ofSetColor(col.r, col.g, col.b, col.a);
+		ofFill();
+		ofDrawRectangle(float(as_rect_pos.x), float(as_rect_pos.y), float(as_rect_pos.w), float(as_rect_pos.h));
 		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;

@@ -11,7 +11,7 @@ namespace AsLib
 {
 
 	//‰~‚ð•`‰æ
-	inline const bool asCircle(const Pos2& pos_, const int32_t& r_,const ColorRGBA& col_)
+	const bool asCircle(const Pos2& pos_, const int32_t& r_,const ColorRGBA& col_)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return 	(DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, int(col_.a)) == 0) && (DxLib::DrawCircle(int(pos_.x), int(pos_.y), int(r_), col_, TRUE) == 0);
@@ -20,6 +20,7 @@ namespace AsLib
 		return true;
 #elif defined(ASLIB_INCLUDE_OF)
 		ofSetColor(col_.r, col_.g, col_.b, col_.a);
+		ofFill();
 		ofDrawCircle(float(pos_.x), float(pos_.y), float(r_));
 		return true;
 #elif defined(ASLIB_INCLUDE_TP)
@@ -28,6 +29,8 @@ namespace AsLib
 		return true;
 #endif
 	}
+
+	inline const bool asCircle(const PosA4& pos_, const ColorRGBA& col_) { return asCircle(Pos2(pos_), pos_.w, col_); }
 
 	struct Circle
 	{

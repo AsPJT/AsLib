@@ -330,7 +330,9 @@ namespace AsLib
 		constexpr PosA4(const pos_int xy_) :x(xy_), y(xy_), w(0), h(0) {};
 		constexpr PosA4(const pos_int x_, const pos_int y_) :x(x_), y(y_), w(0), h(0) {};
 		constexpr PosA4(const pos_int x_, const pos_int y_, const pos_int l_) :x(x_), y(y_), w(l_), h(l_) {};
+		constexpr PosA4(const Pos2 xy_, const pos_int l_) :x(xy_.x), y(xy_.y), w(l_), h(l_) {};
 		constexpr PosA4(const pos_int x_, const pos_int y_, const pos_int w_, const pos_int h_) :x(x_), y(y_), w(w_), h(h_) {};
+		constexpr PosA4(const Pos2 xy_, const pos_int w_, const pos_int h_) :x(xy_.x), y(xy_.y), w(w_), h(h_) {};
 		constexpr PosA4(const Pos2&);
 		constexpr PosA4(const Pos4&);
 		constexpr PosA4(const PosL4&);
