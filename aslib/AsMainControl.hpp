@@ -40,7 +40,7 @@ namespace AsLib
 	public:
 		//基本関数
 		MainControl(const MainData& init_data);
-		MainControl(const char* const add_title = "", const Pos2& add_window_size = WINDOW_SIZE, const ColorRGB& add_BG_color = BG_COLOR);
+		MainControl(const char* const add_title = u8"", const Pos2& add_window_size = WINDOW_SIZE, const ColorRGB& add_BG_color = BG_COLOR);
 		~MainControl();
 
 		//出力
@@ -84,7 +84,7 @@ namespace AsLib
 		MainControl& anime(const size_t select_texture);
 
 		//文字系--------------------------------------------------
-		size_t fontAdd(const int32_t&, const char* const = "Meiryo UI");
+		size_t fontAdd(const int32_t&, const char* const = u8"Meiryo UI");
 
 		//タイトルロゴ--------------------------------------------------
 		MainControl& drawLogo(const size_t add_texture_ui, const int32_t add_time, const size_t add_scene);

@@ -46,7 +46,7 @@ namespace AsLib
 		char FilePath[file_path_max];
 		DxLib::GetInternalDataPath(FilePath, sizeof(FilePath));
 
-		const std::string fp_name = std::string(FilePath) + "\\" + std::string(file_name);
+		const std::string fp_name = std::string(FilePath) + u8"\\" + std::string(file_name);
 		cfp_fp = fopen(fp_name.c_str(), "rb");
 
 		if (cfp_fp == nullptr) return -1;
@@ -64,7 +64,7 @@ namespace AsLib
 		char FilePath[file_path_max];
 		DxLib::GetInternalDataPath(FilePath, sizeof(FilePath));
 
-		const std::string fp_name = std::string(FilePath) + "\\" + std::string(file_name);
+		const std::string fp_name = std::string(FilePath) + u8"\\" + std::string(file_name);
 		cfp_fp = fopen(fp_name.c_str(), "wb");
 
 		if (cfp_fp == nullptr) return -1;

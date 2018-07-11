@@ -86,9 +86,22 @@ namespace AsLib
 	}
 
 
+
+
+	//タイトルを記録する関数
+	const char* const asTitleSave(const bool b_, const char* const str_ = nullptr)
+	{
+		static std::string str;
+		if (b_ && str_ != nullptr) str = str_;
+		return str.c_str();
+	}
+	//タイトルを取得する関数
+	inline const char* const asTitle() { return asTitleSave(false); }
+
 	//タイトル変更
 	inline const int32_t asSetTitle(const char* const title)
 	{
+		asTitleSave(true, title);
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__WINDOWS__)
 		return int32_t(DxLib::SetMainWindowText(title));
@@ -107,7 +120,11 @@ namespace AsLib
 	return 0;
 #endif
 	}
-
+	//タイトル変更
+	inline const int32_t asSetTitle(const std::string& title)
+	{
+		return asSetTitle(title.c_str());
+	}
 
 	inline const Pos2 asWindowSizeMain(const Pos2& pos2 = pos2_100)
 	{
@@ -343,13 +360,13 @@ return 0;
 
 //以降は他ライブラリ依存なし----------
 
-	const int32_t AsInit(const char* const title = "", const Pos2& window_size = WINDOW_SIZE, const ColorRGB& BG_color = BG_COLOR)
+	const int32_t AsInit(const char* const title = u8"", const Pos2& window_size = WINDOW_SIZE, const ColorRGB& BG_color = BG_COLOR)
 	{
 		if (asSetTitle(title) == -1) return -1;
 		return AsInit(window_size, BG_color);
 	}
 
-	const int32_t AsInit(const std::string& title = "", const Pos2& window_size = WINDOW_SIZE, const ColorRGB& BG_color = BG_COLOR)
+	const int32_t AsInit(const std::string& title = u8"", const Pos2& window_size = WINDOW_SIZE, const ColorRGB& BG_color = BG_COLOR)
 	{
 		if (asSetTitle(title.c_str()) == -1) return -1;
 		return AsInit(window_size, BG_color);
@@ -366,20 +383,6 @@ return 0;
 		return asPrint(format_string.c_str());
 	}
 
-	//タイトル変更
-	inline const int32_t asSetTitle(const std::string& title)
-	{
-		return asSetTitle(title.c_str());
-	}
 
-	//タイトルを記録する関数
-	const char* const asTitleSave(const bool b_, const char* const str_ = nullptr)
-	{
-		static std::string str;
-		if (b_ && str_ != nullptr) str = str_;
-		return str.c_str();
-	}
-	//タイトルを取得する関数
-	inline const char* const asTitle() { return asTitleSave(false); }
 
 }

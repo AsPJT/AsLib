@@ -27,7 +27,7 @@ namespace AsLib
 #endif
 	}
 
-	OriginatorFont asMakeFont(const int32_t& font_size = 10, const char* const font_name = "Meiryo UI")
+	OriginatorFont asMakeFont(const int32_t& font_size = 10, const char* const font_name = u8"Meiryo UI")
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return DxLib::CreateFontToHandle(font_name, font_size, FONT_THICK);
@@ -51,7 +51,7 @@ namespace AsLib
 	}
 
 
-	const int32_t asPrint(const OriginatorFont font, const char* const format_string = "", const Pos2& pos2 = pos2_0, const ColorRGB& color_rgb = white)
+	const int32_t asPrint(const OriginatorFont font, const char* const format_string = u8"", const Pos2& pos2 = pos2_0, const ColorRGB& color_rgb = white)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255) == -1) return -1;
@@ -68,7 +68,7 @@ namespace AsLib
 #endif
 	}
 
-	const int32_t asPrint(const OriginatorFont font, const char* const format_string = "", const Pos2& pos2 = pos2_0, const ColorRGBA& color_rgba = whiteA)
+	const int32_t asPrint(const OriginatorFont font, const char* const format_string = u8"", const Pos2& pos2 = pos2_0, const ColorRGBA& color_rgba = whiteA)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, color_rgba.a) == -1) return -1;
@@ -166,7 +166,7 @@ namespace AsLib
 	{
 	public:
 
-		FontMainData(const OriginatorFont& add_id, const int32_t add_size = 10, const char* const add_fontname = "Meiryo UI", const int32_t add_thick = FONT_THICK):id(add_id), size(add_size), thick(add_thick), fontname(std::string(add_fontname)) {}
+		FontMainData(const OriginatorFont& add_id, const int32_t add_size = 10, const char* const add_fontname = u8"Meiryo UI", const int32_t add_thick = FONT_THICK):id(add_id), size(add_size), thick(add_thick), fontname(std::string(add_fontname)) {}
 
 		FontMainData& draw(const char* const, const Pos2&, const ColorRGBA& = black_RGBA);
 		FontMainData& draw(const std::string& string_, const ColorRGBA& color_ = black_RGBA) { return this->draw(string_.c_str(), color_); }

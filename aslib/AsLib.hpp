@@ -118,7 +118,9 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 #define ANIME_TEXTURE_3
 #endif
 
+//--------------------------------------------------
 //基本インクルード
+//--------------------------------------------------
 #include <string>
 #include <iostream>
 #include <functional>
@@ -129,8 +131,15 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 #include <cmath>
 #include <ctime>
 
+//--------------------------------------------------
+//個別インクルード
+//--------------------------------------------------
+
 //基本変数型 (T)
 #include "AsType.hpp"
+
+//ライセンス (T)
+#include "AsLicense.hpp"
 
 //乱数系(All) (N)
 #include "AsRand.hpp"
@@ -206,9 +215,6 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 
 //Wi-Fi (T)
 #include "AsWiFi.hpp"
-
-//ライセンス (T)
-#include "AsLicense.hpp"
 
 //SNS (T)
 #include "AsSNS.hpp"
