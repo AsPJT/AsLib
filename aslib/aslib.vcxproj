@@ -157,7 +157,6 @@
     <ClInclude Include="AsKeyInput.hpp" />
     <ClInclude Include="AsLib.hpp" />
     <ClInclude Include="AsLicense.hpp" />
-    <ClInclude Include="AsLog.hpp" />
     <ClInclude Include="AsLoop.hpp" />
     <ClInclude Include="AsMainControl.hpp" />
     <ClInclude Include="AsMap.hpp" />

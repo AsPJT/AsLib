@@ -105,8 +105,8 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 #define ANIME_TEXTURE_3
 #elif defined(ASLIB_INCLUDE_OF)
 #include <ofMain.h>
-	int main() { return int(asMain()); }
-#define ANIME_TEXTURE_3
+int main() { return int(asMain()); }
+#define ANIME_TEXTURE_1
 #elif defined(ASLIB_INCLUDE_TP)
 int main() { return int(asMain()); }
 #define ANIME_TEXTURE_3
@@ -218,9 +218,6 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 
 //SNS (T)
 #include "AsSNS.hpp"
-
-//ÉçÉO(DL/S3/NO/All) (T)
-#include "AsLog.hpp"
 
 //ÉÅÉCÉìä«óù (N)
 #include "AsMainControl.hpp"

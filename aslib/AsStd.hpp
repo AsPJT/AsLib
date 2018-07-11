@@ -230,6 +230,53 @@ namespace AsLib
 #endif
 	}
 
+
+	const int32_t makeLog(const char* const str_)
+	{
+		//É^ÉCÉgÉãÇÃÉTÉCÉY
+		constexpr size_t aslib_title_size = 256;
+		char title_str[aslib_title_size];
+
+		asWrite(str_, u8"<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"/>");
+		snprintf(title_str, aslib_title_size, u8"<title>%s</title>", asTitle());
+		asAddWrite(str_, title_str);
+		asAddWrite(str_, u8"<style>body{background-color:#f9f9f9;font-family:'SegoeUI','ÉÅÉCÉäÉI','Meiryo','ÉqÉâÉMÉmäpÉSProW3','HiraginoKakuGothicPro','Osaka','ÇlÇrÇoÉSÉVÉbÉN','MSPGothic','Arial',sans-serif;}h2{color:#333333;text-align:center;font-size:28px;}h3{color:#333333;text-align:center;font-size:24px;}main{font-size:14px;line-height:2;word-wrap:break-word;}main.name{color:#333333;text-align:center;font-size:20px;}main.copyright{padding-bottom:8px;color:#555555;text-align:center;font-size:12px;}main.license{padding-bottom:24px;color:#888888;text-align:center;font-size:9px;}</style></head><body>");
+		snprintf(title_str, aslib_title_size, u8"<h2>%s</h2><br><h3>Licenses</h3>", asTitle());
+		asAddWrite(str_, title_str);
+
+		std::string license_name = u8"";
+		std::vector<Copyright> license_copyright;
+		std::string license_str = u8"";
+		for (size_t i = 0; i < aslib_license_size; ++i) {
+			license_copyright.clear();
+			asLicense(aslib_license[i], license_name, license_copyright, license_str);
+
+			asAddWrite(str_, u8"<main class=\"name\">");
+			asAddWrite(str_, license_name.c_str());
+			asAddWrite(str_, u8"</main>");
+
+			for (size_t j = 0; j < license_copyright.size(); ++j) {
+				asAddWrite(str_, u8"<main class=\"copyright\">");
+				asAddWrite(str_, license_copyright[j].write());
+				asAddWrite(str_, u8"</main>");
+			}
+
+			asAddWrite(str_, u8"<main class=\"license\">");
+			asAddWrite(str_, license_str.c_str());
+			asAddWrite(str_, u8"</main>");
+		}
+
+		asAddWrite(str_, u8"</body></html>");
+		return 0;
+	}
+
+	const int32_t makeLog() {
+		char str[256];
+		snprintf(str, 256, u8"%s_Licenses.html", asTitle());
+		return makeLog(str);
+	}
+
+
 	//èâä˙âª
 	const int32_t AsInit(const Pos2& window_size = WINDOW_SIZE, const ColorRGB& BG_color = BG_COLOR)
 	{
@@ -291,22 +338,21 @@ namespace AsLib
 		DxLib::SetUseDirectInputFlag(TRUE);
 #endif
 		if (DxLib::SetUseASyncLoadFlag(FALSE) == -1) return -1;
-
-		return 0;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		s3d::Window::Resize(window_size.x, window_size.y);
 		s3d::Graphics::SetBackground(s3d::Color(BG_color));
 		static s3d::RenderStateBlock2D wireframe(s3d::SamplerState::ClampNearest);
-		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 		//asSetWindowSize(window_size);
 		asSetBackGround(BG_color);
-		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
-return 0;
 #else //Console
-return 0;
 #endif
+
+#if !defined(ASLIB_DONOT_USE_LOG)
+makeLog();
+#endif
+return 0;
 	}
 
 	//èIóπèàóù

@@ -1289,7 +1289,7 @@ constexpr int CTRL_CODE_CMP=0x20;
 			switch (id_)
 			{
 			case USING_DL_GRAPH_LOAD:
-				DL_tmd.emplace_back(asLoadTexure(f_));
+				DL_tmd.emplace_back(1,asLoadTexure(f_, 1));
 				return int(DL_tmd.size() - 1);
 			case USING_DL_GRAPH_DRAW:
 				if (ControlHandle(handle_, DL_tmd.size())) return -1;

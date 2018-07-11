@@ -122,9 +122,6 @@
     <ClInclude Include="AsPos.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="AsLog.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="AsTexure.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>

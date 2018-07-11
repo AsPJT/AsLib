@@ -16,7 +16,7 @@ struct AsMainApp : public AsBaseApp {
 
 	//開始
 	void asInit() {
-		makeLog();
+		
 	}
 	//更新
 	void asUpdate() {

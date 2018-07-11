@@ -8,6 +8,7 @@
 //
 //     ----------     ----------     ----------     ----------     ----------
 
+
 namespace AsLib
 {
 #if defined(ASLIB_INCLUDE_OF)
@@ -15,7 +16,7 @@ namespace AsLib
 #else
 	struct AsBaseApp {
 #endif
-		AsBaseApp() {}
+		AsBaseApp() = default;
 		virtual ~AsBaseApp() {}
 
 		virtual void asInit() {}
