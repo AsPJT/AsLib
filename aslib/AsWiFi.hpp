@@ -9,7 +9,7 @@
 
 namespace AsLib
 {
-	inline int32_t asWifi()
+	inline const int32_t asWifi()
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__ANDROID__)
@@ -21,7 +21,7 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
-
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else

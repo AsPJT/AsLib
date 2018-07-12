@@ -1289,7 +1289,7 @@ constexpr int CTRL_CODE_CMP=0x20;
 			switch (id_)
 			{
 			case USING_DL_GRAPH_LOAD:
-				DL_tmd.emplace_back(1,asLoadTexure(f_, 1));
+				DL_tmd.emplace_back(1,asLoadTexture(f_, 1));
 				return int(DL_tmd.size() - 1);
 			case USING_DL_GRAPH_DRAW:
 				if (ControlHandle(handle_, DL_tmd.size())) return -1;
@@ -1341,11 +1341,11 @@ constexpr int CTRL_CODE_CMP=0x20;
 		inline const int ProcessMessage() { return ProcessMessageControl(); }
 
 		//図形描画関数
-		inline const int DrawBox(const int x1, const int y1, const int x2, const int y2, const unsigned int col_, const int flag = 1) { return int(asRect(Pos4(int32_t(x1), int32_t(y1), int32_t(x2), int32_t(y2)), ColorRGBA(col_))); }
-		inline const int DrawBox(const int x1, const int y1, const int x2, const int y2, const ColorRGBA& col_, const int flag = 1) { return int(asRect(Pos4(int32_t(x1), int32_t(y1), int32_t(x2), int32_t(y2)), col_)); }
-		inline const int DrawBox(const Pos4& p_, const ColorRGBA& col_, const int flag = 1) { return int(asRect(Pos4(p_.x1, p_.y1, p_.x2, p_.y2), col_)); }
-		inline const int DrawBox(const ColorRGBA& col_, const Pos4& p_, const int flag = 1) { return int(asRect(Pos4(p_.x1, p_.y1, p_.x2, p_.y2), col_)); }
-		inline const int DrawBox(const Pos4& p_, const unsigned int col_, const int flag = 1) { return int(asRect(Pos4(p_.x1, p_.y1, p_.x2, p_.y2), ColorRGBA(col_))); }
+		inline const int DrawBox(const int x1, const int y1, const int x2, const int y2, const unsigned int col_, const int flag = 1) { asRect(Pos4(int32_t(x1), int32_t(y1), int32_t(x2), int32_t(y2)), Color(col_)); return 0; }
+		inline const int DrawBox(const int x1, const int y1, const int x2, const int y2, const Color& col_, const int flag = 1) { asRect(Pos4(int32_t(x1), int32_t(y1), int32_t(x2), int32_t(y2)), col_); return 0; }
+		inline const int DrawBox(const Pos4& p_, const Color& col_, const int flag = 1) { asRect(Pos4(p_.x1, p_.y1, p_.x2, p_.y2), col_); return 0;}
+		inline const int DrawBox(const Color& col_, const Pos4& p_, const int flag = 1) { asRect(Pos4(p_.x1, p_.y1, p_.x2, p_.y2), col_); return 0;}
+		inline const int DrawBox(const Pos4& p_, const unsigned int col_, const int flag = 1) { asRect(Pos4(p_.x1, p_.y1, p_.x2, p_.y2), Color(col_)); return 0;}
 
 		//グラフィックデータ制御関数
 		inline const int LoadGraph(const char* const f_) { return ControlGraph(USING_DL_GRAPH_LOAD, -1, f_); }
@@ -1354,7 +1354,7 @@ constexpr int CTRL_CODE_CMP=0x20;
 		inline const int DrawExtendGraph(const int x1, const int y1, const int x2, const int y2, const int handle, const int flag=1) { return ControlGraph(USING_DL_GRAPH_EXTEND_DRAW, handle, nullptr, Pos4(int32_t(x1), int32_t(y1), int32_t(x2), int32_t(y2))); }
 		inline const int DrawExtendGraph(const Pos4& p_, const int handle, const int flag = 1) { return ControlGraph(USING_DL_GRAPH_EXTEND_DRAW, handle, nullptr, p_); }
 		inline const int GetGraphSize(const int handle, int * const x_, int * const y_) { return ControlPixelGraph(handle, x_, y_); }
-		//const int LoadGraphScreen(const int x_, const int y_, const char* const f_, const int flag = 1) { Texture(1, asLoadTexure(f_, 1)).draw(0, Pos2(int32_t(x_), int32_t(y_))); return 0; }
+		//const int LoadGraphScreen(const int x_, const int y_, const char* const f_, const int flag = 1) { Texture(1, asLoadTexture(f_, 1)).draw(0, Pos2(int32_t(x_), int32_t(y_))); return 0; }
 
 		//簡易画面出力関数
 		template<typename... Rest>inline const int printfDx(const char* const format_string, const Rest&... rest) { return int(asPrint(format_string, rest...)); }
@@ -1363,8 +1363,8 @@ constexpr int CTRL_CODE_CMP=0x20;
 		inline const int GetTouchInputNum() { return int(asTouchNum()); }
 
 		//その他画面操作系関数
-		inline const int SetGraphMode(const int x_, const int y_, const int bit_ = 32) { return int(asSetWindowSize(Pos2(int32_t(x_), int32_t(y_)))); }
-		inline const int SetGraphMode(const Pos2& pos_, const int bit_ = 32) { return int(asSetWindowSize(pos_)); }
+		inline const int SetGraphMode(const int x_, const int y_, const int bit_ = 32) { asSetWindowSize(Pos2(int32_t(x_), int32_t(y_))); return 0; }
+		inline const int SetGraphMode(const Pos2& pos_, const int bit_ = 32) { asSetWindowSize(pos_); return 0; }
 		inline const int SetFullScreenResolutionMode(const int ResolutionMode = 1) { return 0; }
 		inline const int SetFullScreenScalingMode(const int ScalingMode = 1) { return 0; }
 		const int GetScreenState(int* const x_, int* const y_, int* const col) { const Pos2 p = asWindowSize(); *x_ = int(p.x); *y_ = int(p.y); *col = 32; return 0; }
@@ -1380,7 +1380,7 @@ constexpr int CTRL_CODE_CMP=0x20;
 		inline const int ClearDrawScreen() { return 0; }
 		inline const int SetBackgroundColor(const int r_, const int g_, const int b_) { return asSetBackGround(ColorRGB(uint8_t(r_ & 0xff), uint8_t(g_ & 0xff), uint8_t(b_ & 0xff))); }
 		inline const unsigned int GetColor(const int r_, const int g_, const int b_) { return ((unsigned int)((r_ & 0xff) << 0x10) + (unsigned int)((g_ & 0xff) << 0x8) + (unsigned int)(b_ & 0xff)); }
-		inline const unsigned int GetColor(const ColorRGBA& col_) { return ((unsigned int)((col_.r & 0xff) << 0x10) + (unsigned int)((col_.g & 0xff) << 0x8) + (unsigned int)(col_.b & 0xff)); }
+		inline const unsigned int GetColor(const Color& col_) { return ((unsigned int)((col_.r & 0xff) << 0x10) + (unsigned int)((col_.g & 0xff) << 0x8) + (unsigned int)(col_.b & 0xff)); }
 		inline const int SetDrawScreen(const int draw_screen = 1) { return 0; }
 		const int ScreenFlip() { if (asLoop() == false) { ProcessMessageControl(true, true); return -1; } return 0; }
 

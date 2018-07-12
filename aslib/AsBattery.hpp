@@ -33,9 +33,9 @@ namespace AsLib
 	}
 
 	//バッテリー描画
-	const int32_t asBatteryDraw(const PosL4 pos_, const ColorRGBA battery_col = { 0,192,32,255 }, const ColorRGBA out_col = { 75,75,75,255 })
+	const int32_t asBatteryDraw(const PosL4 pos_, const Color battery_col = { 0,192,32,255 }, const Color out_col = { 75,75,75,255 })
 	{
-		const ColorRGBA empty_col = { 255,255,255,out_col.a };
+		const Color empty_col = { 255,255,255,out_col.a };
 
 		//バッテリー外枠
 		PosL4 out_pos = pos_;
@@ -72,17 +72,17 @@ namespace AsLib
 
 	struct Battery {
 	public:
-		Battery(const PosL4 pos_ = { 0,0,100,0 }, const ColorRGBA in_col_ = { 0,192,32,255 }, const ColorRGBA out_col_ = { 75,75,75,255 })
+		Battery(const PosL4 pos_ = { 0,0,100,0 }, const Color in_col_ = { 0,192,32,255 }, const Color out_col_ = { 75,75,75,255 })
 		{
 			this->make(pos_, in_col_, out_col_);
 		};
-		Battery& make(const PosL4 pos_ = { 0,0,100,0 }, const ColorRGBA in_col_ = { 0,192,32,255 }, const ColorRGBA out_col_ = { 75,75,75,255 })
+		Battery& make(const PosL4 pos_ = { 0,0,100,0 }, const Color in_col_ = { 0,192,32,255 }, const Color out_col_ = { 75,75,75,255 })
 		{
 			out_pos = pos_;
 			battery_col = in_col_;
 			out_col = out_col_;
 
-			empty_col = ColorRGBA( 255,255,255,out_col.a );
+			empty_col = Color( 255,255,255,out_col.a );
 
 			//バッテリー外枠
 			out_pos.h = pos_.w / 2;
@@ -162,9 +162,9 @@ namespace AsLib
 		PosL4 battery_pos;
 		Pos4 touch_pos;
 
-		ColorRGBA empty_col;
-		ColorRGBA battery_col;
-		ColorRGBA out_col;
+		Color empty_col;
+		Color battery_col;
+		Color out_col;
 
 		int32_t battery_power;
 

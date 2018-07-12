@@ -122,10 +122,10 @@
     <ClInclude Include="AsPos.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="AsTexure.hpp">
+    <ClInclude Include="AsFrameworks.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="AsFrameworks.hpp">
+    <ClInclude Include="AsTexture.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

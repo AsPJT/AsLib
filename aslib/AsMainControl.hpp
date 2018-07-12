@@ -331,11 +331,11 @@ namespace AsLib
 	inline MainControl & MainControl::animeAdd(const char * const add_name,const size_t add_num)
 	{
 #if defined(ANIME_TEXTURE_1)
-		const Texture add_texture(add_num, asLoadTexure(add_name, 1));
+		const Texture add_texture(add_num, asLoadTexture(add_name, 1));
 		vecAnime.emplace_back(add_texture);
 #elif defined(ANIME_TEXTURE_2)
 		//”ñconst
-		Texture add_texture(add_num, asLoadTexure(add_name, add_num, 1));
+		Texture add_texture(add_num, asLoadTexture(add_name, add_num, 1));
 		vecAnime.emplace_back(std::move(add_texture));
 #endif
 		return *this;

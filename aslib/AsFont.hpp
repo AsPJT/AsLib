@@ -68,7 +68,7 @@ namespace AsLib
 #endif
 	}
 
-	const int32_t asPrint(const OriginatorFont font, const char* const format_string = u8"", const Pos2& pos2 = pos2_0, const ColorRGBA& color_rgba = whiteA)
+	const int32_t asPrint(const OriginatorFont font, const char* const format_string = u8"", const Pos2& pos2 = pos2_0, const Color& color_rgba = whiteA)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, color_rgba.a) == -1) return -1;
@@ -94,7 +94,7 @@ namespace AsLib
 		return std::string(sn_string);
 	}
 
-	inline const bool asFont(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const ColorRGBA& color_)
+	inline const bool asFont(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const Color& color_)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, int(color_.a)) == 0) && (DxLib::DrawStringToHandle(int(pos_.x), int(pos_.y), format_string, color_, id_, id_) == 0);
@@ -110,7 +110,7 @@ namespace AsLib
 #endif
 	}
 
-	inline const bool asFontAt(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const ColorRGBA& color_)
+	inline const bool asFontAt(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const Color& color_)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return asFont(id_, format_string, asMiddle(id_, format_string, pos_), color_);
@@ -127,7 +127,7 @@ namespace AsLib
 	}
 
 	template<typename... Rest>
-	inline const bool asFont(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const ColorRGBA& color_, const Rest&... rest)
+	inline const bool asFont(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const Color& color_, const Rest&... rest)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, int(color_.a)) == 0) && (DxLib::DrawFormatStringToHandle(int(pos_.x), int(pos_.y), color_, id_, format_string, rest...) == 0);
@@ -144,7 +144,7 @@ namespace AsLib
 	}
 
 	template<typename... Rest>
-	inline const bool asFontAt(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const ColorRGBA& color_, const Rest&... rest)
+	inline const bool asFontAt(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const Color& color_, const Rest&... rest)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return asFont(id_, format_string, asMiddle(id_, printStringS3(format_string, rest...), pos_), color_, rest...);
@@ -168,21 +168,21 @@ namespace AsLib
 
 		FontMainData(const OriginatorFont& add_id, const int32_t add_size = 10, const char* const add_fontname = u8"Meiryo UI", const int32_t add_thick = FONT_THICK):id(add_id), size(add_size), thick(add_thick), fontname(std::string(add_fontname)) {}
 
-		FontMainData& draw(const char* const, const Pos2&, const ColorRGBA& = black_RGBA);
-		FontMainData& draw(const std::string& string_, const ColorRGBA& color_ = black_RGBA) { return this->draw(string_.c_str(), color_); }
-		FontMainData& draw(const ColorRGBA& color_, const std::string& string_) { return this->draw(string_.c_str(), color_); }
-		FontMainData& draw(const ColorRGBA& color_, const char* const string_) { return this->draw(string_, color_); }
+		FontMainData& draw(const char* const, const Pos2&, const Color& = black_RGBA);
+		FontMainData& draw(const std::string& string_, const Color& color_ = black_RGBA) { return this->draw(string_.c_str(), color_); }
+		FontMainData& draw(const Color& color_, const std::string& string_) { return this->draw(string_.c_str(), color_); }
+		FontMainData& draw(const Color& color_, const char* const string_) { return this->draw(string_, color_); }
 
-		FontMainData& drawAt(const char* const, const Pos2&, const ColorRGBA& = black_RGBA);
-		FontMainData& drawAt(const std::string& string_, const ColorRGBA& color_ = black_RGBA) { return this->drawAt(string_.c_str(), color_); }
-		FontMainData& drawAt(const ColorRGBA& color_, const std::string& string_) { return this->drawAt(string_.c_str(), color_); }
-		FontMainData& drawAt(const ColorRGBA& color_, const char* const string_) { return this->drawAt(string_, color_); }
+		FontMainData& drawAt(const char* const, const Pos2&, const Color& = black_RGBA);
+		FontMainData& drawAt(const std::string& string_, const Color& color_ = black_RGBA) { return this->drawAt(string_.c_str(), color_); }
+		FontMainData& drawAt(const Color& color_, const std::string& string_) { return this->drawAt(string_.c_str(), color_); }
+		FontMainData& drawAt(const Color& color_, const char* const string_) { return this->drawAt(string_, color_); }
 
 		//書式付き
 		template<typename... Rest>
-		FontMainData& draw(const char* const, const Pos2& pos_, const ColorRGBA& color_, const Rest&... rest);
+		FontMainData& draw(const char* const, const Pos2& pos_, const Color& color_, const Rest&... rest);
 		template<typename... Rest>
-		FontMainData& draw(const ColorRGBA& color_, const char* const str_, const Rest&... rest) { return this->draw(str_, pos2_0, color_, rest...); }
+		FontMainData& draw(const Color& color_, const char* const str_, const Rest&... rest) { return this->draw(str_, pos2_0, color_, rest...); }
 		template<typename... Rest>
 		FontMainData& draw(const Pos2& pos_, const char* const str_, const Rest&... rest) { return this->draw(str_, pos_, whiteA, rest...); }
 		template<typename... Rest>
@@ -190,9 +190,9 @@ namespace AsLib
 
 		//書式付き
 		template<typename... Rest>
-		FontMainData& drawAt(const char* const, const Pos2& pos_, const ColorRGBA& color_, const Rest&... rest);
+		FontMainData& drawAt(const char* const, const Pos2& pos_, const Color& color_, const Rest&... rest);
 		template<typename... Rest>
-		FontMainData& drawAt(const ColorRGBA& color_, const char* const str_, const Rest&... rest) { return this->drawAt(str_, pos2_0, color_, rest...); }
+		FontMainData& drawAt(const Color& color_, const char* const str_, const Rest&... rest) { return this->drawAt(str_, pos2_0, color_, rest...); }
 		template<typename... Rest>
 		FontMainData& drawAt(const Pos2& pos_, const char* const str_, const Rest&... rest) { return this->drawAt(str_, pos_, whiteA, rest...); }
 		template<typename... Rest>
@@ -231,13 +231,13 @@ namespace AsLib
 		std::string fontname = {};
 	};
 
-	inline FontMainData& FontMainData::draw(const char* const format_string, const Pos2& pos_, const ColorRGBA& color_)
+	inline FontMainData& FontMainData::draw(const char* const format_string, const Pos2& pos_, const Color& color_)
 	{
 		asFont(this->id, format_string, pos_, color_);
 		return *this;
 	}
 
-	inline FontMainData& FontMainData::drawAt(const char* const format_string, const Pos2& pos_, const ColorRGBA& color_)
+	inline FontMainData& FontMainData::drawAt(const char* const format_string, const Pos2& pos_, const Color& color_)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		asFont(this->id, format_string, asMiddle(this->id, format_string, pos_), color_);
@@ -254,7 +254,7 @@ namespace AsLib
 	}
 
 	template<typename... Rest>
-	inline FontMainData& FontMainData::drawAt(const char* const format_string, const Pos2& pos_, const ColorRGBA& color_, const Rest&... rest)
+	inline FontMainData& FontMainData::drawAt(const char* const format_string, const Pos2& pos_, const Color& color_, const Rest&... rest)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		asFont(this->id, format_string, asMiddle(this->id, format_string, pos_), color_, rest...);
@@ -271,7 +271,7 @@ namespace AsLib
 	}
 
 	template<typename... Rest>
-	inline FontMainData& FontMainData::draw(const char* const format_string, const Pos2& pos_, const ColorRGBA& color_, const Rest&... rest)
+	inline FontMainData& FontMainData::draw(const char* const format_string, const Pos2& pos_, const Color& color_, const Rest&... rest)
 	{
 		asFont(this->id, format_string, pos_, color_, rest...);
 		return *this;

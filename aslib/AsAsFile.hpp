@@ -76,7 +76,7 @@ namespace AsLib
 		return asRead(file_name, &color, sizeof(color), 1);
 	}
 
-	inline const int32_t asReadRGBA(const char* const file_name, ColorRGBA& color)
+	inline const int32_t asReadRGBA(const char* const file_name, Color& color)
 	{
 		return asRead(file_name, &color, sizeof(color), 1);
 	}
@@ -100,9 +100,9 @@ namespace AsLib
 		return asWrite(file_name, &color, sizeof(color), 1);
 	}
 
-	const int32_t asWriteRGBA(const char* const file_name, const ColorRGBA& add_color)
+	const int32_t asWriteRGBA(const char* const file_name, const Color& add_color)
 	{
-		ColorRGBA color = add_color;
+		Color color = add_color;
 		return asWrite(file_name, &color, sizeof(color), 1);
 	}
 

@@ -17,27 +17,9 @@ namespace AsLib
 		TexSize2(const OriginatorTexture& t_, const size_t x_, const size_t y_) :t(t_), x(x_), y(y_) {}
 	};
 
-//	//画像読み込み
-//	inline OriginatorTexture asLoadTexure(const char* const name)
-//	{
-//#if defined(ASLIB_INCLUDE_DL) //DxLib
-//		return DxLib::LoadGraph(name);
-//#elif defined(ASLIB_INCLUDE_S3) //Siv3D
-//		return s3d::Texture(s3d::Unicode::UTF8ToUTF32(std::string(name)));
-//#elif defined(ASLIB_INCLUDE_OF)
-//		ofImage image_of;
-//		image_of.load(name);
-//		return image_of;
-//#elif defined(ASLIB_INCLUDE_TP)
-//		return 0;
-//#else //Console
-//		return 0;
-//#endif
-//	}
-
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 	//画像を分割ロードする
-	inline std::unique_ptr<OriginatorTexture[]> asLoadTexure(const char* const name, const size_t tex_num_x=1, const size_t tex_num_y=1)
+	std::unique_ptr<OriginatorTexture[]> asLoadTexture(const char* const name, const size_t tex_num_x = 1, const size_t tex_num_y = 1)
 	{
 		const OriginatorTexture tex = DxLib::LoadGraph(name);
 		if (tex == -1) return nullptr;
@@ -50,199 +32,86 @@ namespace AsLib
 		DxLib::LoadDivGraph(name, int(tex_num_x * tex_num_y), int(tex_num_x), int(tex_num_y), size_x / int(tex_num_x), size_y / int(tex_num_y), &texs[0]);
 		return texs;
 	}
-#elif defined(ASLIB_INCLUDE_S3) //Siv3D
-	//画像読み込み
-	inline TexSize2 asLoadTexure(const char* const name, const size_t tex_num_x=1, const size_t tex_num_y=1)
-	{
-		return TexSize2(s3d::Texture(s3d::Unicode::UTF8ToUTF32(std::string(name))), tex_num_x, tex_num_y);
-			}
 #else
-	inline TexSize2 asLoadTexure(const char* const name, const size_t tex_num_x=1, const size_t tex_num_y = 1)
+
+
+	//画像読み込み
+	inline TexSize2 asLoadTexture(const char* const name, const size_t tex_num_x = 1, const size_t tex_num_y = 1)
 	{
+#if defined(ASLIB_INCLUDE_S3) //Siv3D
+		return TexSize2(s3d::Texture(s3d::Unicode::UTF8ToUTF32(std::string(name))), tex_num_x, tex_num_y);
+#elif defined(ASLIB_INCLUDE_OF)
 		static OriginatorTexture tex;
 		tex.load(name);
 		return TexSize2(tex, tex_num_x, tex_num_y);
+#elif defined(ASLIB_INCLUDE_TP)
+		return TexSize2();
+#else //Console
+		return TexSize2();
+#endif
 	}
 #endif
 
-
-
-
-
-	const int32_t asTexureSize(const OriginatorTexture& id, Pos2& texture_size)
+	inline void asTextureSize(const OriginatorTexture& id, Pos2& texture_size)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-		static int size_x, size_y;
-		size_x = size_y = 0;
-		if (DxLib::GetGraphSize(id, &size_x, &size_y) == -1) return -1;
+		int size_x = 0, size_y = 0;
+		DxLib::GetGraphSize(id, &size_x, &size_y);
 		texture_size(int32_t(size_x), int32_t(size_y));
-		return 0;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		texture_size(int32_t(id.width()), int32_t(id.height()));
-		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 		texture_size(int32_t(id.getWidth()), int32_t(id.getHeight()));
-		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
-		return 0;
 #else //Console
-		return 0;
 #endif
 	}
 
-	const Pos2 asTexureSize(const OriginatorTexture& id)
+	const Pos2 asTextureSize(const OriginatorTexture& id)
 	{
 		Pos2 p;
-		asTexureSize(id, p);
+		asTextureSize(id, p);
 		return p;
 	}
 
-	const int32_t asTexure(const OriginatorTexture tex, const PosA4F& p_, const float r_, const uint8_t alpha = 255)
-	{
-#if defined(ASLIB_INCLUDE_DL) //DxLib
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
-		const Pos2 s = asTexureSize(tex);
-		if (DxLib::DrawRotaGraphFast3(int(p_.x), int(p_.y), s.x/2, s.y/2, p_.w / s.x, p_.h / s.y, r_, tex, TRUE) != -1) return 0;
-
-		return -1;
-#elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		return 0;
-#elif defined(ASLIB_INCLUDE_OF)
-		return 0;
-#elif defined(ASLIB_INCLUDE_TP)
-		return 0;
-#else //Console
-		return 0;
-#endif
-	}
-
-	const int32_t asTexure8(const OriginatorTexture tex, const Pos8& pos8, const uint8_t alpha = 255)
-	{
-#if defined(ASLIB_INCLUDE_DL) //DxLib
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, int(alpha)) == -1) return -1;
-		if (DxLib::DrawModiGraph(int(pos8.x1), int(pos8.y1), int(pos8.x2), int(pos8.y2), int(pos8.x4), int(pos8.y4), int(pos8.x3), int(pos8.y3), tex, TRUE) != -1) return 0;
-
-		return -1;
-#elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		return 0;
-#elif defined(ASLIB_INCLUDE_OF)
-		return 0;
-#elif defined(ASLIB_INCLUDE_TP)
-		return 0;
-#else //Console
-		return 0;
-#endif
-	}
-
-	const int32_t asTexure4(const OriginatorTexture tex, const Pos4& pos, const uint8_t alpha = 255)
-	{
-#if defined(ASLIB_INCLUDE_DL) //DxLib
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
-		if (DxLib::DrawExtendGraph(int(pos.x1), int(pos.y1), int(pos.x2), int(pos.y2), tex, TRUE) != -1) return 0;
-		return -1;
-#elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		tex.resized(pos.x2 - pos.x1, pos.y2 - pos.y1).draw(pos.x1, pos.y1, s3d::Alpha(alpha));
-		return 0;
-#elif defined(ASLIB_INCLUDE_OF)
-		tex.draw(float(pos.x1), float(pos.y1), float(pos.x2 - pos.x1), float(pos.y2 - pos.y1));
-		return 0;
-#elif defined(ASLIB_INCLUDE_TP)
-		return 0;
-#else //Console
-		return 0;
-#endif
-	}
-
-	//todo
-	const int32_t asTexure(const OriginatorTexture tex, const Pos4& pos4, const uint8_t alpha = 255, const ColorRGBA& colorRGBA = color_0)
-	{
-#if defined(ASLIB_INCLUDE_DL) //DxLib
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha) == -1) return -1;
-		if (DxLib::DrawExtendGraph(int(pos4.x1), int(pos4.y1), int(pos4.x2), int(pos4.y2), tex, TRUE) != -1) return 0;
-
-		if (colorRGBA.a == 0) return -1;
-		if (asRect(pos4, colorRGBA) == -1) return -1;
-		return -2;
-#elif defined(ASLIB_INCLUDE_OF)
-		return 0;
-#elif defined(ASLIB_INCLUDE_TP)
-		return 0;
-#elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		return 0;
-#else //Console
-		return 0;
-#endif
-	}
-
-	const int32_t asTexureAt(const OriginatorTexture tex, const Pos4& pos4, const uint8_t alpha = 255, const ColorRGBA& colorRGBA = color_0) {
-#if defined(ASLIB_INCLUDE_DL) //DxLib
-		const int32_t sub_x = (pos4.x2 - pos4.x1) >> BIT_SHIFT_DIV_2;
-		const int32_t sub_y = (pos4.y2 - pos4.y1) >> BIT_SHIFT_DIV_2;
-		const int32_t x1 = pos4.x1 - sub_x;
-		const int32_t x2 = pos4.x2 - sub_x;
-		const int32_t y1 = pos4.y1 - sub_y;
-		const int32_t y2 = pos4.y2 - sub_y;
-
-		const Pos4 new_pos4 = { x1,y1,x2,y2 };
-		return asTexure(tex, new_pos4, alpha, colorRGBA);
-#elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		return 0;
-#elif defined(ASLIB_INCLUDE_OF)
-		return 0;
-#elif defined(ASLIB_INCLUDE_TP)
-		return 0;
-#else //Console
-		return 0;
-#endif
-	}
-
 #if defined(ASLIB_INCLUDE_S3) //Siv3D
-	const int32_t asTexure4S3(const OriginatorTexture& tex, const Pos2& p_, const Pos4& l_, const PosL4& pos_, const uint8_t alpha = 255)
+	inline void asTextureType1(const OriginatorTexture& t_, const Pos2& p_, const Pos2& l_, const PosL4& cut_p_, const uint8_t& a_ = (uint8_t)255, const float& r_ = 0.0f)
 	{
-		tex(pos_.x, pos_.y, pos_.w, pos_.h).resized(l_.x2 - l_.x1, l_.y2 - l_.y1).draw(p_.x, p_.y, s3d::Alpha(alpha));
-		return 0;
+		t_(cut_p_.x, cut_p_.y, cut_p_.w, cut_p_.h).resized(l_.x, l_.y).rotated(double(r_)).draw(p_.x, p_.y, s3d::Alpha(a_));
 	}
-
-	const int32_t asTexure4S3(const OriginatorTexture& tex, const Pos2& p_, const Pos2& l_,const PosL4& pos_, const uint8_t alpha = 255)
-	{
-		tex(pos_.x, pos_.y, pos_.w, pos_.h).resized(l_.x, l_.y).draw(0, 0, s3d::Alpha(alpha));
-		return 0;
-	}
-
-	const int32_t asTexure4S3(const OriginatorTexture& tex, const Pos2& p_, const Pos2& l_, const PosL4& pos_, const float r_,const uint8_t alpha = 255)
-	{
-		tex(pos_.x, pos_.y, pos_.w, pos_.h).resized(l_.x, l_.y).rotated(double(r_)).draw(p_.x, p_.y, s3d::Alpha(alpha));
-		return 0;
-	}
-#endif
-#if defined(ASLIB_INCLUDE_OF)
-	const int32_t asTexure4S3(const OriginatorTexture& tex, const Pos2& p_, const Pos4& l_, const PosL4& pos_, const uint8_t alpha = 255)
-	{
-		ofTranslate(0.0f, 0.0f);
-		ofRotateRad(0.0f);
-		ofSetColor(255, 255, 255, int(alpha));
-		tex.drawSubsection(pos_.x, pos_.y, pos_.w, pos_.h, p_.x, p_.y, l_.x2 - l_.x1, l_.y2 - l_.y1);
-		return 0;
-	}
-
-	const int32_t asTexure4S3(const OriginatorTexture& tex, const Pos2& p_, const Pos2& l_, const PosL4& pos_, const uint8_t alpha = 255)
-	{
-		ofTranslate(0.0f, 0.0f);
-		ofRotateRad(0.0f);
-		ofSetColor(255, 255, 255, int(alpha));
-		tex.drawSubsection(pos_.x, pos_.y, pos_.w, pos_.h, 0, 0, l_.x, l_.y);
-		return 0;
-	}
-
-	const int32_t asTexure4S3(const OriginatorTexture& tex, const Pos2& p_, const Pos2& l_, const PosL4& pos_, const float r_, const uint8_t alpha = 255)
+#elif defined(ASLIB_INCLUDE_OF)
+	inline void asTextureType1(const OriginatorTexture& t_, const Pos2& p_, const Pos2& l_, const PosL4& cut_p_, const uint8_t& a_ = 255, const float& r_ = 0.0f)
 	{
 		ofTranslate(l_.x / 2, l_.y / 2);
 		ofRotateRad(r_);
-		ofSetColor(255, 255, 255, int(alpha));
-		tex.drawSubsection(pos_.x, pos_.y, pos_.w, pos_.h, p_.x, p_.y, l_.x, l_.y);
-		return 0;
+		ofSetColor(255, 255, 255, int(a_));
+		t_.drawSubsection(cut_p_.x, cut_p_.y, cut_p_.w, cut_p_.h, p_.x, p_.y, l_.x, l_.y);
 	}
 #endif
+
+	inline void asTexture(const OriginatorTexture& tex, const PosA4F& p_, const float& r_, const uint8_t& alpha = 255)
+	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
+		DxLib::SetDrawBlendMode(1, int(alpha));
+		const Pos2 s(asTextureSize(tex));
+		DxLib::DrawRotaGraphFast3(int(p_.x), int(p_.y), s.x / 2, s.y / 2, p_.w / s.x, p_.h / s.y, r_, tex, 1);
+#else
+#if defined(ANIME_TEXTURE_1)
+
+#endif
+#endif
+	}
+	inline void asTexture(const OriginatorTexture& tex, const Pos4& pos, const uint8_t& alpha = 255)
+	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
+		DxLib::SetDrawBlendMode(1, int(alpha));
+		DxLib::DrawExtendGraph(int(pos.x1), int(pos.y1), int(pos.x2), int(pos.y2), tex, TRUE);
+#else //Console
+#if defined(ANIME_TEXTURE_1)
+
+#endif
+#endif
+	}
 
 	//画像を管理する
 	struct Texture
@@ -250,7 +119,7 @@ namespace AsLib
 	private:
 #if defined(ANIME_TEXTURE_1)
 		OriginatorTexture id;
-		int32_t turn_id = 1;
+		size_t turn_id = 1;
 #elif defined(ANIME_TEXTURE_2)
 		std::unique_ptr<OriginatorTexture[]> id;
 #elif defined(ANIME_TEXTURE_3)
@@ -264,43 +133,43 @@ namespace AsLib
 		Texture(const size_t id_num, const TexSize2& add_id) :id(add_id.t), num(id_num)
 		{
 			//画像サイズ取得
-			asTexureSize(this->id, this->pixel_size);
+			asTextureSize(this->id, this->pixel_size);
 			this->pixel_size.x /= int32_t(add_id.x);
 			this->pixel_size.y /= int32_t(add_id.y);
-			this->turn_id = int32_t(add_id.x);
+			this->turn_id = size_t(add_id.x);
 		}
 		Texture(const TexSize2& add_id) :id(add_id.t), num(1)
 		{
 			//画像サイズ取得
-			asTexureSize(this->id, this->pixel_size);
+			asTextureSize(this->id, this->pixel_size);
 			this->pixel_size.x /= int32_t(add_id.x);
 			this->pixel_size.y /= int32_t(add_id.y);
-			this->turn_id = int32_t(add_id.x);
+			this->turn_id = size_t(add_id.x);
 		}
 		Texture& operator()(const size_t id_num, const TexSize2& add_id)
 		{
 			id=add_id.t;
 			num = id_num;
 			//画像サイズ取得
-			asTexureSize(this->id, this->pixel_size);
+			asTextureSize(this->id, this->pixel_size);
 			this->pixel_size.x /= int32_t(add_id.x);
 			this->pixel_size.y /= int32_t(add_id.y);
-			this->turn_id = int32_t(add_id.x);
+			this->turn_id = size_t(add_id.x);
 			return *this;
 		}
 		Texture& operator()(const TexSize2& add_id)
 		{
 			id = add_id.t;
 			//画像サイズ取得
-			asTexureSize(this->id, this->pixel_size);
+			asTextureSize(this->id, this->pixel_size);
 			this->pixel_size.x /= int32_t(add_id.x);
 			this->pixel_size.y /= int32_t(add_id.y);
-			this->turn_id = int32_t(add_id.x);
+			this->turn_id = size_t(add_id.x);
 			return *this;
 		}
 #elif defined(ANIME_TEXTURE_2)
-		Texture(const size_t id_num, std::unique_ptr<OriginatorTexture[]>&& add_id) : id(std::move(add_id)), pixel_size(asTexureSize(this->id[0])), num(id_num) {}
-		Texture(std::unique_ptr<OriginatorTexture[]>&& add_id) : id(std::move(add_id)), pixel_size(asTexureSize(this->id[0])), num(1) {}
+		Texture(const size_t id_num, std::unique_ptr<OriginatorTexture[]>&& add_id) : id(std::move(add_id)), pixel_size(asTextureSize(this->id[0])), num(id_num) {}
+		Texture(std::unique_ptr<OriginatorTexture[]>&& add_id) : id(std::move(add_id)), pixel_size(asTextureSize(this->id[0])), num(1) {}
 #elif defined(ANIME_TEXTURE_3)
 		Texture(const size_t id_num, const int32_t add_id) {}
 #endif
@@ -313,9 +182,9 @@ namespace AsLib
 		Texture& draw(const size_t anime_size, const uint8_t alpha = 255)
 		{
 #if defined(ANIME_TEXTURE_1)
-			asTexure4S3(this->id, Pos2(), this->pixel_size, PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha);
+			asTextureType1(this->id, Pos2(), this->pixel_size, PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha);
 #elif defined(ANIME_TEXTURE_2)
-			asTexure4(this->id[anime_size], this->pixel_size, alpha);
+			asTexture(this->id[anime_size], this->pixel_size, alpha);
 #endif
 			return *this;
 		}
@@ -325,16 +194,14 @@ namespace AsLib
 		Texture& draw(const size_t anime_size, const Pos4& add_pos, const uint8_t alpha=255)
 		{
 #if defined(ANIME_TEXTURE_1)
-			asTexure4S3(this->id, Pos2(add_pos.x1, add_pos.y1), Pos2(add_pos.x2 - add_pos.x1, add_pos.y2 - add_pos.y1), PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha);
+			asTextureType1(this->id, Pos2(add_pos.x1, add_pos.y1), Pos2(add_pos.x2 - add_pos.x1, add_pos.y2 - add_pos.y1), PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha);
 #elif defined(ANIME_TEXTURE_2)
-			asTexure4(this->id[anime_size], add_pos, alpha);
+			asTexture(this->id[anime_size], add_pos, alpha);
 #endif
 			return *this;
 		}
 		Texture& draw(const Pos4& add_pos, const uint8_t alpha=255) { return this->draw((size_t)0, add_pos, alpha); }
-
 		const Texture& draw(const size_t, const PosA4F&, const float, const uint8_t = 255) const;
-		//Texture& draw(const Pos4& add_pos, const float r_, const uint8_t alpha = 255) { return this->draw((size_t)0, add_pos, r_, alpha); }
 
 		const size_t Num() const { return this->num; };
 		const Pos2 pixelSize() const { return this->pixel_size; };
@@ -520,17 +387,10 @@ namespace AsLib
 	{
 #if defined(ANIME_TEXTURE_1)
 		const Pos4 add_pos_(add_pos);
-		asTexure4S3(this->id, Pos2(add_pos_.x1, add_pos_.y1), Pos2(add_pos.w, add_pos.h), PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y),r_, alpha);
+		asTextureType1(this->id, Pos2(add_pos_.x1, add_pos_.y1), Pos2(add_pos.w, add_pos.h), PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha, r_);
 #elif defined(ANIME_TEXTURE_2)
-		asTexure(this->id[anime_size], add_pos,r_, alpha);
+		asTexture(this->id[anime_size], add_pos,r_, alpha);
 #endif
 		return *this;
 	}
-
-
-
-
-
-
-
 }

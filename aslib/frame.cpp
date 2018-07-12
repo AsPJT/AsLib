@@ -24,7 +24,7 @@ struct AsMainApp : public AsBaseApp {
 	}
 	//ï`âÊ
 	void asDraw() {
-		asRect(Pos4(aaa), ColorRGBA(255, 255, 255, 255));
+		asRect(Pos4(aaa), Color(255, 255, 255, 255));
 	}
 	//èIóπ
 	void asExit() {}

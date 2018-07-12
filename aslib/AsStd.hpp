@@ -37,33 +37,29 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3)
 		return Pos2(s3d::Window::Width(), s3d::Window::Height());
 #elif defined(ASLIB_INCLUDE_OF)
-		return 0;
+		return Pos2();
 #elif defined(ASLIB_INCLUDE_TP)
-		return 0;
+		return Pos2();
 #else //Console
-		return 0;
+		return Pos2();
 #endif
 	}
-
+	//ウィンドウサイズを取得する関数(float)
 	inline const Pos2F asWindowSizeF() { return Pos2F(asWindowSize()); }
 
-
-
 	//画面サイズ変更
-	int32_t asSetWindowSize(const Pos2& window_size = WINDOW_SIZE)
+	inline void asSetWindowSize(const Pos2& window_size = WINDOW_SIZE)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		asWindowSizeSave(true, window_size);
-		return int32_t(DxLib::SetGraphMode(window_size.x, window_size.y, 32));
+		DxLib::SetGraphMode(window_size.x, window_size.y, 32);
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		s3d::Window::Resize(window_size.x, window_size.y);
-		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
-		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
-	return 0;
+		window_size(0);
 #else //Console
-	return 0;
+		window_size(0);
 #endif
 	}
 
@@ -296,11 +292,11 @@ namespace AsLib
 			GetWindowRect(GetDesktopWindow(), &rc);
 			Pos2 full_pos;
 			full_pos(int32_t(rc.right - rc.left), int32_t(rc.bottom - rc.top));
-			if (asSetWindowSize(full_pos) == -1) return -1;
+			asSetWindowSize(full_pos);
 		}
 		else {//通常のモード
 			if (DxLib::ChangeWindowMode(TRUE) == -1) return -1;
-			if (asSetWindowSize(window_size) == -1) return -1;
+			asSetWindowSize(window_size);
 		}
 #endif
 		if (asSetBackGround(BG_color) == -1) return -1;

@@ -26,10 +26,10 @@ namespace AsLib
 
 	//色
 	constexpr ColorRGB white(250, 250, 250);
-	constexpr ColorRGBA whiteA(250, 250, 250, 255);
+	constexpr Color whiteA(250, 250, 250, 255);
 
 	constexpr ColorRGB black_RGB(0, 0, 0);
-	constexpr ColorRGBA black_RGBA(0, 0, 0, 255);
+	constexpr Color black_RGBA(0, 0, 0, 255);
 
 	//フルスクリーン
 	constexpr Pos2 FULL_SCREEN_POS(-1, -1);
@@ -50,9 +50,9 @@ namespace AsLib
 	constexpr Pos4F pos4R_all(0.0f, 0.0f, 1.0f, 1.0f);
 
 	//無色
-	constexpr ColorRGBA color_0(0, 0, 0, 0);
+	constexpr Color color_0(0, 0, 0, 0);
 	constexpr ColorRGB colorRGB_0(0, 0, 0);
-	constexpr ColorRGBA colorRGBA_0(0, 0, 0, 0);
+	constexpr Color colorRGBA_0(0, 0, 0, 0);
 
 	const Pos4 toPos4(const Pos4F& add_pos, const Pos2& window_size)
 	{

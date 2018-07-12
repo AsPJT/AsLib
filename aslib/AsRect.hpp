@@ -9,26 +9,19 @@
 
 namespace AsLib
 {
-	const int32_t asRect(const Pos4& pos_ = {}, const ColorRGBA& col = {}) {
+	inline void asRect(const PosL4& pos_ = {}, const Color& col = {}) {
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, col.a) == -1) return -1;
-		if (DxLib::DrawBox(int(pos_.x1), int(pos_.y1), int(pos_.x2), int(pos_.y2), col, TRUE) == -1) return -1;
-		return 0;
+		DxLib::SetDrawBlendMode(1, int(col.a));
+		DxLib::DrawBox(int(pos_.x), int(pos_.y), int(pos_.x + pos_.w), int(pos_.y + pos_.h), (unsigned int)col, 1);
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		const PosL4 as_rect_pos(pos_);
-		s3d::Rect(as_rect_pos.x, as_rect_pos.y, as_rect_pos.w, as_rect_pos.h).draw(s3d::Color(col));
-		return 0;
+		s3d::Rect(pos_.x, pos_.y, pos_.w, pos_.h).draw(s3d::Color(col));
 #elif defined(ASLIB_INCLUDE_OF)
-		const PosL4 as_rect_pos(pos_);
 		ofSetColor(col.r, col.g, col.b, col.a);
 		ofFill();
-		ofDrawRectangle(float(as_rect_pos.x), float(as_rect_pos.y), float(as_rect_pos.w), float(as_rect_pos.h));
-		return 0;
+		ofDrawRectangle(float(pos_.x), float(pos_.y), float(pos_.w), float(pos_.h));
 #elif defined(ASLIB_INCLUDE_TP)
-		return 0;
 #else //Console
-		return 0;
 #endif
 	}
-	inline int32_t asRect(const ColorRGBA& col = {}, const Pos4& pos = {}) { return asRect(pos, col); }
+	inline void asRect(const Color& col = {}, const Pos4& pos = {}) { asRect(pos, col); }
 }

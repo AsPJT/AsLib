@@ -12,13 +12,13 @@ namespace AsLib
 {
 
 	// UTF-8(string) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* utf8(const std::string& src) { return src.c_str(); }
+	const char* const utf8(const std::string& src) { return src.c_str(); }
 
 	// UTF-8(char*) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* utf8(const char* src) { return src; }
+	const char* const utf8(const char* const src) { return src; }
 
 	// UTF-8(char) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* utf8(const char src) {
+	const char* const utf8(const char src) {
 		static char u8char[2];
 		u8char[0] = src;
 		u8char[1] = 0;
@@ -26,7 +26,7 @@ namespace AsLib
 	}
 
 	// UTF-32(char32_t) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* utf8(const char32_t src) {
+	const char* const utf8(const char32_t src) {
 
 		static char u8char[5];
 		u8char[0] = 0;
@@ -58,7 +58,7 @@ namespace AsLib
 	}
 
 	// UTF-32(char32_t*) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* utf8(const char32_t* src)
+	const char* const utf8(const char32_t* const src)
 	{
 		static std::string u8str;
 		u8str = u8"";
@@ -72,7 +72,7 @@ namespace AsLib
 	}
 
 	// UTF-32(u32string) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* utf8(const std::u32string& src)
+	const char* const utf8(const std::u32string& src)
 	{
 		static std::string u8str;
 		u8str = u8"";
@@ -105,7 +105,7 @@ namespace AsLib
 	}
 
 	// UTF-16(char16_t*) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* utf32(const char16_t* src)
+	const char32_t* const utf32(const char16_t* const src)
 	{
 		static std::u32string u32str;
 		u32str = U"";
@@ -118,7 +118,7 @@ namespace AsLib
 	}
 
 	// UTF-16(u16string) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* utf32(const std::u16string& src)
+	const char32_t* const utf32(const std::u16string& src)
 	{
 		static std::u32string u32str;
 		u32str = U"";
@@ -132,22 +132,22 @@ namespace AsLib
 	}
 
 	// UTF-16(char16_t*) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* utf8(const char16_t* src) { return utf8(utf32(src)); }
+	const char* const utf8(const char16_t* const src) { return utf8(utf32(src)); }
 
 	// UTF-16(string) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* utf8(const std::u16string src) { return utf8(utf32(src)); }
+	const char* const utf8(const std::u16string src) { return utf8(utf32(src)); }
 
 	// UTF-16(char16_t) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* utf8(const char16_t src0, const char16_t src1 = 0) { return utf8(utf32(src0, src1)); }
+	const char* const utf8(const char16_t src0, const char16_t src1 = 0) { return utf8(utf32(src0, src1)); }
 
 	// UTF-32(u32string) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* utf32(const std::u32string& src) { return src.c_str(); }
+	const char32_t* const utf32(const std::u32string& src) { return src.c_str(); }
 
 	// UTF-32(char32_t*) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* utf32(const char32_t* src) { return src; }
+	const char32_t* const utf32(const char32_t* const src) { return src; }
 
 	// UTF-32(char32_t) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* utf32(const char32_t src) {
+	const char32_t* const utf32(const char32_t src) {
 		static char32_t u32char[2];
 		u32char[0] = src;
 		u32char[1] = 0;
@@ -155,13 +155,13 @@ namespace AsLib
 	}
 
 	// UTF-16(u16string) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* utf16(const std::u16string& src) { return src.c_str(); }
+	const char16_t* const utf16(const std::u16string& src) { return src.c_str(); }
 
 	// UTF-16(char16_t*) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* utf16(const char16_t* src) { return src; }
+	const char16_t* const utf16(const char16_t* const src) { return src; }
 
 	// UTF-16(char16_t) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* utf16(const char16_t src) {
+	const char16_t* const utf16(const char16_t src) {
 		static char16_t u16char[2];
 		u16char[0] = src;
 		u16char[1] = 0;
@@ -169,7 +169,7 @@ namespace AsLib
 	}
 
 	// UTF-32(char32_t) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* utf16(const char32_t src) {
+	const char16_t* const utf16(const char32_t src) {
 		static char16_t u16char[3];
 		u16char[0] = 0;
 		u16char[1] = 0;
@@ -187,7 +187,7 @@ namespace AsLib
 	}
 
 	// UTF-32(char32_t*) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* utf16(const char32_t* src)
+	const char16_t* const utf16(const char32_t* const src)
 	{
 		static std::u16string u16str;
 		u16str = u"";
@@ -201,7 +201,7 @@ namespace AsLib
 	}
 
 	// UTF-32(u32string) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* utf16(const std::u32string& src)
+	const char16_t* const utf16(const std::u32string& src)
 	{
 		static std::u16string u16str;
 		u16str = u"";
@@ -215,7 +215,7 @@ namespace AsLib
 		return u16str.c_str();
 	}
 
-	int32_t utf8Byte(char src) {
+	const int32_t utf8Byte(const char src) {
 		if (0 <= uint8_t(src) && uint8_t(src) < 0x80) return 1;
 		if (0xc2 <= uint8_t(src) && uint8_t(src) < 0xe0) return 2;
 		if (0xe0 <= uint8_t(src) && uint8_t(src) < 0xf0) return 3;
@@ -223,7 +223,7 @@ namespace AsLib
 		return 0;
 	}
 
-	bool utf8_0x80To0xc0(char src) { return 0x80 <= uint8_t(src) && uint8_t(src) < 0xc0; }
+	const bool utf8_0x80To0xc0(const char src) { return 0x80 <= uint8_t(src) && uint8_t(src) < 0xc0; }
 
 	const char32_t char_utf32(const char src[5], int32_t& number_of_byte) {
 		char32_t u32char{};
@@ -270,7 +270,7 @@ namespace AsLib
 	}
 
 	// UTF-8(char) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* utf32(const char src) {
+	const char32_t* const utf32(const char src) {
 		static char32_t u32char[2];
 		char u8char[5]{};
 		int32_t number_of_byte;
@@ -301,7 +301,7 @@ namespace AsLib
 	}
 
 	// UTF-8(string) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* utf32(const std::string& src)
+	const char32_t* const utf32(const std::string& src)
 	{
 		static std::u32string u32str;
 		u32str = U"";
@@ -319,7 +319,7 @@ namespace AsLib
 		return u32str.c_str();
 	}
 
-	const char32_t char_utf32(const char* src, char u8char[5], const size_t j, int32_t& number_of_byte)
+	const char32_t char_utf32(const char* const src, char u8char[5], const size_t j, int32_t& number_of_byte)
 	{
 		u8char[0] = 0;
 		u8char[1] = 0;
@@ -339,7 +339,7 @@ namespace AsLib
 	}
 
 	// UTF-8(char*) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* utf32(const char* src)
+	const char32_t* const utf32(const char* const src)
 	{
 		static std::u32string u32str;
 		u32str = U"";
@@ -357,13 +357,13 @@ namespace AsLib
 	}
 
 	// UTF-8(char*) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* utf16(const char* src) { return utf16(utf32(src)); }
+	const char16_t* const utf16(const char* const src) { return utf16(utf32(src)); }
 
 	// UTF-8(string) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* utf16(const std::string src) { return utf16(utf32(src)); }
+	const char16_t* const utf16(const std::string src) { return utf16(utf32(src)); }
 
 	// UTF-8(char) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* utf16(const char src) { return utf16(utf32(src)); }
+	const char16_t* const utf16(const char src) { return utf16(utf32(src)); }
 
 	const char16_t sjisUp(const uint8_t before, const uint8_t after)
 	{
@@ -433,7 +433,7 @@ namespace AsLib
 	}
 
 	// SJIS(char*) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* utf16_s(const char* src)
+	const char16_t* const utf16_s(const char* const src)
 	{
 		static std::u16string u16str;
 		u16str = u"";
@@ -459,7 +459,7 @@ namespace AsLib
 	}
 
 	// SJIS(char) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* utf16_s(const char src)
+	const char16_t* const utf16_s(const char src)
 	{
 		static std::u16string u16str;
 		u16str = u"";
@@ -473,32 +473,32 @@ namespace AsLib
 	}
 
 	// SJIS(string) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* utf16_s(const std::string src) { return utf16_s(src.c_str()); }
+	const char16_t* const utf16_s(const std::string src) { return utf16_s(src.c_str()); }
 
 	// SJIS(char*) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* utf8_s(const char* src) { return utf8(utf16_s(src)); }
+	const char* const utf8_s(const char* const src) { return utf8(utf16_s(src)); }
 
 	// SJIS(char) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* utf8_s(const char src) { return utf8(utf16_s(src)); }
+	const char* const utf8_s(const char src) { return utf8(utf16_s(src)); }
 
 	// SJIS(string) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* utf8_s(const std::string src) { return utf8(utf16_s(src.c_str())); }
+	const char* const utf8_s(const std::string src) { return utf8(utf16_s(src.c_str())); }
 
 	// SJIS(char*) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* utf32_s(const char* src) { return utf32(utf16_s(src)); }
+	const char32_t* const utf32_s(const char* const src) { return utf32(utf16_s(src)); }
 
 	// SJIS(string) Ç©ÇÁ UTF-32(char*)Ç÷
-	const char32_t* utf32_s(const std::string src) { return utf32(utf16_s(src.c_str())); }
+	const char32_t* const utf32_s(const std::string src) { return utf32(utf16_s(src.c_str())); }
 
 	// SJIS(char) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* utf32_s(const char src) { return utf32(utf16_s(src)); }
+	const char32_t* const utf32_s(const char src) { return utf32(utf16_s(src)); }
 
 	// êîíl Ç©ÇÁ UTF-16(char16_t*)Ç÷
 	template <typename type_name>
-	const char16_t* utf16(type_name src) { return utf16(utf8(src)); }
+	const char16_t* const utf16(const type_name src) { return utf16(utf8(src)); }
 
 	// êîíl Ç©ÇÁ UTF-32(char32_t*)Ç÷
 	template <typename type_name>
-	const char32_t* utf32(type_name src) { return utf32(utf8(src)); }
+	const char32_t* const utf32(const type_name src) { return utf32(utf8(src)); }
 
 }

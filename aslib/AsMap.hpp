@@ -23,7 +23,7 @@ namespace AsLib
 		PosA4F p;
 
 		//全体の描画
-		MapView& drawMob(const Pos2& p_, const size_t num_, ColorRGBA* const col_ = nullptr, Texture* const t_ = nullptr, Texture* const a_ = nullptr, const size_t id_ = 0)
+		MapView& drawMob(const Pos2& p_, const size_t num_, Color* const col_ = nullptr, Texture* const t_ = nullptr, Texture* const a_ = nullptr, const size_t id_ = 0)
 		{
 
 			if (p_.is_minus()) return *this;
@@ -99,7 +99,7 @@ namespace AsLib
 		MapView& setMapX(const PosA4F& p_) { p = p_; p.h = p.w*(float(asWindowSize().y) / float(asWindowSize().x)); return *this;}
 
 		//描画する物のサイズ
-		MapView& drawMob(const Pos4F& p_, const size_t num_, const ColorRGBA* c_ = nullptr, Texture* t_ = nullptr, Texture* a_ = nullptr,const size_t id_=0)
+		MapView& drawMob(const Pos4F& p_, const size_t num_, const Color* c_ = nullptr, Texture* t_ = nullptr, Texture* a_ = nullptr,const size_t id_=0)
 		{
 			//範囲外は描画無し
 			const Pos4F Dp = Pos4F(this->p);
@@ -120,13 +120,13 @@ namespace AsLib
 		}
 
 		//プレイヤーの位置、マップサイズ、カラー
-		MapView& draw(const PosA4F& p_, const Pos2& p2_, const ColorRGBA& c_)
+		MapView& draw(const PosA4F& p_, const Pos2& p2_, const Color& c_)
 		{
 			if (Pos2(p2_).is_minus()) return *this;
 			return this->draw(PosA4F(float((int32_t(p_.x) + p2_.x) % p2_.x) + p_.x - floor(p_.x), float((int32_t(p_.y) + p2_.y) % p2_.y) + p_.y - floor(p_.y), p_.w, p_.h), c_);
 		}
 		//描画する物のサイズ、画像
-		MapView& draw(const Pos4F& p_, const ColorRGBA& c_) { return this->drawMob(p_, MAP_VIEW_DRAW_COLOR, &c_, nullptr, nullptr); }
+		MapView& draw(const Pos4F& p_, const Color& c_) { return this->drawMob(p_, MAP_VIEW_DRAW_COLOR, &c_, nullptr, nullptr); }
 
 		//プレイヤーの位置、マップサイズ、画像
 		MapView& draw(const PosA4F& p_, const Pos2& p2_, Texture& t_)
@@ -146,7 +146,7 @@ namespace AsLib
 		MapView& draw(const Pos4F& p_, Texture& a_, const size_t id_) { return this->drawMob(p_, MAP_VIEW_DRAW_ANIME, nullptr, nullptr, &a_, id_); }
 
 		//色の全体描画
-		MapView& draw(ColorRGBA* const col_, const Pos2& p_) { return this->drawMob(p_, MAP_VIEW_DRAW_COLOR, col_, nullptr, nullptr); }
+		MapView& draw(Color* const col_, const Pos2& p_) { return this->drawMob(p_, MAP_VIEW_DRAW_COLOR, col_, nullptr, nullptr); }
 		//画像の全体描画
 		MapView& draw(Texture* t_, const Pos2& p_) { return this->drawMob(p_, MAP_VIEW_DRAW_TEXTURE, nullptr, t_, nullptr); }
 		//画像の全体描画
@@ -334,13 +334,13 @@ namespace AsLib
 		Pos2 s;
 		size_t total_size;
 		std::unique_ptr<int32_t[]> map_id;
-		std::unique_ptr<ColorRGBA[]> col;
+		std::unique_ptr<Color[]> col;
 
 #if defined(__ANDROID__)//todo
 		
 #else
-		worldMap(const Pos2& xy_) : s({ xy_.x, xy_.y }), total_size(xy_.x*xy_.y), map_id(new int32_t[xy_.x*xy_.y]), col(new ColorRGBA[xy_.x*xy_.y]) { clear(); }
-		worldMap(const int32_t x_, const int32_t y_) : s({ x_, y_ }), total_size(x_*y_), map_id(new int32_t[x_*y_]), col(new ColorRGBA[x_*y_]) { clear(); }
+		worldMap(const Pos2& xy_) : s({ xy_.x, xy_.y }), total_size(xy_.x*xy_.y), map_id(new int32_t[xy_.x*xy_.y]), col(new Color[xy_.x*xy_.y]) { clear(); }
+		worldMap(const int32_t x_, const int32_t y_) : s({ x_, y_ }), total_size(x_*y_), map_id(new int32_t[x_*y_]), col(new Color[x_*y_]) { clear(); }
 #endif
 
 		const worldMap& clear() const { for (size_t i = 0; i < total_size; ++i) map_id[i] = 0; return *this; }
@@ -352,7 +352,7 @@ namespace AsLib
 			for (size_t j = 0; j < size_t(this->s.y); ++j) {
 				for (size_t i = 0; i < size_t(this->s.x); ++i) {
 					a = map_id[a2(this->s.x, i, j)];
-					m_.draw(PosA4F(PosL4F(float(i), float(j), 1.0f, 1.0f)), ColorRGBA(uint8_t(a), uint8_t(a), uint8_t(a), uint8_t(255)));
+					m_.draw(PosA4F(PosL4F(float(i), float(j), 1.0f, 1.0f)), Color(uint8_t(a), uint8_t(a), uint8_t(a), uint8_t(255)));
 
 				}
 			}
@@ -364,7 +364,7 @@ namespace AsLib
 			for (size_t j = 0; j < size_t(this->s.y); ++j) {
 				for (size_t i = 0; i < size_t(this->s.x); ++i) {
 					a = map_id[a2(this->s.x, i, j)];
-					asRect(PosL4(int32_t(i*size_), int32_t(j*size_), int32_t(size_), int32_t(size_)), ColorRGBA(a, a, a, a));
+					asRect(PosL4(int32_t(i*size_), int32_t(j*size_), int32_t(size_), int32_t(size_)), Color(a, a, a, a));
 				}
 			}
 			return *this;
@@ -372,13 +372,13 @@ namespace AsLib
 
 		const worldMap& drawP(const size_t size_, const Pos2& p_) const {
 			const int32_t a = map_id[a2(this->s.x, p_.y, p_.x)];
-			asRect(PosL4(int32_t(p_.x*size_), int32_t(p_.y*size_), int32_t(size_), int32_t(size_)), ColorRGBA(a, a, a, a));
+			asRect(PosL4(int32_t(p_.x*size_), int32_t(p_.y*size_), int32_t(size_), int32_t(size_)), Color(a, a, a, a));
 			return *this;
 		}
 
-		//const ColorRGBA drawP_c(const Pos2& p_) const {
+		//const Color drawP_c(const Pos2& p_) const {
 		//	const int32_t a = map_id[a2(this->s.x, p_.y, p_.x)];
-		//	return ColorRGBA(a, a, a, a);
+		//	return Color(a, a, a, a);
 		//}
 	};
 

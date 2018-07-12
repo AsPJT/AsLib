@@ -178,7 +178,7 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 #include "AsRect.hpp"
 
 //テクスチャ
-#include "AsTexure.hpp"
+#include "AsTexture.hpp"
 
 //主要クラス(All) (N)
 #include "AsClass.hpp"
