@@ -94,5 +94,5 @@ These codes are licensed under CC0.
 開発に興味を持った方は、
 wanotaitei@gmail.com
 または、
-Twitter: @wanotaitei
+Twitter: [@wanotaitei](https://twitter.com/wanotaitei "Twitter")
 まで返事をください。
