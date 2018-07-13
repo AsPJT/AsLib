@@ -318,7 +318,8 @@ namespace AsLib
 		if (DxLib::SetDrawScreen(DX_SCREEN_BACK)) return -1;
 
 		if (DxLib::SetFontSize(20) == -1) return -1;
-		if (DxLib::ChangeFontType(DX_FONTTYPE_NORMAL) == -1) return -1;
+		//DX_FONTTYPE_ANTIALIASING_EDGE//DX_FONTTYPE_NORMAL
+		if (DxLib::ChangeFontType(DX_FONTTYPE_ANTIALIASING_EDGE_8X8) == -1) return -1;
 #if defined(__WINDOWS__)
 		if (DxLib::SetKeyInputStringColor(
 			0xff000000, 0xff000000,

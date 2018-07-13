@@ -1270,7 +1270,7 @@ constexpr int CTRL_CODE_CMP=0x20;
 
 #endif
 
-//#if defined(USING_DXLIB)
+#if defined(USING_DXLIB)
 	namespace test
 	{
 
@@ -1405,6 +1405,6 @@ constexpr int CTRL_CODE_CMP=0x20;
 		inline const int GetRand(const int rand_) { return int(asRand32(int32_t(rand_))); }
 		inline const int SRand(const int seed_) { return int(asSRand32(int32_t(seed_))); }
 	}
-//#endif
+#endif
 
 }

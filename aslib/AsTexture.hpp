@@ -21,6 +21,7 @@ namespace AsLib
 	//画像を分割ロードする
 	std::unique_ptr<OriginatorTexture[]> asLoadTexture(const char* const name, const size_t tex_num_x = 1, const size_t tex_num_y = 1)
 	{
+		if (name == nullptr) return nullptr;
 		const OriginatorTexture tex = DxLib::LoadGraph(name);
 		if (tex == -1) return nullptr;
 		int size_x = 0, size_y = 0;
@@ -160,6 +161,7 @@ namespace AsLib
 		Texture& operator()(const TexSize2& add_id)
 		{
 			id = add_id.t;
+			num = 1;
 			//画像サイズ取得
 			asTextureSize(this->id, this->pixel_size);
 			this->pixel_size.x /= int32_t(add_id.x);
@@ -170,6 +172,20 @@ namespace AsLib
 #elif defined(ANIME_TEXTURE_2)
 		Texture(const size_t id_num, std::unique_ptr<OriginatorTexture[]>&& add_id) : id(std::move(add_id)), pixel_size(asTextureSize(this->id[0])), num(id_num) {}
 		Texture(std::unique_ptr<OriginatorTexture[]>&& add_id) : id(std::move(add_id)), pixel_size(asTextureSize(this->id[0])), num(1) {}
+		Texture& operator()(const size_t id_num, std::unique_ptr<OriginatorTexture[]>&& add_id)
+		{
+			id = std::move(add_id);
+			pixel_size = asTextureSize(this->id[0]);
+			num = id_num;
+			return *this;
+		}
+		Texture& operator()(std::unique_ptr<OriginatorTexture[]>&& add_id)
+		{
+			id = std::move(add_id);
+			pixel_size = asTextureSize(this->id[0]);
+			num = 1;
+			return *this;
+		}
 #elif defined(ANIME_TEXTURE_3)
 		Texture(const size_t id_num, const int32_t add_id) {}
 #endif
@@ -201,17 +217,104 @@ namespace AsLib
 			return *this;
 		}
 		Texture& draw(const Pos4& add_pos, const uint8_t alpha=255) { return this->draw((size_t)0, add_pos, alpha); }
-		const Texture& draw(const size_t, const PosA4F&, const float, const uint8_t = 255) const;
+		const Texture& draw(const size_t, const PosA4F&, const float, const uint8_t = 255);
 
 		const size_t Num() const { return this->num; };
 		const Pos2 pixelSize() const { return this->pixel_size; };
+	};
+
+	//ウィンドウ専用
+	struct TextureWindow :public Texture {
+	private:
+		Pos2 win_pos{};
+
+		int32_t win_timer = 0;
+		bool win_is_timer = false;
+
+		std::u32string win_in32_str{};
+		size_t win_str32_timer = 0;
+		bool win_is_str32 = false;
+
+		std::string win_out_str{};
+	public:
+#if defined(ANIME_TEXTURE_1)
+		TextureWindow(const size_t id_num, const TexSize2& add_id) : Texture(id_num, add_id) {}
+		TextureWindow(const TexSize2& add_id) : Texture(add_id) {}
+#elif defined(ANIME_TEXTURE_2)
+		TextureWindow(const size_t id_num, std::unique_ptr<OriginatorTexture[]>&& add_id) : Texture(id_num, std::move(add_id)) {}
+		TextureWindow(std::unique_ptr<OriginatorTexture[]>&& add_id) : Texture(std::move(add_id)) {}
+#endif
+		TextureWindow& drawWindow(const PosL4& p_) {
+			if (this->Num() != 9) return *this;
+			this->win_pos(p_.x + this->pixelSize().x, p_.y + this->pixelSize().y);
+			this->draw(0, Pos4(PosL4(p_.x, p_.y, this->pixelSize().x, this->pixelSize().y)));
+			this->draw(1, Pos4(PosL4(p_.x + this->pixelSize().x, p_.y, p_.w - 2 * this->pixelSize().x, this->pixelSize().y)));
+			this->draw(2, Pos4(PosL4(p_.x + p_.w - this->pixelSize().x, p_.y, this->pixelSize().x, this->pixelSize().y)));
+			this->draw(3, Pos4(PosL4(p_.x, p_.y + this->pixelSize().y, this->pixelSize().x, p_.h - 2 * this->pixelSize().y)));
+			this->draw(4, Pos4(PosL4(p_.x + this->pixelSize().x, p_.y + this->pixelSize().y, p_.w - 2 * this->pixelSize().x, p_.h - 2 * this->pixelSize().y)));
+			this->draw(5, Pos4(PosL4(p_.x + p_.w - this->pixelSize().x, p_.y + this->pixelSize().y, this->pixelSize().x, p_.h - 2 * this->pixelSize().y)));
+			this->draw(6, Pos4(PosL4(p_.x, p_.y + p_.h - this->pixelSize().y, this->pixelSize().x, this->pixelSize().y)));
+			this->draw(7, Pos4(PosL4(p_.x + this->pixelSize().x, p_.y + p_.h - this->pixelSize().y, p_.w - 2 * this->pixelSize().x, this->pixelSize().y)));
+			this->draw(8, Pos4(PosL4(p_.x + p_.w - this->pixelSize().x, p_.y + p_.h - this->pixelSize().y, this->pixelSize().x, this->pixelSize().y)));
+			return *this;
+		}
+		TextureWindow& drawWindow(const PosL4& p_,const Pos2& p2_) {
+			if (this->Num() != 9) return *this;
+			this->win_pos(p_.x + p2_.x, p_.y + p2_.y);
+			this->draw(0, Pos4(PosL4(p_.x, p_.y, p2_.x, p2_.y)));
+			this->draw(1, Pos4(PosL4(p_.x + p2_.x, p_.y, p_.w - 2 * p2_.x, p2_.y)));
+			this->draw(2, Pos4(PosL4(p_.x + p_.w - p2_.x, p_.y, p2_.x, p2_.y)));
+			this->draw(3, Pos4(PosL4(p_.x, p_.y + p2_.y, p2_.x, p_.h - 2 * p2_.y)));
+			this->draw(4, Pos4(PosL4(p_.x + p2_.x, p_.y + p2_.y, p_.w - 2 * p2_.x, p_.h - 2 * p2_.y)));
+			this->draw(5, Pos4(PosL4(p_.x + p_.w - p2_.x, p_.y + p2_.y, p2_.x, p_.h - 2 * p2_.y)));
+			this->draw(6, Pos4(PosL4(p_.x, p_.y + p_.h - p2_.y, p2_.x, p2_.y)));
+			this->draw(7, Pos4(PosL4(p_.x + p2_.x, p_.y + p_.h - p2_.y, p_.w - 2 * p2_.x, p2_.y)));
+			this->draw(8, Pos4(PosL4(p_.x + p_.w - p2_.x, p_.y + p_.h - p2_.y, p2_.x, p2_.y)));
+			return *this;
+		}
+
+		TextureWindow& setString32(const char* const str8_) {
+			win_in32_str = utf32(str8_);
+			win_is_str32 = true;
+			win_str32_timer = 0;
+			win_out_str = u8"";
+			return *this;
+		}
+		TextureWindow& setString(const char* const str8_) {
+			win_out_str = str8_;
+			win_is_str32 = false;
+			return *this;
+		}
+		TextureWindow& update(const int32_t count_) {
+			++win_timer;
+			if (win_timer >= count_) {
+				win_timer = 0;
+				win_is_timer = true;
+			}
+			else {
+				win_is_timer = false;
+			}
+			return *this;
+		}
+		TextureWindow& writeString() {
+			if (!win_is_timer || !win_is_str32) return *this;
+			win_out_str += utf8(win_in32_str[win_str32_timer]);
+			++win_str32_timer;
+			if (win_str32_timer >= win_in32_str.size()) win_is_str32 = false;
+			return *this;
+		}
+		TextureWindow& printString(FontMainData& font_) {
+			font_.draw(win_out_str.c_str(), this->win_pos, Color(255,255,255));
+			return *this;
+		}
+
 	};
 
 	//複数の画像UIの情報を管理する
 	struct TextureUI
 	{
 	private:
-		const Texture* id;
+		Texture* id;
 		size_t anime_count = 0;
 		//毎フレーム
 		size_t fps_size = 2;
@@ -234,8 +337,8 @@ namespace AsLib
 		int32_t touch_num = 0;
 	public:
 		TextureUI() = default;
-		TextureUI(const Texture* const add_tmd, const uint8_t add_alpha, const Pos4& add_pos4) :id(add_tmd), alpha(add_alpha), pos4(add_pos4) {}
-		TextureUI(const Texture* const add_tmd, const uint8_t add_alpha, const PosA4F& add_pR) : id(add_tmd), alpha(add_alpha), pR(add_pR) {}
+		TextureUI(Texture* const add_tmd, const uint8_t add_alpha, const Pos4& add_pos4) :id(add_tmd), alpha(add_alpha), pos4(add_pos4) {}
+		TextureUI(Texture* const add_tmd, const uint8_t add_alpha, const PosA4F& add_pR) : id(add_tmd), alpha(add_alpha), pR(add_pR) {}
 		TextureUI & fpsUpdate();
 
 		//出力
@@ -273,7 +376,7 @@ namespace AsLib
 		TextureUI& addRota(const float r_) { rota += r_; return *this; }
 		const float Rota() const { return this->rota; };
 
-		TextureUI& setUI(const Texture* const add_tmd, const uint8_t add_alpha, const PosA4F& add_pR) { id = add_tmd; alpha = add_alpha; pR = add_pR; return *this; }
+		TextureUI& setUI(Texture* const add_tmd, const uint8_t add_alpha, const PosA4F& add_pR) { id = add_tmd; alpha = add_alpha; pR = add_pR; return *this; }
 		TextureUI& setPosF(const PosA4F& pR_) { pR = pR_; return *this; }
 		bool isOutWindowF() {
 			const Pos2F w2(asWindowSizeF()); const Pos4F p4r(pR);
@@ -383,7 +486,7 @@ namespace AsLib
 
 
 	//サイズ等倍 位置指定 回転指定あり
-	inline const Texture& Texture::draw(const size_t anime_size, const PosA4F& add_pos, const float r_, const uint8_t alpha) const
+	inline const Texture& Texture::draw(const size_t anime_size, const PosA4F& add_pos, const float r_, const uint8_t alpha)
 	{
 #if defined(ANIME_TEXTURE_1)
 		const Pos4 add_pos_(add_pos);

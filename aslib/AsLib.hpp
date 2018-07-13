@@ -177,6 +177,9 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //四角形 (T)
 #include "AsRect.hpp"
 
+//フォント (T)
+#include "AsFont.hpp"
+
 //テクスチャ
 #include "AsTexture.hpp"
 
@@ -185,9 +188,6 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 
 //メインループ(DL/S3/NO) (T)
 #include "AsLoop.hpp"
-
-//フォント (T)
-#include "AsFont.hpp"
 
 //ファイル読み書き(All) (N)
 #include "AsAsFile.hpp"
