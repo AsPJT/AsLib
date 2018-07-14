@@ -122,6 +122,7 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //基本インクルード
 //--------------------------------------------------
 #include <string>
+#include <fstream>
 #include <iostream>
 #include <functional>
 #include <array>
@@ -130,6 +131,7 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 #include <utility>
 #include <cmath>
 #include <ctime>
+#include <cstring>
 
 //--------------------------------------------------
 //個別インクルード
@@ -176,6 +178,9 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 
 //四角形 (T)
 #include "AsRect.hpp"
+
+//音
+#include "AsSound.hpp"
 
 //フォント (T)
 #include "AsFont.hpp"

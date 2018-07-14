@@ -165,7 +165,7 @@ namespace AsLib
 	struct FontMainData
 	{
 	public:
-
+		FontMainData() = default;
 		FontMainData(const OriginatorFont& add_id, const int32_t add_size = 10, const char* const add_fontname = u8"Meiryo UI", const int32_t add_thick = FONT_THICK):id(add_id), size(add_size), thick(add_thick), fontname(std::string(add_fontname)) {}
 
 		FontMainData& draw(const char* const, const Pos2&, const Color& = black_RGBA);

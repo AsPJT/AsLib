@@ -168,6 +168,7 @@
     <ClInclude Include="AsRand.hpp" />
     <ClInclude Include="AsRect.hpp" />
     <ClInclude Include="AsSNS.hpp" />
+    <ClInclude Include="AsSound.hpp" />
     <ClInclude Include="AsStd.hpp" />
     <ClInclude Include="AsStop.hpp" />
     <ClInclude Include="AsPos.hpp" />

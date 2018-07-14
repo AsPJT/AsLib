@@ -1,10 +1,10 @@
-#define ASLIB_INCLUDE_DL
+Ôªø#define ASLIB_INCLUDE_DL
 #include "AsLib.hpp"
 //#include "AsFrameWorks.hpp"
 //
 //struct AsMainApp : public AsBaseApp {
 //	//-----------------------------------
-//	//ïœêî
+//	//Â§âÊï∞
 //	//-----------------------------------
 //	
 //	PosL4 aaa{ 100, 100, 100, 100 };
@@ -14,45 +14,55 @@
 //	TextureWindow window;
 //
 //	//-----------------------------------
-//	//ä÷êî
+//	//Èñ¢Êï∞
 //	//-----------------------------------
 //
-//	//äJén
+//	//ÈñãÂßã
 //	void asInit() {
 //		window(9,asLoadTexture(u8"win2.png", 3, 3));
 //	}
-//	//çXêV
+//	//Êõ¥Êñ∞
 //	void asUpdate() {
 //		//++aaa.x;
 //		if(asKey(Keyboard_UpArrow)) winp += 1;
 //		else if (asKey(Keyboard_DownArrow)) winp -= 1;
 //	}
-//	//ï`âÊ
+//	//ÊèèÁîª
 //	void asDraw() {
 //		//asRect(Pos4(aaa), Color(255, 255, 255, 255));
 //
 //		window.drawWindow(Pos4(200, 200, 800, 400),Pos2(winp));
 //
 //	}
-//	//èIóπ
+//	//ÁµÇ‰∫Ü
 //	void asExit() {}
 //};
 
 int32_t asMain()
 {
-	MainControl mc(u8"AsFrameWorks", Pos2(960,540), BG_COLOR);
-	int32_t winp = 40;
 
-	TextureWindow window(9, asLoadTexture(u8"win2.png", 3, 3));
-	window.setString32(u8"Ç±ÇÒÇ…ÇøÇÕÇ†Ç¢Ç§Ç¶Ç®Ç©Ç´Ç≠ÇØÇ±");
+	MainControl mc(u8"Voice", Pos2(640,360), BG_COLOR);
+	int32_t winp = 10;
 
-	FontMainData f(asMakeFont(30, u8"07ÉâÉmÉxPOP"));
+	//win2//windowa
+	TextureWindow window(9, asLoadTexture(u8"win3.png", 3, 3));
+	Texture window_ui(asLoadTexture(u8"cho.png"));
+	window.readSetString32(u8"str.txt");
 
-	//asStop();
+	//TextureWindow chara(asLoadTexture(u8"f.png"));
 
+	window.setSound(u8"f");
+	window.setName(u8"name");
+	window.setPos(Pos4F(0.02f, 0.65f, 0.98f, 0.98f).ratio());
+	window.setFrame(winp);
+	window.setLine(4);
+
+	asStop();
 	while (asLoop()) {
-		winp += mouseWheel();
-		window.drawWindow(PosA4(500, 400, 800, 200), Pos2(winp)).update(5).writeString().printString(f);
+		updateKey();
+		//window.setFrame(winp += mouseWheel());
+		//chara.draw(Pos4(200,0,500,360));
+		if (window.isWindow()) window.drawWindow().update(8).writeString().updateEnd(12).drawEndTexture(window_ui).playSound().printString().printName().next(asKey(Keyboard_a));
 	}
 
 	//return asRunApp(mc, new AsMainApp());
