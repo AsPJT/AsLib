@@ -164,6 +164,9 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //基本ファイル読み書き(DL/S3/NO/All) (N)
 #include "AsFile.hpp"
 
+//キーボード (T)
+#include "AsKey.hpp"
+
 //基本系(DL/S3) (T)
 #include "AsStd.hpp"
 
@@ -202,9 +205,6 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 
 //キーボード入力 (T)
 #include "AsKeyInput.hpp"
-
-//キーボード (T)
-#include "AsKey.hpp"
 
 //ゲームパッド (T)
 #include "AsGamePad.hpp"

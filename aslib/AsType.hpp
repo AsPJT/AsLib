@@ -28,7 +28,7 @@ namespace AsLib
 	//CPU‰æ‘œŒn
 	using OriginatorImage = int32_t;
 	//å‰¹ºŒn
-	using OriginatorBGM = int32_t;
+	using OriginatorBGM = s3d::Audio;
 	//•›‰¹ºŒn
 	using OriginatorSE = int32_t;
 	//“®‰æŒn

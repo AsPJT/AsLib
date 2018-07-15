@@ -646,8 +646,8 @@ namespace AsLib
 
 		const Pos4F& operator()(Pos4F* const p_) const { *p_ = *this; return *this; }
 
-		const Pos4& ratio();
-		const Pos4& ratio(const Pos2F p_);
+		const Pos4 ratio();
+		const Pos4 ratio(const Pos2F p_);
 	};
 
 

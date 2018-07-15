@@ -426,6 +426,6 @@ return 0;
 		return asPrint(format_string.c_str());
 	}
 
-	const Pos4& Pos4F::ratio() { return Pos4(int32_t(this->x1*asWindowSizeF().x), int32_t(this->y1*asWindowSizeF().y), int32_t(this->x2*asWindowSizeF().x), int32_t(this->y2*asWindowSizeF().y)); }
-	const Pos4& Pos4F::ratio(const Pos2F p_) { return Pos4(int32_t(this->x1*p_.x), int32_t(this->y1*p_.y), int32_t(this->x2*p_.x), int32_t(this->y2*p_.y)); }
+	const Pos4 Pos4F::ratio() { return Pos4(int32_t(this->x1*asWindowSizeF().x), int32_t(this->y1*asWindowSizeF().y), int32_t(this->x2*asWindowSizeF().x), int32_t(this->y2*asWindowSizeF().y)); }
+	const Pos4 Pos4F::ratio(const Pos2F p_) { return Pos4(int32_t(this->x1*p_.x), int32_t(this->y1*p_.y), int32_t(this->x2*p_.x), int32_t(this->y2*p_.y)); }
 }

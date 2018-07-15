@@ -169,7 +169,17 @@ namespace AsLib
 			this->turn_id = size_t(add_id.x);
 			return *this;
 		}
+		Texture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_, x_, y_).t), num(x_*y_) 
+		{
+			//画像サイズ取得
+			asTextureSize(this->id, this->pixel_size);
+			this->pixel_size.x /= int32_t(x_);
+			this->pixel_size.y /= int32_t(y_);
+			this->turn_id = size_t(x_);
+		}
 #elif defined(ANIME_TEXTURE_2)
+		Texture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(std::move(asLoadTexture(name_,x_,y_))), pixel_size(asTextureSize(this->id[0])), num(x_*y_) {}
+
 		Texture(const size_t id_num, std::unique_ptr<OriginatorTexture[]>&& add_id) : id(std::move(add_id)), pixel_size(asTextureSize(this->id[0])), num(id_num) {}
 		Texture(std::unique_ptr<OriginatorTexture[]>&& add_id) : id(std::move(add_id)), pixel_size(asTextureSize(this->id[0])), num(1) {}
 		Texture& operator()(const size_t id_num, std::unique_ptr<OriginatorTexture[]>&& add_id)
@@ -226,7 +236,9 @@ namespace AsLib
 	//ウィンドウ専用
 	struct TextureWindow :public Texture {
 	private:
+		//メッセージを表示するか否か
 		bool win_is_on = false;
+		//メッセージを終了するか否か
 		bool win_is_exit = false;
 
 		Pos2 win_pos{};
@@ -244,33 +256,64 @@ namespace AsLib
 		int32_t win_end_timer = 0;
 		bool win_is_end_str = true;
 
+		//
 		bool win_is_end_texture = false;
 
+		//ウィンドウとともに流される音
 		BGM sound;
+		//何番目の音を流すか
 		int32_t count_sound = 0;
+		//音のファイル名
 		std::string win_sound_name{};
+		//音の拡張子
 		std::string win_sound_extension{};
+		//音を再生する(実行する)
 		bool win_is_sound = false;
 
+		//話している人の名前
 		std::string win_speaker_name{};
 
+		//出力する文字列
 		std::string win_out_str{};
 
+		//ウィンドウ内の最大行数
 		int32_t number_of_lines = 4;
 
+		//ウィンドウのデフォルトサイズ
 		Pos4 win_pos_default{};
+		//ふちのデフォルトサイズ
 		Pos2 win_frame_default{};
 
+		//ウィンドウ内のフォント
 		FontMainData font;
+
+		//早送り機能を使用するか
+		bool win_is_fast_forward = false;
+		//早送りを実行するか
+		bool win_is_on_fast_forward = false;
 
 	public:
 #if defined(ANIME_TEXTURE_1)
+		TextureWindow(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) : Texture(name_, x_, y_), font(asMakeFont(30), 30) {}
 		TextureWindow(const size_t id_num, const TexSize2& add_id) : Texture(id_num, add_id), font(asMakeFont(30), 30) {}
 		TextureWindow(const TexSize2& add_id) : Texture(add_id), font(asMakeFont(30), 30) {}
 #elif defined(ANIME_TEXTURE_2)
+		TextureWindow(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) : Texture(name_, x_, y_), font(asMakeFont(30), 30) {}
 		TextureWindow(const size_t id_num, std::unique_ptr<OriginatorTexture[]>&& add_id) : Texture(id_num, std::move(add_id)), font(asMakeFont(30), 30) {}
 		TextureWindow(std::unique_ptr<OriginatorTexture[]>&& add_id) : Texture(std::move(add_id)), font(asMakeFont(30), 30) {}
 #endif
+		TextureWindow& setFastForward(const bool fast_) {
+			win_is_fast_forward = fast_;
+			return *this;
+		}
+		TextureWindow& setOnFastForward(const bool fast_) {
+			win_is_on_fast_forward = fast_;
+			return *this;
+		}
+		TextureWindow& setFont(FontMainData& font_) {
+			font = font_;
+			return *this;
+		}
 		TextureWindow& setLine(const int32_t var_) {
 			number_of_lines = var_+1;
 			font = FontMainData(asMakeFont((PosL4(win_pos_default).h - win_frame_default.y * 2) / number_of_lines, font.fontName()), (PosL4(win_pos_default).h - win_frame_default.y * 2) / number_of_lines, font.fontName());
@@ -297,7 +340,7 @@ namespace AsLib
 		}
 
 		TextureWindow& playSound() {
-			if (!win_is_sound) return *this;
+			if (!win_is_sound || win_sound_name[0] == 0) return *this;
 
 			char sound_str[64];
 			snprintf(sound_str, 64, "%s%d.%s", win_sound_name.c_str(),count_sound, win_sound_extension.c_str());
@@ -334,15 +377,31 @@ namespace AsLib
 		TextureWindow& drawWindow() { return drawWindow(win_pos_default, win_frame_default, *this); }
 		TextureWindow& drawWindow(Texture& texture_) { return drawWindow(win_pos_default, win_frame_default, texture_); }
 
+		TextureWindow& initWindow() {
+			win_is_on = true;
+			if (win_sound_name[0] != 0) sound.stop();
+
+			win_timer = 0;
+			win_is_timer = false;
+
+			win_str32_timer = 0;
+			count_sound = 0;
+			win_is_sound = true;
+
+			win_is_end_timer = false;
+			win_end_timer = 0;
+			win_is_end_str = true;
+			win_is_end_texture = false;
+
+			win_out_str = u8"";
+			return *this;
+		}
+		TextureWindow& initWindow(const bool is_init_) { return (is_init_) ? this->initWindow() : *this; }
 		TextureWindow& setString32(const char* const str8_) {
 			if (str8_ == nullptr) return *this;
 			win_in32_str = utf32(str8_);
 			win_is_str32 = true;
-			win_str32_timer = 0;
-			win_out_str = u8"";
-			win_is_on = true;
-			count_sound = 0;
-			return *this;
+			return this->initWindow();
 		}
 		TextureWindow& printName(FontMainData& font_) {
 			drawWindow(PosL4(win_pos_default.x1, win_pos_default.y1 - (win_pos_default.y2 - win_pos_default.y1) / number_of_lines - win_frame_default.y * 2, (win_pos_default.x2 - win_pos_default.x1) / 3, (win_pos_default.y2 - win_pos_default.y1) / number_of_lines + win_frame_default.y * 2), win_frame_default);
@@ -350,16 +409,16 @@ namespace AsLib
 			return *this;
 		}
 		TextureWindow& printName() { return printName(this->font); }
-		const char* const readString(const char* const str_) {
+
+		const std::string readString(const char* const str_) {
 			std::ifstream ifs(str_);
 			if (ifs.fail()) return nullptr;
 			std::istreambuf_iterator<char> it(ifs);
 			std::istreambuf_iterator<char> last;
-			return std::string(it, last).c_str();
+			return std::string(it, last);
 		}
-		TextureWindow& readSetString32(const char* const str_) {
-			return setString32(this->readString(str_));
-		}
+		TextureWindow& readSetString32(const char* const str_) { return setString32(this->readString(str_).c_str()); }
+
 		TextureWindow& setString(const char* const str8_) {
 			win_out_str = str8_;
 			win_is_str32 = false;
@@ -379,21 +438,25 @@ namespace AsLib
 		TextureWindow& writeString() {
 			if (!win_is_timer || !win_is_str32) return *this;
 
-			if (win_in32_str[win_str32_timer] == U'\t') {
-				win_is_str32 = false;
-				win_is_end_str = true;
-				++count_sound;
+			do {
+				if (win_in32_str[win_str32_timer] == U'\t') {
+					win_is_str32 = false;
+					win_is_end_str = true;
+					win_is_on_fast_forward = false;
+					++count_sound;
+					++win_str32_timer;
+					if (win_in32_str[win_str32_timer] == U'\n') ++win_str32_timer;
+					return *this;
+				}
+				win_out_str += utf8(win_in32_str[win_str32_timer]);
 				++win_str32_timer;
-				if (win_in32_str[win_str32_timer] == U'\n') ++win_str32_timer;
-				return *this;
-			}
-			win_out_str += utf8(win_in32_str[win_str32_timer]);
-			++win_str32_timer;
-			if (win_str32_timer >= win_in32_str.size()) {
-				win_is_str32 = false;
-				win_is_end_str = true;
-				win_is_exit = true;
-			}
+				if (win_str32_timer >= win_in32_str.size()) {
+					win_is_str32 = false;
+					win_is_end_str = true;
+					win_is_on_fast_forward = false;
+					win_is_exit = true;
+				}
+			} while (win_is_on_fast_forward);
 			return *this;
 		}
 		//終端記号をつける
@@ -423,7 +486,9 @@ namespace AsLib
 			return *this;
 		}
 		TextureWindow& drawEndTexture(Texture& texture_, const Pos2& p_) {
+			//表示機関に指定した画像を描画
 			if (win_is_end_texture) texture_.draw(Pos4(win_end_pos.x - p_.x / 4, win_end_pos.y - p_.y / 4, win_end_pos.x, win_end_pos.y));
+
 			if (!win_is_end_timer || win_is_str32) return *this;
 			if (win_is_end_str) win_is_end_texture = false;
 			else win_is_end_texture = true;
@@ -432,14 +497,39 @@ namespace AsLib
 		TextureWindow& drawEndTexture(Texture& texture_) {
 			return drawEndTexture(texture_, Pos2(this->win_size_pos.h, this->win_size_pos.h));
 		}
+		TextureWindow& drawEndAnime(Texture& texture_, const Pos2& p_) {
+			if (win_is_str32) return *this;
+			static size_t draw_id = 0;
+			//指定した画像を描画
+			texture_.draw(draw_id,Pos4(win_end_pos.x - p_.x, win_end_pos.y - p_.y, win_end_pos.x, win_end_pos.y));
+			if (!win_is_end_timer) return *this;
+			if (win_is_end_str) {
+				++draw_id;
+				if (draw_id >= texture_.Num()) draw_id = 0;
+			}
+			return *this;
+		}
+		TextureWindow& drawEndAnime(Texture& texture_) {
+			return drawEndAnime(texture_, Pos2(this->win_size_pos.h/2, this->win_size_pos.h/2));
+		}
 		TextureWindow& printString(FontMainData& font_, const Color& color_ = { 255,255,255,255 }) {
 			font_.draw(win_out_str.c_str(), this->win_pos, color_);
 			return *this;
 		}
 		TextureWindow& printString(const Color& color_ = { 255,255,255,255 }) { return printString(font, color_); }
 		TextureWindow& next(const bool is_next) {
-			if (!is_next || win_is_str32) return *this;
-			if(win_is_exit) win_is_on = false;
+			if (!is_next) return *this;
+			if (win_is_str32) {
+				win_is_on_fast_forward = true;
+				return *this;
+			}
+			
+			if (win_sound_name[0] != 0) sound.stop();
+
+			if (win_is_exit) {
+				win_is_on = false;
+				win_is_exit = false;
+			}
 			else win_is_sound = true;
 
 			this->win_out_str = u8"";
@@ -448,13 +538,13 @@ namespace AsLib
 			win_is_end_texture = false;
 			return *this;
 		}
+		TextureWindow& next(const std::vector<bool>& is_next) { for (size_t i = 0; i < is_next.size(); ++i) this->next(is_next[i]); return *this; }
+		TextureWindow& next(const bool* const is_next, const size_t size_) { if (is_next == nullptr) return *this; for (size_t i = 0; i < size_; ++i) this->next(is_next[i]); return *this; }
+
 	};
 
 
 
-
-
-	
 
 	//複数の画像UIの情報を管理する
 	struct TextureUI
