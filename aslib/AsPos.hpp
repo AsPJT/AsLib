@@ -928,13 +928,13 @@ namespace AsLib
 	inline constexpr PosA4::PosA4(const PosA4F& pos_) : x(pos_int(pos_.x)), y(pos_int(pos_.y)), w(pos_int(pos_.w)), h(pos_int(pos_.h)) {}
 	inline constexpr PosA4::PosA4(const Pos8F& pos_) : x(pos_int(pos_.x1 + ((pos_.x4 - pos_.x1) / 2))), y(pos_int(pos_.y1 + ((pos_.y4 - pos_.y1) / 2))), w(pos_int(pos_.x4 - pos_.x1)), h(pos_int(pos_.y4 - pos_.y1)) {}
 	//Pos8
-	inline constexpr Pos8::Pos8(const Pos2& pos_) : x1(0), y1(0), x4(pos_.x), y4(pos_.y), x2(pos_.x), y2(0), x3(0), y3(pos_.y) {}
-	inline constexpr Pos8::Pos8(const Pos4& pos_) : x1(pos_.x1), y1(pos_.y1), x4(pos_.x2), y4(pos_.y2), x2(pos_.x2), y2(pos_.y1), x3(pos_.x1), y3(pos_.y2) {}
-	inline constexpr Pos8::Pos8(const PosL4& pos_) : x1(pos_.x), y1(pos_.y), x4(pos_.x + pos_.w), y4(pos_.y + pos_.h), x2(pos_.x + pos_.w), y2(pos_.y), x3(pos_.x), y3(pos_.y + pos_.h) {}
-	inline constexpr Pos8::Pos8(const PosA4& pos_) : x1(pos_.x - (pos_.w / 2)), y1(pos_.y - (pos_.h / 2)), x4(pos_.x + (pos_.w / 2)), y4(pos_.y + (pos_.h / 2)), x2(pos_.x + (pos_.w / 2)), y2(pos_.y - (pos_.h / 2)), x3(pos_.x - (pos_.w / 2)), y3(pos_.y + (pos_.h / 2)) {}
+	inline constexpr Pos8::Pos8(const Pos2& pos_) : x1(0), y1(0), x2(pos_.x), y2(0), x3(0), y3(pos_.y), x4(pos_.x), y4(pos_.y) {}
+	inline constexpr Pos8::Pos8(const Pos4& pos_) : x1(pos_.x1), y1(pos_.y1), x2(pos_.x2), y2(pos_.y1), x3(pos_.x1), y3(pos_.y2), x4(pos_.x2), y4(pos_.y2) {}
+	inline constexpr Pos8::Pos8(const PosL4& pos_) : x1(pos_.x), y1(pos_.y), x2(pos_.x + pos_.w), y2(pos_.y), x3(pos_.x), y3(pos_.y + pos_.h), x4(pos_.x + pos_.w), y4(pos_.y + pos_.h) {}
+	inline constexpr Pos8::Pos8(const PosA4& pos_) : x1(pos_.x - (pos_.w / 2)), y1(pos_.y - (pos_.h / 2)), x2(pos_.x + (pos_.w / 2)), y2(pos_.y - (pos_.h / 2)), x3(pos_.x - (pos_.w / 2)), y3(pos_.y + (pos_.h / 2)), x4(pos_.x + (pos_.w / 2)), y4(pos_.y + (pos_.h / 2)) {}
 	inline constexpr Pos8::Pos8(const Pos8& pos_) : x1(pos_.x1), y1(pos_.y1), x2(pos_.x2), y2(pos_.y2), x3(pos_.x3), y3(pos_.y3), x4(pos_.x4), y4(pos_.y4) {}
-	inline constexpr Pos8::Pos8(const Pos2F& pos_) : x1(pos_int(0)), y1(pos_int(0)), x4(pos_int(pos_.x)), y4(pos_int(pos_.y)), x2(pos_int(pos_.x)), y2(pos_int(0)), x3(pos_int(0)), y3(pos_int(pos_.y)) {}
-	inline constexpr Pos8::Pos8(const Pos4F& pos_) : x1(pos_int(pos_.x1)), y1(pos_int(pos_.y1)), x4(pos_int(pos_.x2)), y4(pos_int(pos_.y2)), x2(pos_int(pos_.x2)), y2(pos_int(pos_.y1)), x3(pos_int(pos_.x1)), y3(pos_int(pos_.y2)) {}
+	inline constexpr Pos8::Pos8(const Pos2F& pos_) : x1(pos_int(0)), y1(pos_int(0)), x2(pos_int(pos_.x)), y2(pos_int(0)), x3(pos_int(0)), y3(pos_int(pos_.y)), x4(pos_int(pos_.x)), y4(pos_int(pos_.y)) {}
+	inline constexpr Pos8::Pos8(const Pos4F& pos_) : x1(pos_int(pos_.x1)), y1(pos_int(pos_.y1)), x2(pos_int(pos_.x2)), y2(pos_int(pos_.y1)), x3(pos_int(pos_.x1)), y3(pos_int(pos_.y2)), x4(pos_int(pos_.x2)), y4(pos_int(pos_.y2)) {}
 	inline constexpr Pos8::Pos8(const PosL4F& pos_) : x1(pos_int(pos_.x)), y1(pos_int(pos_.y)), x2(pos_int(pos_.x + pos_.w)), y2(pos_int(pos_.y)), x3(pos_int(pos_.x)), y3(pos_int(pos_.y + pos_.h)), x4(pos_int(pos_.x + pos_.w)), y4(pos_int(pos_.y + pos_.h)) {}
 	inline constexpr Pos8::Pos8(const PosA4F& pos_) : x1(pos_int(pos_.x - (pos_.w / 2))), y1(pos_int(pos_.y - (pos_.h / 2))), x2(pos_int(pos_.x + (pos_.w / 2))), y2(pos_int(pos_.y - (pos_.h / 2))), x3(pos_int(pos_.x - (pos_.w / 2))), y3(pos_int(pos_.y + (pos_.h / 2))), x4(pos_int(pos_.x + (pos_.w / 2))), y4(pos_int(pos_.y + (pos_.h / 2))) {}
 	inline constexpr Pos8::Pos8(const Pos8F& pos_) : x1(pos_int(pos_.x1)), y1(pos_int(pos_.y1)), x2(pos_int(pos_.x2)), y2(pos_int(pos_.y2)), x3(pos_int(pos_.x3)), y3(pos_int(pos_.y3)), x4(pos_int(pos_.x4)), y4(pos_int(pos_.y4)) {}
@@ -1131,15 +1131,15 @@ namespace AsLib
 	inline constexpr PosA4F::PosA4F(const Pos8& pos_) : x(pos_float(pos_.x1 + ((pos_.x4 - pos_.x1) / 2))), y(pos_float(pos_.y1 + ((pos_.y4 - pos_.y1) / 2))), w(pos_float(pos_.x4 - pos_.x1)), h(pos_float(pos_.y4 - pos_.y1)) {}
 
 	//Pos8F
-	inline constexpr Pos8F::Pos8F(const Pos2F& pos_) : x1(0.0f), y1(0.0f), x4(pos_.x), y4(pos_.y), x2(pos_.x), y2(0.0f), x3(0.0f), y3(pos_.y) {}
-	inline constexpr Pos8F::Pos8F(const Pos4F& pos_) : x1(pos_.x1), y1(pos_.y1), x4(pos_.x2), y4(pos_.y2), x2(pos_.x2), y2(pos_.y1), x3(pos_.x1), y3(pos_.y2) {}
-	inline constexpr Pos8F::Pos8F(const PosL4F& pos_) : x1(pos_.x), y1(pos_.y), x4(pos_.x + pos_.w), y4(pos_.y + pos_.h), x2(pos_.x + pos_.w), y2(pos_.y), x3(pos_.x), y3(pos_.y + pos_.h) {}
-	inline constexpr Pos8F::Pos8F(const PosA4F& pos_) : x1(pos_.x - (pos_.w / 2)), y1(pos_.y - (pos_.h / 2)), x4(pos_.x + (pos_.w / 2)), y4(pos_.y + (pos_.h / 2)), x2(pos_.x + (pos_.w / 2)), y2(pos_.y - (pos_.h / 2)), x3(pos_.x - (pos_.w / 2)), y3(pos_.y + (pos_.h / 2)) {}
+	inline constexpr Pos8F::Pos8F(const Pos2F& pos_) : x1(0.0f), y1(0.0f), x2(pos_.x), y2(0.0f), x3(0.0f), y3(pos_.y), x4(pos_.x), y4(pos_.y) {}
+	inline constexpr Pos8F::Pos8F(const Pos4F& pos_) : x1(pos_.x1), y1(pos_.y1), x2(pos_.x2), y2(pos_.y1), x3(pos_.x1), y3(pos_.y2), x4(pos_.x2), y4(pos_.y2) {}
+	inline constexpr Pos8F::Pos8F(const PosL4F& pos_) : x1(pos_.x), y1(pos_.y), x2(pos_.x + pos_.w), y2(pos_.y), x3(pos_.x), y3(pos_.y + pos_.h), x4(pos_.x + pos_.w), y4(pos_.y + pos_.h) {}
+	inline constexpr Pos8F::Pos8F(const PosA4F& pos_) : x1(pos_.x - (pos_.w / 2)), y1(pos_.y - (pos_.h / 2)), x2(pos_.x + (pos_.w / 2)), y2(pos_.y - (pos_.h / 2)), x3(pos_.x - (pos_.w / 2)), y3(pos_.y + (pos_.h / 2)), x4(pos_.x + (pos_.w / 2)), y4(pos_.y + (pos_.h / 2)) {}
 	inline constexpr Pos8F::Pos8F(const Pos8F& pos_) : x1(pos_.x1), y1(pos_.y1), x2(pos_.x2), y2(pos_.y2), x3(pos_.x3), y3(pos_.y3), x4(pos_.x4), y4(pos_.y4) {}
-	inline constexpr Pos8F::Pos8F(const Pos2& pos_) : x1(pos_float(0)), y1(pos_float(0)), x4(pos_float(pos_.x)), y4(pos_float(pos_.y)), x2(pos_float(pos_.x)), y2(pos_float(0)), x3(pos_float(0)), y3(pos_float(pos_.y)) {}
-	inline constexpr Pos8F::Pos8F(const Pos4& pos_) : x1(pos_float(pos_.x1)), y1(pos_float(pos_.y1)), x4(pos_float(pos_.x2)), y4(pos_float(pos_.y2)), x2(pos_float(pos_.x2)), y2(pos_float(pos_.y1)), x3(pos_float(pos_.x1)), y3(pos_float(pos_.y2)) {}
-	inline constexpr Pos8F::Pos8F(const PosL4& pos_) : x1(pos_float(pos_.x)), y1(pos_float(pos_.y)), x4(pos_float(pos_.x + pos_.w)), y4(pos_float(pos_.y + pos_.h)), x2(pos_float(pos_.x + pos_.w)), y2(pos_float(pos_.y)), x3(pos_float(pos_.x)), y3(pos_float(pos_.y + pos_.h)) {}
-	inline constexpr Pos8F::Pos8F(const PosA4& pos_) : x1(pos_float(pos_.x - (pos_.w / 2))), y1(pos_float(pos_.y - (pos_.h / 2))), x4(pos_float(pos_.x + (pos_.w / 2))), y4(pos_float(pos_.y + (pos_.h / 2))), x2(pos_float(pos_.x + (pos_.w / 2))), y2(pos_float(pos_.y - (pos_.h / 2))), x3(pos_float(pos_.x - (pos_.w / 2))), y3(pos_float(pos_.y + (pos_.h / 2))) {}
+	inline constexpr Pos8F::Pos8F(const Pos2& pos_) : x1(pos_float(0)), y1(pos_float(0)), x2(pos_float(pos_.x)), y2(pos_float(0)), x3(pos_float(0)), y3(pos_float(pos_.y)), x4(pos_float(pos_.x)), y4(pos_float(pos_.y)) {}
+	inline constexpr Pos8F::Pos8F(const Pos4& pos_) : x1(pos_float(pos_.x1)), y1(pos_float(pos_.y1)), x2(pos_float(pos_.x2)), y2(pos_float(pos_.y1)), x3(pos_float(pos_.x1)), y3(pos_float(pos_.y2)), x4(pos_float(pos_.x2)), y4(pos_float(pos_.y2)) {}
+	inline constexpr Pos8F::Pos8F(const PosL4& pos_) : x1(pos_float(pos_.x)), y1(pos_float(pos_.y)), x2(pos_float(pos_.x + pos_.w)), y2(pos_float(pos_.y)), x3(pos_float(pos_.x)), y3(pos_float(pos_.y + pos_.h)), x4(pos_float(pos_.x + pos_.w)), y4(pos_float(pos_.y + pos_.h)) {}
+	inline constexpr Pos8F::Pos8F(const PosA4& pos_) : x1(pos_float(pos_.x - (pos_.w / 2))), y1(pos_float(pos_.y - (pos_.h / 2))), x2(pos_float(pos_.x + (pos_.w / 2))), y2(pos_float(pos_.y - (pos_.h / 2))), x3(pos_float(pos_.x - (pos_.w / 2))), y3(pos_float(pos_.y + (pos_.h / 2))), x4(pos_float(pos_.x + (pos_.w / 2))), y4(pos_float(pos_.y + (pos_.h / 2))) {}
 	inline constexpr Pos8F::Pos8F(const Pos8& pos_) : x1(pos_float(pos_.x1)), y1(pos_float(pos_.y1)), x2(pos_float(pos_.x2)), y2(pos_float(pos_.y2)), x3(pos_float(pos_.x3)), y3(pos_float(pos_.y3)), x4(pos_float(pos_.x4)), y4(pos_float(pos_.y4)) {}
 
 

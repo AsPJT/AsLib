@@ -35,7 +35,7 @@ namespace AsLib
 		u8char[3] = 0;
 		u8char[4] = 0;
 
-		if (src < 0 || src > 0x10ffff) return u8char;
+		if (src > 0x10ffff) return u8char;
 
 		if (src < 0x80) u8char[0] = char(src);
 		else if (src < 0x800) {
@@ -175,7 +175,7 @@ namespace AsLib
 		u16char[1] = 0;
 		u16char[2] = 0;
 
-		if (src < 0 || src > 0x10ffff) return u16char;
+		if (src > 0x10ffff) return u16char;
 
 		if (src < 0x10000) u16char[0] = char16_t(src);
 		else {

@@ -177,14 +177,14 @@ namespace AsLib
 	{
 	public:
 		FontMainData() = default;
-		FontMainData(const int32_t add_size = 10, const char* const str_ = u8"Meiryo UI", const int32_t add_thick = FONT_THICK) :id(asMakeFont(add_size,str_)), size(add_size), thick(add_thick), fontname(std::move(std::string(str_))) {}
+		FontMainData(const int32_t add_size = 10, const char* const str_ = u8"Meiryo UI", const int32_t add_thick = FONT_THICK) :id(asMakeFont(add_size,str_)), size(add_size), thick(add_thick), fontname(std::string(str_)) {}//stdmovea
 
 		FontMainData& operator()(const int32_t add_size = 10, const char* const str_ = u8"Meiryo UI", const int32_t add_thick = FONT_THICK)
 		{
 			id = asMakeFont(add_size, str_);
 			size = add_size;
 			thick = add_thick;
-			fontname = std::move(std::string(str_));
+			fontname = std::string(str_);//stdmovea
 			return *this;
 		}
 

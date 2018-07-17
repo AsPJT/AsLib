@@ -148,15 +148,15 @@ namespace AsLib
 		Keyboard_KeyLast,
 	};
 
-	class KeyControl
-	{
-	public:
+	//class KeyControl
+	//{
+	//public:
 
-	private:
-		std::array<int32_t, 256>aslib_update_key = {};
-		//std::array<int32_t, 256>config = {};
-		//std::array<Counter, 256> counter = {};
-	};
+	//private:
+	//	std::array<int32_t, 256>aslib_update_key = {};
+	//	//std::array<int32_t, 256>config = {};
+	//	//std::array<Counter, 256> counter = {};
+	//};
 
 	enum :size_t {
 bba0
@@ -558,8 +558,7 @@ void checkKey(bool* const AS_key,Counter* const AS_count)
 		0,
 		0,//KEY_INPUT_INTERNATIONAL5,
 		0,//KEY_INPUT_INTERNATIONAL4,
-		0,//KEY_INPUT_INTERNATIONAL2,
-		//Last
+		0//KEY_INPUT_INTERNATIONAL2,
 	};
 
 	std::array<char, 256> DL_key;

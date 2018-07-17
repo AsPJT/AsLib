@@ -1,8 +1,8 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
-//                              AsLib - Asƒ‰ƒCƒuƒ‰ƒŠ
+//                              AsLib - Asãƒ©ã‚¤ãƒ–ãƒ©ãƒª
 //
-//                    §ìÒ: ‚ª‚Á‚¿‚å (wanotaitei@gmail.com)
+//                    åˆ¶ä½œè€…: ãŒã£ã¡ã‚‡ (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
 
@@ -21,7 +21,7 @@ namespace AsLib
 	}
 #endif
 
-	//ƒEƒBƒ“ƒhƒEƒTƒCƒY‚ğ‹L˜^‚·‚éŠÖ”
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã‚’è¨˜éŒ²ã™ã‚‹é–¢æ•°
 	const Pos2 asWindowSizeSave(const bool b_, const Pos2& p_ = pos2_0)
 	{
 		static Pos2 p;
@@ -29,7 +29,7 @@ namespace AsLib
 		return p;
 	}
 
-	//ƒEƒBƒ“ƒhƒEƒTƒCƒY‚ğæ“¾‚·‚éŠÖ”
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã‚’å–å¾—ã™ã‚‹é–¢æ•°
 	inline const Pos2 asWindowSize()
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
@@ -44,10 +44,10 @@ namespace AsLib
 		return Pos2();
 #endif
 	}
-	//ƒEƒBƒ“ƒhƒEƒTƒCƒY‚ğæ“¾‚·‚éŠÖ”(float)
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã‚’å–å¾—ã™ã‚‹é–¢æ•°(float)
 	inline const Pos2F asWindowSizeF() { return Pos2F(asWindowSize()); }
 
-	//‰æ–ÊƒTƒCƒY•ÏX
+	//ç”»é¢ã‚µã‚¤ã‚ºå¤‰æ›´
 	inline void asSetWindowSize(const Pos2& window_size = WINDOW_SIZE)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
@@ -63,7 +63,7 @@ namespace AsLib
 #endif
 	}
 
-	//”wŒiF•ÏX
+	//èƒŒæ™¯è‰²å¤‰æ›´
 	inline const int32_t asSetBackGround(const ColorRGB& BG_color = BG_COLOR)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
@@ -84,17 +84,17 @@ namespace AsLib
 
 
 
-	//ƒ^ƒCƒgƒ‹‚ğ‹L˜^‚·‚éŠÖ”
+	//ã‚¿ã‚¤ãƒˆãƒ«ã‚’è¨˜éŒ²ã™ã‚‹é–¢æ•°
 	const char* const asTitleSave(const bool b_, const char* const str_ = nullptr)
 	{
 		static std::string str;
 		if (b_ && str_ != nullptr) str = str_;
 		return str.c_str();
 	}
-	//ƒ^ƒCƒgƒ‹‚ğæ“¾‚·‚éŠÖ”
+	//ã‚¿ã‚¤ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹é–¢æ•°
 	inline const char* const asTitle() { return asTitleSave(false); }
 
-	//ƒ^ƒCƒgƒ‹•ÏX
+	//ã‚¿ã‚¤ãƒˆãƒ«å¤‰æ›´
 	inline const int32_t asSetTitle(const char* const title)
 	{
 		asTitleSave(true, title);
@@ -116,7 +116,7 @@ namespace AsLib
 	return 0;
 #endif
 	}
-	//ƒ^ƒCƒgƒ‹•ÏX
+	//ã‚¿ã‚¤ãƒˆãƒ«å¤‰æ›´
 	inline const int32_t asSetTitle(const std::string& title)
 	{
 		return asSetTitle(title.c_str());
@@ -233,7 +233,7 @@ namespace AsLib
 		asAddWrite(str_, u8"<title>");
 		asAddWrite(str_, asTitle());
 		asAddWrite(str_, u8"</title>");
-		asAddWrite(str_, u8"<style>body{background-color:#f9f9f9;font-family:'SegoeUI','ƒƒCƒŠƒI','Meiryo','ƒqƒ‰ƒMƒmŠpƒSProW3','HiraginoKakuGothicPro','Osaka','‚l‚r‚oƒSƒVƒbƒN','MSPGothic','Arial',sans-serif;}h2{color:#333333;text-align:center;font-size:28px;}h3{color:#333333;text-align:center;font-size:24px;}main{font-size:14px;line-height:2;word-wrap:break-word;}main.name{color:#333333;text-align:center;font-size:20px;}main.copyright{padding-bottom:8px;color:#555555;text-align:center;font-size:12px;}main.license{padding-bottom:24px;color:#888888;text-align:center;font-size:9px;}</style></head><body>");
+		asAddWrite(str_, u8"<style>body{background-color:#f9f9f9;font-family:'SegoeUI','ãƒ¡ã‚¤ãƒªã‚ª','Meiryo','ãƒ’ãƒ©ã‚®ãƒè§’ã‚´ProW3','HiraginoKakuGothicPro','Osaka','ï¼­ï¼³ï¼°ã‚´ã‚·ãƒƒã‚¯','MSPGothic','Arial',sans-serif;}h2{color:#333333;text-align:center;font-size:28px;}h3{color:#333333;text-align:center;font-size:24px;}main{font-size:14px;line-height:2;word-wrap:break-word;}main.name{color:#333333;text-align:center;font-size:20px;}main.copyright{padding-bottom:8px;color:#555555;text-align:center;font-size:12px;}main.license{padding-bottom:24px;color:#888888;text-align:center;font-size:9px;}</style></head><body>");
 		asAddWrite(str_, u8"<h2>");
 		asAddWrite(str_, asTitle());
 		asAddWrite(str_, u8"</h2><br><h3>Licenses</h3>");
@@ -271,7 +271,7 @@ namespace AsLib
 	}
 
 
-	//‰Šú‰»
+	//åˆæœŸåŒ–
 	const int32_t AsInit(const Pos2& window_size = WINDOW_SIZE, const ColorRGB& BG_color = BG_COLOR)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
@@ -282,7 +282,7 @@ namespace AsLib
 		DxLib::SetWindowSizeChangeEnableFlag(TRUE);
 		if (DxLib::SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8) == -1) return -1;
 
-		//ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh
+		//ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ãƒ¢ãƒ¼ãƒ‰
 		if (is_asFullScreenSize(window_size)) {
 			DxLib::SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_NATIVE);
 			if (DxLib::ChangeWindowMode(FALSE) == -1) return -1;
@@ -292,24 +292,24 @@ namespace AsLib
 			full_pos(int32_t(rc.right - rc.left), int32_t(rc.bottom - rc.top));
 			asSetWindowSize(full_pos);
 		}
-		else {//’Êí‚Ìƒ‚[ƒh
+		else {//é€šå¸¸ã®ãƒ¢ãƒ¼ãƒ‰
 			if (DxLib::ChangeWindowMode(TRUE) == -1) return -1;
 			asSetWindowSize(window_size);
 		}
 #endif
 		if (asSetBackGround(BG_color) == -1) return -1;
-		//‚±‚±‚Å‰Šú‰»
+		//ã“ã“ã§åˆæœŸåŒ–
 		if (DxLib::DxLib_Init() == -1) return -1;
 
 #if defined(__WINDOWS__)
-		//ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh
+		//ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ãƒ¢ãƒ¼ãƒ‰
 		if (is_asFullScreenSize(window_size)) {
-			//ƒ}ƒEƒX‚Ì•\¦‚ğON
+			//ãƒã‚¦ã‚¹ã®è¡¨ç¤ºã‚’ON
 			DxLib::SetMouseDispFlag(TRUE);
 		}
 #endif
 #if defined(__ANDROID__)
-		if (asSetWindowSize(asWindowSizeTrue(window_size)) == -1) return -1;
+		asSetWindowSize(asWindowSizeTrue(window_size));
 #endif
 		if (DxLib::SetDXArchiveExtension("as") == -1) return -1;
 
@@ -350,7 +350,7 @@ makeLog();
 return 0;
 	}
 
-	//I—¹ˆ—
+	//çµ‚äº†å‡¦ç†
 	inline const int32_t asEnd()
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
@@ -366,7 +366,7 @@ return 0;
 #endif
 	}
 
-	//•¶šo—Í
+	//æ–‡å­—å‡ºåŠ›
 	template<typename... Rest>
 	inline const int32_t asPrint(const char* const format_string, const Rest&... rest)
 	{
@@ -399,7 +399,7 @@ return 0;
 #endif
 	}
 
-//ˆÈ~‚Í‘¼ƒ‰ƒCƒuƒ‰ƒŠˆË‘¶‚È‚µ----------
+//ä»¥é™ã¯ä»–ãƒ©ã‚¤ãƒ–ãƒ©ãƒªä¾å­˜ãªã—----------
 
 	const int32_t AsInit(const char* const title = u8"", const Pos2& window_size = WINDOW_SIZE, const ColorRGB& BG_color = BG_COLOR)
 	{

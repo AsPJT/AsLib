@@ -1,15 +1,15 @@
-//     ----------     ----------     ----------     ----------     ----------
+Ôªø//     ----------     ----------     ----------     ----------     ----------
 //
-//                              AsLib - AsÉâÉCÉuÉâÉä
+//                              AsLib - As„É©„Ç§„Éñ„É©„É™
 //
-//                    êßçÏé“: Ç™Ç¡ÇøÇÂ (wanotaitei@gmail.com)
+//                    Âà∂‰ΩúËÄÖ: „Åå„Å£„Å°„Çá (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
 
 
 namespace AsLib
 {
-	//ÉâÉCÉZÉìÉXàÍóó
+	//„É©„Ç§„Çª„É≥„Çπ‰∏ÄË¶ß
 	enum :size_t {
 		AsLib_LICENSE,
 		Abseil_LICENSE,
@@ -72,7 +72,7 @@ namespace AsLib
 		Zstandard_LICENSE,
 	};
 
-	//égópíÜÇÃÉâÉCÉZÉìÉX
+	//‰ΩøÁî®‰∏≠„ÅÆ„É©„Ç§„Çª„É≥„Çπ
 	constexpr size_t aslib_license[] = {
 		AsLib_LICENSE,
 #if defined(ASLIB_INCLUDE_S3) //Siv3D
@@ -263,10 +263,22 @@ namespace AsLib
 			if (start_year == 0) return c;
 
 			std::string str(u8"Copyright (c) ");
+#if defined(__ANDROID__)
+			char snp[256];
+			snprintf(snp, 256, "%s%d", str.c_str(), start_year);
+			str = std::string(snp);
+#else
 			str += std::to_string(start_year);
+#endif
 			if (end_year != 0) {
 				str += u8"-";
+#if defined(__ANDROID__)
+				char snp[256];
+				snprintf(snp, 256, "%s%d", str.c_str(), end_year);
+				str = std::string(snp);
+#else
 				str += std::to_string(end_year);
+#endif
 			}
 			str += u8" ";
 			str += c;
@@ -331,13 +343,13 @@ namespace AsLib
 			name_ = u8"Siv3D Engine";
 			copyright_.emplace_back(Copyright(u8"Ryo Suzuki", 2008, 2018));
 			copyright_.emplace_back(Copyright(u8"OpenSiv3D Project", 2016, 2018));
-			str_ = u8"Permission is hereby granted, free of charge, to any person obtaining a copy<br>of this software and associated documentation files(the ÅgSoftwareÅh), to deal<br>in the Software without restriction, including without limitation the rights<br>to use, copy, modify, merge, publish, distribute, sublicense, and/or sell<br>copies of the Software, and to permit persons to whom the Software is<br>furnished to do so, subject to the following conditions :<br><br>The above copyright notice and this permission notice shall be included in all<br>copies or substantial portions of the Software.<br><br>THE SOFTWARE IS PROVIDED ÅgAS ISÅh, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br>IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br>FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE<br>AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br>LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE<br>SOFTWARE.";
+			str_ = u8"Permission is hereby granted, free of charge, to any person obtaining a copy<br>of this software and associated documentation files(the ‚ÄúSoftware‚Äù), to deal<br>in the Software without restriction, including without limitation the rights<br>to use, copy, modify, merge, publish, distribute, sublicense, and/or sell<br>copies of the Software, and to permit persons to whom the Software is<br>furnished to do so, subject to the following conditions :<br><br>The above copyright notice and this permission notice shall be included in all<br>copies or substantial portions of the Software.<br><br>THE SOFTWARE IS PROVIDED ‚ÄúAS IS‚Äù, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br>IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br>FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE<br>AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br>LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE<br>SOFTWARE.";
 			return;
 		case(HamFramework_LICENSE):
 			name_ = u8"HamFramework";
 			copyright_.emplace_back(Copyright(u8"HAMSTRO", 2014, 2018));
 			copyright_.emplace_back(Copyright(u8"OpenSiv3D Project", 2016, 2018));
-			str_ = u8"Permission is hereby granted, free of charge, to any person obtaining a copy<br>of this software and associated documentation files(the ÅgSoftwareÅh), to deal<br>in the Software without restriction, including without limitation the rights<br>to use, copy, modify, merge, publish, distribute, sublicense, and/or sell<br>copies of the Software, and to permit persons to whom the Software is<br>furnished to do so, subject to the following conditions :<br><br>The above copyright notice and this permission notice shall be included in all<br>copies or substantial portions of the Software.<br><br>THE SOFTWARE IS PROVIDED ÅgAS ISÅh, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br>IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br>FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE<br>AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br>LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE<br>SOFTWARE.";
+			str_ = u8"Permission is hereby granted, free of charge, to any person obtaining a copy<br>of this software and associated documentation files(the ‚ÄúSoftware‚Äù), to deal<br>in the Software without restriction, including without limitation the rights<br>to use, copy, modify, merge, publish, distribute, sublicense, and/or sell<br>copies of the Software, and to permit persons to whom the Software is<br>furnished to do so, subject to the following conditions :<br><br>The above copyright notice and this permission notice shall be included in all<br>copies or substantial portions of the Software.<br><br>THE SOFTWARE IS PROVIDED ‚ÄúAS IS‚Äù, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br>IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br>FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE<br>AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br>LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE<br>SOFTWARE.";
 			return;
 		case(Abseil_LICENSE):
 			name_ = u8"Abseil";
@@ -367,7 +379,7 @@ namespace AsLib
 		case(clip2tri_LICENSE):
 			name_ = u8"clip2tri";
 			copyright_.emplace_back(Copyright(u8"Bitfighter developers", 2014, 0));
-			str_ = u8"Permission is hereby granted, free of charge, to any person obtaining a copy<br>of this software and associated documentation files (the ÅgSoftwareÅh), to deal<br>in the Software without restriction, including without limitation the rights<br>to use, copy, modify, merge, publish, distribute, sublicense, and/or sell<br>copies of the Software, and to permit persons to whom the Software is<br>furnished to do so, subject to the following conditions:<br><br>The above copyright notice and this permission notice shall be included in all<br>copies or substantial portions of the Software.<br><br>THE SOFTWARE IS PROVIDED ÅgAS ISÅh, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br>IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br>FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE<br>AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br>LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE<br>SOFTWARE.";
+			str_ = u8"Permission is hereby granted, free of charge, to any person obtaining a copy<br>of this software and associated documentation files (the ‚ÄúSoftware‚Äù), to deal<br>in the Software without restriction, including without limitation the rights<br>to use, copy, modify, merge, publish, distribute, sublicense, and/or sell<br>copies of the Software, and to permit persons to whom the Software is<br>furnished to do so, subject to the following conditions:<br><br>The above copyright notice and this permission notice shall be included in all<br>copies or substantial portions of the Software.<br><br>THE SOFTWARE IS PROVIDED ‚ÄúAS IS‚Äù, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br>IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br>FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE<br>AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br>LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE<br>SOFTWARE.";
 			return;
 		case(Clipper_LICENSE):
 			name_ = u8"Clipper";

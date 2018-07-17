@@ -1,8 +1,8 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
-//                              AsLib - Asƒ‰ƒCƒuƒ‰ƒŠ
+//                              AsLib - Asãƒ©ã‚¤ãƒ–ãƒ©ãƒª
 //
-//                    §ìÒ: ‚ª‚Á‚¿‚å (wanotaitei@gmail.com)
+//                    åˆ¶ä½œè€…: ãŒã£ã¡ã‚‡ (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
 
@@ -18,7 +18,7 @@ namespace AsLib
 	};
 
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-	//‰æ‘œ‚ğ•ªŠ„ƒ[ƒh‚·‚é
+	//ç”»åƒã‚’åˆ†å‰²ãƒ­ãƒ¼ãƒ‰ã™ã‚‹
 	std::unique_ptr<OriginatorTexture[]> asLoadTexture(const char* const name, const size_t tex_num_x = 1, const size_t tex_num_y = 1)
 	{
 		const size_t aslib_load_texture_xy = tex_num_x * tex_num_y;
@@ -41,7 +41,7 @@ namespace AsLib
 #else
 
 
-	//‰æ‘œ“Ç‚İ‚İ
+	//ç”»åƒèª­ã¿è¾¼ã¿
 	inline TexSize2 asLoadTexture(const char* const name, const size_t tex_num_x = 1, const size_t tex_num_y = 1)
 	{
 #if defined(ASLIB_INCLUDE_S3) //Siv3D
@@ -120,7 +120,7 @@ namespace AsLib
 #endif
 	}
 
-	//‰æ‘œ‚ğŠÇ—‚·‚é
+	//ç”»åƒã‚’ç®¡ç†ã™ã‚‹
 	struct Texture
 	{
 	private:
@@ -139,7 +139,7 @@ namespace AsLib
 #if defined(ANIME_TEXTURE_1)
 		Texture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_, x_, y_).t), num(x_*y_) 
 		{
-			//‰æ‘œƒTƒCƒYæ“¾
+			//ç”»åƒã‚µã‚¤ã‚ºå–å¾—
 			asTextureSize(this->id, this->pixel_size);
 			this->pixel_size.x /= int32_t(x_);
 			this->pixel_size.y /= int32_t(y_);
@@ -149,7 +149,7 @@ namespace AsLib
 		{
 			id = asLoadTexture(name_, x_, y_).t;
 			num = x_ * y_;
-			//‰æ‘œƒTƒCƒYæ“¾
+			//ç”»åƒã‚µã‚¤ã‚ºå–å¾—
 			asTextureSize(this->id, this->pixel_size);
 			this->pixel_size.x /= int32_t(x_);
 			this->pixel_size.y /= int32_t(y_);
@@ -157,11 +157,11 @@ namespace AsLib
 			return *this;
 		}
 #elif defined(ANIME_TEXTURE_2)
-		Texture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(std::move(asLoadTexture(name_,x_,y_))), pixel_size(asTextureSize(this->id[0])), num(x_*y_) {}
+		Texture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_,x_,y_)), pixel_size(asTextureSize(this->id[0])), num(x_*y_) {}//stdmovea
 
 		Texture& operator()(const char* const name_, const size_t x_ = 1, const size_t y_ = 1)
 		{
-			id = std::move(asLoadTexture(name_, x_, y_));
+			id = asLoadTexture(name_, x_, y_);//stdmovea
 			pixel_size = asTextureSize(this->id[0]);
 			num = x_ * y_;
 			return *this;
@@ -171,10 +171,10 @@ namespace AsLib
 #endif
 
 		//--------------------------------------------------
-		//•`‰æ
+		//æç”»
 		//--------------------------------------------------
 
-		//ƒTƒCƒY w’è‚È‚µ “§–¾“x w’è‚ ‚è
+		//ã‚µã‚¤ã‚º æŒ‡å®šãªã— é€æ˜åº¦ æŒ‡å®šã‚ã‚Š
 		Texture& draw(const size_t anime_size, const uint8_t alpha = 255)
 		{
 #if defined(ANIME_TEXTURE_1)
@@ -186,7 +186,7 @@ namespace AsLib
 		}
 		Texture& draw(const uint8_t alpha = 255) { return this->draw((size_t)0, alpha); }
 
-		//ƒTƒCƒY“™”{ ˆÊ’uw’è
+		//ã‚µã‚¤ã‚ºç­‰å€ ä½ç½®æŒ‡å®š
 		Texture& draw(const size_t anime_size, const Pos4& add_pos, const uint8_t alpha=255)
 		{
 #if defined(ANIME_TEXTURE_1)
@@ -203,12 +203,12 @@ namespace AsLib
 		const Pos2 pixelSize() const { return this->pixel_size; };
 	};
 
-	//ƒEƒBƒ“ƒhƒEê—p
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å°‚ç”¨
 	struct TextureWindow :public Texture {
 	private:
-		//ƒƒbƒZ[ƒW‚ğ•\¦‚·‚é‚©”Û‚©
+		//ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤ºã™ã‚‹ã‹å¦ã‹
 		bool win_is_on = false;
-		//ƒƒbƒZ[ƒW‚ğI—¹‚·‚é‚©”Û‚©
+		//ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’çµ‚äº†ã™ã‚‹ã‹å¦ã‹
 		bool win_is_exit = false;
 
 		Pos2 win_pos{};
@@ -229,37 +229,37 @@ namespace AsLib
 		//
 		bool win_is_end_texture = false;
 
-		//ƒEƒBƒ“ƒhƒE‚Æ‚Æ‚à‚É—¬‚³‚ê‚é‰¹
+		//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã¨ã¨ã‚‚ã«æµã•ã‚Œã‚‹éŸ³
 		BGM sound;
-		//‰½”Ô–Ú‚Ì‰¹‚ğ—¬‚·‚©
+		//ä½•ç•ªç›®ã®éŸ³ã‚’æµã™ã‹
 		int32_t count_sound = 0;
-		//‰¹‚Ìƒtƒ@ƒCƒ‹–¼
+		//éŸ³ã®ãƒ•ã‚¡ã‚¤ãƒ«å
 		std::string win_sound_name{};
-		//‰¹‚ÌŠg’£q
+		//éŸ³ã®æ‹¡å¼µå­
 		std::string win_sound_extension{};
-		//‰¹‚ğÄ¶‚·‚é(Às‚·‚é)
+		//éŸ³ã‚’å†ç”Ÿã™ã‚‹(å®Ÿè¡Œã™ã‚‹)
 		bool win_is_sound = false;
 
-		//˜b‚µ‚Ä‚¢‚él‚Ì–¼‘O
+		//è©±ã—ã¦ã„ã‚‹äººã®åå‰
 		std::string win_speaker_name{};
 
-		//o—Í‚·‚é•¶š—ñ
+		//å‡ºåŠ›ã™ã‚‹æ–‡å­—åˆ—
 		std::string win_out_str{};
 
-		//ƒEƒBƒ“ƒhƒE“à‚ÌÅ‘ås”
+		//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å†…ã®æœ€å¤§è¡Œæ•°
 		int32_t number_of_lines = 4;
 
-		//ƒEƒBƒ“ƒhƒE‚ÌƒfƒtƒHƒ‹ƒgƒTƒCƒY
+		//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚µã‚¤ã‚º
 		Pos4 win_pos_default{};
-		//‚Ó‚¿‚ÌƒfƒtƒHƒ‹ƒgƒTƒCƒY
+		//ãµã¡ã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚µã‚¤ã‚º
 		Pos2 win_frame_default{};
 
-		//ƒEƒBƒ“ƒhƒE“à‚ÌƒtƒHƒ“ƒg
+		//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å†…ã®ãƒ•ã‚©ãƒ³ãƒˆ
 		FontMainData font;
 
-		//‘‘—‚è‹@”\‚ğg—p‚·‚é‚©
+		//æ—©é€ã‚Šæ©Ÿèƒ½ã‚’ä½¿ç”¨ã™ã‚‹ã‹
 		bool win_is_fast_forward = false;
-		//‘‘—‚è‚ğÀs‚·‚é‚©
+		//æ—©é€ã‚Šã‚’å®Ÿè¡Œã™ã‚‹ã‹
 		bool win_is_on_fast_forward = false;
 
 	public:
@@ -377,7 +377,7 @@ namespace AsLib
 
 		const std::string readString(const char* const str_) {
 			std::ifstream ifs(str_);
-			if (ifs.fail()) return std::string(u8"(ƒf[ƒ^‚ğ“Ç‚İ‚ß‚Ü‚¹‚ñ‚Å‚µ‚½)");
+			if (ifs.fail()) return std::string(u8"(ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚ã¾ã›ã‚“ã§ã—ãŸ)");
 			std::istreambuf_iterator<char> it(ifs);
 			std::istreambuf_iterator<char> last;
 			return std::string(it, last);
@@ -424,21 +424,21 @@ namespace AsLib
 			} while (win_is_on_fast_forward);
 			return *this;
 		}
-		//I’[‹L†‚ğ‚Â‚¯‚é
+		//çµ‚ç«¯è¨˜å·ã‚’ã¤ã‘ã‚‹
 		TextureWindow& updateEnd(const int32_t count_) {
 			++win_end_timer;
-			//ƒ^ƒCƒ}[‚ª‚½‚Ü‚Á‚½‚ç
+			//ã‚¿ã‚¤ãƒãƒ¼ãŒãŸã¾ã£ãŸã‚‰
 			if (win_end_timer >= count_) {
-				//ƒ^ƒCƒ}[‰Šú‰»
+				//ã‚¿ã‚¤ãƒãƒ¼åˆæœŸåŒ–
 				win_end_timer = 0;
-				//ƒ^ƒCƒ}[‚½‚Ü‚Á‚½ƒtƒ‰ƒO
+				//ã‚¿ã‚¤ãƒãƒ¼ãŸã¾ã£ãŸãƒ•ãƒ©ã‚°
 				win_is_end_timer = true;
-				//I’[‹L†“ü‚ê‘Ö‚¦
+				//çµ‚ç«¯è¨˜å·å…¥ã‚Œæ›¿ãˆ
 				if (win_is_end_str) win_is_end_str = false;
 				else win_is_end_str = true;
 			}
 			else {
-				//ƒ^ƒCƒ}[‚½‚Ü‚Á‚Ä‚È‚¢ƒtƒ‰ƒO
+				//ã‚¿ã‚¤ãƒãƒ¼ãŸã¾ã£ã¦ãªã„ãƒ•ãƒ©ã‚°
 				win_is_end_timer = false;
 			}
 			return *this;
@@ -451,7 +451,7 @@ namespace AsLib
 			return *this;
 		}
 		TextureWindow& drawEndTexture(Texture& texture_, const Pos2& p_) {
-			//•\¦‹@ŠÖ‚Éw’è‚µ‚½‰æ‘œ‚ğ•`‰æ
+			//è¡¨ç¤ºæ©Ÿé–¢ã«æŒ‡å®šã—ãŸç”»åƒã‚’æç”»
 			if (win_is_end_texture) texture_.draw(Pos4(win_end_pos.x - p_.x / 4, win_end_pos.y - p_.y / 4, win_end_pos.x, win_end_pos.y));
 
 			if (!win_is_end_timer || win_is_str32) return *this;
@@ -465,7 +465,7 @@ namespace AsLib
 		TextureWindow& drawEndAnime(Texture& texture_, const Pos2& p_) {
 			if (win_is_str32) return *this;
 			static size_t draw_id = 0;
-			//w’è‚µ‚½‰æ‘œ‚ğ•`‰æ
+			//æŒ‡å®šã—ãŸç”»åƒã‚’æç”»
 			texture_.draw(draw_id,Pos4(win_end_pos.x - p_.x, win_end_pos.y - p_.y, win_end_pos.x, win_end_pos.y));
 			if (!win_is_end_timer) return *this;
 			if (win_is_end_str) {
@@ -511,30 +511,30 @@ namespace AsLib
 
 
 
-	//•¡”‚Ì‰æ‘œUI‚Ìî•ñ‚ğŠÇ—‚·‚é
+	//è¤‡æ•°ã®ç”»åƒUIã®æƒ…å ±ã‚’ç®¡ç†ã™ã‚‹
 	struct TextureUI
 	{
 	private:
 		Texture* id;
 		size_t anime_count = 0;
-		//–ˆƒtƒŒ[ƒ€
+		//æ¯ãƒ•ãƒ¬ãƒ¼ãƒ 
 		size_t fps_size = 2;
 		size_t fps_count = 0;
 
-		//‰æ‘œ“§–¾“x
+		//ç”»åƒé€æ˜åº¦
 		uint8_t alpha = 255;
 
-		//‰æ‘œ‰ñ“]—¦
+		//ç”»åƒå›è»¢ç‡
 		float rota = 0.0f;
 
-		//lŠpŒ`•`‰æˆÊ’u
+		//å››è§’å½¢æç”»ä½ç½®
 		Pos4 pos4;
 		PosA4F pR;
 
-		//‚ ‚½‚è”»’è
+		//ã‚ãŸã‚Šåˆ¤å®š
 		Counter counter;
 
-		//ƒ^ƒbƒ`”
+		//ã‚¿ãƒƒãƒæ•°
 		int32_t touch_num = 0;
 	public:
 		TextureUI() = default;
@@ -542,7 +542,7 @@ namespace AsLib
 		TextureUI(Texture* const add_tmd, const uint8_t add_alpha, const PosA4F& add_pR) : id(add_tmd), alpha(add_alpha), pR(add_pR) {}
 		TextureUI & fpsUpdate();
 
-		//o—Í
+		//å‡ºåŠ›
 		const Texture* const Point() const { return this->id; };
 		uint8_t Alpha() const { return this->alpha; };
 		Pos4 Pos() const { return this->pos4; };
@@ -550,7 +550,7 @@ namespace AsLib
 		int32_t Touch() const { return this->touch_num; };
 		int32_t Touch0() { const int32_t num = this->touch_num; this->touch_num = 0; return num; };
 
-		//ƒJƒEƒ“ƒ^[o—Í
+		//ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼å‡ºåŠ›
 		bool Down() const { return counter.Down(); };
 		bool Up() const { return counter.Up(); };
 		int32_t Count() const { return counter.Count(); };
@@ -585,7 +585,7 @@ namespace AsLib
 			return false;
 		}
 
-		//‘å‚«‚³‰ÁZ
+		//å¤§ãã•åŠ ç®—
 		TextureUI& addSizeF(const Pos2F& p2_) { pR.w += p2_.x; pR.h += p2_.y; return *this; }
 		TextureUI& addSizeF(const Pos2F& p2_, const Pos2F& p2_2) { if (pR.w < p2_2.x)pR.w += p2_.x; if (pR.h < p2_2.y)pR.h += p2_.y; return *this; }
 		TextureUI& addPosF(const Pos2F& p2_) { pR.x += p2_.x; pR.y += p2_.y; return *this; }
@@ -593,7 +593,7 @@ namespace AsLib
 		TextureUI& addPosF(const float p2_x, const float p2_y) { pR.x += p2_x; pR.y += p2_y; return *this; }
 		TextureUI& setPosF(const Pos2F& p2_) { if (pR.x < 0.0f) pR.x = 0.0f; if (pR.y < 0.0f) pR.y = 0.0f; if (pR.x > p2_.x) pR.x = p2_.x; if (pR.y > p2_.y) pR.y = p2_.y; return *this; }
 
-		//•`‰æ
+		//æç”»
 		TextureUI& draw() { this->id->draw(anime_count, pos4, alpha); return *this; };
 		TextureUI& draw(const uint8_t alpha_) { this->id->draw(anime_count, pos4, alpha_); return *this; };
 		TextureUI& draw(const uint8_t alpha_, const Pos4 pos_) { this->id->draw(anime_count, pos_, alpha_); return *this; };
@@ -632,25 +632,25 @@ namespace AsLib
 			this->id->draw(anime_count, aspect_pos, alpha_); return *this;
 		};
 
-		//ƒ^ƒbƒ`ƒJƒEƒ“ƒg
+		//ã‚¿ãƒƒãƒã‚«ã‚¦ãƒ³ãƒˆ
 		TextureUI& update() {
 			this->initTouch();
-				//ƒ^ƒbƒ`‚³‚ê‚½”‚ğæ“¾
+				//ã‚¿ãƒƒãƒã•ã‚ŒãŸæ•°ã‚’å–å¾—
 				const int32_t check_touch_all_num = asTouchNum();
 
-				//ƒ}ƒEƒX‚Ìƒ^ƒbƒ`‚ğ“±“ü
+				//ãƒã‚¦ã‚¹ã®ã‚¿ãƒƒãƒã‚’å°å…¥
 				const Mouse mouse;
 				if (check_touch_all_num == 0 && mouse.count() > 0) this->touch(mouse.Pos());
 
-				//‰æ–Ê‚ÌƒNƒŠƒbƒN•ƒŠƒŠ[ƒX
+				//ç”»é¢ã®ã‚¯ãƒªãƒƒã‚¯ï¼†ãƒªãƒªãƒ¼ã‚¹
 				Pos2 touch_pos;
-				//ƒ^ƒbƒ`‚Ì‚İ
+				//ã‚¿ãƒƒãƒã®ã¿
 				for (int32_t i = 0; i < check_touch_all_num; ++i) {
 					asTouch(i, touch_pos);
-					//ƒ^ƒbƒ`‚Ì‚ ‚½‚è”»’è
+					//ã‚¿ãƒƒãƒã®ã‚ãŸã‚Šåˆ¤å®š
 					this->touch(touch_pos);
 				}
-				//‰½‰ñƒ^ƒbƒ`‚³‚ê‚½‚©ƒJƒEƒ“ƒg
+				//ä½•å›ã‚¿ãƒƒãƒã•ã‚ŒãŸã‹ã‚«ã‚¦ãƒ³ãƒˆ
 				this->counter.update(this->touch_num);
 				return *this;
 		}
@@ -675,18 +675,18 @@ namespace AsLib
 		bool is_touch = false;
 		const Pos4 p(pos4.x1 - add_pos.x, pos4.y1 - add_pos.y, pos4.x2 - add_pos.x, pos4.y2 - add_pos.y);
 
-		//ƒ^ƒbƒ`‚Ì‚ ‚½‚è”»’è
+		//ã‚¿ãƒƒãƒã®ã‚ãŸã‚Šåˆ¤å®š
 		if (p.x1 <= 0 && p.y1 <= 0 && p.x2 >= 0 && p.y2 >= 0) is_touch = true;
 		else if (p.x1 > 0 && p.y1 > 0 && p.x2 < 0 && p.y2 < 0) is_touch = true;
 
-		//ƒ^ƒbƒ`‚Ì”‚ğƒJƒEƒ“ƒg
+		//ã‚¿ãƒƒãƒã®æ•°ã‚’ã‚«ã‚¦ãƒ³ãƒˆ
 		if (is_touch && this->touch_num != INT32_MAX) ++this->touch_num;
 		return *this;
 	}
 
 
 
-	//ƒTƒCƒY“™”{ ˆÊ’uw’è ‰ñ“]w’è‚ ‚è
+	//ã‚µã‚¤ã‚ºç­‰å€ ä½ç½®æŒ‡å®š å›è»¢æŒ‡å®šã‚ã‚Š
 	inline const Texture& Texture::draw(const size_t anime_size, const PosA4F& add_pos, const float r_, const uint8_t alpha)
 	{
 #if defined(ANIME_TEXTURE_1)
