@@ -644,17 +644,17 @@ void checkKey(bool* const AS_key, Counter* const AS_count)
 	return;
 }
 #elif defined(ASLIB_INCLUDE_OF)
-void checkKey(bool* const AS_key)
+void checkKey(bool* const AS_key, Counter* const AS_count)
 {
 	return;
 }
 #elif defined(ASLIB_INCLUDE_TP)
-void checkKey(bool* const AS_key)
+void checkKey(bool* const AS_key, Counter* const AS_count)
 {
 	return;
 }
 #else //Console
-void checkKey(bool* const AS_key)
+void checkKey(bool* const AS_key, Counter* const AS_count)
 {
 	return;
 }

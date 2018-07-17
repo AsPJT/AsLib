@@ -77,7 +77,6 @@ namespace AsLib
 
 		//テクスチャ系--------------------------------------------------
 		size_t textureAdd(const char* const add_name);
-		MainControl& animeAdd(const char* const add_name, const size_t);
 		MainControl& textureUI_Add(const size_t add_number, const uint8_t add_alpha, const Pos4& add_pos4);
 		MainControl& animeUI_Add(const size_t add_number, const uint8_t add_alpha, const Pos4& add_pos4);
 		MainControl& texture(const size_t select_texture);
@@ -323,22 +322,9 @@ namespace AsLib
 
 	inline size_t MainControl::fontAdd(const int32_t& font_size, const char* const add_name)
 	{
-		const FontMainData add_font(asMakeFont(font_size, add_name), font_size, add_name);
+		const FontMainData add_font(font_size, add_name);
 		vecFont.emplace_back(add_font);
 		return vecFont.size() - 1;
-	}
-
-	inline MainControl & MainControl::animeAdd(const char * const add_name,const size_t add_num)
-	{
-#if defined(ANIME_TEXTURE_1)
-		const Texture add_texture(add_num, asLoadTexture(add_name, 1));
-		vecAnime.emplace_back(add_texture);
-#elif defined(ANIME_TEXTURE_2)
-		//非const
-		Texture add_texture(add_num, asLoadTexture(add_name, add_num, 1));
-		vecAnime.emplace_back(std::move(add_texture));
-#endif
-		return *this;
 	}
 
 	inline MainControl & MainControl::anime(const size_t select_texture)

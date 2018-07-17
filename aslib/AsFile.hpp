@@ -110,7 +110,7 @@ namespace AsLib
 		const errno_t cfp_error = fopen_s(&cfp_fp, file_name, "w");
 		if (cfp_error) return -1;
 
-		fprintf(cfp_fp, log_);
+		fputs(log_, cfp_fp);
 		fclose(cfp_fp);
 		return 0;
 	}
@@ -122,7 +122,7 @@ namespace AsLib
 		const errno_t cfp_error = fopen_s(&cfp_fp, file_name, "a");
 		if (cfp_error) return -1;
 
-		fprintf(cfp_fp, log_);
+		fputs(log_, cfp_fp);
 		fclose(cfp_fp);
 		return 0;
 	}
@@ -142,7 +142,7 @@ namespace AsLib
 
 		if (cfp_fp == nullptr) return -1;
 
-		fprintf(cfp_fp, log_);
+		fputs(log_, cfp_fp);
 		fclose(cfp_fp);
 		return 0;
 	}
@@ -159,7 +159,7 @@ namespace AsLib
 
 		if (cfp_fp == nullptr) return -1;
 
-		fprintf(cfp_fp, log_);
+		fputs(log_, cfp_fp);
 		fclose(cfp_fp);
 		return 0;
 	}
@@ -172,7 +172,7 @@ namespace AsLib
 		FILE* const cfp_fp = fopen(file_name, "w");
 		if (cfp_fp == nullptr) return -1;
 
-		fprintf(cfp_fp, log_);
+		fputs(log_, cfp_fp);
 		fclose(cfp_fp);
 		return 0;
 	}
@@ -183,7 +183,7 @@ namespace AsLib
 		FILE* const cfp_fp = fopen(file_name, "a");
 		if (cfp_fp == nullptr) return -1;
 
-		fprintf(cfp_fp, log_);
+		fputs(log_, cfp_fp);
 		fclose(cfp_fp);
 		return 0;
 	}

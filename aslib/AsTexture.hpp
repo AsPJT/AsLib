@@ -21,16 +21,21 @@ namespace AsLib
 	//画像を分割ロードする
 	std::unique_ptr<OriginatorTexture[]> asLoadTexture(const char* const name, const size_t tex_num_x = 1, const size_t tex_num_y = 1)
 	{
-		if (name == nullptr) return nullptr;
+		const size_t aslib_load_texture_xy = tex_num_x * tex_num_y;
+		std::unique_ptr<OriginatorTexture[]> texs(new OriginatorTexture[aslib_load_texture_xy]);
+
+		for (size_t i = 0; i < aslib_load_texture_xy; ++i) texs[i] = -1;
+		if (name == nullptr) return texs;
+
 		const OriginatorTexture tex = DxLib::LoadGraph(name);
-		if (tex == -1) return nullptr;
+		if (tex == -1) return texs;
+
 		int size_x = 0, size_y = 0;
 		DxLib::GetGraphSize(tex, &size_x, &size_y);
 		DxLib::DeleteGraph(tex);
-		if (size_x == 0 || size_y == 0) return nullptr;
-
-		std::unique_ptr<OriginatorTexture[]> texs(new OriginatorTexture[tex_num_x * tex_num_y]);
-		DxLib::LoadDivGraph(name, int(tex_num_x * tex_num_y), int(tex_num_x), int(tex_num_y), size_x / int(tex_num_x), size_y / int(tex_num_y), &texs[0]);
+		if (size_x == 0 || size_y == 0) return texs;
+		
+		DxLib::LoadDivGraph(name, int(aslib_load_texture_xy), int(tex_num_x), int(tex_num_y), size_x / int(tex_num_x), size_y / int(tex_num_y), &texs[0]);
 		return texs;
 	}
 #else
@@ -56,6 +61,7 @@ namespace AsLib
 	inline void asTextureSize(const OriginatorTexture& id, Pos2& texture_size)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
+		if (id == -1) { texture_size(0, 0); return; }
 		int size_x = 0, size_y = 0;
 		DxLib::GetGraphSize(id, &size_x, &size_y);
 		texture_size(int32_t(size_x), int32_t(size_y));
@@ -131,44 +137,6 @@ namespace AsLib
 	public:
 		Texture() = default;
 #if defined(ANIME_TEXTURE_1)
-		Texture(const size_t id_num, const TexSize2& add_id) :id(add_id.t), num(id_num)
-		{
-			//画像サイズ取得
-			asTextureSize(this->id, this->pixel_size);
-			this->pixel_size.x /= int32_t(add_id.x);
-			this->pixel_size.y /= int32_t(add_id.y);
-			this->turn_id = size_t(add_id.x);
-		}
-		Texture(const TexSize2& add_id) :id(add_id.t), num(1)
-		{
-			//画像サイズ取得
-			asTextureSize(this->id, this->pixel_size);
-			this->pixel_size.x /= int32_t(add_id.x);
-			this->pixel_size.y /= int32_t(add_id.y);
-			this->turn_id = size_t(add_id.x);
-		}
-		Texture& operator()(const size_t id_num, const TexSize2& add_id)
-		{
-			id=add_id.t;
-			num = id_num;
-			//画像サイズ取得
-			asTextureSize(this->id, this->pixel_size);
-			this->pixel_size.x /= int32_t(add_id.x);
-			this->pixel_size.y /= int32_t(add_id.y);
-			this->turn_id = size_t(add_id.x);
-			return *this;
-		}
-		Texture& operator()(const TexSize2& add_id)
-		{
-			id = add_id.t;
-			num = 1;
-			//画像サイズ取得
-			asTextureSize(this->id, this->pixel_size);
-			this->pixel_size.x /= int32_t(add_id.x);
-			this->pixel_size.y /= int32_t(add_id.y);
-			this->turn_id = size_t(add_id.x);
-			return *this;
-		}
 		Texture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_, x_, y_).t), num(x_*y_) 
 		{
 			//画像サイズ取得
@@ -177,23 +145,25 @@ namespace AsLib
 			this->pixel_size.y /= int32_t(y_);
 			this->turn_id = size_t(x_);
 		}
+		Texture& operator()(const char* const name_, const size_t x_ = 1, const size_t y_ = 1)
+		{
+			id = asLoadTexture(name_, x_, y_).t;
+			num = x_ * y_;
+			//画像サイズ取得
+			asTextureSize(this->id, this->pixel_size);
+			this->pixel_size.x /= int32_t(x_);
+			this->pixel_size.y /= int32_t(y_);
+			this->turn_id = size_t(x_);
+			return *this;
+		}
 #elif defined(ANIME_TEXTURE_2)
 		Texture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(std::move(asLoadTexture(name_,x_,y_))), pixel_size(asTextureSize(this->id[0])), num(x_*y_) {}
 
-		Texture(const size_t id_num, std::unique_ptr<OriginatorTexture[]>&& add_id) : id(std::move(add_id)), pixel_size(asTextureSize(this->id[0])), num(id_num) {}
-		Texture(std::unique_ptr<OriginatorTexture[]>&& add_id) : id(std::move(add_id)), pixel_size(asTextureSize(this->id[0])), num(1) {}
-		Texture& operator()(const size_t id_num, std::unique_ptr<OriginatorTexture[]>&& add_id)
+		Texture& operator()(const char* const name_, const size_t x_ = 1, const size_t y_ = 1)
 		{
-			id = std::move(add_id);
+			id = std::move(asLoadTexture(name_, x_, y_));
 			pixel_size = asTextureSize(this->id[0]);
-			num = id_num;
-			return *this;
-		}
-		Texture& operator()(std::unique_ptr<OriginatorTexture[]>&& add_id)
-		{
-			id = std::move(add_id);
-			pixel_size = asTextureSize(this->id[0]);
-			num = 1;
+			num = x_ * y_;
 			return *this;
 		}
 #elif defined(ANIME_TEXTURE_3)
@@ -294,13 +264,9 @@ namespace AsLib
 
 	public:
 #if defined(ANIME_TEXTURE_1)
-		TextureWindow(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) : Texture(name_, x_, y_), font(asMakeFont(30), 30) {}
-		TextureWindow(const size_t id_num, const TexSize2& add_id) : Texture(id_num, add_id), font(asMakeFont(30), 30) {}
-		TextureWindow(const TexSize2& add_id) : Texture(add_id), font(asMakeFont(30), 30) {}
+		TextureWindow(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) : Texture(name_, x_, y_), font(30) {}
 #elif defined(ANIME_TEXTURE_2)
-		TextureWindow(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) : Texture(name_, x_, y_), font(asMakeFont(30), 30) {}
-		TextureWindow(const size_t id_num, std::unique_ptr<OriginatorTexture[]>&& add_id) : Texture(id_num, std::move(add_id)), font(asMakeFont(30), 30) {}
-		TextureWindow(std::unique_ptr<OriginatorTexture[]>&& add_id) : Texture(std::move(add_id)), font(asMakeFont(30), 30) {}
+		TextureWindow(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) : Texture(name_, x_, y_), font(30) {}
 #endif
 		TextureWindow& setFastForward(const bool fast_) {
 			win_is_fast_forward = fast_;
@@ -316,7 +282,7 @@ namespace AsLib
 		}
 		TextureWindow& setLine(const int32_t var_) {
 			number_of_lines = var_+1;
-			font = FontMainData(asMakeFont((PosL4(win_pos_default).h - win_frame_default.y * 2) / number_of_lines, font.fontName()), (PosL4(win_pos_default).h - win_frame_default.y * 2) / number_of_lines, font.fontName());
+			font = FontMainData((PosL4(win_pos_default).h - win_frame_default.y * 2) / number_of_lines, font.fontName());
 			return *this;
 		}
 		TextureWindow& setPos(const Pos4& pos_) {
@@ -341,7 +307,6 @@ namespace AsLib
 
 		TextureWindow& playSound() {
 			if (!win_is_sound || win_sound_name[0] == 0) return *this;
-
 			char sound_str[64];
 			snprintf(sound_str, 64, "%s%d.%s", win_sound_name.c_str(),count_sound, win_sound_extension.c_str());
 			sound.set(sound_str);
@@ -412,7 +377,7 @@ namespace AsLib
 
 		const std::string readString(const char* const str_) {
 			std::ifstream ifs(str_);
-			if (ifs.fail()) return nullptr;
+			if (ifs.fail()) return std::string(u8"(データを読み込めませんでした)");
 			std::istreambuf_iterator<char> it(ifs);
 			std::istreambuf_iterator<char> last;
 			return std::string(it, last);

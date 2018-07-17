@@ -2,7 +2,7 @@
 #include "AsLib.hpp"
 int32_t asMain()
 {
-	//640,360//960, 540
+	//640,360//960, 540//320,180
 	MainControl mc(u8"Voice", Pos2(960, 540), BG_COLOR);
 
 	int32_t winp = 21;
@@ -16,7 +16,7 @@ int32_t asMain()
 
 	window.setFont(font);
 	window.setSound(u8"f");
-	window.setName(u8"name");
+	window.setName(u8"‚ ‚¢‚¤‚¦‚¨");
 	window.setPos(Pos4F(0.02f, 0.7f, 0.98f, 0.98f).ratio());
 	window.setFrame(winp);
 	window.setLine(4);

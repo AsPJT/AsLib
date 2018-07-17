@@ -48,7 +48,7 @@ namespace AsLib
 	//“®‰æŒn
 	using OriginatorMovie = int32_t;
 	//•¶ŽšŒn
-	using OriginatorFont = int32_t;
+	using OriginatorFont = ofTrueTypeFont;
 #elif defined(ASLIB_INCLUDE_TP)
 	//•`‰æ‰æ‘œŒn
 	using OriginatorTexture = int32_t;

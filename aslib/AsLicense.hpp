@@ -53,6 +53,7 @@ namespace AsLib
 		nanoflann_LICENSE,
 		Noto_Fonts_LICENSE,
 		OpenCV_LICENSE,
+		openFrameworks_LICENSE,
 		Opus_audio_codec_LICENSE,
 		Opusfile_LICENSE,
 		pffft_LICENSE,
@@ -202,6 +203,9 @@ namespace AsLib
 #endif
 #if defined(ASLIB_INCLUDE_S3) //Siv3D
 		OpenCV_LICENSE,
+#endif
+#if defined(ASLIB_INCLUDE_OF) //Siv3D
+			openFrameworks_LICENSE,
 #endif
 #if defined(ASLIB_INCLUDE_S3) //Siv3D
 		pffft_LICENSE,
@@ -514,6 +518,12 @@ namespace AsLib
 			copyright_.emplace_back(Copyright(u8"Itseez Inc., all rights reserved.", 2015, 2016));
 			copyright_.emplace_back(Copyright(u8"Third party copyrights are property of their respective owners.", 0, 0));
 			str_ = u8"Redistribution and use in source and binary forms, with or without modification,<br>are permitted provided that the following conditions are met:<br><br>  * Redistributions of source code must retain the above copyright notice,<br>    this list of conditions and the following disclaimer.<br><br>  * Redistributions in binary form must reproduce the above copyright notice,<br>    this list of conditions and the following disclaimer in the documentation<br>    and/or other materials provided with the distribution.<br><br>  * Neither the names of the copyright holders nor the names of the contributors<br>    may be used to endorse or promote products derived from this software<br>    without specific prior written permission.<br><br>This software is provided by the copyright holders and contributors \"as is\" and<br>any express or implied warranties, including, but not limited to, the implied<br>warranties of merchantability and fitness for a particular purpose are disclaimed.<br>In no event shall copyright holders or contributors be liable for any direct,<br>indirect, incidental, special, exemplary, or consequential damages<br>(including, but not limited to, procurement of substitute goods or services;<br>loss of use, data, or profits; or business interruption) however caused<br>and on any theory of liability, whether in contract, strict liability,<br>or tort (including negligence or otherwise) arising in any way out of<br>the use of this software, even if advised of the possibility of such damage.";
+			return;
+		case(openFrameworks_LICENSE):
+			name_ = u8"openFrameworks";
+			copyright_.emplace_back(Copyright(u8"openFrameworks Community", 2004, 2018));
+			str_ = u8"Permission is hereby granted, free of charge,<br> to any person obtaining a copy of this software and associated documentation files (the \"Software\"),<br> to deal in the Software without restriction, including without limitation the rights to use,<br> copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,<br> and to permit persons to whom the Software is furnished to do so,<br> subject to the following conditions:<br>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.<br>THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,<br> INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.<br> IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,<br> DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.";
+			return;
 			return;
 		case(Poly2Tri_LICENSE):
 			name_ = u8"Poly2Tri";

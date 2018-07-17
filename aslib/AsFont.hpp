@@ -19,7 +19,7 @@ namespace AsLib
 		id_; str_;
 		return pos_;
 #elif defined(ASLIB_INCLUDE_OF)
-
+		return Pos2();
 #elif defined(ASLIB_INCLUDE_TP)
 		return Pos2();
 #else //Console
@@ -37,7 +37,14 @@ namespace AsLib
 		font_name;
 		return OriginatorFont(font_size, s3d::Typeface::Black);
 #elif defined(ASLIB_INCLUDE_OF)
-		return 0;
+		ofTrueTypeFont font;
+		std::string str{};
+		str += font_name;
+		str += u8".ttf";
+		font.load(str.c_str(), 70);
+		font.setLineHeight(24);
+		font.setLetterSpacing(1.0);
+		return font;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -102,7 +109,8 @@ namespace AsLib
 		id_(s3d::Unicode::UTF8ToUTF32(format_string)).draw(double(pos_.x), double(pos_.y), s3d::Color(color_));
 		return true;
 #elif defined(ASLIB_INCLUDE_OF)
-
+		id_.drawString(format_string, pos_.x, pos_.y);
+		return true;
 #elif defined(ASLIB_INCLUDE_TP)
 		return true;
 #else //Console
@@ -118,7 +126,8 @@ namespace AsLib
 		id_(s3d::Unicode::UTF8ToUTF32(format_string)).drawAt(double(pos_.x), double(pos_.y), s3d::Color(color_));
 		return true;
 #elif defined(ASLIB_INCLUDE_OF)
-
+		id_.drawString(format_string, pos_.x, pos_.y);
+		return true;
 #elif defined(ASLIB_INCLUDE_TP)
 		return true;
 #else //Console
@@ -135,7 +144,8 @@ namespace AsLib
 		id_(s3d::Unicode::UTF8ToUTF32(printStringS3(format_string, rest...))).draw(double(pos_.x), double(pos_.y), s3d::Color(color_));
 		return true;
 #elif defined(ASLIB_INCLUDE_OF)
-
+		id_.drawString(format_string, pos_.x, pos_.y);
+		return true;
 #elif defined(ASLIB_INCLUDE_TP)
 		return true;
 #else //Console
@@ -152,7 +162,8 @@ namespace AsLib
 		id_(s3d::Unicode::UTF8ToUTF32(printStringS3(format_string, rest...))).drawAt(double(pos_.x), double(pos_.y), s3d::Color(color_));
 		return true;
 #elif defined(ASLIB_INCLUDE_OF)
-
+		id_.drawString(format_string, pos_.x, pos_.y);
+		return true;
 #elif defined(ASLIB_INCLUDE_TP)
 		return true;
 #else //Console
@@ -167,7 +178,15 @@ namespace AsLib
 	public:
 		FontMainData() = default;
 		FontMainData(const int32_t add_size = 10, const char* const str_ = u8"Meiryo UI", const int32_t add_thick = FONT_THICK) :id(asMakeFont(add_size,str_)), size(add_size), thick(add_thick), fontname(std::move(std::string(str_))) {}
-		FontMainData(const OriginatorFont& add_id, const int32_t add_size = 10, const char* const add_fontname = u8"Meiryo UI", const int32_t add_thick = FONT_THICK):id(add_id), size(add_size), thick(add_thick), fontname(std::string(add_fontname)) {}
+
+		FontMainData& operator()(const int32_t add_size = 10, const char* const str_ = u8"Meiryo UI", const int32_t add_thick = FONT_THICK)
+		{
+			id = asMakeFont(add_size, str_);
+			size = add_size;
+			thick = add_thick;
+			fontname = std::move(std::string(str_));
+			return *this;
+		}
 
 		FontMainData& draw(const char* const, const Pos2&, const Color& = black_RGBA);
 		FontMainData& draw(const std::string& string_, const Color& color_ = black_RGBA) { return this->draw(string_.c_str(), color_); }
@@ -245,7 +264,7 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		asFontAt(this->id, format_string, pos_, color_);
 #elif defined(ASLIB_INCLUDE_OF)
-
+		asFontAt(this->id, format_string, pos_, color_);
 #elif defined(ASLIB_INCLUDE_TP)
 
 #else //Console
@@ -262,7 +281,7 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		asFontAt(this->id, format_string, pos_, color_, rest...);
 #elif defined(ASLIB_INCLUDE_OF)
-
+		asFontAt(this->id, format_string, pos_, color_, rest...);
 #elif defined(ASLIB_INCLUDE_TP)
 
 #else //Console
