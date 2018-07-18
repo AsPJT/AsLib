@@ -14,6 +14,7 @@ int32_t asMain()
 
 	Texture ani(u8"pet.png", 8, 4);
 
+	window.setPerson(true);
 	window.setFont(font);
 	window.setSound(u8"f");
 	window.setName(u8"‚ ‚¢‚¤‚¦‚¨");
@@ -24,7 +25,7 @@ int32_t asMain()
 
 	asStop();
 	while (asLoop()) {
-		if (window.isWindow()) window.drawWindow().update(8).writeString().updateEnd(1).drawEndAnime(ani).playSound().printString().printName().next(asKeyA_Up());
+		if (window.isWindow()) window.drawPerson(window_ui).drawWindow().update(8).writeString().updateEnd(1).drawEndAnime(ani).playSound().printString().printName().next(asKeyEnterUp());//asKeyA_Up()
 		window.initWindow(asKeyY_Up());
 	}
 	return 0;

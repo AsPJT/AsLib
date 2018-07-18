@@ -262,12 +262,22 @@ namespace AsLib
 		//早送りを実行するか
 		bool win_is_on_fast_forward = false;
 
+		//人物画像を表示するか
+		bool win_is_person = false;
+		Effect person_effect;
+		
+
+
 	public:
 #if defined(ANIME_TEXTURE_1)
 		TextureWindow(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) : Texture(name_, x_, y_), font(30) {}
 #elif defined(ANIME_TEXTURE_2)
 		TextureWindow(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) : Texture(name_, x_, y_), font(30) {}
 #endif
+		TextureWindow& setPerson(const bool is_) {
+			win_is_person = is_;
+			return *this;
+		}
 		TextureWindow& setFastForward(const bool fast_) {
 			win_is_fast_forward = fast_;
 			return *this;
@@ -505,6 +515,13 @@ namespace AsLib
 		}
 		TextureWindow& next(const std::vector<bool>& is_next) { for (size_t i = 0; i < is_next.size(); ++i) this->next(is_next[i]); return *this; }
 		TextureWindow& next(const bool* const is_next, const size_t size_) { if (is_next == nullptr) return *this; for (size_t i = 0; i < size_; ++i) this->next(is_next[i]); return *this; }
+		TextureWindow& drawPerson(Texture& t_ ) {
+			if (!win_is_person) return *this;
+
+			t_.draw();
+			return *this;
+		}
+
 
 	};
 

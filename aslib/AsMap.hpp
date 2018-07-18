@@ -250,12 +250,12 @@ namespace AsLib
 
 	inline const bool moveMobCross(const float s_, PosA4F& p_)
 	{
-		return moveMobCross(asKey(Keyboard_DownArrow), asKey(Keyboard_UpArrow), asKey(Keyboard_LeftArrow), asKey(Keyboard_RightArrow), s_, p_);
+		return moveMobCross(asKey(aslib_key_DownArrow), asKey(aslib_key_UpArrow), asKey(aslib_key_LeftArrow), asKey(aslib_key_RightArrow), s_, p_);
 	}
 
 	inline const bool moveMob(const float s_, PosA4F& p_)
 	{
-		return moveMob(asKey(Keyboard_DownArrow), asKey(Keyboard_UpArrow), asKey(Keyboard_LeftArrow), asKey(Keyboard_RightArrow), s_, p_);
+		return moveMob(asKey(aslib_key_DownArrow), asKey(aslib_key_UpArrow), asKey(aslib_key_LeftArrow), asKey(aslib_key_RightArrow), s_, p_);
 	}
 
 

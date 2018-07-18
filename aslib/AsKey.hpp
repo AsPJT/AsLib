@@ -11,101 +11,101 @@ namespace AsLib
 {
 	//キーボード配列ID
 	enum :size_t {
-		Keyboard_Unknown,
-		Keyboard_grave_accentilde,
-		Keyboard_1,
-		Keyboard_2,
-		Keyboard_3,
-		Keyboard_4,
-		Keyboard_5,
-		Keyboard_6,
-		Keyboard_7,
-		Keyboard_8,
-		Keyboard_9,
-		Keyboard_0,
-		Keyboard_hyphennderscore,
-		Keyboard_equallus,
-		Keyboard_International3,
-		Keyboard_DELETE_Backspace,
-		Keyboard_Tab,
-		Keyboard_q,
-		Keyboard_w,
-		Keyboard_e,
-		Keyboard_r,
-		Keyboard_t,
-		Keyboard_y,
-		Keyboard_u,
-		Keyboard_i,
-		Keyboard_o,
-		Keyboard_p,
-		Keyboard_left_square_bracketeft_curly_bracket,
-		Keyboard_right_square_bracketight_curly_bracket,
-		Keyboard_ertical_line,
-		Keyboard_Caps_Lock,
-		Keyboard_a,
-		Keyboard_s,
-		Keyboard_d,
-		Keyboard_f,
-		Keyboard_g,
-		Keyboard_h,
-		Keyboard_j,
-		Keyboard_k,
-		Keyboard_l,
-		Keyboard_semicolon,
-		Keyboard_colon,
-		Keyboard_Non_US_numberilde,
-		Keyboard_Return_ENTER,
-		Keyboard_left_shift,
-		Keyboard_Unknown1,
-		Keyboard_z,
-		Keyboard_x,
-		Keyboard_c,
-		Keyboard_v,
-		Keyboard_b,
-		Keyboard_n,
-		Keyboard_m,
-		Keyboard_commaess_than_sign,
-		Keyboard_full_stopreater_than_sign,
-		Keyboard_solidusuestion,
-		Keyboard_International1,
-		Keyboard_right_shift,
-		Keyboard_left_control,
-		Keyboard_Unknown2,
-		Keyboard_left_alt,
-		Keyboard_Spacebar,
-		Keyboard_right_alt,
-		Keyboard_Unknown3,
-		Keyboard_right_control,
-		Keyboard_Unknown4,
-		Keyboard_Unknown5,
-		Keyboard_Unknown6,
-		Keyboard_Unknown7,
-		Keyboard_Unknown8,
-		Keyboard_Unknown9,
-		Keyboard_Unknown10,
-		Keyboard_Unknown11,
-		Keyboard_Unknown12,
-		Keyboard_Unknown13,
-		Keyboard_Insert,
-		Keyboard_Delete_Forward,
-		Keyboard_Unknown14,
-		Keyboard_Unknown15,
-		Keyboard_LeftArrow,
-		Keyboard_Home,
-		Keyboard_End,
-		Keyboard_Unknown16,
-		Keyboard_UpArrow,
-		Keyboard_DownArrow,
-		Keyboard_PageUp,
-		Keyboard_PageDown,
-		Keyboard_Unknown17,
-		Keyboard_Unknown18,
-		Keyboard_RightArrow,
+		aslib_key_Unknown,
+		aslib_key_grave_accentilde,
+		aslib_key_1,
+		aslib_key_2,
+		aslib_key_3,
+		aslib_key_4,
+		aslib_key_5,
+		aslib_key_6,
+		aslib_key_7,
+		aslib_key_8,
+		aslib_key_9,
+		aslib_key_0,
+		aslib_key_hyphennderscore,
+		aslib_key_equallus,
+		aslib_key_International3,
+		aslib_key_DELETE_Backspace,
+		aslib_key_Tab,
+		aslib_key_q,
+		aslib_key_w,
+		aslib_key_e,
+		aslib_key_r,
+		aslib_key_t,
+		aslib_key_y,
+		aslib_key_u,
+		aslib_key_i,
+		aslib_key_o,
+		aslib_key_p,
+		aslib_key_left_square_bracketeft_curly_bracket,
+		aslib_key_right_square_bracketight_curly_bracket,
+		aslib_key_ertical_line,
+		aslib_key_Caps_Lock,
+		aslib_key_a,
+		aslib_key_s,
+		aslib_key_d,
+		aslib_key_f,
+		aslib_key_g,
+		aslib_key_h,
+		aslib_key_j,
+		aslib_key_k,
+		aslib_key_l,
+		aslib_key_semicolon,
+		aslib_key_colon,
+		aslib_key_Non_US_numberilde,
+		aslib_key_Return_ENTER,
+		aslib_key_left_shift,
+		aslib_key_Unknown1,
+		aslib_key_z,
+		aslib_key_x,
+		aslib_key_c,
+		aslib_key_v,
+		aslib_key_b,
+		aslib_key_n,
+		aslib_key_m,
+		aslib_key_commaess_than_sign,
+		aslib_key_full_stopreater_than_sign,
+		aslib_key_solidusuestion,
+		aslib_key_International1,
+		aslib_key_right_shift,
+		aslib_key_left_control,
+		aslib_key_Unknown2,
+		aslib_key_left_alt,
+		aslib_key_Spacebar,
+		aslib_key_right_alt,
+		aslib_key_Unknown3,
+		aslib_key_right_control,
+		aslib_key_Unknown4,
+		aslib_key_Unknown5,
+		aslib_key_Unknown6,
+		aslib_key_Unknown7,
+		aslib_key_Unknown8,
+		aslib_key_Unknown9,
+		aslib_key_Unknown10,
+		aslib_key_Unknown11,
+		aslib_key_Unknown12,
+		aslib_key_Unknown13,
+		aslib_key_Insert,
+		aslib_key_Delete_Forward,
+		aslib_key_Unknown14,
+		aslib_key_Unknown15,
+		aslib_key_LeftArrow,
+		aslib_key_Home,
+		aslib_key_End,
+		aslib_key_Unknown16,
+		aslib_key_UpArrow,
+		aslib_key_DownArrow,
+		aslib_key_PageUp,
+		aslib_key_PageDown,
+		aslib_key_Unknown17,
+		aslib_key_Unknown18,
+		aslib_key_RightArrow,
 		Keypad_Num_Locklear,
 		Keypad_7,
 		Keypad_4,
 		Keypad_1,
-		Keyboard_Unknown19,
+		aslib_key_Unknown19,
 		Keypad_solidus,
 		Keypad_8,
 		Keypad_5,
@@ -118,34 +118,34 @@ namespace AsLib
 		Keypad_full_stopelete,
 		Keypad_hyphen,
 		Keypad_plus,
-		Keyboard_Unknown20,
+		aslib_key_Unknown20,
 		Keypad_ENTER,
-		Keyboard_Unknown21,
-		Keyboard_ESCAPE,
-		Keyboard_Unknown22,
-		Keyboard_F1,
-		Keyboard_F2,
-		Keyboard_F3,
-		Keyboard_F4,
-		Keyboard_F5,
-		Keyboard_F6,
-		Keyboard_F7,
-		Keyboard_F8,
-		Keyboard_F9,
-		Keyboard_F10,
-		Keyboard_F11,
-		Keyboard_F12,
-		Keyboard_PrintScreen,
-		Keyboard_Scroll_Lock,
-		Keyboard_Pause,
-		Keyboard_Left_GUI,
-		Keyboard_Right_GUI,
-		Keyboard_Application,
-		Keyboard_Unknown23,
-		Keyboard_International5,
-		Keyboard_International4,
-		Keyboard_International2,
-		Keyboard_KeyLast,
+		aslib_key_Unknown21,
+		aslib_key_ESCAPE,
+		aslib_key_Unknown22,
+		aslib_key_F1,
+		aslib_key_F2,
+		aslib_key_F3,
+		aslib_key_F4,
+		aslib_key_F5,
+		aslib_key_F6,
+		aslib_key_F7,
+		aslib_key_F8,
+		aslib_key_F9,
+		aslib_key_F10,
+		aslib_key_F11,
+		aslib_key_F12,
+		aslib_key_PrintScreen,
+		aslib_key_Scroll_Lock,
+		aslib_key_Pause,
+		aslib_key_Left_GUI,
+		aslib_key_Right_GUI,
+		aslib_key_Application,
+		aslib_key_Unknown23,
+		aslib_key_International5,
+		aslib_key_International4,
+		aslib_key_International2,
+		aslib_key_KeyLast,
 	};
 
 	//class KeyControl
@@ -424,7 +424,7 @@ bba0
 	
 void checkKey(bool* const AS_key,Counter* const AS_count)
 {
-	constexpr std::array<size_t, Keyboard_KeyLast> DL_AS_key{
+	constexpr std::array<size_t, aslib_key_KeyLast> DL_AS_key{
 		0,
 		KEY_INPUT_KANJI,
 		KEY_INPUT_1,
@@ -563,7 +563,7 @@ void checkKey(bool* const AS_key,Counter* const AS_count)
 
 	std::array<char, 256> DL_key;
 	DxLib::GetHitKeyStateAll(DL_key.data());
-	for (size_t i = 0; i < Keyboard_KeyLast; ++i) {
+	for (size_t i = 0; i < aslib_key_KeyLast; ++i) {
 		if (DL_key[DL_AS_key[i]] != 0) AS_key[i] = true;
 		else AS_key[i] = false;
 		AS_count[i].update(bool(AS_key[i]));
@@ -575,69 +575,70 @@ void checkKey(bool* const AS_key,Counter* const AS_count)
 
 void checkKey(bool* const AS_key, Counter* const AS_count)
 {
-	for (size_t i = 0; i < Keyboard_KeyLast; ++i) {
+	for (size_t i = 0; i < aslib_key_KeyLast; ++i) {
 		AS_key[i] = false;
 	}
-	AS_key[Keyboard_1] = bool(s3d::Key1.pressed());
-	AS_key[Keyboard_2] = bool(s3d::Key2.pressed());
-	AS_key[Keyboard_3] = bool(s3d::Key3.pressed());
-	AS_key[Keyboard_4] = bool(s3d::Key4.pressed());
-	AS_key[Keyboard_5] = bool(s3d::Key5.pressed());
-	AS_key[Keyboard_6] = bool(s3d::Key6.pressed());
-	AS_key[Keyboard_7] = bool(s3d::Key7.pressed());
-	AS_key[Keyboard_8] = bool(s3d::Key8.pressed());
-	AS_key[Keyboard_9] = bool(s3d::Key9.pressed());
-	AS_key[Keyboard_0] = bool(s3d::Key0.pressed());
-	AS_key[Keyboard_a] = bool(s3d::KeyA.pressed());
-	AS_key[Keyboard_b] = bool(s3d::KeyB.pressed());
-	AS_key[Keyboard_c] = bool(s3d::KeyC.pressed());
-	AS_key[Keyboard_d] = bool(s3d::KeyD.pressed());
-	AS_key[Keyboard_e] = bool(s3d::KeyE.pressed());
-	AS_key[Keyboard_f] = bool(s3d::KeyF.pressed());
-	AS_key[Keyboard_g] = bool(s3d::KeyG.pressed());
-	AS_key[Keyboard_h] = bool(s3d::KeyH.pressed());
-	AS_key[Keyboard_i] = bool(s3d::KeyI.pressed());
-	AS_key[Keyboard_j] = bool(s3d::KeyJ.pressed());
-	AS_key[Keyboard_k] = bool(s3d::KeyK.pressed());
-	AS_key[Keyboard_l] = bool(s3d::KeyL.pressed());
-	AS_key[Keyboard_m] = bool(s3d::KeyM.pressed());
-	AS_key[Keyboard_n] = bool(s3d::KeyN.pressed());
-	AS_key[Keyboard_o] = bool(s3d::KeyO.pressed());
-	AS_key[Keyboard_p] = bool(s3d::KeyP.pressed());
-	AS_key[Keyboard_q] = bool(s3d::KeyQ.pressed());
-	AS_key[Keyboard_r] = bool(s3d::KeyR.pressed());
-	AS_key[Keyboard_s] = bool(s3d::KeyS.pressed());
-	AS_key[Keyboard_t] = bool(s3d::KeyT.pressed());
-	AS_key[Keyboard_u] = bool(s3d::KeyU.pressed());
-	AS_key[Keyboard_v] = bool(s3d::KeyV.pressed());
-	AS_key[Keyboard_w] = bool(s3d::KeyW.pressed());
-	AS_key[Keyboard_x] = bool(s3d::KeyX.pressed());
-	AS_key[Keyboard_y] = bool(s3d::KeyY.pressed());
-	AS_key[Keyboard_z] = bool(s3d::KeyZ.pressed());
-	AS_key[Keyboard_F1] = bool(s3d::KeyF1.pressed());
-	AS_key[Keyboard_F2] = bool(s3d::KeyF2.pressed());
-	AS_key[Keyboard_F3] = bool(s3d::KeyF3.pressed());
-	AS_key[Keyboard_F4] = bool(s3d::KeyF4.pressed());
-	AS_key[Keyboard_F5] = bool(s3d::KeyF5.pressed());
-	AS_key[Keyboard_F6] = bool(s3d::KeyF6.pressed());
-	AS_key[Keyboard_F7] = bool(s3d::KeyF7.pressed());
-	AS_key[Keyboard_F8] = bool(s3d::KeyF8.pressed());
-	AS_key[Keyboard_F9] = bool(s3d::KeyF9.pressed());
-	AS_key[Keyboard_F10] = bool(s3d::KeyF10.pressed());
-	AS_key[Keyboard_F11] = bool(s3d::KeyF11.pressed());
-	AS_key[Keyboard_F12] = bool(s3d::KeyF12.pressed());
-	AS_key[Keyboard_LeftArrow] = bool(s3d::KeyLeft.pressed());
-	AS_key[Keyboard_RightArrow] = bool(s3d::KeyRight.pressed());
-	AS_key[Keyboard_UpArrow] = bool(s3d::KeyUp.pressed());
-	AS_key[Keyboard_DownArrow] = bool(s3d::KeyDown.pressed());
-	AS_key[Keyboard_left_shift] = bool(s3d::KeyLShift.pressed());
-	AS_key[Keyboard_right_shift] = bool(s3d::KeyRShift.pressed());
-	AS_key[Keyboard_left_control] = bool(s3d::KeyLControl.pressed());
-	AS_key[Keyboard_right_control] = bool(s3d::KeyRControl.pressed());
-	AS_key[Keyboard_left_alt] = bool(s3d::KeyLAlt.pressed());
-	AS_key[Keyboard_right_alt] = bool(s3d::KeyRAlt.pressed());
+	AS_key[aslib_key_1] = bool(s3d::Key1.pressed());
+	AS_key[aslib_key_2] = bool(s3d::Key2.pressed());
+	AS_key[aslib_key_3] = bool(s3d::Key3.pressed());
+	AS_key[aslib_key_4] = bool(s3d::Key4.pressed());
+	AS_key[aslib_key_5] = bool(s3d::Key5.pressed());
+	AS_key[aslib_key_6] = bool(s3d::Key6.pressed());
+	AS_key[aslib_key_7] = bool(s3d::Key7.pressed());
+	AS_key[aslib_key_8] = bool(s3d::Key8.pressed());
+	AS_key[aslib_key_9] = bool(s3d::Key9.pressed());
+	AS_key[aslib_key_0] = bool(s3d::Key0.pressed());
+	AS_key[aslib_key_a] = bool(s3d::KeyA.pressed());
+	AS_key[aslib_key_b] = bool(s3d::KeyB.pressed());
+	AS_key[aslib_key_c] = bool(s3d::KeyC.pressed());
+	AS_key[aslib_key_d] = bool(s3d::KeyD.pressed());
+	AS_key[aslib_key_e] = bool(s3d::KeyE.pressed());
+	AS_key[aslib_key_f] = bool(s3d::KeyF.pressed());
+	AS_key[aslib_key_g] = bool(s3d::KeyG.pressed());
+	AS_key[aslib_key_h] = bool(s3d::KeyH.pressed());
+	AS_key[aslib_key_i] = bool(s3d::KeyI.pressed());
+	AS_key[aslib_key_j] = bool(s3d::KeyJ.pressed());
+	AS_key[aslib_key_k] = bool(s3d::KeyK.pressed());
+	AS_key[aslib_key_l] = bool(s3d::KeyL.pressed());
+	AS_key[aslib_key_m] = bool(s3d::KeyM.pressed());
+	AS_key[aslib_key_n] = bool(s3d::KeyN.pressed());
+	AS_key[aslib_key_o] = bool(s3d::KeyO.pressed());
+	AS_key[aslib_key_p] = bool(s3d::KeyP.pressed());
+	AS_key[aslib_key_q] = bool(s3d::KeyQ.pressed());
+	AS_key[aslib_key_r] = bool(s3d::KeyR.pressed());
+	AS_key[aslib_key_s] = bool(s3d::KeyS.pressed());
+	AS_key[aslib_key_t] = bool(s3d::KeyT.pressed());
+	AS_key[aslib_key_u] = bool(s3d::KeyU.pressed());
+	AS_key[aslib_key_v] = bool(s3d::KeyV.pressed());
+	AS_key[aslib_key_w] = bool(s3d::KeyW.pressed());
+	AS_key[aslib_key_x] = bool(s3d::KeyX.pressed());
+	AS_key[aslib_key_y] = bool(s3d::KeyY.pressed());
+	AS_key[aslib_key_z] = bool(s3d::KeyZ.pressed());
+	AS_key[aslib_key_F1] = bool(s3d::KeyF1.pressed());
+	AS_key[aslib_key_F2] = bool(s3d::KeyF2.pressed());
+	AS_key[aslib_key_F3] = bool(s3d::KeyF3.pressed());
+	AS_key[aslib_key_F4] = bool(s3d::KeyF4.pressed());
+	AS_key[aslib_key_F5] = bool(s3d::KeyF5.pressed());
+	AS_key[aslib_key_F6] = bool(s3d::KeyF6.pressed());
+	AS_key[aslib_key_F7] = bool(s3d::KeyF7.pressed());
+	AS_key[aslib_key_F8] = bool(s3d::KeyF8.pressed());
+	AS_key[aslib_key_F9] = bool(s3d::KeyF9.pressed());
+	AS_key[aslib_key_F10] = bool(s3d::KeyF10.pressed());
+	AS_key[aslib_key_F11] = bool(s3d::KeyF11.pressed());
+	AS_key[aslib_key_F12] = bool(s3d::KeyF12.pressed());
+	AS_key[aslib_key_LeftArrow] = bool(s3d::KeyLeft.pressed());
+	AS_key[aslib_key_RightArrow] = bool(s3d::KeyRight.pressed());
+	AS_key[aslib_key_UpArrow] = bool(s3d::KeyUp.pressed());
+	AS_key[aslib_key_DownArrow] = bool(s3d::KeyDown.pressed());
+	AS_key[aslib_key_left_shift] = bool(s3d::KeyLShift.pressed());
+	AS_key[aslib_key_right_shift] = bool(s3d::KeyRShift.pressed());
+	AS_key[aslib_key_left_control] = bool(s3d::KeyLControl.pressed());
+	AS_key[aslib_key_right_control] = bool(s3d::KeyRControl.pressed());
+	AS_key[aslib_key_left_alt] = bool(s3d::KeyLAlt.pressed());
+	AS_key[aslib_key_right_alt] = bool(s3d::KeyRAlt.pressed());
+	AS_key[aslib_key_Return_ENTER] = bool(s3d::KeyEnter.pressed());
 
-	for (size_t i = 0; i < Keyboard_KeyLast; ++i) {
+	for (size_t i = 0; i < aslib_key_KeyLast; ++i) {
 		AS_count[i].update(bool(AS_key[i]));
 	}
 	return;
@@ -671,8 +672,8 @@ enum :size_t {
 
 const bool updateKey_(const size_t id_ = 0, const bool is_update = false, const size_t count_id = aslib_counter_empty)
 {
-	static bool aslib_update_key[Keyboard_KeyLast];
-	static Counter aslib_update_count[Keyboard_KeyLast];
+	static bool aslib_update_key[aslib_key_KeyLast];
+	static Counter aslib_update_count[aslib_key_KeyLast];
 	if (is_update) checkKey(aslib_update_key, aslib_update_count);
 	switch (count_id)
 	{
@@ -695,351 +696,399 @@ inline const bool asKeyUp0(const size_t& id_) { return updateKey_(id_, false, as
 inline const bool asKeyDown(const size_t& id_) { return updateKey_(id_, false, aslib_counter_down); }
 inline const bool asKeyDown0(const size_t& id_) { return updateKey_(id_, false, aslib_counter_down0); }
 
-inline const bool asKeyA() { return updateKey_(Keyboard_a, false); }
-inline const bool asKeyA_Touch() { return updateKey_(Keyboard_a, false, aslib_counter_touch); }
-inline const bool asKeyA_Touch0() { return updateKey_(Keyboard_a, false, aslib_counter_touch0); }
-inline const bool asKeyA_Up() { return updateKey_(Keyboard_a, false, aslib_counter_up); }
-inline const bool asKeyA_Up0() { return updateKey_(Keyboard_a, false, aslib_counter_up0); }
-inline const bool asKeyA_Down() { return updateKey_(Keyboard_a, false, aslib_counter_down); }
-inline const bool asKeyA_Down0() { return updateKey_(Keyboard_a, false, aslib_counter_down0); }
+inline const bool asKeyA() { return updateKey_(aslib_key_a, false); }
+inline const bool asKeyA_Touch() { return updateKey_(aslib_key_a, false, aslib_counter_touch); }
+inline const bool asKeyA_Touch0() { return updateKey_(aslib_key_a, false, aslib_counter_touch0); }
+inline const bool asKeyA_Up() { return updateKey_(aslib_key_a, false, aslib_counter_up); }
+inline const bool asKeyA_Up0() { return updateKey_(aslib_key_a, false, aslib_counter_up0); }
+inline const bool asKeyA_Down() { return updateKey_(aslib_key_a, false, aslib_counter_down); }
+inline const bool asKeyA_Down0() { return updateKey_(aslib_key_a, false, aslib_counter_down0); }
 
-inline const bool asKeyB() { return updateKey_(Keyboard_b, false); }
-inline const bool asKeyB_Touch() { return updateKey_(Keyboard_b, false, aslib_counter_touch); }
-inline const bool asKeyB_Touch0() { return updateKey_(Keyboard_b, false, aslib_counter_touch0); }
-inline const bool asKeyB_Up() { return updateKey_(Keyboard_b, false, aslib_counter_up); }
-inline const bool asKeyB_Up0() { return updateKey_(Keyboard_b, false, aslib_counter_up0); }
-inline const bool asKeyB_Down() { return updateKey_(Keyboard_b, false, aslib_counter_down); }
-inline const bool asKeyB_Down0() { return updateKey_(Keyboard_b, false, aslib_counter_down0); }
+inline const bool asKeyB() { return updateKey_(aslib_key_b, false); }
+inline const bool asKeyB_Touch() { return updateKey_(aslib_key_b, false, aslib_counter_touch); }
+inline const bool asKeyB_Touch0() { return updateKey_(aslib_key_b, false, aslib_counter_touch0); }
+inline const bool asKeyB_Up() { return updateKey_(aslib_key_b, false, aslib_counter_up); }
+inline const bool asKeyB_Up0() { return updateKey_(aslib_key_b, false, aslib_counter_up0); }
+inline const bool asKeyB_Down() { return updateKey_(aslib_key_b, false, aslib_counter_down); }
+inline const bool asKeyB_Down0() { return updateKey_(aslib_key_b, false, aslib_counter_down0); }
 
-inline const bool asKeyC() { return updateKey_(Keyboard_c, false); }
-inline const bool asKeyC_Touch() { return updateKey_(Keyboard_c, false, aslib_counter_touch); }
-inline const bool asKeyC_Touch0() { return updateKey_(Keyboard_c, false, aslib_counter_touch0); }
-inline const bool asKeyC_Up() { return updateKey_(Keyboard_c, false, aslib_counter_up); }
-inline const bool asKeyC_Up0() { return updateKey_(Keyboard_c, false, aslib_counter_up0); }
-inline const bool asKeyC_Down() { return updateKey_(Keyboard_c, false, aslib_counter_down); }
-inline const bool asKeyC_Down0() { return updateKey_(Keyboard_c, false, aslib_counter_down0); }
+inline const bool asKeyC() { return updateKey_(aslib_key_c, false); }
+inline const bool asKeyC_Touch() { return updateKey_(aslib_key_c, false, aslib_counter_touch); }
+inline const bool asKeyC_Touch0() { return updateKey_(aslib_key_c, false, aslib_counter_touch0); }
+inline const bool asKeyC_Up() { return updateKey_(aslib_key_c, false, aslib_counter_up); }
+inline const bool asKeyC_Up0() { return updateKey_(aslib_key_c, false, aslib_counter_up0); }
+inline const bool asKeyC_Down() { return updateKey_(aslib_key_c, false, aslib_counter_down); }
+inline const bool asKeyC_Down0() { return updateKey_(aslib_key_c, false, aslib_counter_down0); }
 
-inline const bool asKeyD() { return updateKey_(Keyboard_d, false); }
-inline const bool asKeyD_Touch() { return updateKey_(Keyboard_d, false, aslib_counter_touch); }
-inline const bool asKeyD_Touch0() { return updateKey_(Keyboard_d, false, aslib_counter_touch0); }
-inline const bool asKeyD_Up() { return updateKey_(Keyboard_d, false, aslib_counter_up); }
-inline const bool asKeyD_Up0() { return updateKey_(Keyboard_d, false, aslib_counter_up0); }
-inline const bool asKeyD_Down() { return updateKey_(Keyboard_d, false, aslib_counter_down); }
-inline const bool asKeyD_Down0() { return updateKey_(Keyboard_d, false, aslib_counter_down0); }
+inline const bool asKeyD() { return updateKey_(aslib_key_d, false); }
+inline const bool asKeyD_Touch() { return updateKey_(aslib_key_d, false, aslib_counter_touch); }
+inline const bool asKeyD_Touch0() { return updateKey_(aslib_key_d, false, aslib_counter_touch0); }
+inline const bool asKeyD_Up() { return updateKey_(aslib_key_d, false, aslib_counter_up); }
+inline const bool asKeyD_Up0() { return updateKey_(aslib_key_d, false, aslib_counter_up0); }
+inline const bool asKeyD_Down() { return updateKey_(aslib_key_d, false, aslib_counter_down); }
+inline const bool asKeyD_Down0() { return updateKey_(aslib_key_d, false, aslib_counter_down0); }
 
-inline const bool asKeyE() { return updateKey_(Keyboard_e, false); }
-inline const bool asKeyE_Touch() { return updateKey_(Keyboard_e, false, aslib_counter_touch); }
-inline const bool asKeyE_Touch0() { return updateKey_(Keyboard_e, false, aslib_counter_touch0); }
-inline const bool asKeyE_Up() { return updateKey_(Keyboard_e, false, aslib_counter_up); }
-inline const bool asKeyE_Up0() { return updateKey_(Keyboard_e, false, aslib_counter_up0); }
-inline const bool asKeyE_Down() { return updateKey_(Keyboard_e, false, aslib_counter_down); }
-inline const bool asKeyE_Down0() { return updateKey_(Keyboard_e, false, aslib_counter_down0); }
+inline const bool asKeyE() { return updateKey_(aslib_key_e, false); }
+inline const bool asKeyE_Touch() { return updateKey_(aslib_key_e, false, aslib_counter_touch); }
+inline const bool asKeyE_Touch0() { return updateKey_(aslib_key_e, false, aslib_counter_touch0); }
+inline const bool asKeyE_Up() { return updateKey_(aslib_key_e, false, aslib_counter_up); }
+inline const bool asKeyE_Up0() { return updateKey_(aslib_key_e, false, aslib_counter_up0); }
+inline const bool asKeyE_Down() { return updateKey_(aslib_key_e, false, aslib_counter_down); }
+inline const bool asKeyE_Down0() { return updateKey_(aslib_key_e, false, aslib_counter_down0); }
 
-inline const bool asKeyF() { return updateKey_(Keyboard_f, false); }
-inline const bool asKeyF_Touch() { return updateKey_(Keyboard_f, false, aslib_counter_touch); }
-inline const bool asKeyF_Touch0() { return updateKey_(Keyboard_f, false, aslib_counter_touch0); }
-inline const bool asKeyF_Up() { return updateKey_(Keyboard_f, false, aslib_counter_up); }
-inline const bool asKeyF_Up0() { return updateKey_(Keyboard_f, false, aslib_counter_up0); }
-inline const bool asKeyF_Down() { return updateKey_(Keyboard_f, false, aslib_counter_down); }
-inline const bool asKeyF_Down0() { return updateKey_(Keyboard_f, false, aslib_counter_down0); }
+inline const bool asKeyF() { return updateKey_(aslib_key_f, false); }
+inline const bool asKeyF_Touch() { return updateKey_(aslib_key_f, false, aslib_counter_touch); }
+inline const bool asKeyF_Touch0() { return updateKey_(aslib_key_f, false, aslib_counter_touch0); }
+inline const bool asKeyF_Up() { return updateKey_(aslib_key_f, false, aslib_counter_up); }
+inline const bool asKeyF_Up0() { return updateKey_(aslib_key_f, false, aslib_counter_up0); }
+inline const bool asKeyF_Down() { return updateKey_(aslib_key_f, false, aslib_counter_down); }
+inline const bool asKeyF_Down0() { return updateKey_(aslib_key_f, false, aslib_counter_down0); }
 
-inline const bool asKeyG() { return updateKey_(Keyboard_g, false); }
-inline const bool asKeyG_Touch() { return updateKey_(Keyboard_g, false, aslib_counter_touch); }
-inline const bool asKeyG_Touch0() { return updateKey_(Keyboard_g, false, aslib_counter_touch0); }
-inline const bool asKeyG_Up() { return updateKey_(Keyboard_g, false, aslib_counter_up); }
-inline const bool asKeyG_Up0() { return updateKey_(Keyboard_g, false, aslib_counter_up0); }
-inline const bool asKeyG_Down() { return updateKey_(Keyboard_g, false, aslib_counter_down); }
-inline const bool asKeyG_Down0() { return updateKey_(Keyboard_g, false, aslib_counter_down0); }
+inline const bool asKeyG() { return updateKey_(aslib_key_g, false); }
+inline const bool asKeyG_Touch() { return updateKey_(aslib_key_g, false, aslib_counter_touch); }
+inline const bool asKeyG_Touch0() { return updateKey_(aslib_key_g, false, aslib_counter_touch0); }
+inline const bool asKeyG_Up() { return updateKey_(aslib_key_g, false, aslib_counter_up); }
+inline const bool asKeyG_Up0() { return updateKey_(aslib_key_g, false, aslib_counter_up0); }
+inline const bool asKeyG_Down() { return updateKey_(aslib_key_g, false, aslib_counter_down); }
+inline const bool asKeyG_Down0() { return updateKey_(aslib_key_g, false, aslib_counter_down0); }
 
-inline const bool asKeyH() { return updateKey_(Keyboard_h, false); }
-inline const bool asKeyH_Touch() { return updateKey_(Keyboard_h, false, aslib_counter_touch); }
-inline const bool asKeyH_Touch0() { return updateKey_(Keyboard_h, false, aslib_counter_touch0); }
-inline const bool asKeyH_Up() { return updateKey_(Keyboard_h, false, aslib_counter_up); }
-inline const bool asKeyH_Up0() { return updateKey_(Keyboard_h, false, aslib_counter_up0); }
-inline const bool asKeyH_Down() { return updateKey_(Keyboard_h, false, aslib_counter_down); }
-inline const bool asKeyH_Down0() { return updateKey_(Keyboard_h, false, aslib_counter_down0); }
+inline const bool asKeyH() { return updateKey_(aslib_key_h, false); }
+inline const bool asKeyH_Touch() { return updateKey_(aslib_key_h, false, aslib_counter_touch); }
+inline const bool asKeyH_Touch0() { return updateKey_(aslib_key_h, false, aslib_counter_touch0); }
+inline const bool asKeyH_Up() { return updateKey_(aslib_key_h, false, aslib_counter_up); }
+inline const bool asKeyH_Up0() { return updateKey_(aslib_key_h, false, aslib_counter_up0); }
+inline const bool asKeyH_Down() { return updateKey_(aslib_key_h, false, aslib_counter_down); }
+inline const bool asKeyH_Down0() { return updateKey_(aslib_key_h, false, aslib_counter_down0); }
 
-inline const bool asKeyI() { return updateKey_(Keyboard_i, false); }
-inline const bool asKeyI_Touch() { return updateKey_(Keyboard_i, false, aslib_counter_touch); }
-inline const bool asKeyI_Touch0() { return updateKey_(Keyboard_i, false, aslib_counter_touch0); }
-inline const bool asKeyI_Up() { return updateKey_(Keyboard_i, false, aslib_counter_up); }
-inline const bool asKeyI_Up0() { return updateKey_(Keyboard_i, false, aslib_counter_up0); }
-inline const bool asKeyI_Down() { return updateKey_(Keyboard_i, false, aslib_counter_down); }
-inline const bool asKeyI_Down0() { return updateKey_(Keyboard_i, false, aslib_counter_down0); }
+inline const bool asKeyI() { return updateKey_(aslib_key_i, false); }
+inline const bool asKeyI_Touch() { return updateKey_(aslib_key_i, false, aslib_counter_touch); }
+inline const bool asKeyI_Touch0() { return updateKey_(aslib_key_i, false, aslib_counter_touch0); }
+inline const bool asKeyI_Up() { return updateKey_(aslib_key_i, false, aslib_counter_up); }
+inline const bool asKeyI_Up0() { return updateKey_(aslib_key_i, false, aslib_counter_up0); }
+inline const bool asKeyI_Down() { return updateKey_(aslib_key_i, false, aslib_counter_down); }
+inline const bool asKeyI_Down0() { return updateKey_(aslib_key_i, false, aslib_counter_down0); }
 
-inline const bool asKeyJ() { return updateKey_(Keyboard_j, false); }
-inline const bool asKeyJ_Touch() { return updateKey_(Keyboard_j, false, aslib_counter_touch); }
-inline const bool asKeyJ_Touch0() { return updateKey_(Keyboard_j, false, aslib_counter_touch0); }
-inline const bool asKeyJ_Up() { return updateKey_(Keyboard_j, false, aslib_counter_up); }
-inline const bool asKeyJ_Up0() { return updateKey_(Keyboard_j, false, aslib_counter_up0); }
-inline const bool asKeyJ_Down() { return updateKey_(Keyboard_j, false, aslib_counter_down); }
-inline const bool asKeyJ_Down0() { return updateKey_(Keyboard_j, false, aslib_counter_down0); }
+inline const bool asKeyJ() { return updateKey_(aslib_key_j, false); }
+inline const bool asKeyJ_Touch() { return updateKey_(aslib_key_j, false, aslib_counter_touch); }
+inline const bool asKeyJ_Touch0() { return updateKey_(aslib_key_j, false, aslib_counter_touch0); }
+inline const bool asKeyJ_Up() { return updateKey_(aslib_key_j, false, aslib_counter_up); }
+inline const bool asKeyJ_Up0() { return updateKey_(aslib_key_j, false, aslib_counter_up0); }
+inline const bool asKeyJ_Down() { return updateKey_(aslib_key_j, false, aslib_counter_down); }
+inline const bool asKeyJ_Down0() { return updateKey_(aslib_key_j, false, aslib_counter_down0); }
 
-inline const bool asKeyK() { return updateKey_(Keyboard_k, false); }
-inline const bool asKeyK_Touch() { return updateKey_(Keyboard_k, false, aslib_counter_touch); }
-inline const bool asKeyK_Touch0() { return updateKey_(Keyboard_k, false, aslib_counter_touch0); }
-inline const bool asKeyK_Up() { return updateKey_(Keyboard_k, false, aslib_counter_up); }
-inline const bool asKeyK_Up0() { return updateKey_(Keyboard_k, false, aslib_counter_up0); }
-inline const bool asKeyK_Down() { return updateKey_(Keyboard_k, false, aslib_counter_down); }
-inline const bool asKeyK_Down0() { return updateKey_(Keyboard_k, false, aslib_counter_down0); }
+inline const bool asKeyK() { return updateKey_(aslib_key_k, false); }
+inline const bool asKeyK_Touch() { return updateKey_(aslib_key_k, false, aslib_counter_touch); }
+inline const bool asKeyK_Touch0() { return updateKey_(aslib_key_k, false, aslib_counter_touch0); }
+inline const bool asKeyK_Up() { return updateKey_(aslib_key_k, false, aslib_counter_up); }
+inline const bool asKeyK_Up0() { return updateKey_(aslib_key_k, false, aslib_counter_up0); }
+inline const bool asKeyK_Down() { return updateKey_(aslib_key_k, false, aslib_counter_down); }
+inline const bool asKeyK_Down0() { return updateKey_(aslib_key_k, false, aslib_counter_down0); }
 
-inline const bool asKeyL() { return updateKey_(Keyboard_l, false); }
-inline const bool asKeyL_Touch() { return updateKey_(Keyboard_l, false, aslib_counter_touch); }
-inline const bool asKeyL_Touch0() { return updateKey_(Keyboard_l, false, aslib_counter_touch0); }
-inline const bool asKeyL_Up() { return updateKey_(Keyboard_l, false, aslib_counter_up); }
-inline const bool asKeyL_Up0() { return updateKey_(Keyboard_l, false, aslib_counter_up0); }
-inline const bool asKeyL_Down() { return updateKey_(Keyboard_l, false, aslib_counter_down); }
-inline const bool asKeyL_Down0() { return updateKey_(Keyboard_l, false, aslib_counter_down0); }
+inline const bool asKeyL() { return updateKey_(aslib_key_l, false); }
+inline const bool asKeyL_Touch() { return updateKey_(aslib_key_l, false, aslib_counter_touch); }
+inline const bool asKeyL_Touch0() { return updateKey_(aslib_key_l, false, aslib_counter_touch0); }
+inline const bool asKeyL_Up() { return updateKey_(aslib_key_l, false, aslib_counter_up); }
+inline const bool asKeyL_Up0() { return updateKey_(aslib_key_l, false, aslib_counter_up0); }
+inline const bool asKeyL_Down() { return updateKey_(aslib_key_l, false, aslib_counter_down); }
+inline const bool asKeyL_Down0() { return updateKey_(aslib_key_l, false, aslib_counter_down0); }
 
-inline const bool asKeyM() { return updateKey_(Keyboard_m, false); }
-inline const bool asKeyM_Touch() { return updateKey_(Keyboard_m, false, aslib_counter_touch); }
-inline const bool asKeyM_Touch0() { return updateKey_(Keyboard_m, false, aslib_counter_touch0); }
-inline const bool asKeyM_Up() { return updateKey_(Keyboard_m, false, aslib_counter_up); }
-inline const bool asKeyM_Up0() { return updateKey_(Keyboard_m, false, aslib_counter_up0); }
-inline const bool asKeyM_Down() { return updateKey_(Keyboard_m, false, aslib_counter_down); }
-inline const bool asKeyM_Down0() { return updateKey_(Keyboard_m, false, aslib_counter_down0); }
+inline const bool asKeyM() { return updateKey_(aslib_key_m, false); }
+inline const bool asKeyM_Touch() { return updateKey_(aslib_key_m, false, aslib_counter_touch); }
+inline const bool asKeyM_Touch0() { return updateKey_(aslib_key_m, false, aslib_counter_touch0); }
+inline const bool asKeyM_Up() { return updateKey_(aslib_key_m, false, aslib_counter_up); }
+inline const bool asKeyM_Up0() { return updateKey_(aslib_key_m, false, aslib_counter_up0); }
+inline const bool asKeyM_Down() { return updateKey_(aslib_key_m, false, aslib_counter_down); }
+inline const bool asKeyM_Down0() { return updateKey_(aslib_key_m, false, aslib_counter_down0); }
 
-inline const bool asKeyN() { return updateKey_(Keyboard_n, false); }
-inline const bool asKeyN_Touch() { return updateKey_(Keyboard_n, false, aslib_counter_touch); }
-inline const bool asKeyN_Touch0() { return updateKey_(Keyboard_n, false, aslib_counter_touch0); }
-inline const bool asKeyN_Up() { return updateKey_(Keyboard_n, false, aslib_counter_up); }
-inline const bool asKeyN_Up0() { return updateKey_(Keyboard_n, false, aslib_counter_up0); }
-inline const bool asKeyN_Down() { return updateKey_(Keyboard_n, false, aslib_counter_down); }
-inline const bool asKeyN_Down0() { return updateKey_(Keyboard_n, false, aslib_counter_down0); }
+inline const bool asKeyN() { return updateKey_(aslib_key_n, false); }
+inline const bool asKeyN_Touch() { return updateKey_(aslib_key_n, false, aslib_counter_touch); }
+inline const bool asKeyN_Touch0() { return updateKey_(aslib_key_n, false, aslib_counter_touch0); }
+inline const bool asKeyN_Up() { return updateKey_(aslib_key_n, false, aslib_counter_up); }
+inline const bool asKeyN_Up0() { return updateKey_(aslib_key_n, false, aslib_counter_up0); }
+inline const bool asKeyN_Down() { return updateKey_(aslib_key_n, false, aslib_counter_down); }
+inline const bool asKeyN_Down0() { return updateKey_(aslib_key_n, false, aslib_counter_down0); }
 
-inline const bool asKeyO() { return updateKey_(Keyboard_o, false); }
-inline const bool asKeyO_Touch() { return updateKey_(Keyboard_o, false, aslib_counter_touch); }
-inline const bool asKeyO_Touch0() { return updateKey_(Keyboard_o, false, aslib_counter_touch0); }
-inline const bool asKeyO_Up() { return updateKey_(Keyboard_o, false, aslib_counter_up); }
-inline const bool asKeyO_Up0() { return updateKey_(Keyboard_o, false, aslib_counter_up0); }
-inline const bool asKeyO_Down() { return updateKey_(Keyboard_o, false, aslib_counter_down); }
-inline const bool asKeyO_Down0() { return updateKey_(Keyboard_o, false, aslib_counter_down0); }
+inline const bool asKeyO() { return updateKey_(aslib_key_o, false); }
+inline const bool asKeyO_Touch() { return updateKey_(aslib_key_o, false, aslib_counter_touch); }
+inline const bool asKeyO_Touch0() { return updateKey_(aslib_key_o, false, aslib_counter_touch0); }
+inline const bool asKeyO_Up() { return updateKey_(aslib_key_o, false, aslib_counter_up); }
+inline const bool asKeyO_Up0() { return updateKey_(aslib_key_o, false, aslib_counter_up0); }
+inline const bool asKeyO_Down() { return updateKey_(aslib_key_o, false, aslib_counter_down); }
+inline const bool asKeyO_Down0() { return updateKey_(aslib_key_o, false, aslib_counter_down0); }
 
-inline const bool asKeyP() { return updateKey_(Keyboard_p, false); }
-inline const bool asKeyP_Touch() { return updateKey_(Keyboard_p, false, aslib_counter_touch); }
-inline const bool asKeyP_Touch0() { return updateKey_(Keyboard_p, false, aslib_counter_touch0); }
-inline const bool asKeyP_Up() { return updateKey_(Keyboard_p, false, aslib_counter_up); }
-inline const bool asKeyP_Up0() { return updateKey_(Keyboard_p, false, aslib_counter_up0); }
-inline const bool asKeyP_Down() { return updateKey_(Keyboard_p, false, aslib_counter_down); }
-inline const bool asKeyP_Down0() { return updateKey_(Keyboard_p, false, aslib_counter_down0); }
+inline const bool asKeyP() { return updateKey_(aslib_key_p, false); }
+inline const bool asKeyP_Touch() { return updateKey_(aslib_key_p, false, aslib_counter_touch); }
+inline const bool asKeyP_Touch0() { return updateKey_(aslib_key_p, false, aslib_counter_touch0); }
+inline const bool asKeyP_Up() { return updateKey_(aslib_key_p, false, aslib_counter_up); }
+inline const bool asKeyP_Up0() { return updateKey_(aslib_key_p, false, aslib_counter_up0); }
+inline const bool asKeyP_Down() { return updateKey_(aslib_key_p, false, aslib_counter_down); }
+inline const bool asKeyP_Down0() { return updateKey_(aslib_key_p, false, aslib_counter_down0); }
 
-inline const bool asKeyQ() { return updateKey_(Keyboard_q, false); }
-inline const bool asKeyQ_Touch() { return updateKey_(Keyboard_q, false, aslib_counter_touch); }
-inline const bool asKeyQ_Touch0() { return updateKey_(Keyboard_q, false, aslib_counter_touch0); }
-inline const bool asKeyQ_Up() { return updateKey_(Keyboard_q, false, aslib_counter_up); }
-inline const bool asKeyQ_Up0() { return updateKey_(Keyboard_q, false, aslib_counter_up0); }
-inline const bool asKeyQ_Down() { return updateKey_(Keyboard_q, false, aslib_counter_down); }
-inline const bool asKeyQ_Down0() { return updateKey_(Keyboard_q, false, aslib_counter_down0); }
+inline const bool asKeyQ() { return updateKey_(aslib_key_q, false); }
+inline const bool asKeyQ_Touch() { return updateKey_(aslib_key_q, false, aslib_counter_touch); }
+inline const bool asKeyQ_Touch0() { return updateKey_(aslib_key_q, false, aslib_counter_touch0); }
+inline const bool asKeyQ_Up() { return updateKey_(aslib_key_q, false, aslib_counter_up); }
+inline const bool asKeyQ_Up0() { return updateKey_(aslib_key_q, false, aslib_counter_up0); }
+inline const bool asKeyQ_Down() { return updateKey_(aslib_key_q, false, aslib_counter_down); }
+inline const bool asKeyQ_Down0() { return updateKey_(aslib_key_q, false, aslib_counter_down0); }
 
-inline const bool asKeyR() { return updateKey_(Keyboard_r, false); }
-inline const bool asKeyR_Touch() { return updateKey_(Keyboard_r, false, aslib_counter_touch); }
-inline const bool asKeyR_Touch0() { return updateKey_(Keyboard_r, false, aslib_counter_touch0); }
-inline const bool asKeyR_Up() { return updateKey_(Keyboard_r, false, aslib_counter_up); }
-inline const bool asKeyR_Up0() { return updateKey_(Keyboard_r, false, aslib_counter_up0); }
-inline const bool asKeyR_Down() { return updateKey_(Keyboard_r, false, aslib_counter_down); }
-inline const bool asKeyR_Down0() { return updateKey_(Keyboard_r, false, aslib_counter_down0); }
+inline const bool asKeyR() { return updateKey_(aslib_key_r, false); }
+inline const bool asKeyR_Touch() { return updateKey_(aslib_key_r, false, aslib_counter_touch); }
+inline const bool asKeyR_Touch0() { return updateKey_(aslib_key_r, false, aslib_counter_touch0); }
+inline const bool asKeyR_Up() { return updateKey_(aslib_key_r, false, aslib_counter_up); }
+inline const bool asKeyR_Up0() { return updateKey_(aslib_key_r, false, aslib_counter_up0); }
+inline const bool asKeyR_Down() { return updateKey_(aslib_key_r, false, aslib_counter_down); }
+inline const bool asKeyR_Down0() { return updateKey_(aslib_key_r, false, aslib_counter_down0); }
 
-inline const bool asKeyS() { return updateKey_(Keyboard_s, false); }
-inline const bool asKeyS_Touch() { return updateKey_(Keyboard_s, false, aslib_counter_touch); }
-inline const bool asKeyS_Touch0() { return updateKey_(Keyboard_s, false, aslib_counter_touch0); }
-inline const bool asKeyS_Up() { return updateKey_(Keyboard_s, false, aslib_counter_up); }
-inline const bool asKeyS_Up0() { return updateKey_(Keyboard_s, false, aslib_counter_up0); }
-inline const bool asKeyS_Down() { return updateKey_(Keyboard_s, false, aslib_counter_down); }
-inline const bool asKeyS_Down0() { return updateKey_(Keyboard_s, false, aslib_counter_down0); }
+inline const bool asKeyS() { return updateKey_(aslib_key_s, false); }
+inline const bool asKeyS_Touch() { return updateKey_(aslib_key_s, false, aslib_counter_touch); }
+inline const bool asKeyS_Touch0() { return updateKey_(aslib_key_s, false, aslib_counter_touch0); }
+inline const bool asKeyS_Up() { return updateKey_(aslib_key_s, false, aslib_counter_up); }
+inline const bool asKeyS_Up0() { return updateKey_(aslib_key_s, false, aslib_counter_up0); }
+inline const bool asKeyS_Down() { return updateKey_(aslib_key_s, false, aslib_counter_down); }
+inline const bool asKeyS_Down0() { return updateKey_(aslib_key_s, false, aslib_counter_down0); }
 
-inline const bool asKeyT() { return updateKey_(Keyboard_t, false); }
-inline const bool asKeyT_Touch() { return updateKey_(Keyboard_t, false, aslib_counter_touch); }
-inline const bool asKeyT_Touch0() { return updateKey_(Keyboard_t, false, aslib_counter_touch0); }
-inline const bool asKeyT_Up() { return updateKey_(Keyboard_t, false, aslib_counter_up); }
-inline const bool asKeyT_Up0() { return updateKey_(Keyboard_t, false, aslib_counter_up0); }
-inline const bool asKeyT_Down() { return updateKey_(Keyboard_t, false, aslib_counter_down); }
-inline const bool asKeyT_Down0() { return updateKey_(Keyboard_t, false, aslib_counter_down0); }
+inline const bool asKeyT() { return updateKey_(aslib_key_t, false); }
+inline const bool asKeyT_Touch() { return updateKey_(aslib_key_t, false, aslib_counter_touch); }
+inline const bool asKeyT_Touch0() { return updateKey_(aslib_key_t, false, aslib_counter_touch0); }
+inline const bool asKeyT_Up() { return updateKey_(aslib_key_t, false, aslib_counter_up); }
+inline const bool asKeyT_Up0() { return updateKey_(aslib_key_t, false, aslib_counter_up0); }
+inline const bool asKeyT_Down() { return updateKey_(aslib_key_t, false, aslib_counter_down); }
+inline const bool asKeyT_Down0() { return updateKey_(aslib_key_t, false, aslib_counter_down0); }
 
-inline const bool asKeyU() { return updateKey_(Keyboard_u, false); }
-inline const bool asKeyU_Touch() { return updateKey_(Keyboard_u, false, aslib_counter_touch); }
-inline const bool asKeyU_Touch0() { return updateKey_(Keyboard_u, false, aslib_counter_touch0); }
-inline const bool asKeyU_Up() { return updateKey_(Keyboard_u, false, aslib_counter_up); }
-inline const bool asKeyU_Up0() { return updateKey_(Keyboard_u, false, aslib_counter_up0); }
-inline const bool asKeyU_Down() { return updateKey_(Keyboard_u, false, aslib_counter_down); }
-inline const bool asKeyU_Down0() { return updateKey_(Keyboard_u, false, aslib_counter_down0); }
+inline const bool asKeyU() { return updateKey_(aslib_key_u, false); }
+inline const bool asKeyU_Touch() { return updateKey_(aslib_key_u, false, aslib_counter_touch); }
+inline const bool asKeyU_Touch0() { return updateKey_(aslib_key_u, false, aslib_counter_touch0); }
+inline const bool asKeyU_Up() { return updateKey_(aslib_key_u, false, aslib_counter_up); }
+inline const bool asKeyU_Up0() { return updateKey_(aslib_key_u, false, aslib_counter_up0); }
+inline const bool asKeyU_Down() { return updateKey_(aslib_key_u, false, aslib_counter_down); }
+inline const bool asKeyU_Down0() { return updateKey_(aslib_key_u, false, aslib_counter_down0); }
 
-inline const bool asKeyV() { return updateKey_(Keyboard_v, false); }
-inline const bool asKeyV_Touch() { return updateKey_(Keyboard_v, false, aslib_counter_touch); }
-inline const bool asKeyV_Touch0() { return updateKey_(Keyboard_v, false, aslib_counter_touch0); }
-inline const bool asKeyV_Up() { return updateKey_(Keyboard_v, false, aslib_counter_up); }
-inline const bool asKeyV_Up0() { return updateKey_(Keyboard_v, false, aslib_counter_up0); }
-inline const bool asKeyV_Down() { return updateKey_(Keyboard_v, false, aslib_counter_down); }
-inline const bool asKeyV_Down0() { return updateKey_(Keyboard_v, false, aslib_counter_down0); }
+inline const bool asKeyV() { return updateKey_(aslib_key_v, false); }
+inline const bool asKeyV_Touch() { return updateKey_(aslib_key_v, false, aslib_counter_touch); }
+inline const bool asKeyV_Touch0() { return updateKey_(aslib_key_v, false, aslib_counter_touch0); }
+inline const bool asKeyV_Up() { return updateKey_(aslib_key_v, false, aslib_counter_up); }
+inline const bool asKeyV_Up0() { return updateKey_(aslib_key_v, false, aslib_counter_up0); }
+inline const bool asKeyV_Down() { return updateKey_(aslib_key_v, false, aslib_counter_down); }
+inline const bool asKeyV_Down0() { return updateKey_(aslib_key_v, false, aslib_counter_down0); }
 
-inline const bool asKeyW() { return updateKey_(Keyboard_w, false); }
-inline const bool asKeyW_Touch() { return updateKey_(Keyboard_w, false, aslib_counter_touch); }
-inline const bool asKeyW_Touch0() { return updateKey_(Keyboard_w, false, aslib_counter_touch0); }
-inline const bool asKeyW_Up() { return updateKey_(Keyboard_w, false, aslib_counter_up); }
-inline const bool asKeyW_Up0() { return updateKey_(Keyboard_w, false, aslib_counter_up0); }
-inline const bool asKeyW_Down() { return updateKey_(Keyboard_w, false, aslib_counter_down); }
-inline const bool asKeyW_Down0() { return updateKey_(Keyboard_w, false, aslib_counter_down0); }
+inline const bool asKeyW() { return updateKey_(aslib_key_w, false); }
+inline const bool asKeyW_Touch() { return updateKey_(aslib_key_w, false, aslib_counter_touch); }
+inline const bool asKeyW_Touch0() { return updateKey_(aslib_key_w, false, aslib_counter_touch0); }
+inline const bool asKeyW_Up() { return updateKey_(aslib_key_w, false, aslib_counter_up); }
+inline const bool asKeyW_Up0() { return updateKey_(aslib_key_w, false, aslib_counter_up0); }
+inline const bool asKeyW_Down() { return updateKey_(aslib_key_w, false, aslib_counter_down); }
+inline const bool asKeyW_Down0() { return updateKey_(aslib_key_w, false, aslib_counter_down0); }
 
-inline const bool asKeyX() { return updateKey_(Keyboard_x, false); }
-inline const bool asKeyX_Touch() { return updateKey_(Keyboard_x, false, aslib_counter_touch); }
-inline const bool asKeyX_Touch0() { return updateKey_(Keyboard_x, false, aslib_counter_touch0); }
-inline const bool asKeyX_Up() { return updateKey_(Keyboard_x, false, aslib_counter_up); }
-inline const bool asKeyX_Up0() { return updateKey_(Keyboard_x, false, aslib_counter_up0); }
-inline const bool asKeyX_Down() { return updateKey_(Keyboard_x, false, aslib_counter_down); }
-inline const bool asKeyX_Down0() { return updateKey_(Keyboard_x, false, aslib_counter_down0); }
+inline const bool asKeyX() { return updateKey_(aslib_key_x, false); }
+inline const bool asKeyX_Touch() { return updateKey_(aslib_key_x, false, aslib_counter_touch); }
+inline const bool asKeyX_Touch0() { return updateKey_(aslib_key_x, false, aslib_counter_touch0); }
+inline const bool asKeyX_Up() { return updateKey_(aslib_key_x, false, aslib_counter_up); }
+inline const bool asKeyX_Up0() { return updateKey_(aslib_key_x, false, aslib_counter_up0); }
+inline const bool asKeyX_Down() { return updateKey_(aslib_key_x, false, aslib_counter_down); }
+inline const bool asKeyX_Down0() { return updateKey_(aslib_key_x, false, aslib_counter_down0); }
 
-inline const bool asKeyY() { return updateKey_(Keyboard_y, false); }
-inline const bool asKeyY_Touch() { return updateKey_(Keyboard_y, false, aslib_counter_touch); }
-inline const bool asKeyY_Touch0() { return updateKey_(Keyboard_y, false, aslib_counter_touch0); }
-inline const bool asKeyY_Up() { return updateKey_(Keyboard_y, false, aslib_counter_up); }
-inline const bool asKeyY_Up0() { return updateKey_(Keyboard_y, false, aslib_counter_up0); }
-inline const bool asKeyY_Down() { return updateKey_(Keyboard_y, false, aslib_counter_down); }
-inline const bool asKeyY_Down0() { return updateKey_(Keyboard_y, false, aslib_counter_down0); }
+inline const bool asKeyY() { return updateKey_(aslib_key_y, false); }
+inline const bool asKeyY_Touch() { return updateKey_(aslib_key_y, false, aslib_counter_touch); }
+inline const bool asKeyY_Touch0() { return updateKey_(aslib_key_y, false, aslib_counter_touch0); }
+inline const bool asKeyY_Up() { return updateKey_(aslib_key_y, false, aslib_counter_up); }
+inline const bool asKeyY_Up0() { return updateKey_(aslib_key_y, false, aslib_counter_up0); }
+inline const bool asKeyY_Down() { return updateKey_(aslib_key_y, false, aslib_counter_down); }
+inline const bool asKeyY_Down0() { return updateKey_(aslib_key_y, false, aslib_counter_down0); }
 
-inline const bool asKeyZ() { return updateKey_(Keyboard_z, false); }
-inline const bool asKeyZ_Touch() { return updateKey_(Keyboard_z, false, aslib_counter_touch); }
-inline const bool asKeyZ_Touch0() { return updateKey_(Keyboard_z, false, aslib_counter_touch0); }
-inline const bool asKeyZ_Up() { return updateKey_(Keyboard_z, false, aslib_counter_up); }
-inline const bool asKeyZ_Up0() { return updateKey_(Keyboard_z, false, aslib_counter_up0); }
-inline const bool asKeyZ_Down() { return updateKey_(Keyboard_z, false, aslib_counter_down); }
-inline const bool asKeyZ_Down0() { return updateKey_(Keyboard_z, false, aslib_counter_down0); }
+inline const bool asKeyZ() { return updateKey_(aslib_key_z, false); }
+inline const bool asKeyZ_Touch() { return updateKey_(aslib_key_z, false, aslib_counter_touch); }
+inline const bool asKeyZ_Touch0() { return updateKey_(aslib_key_z, false, aslib_counter_touch0); }
+inline const bool asKeyZ_Up() { return updateKey_(aslib_key_z, false, aslib_counter_up); }
+inline const bool asKeyZ_Up0() { return updateKey_(aslib_key_z, false, aslib_counter_up0); }
+inline const bool asKeyZ_Down() { return updateKey_(aslib_key_z, false, aslib_counter_down); }
+inline const bool asKeyZ_Down0() { return updateKey_(aslib_key_z, false, aslib_counter_down0); }
 
-inline const bool asKey0() { return updateKey_(Keyboard_0, false); }
-inline const bool asKey0_Touch() { return updateKey_(Keyboard_0, false, aslib_counter_touch); }
-inline const bool asKey0_Touch0() { return updateKey_(Keyboard_0, false, aslib_counter_touch0); }
-inline const bool asKey0_Up() { return updateKey_(Keyboard_0, false, aslib_counter_up); }
-inline const bool asKey0_Up0() { return updateKey_(Keyboard_0, false, aslib_counter_up0); }
-inline const bool asKey0_Down() { return updateKey_(Keyboard_0, false, aslib_counter_down); }
-inline const bool asKey0_Down0() { return updateKey_(Keyboard_0, false, aslib_counter_down0); }
+inline const bool asKey0() { return updateKey_(aslib_key_0, false); }
+inline const bool asKey0_Touch() { return updateKey_(aslib_key_0, false, aslib_counter_touch); }
+inline const bool asKey0_Touch0() { return updateKey_(aslib_key_0, false, aslib_counter_touch0); }
+inline const bool asKey0_Up() { return updateKey_(aslib_key_0, false, aslib_counter_up); }
+inline const bool asKey0_Up0() { return updateKey_(aslib_key_0, false, aslib_counter_up0); }
+inline const bool asKey0_Down() { return updateKey_(aslib_key_0, false, aslib_counter_down); }
+inline const bool asKey0_Down0() { return updateKey_(aslib_key_0, false, aslib_counter_down0); }
 
-inline const bool asKey1() { return updateKey_(Keyboard_1, false); }
-inline const bool asKey1_Touch() { return updateKey_(Keyboard_1, false, aslib_counter_touch); }
-inline const bool asKey1_Touch0() { return updateKey_(Keyboard_1, false, aslib_counter_touch0); }
-inline const bool asKey1_Up() { return updateKey_(Keyboard_1, false, aslib_counter_up); }
-inline const bool asKey1_Up0() { return updateKey_(Keyboard_1, false, aslib_counter_up0); }
-inline const bool asKey1_Down() { return updateKey_(Keyboard_1, false, aslib_counter_down); }
-inline const bool asKey1_Down0() { return updateKey_(Keyboard_1, false, aslib_counter_down0); }
+inline const bool asKey1() { return updateKey_(aslib_key_1, false); }
+inline const bool asKey1_Touch() { return updateKey_(aslib_key_1, false, aslib_counter_touch); }
+inline const bool asKey1_Touch0() { return updateKey_(aslib_key_1, false, aslib_counter_touch0); }
+inline const bool asKey1_Up() { return updateKey_(aslib_key_1, false, aslib_counter_up); }
+inline const bool asKey1_Up0() { return updateKey_(aslib_key_1, false, aslib_counter_up0); }
+inline const bool asKey1_Down() { return updateKey_(aslib_key_1, false, aslib_counter_down); }
+inline const bool asKey1_Down0() { return updateKey_(aslib_key_1, false, aslib_counter_down0); }
 
-inline const bool asKey2() { return updateKey_(Keyboard_2, false); }
-inline const bool asKey2_Touch() { return updateKey_(Keyboard_2, false, aslib_counter_touch); }
-inline const bool asKey2_Touch0() { return updateKey_(Keyboard_2, false, aslib_counter_touch0); }
-inline const bool asKey2_Up() { return updateKey_(Keyboard_2, false, aslib_counter_up); }
-inline const bool asKey2_Up0() { return updateKey_(Keyboard_2, false, aslib_counter_up0); }
-inline const bool asKey2_Down() { return updateKey_(Keyboard_2, false, aslib_counter_down); }
-inline const bool asKey2_Down0() { return updateKey_(Keyboard_2, false, aslib_counter_down0); }
+inline const bool asKey2() { return updateKey_(aslib_key_2, false); }
+inline const bool asKey2_Touch() { return updateKey_(aslib_key_2, false, aslib_counter_touch); }
+inline const bool asKey2_Touch0() { return updateKey_(aslib_key_2, false, aslib_counter_touch0); }
+inline const bool asKey2_Up() { return updateKey_(aslib_key_2, false, aslib_counter_up); }
+inline const bool asKey2_Up0() { return updateKey_(aslib_key_2, false, aslib_counter_up0); }
+inline const bool asKey2_Down() { return updateKey_(aslib_key_2, false, aslib_counter_down); }
+inline const bool asKey2_Down0() { return updateKey_(aslib_key_2, false, aslib_counter_down0); }
 
-inline const bool asKey3() { return updateKey_(Keyboard_3, false); }
-inline const bool asKey3_Touch() { return updateKey_(Keyboard_3, false, aslib_counter_touch); }
-inline const bool asKey3_Touch0() { return updateKey_(Keyboard_3, false, aslib_counter_touch0); }
-inline const bool asKey3_Up() { return updateKey_(Keyboard_3, false, aslib_counter_up); }
-inline const bool asKey3_Up0() { return updateKey_(Keyboard_3, false, aslib_counter_up0); }
-inline const bool asKey3_Down() { return updateKey_(Keyboard_3, false, aslib_counter_down); }
-inline const bool asKey3_Down0() { return updateKey_(Keyboard_3, false, aslib_counter_down0); }
+inline const bool asKey3() { return updateKey_(aslib_key_3, false); }
+inline const bool asKey3_Touch() { return updateKey_(aslib_key_3, false, aslib_counter_touch); }
+inline const bool asKey3_Touch0() { return updateKey_(aslib_key_3, false, aslib_counter_touch0); }
+inline const bool asKey3_Up() { return updateKey_(aslib_key_3, false, aslib_counter_up); }
+inline const bool asKey3_Up0() { return updateKey_(aslib_key_3, false, aslib_counter_up0); }
+inline const bool asKey3_Down() { return updateKey_(aslib_key_3, false, aslib_counter_down); }
+inline const bool asKey3_Down0() { return updateKey_(aslib_key_3, false, aslib_counter_down0); }
 
-inline const bool asKey4() { return updateKey_(Keyboard_4, false); }
-inline const bool asKey4_Touch() { return updateKey_(Keyboard_4, false, aslib_counter_touch); }
-inline const bool asKey4_Touch0() { return updateKey_(Keyboard_4, false, aslib_counter_touch0); }
-inline const bool asKey4_Up() { return updateKey_(Keyboard_4, false, aslib_counter_up); }
-inline const bool asKey4_Up0() { return updateKey_(Keyboard_4, false, aslib_counter_up0); }
-inline const bool asKey4_Down() { return updateKey_(Keyboard_4, false, aslib_counter_down); }
-inline const bool asKey4_Down0() { return updateKey_(Keyboard_4, false, aslib_counter_down0); }
+inline const bool asKey4() { return updateKey_(aslib_key_4, false); }
+inline const bool asKey4_Touch() { return updateKey_(aslib_key_4, false, aslib_counter_touch); }
+inline const bool asKey4_Touch0() { return updateKey_(aslib_key_4, false, aslib_counter_touch0); }
+inline const bool asKey4_Up() { return updateKey_(aslib_key_4, false, aslib_counter_up); }
+inline const bool asKey4_Up0() { return updateKey_(aslib_key_4, false, aslib_counter_up0); }
+inline const bool asKey4_Down() { return updateKey_(aslib_key_4, false, aslib_counter_down); }
+inline const bool asKey4_Down0() { return updateKey_(aslib_key_4, false, aslib_counter_down0); }
 
-inline const bool asKey5() { return updateKey_(Keyboard_5, false); }
-inline const bool asKey5_Touch() { return updateKey_(Keyboard_5, false, aslib_counter_touch); }
-inline const bool asKey5_Touch0() { return updateKey_(Keyboard_5, false, aslib_counter_touch0); }
-inline const bool asKey5_Up() { return updateKey_(Keyboard_5, false, aslib_counter_up); }
-inline const bool asKey5_Up0() { return updateKey_(Keyboard_5, false, aslib_counter_up0); }
-inline const bool asKey5_Down() { return updateKey_(Keyboard_5, false, aslib_counter_down); }
-inline const bool asKey5_Down0() { return updateKey_(Keyboard_5, false, aslib_counter_down0); }
+inline const bool asKey5() { return updateKey_(aslib_key_5, false); }
+inline const bool asKey5_Touch() { return updateKey_(aslib_key_5, false, aslib_counter_touch); }
+inline const bool asKey5_Touch0() { return updateKey_(aslib_key_5, false, aslib_counter_touch0); }
+inline const bool asKey5_Up() { return updateKey_(aslib_key_5, false, aslib_counter_up); }
+inline const bool asKey5_Up0() { return updateKey_(aslib_key_5, false, aslib_counter_up0); }
+inline const bool asKey5_Down() { return updateKey_(aslib_key_5, false, aslib_counter_down); }
+inline const bool asKey5_Down0() { return updateKey_(aslib_key_5, false, aslib_counter_down0); }
 
-inline const bool asKey6() { return updateKey_(Keyboard_6, false); }
-inline const bool asKey6_Touch() { return updateKey_(Keyboard_6, false, aslib_counter_touch); }
-inline const bool asKey6_Touch0() { return updateKey_(Keyboard_6, false, aslib_counter_touch0); }
-inline const bool asKey6_Up() { return updateKey_(Keyboard_6, false, aslib_counter_up); }
-inline const bool asKey6_Up0() { return updateKey_(Keyboard_6, false, aslib_counter_up0); }
-inline const bool asKey6_Down() { return updateKey_(Keyboard_6, false, aslib_counter_down); }
-inline const bool asKey6_Down0() { return updateKey_(Keyboard_6, false, aslib_counter_down0); }
+inline const bool asKey6() { return updateKey_(aslib_key_6, false); }
+inline const bool asKey6_Touch() { return updateKey_(aslib_key_6, false, aslib_counter_touch); }
+inline const bool asKey6_Touch0() { return updateKey_(aslib_key_6, false, aslib_counter_touch0); }
+inline const bool asKey6_Up() { return updateKey_(aslib_key_6, false, aslib_counter_up); }
+inline const bool asKey6_Up0() { return updateKey_(aslib_key_6, false, aslib_counter_up0); }
+inline const bool asKey6_Down() { return updateKey_(aslib_key_6, false, aslib_counter_down); }
+inline const bool asKey6_Down0() { return updateKey_(aslib_key_6, false, aslib_counter_down0); }
 
-inline const bool asKey7() { return updateKey_(Keyboard_7, false); }
-inline const bool asKey7_Touch() { return updateKey_(Keyboard_7, false, aslib_counter_touch); }
-inline const bool asKey7_Touch0() { return updateKey_(Keyboard_7, false, aslib_counter_touch0); }
-inline const bool asKey7_Up() { return updateKey_(Keyboard_7, false, aslib_counter_up); }
-inline const bool asKey7_Up0() { return updateKey_(Keyboard_7, false, aslib_counter_up0); }
-inline const bool asKey7_Down() { return updateKey_(Keyboard_7, false, aslib_counter_down); }
-inline const bool asKey7_Down0() { return updateKey_(Keyboard_7, false, aslib_counter_down0); }
+inline const bool asKey7() { return updateKey_(aslib_key_7, false); }
+inline const bool asKey7_Touch() { return updateKey_(aslib_key_7, false, aslib_counter_touch); }
+inline const bool asKey7_Touch0() { return updateKey_(aslib_key_7, false, aslib_counter_touch0); }
+inline const bool asKey7_Up() { return updateKey_(aslib_key_7, false, aslib_counter_up); }
+inline const bool asKey7_Up0() { return updateKey_(aslib_key_7, false, aslib_counter_up0); }
+inline const bool asKey7_Down() { return updateKey_(aslib_key_7, false, aslib_counter_down); }
+inline const bool asKey7_Down0() { return updateKey_(aslib_key_7, false, aslib_counter_down0); }
 
-inline const bool asKey8() { return updateKey_(Keyboard_8, false); }
-inline const bool asKey8_Touch() { return updateKey_(Keyboard_8, false, aslib_counter_touch); }
-inline const bool asKey8_Touch0() { return updateKey_(Keyboard_8, false, aslib_counter_touch0); }
-inline const bool asKey8_Up() { return updateKey_(Keyboard_8, false, aslib_counter_up); }
-inline const bool asKey8_Up0() { return updateKey_(Keyboard_8, false, aslib_counter_up0); }
-inline const bool asKey8_Down() { return updateKey_(Keyboard_8, false, aslib_counter_down); }
-inline const bool asKey8_Down0() { return updateKey_(Keyboard_8, false, aslib_counter_down0); }
+inline const bool asKey8() { return updateKey_(aslib_key_8, false); }
+inline const bool asKey8_Touch() { return updateKey_(aslib_key_8, false, aslib_counter_touch); }
+inline const bool asKey8_Touch0() { return updateKey_(aslib_key_8, false, aslib_counter_touch0); }
+inline const bool asKey8_Up() { return updateKey_(aslib_key_8, false, aslib_counter_up); }
+inline const bool asKey8_Up0() { return updateKey_(aslib_key_8, false, aslib_counter_up0); }
+inline const bool asKey8_Down() { return updateKey_(aslib_key_8, false, aslib_counter_down); }
+inline const bool asKey8_Down0() { return updateKey_(aslib_key_8, false, aslib_counter_down0); }
 
-inline const bool asKey9() { return updateKey_(Keyboard_9, false); }
-inline const bool asKey9_Touch() { return updateKey_(Keyboard_9, false, aslib_counter_touch); }
-inline const bool asKey9_Touch0() { return updateKey_(Keyboard_9, false, aslib_counter_touch0); }
-inline const bool asKey9_Up() { return updateKey_(Keyboard_9, false, aslib_counter_up); }
-inline const bool asKey9_Up0() { return updateKey_(Keyboard_9, false, aslib_counter_up0); }
-inline const bool asKey9_Down() { return updateKey_(Keyboard_9, false, aslib_counter_down); }
-inline const bool asKey9_Down0() { return updateKey_(Keyboard_9, false, aslib_counter_down0); }
+inline const bool asKey9() { return updateKey_(aslib_key_9, false); }
+inline const bool asKey9_Touch() { return updateKey_(aslib_key_9, false, aslib_counter_touch); }
+inline const bool asKey9_Touch0() { return updateKey_(aslib_key_9, false, aslib_counter_touch0); }
+inline const bool asKey9_Up() { return updateKey_(aslib_key_9, false, aslib_counter_up); }
+inline const bool asKey9_Up0() { return updateKey_(aslib_key_9, false, aslib_counter_up0); }
+inline const bool asKey9_Down() { return updateKey_(aslib_key_9, false, aslib_counter_down); }
+inline const bool asKey9_Down0() { return updateKey_(aslib_key_9, false, aslib_counter_down0); }
 
-inline const int32_t updateKey() { updateKey_(0, true); return 0; }
+inline const bool asKeyEnter() { return updateKey_(aslib_key_Return_ENTER, false); }
+inline const bool asKeyEnterTouch() { return updateKey_(aslib_key_Return_ENTER, false, aslib_counter_touch); }
+inline const bool asKeyEnterTouch0() { return updateKey_(aslib_key_Return_ENTER, false, aslib_counter_touch0); }
+inline const bool asKeyEnterUp() { return updateKey_(aslib_key_Return_ENTER, false, aslib_counter_up); }
+inline const bool asKeyEnterUp0() { return updateKey_(aslib_key_Return_ENTER, false, aslib_counter_up0); }
+inline const bool asKeyEnterDown() { return updateKey_(aslib_key_Return_ENTER, false, aslib_counter_down); }
+inline const bool asKeyEnterDown0() { return updateKey_(aslib_key_Return_ENTER, false, aslib_counter_down0); }
+
+inline const bool asKeyUp() { return updateKey_(aslib_key_UpArrow, false); }
+inline const bool asKeyUpTouch() { return updateKey_(aslib_key_UpArrow, false, aslib_counter_touch); }
+inline const bool asKeyUpTouch0() { return updateKey_(aslib_key_UpArrow, false, aslib_counter_touch0); }
+inline const bool asKeyUpUp() { return updateKey_(aslib_key_UpArrow, false, aslib_counter_up); }
+inline const bool asKeyUpUp0() { return updateKey_(aslib_key_UpArrow, false, aslib_counter_up0); }
+inline const bool asKeyUpDown() { return updateKey_(aslib_key_UpArrow, false, aslib_counter_down); }
+inline const bool asKeyUpDown0() { return updateKey_(aslib_key_UpArrow, false, aslib_counter_down0); }
+
+inline const bool asKeyDown() { return updateKey_(aslib_key_DownArrow, false); }
+inline const bool asKeyDownTouch() { return updateKey_(aslib_key_DownArrow, false, aslib_counter_touch); }
+inline const bool asKeyDownTouch0() { return updateKey_(aslib_key_DownArrow, false, aslib_counter_touch0); }
+inline const bool asKeyDownUp() { return updateKey_(aslib_key_DownArrow, false, aslib_counter_up); }
+inline const bool asKeyDownUp0() { return updateKey_(aslib_key_DownArrow, false, aslib_counter_up0); }
+inline const bool asKeyDownDown() { return updateKey_(aslib_key_DownArrow, false, aslib_counter_down); }
+inline const bool asKeyDownDown0() { return updateKey_(aslib_key_DownArrow, false, aslib_counter_down0); }
+
+inline const bool asKeyLeft() { return updateKey_(aslib_key_LeftArrow, false); }
+inline const bool asKeyLeftTouch() { return updateKey_(aslib_key_LeftArrow, false, aslib_counter_touch); }
+inline const bool asKeyLeftTouch0() { return updateKey_(aslib_key_LeftArrow, false, aslib_counter_touch0); }
+inline const bool asKeyLeftUp() { return updateKey_(aslib_key_LeftArrow, false, aslib_counter_up); }
+inline const bool asKeyLeftUp0() { return updateKey_(aslib_key_LeftArrow, false, aslib_counter_up0); }
+inline const bool asKeyLeftDown() { return updateKey_(aslib_key_LeftArrow, false, aslib_counter_down); }
+inline const bool asKeyLeftDown0() { return updateKey_(aslib_key_LeftArrow, false, aslib_counter_down0); }
+
+inline const bool asKeyRight() { return updateKey_(aslib_key_RightArrow, false); }
+inline const bool asKeyRightTouch() { return updateKey_(aslib_key_RightArrow, false, aslib_counter_touch); }
+inline const bool asKeyRightTouch0() { return updateKey_(aslib_key_RightArrow, false, aslib_counter_touch0); }
+inline const bool asKeyRightUp() { return updateKey_(aslib_key_RightArrow, false, aslib_counter_up); }
+inline const bool asKeyRightUp0() { return updateKey_(aslib_key_RightArrow, false, aslib_counter_up0); }
+inline const bool asKeyRightDown() { return updateKey_(aslib_key_RightArrow, false, aslib_counter_down); }
+inline const bool asKeyRightDown0() { return updateKey_(aslib_key_RightArrow, false, aslib_counter_down0); }
+
+//inline const bool asKeyA() { return updateKey_(aslib_key_a, false); }
+//inline const bool asKeyA_Touch() { return updateKey_(aslib_key_a, false, aslib_counter_touch); }
+//inline const bool asKeyA_Touch0() { return updateKey_(aslib_key_a, false, aslib_counter_touch0); }
+//inline const bool asKeyA_Up() { return updateKey_(aslib_key_a, false, aslib_counter_up); }
+//inline const bool asKeyA_Up0() { return updateKey_(aslib_key_a, false, aslib_counter_up0); }
+//inline const bool asKeyA_Down() { return updateKey_(aslib_key_a, false, aslib_counter_down); }
+//inline const bool asKeyA_Down0() { return updateKey_(aslib_key_a, false, aslib_counter_down0); }
+
+inline void updateKey() { updateKey_(0, true); }
 
 }
 
 //	bool* checkKey9() {
 //		constexpr std::array<size_t, 256> AS_DL_key{
-//			Keyboard_Unknown,//Ka0 
-//			Keyboard_ESCAPE,//KESCAPE0x01//EscキーD_DIK_ESCAPE 
-//			Keyboard_1,//K10x02//１キーD_DIK_1 
-//			Keyboard_2,//K20x03//２キーD_DIK_2 
-//			Keyboard_3,//K30x04//３キーD_DIK_3 
-//			Keyboard_4,//K40x05//４キーD_DIK_4 
-//			Keyboard_5,//K50x06//５キーD_DIK_5 
-//			Keyboard_6,//K60x07//６キーD_DIK_6 
-//			Keyboard_7,//K70x08//７キーD_DIK_7 
-//			Keyboard_8,//K80x09//８キーD_DIK_8 
-//			Keyboard_9,//K90x0A//９キーD_DIK_9 
-//			Keyboard_0,//K00x0B//０キーD_DIK_0 
+//			aslib_key_Unknown,//Ka0 
+//			aslib_key_ESCAPE,//KESCAPE0x01//EscキーD_DIK_ESCAPE 
+//			aslib_key_1,//K10x02//１キーD_DIK_1 
+//			aslib_key_2,//K20x03//２キーD_DIK_2 
+//			aslib_key_3,//K30x04//３キーD_DIK_3 
+//			aslib_key_4,//K40x05//４キーD_DIK_4 
+//			aslib_key_5,//K50x06//５キーD_DIK_5 
+//			aslib_key_6,//K60x07//６キーD_DIK_6 
+//			aslib_key_7,//K70x08//７キーD_DIK_7 
+//			aslib_key_8,//K80x09//８キーD_DIK_8 
+//			aslib_key_9,//K90x0A//９キーD_DIK_9 
+//			aslib_key_0,//K00x0B//０キーD_DIK_0 
 //			0,//KMINUS0x0C//－キーD_DIK_MINUS 
-//			Keyboard_Unknown,//Ka13 
+//			aslib_key_Unknown,//Ka13 
 //			0,//KBACK0x0E//BackSpaceキーD_DIK_BACK 
 //			0,//KTAB0x0F//TabキーD_DIK_TAB 
-//			Keyboard_q,//KQ0x10//ＱキーD_DIK_Q 
-//			Keyboard_w,//KW0x11//ＷキーD_DIK_W 
-//			Keyboard_e,//KE0x12//ＥキーD_DIK_E 
-//			Keyboard_r,//KR0x13//ＲキーD_DIK_R 
-//			Keyboard_t,//KT0x14//ＴキーD_DIK_T 
-//			Keyboard_y,//KY0x15//ＹキーD_DIK_Y 
-//			Keyboard_u,//KU0x16//ＵキーD_DIK_U 
-//			Keyboard_i,//KI0x17//ＩキーD_DIK_I 
-//			Keyboard_o,//KO0x18//ＯキーD_DIK_O 
-//			Keyboard_p,//KP0x19//ＰキーD_DIK_P 
+//			aslib_key_q,//KQ0x10//ＱキーD_DIK_Q 
+//			aslib_key_w,//KW0x11//ＷキーD_DIK_W 
+//			aslib_key_e,//KE0x12//ＥキーD_DIK_E 
+//			aslib_key_r,//KR0x13//ＲキーD_DIK_R 
+//			aslib_key_t,//KT0x14//ＴキーD_DIK_T 
+//			aslib_key_y,//KY0x15//ＹキーD_DIK_Y 
+//			aslib_key_u,//KU0x16//ＵキーD_DIK_U 
+//			aslib_key_i,//KI0x17//ＩキーD_DIK_I 
+//			aslib_key_o,//KO0x18//ＯキーD_DIK_O 
+//			aslib_key_p,//KP0x19//ＰキーD_DIK_P 
 //			0,//KLBRACKET0x1A//［キーD_DIK_LBRACKET 
 //			0,//KRBRACKET0x1B//］キーD_DIK_RBRACKET 
 //			0,//KRETURN0x1C//EnterキーD_DIK_RETURN 
 //			0,//KLCONTROL0x1D//左CtrlキーD_DIK_LCONTROL 
-//			Keyboard_a,//KA0x1E//ＡキーD_DIK_A 
-//			Keyboard_s,//KS0x1F//ＳキーD_DIK_S 
-//			Keyboard_d,//KD0x20//ＤキーD_DIK_D 
-//			Keyboard_f,//KF0x21//ＦキーD_DIK_F 
-//			Keyboard_g,//KG0x22//ＧキーD_DIK_G 
-//			Keyboard_h,//KH0x23//ＨキーD_DIK_H 
-//			Keyboard_j,//KJ0x24//ＪキーD_DIK_J 
-//			Keyboard_k,//KK0x25//ＫキーD_DIK_K 
-//			Keyboard_l,//KL0x26//ＬキーD_DIK_L 
-//			Keyboard_semicolon,//KSEMICOLON0x27//；キーD_DIK_SEMICOLON 
-//			Keyboard_Unknown,//Ka40 
-//			Keyboard_Unknown,//Ka41 
+//			aslib_key_a,//KA0x1E//ＡキーD_DIK_A 
+//			aslib_key_s,//KS0x1F//ＳキーD_DIK_S 
+//			aslib_key_d,//KD0x20//ＤキーD_DIK_D 
+//			aslib_key_f,//KF0x21//ＦキーD_DIK_F 
+//			aslib_key_g,//KG0x22//ＧキーD_DIK_G 
+//			aslib_key_h,//KH0x23//ＨキーD_DIK_H 
+//			aslib_key_j,//KJ0x24//ＪキーD_DIK_J 
+//			aslib_key_k,//KK0x25//ＫキーD_DIK_K 
+//			aslib_key_l,//KL0x26//ＬキーD_DIK_L 
+//			aslib_key_semicolon,//KSEMICOLON0x27//；キーD_DIK_SEMICOLON 
+//			aslib_key_Unknown,//Ka40 
+//			aslib_key_Unknown,//Ka41 
 //			0,//KLSHIFT0x2A//左ShiftキーD_DIK_LSHIFT 
 //			0,//KBACKSLASH0x2B//＼キーD_DIK_BACKSLASH 
-//			Keyboard_z,//KZ0x2C//ＺキーD_DIK_Z 
-//			Keyboard_x,//KX0x2D//ＸキーD_DIK_X 
-//			Keyboard_c,//KC0x2E//ＣキーD_DIK_C 
-//			Keyboard_v,//KV0x2F//ＶキーD_DIK_V 
-//			Keyboard_b,//KB0x30//ＢキーD_DIK_B 
-//			Keyboard_n,//KN0x31//ＮキーD_DIK_N 
-//			Keyboard_m,//KM0x32//ＭキーD_DIK_M 
+//			aslib_key_z,//KZ0x2C//ＺキーD_DIK_Z 
+//			aslib_key_x,//KX0x2D//ＸキーD_DIK_X 
+//			aslib_key_c,//KC0x2E//ＣキーD_DIK_C 
+//			aslib_key_v,//KV0x2F//ＶキーD_DIK_V 
+//			aslib_key_b,//KB0x30//ＢキーD_DIK_B 
+//			aslib_key_n,//KN0x31//ＮキーD_DIK_N 
+//			aslib_key_m,//KM0x32//ＭキーD_DIK_M 
 //			0,//KCOMMA0x33//，キーD_DIK_COMMA 
 //			0,//KPERIOD0x34//．キーD_DIK_PERIOD 
 //			0,//KSLASH0x35//／キーD_DIK_SLASH 
@@ -1048,16 +1097,16 @@ inline const int32_t updateKey() { updateKey_(0, true); return 0; }
 //			0,//KLALT0x38//左AltキーD_DIK_LALT 
 //			0,//KSPACE0x39//スペースキーD_DIK_SPACE 
 //			0,//KCAPSLOCK0x3A//CaspLockキーD_DIK_CAPSLOCK 
-//			Keyboard_F1,//KF10x3B//Ｆ１キーD_DIK_F1 
-//			Keyboard_F2,//KF20x3C//Ｆ２キーD_DIK_F2 
-//			Keyboard_F3,//KF30x3D//Ｆ３キーD_DIK_F3 
-//			Keyboard_F4,//KF40x3E//Ｆ４キーD_DIK_F4 
-//			Keyboard_F5,//KF50x3F//Ｆ５キーD_DIK_F5 
-//			Keyboard_F6,//KF60x40//Ｆ６キーD_DIK_F6 
-//			Keyboard_F7,//KF70x41//Ｆ７キーD_DIK_F7 
-//			Keyboard_F8,//KF80x42//Ｆ８キーD_DIK_F8 
-//			Keyboard_F9,//KF90x43//Ｆ９キーD_DIK_F9 
-//			Keyboard_F10,//KF100x44//Ｆ１０キーD_DIK_F10 
+//			aslib_key_F1,//KF10x3B//Ｆ１キーD_DIK_F1 
+//			aslib_key_F2,//KF20x3C//Ｆ２キーD_DIK_F2 
+//			aslib_key_F3,//KF30x3D//Ｆ３キーD_DIK_F3 
+//			aslib_key_F4,//KF40x3E//Ｆ４キーD_DIK_F4 
+//			aslib_key_F5,//KF50x3F//Ｆ５キーD_DIK_F5 
+//			aslib_key_F6,//KF60x40//Ｆ６キーD_DIK_F6 
+//			aslib_key_F7,//KF70x41//Ｆ７キーD_DIK_F7 
+//			aslib_key_F8,//KF80x42//Ｆ８キーD_DIK_F8 
+//			aslib_key_F9,//KF90x43//Ｆ９キーD_DIK_F9 
+//			aslib_key_F10,//KF100x44//Ｆ１０キーD_DIK_F10 
 //			0,//KNUMLOCK0x45//テンキーNumLockキーD_DIK_NUMLOCK 
 //			0,//KSCROLL0x46//ScrollLockキーD_DIK_SCROLL 
 //			Keypad_7,//KNUMPAD70x47//テンキー７D_DIK_NUMPAD7 
@@ -1067,186 +1116,186 @@ inline const int32_t updateKey() { updateKey_(0, true); return 0; }
 //			Keypad_4,//KNUMPAD40x4B//テンキー４D_DIK_NUMPAD4 
 //			Keypad_5,//KNUMPAD50x4C//テンキー５D_DIK_NUMPAD5 
 //			Keypad_6,//KNUMPAD60x4D//テンキー６D_DIK_NUMPAD6 
-//			Keyboard_Unknown,//KaDD0x4E//テンキー＋キーD_DIK_ADD 
+//			aslib_key_Unknown,//KaDD0x4E//テンキー＋キーD_DIK_ADD 
 //			Keypad_1,//KNUMPAD10x4F//テンキー１D_DIK_NUMPAD1 
 //			Keypad_2,//KNUMPAD20x50//テンキー２D_DIK_NUMPAD2 
 //			Keypad_3,//KNUMPAD30x51//テンキー３D_DIK_NUMPAD3 
 //			Keypad_0,//KNUMPAD00x52//テンキー０D_DIK_NUMPAD0 
 //			0,//KDECIMAL0x53//テンキー．キーD_DIK_DECIMAL 
-//			Keyboard_Unknown,//Ka84 
-//			Keyboard_Unknown,//Ka85 
-//			Keyboard_Unknown,//Ka86 
-//			Keyboard_F11,//KF110x57//Ｆ１１キーD_DIK_F11 
-//			Keyboard_F12,//KF120x58//Ｆ１２キーD_DIK_F12 
-//			Keyboard_Unknown,//Ka89 
-//			Keyboard_Unknown,//Ka90 
-//			Keyboard_Unknown,//Ka91 
-//			Keyboard_Unknown,//Ka92 
-//			Keyboard_Unknown,//Ka93 
-//			Keyboard_Unknown,//Ka94 
-//			Keyboard_Unknown,//Ka95 
-//			Keyboard_Unknown,//Ka96 
-//			Keyboard_Unknown,//Ka97 
-//			Keyboard_Unknown,//Ka98 
-//			Keyboard_Unknown,//Ka99 
-//			Keyboard_Unknown,//Ka100 
-//			Keyboard_Unknown,//Ka101 
-//			Keyboard_Unknown,//Ka102 
-//			Keyboard_Unknown,//Ka103 
-//			Keyboard_Unknown,//Ka104 
-//			Keyboard_Unknown,//Ka105 
-//			Keyboard_Unknown,//Ka106 
-//			Keyboard_Unknown,//Ka107 
-//			Keyboard_Unknown,//Ka108 
-//			Keyboard_Unknown,//Ka109 
-//			Keyboard_Unknown,//Ka110 
-//			Keyboard_Unknown,//Ka111 
+//			aslib_key_Unknown,//Ka84 
+//			aslib_key_Unknown,//Ka85 
+//			aslib_key_Unknown,//Ka86 
+//			aslib_key_F11,//KF110x57//Ｆ１１キーD_DIK_F11 
+//			aslib_key_F12,//KF120x58//Ｆ１２キーD_DIK_F12 
+//			aslib_key_Unknown,//Ka89 
+//			aslib_key_Unknown,//Ka90 
+//			aslib_key_Unknown,//Ka91 
+//			aslib_key_Unknown,//Ka92 
+//			aslib_key_Unknown,//Ka93 
+//			aslib_key_Unknown,//Ka94 
+//			aslib_key_Unknown,//Ka95 
+//			aslib_key_Unknown,//Ka96 
+//			aslib_key_Unknown,//Ka97 
+//			aslib_key_Unknown,//Ka98 
+//			aslib_key_Unknown,//Ka99 
+//			aslib_key_Unknown,//Ka100 
+//			aslib_key_Unknown,//Ka101 
+//			aslib_key_Unknown,//Ka102 
+//			aslib_key_Unknown,//Ka103 
+//			aslib_key_Unknown,//Ka104 
+//			aslib_key_Unknown,//Ka105 
+//			aslib_key_Unknown,//Ka106 
+//			aslib_key_Unknown,//Ka107 
+//			aslib_key_Unknown,//Ka108 
+//			aslib_key_Unknown,//Ka109 
+//			aslib_key_Unknown,//Ka110 
+//			aslib_key_Unknown,//Ka111 
 //			0,//KKANA0x70//カナキーD_DIK_KANA 
-//			Keyboard_Unknown,//Ka113 
-//			Keyboard_Unknown,//Ka114 
-//			Keyboard_Unknown,//Ka115 
-//			Keyboard_Unknown,//Ka116 
-//			Keyboard_Unknown,//Ka117 
-//			Keyboard_Unknown,//Ka118 
-//			Keyboard_Unknown,//Ka119 
-//			Keyboard_Unknown,//Ka120 
+//			aslib_key_Unknown,//Ka113 
+//			aslib_key_Unknown,//Ka114 
+//			aslib_key_Unknown,//Ka115 
+//			aslib_key_Unknown,//Ka116 
+//			aslib_key_Unknown,//Ka117 
+//			aslib_key_Unknown,//Ka118 
+//			aslib_key_Unknown,//Ka119 
+//			aslib_key_Unknown,//Ka120 
 //			0,//KCONVERT0x79//変換キーD_DIK_CONVERT 
-//			Keyboard_Unknown,//Ka122 
+//			aslib_key_Unknown,//Ka122 
 //			0,//KNOCONVERT0x7B//無変換キーD_DIK_NOCONVERT 
-//			Keyboard_Unknown,//Ka124 
+//			aslib_key_Unknown,//Ka124 
 //			0,//KYEN0x7D//￥キーD_DIK_YEN 
-//			Keyboard_Unknown,//Ka126 
-//			Keyboard_Unknown,//Ka127 
-//			Keyboard_Unknown,//Ka128 
-//			Keyboard_Unknown,//Ka129 
-//			Keyboard_Unknown,//Ka130 
-//			Keyboard_Unknown,//Ka131 
-//			Keyboard_Unknown,//Ka132 
-//			Keyboard_Unknown,//Ka133 
-//			Keyboard_Unknown,//Ka134 
-//			Keyboard_Unknown,//Ka135 
-//			Keyboard_Unknown,//Ka136 
-//			Keyboard_Unknown,//Ka137 
-//			Keyboard_Unknown,//Ka138 
-//			Keyboard_Unknown,//Ka139 
-//			Keyboard_Unknown,//Ka140 
-//			Keyboard_Unknown,//Ka141 
-//			Keyboard_Unknown,//Ka142 
-//			Keyboard_Unknown,//Ka143 
+//			aslib_key_Unknown,//Ka126 
+//			aslib_key_Unknown,//Ka127 
+//			aslib_key_Unknown,//Ka128 
+//			aslib_key_Unknown,//Ka129 
+//			aslib_key_Unknown,//Ka130 
+//			aslib_key_Unknown,//Ka131 
+//			aslib_key_Unknown,//Ka132 
+//			aslib_key_Unknown,//Ka133 
+//			aslib_key_Unknown,//Ka134 
+//			aslib_key_Unknown,//Ka135 
+//			aslib_key_Unknown,//Ka136 
+//			aslib_key_Unknown,//Ka137 
+//			aslib_key_Unknown,//Ka138 
+//			aslib_key_Unknown,//Ka139 
+//			aslib_key_Unknown,//Ka140 
+//			aslib_key_Unknown,//Ka141 
+//			aslib_key_Unknown,//Ka142 
+//			aslib_key_Unknown,//Ka143 
 //			0,//KPREVTRACK0x90//＾キーD_DIK_PREVTRACK 
-//			Keyboard_Unknown,//KaT0x91//＠キーD_DIK_AT 
+//			aslib_key_Unknown,//KaT0x91//＠キーD_DIK_AT 
 //			0,//KCOLON0x92//：キーD_DIK_COLON 
-//			Keyboard_Unknown,//Ka147 
-//			Keyboard_grave_accentilde,//KKANJI0x94//漢字キーD_DIK_KANJI 
-//			Keyboard_Unknown,//Ka149 
-//			Keyboard_Unknown,//Ka150 
-//			Keyboard_Unknown,//Ka151 
-//			Keyboard_Unknown,//Ka152 
-//			Keyboard_Unknown,//Ka153 
-//			Keyboard_Unknown,//Ka154 
-//			Keyboard_Unknown,//Ka155 
+//			aslib_key_Unknown,//Ka147 
+//			aslib_key_grave_accentilde,//KKANJI0x94//漢字キーD_DIK_KANJI 
+//			aslib_key_Unknown,//Ka149 
+//			aslib_key_Unknown,//Ka150 
+//			aslib_key_Unknown,//Ka151 
+//			aslib_key_Unknown,//Ka152 
+//			aslib_key_Unknown,//Ka153 
+//			aslib_key_Unknown,//Ka154 
+//			aslib_key_Unknown,//Ka155 
 //			Keypad_ENTER,//KNUMPADENTER0x9C//テンキーのエンターキーD_DIK_NUMPADENTER 
 //			0,//KRCONTROL0x9D//右CtrlキーD_DIK_RCONTROL 
-//			Keyboard_Unknown,//Ka158 
-//			Keyboard_Unknown,//Ka159 
-//			Keyboard_Unknown,//Ka160 
-//			Keyboard_Unknown,//Ka161 
-//			Keyboard_Unknown,//Ka162 
-//			Keyboard_Unknown,//Ka163 
-//			Keyboard_Unknown,//Ka164 
-//			Keyboard_Unknown,//Ka165 
-//			Keyboard_Unknown,//Ka166 
-//			Keyboard_Unknown,//Ka167 
-//			Keyboard_Unknown,//Ka168 
-//			Keyboard_Unknown,//Ka169 
-//			Keyboard_Unknown,//Ka170 
-//			Keyboard_Unknown,//Ka171 
-//			Keyboard_Unknown,//Ka172 
-//			Keyboard_Unknown,//Ka173 
-//			Keyboard_Unknown,//Ka174 
-//			Keyboard_Unknown,//Ka175 
-//			Keyboard_Unknown,//Ka176 
-//			Keyboard_Unknown,//Ka177 
-//			Keyboard_Unknown,//Ka178 
-//			Keyboard_Unknown,//Ka179 
-//			Keyboard_Unknown,//Ka180 
+//			aslib_key_Unknown,//Ka158 
+//			aslib_key_Unknown,//Ka159 
+//			aslib_key_Unknown,//Ka160 
+//			aslib_key_Unknown,//Ka161 
+//			aslib_key_Unknown,//Ka162 
+//			aslib_key_Unknown,//Ka163 
+//			aslib_key_Unknown,//Ka164 
+//			aslib_key_Unknown,//Ka165 
+//			aslib_key_Unknown,//Ka166 
+//			aslib_key_Unknown,//Ka167 
+//			aslib_key_Unknown,//Ka168 
+//			aslib_key_Unknown,//Ka169 
+//			aslib_key_Unknown,//Ka170 
+//			aslib_key_Unknown,//Ka171 
+//			aslib_key_Unknown,//Ka172 
+//			aslib_key_Unknown,//Ka173 
+//			aslib_key_Unknown,//Ka174 
+//			aslib_key_Unknown,//Ka175 
+//			aslib_key_Unknown,//Ka176 
+//			aslib_key_Unknown,//Ka177 
+//			aslib_key_Unknown,//Ka178 
+//			aslib_key_Unknown,//Ka179 
+//			aslib_key_Unknown,//Ka180 
 //			0,//KDIVIDE0xB5//テンキー／キーD_DIK_DIVIDE 
-//			Keyboard_Unknown,//Ka182 
+//			aslib_key_Unknown,//Ka182 
 //			0,//KSYSRQ0xB7//PrintScreenキーD_DIK_SYSRQ 
 //			0,//KRALT0xB8//右AltキーD_DIK_RALT 
-//			Keyboard_Unknown,//Ka185 
-//			Keyboard_Unknown,//Ka186 
-//			Keyboard_Unknown,//Ka187 
-//			Keyboard_Unknown,//Ka188 
-//			Keyboard_Unknown,//Ka189 
-//			Keyboard_Unknown,//Ka190 
-//			Keyboard_Unknown,//Ka191 
-//			Keyboard_Unknown,//Ka192 
-//			Keyboard_Unknown,//Ka193 
-//			Keyboard_Unknown,//Ka194 
-//			Keyboard_Unknown,//Ka195 
-//			Keyboard_Unknown,//Ka196 
+//			aslib_key_Unknown,//Ka185 
+//			aslib_key_Unknown,//Ka186 
+//			aslib_key_Unknown,//Ka187 
+//			aslib_key_Unknown,//Ka188 
+//			aslib_key_Unknown,//Ka189 
+//			aslib_key_Unknown,//Ka190 
+//			aslib_key_Unknown,//Ka191 
+//			aslib_key_Unknown,//Ka192 
+//			aslib_key_Unknown,//Ka193 
+//			aslib_key_Unknown,//Ka194 
+//			aslib_key_Unknown,//Ka195 
+//			aslib_key_Unknown,//Ka196 
 //			0,//KPAUSE0xC5//PauseBreakキーD_DIK_PAUSE 
-//			Keyboard_Unknown,//Ka198 
+//			aslib_key_Unknown,//Ka198 
 //			0,//KHOME0xC7//HomeキーD_DIK_HOME 
-//				Keyboard_UpArrow,//KUP0xC8//上キーD_DIK_UP 
+//				aslib_key_UpArrow,//KUP0xC8//上キーD_DIK_UP 
 //			0,//KPGUP0xC9//PageUpキーD_DIK_PGUP 
-//			Keyboard_Unknown,//Ka202 
-//				Keyboard_LeftArrow,//KLEFT0xCB//左キーD_DIK_LEFT 
-//			Keyboard_Unknown,//Ka204 
-//				Keyboard_RightArrow,//KRIGHT0xCD//右キーD_DIK_RIGHT 
-//			Keyboard_Unknown,//Ka206 
+//			aslib_key_Unknown,//Ka202 
+//				aslib_key_LeftArrow,//KLEFT0xCB//左キーD_DIK_LEFT 
+//			aslib_key_Unknown,//Ka204 
+//				aslib_key_RightArrow,//KRIGHT0xCD//右キーD_DIK_RIGHT 
+//			aslib_key_Unknown,//Ka206 
 //			0,//KEND0xCF//EndキーD_DIK_END 
-//				Keyboard_DownArrow,//KDOWN0xD0//下キーD_DIK_DOWN 
+//				aslib_key_DownArrow,//KDOWN0xD0//下キーD_DIK_DOWN 
 //			0,//KPGDN0xD1//PageDownキーD_DIK_PGDN 
 //			0,//KINSERT0xD2//InsertキーD_DIK_INSERT 
 //			0,//KDELETE0xD3//DeleteキーD_DIK_DELETE 
-//			Keyboard_Unknown,//Ka212 
-//			Keyboard_Unknown,//Ka213 
-//			Keyboard_Unknown,//Ka214 
-//			Keyboard_Unknown,//Ka215 
-//			Keyboard_Unknown,//Ka216 
-//			Keyboard_Unknown,//Ka217 
-//			Keyboard_Unknown,//Ka218 
+//			aslib_key_Unknown,//Ka212 
+//			aslib_key_Unknown,//Ka213 
+//			aslib_key_Unknown,//Ka214 
+//			aslib_key_Unknown,//Ka215 
+//			aslib_key_Unknown,//Ka216 
+//			aslib_key_Unknown,//Ka217 
+//			aslib_key_Unknown,//Ka218 
 //			0,//KLWIN0xDB//左WinキーD_DIK_LWIN 
 //			0,//KRWIN0xDC//右WinキーD_DIK_RWIN 
-//			Keyboard_Unknown,//KaPPS0xDD//アプリケーションメニューキーD_DIK_APPS 
-//			Keyboard_Unknown,//Ka222 
-//			Keyboard_Unknown,//Ka223 
-//			Keyboard_Unknown,//Ka224 
-//			Keyboard_Unknown,//Ka225 
-//			Keyboard_Unknown,//Ka226 
-//			Keyboard_Unknown,//Ka227 
-//			Keyboard_Unknown,//Ka228 
-//			Keyboard_Unknown,//Ka229 
-//			Keyboard_Unknown,//Ka230 
-//			Keyboard_Unknown,//Ka231 
-//			Keyboard_Unknown,//Ka232 
-//			Keyboard_Unknown,//Ka233 
-//			Keyboard_Unknown,//Ka234 
-//			Keyboard_Unknown,//Ka235 
-//			Keyboard_Unknown,//Ka236 
-//			Keyboard_Unknown,//Ka237 
-//			Keyboard_Unknown,//Ka238 
-//			Keyboard_Unknown,//Ka239 
-//			Keyboard_Unknown,//Ka240 
-//			Keyboard_Unknown,//Ka241 
-//			Keyboard_Unknown,//Ka242 
-//			Keyboard_Unknown,//Ka243 
-//			Keyboard_Unknown,//Ka244 
-//			Keyboard_Unknown,//Ka245 
-//			Keyboard_Unknown,//Ka246 
-//			Keyboard_Unknown,//Ka247 
-//			Keyboard_Unknown,//Ka248 
-//			Keyboard_Unknown,//Ka249 
-//			Keyboard_Unknown,//Ka250 
-//			Keyboard_Unknown,//Ka251 
-//			Keyboard_Unknown,//Ka252 
-//			Keyboard_Unknown,//Ka253 
-//			Keyboard_Unknown,//Ka254 
-//			Keyboard_Unknown//Ka255 
+//			aslib_key_Unknown,//KaPPS0xDD//アプリケーションメニューキーD_DIK_APPS 
+//			aslib_key_Unknown,//Ka222 
+//			aslib_key_Unknown,//Ka223 
+//			aslib_key_Unknown,//Ka224 
+//			aslib_key_Unknown,//Ka225 
+//			aslib_key_Unknown,//Ka226 
+//			aslib_key_Unknown,//Ka227 
+//			aslib_key_Unknown,//Ka228 
+//			aslib_key_Unknown,//Ka229 
+//			aslib_key_Unknown,//Ka230 
+//			aslib_key_Unknown,//Ka231 
+//			aslib_key_Unknown,//Ka232 
+//			aslib_key_Unknown,//Ka233 
+//			aslib_key_Unknown,//Ka234 
+//			aslib_key_Unknown,//Ka235 
+//			aslib_key_Unknown,//Ka236 
+//			aslib_key_Unknown,//Ka237 
+//			aslib_key_Unknown,//Ka238 
+//			aslib_key_Unknown,//Ka239 
+//			aslib_key_Unknown,//Ka240 
+//			aslib_key_Unknown,//Ka241 
+//			aslib_key_Unknown,//Ka242 
+//			aslib_key_Unknown,//Ka243 
+//			aslib_key_Unknown,//Ka244 
+//			aslib_key_Unknown,//Ka245 
+//			aslib_key_Unknown,//Ka246 
+//			aslib_key_Unknown,//Ka247 
+//			aslib_key_Unknown,//Ka248 
+//			aslib_key_Unknown,//Ka249 
+//			aslib_key_Unknown,//Ka250 
+//			aslib_key_Unknown,//Ka251 
+//			aslib_key_Unknown,//Ka252 
+//			aslib_key_Unknown,//Ka253 
+//			aslib_key_Unknown,//Ka254 
+//			aslib_key_Unknown//Ka255 
 //		};
-//		bool AS_key[Keyboard_KeyLast] = { false };
+//		bool AS_key[aslib_key_KeyLast] = { false };
 //
 //		std::array<char,256> DL_key;
 //		DxLib::GetHitKeyStateAll(DL_key.data());

@@ -158,6 +158,9 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //タッチカウント(All) (N)
 #include "AsCounter.hpp"
 
+//
+#include "AsEffect.hpp"
+
 //タッチ系(DL/S3?) (T)
 #include "AsTouch.hpp"
 

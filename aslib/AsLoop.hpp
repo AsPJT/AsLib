@@ -13,6 +13,7 @@ namespace AsLib
 	const bool asLoop()
 	{
 		updateKey();
+		updateTouch();
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return ((DxLib::ProcessMessage() == 0) && (DxLib::ScreenFlip() == 0) && (DxLib::ClearDrawScreen() == 0) && (DxLib::CheckHitKey(KEY_INPUT_ESCAPE) == 0));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D

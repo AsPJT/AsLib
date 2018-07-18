@@ -149,6 +149,7 @@
     <ClInclude Include="AsAsFile.hpp" />
     <ClInclude Include="AsDistance.hpp" />
     <ClInclude Include="AsDL.hpp" />
+    <ClInclude Include="AsEffect.hpp" />
     <ClInclude Include="AsFile.hpp" />
     <ClInclude Include="AsFont.hpp" />
     <ClInclude Include="AsFrameworks.hpp" />
