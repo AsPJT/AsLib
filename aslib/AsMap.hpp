@@ -364,7 +364,7 @@ namespace AsLib
 			for (size_t j = 0; j < size_t(this->s.y); ++j) {
 				for (size_t i = 0; i < size_t(this->s.x); ++i) {
 					a = map_id[a2(this->s.x, i, j)];
-					asRect(PosL4(int32_t(i*size_), int32_t(j*size_), int32_t(size_), int32_t(size_)), Color(a, a, a, a));
+					asRect(PosL4(int32_t(i*size_), int32_t(j*size_), int32_t(size_), int32_t(size_)), Color(uint8_t(a), uint8_t(a), uint8_t(a), uint8_t(a)));
 				}
 			}
 			return *this;
@@ -372,7 +372,7 @@ namespace AsLib
 
 		const worldMap& drawP(const size_t size_, const Pos2& p_) const {
 			const int32_t a = map_id[a2(this->s.x, p_.y, p_.x)];
-			asRect(PosL4(int32_t(p_.x*size_), int32_t(p_.y*size_), int32_t(size_), int32_t(size_)), Color(a, a, a, a));
+			asRect(PosL4(int32_t(p_.x*size_), int32_t(p_.y*size_), int32_t(size_), int32_t(size_)), Color(uint8_t(a), uint8_t(a), uint8_t(a), uint8_t(a)));
 			return *this;
 		}
 	};

@@ -119,7 +119,7 @@ namespace AsLib
 		Pos2 touchPos() const { return this->last_touch; };
 		int32_t wheel() const { return this->mouse.Wheel(); };
 	private:
-		int32_t touch_all_num = 0;
+		size_t touch_all_num = 0;
 		bool is_up_all = false;
 		bool is_down_all = false;
 		Mouse mouse;
@@ -195,8 +195,8 @@ namespace AsLib
 		this->battery.initTouch();
 
 		//タッチされた数を取得
-		const int32_t check_touch_all_num = asTouchNum();
-		int32_t check_touch_mouse_all_num = check_touch_all_num;
+		const size_t check_touch_all_num = asTouchNum();
+		size_t check_touch_mouse_all_num = check_touch_all_num;
 
 		//マウスのタッチを導入
 		if (check_touch_all_num == 0) {

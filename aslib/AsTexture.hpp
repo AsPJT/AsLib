@@ -261,6 +261,11 @@ namespace AsLib
 		bool win_is_fast_forward = false;
 		//早送りを実行するか
 		bool win_is_on_fast_forward = false;
+		//一時早送りを実行するか
+		bool win_is_on_special_fast_forward = false;
+
+		//文字をクリアするか
+		bool win_on_str_clear = true;
 
 		//人物画像を表示するか
 		bool win_is_person = false;
@@ -410,28 +415,64 @@ namespace AsLib
 			}
 			return *this;
 		}
+		TextureWindow& endString() {
+			win_is_str32 = false;
+			win_is_end_str = true;
+			win_is_on_fast_forward = false;
+			win_is_on_special_fast_forward = false;
+			win_is_exit = true;
+			return *this;
+		}
 		TextureWindow& writeString() {
 			if (!win_is_timer || !win_is_str32) return *this;
 
 			do {
-				if (win_in32_str[win_str32_timer] == U'\t') {
-					win_is_str32 = false;
-					win_is_end_str = true;
-					win_is_on_fast_forward = false;
-					++count_sound;
+				switch (win_in32_str[win_str32_timer]) {
+				case U'\0':return this->endString();
+				case U'\\':
+
 					++win_str32_timer;
-					if (win_in32_str[win_str32_timer] == U'\n') ++win_str32_timer;
-					return *this;
+					switch (win_in32_str[win_str32_timer]) {
+					case U'\0':return this->endString();
+					case U'!':
+						win_is_str32 = false;
+						win_is_end_str = true;
+						win_is_on_fast_forward = false;
+						win_is_on_special_fast_forward = false;
+
+						win_on_str_clear = false;
+						++win_str32_timer;
+						break;
+					case U'#':
+						win_is_str32 = false;
+						win_is_end_str = true;
+						win_is_on_fast_forward = false;
+						win_is_on_special_fast_forward = false;
+						++count_sound;
+						++win_str32_timer;
+						if (win_in32_str[win_str32_timer] == U'\n') ++win_str32_timer;
+						return *this;
+					case U'>':
+						++win_str32_timer;
+						win_is_on_special_fast_forward = true;
+						break;
+					case U'<':
+						++win_str32_timer;
+						win_is_on_special_fast_forward = false;
+						break;
+					default:
+						win_out_str += utf8(win_in32_str[win_str32_timer]);
+						++win_str32_timer;
+						break;
+					}
+					break;
+
+				default:
+					win_out_str += utf8(win_in32_str[win_str32_timer]);
+					++win_str32_timer;
+					break;
 				}
-				win_out_str += utf8(win_in32_str[win_str32_timer]);
-				++win_str32_timer;
-				if (win_str32_timer >= win_in32_str.size()) {
-					win_is_str32 = false;
-					win_is_end_str = true;
-					win_is_on_fast_forward = false;
-					win_is_exit = true;
-				}
-			} while (win_is_on_fast_forward);
+			} while (win_is_on_fast_forward || win_is_on_special_fast_forward);
 			return *this;
 		}
 		//終端記号をつける
@@ -507,7 +548,8 @@ namespace AsLib
 			}
 			else win_is_sound = true;
 
-			this->win_out_str = u8"";
+			if(win_on_str_clear) this->win_out_str = u8"";
+			win_on_str_clear = true;
 			win_is_str32 = true;
 			win_is_end_str = true;
 			win_is_end_texture = false;
@@ -518,7 +560,7 @@ namespace AsLib
 		TextureWindow& drawPerson(Texture& t_ ) {
 			if (!win_is_person) return *this;
 
-			t_.draw();
+			t_.draw(PosA4(asWindowSize().x / 2, asWindowSize().y / 2, asWindowSize().y* t_.pixelSize().x / t_.pixelSize().y, asWindowSize().y));
 			return *this;
 		}
 
@@ -653,7 +695,7 @@ namespace AsLib
 		TextureUI& update() {
 			this->initTouch();
 				//タッチされた数を取得
-				const int32_t check_touch_all_num = asTouchNum();
+				const size_t check_touch_all_num = asTouchNum();
 
 				//マウスのタッチを導入
 				const Mouse mouse;

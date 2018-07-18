@@ -21,8 +21,8 @@ namespace AsLib
 
 		const float floatIn() const { return this->in; }
 		const float floatOut() const { return this->out; }
-		const float doubleIn() const { return double(this->in); }
-		const float doubleOut() const { return double(this->out); }
+		const double doubleIn() const { return double(this->in); }
+		const double doubleOut() const { return double(this->out); }
 		const uint8_t uint8_In() const { return uint8_t(this->in*255.0f); }
 		const uint8_t uint8_Out() const { return uint8_t(this->out*255.0f); }
 		const int32_t int32_In() const { return int32_t(this->in*255.0f); }
