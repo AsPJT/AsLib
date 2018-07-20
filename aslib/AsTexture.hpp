@@ -391,11 +391,7 @@ namespace AsLib
 		TextureWindow& printName() { return printName(this->font); }
 
 		const std::string readString(const char* const str_) {
-			std::ifstream ifs(str_);
-			if (ifs.fail()) return std::string(u8"(データを読み込めませんでした)");
-			std::istreambuf_iterator<char> it(ifs);
-			std::istreambuf_iterator<char> last;
-			return std::string(it, last);
+			return asAllRead(str_);
 		}
 		TextureWindow& readSetString32(const char* const str_) { return setString32(this->readString(str_).c_str()); }
 
