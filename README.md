@@ -49,6 +49,7 @@ These codes are licensed under CC0.
 | ウェイト | Stop | × | × | 〇 | ▲ |
 | 変数型 | Type | 〇 | 〇 | 〇 | 〇 |
 | Wi-Fi | WiFi | × | × | ▲ | ▲ |
+| エフェクト | Effect | ▲ | ▲ | ▲ | ▲ |
 | 管理クラス | MainControl | ▲ | ▲ | ▲ | ▲ |
 |  |  |  |  |  |  |
 
