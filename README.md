@@ -50,6 +50,7 @@ These codes are licensed under CC0.
 | 変数型 | Type | 〇 | 〇 | 〇 | 〇 |
 | Wi-Fi | WiFi | × | × | ▲ | ▲ |
 | エフェクト | Effect | ▲ | ▲ | ▲ | ▲ |
+| UTF | UTF | 〇 | 〇 | 〇 | 〇 |
 | 管理クラス | MainControl | ▲ | ▲ | ▲ | ▲ |
 |  |  |  |  |  |  |
 
