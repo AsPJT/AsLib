@@ -53,7 +53,7 @@ These codes are licensed under CC0.
 | UTF | UTF | 〇 | 〇 | 〇 | 〇 |
 | 管理クラス | MainControl | ▲ | ▲ | ▲ | ▲ |
 |  |  |  |  |  |  |
-
+ 
 
 ・ゲームエンジン無し(Console)
 画像・音声出力等は無し。
