@@ -152,6 +152,12 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //基本構造体(All) (N)
 #include "AsPos.hpp"
 
+//スクリーン
+#include "AsScreen.hpp"
+
+//クリップボード
+#include "AsClipboard.hpp"
+
 //基本的な定数宣言(All) (N)
 #include "AsConst.hpp"
 

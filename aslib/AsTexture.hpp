@@ -9,13 +9,6 @@
 
 namespace AsLib
 {
-	struct TexSize2
-	{
-		const OriginatorTexture t;
-		const size_t x;
-		const size_t y;
-		TexSize2(const OriginatorTexture& t_, const size_t x_, const size_t y_) :t(t_), x(x_), y(y_) {}
-	};
 
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 	//画像を分割ロードする
@@ -42,18 +35,18 @@ namespace AsLib
 
 
 	//画像読み込み
-	inline TexSize2 asLoadTexture(const char* const name, const size_t tex_num_x = 1, const size_t tex_num_y = 1)
+	inline OriginatorTexture asLoadTexture(const char* const name, const size_t tex_num_x = 1, const size_t tex_num_y = 1)
 	{
 #if defined(ASLIB_INCLUDE_S3) //Siv3D
-		return TexSize2(s3d::Texture(s3d::Unicode::UTF8ToUTF32(std::string(name))), tex_num_x, tex_num_y);
+		return s3d::Texture(s3d::Unicode::UTF8ToUTF32(name));
 #elif defined(ASLIB_INCLUDE_OF)
 		static OriginatorTexture tex;
 		tex.load(name);
-		return TexSize2(tex, tex_num_x, tex_num_y);
+		return tex;
 #elif defined(ASLIB_INCLUDE_TP)
-		return TexSize2();
+		return 0;
 #else //Console
-		return TexSize2();
+		return 0;
 #endif
 	}
 #endif
@@ -137,7 +130,7 @@ namespace AsLib
 	public:
 		Texture() = default;
 #if defined(ANIME_TEXTURE_1)
-		Texture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_, x_, y_).t), num(x_*y_) 
+		Texture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_, x_, y_)), num(x_*y_) 
 		{
 			//画像サイズ取得
 			asTextureSize(this->id, this->pixel_size);
@@ -147,7 +140,7 @@ namespace AsLib
 		}
 		Texture& operator()(const char* const name_, const size_t x_ = 1, const size_t y_ = 1)
 		{
-			id = asLoadTexture(name_, x_, y_).t;
+			id = asLoadTexture(name_, x_, y_);
 			num = x_ * y_;
 			//画像サイズ取得
 			asTextureSize(this->id, this->pixel_size);
@@ -700,7 +693,7 @@ namespace AsLib
 				//画面のクリック＆リリース
 				Pos2 touch_pos;
 				//タッチのみ
-				for (int32_t i = 0; i < check_touch_all_num; ++i) {
+				for (size_t i = 0; i < check_touch_all_num; ++i) {
 					asTouch(i, touch_pos);
 					//タッチのあたり判定
 					this->touch(touch_pos);
@@ -746,7 +739,7 @@ namespace AsLib
 	{
 #if defined(ANIME_TEXTURE_1)
 		const Pos4 add_pos_(add_pos);
-		asTextureType1(this->id, Pos2(add_pos_.x1, add_pos_.y1), Pos2(add_pos.w, add_pos.h), PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha, r_);
+		asTextureType1(this->id, Pos2(add_pos_.x1, add_pos_.y1), Pos2(int32_t(add_pos.w), int32_t(add_pos.h)), PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha, r_);
 #elif defined(ANIME_TEXTURE_2)
 		asTexture(this->id[anime_size], add_pos,r_, alpha);
 #endif

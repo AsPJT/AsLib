@@ -217,7 +217,7 @@ namespace AsLib
 		Pos2 touch_pos = {};
 
 		//タッチのみ
-		for (int32_t i = 0; i < check_touch_all_num; ++i) {
+		for (size_t i = 0; i < check_touch_all_num; ++i) {
 			asTouch(i, touch_pos);
 
 			//タッチのあたり判定

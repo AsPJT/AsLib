@@ -157,7 +157,7 @@ namespace AsLib
 	inline const bool asFontAt(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const Color& color_, const Rest&... rest)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-		return asFont(id_, format_string, asMiddle(id_, printStringS3(format_string, rest...), pos_), color_, rest...);
+		return asFont(id_, format_string, asMiddle(id_, printStringS3(format_string, rest...).c_str(), pos_), color_, rest...);
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		id_(s3d::Unicode::UTF8ToUTF32(printStringS3(format_string, rest...))).drawAt(double(pos_.x), double(pos_.y), s3d::Color(color_));
 		return true;
@@ -175,9 +175,18 @@ namespace AsLib
 
 	struct FontMainData
 	{
+	private:
+		//フォントデータのID
+		OriginatorFont id;
+		//大きさ
+		int32_t size = 10;
+		//太さ
+		int32_t thick = FONT_THICK;
+		//フォント名
+		std::string fontname = u8"Meiryo UI";
 	public:
-		FontMainData() = default;
-		FontMainData(const int32_t add_size = 10, const char* const str_ = u8"Meiryo UI", const int32_t add_thick = FONT_THICK) :id(asMakeFont(add_size,str_)), size(add_size), thick(add_thick), fontname(std::string(str_)) {}//stdmovea
+		FontMainData(){}
+		FontMainData(const int32_t add_size, const char* const str_ = u8"Meiryo UI", const int32_t add_thick = FONT_THICK) :id(asMakeFont(add_size,str_)), size(add_size), thick(add_thick), fontname(std::string(str_)) {}//stdmovea
 
 		FontMainData& operator()(const int32_t add_size = 10, const char* const str_ = u8"Meiryo UI", const int32_t add_thick = FONT_THICK)
 		{
@@ -188,19 +197,19 @@ namespace AsLib
 			return *this;
 		}
 
-		FontMainData& draw(const char* const, const Pos2&, const Color& = black_RGBA);
+		FontMainData& draw(const char* const format_string, const Pos2& pos_, const Color& color_) { asFont(this->id, format_string, pos_, color_); return *this; }
 		FontMainData& draw(const std::string& string_, const Color& color_ = black_RGBA) { return this->draw(string_.c_str(), color_); }
 		FontMainData& draw(const Color& color_, const std::string& string_) { return this->draw(string_.c_str(), color_); }
 		FontMainData& draw(const Color& color_, const char* const string_) { return this->draw(string_, color_); }
 
-		FontMainData& drawAt(const char* const, const Pos2&, const Color& = black_RGBA);
+		FontMainData& drawAt(const char* const format_string, const Pos2& pos_, const Color& color_) { asFontAt(this->id, format_string, pos_, color_); return *this; }
 		FontMainData& drawAt(const std::string& string_, const Color& color_ = black_RGBA) { return this->drawAt(string_.c_str(), color_); }
 		FontMainData& drawAt(const Color& color_, const std::string& string_) { return this->drawAt(string_.c_str(), color_); }
 		FontMainData& drawAt(const Color& color_, const char* const string_) { return this->drawAt(string_, color_); }
 
 		//書式付き
 		template<typename... Rest>
-		FontMainData& draw(const char* const, const Pos2& pos_, const Color& color_, const Rest&... rest);
+		FontMainData& draw(const char* const format_string, const Pos2& pos_, const Color& color_, const Rest&... rest) { asFont(this->id, format_string, pos_, color_, rest...); return *this; }
 		template<typename... Rest>
 		FontMainData& draw(const Color& color_, const char* const str_, const Rest&... rest) { return this->draw(str_, pos2_0, color_, rest...); }
 		template<typename... Rest>
@@ -210,7 +219,7 @@ namespace AsLib
 
 		//書式付き
 		template<typename... Rest>
-		FontMainData& drawAt(const char* const, const Pos2& pos_, const Color& color_, const Rest&... rest);
+		FontMainData& drawAt(const char* const str_, const Pos2& p_, const Color& c_, const Rest&... rest) { asFontAt(this->id, str_, p_, c_, rest...); return *this; }
 		template<typename... Rest>
 		FontMainData& drawAt(const Color& color_, const char* const str_, const Rest&... rest) { return this->drawAt(str_, pos2_0, color_, rest...); }
 		template<typename... Rest>
@@ -233,68 +242,10 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_OF)
 
 #elif defined(ASLIB_INCLUDE_TP)
-
 #else //Console
-
 #endif
 			return *this;
 		}
-
-	private:
-		//フォントデータのID
-		OriginatorFont id;
-		//大きさ
-		int32_t size = 10;
-		//太さ
-		int32_t thick;
-		//フォント名
-		std::string fontname = {};
 	};
-
-	inline FontMainData& FontMainData::draw(const char* const format_string, const Pos2& pos_, const Color& color_)
-	{
-		asFont(this->id, format_string, pos_, color_);
-		return *this;
-	}
-
-	inline FontMainData& FontMainData::drawAt(const char* const format_string, const Pos2& pos_, const Color& color_)
-	{
-#if defined(ASLIB_INCLUDE_DL) //DxLib
-		asFont(this->id, format_string, asMiddle(this->id, format_string, pos_), color_);
-#elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		asFontAt(this->id, format_string, pos_, color_);
-#elif defined(ASLIB_INCLUDE_OF)
-		asFontAt(this->id, format_string, pos_, color_);
-#elif defined(ASLIB_INCLUDE_TP)
-
-#else //Console
-
-#endif
-		return *this;
-	}
-
-	template<typename... Rest>
-	inline FontMainData& FontMainData::drawAt(const char* const format_string, const Pos2& pos_, const Color& color_, const Rest&... rest)
-	{
-#if defined(ASLIB_INCLUDE_DL) //DxLib
-		asFont(this->id, format_string, asMiddle(this->id, format_string, pos_), color_, rest...);
-#elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		asFontAt(this->id, format_string, pos_, color_, rest...);
-#elif defined(ASLIB_INCLUDE_OF)
-		asFontAt(this->id, format_string, pos_, color_, rest...);
-#elif defined(ASLIB_INCLUDE_TP)
-
-#else //Console
-
-#endif
-		return *this;
-	}
-
-	template<typename... Rest>
-	inline FontMainData& FontMainData::draw(const char* const format_string, const Pos2& pos_, const Color& color_, const Rest&... rest)
-	{
-		asFont(this->id, format_string, pos_, color_, rest...);
-		return *this;
-	}
 
 }

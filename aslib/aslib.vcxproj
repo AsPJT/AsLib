@@ -143,6 +143,7 @@
     <ClInclude Include="AsBattery.hpp" />
     <ClInclude Include="AsCircle.hpp" />
     <ClInclude Include="AsClass.hpp" />
+    <ClInclude Include="AsClipboard.hpp" />
     <ClInclude Include="AsConst.hpp" />
     <ClInclude Include="AsCounter.hpp" />
     <ClInclude Include="AsDef.hpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="AsMouse.hpp" />
     <ClInclude Include="AsRand.hpp" />
     <ClInclude Include="AsRect.hpp" />
+    <ClInclude Include="AsScreen.hpp" />
     <ClInclude Include="AsSNS.hpp" />
     <ClInclude Include="AsSound.hpp" />
     <ClInclude Include="AsStd.hpp" />

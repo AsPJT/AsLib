@@ -22,20 +22,41 @@ namespace AsLib
 	using OriginatorMovie = int;
 	//•¶šŒn
 	using OriginatorFont = int;
+	//”wŒi‰æ‘œŒn
+	using OriginatorScreen = int;
+
+	inline bool checkTexture(const OriginatorTexture& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkImage(const OriginatorImage& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkBGM(const OriginatorBGM& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkSE(const OriginatorSE& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkMovie(const OriginatorMovie& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkFont(const OriginatorFont& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkScreen(const OriginatorScreen& ori_) { return (ori_ == -1) ? false : true; }
+
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 	//•`‰æ‰æ‘œŒn
 	using OriginatorTexture = s3d::Texture;
 	//CPU‰æ‘œŒn
-	using OriginatorImage = int32_t;
+	using OriginatorImage = s3d::Image;
 	//å‰¹ºŒn
 	using OriginatorBGM = s3d::Audio;
 	//•›‰¹ºŒn
-	using OriginatorSE = int32_t;
+	using OriginatorSE = s3d::Audio;
 	//“®‰æŒn
-	using OriginatorMovie = int32_t;
+	using OriginatorMovie = s3d::VideoWriter;
 	//•¶šŒn
 	using OriginatorFont = s3d::Font;
-//#define TEX_INIT asTexture(U"a.png")
+	//”wŒi‰æ‘œŒn
+	using OriginatorScreen = s3d::Texture;
+
+	inline bool checkTexture(const OriginatorTexture& ori_) { return (!ori_) ? false : true; }
+	inline bool checkImage(const OriginatorImage& ori_) { return (!ori_) ? false : true; }
+	inline bool checkBGM(const OriginatorBGM& ori_) { return (!ori_) ? false : true; }
+	inline bool checkSE(const OriginatorSE& ori_) { return (!ori_) ? false : true; }
+	inline bool checkMovie(const OriginatorMovie& ori_) { return (!ori_) ? false : true; }
+	inline bool checkFont(const OriginatorFont& ori_) { return (!ori_) ? false : true; }
+	inline bool checkScreen(const OriginatorScreen& ori_) { return (!ori_) ? false : true; }
+
 #elif defined(ASLIB_INCLUDE_OF)
 	//•`‰æ‰æ‘œŒn
 	using OriginatorTexture = ofImage;
@@ -49,6 +70,8 @@ namespace AsLib
 	using OriginatorMovie = int32_t;
 	//•¶šŒn
 	using OriginatorFont = ofTrueTypeFont;
+	//”wŒi‰æ‘œŒn
+	using OriginatorScreen = int32_t;
 #elif defined(ASLIB_INCLUDE_TP)
 	//•`‰æ‰æ‘œŒn
 	using OriginatorTexture = int32_t;
@@ -62,6 +85,17 @@ namespace AsLib
 	using OriginatorMovie = int32_t;
 	//•¶šŒn
 	using OriginatorFont = int32_t;
+	//”wŒi‰æ‘œŒn
+	using OriginatorScreen = int32_t;
+
+	inline bool checkTexture(const OriginatorTexture& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkImage(const OriginatorImage& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkBGM(const OriginatorBGM& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkSE(const OriginatorSE& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkMovie(const OriginatorMovie& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkFont(const OriginatorFont& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkScreen(const OriginatorScreen& ori_) { return (ori_ == -1) ? false : true; }
+
 #else //Console
 	//•`‰æ‰æ‘œŒn
 	using OriginatorTexture = int32_t;
@@ -75,5 +109,16 @@ namespace AsLib
 	using OriginatorMovie = int32_t;
 	//•¶šŒn
 	using OriginatorFont = int32_t;
+	//”wŒi‰æ‘œŒn
+	using OriginatorScreen = int32_t;
+
+	inline bool checkTexture(const OriginatorTexture& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkImage(const OriginatorImage& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkBGM(const OriginatorBGM& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkSE(const OriginatorSE& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkMovie(const OriginatorMovie& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkFont(const OriginatorFont& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkScreen(const OriginatorScreen& ori_) { return (ori_ == -1) ? false : true; }
+
 #endif
 }
