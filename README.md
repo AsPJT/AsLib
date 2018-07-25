@@ -49,9 +49,11 @@ These codes are licensed under CC0.
 | ウェイト | Stop | × | × | 〇 | ▲ |
 | 変数型 | Type | 〇 | 〇 | 〇 | 〇 |
 | Wi-Fi | WiFi | × | × | ▲ | ▲ |
+| エフェクト | Effect | ▲ | ▲ | ▲ | ▲ |
+| UTF | UTF | 〇 | 〇 | 〇 | 〇 |
 | 管理クラス | MainControl | ▲ | ▲ | ▲ | ▲ |
 |  |  |  |  |  |  |
-
+ 
 
 ・ゲームエンジン無し(Console)
 画像・音声出力等は無し。
@@ -60,7 +62,7 @@ These codes are licensed under CC0.
 現在のバージョンでは初歩的な動作のみ対応済み。
 
 ・ＤＸライブラリ
-現在のバージョンでは基本的な動作のみ対応済み。
+現在のバージョンでは応用的な動作に対応。
 
 ・OpenSiv3D
 現在のバージョンでは基本的な動作のみ対応済み。
