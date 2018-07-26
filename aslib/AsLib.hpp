@@ -215,9 +215,6 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //会話関連
 #include "AsTolk.hpp"
 
-//主要クラス(All) (N)
-#include "AsClass.hpp"
-
 //メインループ(DL/S3/NO) (T)
 #include "AsLoop.hpp"
 
@@ -250,18 +247,6 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 
 //メイン管理 (N)
 #include "AsMainControl.hpp"
-
-//MainControl関連----------------------------------------
-
-//タイトルロゴのシーンチェンジ関連(MC-All) (N)
-#include "AsMC_LogoDraw.hpp"
-
-//管理クラス乱数(MC-All) (N)
-#include "AsMC_Rand.hpp"
-
-//ポジション(MC-All) (N)
-#include "AsMC_Pos.hpp"
-
 
 //共存ライブラリ----------------------------------------
 

@@ -203,6 +203,8 @@ namespace AsLib
 		std::vector<Texture*> list_texture{};
 		//音
 		std::string sound;
+		//文章
+		std::string str;
 
 		WindowEvent(std::vector<std::string>& name_) :list_name(name_) {}
 		WindowEvent(std::vector<std::string>& name_, std::vector<Texture*>& t_) :list_name(name_), list_texture(t_) {}

@@ -274,6 +274,8 @@ namespace AsLib
 	//初期化
 	const int32_t AsInit(const Pos2& window_size = WINDOW_SIZE, const ColorRGB& BG_color = BG_COLOR)
 	{
+		asSRand8(uint8_t(std::time(nullptr) & 0xff));
+		asSRand32(uint32_t(std::time(nullptr) & 0xffffffff));
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		if (DxLib::SetOutApplicationLogValidFlag(FALSE) == -1) return -1;
 		if (DxLib::SetChangeScreenModeGraphicsSystemResetFlag(FALSE) == -1) return -1;
@@ -331,6 +333,7 @@ namespace AsLib
 			0xffffffff) == -1) return -1;
 
 		DxLib::SetUseDirectInputFlag(TRUE);
+		DxLib::SetDragFileValidFlag(1);
 #endif
 		if (DxLib::SetUseASyncLoadFlag(FALSE) == -1) return -1;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D

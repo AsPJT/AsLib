@@ -153,59 +153,48 @@ int32_t asMain()
 	//ä«óùÉNÉâÉX
 	MainControl mc(u8"Simple Counter", Pos2(1000, 1000), BG_COLOR);
 	makeLog();
-	AnimeMainData feri(1, asLoadTex("Picture/ikari.png", 6, 4));
+	Texture feri("Picture/ikari.png", 6, 4);
 
-	Pos2 te(10,10);
-	Pos2 te2 = (-te + Pos2(5, 5) + Pos2(10, 10) + Pos4(10, 10, 10, 10));
-	asPrint("%d,%d\n", te.x, te.y);
-	te -= te2;
-	te = Pos2(asWindowSizeF());
-	//te ^ 1;
-	asPrint("%d,%d,%d,%d", te.x, te.y,te2.x,te2.y);
-
-	//size_t dir_id = MOB_DOWN;
-	//size_t move_id = MOB_STOP;
-	//size_t count = 0;
-
+	size_t dir_id = MOB_DOWN;
+	size_t move_id = MOB_STOP;
+	size_t count = 0;
 	while (asLoop())
 	{
-		updateKey();
 
-		
+		constexpr Pos2 w_pos2(64, 32);
+		static worldMap w(w_pos2);
+		static bool is_w = true;
 
-		//constexpr Pos2 w_pos2(64, 32);
-		//static worldMap w(w_pos2);
-		//static bool is_w = true;
-		//if (is_w) { w.rand().randC(100); is_w = false; }
+		if (is_w) { w.rand().randC(100); is_w = false; }
 
-		//constexpr PosA4F pl2(7.5f, 8.5f, 1.0f, 1.0f);
-		//static PosA4F pl(5.5f, 5.5f, 1.0f, 1.0f);
-		//constexpr PosA4F map_p(0.0f, 0.0f, 5.0f, 10.0f);
-		//static MapView mv(map_p, 'y');
+		constexpr PosA4F pl2(7.5f, 8.5f, 1.0f, 1.0f);
+		static PosA4F pl(5.5f, 5.5f, 1.0f, 1.0f);
+		constexpr PosA4F map_p(0.0f, 0.0f, 5.0f, 10.0f);
+		static MapView mv(map_p, 'y');
 
-		//pl.y += mouseWheel();
-		//
-		//constexpr float fps = 1.0f;
-		//if (moveMobCross(fps, pl)) {
-		//	mobMoveSet(move_id, count);
-		//}
-		//else move_id = MOB_STOP;
+		pl.y += mouseWheel();
+
+		constexpr float fps = 1.0f;
+		if (moveMobCross(fps, pl)) {
+			mobMoveSet(move_id, count);
+		}
+		else move_id = MOB_STOP;
 
 
-		//if (asKey(Keyboard_UpArrow)) dir_id = MOB_UP;
-		//else if (asKey(Keyboard_DownArrow)) dir_id = MOB_DOWN;
-		//else if (asKey(Keyboard_LeftArrow)) dir_id = MOB_LEFT;
-		//else if (asKey(Keyboard_RightArrow)) dir_id = MOB_RIGHT;
+		if (asKeyUp()) dir_id = MOB_UP;
+		else if (asKeyDown()) dir_id = MOB_DOWN;
+		else if (asKeyLeft()) dir_id = MOB_LEFT;
+		else if (asKeyRight()) dir_id = MOB_RIGHT;
 
-		//mv.setMob(pl, w_pos2);
-		//mv.draw(&w.col[0], w_pos2);
+		mv.setMob(pl, w_pos2);
+		mv.draw(&w.col[0], w_pos2);
 
-		//mv.draw(pl2, w_pos2, ColorRGBA(0, 255, 0, 255));
-		//mv.draw(PosA4F(5.5f, 5.5f, 1.0f, 1.0f), w_pos2, ColorRGBA(0, 205, 50, 255));
-		//mv.draw(PosA4F(0.5f, 0.5f, 1.0f, 1.0f), w_pos2, ColorRGBA(0, 255, 0, 255));
-		//mv.draw(pl, w_pos2, feri, mobMoveDirect(dir_id, move_id));
+		mv.draw(pl2, w_pos2, Color(0, 255, 0, 255));
+		mv.draw(PosA4F(5.5f, 5.5f, 1.0f, 1.0f), w_pos2, Color(0, 205, 50, 255));
+		mv.draw(PosA4F(0.5f, 0.5f, 1.0f, 1.0f), w_pos2, Color(0, 255, 0, 255));
+		mv.draw(pl, w_pos2, feri, mobMoveDirect(dir_id, move_id));
 
-}
+	}
 
 	return 0;
 }

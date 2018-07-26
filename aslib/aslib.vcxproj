@@ -137,12 +137,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="window.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="AsBattery.hpp" />
     <ClInclude Include="AsCircle.hpp" />
-    <ClInclude Include="AsClass.hpp" />
     <ClInclude Include="AsClipboard.hpp" />
     <ClInclude Include="AsConst.hpp" />
     <ClInclude Include="AsCounter.hpp" />
@@ -162,10 +158,7 @@
     <ClInclude Include="AsLoop.hpp" />
     <ClInclude Include="AsMainControl.hpp" />
     <ClInclude Include="AsMap.hpp" />
-    <ClInclude Include="AsMC_LogoDraw.hpp" />
     <ClInclude Include="AsColor.hpp" />
-    <ClInclude Include="AsMC_Pos.hpp" />
-    <ClInclude Include="AsMC_Rand.hpp" />
     <ClInclude Include="AsMouse.hpp" />
     <ClInclude Include="AsRand.hpp" />
     <ClInclude Include="AsRect.hpp" />
@@ -190,6 +183,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="rl.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
