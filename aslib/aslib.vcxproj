@@ -176,6 +176,7 @@
     <ClInclude Include="AsStop.hpp" />
     <ClInclude Include="AsPos.hpp" />
     <ClInclude Include="AsTexture.hpp" />
+    <ClInclude Include="AsTolk.hpp" />
     <ClInclude Include="AsTouch.hpp" />
     <ClInclude Include="AsType.hpp" />
     <ClInclude Include="AsUTF.hpp" />

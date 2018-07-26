@@ -166,6 +166,7 @@ namespace AsLib
 		constexpr Pos4(const pos_int x_, const pos_int y_, const pos_int l_) :x1(x_), y1(y_), x2(x_ + l_), y2(y_ + l_) {};
 		constexpr Pos4(const pos_int x1_, const pos_int y1_, const pos_int x2_, const pos_int y2_) :x1(x1_), y1(y1_), x2(x2_), y2(y2_) {};
 		constexpr Pos4(const Pos2&);
+		constexpr Pos4(const Pos2&, const Pos2&);
 		constexpr Pos4(const Pos4&);
 		constexpr Pos4(const PosL4&);
 		constexpr Pos4(const PosA4&);
@@ -646,8 +647,8 @@ namespace AsLib
 
 		const Pos4F& operator()(Pos4F* const p_) const { *p_ = *this; return *this; }
 
-		const Pos4 ratio();
-		const Pos4 ratio(const Pos2F p_);
+		const PosL4 ratio();
+		const PosL4 ratio(const Pos2F p_);
 	};
 
 
@@ -896,6 +897,7 @@ namespace AsLib
 	inline constexpr Pos2::Pos2(const Pos8F& pos_) : x(pos_int(pos_.x1)), y(pos_int(pos_.y1)) {}
 	//Pos4
 	inline constexpr Pos4::Pos4(const Pos2& pos_) : x1(0), y1(0), x2(pos_.x), y2(pos_.y) {}
+	inline constexpr Pos4::Pos4(const Pos2& p1_, const Pos2& p2_) : x1(p1_.x), y1(p1_.y), x2(p2_.x), y2(p2_.y) {}//2_2
 	inline constexpr Pos4::Pos4(const Pos4& pos_) : x1(pos_.x1), y1(pos_.y1), x2(pos_.x2), y2(pos_.y2) {}
 	inline constexpr Pos4::Pos4(const PosL4& pos_) : x1(pos_.x), y1(pos_.y), x2(pos_.x + pos_.w), y2(pos_.y + pos_.h) {}
 	inline constexpr Pos4::Pos4(const PosA4& pos_) : x1(pos_.x - (pos_.w / 2)), y1(pos_.y - (pos_.h / 2)), x2(pos_.x + (pos_.w / 2)), y2(pos_.y + (pos_.h / 2)) {}
@@ -1389,4 +1391,71 @@ namespace AsLib
 	inline void asRand(std::vector<Pos8>& array_) { const size_t s = array_.size(); for (size_t i = 0; i < s; ++i) asRand(array_[i]); }
 	inline void asRand(Pos8F* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i]); }
 	inline void asRand(std::vector<Pos8F>& array_) { const size_t s = array_.size(); for (size_t i = 0; i < s; ++i) asRand(array_[i]); }
+
+	constexpr Pos2 aslib_full_screen(-1, -1);
+	const Pos2 asPlatformPos(const Pos2& p1_, const Pos2& p2_) {
+		switch (aslib_platform)
+		{
+		case aslib_platform_pc:return p1_;
+		case aslib_platform_sp:return p2_;
+		}
+		return aslib_full_screen;
+	}
+
+	struct Pos2A2 {
+		Pos2 p1{};
+		Pos2 p2{};
+		Pos2A2() = default;
+		constexpr Pos2A2(const Pos2A2& p_) :p1(p_.p1), p2(p_.p2) {}
+		constexpr Pos2A2(const Pos2& p_) :p1(p_), p2(p_) {}
+		constexpr Pos2A2(const Pos2& p1_, const Pos2& p2_) :p1(p1_), p2(p2_) {}
+		Pos2A2& operator()(const Pos2A2& p_) { this->p1 = p_.p1; this->p2 = p_.p2; return *this; }
+		Pos2A2& operator()(const Pos2& p_) { this->p1 = p_; this->p2 = p_; return *this; }
+		Pos2A2& operator()(const Pos2& p1_,Pos2& p2_) { this->p1 = p1_; this->p2 = p2_; return *this; }
+	};
+	struct Pos4A2 {
+		Pos4 p1{};
+		Pos4 p2{};
+		Pos4A2() = default;
+		constexpr Pos4A2(const Pos4A2& p_) :p1(p_.p1), p2(p_.p2) {}
+		constexpr Pos4A2(const Pos4& p_) : p1(p_), p2(p_) {}
+		constexpr Pos4A2(const Pos4& p1_, const Pos4& p2_) : p1(p1_), p2(p2_) {}
+		Pos4A2& operator()(const Pos4A2& p_) { this->p1 = p_.p1; this->p2 = p_.p2; return *this; }
+		Pos4A2& operator()(const Pos4& p_) { this->p1 = p_; this->p2 = p_; return *this; }
+		Pos4A2& operator()(const Pos4& p1_, Pos4& p2_) { this->p1 = p1_; this->p2 = p2_; return *this; }
+	};
+	struct PosL4A2 {
+		PosL4 p1{};
+		PosL4 p2{};
+		PosL4A2() = default;
+		constexpr PosL4A2(const PosL4A2& p_) :p1(p_.p1), p2(p_.p2) {}
+		constexpr PosL4A2(const PosL4& p_) : p1(p_), p2(p_) {}
+		constexpr PosL4A2(const PosL4& p1_, const PosL4& p2_) : p1(p1_), p2(p2_) {}
+		PosL4A2& operator()(const PosL4A2& p_) { this->p1 = p_.p1; this->p2 = p_.p2; return *this; }
+		PosL4A2& operator()(const PosL4& p_) { this->p1 = p_; this->p2 = p_; return *this; }
+		PosL4A2& operator()(const PosL4& p1_, PosL4& p2_) { this->p1 = p1_; this->p2 = p2_; return *this; }
+	};
+	struct PosA4A2 {
+		PosA4 p1{};
+		PosA4 p2{};
+		PosA4A2() = default;
+		constexpr PosA4A2(const PosA4A2& p_) :p1(p_.p1), p2(p_.p2) {}
+		constexpr PosA4A2(const PosA4& p_) : p1(p_), p2(p_) {}
+		constexpr PosA4A2(const PosA4& p1_, const PosA4& p2_) : p1(p1_), p2(p2_) {}
+		PosA4A2& operator()(const PosA4A2& p_) { this->p1 = p_.p1; this->p2 = p_.p2; return *this; }
+		PosA4A2& operator()(const PosA4& p_) { this->p1 = p_; this->p2 = p_; return *this; }
+		PosA4A2& operator()(const PosA4& p1_, PosA4& p2_) { this->p1 = p1_; this->p2 = p2_; return *this; }
+	};
+	struct Pos8A2 {
+		Pos8 p1{};
+		Pos8 p2{};
+		Pos8A2() = default;
+		constexpr Pos8A2(const Pos8A2& p_) :p1(p_.p1), p2(p_.p2) {}
+		constexpr Pos8A2(const Pos8& p_) : p1(p_), p2(p_) {}
+		constexpr Pos8A2(const Pos8& p1_, const Pos8& p2_) : p1(p1_), p2(p2_) {}
+		Pos8A2& operator()(const Pos8A2& p_) { this->p1 = p_.p1; this->p2 = p_.p2; return *this; }
+		Pos8A2& operator()(const Pos8& p_) { this->p1 = p_; this->p2 = p_; return *this; }
+		Pos8A2& operator()(const Pos8& p1_, Pos8& p2_) { this->p1 = p1_; this->p2 = p2_; return *this; }
+	};
+
 }

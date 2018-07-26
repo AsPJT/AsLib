@@ -196,6 +196,19 @@ namespace AsLib
 		const Pos2 pixelSize() const { return this->pixel_size; };
 	};
 
+	struct WindowEvent {
+		//名前
+		std::vector<std::string> list_name{};
+		//画像
+		std::vector<Texture*> list_texture{};
+		//音
+		std::string sound;
+
+		WindowEvent(std::vector<std::string>& name_) :list_name(name_) {}
+		WindowEvent(std::vector<std::string>& name_, std::vector<Texture*>& t_) :list_name(name_), list_texture(t_) {}
+
+	};
+
 	//ウィンドウ専用
 	struct TextureWindow :public Texture {
 	private:
@@ -211,8 +224,8 @@ namespace AsLib
 		int32_t win_timer = 0;
 		bool win_is_timer = false;
 
-		std::u32string win_in32_str{};
-		size_t win_str32_timer = 0;
+		std::u32string in32_str{};
+		size_t str32_timer = 0;
 		bool win_is_str32 = false;
 
 		bool win_is_end_timer = false;
@@ -240,7 +253,7 @@ namespace AsLib
 		std::string win_out_str{};
 
 		//ウィンドウ内の最大行数
-		int32_t number_of_lines = 4;
+		int32_t number_of_lines = 5;
 
 		//ウィンドウのデフォルトサイズ
 		Pos4 win_pos_default{};
@@ -261,10 +274,17 @@ namespace AsLib
 		bool win_on_str_clear = true;
 
 		//人物画像を表示するか
+		Texture* person_texture = nullptr;
 		bool win_is_person = false;
 		Effect person_effect;
-		
 
+		Texture* end_anime = nullptr;
+		
+		int32_t update_count = 0;
+		int32_t update_end_count = 0;
+
+		//名前リスト
+		WindowEvent* window_event = nullptr;
 
 	public:
 #if defined(ANIME_TEXTURE_1)
@@ -272,6 +292,11 @@ namespace AsLib
 #elif defined(ANIME_TEXTURE_2)
 		TextureWindow(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) : Texture(name_, x_, y_), font(30) {}
 #endif
+
+		TextureWindow& setWindowEvent(WindowEvent& is_) {
+			window_event = &is_;
+			return *this;
+		}
 		TextureWindow& setPerson(const bool is_) {
 			win_is_person = is_;
 			return *this;
@@ -357,7 +382,7 @@ namespace AsLib
 			win_timer = 0;
 			win_is_timer = false;
 
-			win_str32_timer = 0;
+			str32_timer = 0;
 			count_sound = 0;
 			win_is_sound = true;
 
@@ -372,7 +397,7 @@ namespace AsLib
 		TextureWindow& initWindow(const bool is_init_) { return (is_init_) ? this->initWindow() : *this; }
 		TextureWindow& setString32(const char* const str8_) {
 			if (str8_ == nullptr) return *this;
-			win_in32_str = utf32(str8_);
+			in32_str = utf32(str8_);
 			win_is_str32 = true;
 			return this->initWindow();
 		}
@@ -404,6 +429,8 @@ namespace AsLib
 			}
 			return *this;
 		}
+		TextureWindow& update() { return this->update(this->update_count); return *this; }
+		TextureWindow& setUpdate(const int32_t var_) { this->update_count = var_; return *this; }
 		TextureWindow& endString() {
 			win_is_str32 = false;
 			win_is_end_str = true;
@@ -415,14 +442,35 @@ namespace AsLib
 		TextureWindow& writeString() {
 			if (!win_is_timer || !win_is_str32) return *this;
 
+			enum :size_t {
+				aslib_string_number_empty,
+				aslib_string_number_player_name,
+			};
+
+			static size_t string_number = 0;
+			static bool is_string_number = false;
+			static size_t string_number_id = aslib_string_number_empty;
+
 			do {
-				switch (win_in32_str[win_str32_timer]) {
+				switch (in32_str[str32_timer]) {
 				case U'\0':return this->endString();
 				case U'\\':
-
-					++win_str32_timer;
-					switch (win_in32_str[win_str32_timer]) {
+					++str32_timer;
+					switch (in32_str[str32_timer]) {
 					case U'\0':return this->endString();
+					case U'p':
+						++str32_timer;
+						is_string_number = true;
+						string_number_id = aslib_string_number_player_name;
+						break;
+					case u'^':
+						win_is_str32 = false;
+						win_is_end_str = true;
+						win_is_on_fast_forward = false;
+						win_is_on_special_fast_forward = false;
+						++count_sound;
+						do { ++str32_timer; } while (in32_str[str32_timer] == U'\n' || in32_str[str32_timer] == U'\r');
+						return 	this->next(true);;
 					case U'!':
 						win_is_str32 = false;
 						win_is_end_str = true;
@@ -430,7 +478,7 @@ namespace AsLib
 						win_is_on_special_fast_forward = false;
 
 						win_on_str_clear = false;
-						++win_str32_timer;
+						++str32_timer;
 						break;
 					case U'#':
 						win_is_str32 = false;
@@ -438,27 +486,63 @@ namespace AsLib
 						win_is_on_fast_forward = false;
 						win_is_on_special_fast_forward = false;
 						++count_sound;
-						++win_str32_timer;
-						if (win_in32_str[win_str32_timer] == U'\n') ++win_str32_timer;
+						do { ++str32_timer; } while (in32_str[str32_timer] == U'\n' || in32_str[str32_timer] == U'\r');
 						return *this;
 					case U'>':
-						++win_str32_timer;
+						++str32_timer;
 						win_is_on_special_fast_forward = true;
 						break;
 					case U'<':
-						++win_str32_timer;
+						++str32_timer;
 						win_is_on_special_fast_forward = false;
 						break;
 					default:
-						win_out_str += utf8(win_in32_str[win_str32_timer]);
-						++win_str32_timer;
+						win_out_str += utf8(in32_str[str32_timer]);
+						++str32_timer;
 						break;
 					}
 					break;
 
+				case U'[':
+					if (is_string_number) {
+						string_number = 0;
+
+						do {
+							++str32_timer;
+							switch (in32_str[str32_timer])
+							{//todo
+							case U'0':if (string_number != 0) string_number *= 10; string_number += 0; break;
+							case U'1':if (string_number != 0) string_number *= 10; string_number += 1; break;
+							case U'2':if (string_number != 0) string_number *= 10; string_number += 2; break;
+							case U'3':if (string_number != 0) string_number *= 10; string_number += 3; break;
+							case U'4':if (string_number != 0) string_number *= 10; string_number += 4; break;
+							case U'5':if (string_number != 0) string_number *= 10; string_number += 5; break;
+							case U'6':if (string_number != 0) string_number *= 10; string_number += 6; break;
+							case U'7':if (string_number != 0) string_number *= 10; string_number += 7; break;
+							case U'8':if (string_number != 0) string_number *= 10; string_number += 8; break;
+							case U'9':if (string_number != 0) string_number *= 10; string_number += 9; break;
+							}
+						} while (in32_str[str32_timer] != U']');
+						++str32_timer;
+
+						switch (string_number_id)
+						{
+						case aslib_string_number_player_name:
+							if (window_event == nullptr) break;
+							if(window_event->list_name.size() > string_number) this->setName(window_event->list_name[string_number].c_str());
+							if (window_event->list_texture.size() > string_number) this->setPerson(*window_event->list_texture[string_number]);
+							break;
+						}
+
+						is_string_number = false;
+						string_number = 0;
+						string_number_id = aslib_string_number_empty;
+
+						break;
+					}
 				default:
-					win_out_str += utf8(win_in32_str[win_str32_timer]);
-					++win_str32_timer;
+					win_out_str += utf8(in32_str[str32_timer]);
+					++str32_timer;
 					break;
 				}
 			} while (win_is_on_fast_forward || win_is_on_special_fast_forward);
@@ -483,6 +567,8 @@ namespace AsLib
 			}
 			return *this;
 		}
+		TextureWindow& updateEnd() { return this->updateEnd(this->update_end_count); return *this; }
+		TextureWindow& setUpdateEnd(const int32_t var_) { this->update_end_count = var_; return *this; }
 		TextureWindow& writeEndString(const char* const end_str_) {
 			if (!win_is_end_timer || win_is_str32) return *this;
 			const size_t str_count = strlen(end_str_);
@@ -517,6 +603,8 @@ namespace AsLib
 		TextureWindow& drawEndAnime(Texture& texture_) {
 			return drawEndAnime(texture_, Pos2(this->win_size_pos.h/2, this->win_size_pos.h/2));
 		}
+		TextureWindow& drawEndAnime() { return (end_anime == nullptr) ? *this : this->drawEndAnime(*end_anime); }
+		TextureWindow& setEndAnime(Texture& texture_) { this->end_anime = &texture_; return *this; }
 		TextureWindow& printString(FontMainData& font_, const Color& color_ = { 255,255,255,255 }) {
 			font_.draw(win_out_str.c_str(), this->win_pos, color_);
 			return *this;
@@ -552,6 +640,8 @@ namespace AsLib
 			t_.draw(PosA4(asWindowSize().x / 2, asWindowSize().y / 2, asWindowSize().y* t_.pixelSize().x / t_.pixelSize().y, asWindowSize().y));
 			return *this;
 		}
+		TextureWindow& drawPerson() { return (person_texture == nullptr) ? *this : this->drawPerson(*person_texture); }
+		TextureWindow& setPerson(Texture& t_) { this->person_texture = &t_; return *this; }
 
 
 	};

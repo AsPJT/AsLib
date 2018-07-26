@@ -23,6 +23,12 @@ const char* const ASLIB_VERSION_STR8 = u8"0.2.1.0 Alpha";
 const char16_t* const ASLIB_VERSION_STR16 = u"0.2.1.0 Alpha";
 const char32_t* const ASLIB_VERSION_STR32 = U"0.2.1.0 Alpha";
 
+enum:size_t{
+	aslib_platform_empty,
+	aslib_platform_pc,
+	aslib_platform_sp,
+};
+
 int32_t asMain();
 namespace AsLib { const int32_t asEnd(); }
 //他ライブラリインクルード
@@ -56,6 +62,7 @@ int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int 
 #if !defined(AS_PLATFORM_WINDOWS)
 #define AS_PLATFORM_WINDOWS
 #endif
+constexpr size_t aslib_platform = aslib_platform_pc;
 #if !defined(AS_PLATFORM_PC)
 #define AS_PLATFORM_PC
 #endif
@@ -80,6 +87,7 @@ int android_main() { const int i = int(asMain()); AsLib::asEnd(); return i; }
 #if !defined(AS_PLATFORM_ANDROID)
 #define AS_PLATFORM_ANDROID
 #endif
+constexpr size_t aslib_platform = aslib_platform_sp;
 #if !defined(AS_PLATFORM_SP)
 #define AS_PLATFORM_SP
 #endif
@@ -96,11 +104,13 @@ int android_main() { const int i = int(asMain()); AsLib::asEnd(); return i; }
 #define ANIME_TEXTURE_1
 #endif
 #if defined(SIV3D_TARGET_WINDOWS)
+	constexpr size_t aslib_platform = aslib_platform_pc;
 #include <Windows.h>
 #endif
 void Main() { asMain(); AsLib::asEnd(); return; }
 
 #elif defined(ASLIB_INCLUDE_NO)
+	constexpr size_t aslib_platform = aslib_platform_empty;
 int main() { return int(asMain() && AsLib::asEnd()); }
 #define ANIME_TEXTURE_3
 #elif defined(ASLIB_INCLUDE_OF)
@@ -108,12 +118,14 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 int main() { return int(asMain()); }
 #define ANIME_TEXTURE_1
 #elif defined(ASLIB_INCLUDE_TP)
+	constexpr size_t aslib_platform = aslib_platform_empty;
 int main() { return int(asMain()); }
 #define ANIME_TEXTURE_3
 #else
 #if !defined(ASLIB_INCLUDE_NO)
 #define ASLIB_INCLUDE_NO
 #endif
+	constexpr size_t aslib_platform = aslib_platform_empty;
 int main() { return int(asMain() && AsLib::asEnd()); }
 #define ANIME_TEXTURE_3
 #endif
@@ -199,6 +211,9 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 
 //テクスチャ
 #include "AsTexture.hpp"
+
+//会話関連
+#include "AsTolk.hpp"
 
 //主要クラス(All) (N)
 #include "AsClass.hpp"
