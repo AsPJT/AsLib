@@ -62,6 +62,20 @@ namespace AsLib
 #endif
 	}
 
+	const Pos2 updateTouchPos(const bool is_push = false,const Pos2& p_ = { -1,-1 }) {
+		static Pos2 aslib_end_num_pos{};
+		return (is_push) ? aslib_end_num_pos = p_ : aslib_end_num_pos;
+	}
+
+	inline const Pos2 asTouchEndPos() { return updateTouchPos(false); }
+
+	void updateTouch() {
+		static size_t aslib_num = 0;
+
+		const size_t num = asTouchNum();
+		if (aslib_num != num && num != 0) updateTouchPos(true, asTouch(num - 1));
+	}
+
 	const bool updateTouch_(const bool is_down_, const bool is_up_ = false) {
 		static size_t aslib_touch_num = 0;
 		const size_t num = asTouchNum();
@@ -75,12 +89,12 @@ namespace AsLib
 		return is_true;
 	}
 
-	inline const bool asIsTouch() { return (asTouchNum() == 0) ? false : true; }
-	inline const bool asIsTouchUp() { return updateTouch_(false, true); }
-	inline const bool asIsTouchDown() { return updateTouch_(true, false); }
+	inline const bool asTouch() { return (asTouchNum() == 0) ? false : true; }
+	inline const bool asTouchUp() { return updateTouch_(false, true); }
+	inline const bool asTouchDown() { return updateTouch_(true, false); }
 
-	inline void updateTouch() {
+	const Pos2 asTouchUpPos() { return updateTouch_(false, true); }
 
-	}
+
 
 }

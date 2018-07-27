@@ -12,6 +12,7 @@ namespace AsLib
 
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 
+#if defined(__WINDOWS__)
 	inline void asClipboard(const char* const str_) { DxLib::SetClipboardText(str_); }
 	inline void asClipboard(const std::string str_) { asClipboard(str_.c_str()); }
 
@@ -32,6 +33,7 @@ namespace AsLib
 		DxLib::DragFileInfoClear();
 		return std::string(ptr.get());
 	}
+#endif
 
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 
