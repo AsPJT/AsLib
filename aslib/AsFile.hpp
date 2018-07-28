@@ -67,8 +67,6 @@ namespace AsLib
 		const std::string fp_name = std::string(FilePath) + u8"\\" + std::string(file_name);
 		cfp_fp = fopen(fp_name.c_str(), "rb");
 
-		DxLib::printfDx("Old:%s\n", fp_name.c_str());
-
 		if (cfp_fp == nullptr) return -1;
 
 		fread(read_buf, read_size, read_nmemb, cfp_fp);

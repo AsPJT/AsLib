@@ -143,7 +143,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="rl.cpp">
+    <ClCompile Include="window.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
