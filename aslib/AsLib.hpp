@@ -114,6 +114,7 @@ void Main() { asMain(); AsLib::asEnd(); return; }
 int main() { return int(asMain() && AsLib::asEnd()); }
 #define ANIME_TEXTURE_3
 #elif defined(ASLIB_INCLUDE_OF)
+	constexpr size_t aslib_platform = aslib_platform_pc;
 #include <ofMain.h>
 int main() { return int(asMain()); }
 #define ANIME_TEXTURE_1
@@ -214,6 +215,9 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 
 //会話関連
 #include "AsTolk.hpp"
+
+//インベントリ
+#include "AsInventory.hpp"
 
 //メインループ(DL/S3/NO) (T)
 #include "AsLoop.hpp"

@@ -119,7 +119,7 @@ namespace AsLib
 
 	public:
 #if defined(ANIME_TEXTURE_1)
-		MessageWindow(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) : Texture(name_, x_, y_), font(30) {}
+		MessageWindow(Texture& t_) : main_window(&t_) {}
 #elif defined(ANIME_TEXTURE_2)
 		MessageWindow(Texture& t_) : main_window(&t_) {}
 #endif

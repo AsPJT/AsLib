@@ -126,6 +126,9 @@
     <ClInclude Include="AsTolk.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="AsInventory.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc">
@@ -143,7 +146,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="window.cpp">
+    <ClCompile Include="rl.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

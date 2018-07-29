@@ -67,7 +67,7 @@ const size_t mobMoveDirect(const size_t mob_direct_id,const size_t mob_move_id)
 		case MOB_LEFT_DOWN:return MOB_LEFT_DOWN_STOP;
 		case MOB_RIGHT_DOWN:return MOB_RIGHT_DOWN_STOP;
 		}
-		break;
+		return 0;
 	case MOB_MOVE1:
 		switch (mob_direct_id) {
 		case MOB_DOWN:return MOB_DOWN_MOVE1;
@@ -79,7 +79,7 @@ const size_t mobMoveDirect(const size_t mob_direct_id,const size_t mob_move_id)
 		case MOB_LEFT_DOWN:return MOB_LEFT_DOWN_MOVE1;
 		case MOB_RIGHT_DOWN:return MOB_RIGHT_DOWN_MOVE1;
 		}
-		break;
+		return 0;
 	case MOB_MOVE2:
 		switch (mob_direct_id) {
 		case MOB_DOWN:return MOB_DOWN_STOP;
@@ -91,7 +91,7 @@ const size_t mobMoveDirect(const size_t mob_direct_id,const size_t mob_move_id)
 		case MOB_LEFT_DOWN:return MOB_LEFT_DOWN_STOP;
 		case MOB_RIGHT_DOWN:return MOB_RIGHT_DOWN_STOP;
 		}
-		break;
+		return 0;
 	case MOB_MOVE3:
 		switch (mob_direct_id) {
 		case MOB_DOWN:return MOB_DOWN_MOVE2;
@@ -103,7 +103,7 @@ const size_t mobMoveDirect(const size_t mob_direct_id,const size_t mob_move_id)
 		case MOB_LEFT_DOWN:return MOB_LEFT_DOWN_MOVE2;
 		case MOB_RIGHT_DOWN:return MOB_RIGHT_DOWN_MOVE2;
 		}
-		break;
+		return 0;
 	case MOB_MOVE4:
 		switch (mob_direct_id) {
 		case MOB_DOWN:return MOB_DOWN_STOP;
@@ -115,11 +115,12 @@ const size_t mobMoveDirect(const size_t mob_direct_id,const size_t mob_move_id)
 		case MOB_LEFT_DOWN:return MOB_LEFT_DOWN_STOP;
 		case MOB_RIGHT_DOWN:return MOB_RIGHT_DOWN_STOP;
 		}
-		break;
+		return 0;
 	}
 	return 0;
 }
 
+//mobに歩行アニメーションをさせる
 const bool mobMoveSet(size_t& move_id_, size_t& count, const size_t move_max = 6)
 {
 	switch (move_id_)
@@ -151,9 +152,11 @@ const bool mobMoveSet(size_t& move_id_, size_t& count, const size_t move_max = 6
 int32_t asMain()
 {
 	//管理クラス
-	MainControl mc(u8"Simple Counter", Pos2(1000, 1000), BG_COLOR);
+	MainControl mc(u8"Simple Counter", Pos2(540,960), BG_COLOR);
 	makeLog();
 	Texture feri("Picture/ikari.png", 6, 4);
+
+	Texture crystal1("p/crystal1.png");
 
 	size_t dir_id = MOB_DOWN;
 	size_t move_id = MOB_STOP;
@@ -165,33 +168,32 @@ int32_t asMain()
 		static worldMap w(w_pos2);
 		static bool is_w = true;
 
-		if (is_w) { w.rand().randC(100); is_w = false; }
+		if (is_w) { w.rand().randC(100); is_w = false; 
+		w.col[0] = { 255,255,255,255 };
+		}
 
-		constexpr PosA4F pl2(7.5f, 8.5f, 1.0f, 1.0f);
-		static PosA4F pl(5.5f, 5.5f, 1.0f, 1.0f);
+		//constexpr PosA4F pl2(7.5f, 8.5f, 1.0f, 1.0f);
+		static PosA4F pl(0.5f, 0.5f, 1.0f, 1.0f);
 		constexpr PosA4F map_p(0.0f, 0.0f, 5.0f, 10.0f);
 		static MapView mv(map_p, 'y');
 
 		pl.y += mouseWheel();
 
-		constexpr float fps = 1.0f;
-		if (moveMobCross(fps, pl)) {
-			mobMoveSet(move_id, count);
-		}
+		constexpr float fps = 0.1f;
+		if (moveMobCross(fps, pl)) mobMoveSet(move_id, count);
 		else move_id = MOB_STOP;
-
 
 		if (asKeyUp()) dir_id = MOB_UP;
 		else if (asKeyDown()) dir_id = MOB_DOWN;
 		else if (asKeyLeft()) dir_id = MOB_LEFT;
 		else if (asKeyRight()) dir_id = MOB_RIGHT;
-
+		//マップ描画の中心をプレイヤーの位置にセット
 		mv.setMob(pl, w_pos2);
 		mv.draw(&w.col[0], w_pos2);
 
-		mv.draw(pl2, w_pos2, Color(0, 255, 0, 255));
-		mv.draw(PosA4F(5.5f, 5.5f, 1.0f, 1.0f), w_pos2, Color(0, 205, 50, 255));
-		mv.draw(PosA4F(0.5f, 0.5f, 1.0f, 1.0f), w_pos2, Color(0, 255, 0, 255));
+		//mv.draw(pl2, w_pos2, Color(0, 255, 0, 255));
+		//mv.draw(PosA4F(5.5f, 5.5f, 1.0f, 1.0f), w_pos2, Color(0, 205, 50, 255));
+		//mv.draw(PosA4F(0.5f, 0.5f, 1.0f, 1.0f), w_pos2, Color(0, 255, 0, 255));
 		mv.draw(pl, w_pos2, feri, mobMoveDirect(dir_id, move_id));
 
 	}
