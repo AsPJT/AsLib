@@ -152,7 +152,7 @@ const bool mobMoveSet(size_t& move_id_, size_t& count, const size_t move_max = 6
 int32_t asMain()
 {
 	//ä«óùÉNÉâÉX
-	MainControl mc(u8"Simple Counter", Pos2(540,960), BG_COLOR);
+	MainControl mc(u8"Simple Counter", Pos2(960,700), BG_COLOR);
 	makeLog();
 	Texture feri("Picture/ikari.png", 6, 4);
 
@@ -170,6 +170,7 @@ int32_t asMain()
 
 		if (is_w) { w.rand().randC(100); is_w = false; 
 		w.col[0] = { 255,255,255,255 };
+		w.col[32*64-1] = { 255,0,0,255 };
 		}
 
 		//constexpr PosA4F pl2(7.5f, 8.5f, 1.0f, 1.0f);
@@ -182,6 +183,9 @@ int32_t asMain()
 		constexpr float fps = 0.1f;
 		if (moveMobCross(fps, pl)) mobMoveSet(move_id, count);
 		else move_id = MOB_STOP;
+
+		DxLib::clsDx();
+		DxLib::printfDx("(%f,%f,%f,%f)", pl.x, pl.y, pl.w, pl.h);
 
 		if (asKeyUp()) dir_id = MOB_UP;
 		else if (asKeyDown()) dir_id = MOB_DOWN;

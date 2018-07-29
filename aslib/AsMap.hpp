@@ -31,7 +31,7 @@ namespace AsLib
 			//1マスの描画幅
 			const Pos2F m(asWindowSizeF().x / this->p.w, asWindowSizeF().y / this->p.h);
 			//描画ピクセル数
-			const PosA4F in_mapA(this->p.x, this->p.y, m.x*(floor(this->p.w) + 2.0f), m.y*(floor(this->p.h) + 2.0f));
+			const PosA4F in_mapA(this->p.x, this->p.y, m.x*(floor(this->p.w) + 3.0f), m.y*(floor(this->p.h) + 4.0f));
 			//描画マス数
 			const Pos4 in_map(PosA4(int32_t(p.x), int32_t(p.y), int32_t(this->p.w) + 2, int32_t(this->p.h) + 2));
 
