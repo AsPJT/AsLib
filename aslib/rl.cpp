@@ -152,7 +152,7 @@ const bool mobMoveSet(size_t& move_id_, size_t& count, const size_t move_max = 6
 int32_t asMain()
 {
 	//ä«óùÉNÉâÉX
-	MainControl mc(u8"Simple Counter", Pos2(960,700), BG_COLOR);
+	MainControl mc(u8"Simple Counter", Pos2(960,700), aslib_bg_color);
 	makeLog();
 	Texture feri("Picture/ikari.png", 6, 4);
 
@@ -161,6 +161,7 @@ int32_t asMain()
 	size_t dir_id = MOB_DOWN;
 	size_t move_id = MOB_STOP;
 	size_t count = 0;
+
 	while (asLoop())
 	{
 

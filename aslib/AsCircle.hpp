@@ -1,8 +1,8 @@
 //     ----------     ----------     ----------     ----------     ----------
 //
-//                              AsLib - AsÉâÉCÉuÉâÉä
+//                              AsLib - AsProject Library
 //
-//                    êßçÏé“: Ç™Ç¡ÇøÇÂ (wanotaitei@gmail.com)
+//                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
 
@@ -32,7 +32,7 @@ namespace AsLib
 	struct Circle
 	{
 		Circle() = default;
-		constexpr Circle(const Pos2& pos_, const int32_t r_, const Color& col_ = black_RGBA) :pos(pos_), r(r_), col(col_) {};
+		constexpr Circle(const Pos2& pos_, const int32_t r_, const Color& col_ = aslib_color_black_a) :pos(pos_), r(r_), col(col_) {};
 		const Circle& draw() const { asCircle(pos, r, col); return *this; }
 		const Circle& draw(const Pos2& pos_) const { asCircle(pos_, r, col); return *this; }
 		const Circle& draw(const Color& col_) const { asCircle(pos, r, col_); return *this; }

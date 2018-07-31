@@ -1,8 +1,8 @@
 //     ----------     ----------     ----------     ----------     ----------
 //
-//                              AsLib - AsÉâÉCÉuÉâÉä
+//                              AsLib - AsProject Library
 //
-//                    êßçÏé“: Ç™Ç¡ÇøÇÂ (wanotaitei@gmail.com)
+//                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
 
@@ -49,9 +49,13 @@ namespace AsLib
 				unique[i].stack = 0;
 			}
 		}
+#if !defined(__ANDROID__)
 		ShareItem& sortUp() { sort(unique.begin(), unique.end()); return *this; }
 		ShareItem& sortDown() { sort(unique.begin(), unique.end(), std::greater<UniqueItem>()); return *this; }
-
+#else
+		ShareItem& sortUp() { return *this; }
+		ShareItem& sortDown() { return *this; }
+#endif
 		const size_t size() const { return unique.size(); }
 		ShareItem& push(const size_t id_, const size_t item_, const size_t stack_ = 1) {
 			unique[id_].item = item_;

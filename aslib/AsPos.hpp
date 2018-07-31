@@ -1,11 +1,10 @@
-//     ----------     ----------     ----------     ----------     ----------
+// ---------- ---------- ---------- ---------- ----------
 //
-//                              AsLib - Asライブラリ
+// AsLib - Asライブラリ
 //
-//                    制作者: がっちょ (wanotaitei@gmail.com)
+// 制作者: がっちょ (wanotaitei@gmail.com)
 //
-//     ----------     ----------     ----------     ----------     ----------
-
+// ---------- ---------- ---------- ---------- ----------
 namespace AsLib
 {
 	//変数
@@ -19,25 +18,20 @@ namespace AsLib
 #else
 	using pos_float = float;
 #endif
-
 	//2点位置
 	struct Pos2;
 	struct Pos2F;
-
 	//4点位置
 	struct Pos4;
 	struct Pos4F;
-
 	//2点位置+2点サイズ
 	struct PosA4;
 	struct PosL4;
 	struct PosA4F;
 	struct PosL4F;
-
 	//8点位置
 	struct Pos8;
 	struct Pos8F;
-
 	//大きさ(2D)
 	struct Pos2
 	{
@@ -102,7 +96,6 @@ namespace AsLib
 		//Pos2F operator^(const pos_float int_) { const Pos2F pos(pos_float(pow(this->x, int_)), pos_float(pow(this->y, int_))); return pos; }
 		//Pos2F operator^(const pos_int int_) { const Pos2F pos(pos_float(pow(this->x, int_)), pos_float(pow(this->y, int_))); return pos; }
 		//--------------------
-
 		const Pos2& operator=(const Pos4& add_pos);
 		const Pos2& operator=(const PosL4& add_pos);
 		const Pos2& operator=(const PosA4& add_pos);
@@ -116,16 +109,12 @@ namespace AsLib
 		const Pos2& operator()(const pos_int pos_x, const pos_int pos_y) { *this = Pos2(pos_x, pos_y); return *this; }
 		const Pos2& operator()(const double pos_) { this->x = pos_int(this->x*pos_); this->y = pos_int(this->y*pos_); return *this; }
 		const Pos2& operator()(const double pos_x, const double pos_y) { this->x = pos_int(this->x*pos_x); this->y = pos_int(this->y*pos_y); return *this; }
-
 		const Pos2& copy(int32_t& x_, int32_t& y_) const { x_ = this->x; y_ = this->y; return *this; }
 		const Pos2& copy(int32_t* const x_, int32_t* const y_) const { if (x_ != nullptr)*x_ = this->x; if (y_ != nullptr)*y_ = this->y; return *this; }
-
 		const Pos2& rand(const Pos2&);
 		const Pos2& randPlus(const uint32_t);
-
 		const Pos2& operator()(Pos2* const p_) const { if (p_ != nullptr)*p_ = *this; return *this; }
 		const Pos2& operator()(pos_int* const x_, pos_int* const y_) const { *x_ = this->x; *y_ = this->y; return *this; }
-
 		const bool is_minus() const { return (this->x <= 0 || this->y <= 0) ? true : false; };
 		const pos_int plus() const { return (this->x + this->y); }
 		const pos_float Hypot() const { return pos_float(hypot(this->x, this->y)); }
@@ -133,7 +122,6 @@ namespace AsLib
 		const Pos2& Hypot(pos_float* f_) const { if (f_ != nullptr)*f_ = pos_float(hypot(this->x, this->y)); return *this; }
 		const Pos2& Hypot(double& f_) const { f_ = double(hypot(this->x, this->y)); return *this; }
 		const Pos2& Hypot(double* f_) const { if (f_ != nullptr)*f_ = double(hypot(this->x, this->y)); return *this; }
-		
 #if defined(ASLIB_INCLUDE_S3) //Siv3D
 		operator s3d::Point()
 		{
@@ -150,7 +138,6 @@ namespace AsLib
 		}
 #endif
 	};
-
 	//長方形の大きさ(左上と右下の位置)
 	struct Pos4
 	{
@@ -218,7 +205,6 @@ namespace AsLib
 		const Pos4& operator>>=(const Pos4& p_) { *this = *this >> p_; return *this; }
 		const Pos4& operator%=(const Pos4& p_) { *this = *this % p_; return *this; }
 		//--------------------
-
 		const Pos4& operator=(const Pos2&);
 		const Pos4& operator=(const Pos8&);
 		const Pos4& operator=(const PosA4&);
@@ -227,18 +213,12 @@ namespace AsLib
 		const Pos4& operator()(const Pos8&);
 		const Pos4& operator()(const PosA4&);
 		const Pos4& operator()(const PosL4&);
-
 		const Pos4& rand(const Pos2&);
 		const Pos4& operator() (const Pos4F&, const Pos2&);
-
 		//比率
 		constexpr Pos4(const Pos4F&, const Pos2&);
-
 		const Pos4& operator()(Pos4* const p_) const { if (p_ != nullptr)*p_ = *this; return *this; }
 	};
-
-
-
 	//長方形の大きさ(位置と長さ)
 	struct PosL4
 	{
@@ -305,7 +285,6 @@ namespace AsLib
 		const PosL4& operator>>=(const PosL4& p_) { *this = *this >> p_; return *this; }
 		const PosL4& operator%=(const PosL4& p_) { *this = *this % p_; return *this; }
 		//--------------------
-
 		const PosL4& operator=(const Pos2& add_pos);
 		const PosL4& operator=(const Pos4& add_pos);
 		const PosL4& operator=(const PosA4& add_pos);
@@ -314,10 +293,8 @@ namespace AsLib
 		const PosL4& operator()(const Pos4& add_pos);
 		const PosL4& operator()(const PosA4& add_pos);
 		const PosL4& operator()(const Pos8& add_pos);
-
 		const PosL4& operator()(PosL4* const p_) const { if (p_ != nullptr)*p_ = *this; return *this; }
 	};
-
 	//中心位置と大きさを併せ持つ
 	struct PosA4
 	{
@@ -386,7 +363,6 @@ namespace AsLib
 		const PosA4& operator>>=(const PosL4& p_) { *this = *this >> p_; return *this; }
 		const PosA4& operator%=(const PosL4& p_) { *this = *this % p_; return *this; }
 		//--------------------
-
 		const PosA4& operator=(const Pos2& add_pos);
 		const PosA4& operator=(const Pos4& add_pos);
 		const PosA4& operator=(const PosL4& add_pos);
@@ -397,20 +373,16 @@ namespace AsLib
 		const PosA4& operator()(const Pos8& add_pos);
 		const PosA4& operator()(const double pos_) { this->w = pos_int(this->w*pos_); this->h = pos_int(this->h*pos_); return *this; }
 		const PosA4& operator()(const double pos_x, const double pos_y) { this->w = pos_int(this->w*pos_x); this->h = pos_int(this->h*pos_y); return *this; }
-
 		const PosA4& rand(const Pos2&);
 		const PosA4& randPlus(const uint32_t);
-
 		const PosA4& operator()(PosA4* const p_) const { if (p_ != nullptr)*p_ = *this; return *this; }
 	};
-
 	inline const PosA4 & PosA4::randPlus(const uint32_t add_pos)
 	{
 		this->x += (asRand32(add_pos) - (add_pos >> 1));
 		this->y += (asRand32(add_pos) - (add_pos >> 1));
 		return *this;
 	}
-
 	//四角形の大きさ
 	struct Pos8
 	{
@@ -480,7 +452,6 @@ namespace AsLib
 		const Pos8& operator>>=(const Pos8& p_) { *this = *this >> p_; return *this; }
 		const Pos8& operator%=(const Pos8& p_) { *this = *this % p_; return *this; }
 		//--------------------
-
 		const Pos8& operator=(const Pos2& add_pos);
 		const Pos8& operator=(const Pos4& add_pos);
 		const Pos8& operator=(const PosL4& add_pos);
@@ -489,17 +460,13 @@ namespace AsLib
 		const Pos8& operator()(const Pos4& add_pos);
 		const Pos8& operator()(const PosL4& add_pos);
 		const Pos8& operator()(const PosA4& add_pos);
-
 		//回転
 		Pos8(const Pos4&, const double);
 		const Pos8& operator()(const Pos4& p_, const double r_) { *this = Pos8(p_, r_); return *this; };
-
 		//立体回転
 		const Pos8 rotation3D(const Pos4&, const double);
-
 		const Pos8& operator()(Pos8* const p_) const { if (p_ != nullptr)*p_ = *this; return *this; }
 	};
-
 	//大きさ(2D)
 	struct Pos2F
 	{
@@ -550,7 +517,6 @@ namespace AsLib
 		const Pos2F& operator*=(const Pos2F& p_) { *this = *this * p_; return *this; }
 		const Pos2F& operator/=(const Pos2F& p_) { *this = *this / p_; return *this; }
 		//--------------------
-
 		const Pos2F& operator=(const Pos4F& add_pos);
 		const Pos2F& operator=(const PosL4F& add_pos);
 		const Pos2F& operator=(const PosA4F& add_pos);
@@ -564,23 +530,18 @@ namespace AsLib
 		const Pos2F& operator()(const pos_float pos_x, const pos_float pos_y) { *this = Pos2F(pos_x, pos_y); return *this; }
 		const Pos2F& operator()(const double pos_) { this->x = pos_float(this->x*pos_); this->y = pos_float(this->y*pos_); return *this; }
 		const Pos2F& operator()(const double pos_x, const double pos_y) { this->x = pos_float(this->x*pos_x); this->y = pos_float(this->y*pos_y); return *this; }
-
 		const Pos2F& operator()(Pos2F* const p_) const { *p_ = *this; return *this; }
 		const Pos2F& operator()(pos_float* const x_, pos_float* const y_) const { *x_ = this->x; *y_ = this->y; return *this; }
-
 		const pos_float plus() const { return (this->x + this->y); }
 		const pos_float Hypot() const { return hypot(this->x, this->y); }
 		const Pos2F& Hypot(pos_float& f_) const { f_ = pos_float(hypot(this->x, this->y)); return *this; }
 		const Pos2F& Hypot(pos_float* f_) const { if (f_ != nullptr)*f_ = pos_float(hypot(this->x, this->y)); return *this; }
 		const Pos2F& Hypot(double& f_) const { f_ = double(hypot(this->x, this->y)); return *this; }
 		const Pos2F& Hypot(double* f_) const { if (f_ != nullptr)*f_ = double(hypot(this->x, this->y)); return *this; }
-
 		const Pos2F moveHypot(const float f_) const { return Pos2F(this->Hypot()*sin(f_), -this->Hypot()*cos(f_)); }
-
 		const pos_float minusX() const { return -1 * this->x; }
 		const pos_float minusY() const { return -1 * this->y; }
 	};
-
 	//長方形の大きさ(左上と右下の位置)
 	struct Pos4F
 	{
@@ -635,7 +596,6 @@ namespace AsLib
 		const Pos4F& operator*=(const Pos4F& p_) { *this = *this * p_; return *this; }
 		const Pos4F& operator/=(const Pos4F& p_) { *this = *this / p_; return *this; }
 		//--------------------
-
 		const Pos4F& operator=(const Pos2F&);
 		const Pos4F& operator=(const Pos8F&);
 		const Pos4F& operator=(const PosA4F&);
@@ -644,15 +604,10 @@ namespace AsLib
 		const Pos4F& operator()(const Pos8F&);
 		const Pos4F& operator()(const PosA4F&);
 		const Pos4F& operator()(const PosL4F&);
-
 		const Pos4F& operator()(Pos4F* const p_) const { *p_ = *this; return *this; }
-
 		const PosL4 ratio();
 		const PosL4 ratio(const Pos2F p_);
 	};
-
-
-
 	//長方形の大きさ(位置と長さ)
 	struct PosL4F
 	{
@@ -707,7 +662,6 @@ namespace AsLib
 		const PosL4F& operator*=(const PosL4F& p_) { *this = *this * p_; return *this; }
 		const PosL4F& operator/=(const PosL4F& p_) { *this = *this / p_; return *this; }
 		//--------------------
-
 		const PosL4F& operator=(const Pos2F& add_pos);
 		const PosL4F& operator=(const Pos4F& add_pos);
 		const PosL4F& operator=(const PosA4F& add_pos);
@@ -716,10 +670,8 @@ namespace AsLib
 		const PosL4F& operator()(const Pos4F& add_pos);
 		const PosL4F& operator()(const PosA4F& add_pos);
 		const PosL4F& operator()(const Pos8F& add_pos);
-
 		const PosL4F& operator()(PosL4F* const p_) const { *p_ = *this; return *this; }
 	};
-
 	//中心位置と大きさを併せ持つ
 	struct PosA4F
 	{
@@ -774,7 +726,6 @@ namespace AsLib
 		const PosA4F& operator*=(const PosA4F& p_) { *this = *this * p_; return *this; }
 		const PosA4F& operator/=(const PosA4F& p_) { *this = *this / p_; return *this; }
 		//--------------------
-
 		const PosA4F& operator=(const Pos2F& add_pos);
 		const PosA4F& operator=(const Pos4F& add_pos);
 		const PosA4F& operator=(const PosL4F& add_pos);
@@ -785,10 +736,8 @@ namespace AsLib
 		const PosA4F& operator()(const Pos8F& add_pos);
 		const PosA4F& operator()(const double pos_) { this->w = pos_float(this->w*pos_); this->h = pos_float(this->h*pos_); return *this; }
 		const PosA4F& operator()(const double pos_x, const double pos_y) { this->w = pos_float(this->w*pos_x); this->h = pos_float(this->h*pos_y); return *this; }
-
 		const PosA4F& operator()(PosA4F* const p_) const { *p_ = *this; return *this; }
 	};
-
 	//四角形の大きさ
 	struct Pos8F
 	{
@@ -846,7 +795,6 @@ namespace AsLib
 		const Pos8F& operator*=(const Pos8F& p_) { *this = *this * p_; return *this; }
 		const Pos8F& operator/=(const Pos8F& p_) { *this = *this / p_; return *this; }
 		//--------------------
-
 		const Pos8F& operator=(const Pos2F& add_pos);
 		const Pos8F& operator=(const Pos4F& add_pos);
 		const Pos8F& operator=(const PosL4F& add_pos);
@@ -855,35 +803,29 @@ namespace AsLib
 		const Pos8F& operator()(const Pos4F& add_pos);
 		const Pos8F& operator()(const PosL4F& add_pos);
 		const Pos8F& operator()(const PosA4F& add_pos);
-
 		const Pos8F& operator()(Pos8F* const p_) const { *p_ = *this; return *this; }
 	};
-
 	inline const Pos2 & Pos2::rand(const Pos2& add_pos)
 	{
 		this->x = asRand32(add_pos.x);
 		this->y = asRand32(add_pos.y);
 		return *this;
 	}
-
 	inline const Pos2 & Pos2::randPlus(const uint32_t add_pos)
 	{
 		this->x += (asRand32(add_pos) - (add_pos >> 1));
 		this->y += (asRand32(add_pos) - (add_pos >> 1));
 		return *this;
 	}
-
 	inline const Pos4 & Pos4::rand(const Pos2& add_pos)
 	{
 		this->x2 = this->x1 + asRand32(add_pos.x);
 		this->y2 = this->y1 + asRand32(add_pos.y);
 		return *this;
 	}
-
 	//--------------------------------------------------------
 	//コンストラクタ
 	//--------------------------------------------------------
-
 	//Pos2
 	inline constexpr Pos2::Pos2(const Pos2& pos_) :x(pos_.x), y(pos_.y) {}
 	inline constexpr Pos2::Pos2(const Pos4& pos_) : x(pos_.x1), y(pos_.y1) {}
@@ -940,12 +882,9 @@ namespace AsLib
 	inline constexpr Pos8::Pos8(const PosL4F& pos_) : x1(pos_int(pos_.x)), y1(pos_int(pos_.y)), x2(pos_int(pos_.x + pos_.w)), y2(pos_int(pos_.y)), x3(pos_int(pos_.x)), y3(pos_int(pos_.y + pos_.h)), x4(pos_int(pos_.x + pos_.w)), y4(pos_int(pos_.y + pos_.h)) {}
 	inline constexpr Pos8::Pos8(const PosA4F& pos_) : x1(pos_int(pos_.x - (pos_.w / 2))), y1(pos_int(pos_.y - (pos_.h / 2))), x2(pos_int(pos_.x + (pos_.w / 2))), y2(pos_int(pos_.y - (pos_.h / 2))), x3(pos_int(pos_.x - (pos_.w / 2))), y3(pos_int(pos_.y + (pos_.h / 2))), x4(pos_int(pos_.x + (pos_.w / 2))), y4(pos_int(pos_.y + (pos_.h / 2))) {}
 	inline constexpr Pos8::Pos8(const Pos8F& pos_) : x1(pos_int(pos_.x1)), y1(pos_int(pos_.y1)), x2(pos_int(pos_.x2)), y2(pos_int(pos_.y2)), x3(pos_int(pos_.x3)), y3(pos_int(pos_.y3)), x4(pos_int(pos_.x4)), y4(pos_int(pos_.y4)) {}
-
-
 	//--------------------------------------------------------
 	//キャスト
 	//--------------------------------------------------------
-
 	//Pos2
 	inline Pos2::operator Pos4() { return Pos4(*this); }
 	inline Pos2::operator PosL4() { return PosL4(*this); }
@@ -971,12 +910,9 @@ namespace AsLib
 	inline Pos8::operator Pos4() { return Pos4(*this); }
 	inline Pos8::operator PosL4() { return PosL4(*this); }
 	inline Pos8::operator PosA4() { return PosA4(*this); }
-
-
 	//--------------------------------------------------------
 	//代入
 	//--------------------------------------------------------
-
 	//Pos2
 	inline const Pos2 & Pos2::operator=(const Pos4 & add_pos) { *this = Pos2(add_pos); return *this; }
 	inline const Pos2 & Pos2::operator=(const PosL4 & add_pos) { *this = Pos2(add_pos); return *this; }
@@ -997,16 +933,13 @@ namespace AsLib
 	inline const PosA4& PosA4::operator=(const Pos4& add_pos) { *this = PosA4(add_pos); return *this; }
 	inline const PosA4& PosA4::operator=(const PosL4& add_pos) { *this = PosA4(add_pos); return *this; }
 	inline const PosA4& PosA4::operator=(const Pos8& add_pos) { *this = PosA4(add_pos); return *this; }
-
 	inline const Pos8& Pos8::operator=(const Pos4& add_pos) { *this = Pos8(add_pos); return *this; }
 	inline const Pos8& Pos8::operator=(const PosL4& add_pos) { *this = Pos8(add_pos); return *this; }
 	inline const Pos8& Pos8::operator=(const PosA4& add_pos) { *this = Pos8(add_pos); return *this; }
 	inline const Pos8& Pos8::operator=(const Pos2& add_pos) { *this = Pos8(add_pos); return *this; }
-
 	//--------------------------------------------------------
 	//括弧代入
 	//--------------------------------------------------------
-
 	//Pos2
 	inline const Pos2 & Pos2::operator()(const Pos4 & add_pos) { *this = Pos2(add_pos); return *this; }
 	inline const Pos2 & Pos2::operator()(const PosL4 & add_pos) { *this = Pos2(add_pos); return *this; }
@@ -1027,20 +960,16 @@ namespace AsLib
 	inline const PosA4& PosA4::operator()(const Pos4& add_pos) { *this = PosA4(add_pos); return *this; }
 	inline const PosA4& PosA4::operator()(const PosL4& add_pos) { *this = PosA4(add_pos); return *this; }
 	inline const PosA4& PosA4::operator()(const Pos8& add_pos) { *this = PosA4(add_pos); return *this; }
-
 	inline const Pos8& Pos8::operator()(const Pos4& add_pos) { *this = Pos8(add_pos); return *this; }
 	inline const Pos8& Pos8::operator()(const PosL4& add_pos) { *this = Pos8(add_pos); return *this; }
 	inline const Pos8& Pos8::operator()(const PosA4& add_pos) { *this = Pos8(add_pos); return *this; }
 	inline const Pos8& Pos8::operator()(const Pos2& add_pos) { *this = Pos8(add_pos); return *this; }
-
 	//乱数
 	inline const PosA4 & PosA4::rand(const Pos2& add_pos) { *this = PosA4(add_pos); return *this; }
-
 	//回転
 	inline Pos8::Pos8(const Pos4& p_, const double r_) {
 		//todo
 	}
-
 	inline const Pos8 Pos8::rotation3D(const Pos4& p_, const double r_) {
 		constexpr double pos_pi = 3.141592653589793238462643383279502884197;
 		//中心位置からの幅
@@ -1050,11 +979,9 @@ namespace AsLib
 		const double size_r = sqrt(size_y * size_y + size_x * size_x);
 		//位置の角度
 		const double pos_r = r_ + atan2(size_y, size_x);
-
 		//中心位置
 		const pos_int pos_x = size_x + p_.x1;
 		const pos_int pos_y = size_y + p_.y1;
-
 		this->x1 = pos_x + pos_int(round(size_r*cos(pos_r + pos_pi)));
 		this->y1 = pos_y + pos_int(round(size_r*sin(pos_r + pos_pi)));
 		this->x2 = pos_x + pos_int(round(size_r*cos(-pos_r)));
@@ -1065,25 +992,16 @@ namespace AsLib
 		this->y4 = pos_y + pos_int(round(size_r*sin(pos_r)));
 		return *this;
 	}
-
-
-
-
 	//-------------------------------------------------------------------
-
 	inline constexpr Pos4::Pos4(const Pos4F& pos_, const Pos2& window_pos_) :x1(pos_int(pos_.x1*window_pos_.x)), y1(pos_int(pos_.y1*window_pos_.y)), x2(pos_int(pos_.x2*window_pos_.x)), y2(pos_int(pos_.y2*window_pos_.y)) {}
-
 	inline const Pos4& Pos4::operator()(const Pos4F& pos_, const Pos2& window_pos_)
 	{
 		*this = Pos4(pos_, window_pos_);
 		return *this;
 	}
-
-
 	//--------------------------------------------------------
 	//コンストラクタ
 	//--------------------------------------------------------
-
 	//Pos2F
 	inline constexpr Pos2F::Pos2F(const Pos2F& pos_) :x(pos_.x), y(pos_.y) {}
 	inline constexpr Pos2F::Pos2F(const Pos4F& pos_) : x(pos_.x1), y(pos_.y1) {}
@@ -1095,7 +1013,6 @@ namespace AsLib
 	inline constexpr Pos2F::Pos2F(const PosL4& pos_) : x(pos_float(pos_.x)), y(pos_float(pos_.y)) {}
 	inline constexpr Pos2F::Pos2F(const PosA4& pos_) : x(pos_float(pos_.x)), y(pos_float(pos_.y)) {}
 	inline constexpr Pos2F::Pos2F(const Pos8& pos_) : x(pos_float(pos_.x1)), y(pos_float(pos_.y1)) {}
-
 	//Pos4F
 	inline constexpr Pos4F::Pos4F(const Pos2F& pos_) : x1(0.0f), y1(0.0f), x2(pos_.x), y2(pos_.y) {}
 	inline constexpr Pos4F::Pos4F(const Pos4F& pos_) : x1(pos_.x1), y1(pos_.y1), x2(pos_.x2), y2(pos_.y2) {}
@@ -1107,7 +1024,6 @@ namespace AsLib
 	inline constexpr Pos4F::Pos4F(const PosL4& pos_) : x1(pos_float(pos_.x)), y1(pos_float(pos_.y)), x2(pos_float(pos_.x + pos_.w)), y2(pos_float(pos_.y + pos_.h)) {}
 	inline constexpr Pos4F::Pos4F(const PosA4& pos_) : x1(pos_float(pos_.x - (pos_.w / 2))), y1(pos_float(pos_.y - (pos_.h / 2))), x2(pos_float(pos_.x + (pos_.w / 2))), y2(pos_float(pos_.y + (pos_.h / 2))) {}
 	inline constexpr Pos4F::Pos4F(const Pos8& pos_) : x1(pos_float(pos_.x1)), y1(pos_float(pos_.y1)), x2(pos_float(pos_.x4)), y2(pos_float(pos_.y4)) {}
-
 	//PosL4F
 	inline constexpr PosL4F::PosL4F(const Pos2F& pos_) : x(pos_.x), y(pos_.y), w(0.0f), h(0.0f) {}
 	inline constexpr PosL4F::PosL4F(const Pos4F& pos_) : x(pos_.x1), y(pos_.y1), w(pos_.x2 - pos_.x1), h(pos_.y2 - pos_.y1) {}
@@ -1119,7 +1035,6 @@ namespace AsLib
 	inline constexpr PosL4F::PosL4F(const PosL4& pos_) : x(pos_float(pos_.x)), y(pos_float(pos_.y)), w(pos_float(pos_.w)), h(pos_float(pos_.h)) {}
 	inline constexpr PosL4F::PosL4F(const PosA4& pos_) : x(pos_float(pos_.x - (pos_.w / 2))), y(pos_float(pos_.y - (pos_.h / 2))), w(pos_float(pos_.w)), h(pos_float(pos_.h)) {}
 	inline constexpr PosL4F::PosL4F(const Pos8& pos_) : x(pos_float(pos_.x1)), y(pos_float(pos_.y1)), w(pos_float(pos_.x4 - pos_.x1)), h(pos_float(pos_.y4 - pos_.y1)) {}
-
 	//PosA4F
 	inline constexpr PosA4F::PosA4F(const Pos2F& pos_) : x(pos_.x), y(pos_.y), w(0.0f), h(0.0f) {}
 	inline constexpr PosA4F::PosA4F(const Pos4F& pos_) : x(pos_.x1 + ((pos_.x2 - pos_.x1) / 2)), y(pos_.y1 + ((pos_.y2 - pos_.y1) / 2)), w(pos_.x2 - pos_.x1), h(pos_.y2 - pos_.y1) {}
@@ -1131,7 +1046,6 @@ namespace AsLib
 	inline constexpr PosA4F::PosA4F(const PosL4& pos_) : x(pos_float(pos_.x + (pos_.w / 2))), y(pos_float(pos_.y + (pos_.h / 2))), w(pos_float(pos_.w)), h(pos_float(pos_.h)) {}
 	inline constexpr PosA4F::PosA4F(const PosA4& pos_) : x(pos_float(pos_.x)), y(pos_float(pos_.y)), w(pos_float(pos_.w)), h(pos_float(pos_.h)) {}
 	inline constexpr PosA4F::PosA4F(const Pos8& pos_) : x(pos_float(pos_.x1 + ((pos_.x4 - pos_.x1) / 2))), y(pos_float(pos_.y1 + ((pos_.y4 - pos_.y1) / 2))), w(pos_float(pos_.x4 - pos_.x1)), h(pos_float(pos_.y4 - pos_.y1)) {}
-
 	//Pos8F
 	inline constexpr Pos8F::Pos8F(const Pos2F& pos_) : x1(0.0f), y1(0.0f), x2(pos_.x), y2(0.0f), x3(0.0f), y3(pos_.y), x4(pos_.x), y4(pos_.y) {}
 	inline constexpr Pos8F::Pos8F(const Pos4F& pos_) : x1(pos_.x1), y1(pos_.y1), x2(pos_.x2), y2(pos_.y1), x3(pos_.x1), y3(pos_.y2), x4(pos_.x2), y4(pos_.y2) {}
@@ -1143,13 +1057,9 @@ namespace AsLib
 	inline constexpr Pos8F::Pos8F(const PosL4& pos_) : x1(pos_float(pos_.x)), y1(pos_float(pos_.y)), x2(pos_float(pos_.x + pos_.w)), y2(pos_float(pos_.y)), x3(pos_float(pos_.x)), y3(pos_float(pos_.y + pos_.h)), x4(pos_float(pos_.x + pos_.w)), y4(pos_float(pos_.y + pos_.h)) {}
 	inline constexpr Pos8F::Pos8F(const PosA4& pos_) : x1(pos_float(pos_.x - (pos_.w / 2))), y1(pos_float(pos_.y - (pos_.h / 2))), x2(pos_float(pos_.x + (pos_.w / 2))), y2(pos_float(pos_.y - (pos_.h / 2))), x3(pos_float(pos_.x - (pos_.w / 2))), y3(pos_float(pos_.y + (pos_.h / 2))), x4(pos_float(pos_.x + (pos_.w / 2))), y4(pos_float(pos_.y + (pos_.h / 2))) {}
 	inline constexpr Pos8F::Pos8F(const Pos8& pos_) : x1(pos_float(pos_.x1)), y1(pos_float(pos_.y1)), x2(pos_float(pos_.x2)), y2(pos_float(pos_.y2)), x3(pos_float(pos_.x3)), y3(pos_float(pos_.y3)), x4(pos_float(pos_.x4)), y4(pos_float(pos_.y4)) {}
-
-
-
 	//--------------------------------------------------------
 	//キャスト
 	//--------------------------------------------------------
-
 	//Pos2F
 	inline Pos2F::operator Pos4F() { return Pos4F(*this); }
 	inline Pos2F::operator PosL4F() { return PosL4F(*this); }
@@ -1175,13 +1085,9 @@ namespace AsLib
 	inline Pos8F::operator Pos4F() { return Pos4F(*this); }
 	inline Pos8F::operator PosL4F() { return PosL4F(*this); }
 	inline Pos8F::operator PosA4F() { return PosA4F(*this); }
-
-
-
 	//--------------------------------------------------------
 	//代入
 	//--------------------------------------------------------
-
 	//Pos2F
 	inline const Pos2F & Pos2F::operator=(const Pos4F & add_pos) { *this = Pos2F(add_pos); return *this; }
 	inline const Pos2F & Pos2F::operator=(const PosL4F & add_pos) { *this = Pos2F(add_pos); return *this; }
@@ -1202,18 +1108,13 @@ namespace AsLib
 	inline const PosA4F& PosA4F::operator=(const Pos4F& add_pos) { *this = PosA4F(add_pos); return *this; }
 	inline const PosA4F& PosA4F::operator=(const PosL4F& add_pos) { *this = PosA4F(add_pos); return *this; }
 	inline const PosA4F& PosA4F::operator=(const Pos8F& add_pos) { *this = PosA4F(add_pos); return *this; }
-
 	inline const Pos8F& Pos8F::operator=(const Pos4F& add_pos) { *this = Pos8F(add_pos); return *this; }
 	inline const Pos8F& Pos8F::operator=(const PosL4F& add_pos) { *this = Pos8F(add_pos); return *this; }
 	inline const Pos8F& Pos8F::operator=(const PosA4F& add_pos) { *this = Pos8F(add_pos); return *this; }
 	inline const Pos8F& Pos8F::operator=(const Pos2F& add_pos) { *this = Pos8F(add_pos); return *this; }
-
-
-
 	//--------------------------------------------------------
 	//括弧代入
 	//--------------------------------------------------------
-
 	//Pos2F
 	inline const Pos2F & Pos2F::operator()(const Pos4F & add_pos) { *this = Pos2F(add_pos); return *this; }
 	inline const Pos2F & Pos2F::operator()(const PosL4F & add_pos) { *this = Pos2F(add_pos); return *this; }
@@ -1234,17 +1135,13 @@ namespace AsLib
 	inline const PosA4F& PosA4F::operator()(const Pos4F& add_pos) { *this = PosA4F(add_pos); return *this; }
 	inline const PosA4F& PosA4F::operator()(const PosL4F& add_pos) { *this = PosA4F(add_pos); return *this; }
 	inline const PosA4F& PosA4F::operator()(const Pos8F& add_pos) { *this = PosA4F(add_pos); return *this; }
-
 	inline const Pos8F& Pos8F::operator()(const Pos4F& add_pos) { *this = Pos8F(add_pos); return *this; }
 	inline const Pos8F& Pos8F::operator()(const PosL4F& add_pos) { *this = Pos8F(add_pos); return *this; }
 	inline const Pos8F& Pos8F::operator()(const PosA4F& add_pos) { *this = Pos8F(add_pos); return *this; }
 	inline const Pos8F& Pos8F::operator()(const Pos2F& add_pos) { *this = Pos8F(add_pos); return *this; }
-
-
 	//--------------------------------------------------------
 	//型変換
 	//--------------------------------------------------------
-
 	//Pos2
 	inline const Pos2 Pos2::convPos2() const { return *this; }
 	inline const Pos4 Pos2::convPos4() const { return *this; }
@@ -1355,8 +1252,6 @@ namespace AsLib
 	inline const PosL4F Pos8F::convPosL4F() const { return *this; }
 	inline const PosA4F Pos8F::convPosA4F() const { return *this; }
 	inline const Pos8F Pos8F::convPos8F() const { return *this; }
-
-
 	//--------------------------------------------------------
 	//その他、位置関連の関数
 	//--------------------------------------------------------
@@ -1370,7 +1265,6 @@ namespace AsLib
 	inline void asRand(PosA4F& p_) { p_.x = pos_float(asRand()); p_.y = pos_float(asRand()); p_.w = pos_float(asRand()); p_.h = pos_float(asRand()); }
 	inline void asRand(Pos8& p_) { p_.x1 = asRand(); p_.y1 = asRand(); p_.x2 = asRand(); p_.y2 = asRand(); p_.x3 = asRand(); p_.y3 = asRand(); p_.x4 = asRand(); p_.y4 = asRand(); }
 	inline void asRand(Pos8F& p_) { p_.x1 = pos_float(asRand()); p_.y1 = pos_float(asRand()); p_.x2 = pos_float(asRand()); p_.y2 = pos_float(asRand()); p_.x3 = pos_float(asRand()); p_.y3 = pos_float(asRand()); p_.x4 = pos_float(asRand()); p_.y4 = pos_float(asRand()); }
-
 	inline void asRand(Pos2* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i]); }
 	inline void asRand(std::vector<Pos2>& array_) { const size_t s = array_.size(); for (size_t i = 0; i < s; ++i) asRand(array_[i]); }
 	inline void asRand(Pos2F* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i]); }
@@ -1391,7 +1285,6 @@ namespace AsLib
 	inline void asRand(std::vector<Pos8>& array_) { const size_t s = array_.size(); for (size_t i = 0; i < s; ++i) asRand(array_[i]); }
 	inline void asRand(Pos8F* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i]); }
 	inline void asRand(std::vector<Pos8F>& array_) { const size_t s = array_.size(); for (size_t i = 0; i < s; ++i) asRand(array_[i]); }
-
 	constexpr Pos2 aslib_full_screen(-1, -1);
 	const Pos2 asPlatformPos(const Pos2& p1_, const Pos2& p2_) {
 		switch (aslib_platform)
@@ -1401,17 +1294,16 @@ namespace AsLib
 		}
 		return aslib_full_screen;
 	}
-
 	struct Pos2A2 {
 		Pos2 p1{};
 		Pos2 p2{};
 		Pos2A2() = default;
 		constexpr Pos2A2(const Pos2A2& p_) :p1(p_.p1), p2(p_.p2) {}
-		constexpr Pos2A2(const Pos2& p_) :p1(p_), p2(p_) {}
-		constexpr Pos2A2(const Pos2& p1_, const Pos2& p2_) :p1(p1_), p2(p2_) {}
+		constexpr Pos2A2(const Pos2& p_) : p1(p_), p2(p_) {}
+		constexpr Pos2A2(const Pos2& p1_, const Pos2& p2_) : p1(p1_), p2(p2_) {}
 		Pos2A2& operator()(const Pos2A2& p_) { this->p1 = p_.p1; this->p2 = p_.p2; return *this; }
 		Pos2A2& operator()(const Pos2& p_) { this->p1 = p_; this->p2 = p_; return *this; }
-		Pos2A2& operator()(const Pos2& p1_,Pos2& p2_) { this->p1 = p1_; this->p2 = p2_; return *this; }
+		Pos2A2& operator()(const Pos2& p1_, Pos2& p2_) { this->p1 = p1_; this->p2 = p2_; return *this; }
 	};
 	struct Pos4A2 {
 		Pos4 p1{};
@@ -1457,5 +1349,4 @@ namespace AsLib
 		Pos8A2& operator()(const Pos8& p_) { this->p1 = p_; this->p2 = p_; return *this; }
 		Pos8A2& operator()(const Pos8& p1_, Pos8& p2_) { this->p1 = p1_; this->p2 = p2_; return *this; }
 	};
-
 }

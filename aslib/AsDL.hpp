@@ -1,8 +1,8 @@
 //    ----------     ----------     ----------     ----------     ----------
 //
-//                             AsLib - Asƒ‰ƒCƒuƒ‰ƒŠ
+//                             AsLib - AsProject Library
 //
-//                   §ìÒ: ‚ª‚Á‚¿‚å (wanotaitei@gmail.com)
+//                   Created by Gaccho (wanotaitei@gmail.com)
 //
 //    ----------     ----------     ----------     ----------     ----------
 

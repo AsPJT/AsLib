@@ -1,8 +1,8 @@
 ﻿//     ----------     ----------     ----------     ----------     ----------
 //
-//                              AsLib - Asライブラリ
+//                              AsLib - AsProject Library
 //
-//                    制作者: がっちょ (wanotaitei@gmail.com)
+//                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
 
@@ -48,7 +48,7 @@ namespace AsLib
 	inline const Pos2F asWindowSizeF() { return Pos2F(asWindowSize()); }
 
 	//画面サイズ変更
-	inline void asSetWindowSize(const Pos2& window_size = WINDOW_SIZE)
+	inline void asSetWindowSize(const Pos2& window_size = aslib_default_window_size)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		asWindowSizeSave(true, window_size);
@@ -64,7 +64,7 @@ namespace AsLib
 	}
 
 	//背景色変更
-	inline const int32_t asSetBackGround(const ColorRGB& BG_color = BG_COLOR)
+	inline const int32_t asSetBackGround(const ColorRGB& BG_color = aslib_bg_color)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return int32_t(DxLib::SetBackgroundColor(BG_color.r, BG_color.g, BG_color.b));
@@ -272,7 +272,7 @@ namespace AsLib
 
 
 	//初期化
-	const int32_t AsInit(const Pos2& window_size = WINDOW_SIZE, const ColorRGB& BG_color = BG_COLOR)
+	const int32_t AsInit(const Pos2& window_size = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color)
 	{
 		asSRand8(uint8_t(std::time(nullptr) & 0xff));
 		asSRand32(uint32_t(std::time(nullptr) & 0xffffffff));
@@ -404,13 +404,13 @@ return 0;
 
 //以降は他ライブラリ依存なし----------
 
-	const int32_t AsInit(const char* const title = u8"", const Pos2& window_size = WINDOW_SIZE, const ColorRGB& BG_color = BG_COLOR)
+	const int32_t AsInit(const char* const title = u8"", const Pos2& window_size = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color)
 	{
 		if (asSetTitle(title) == -1) return -1;
 		return AsInit(window_size, BG_color);
 	}
 
-	const int32_t AsInit(const std::string& title = u8"", const Pos2& window_size = WINDOW_SIZE, const ColorRGB& BG_color = BG_COLOR)
+	const int32_t AsInit(const std::string& title = u8"", const Pos2& window_size = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color)
 	{
 		if (asSetTitle(title.c_str()) == -1) return -1;
 		return AsInit(window_size, BG_color);
@@ -427,6 +427,15 @@ return 0;
 		return asPrint(format_string.c_str());
 	}
 
+//	template<typename p_>
+//	const Coordinate_L4<p_> Coordinate_4<p_>::ratio() { return Pos4(int32_t(this->x1*asWindowSizeF().x), int32_t(this->y1*asWindowSizeF().y), int32_t(this->x2*asWindowSizeF().x), int32_t(this->y2*asWindowSizeF().y)); }
+//	template<typename p_>
+//	const Coordinate_L4<p_> Coordinate_4<p_>::ratio(const Coordinate_2<p_> p_) { return Pos4(int32_t(this->x1*p_.x), int32_t(this->y1*p_.y), int32_t(this->x2*p_.x), int32_t(this->y2*p_.y)); }
+
+
 	const PosL4 Pos4F::ratio() { return Pos4(int32_t(this->x1*asWindowSizeF().x), int32_t(this->y1*asWindowSizeF().y), int32_t(this->x2*asWindowSizeF().x), int32_t(this->y2*asWindowSizeF().y)); }
+
 	const PosL4 Pos4F::ratio(const Pos2F p_) { return Pos4(int32_t(this->x1*p_.x), int32_t(this->y1*p_.y), int32_t(this->x2*p_.x), int32_t(this->y2*p_.y)); }
+
+
 }

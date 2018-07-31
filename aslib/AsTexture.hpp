@@ -1,8 +1,8 @@
 ﻿//     ----------     ----------     ----------     ----------     ----------
 //
-//                              AsLib - Asライブラリ
+//                              AsLib - AsProject Library
 //
-//                    制作者: がっちょ (wanotaitei@gmail.com)
+//                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
 

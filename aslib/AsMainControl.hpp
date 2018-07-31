@@ -1,8 +1,8 @@
 //     ----------     ----------     ----------     ----------     ----------
 //
-//                              AsLib - Asライブラリ
+//                              AsLib - AsProject Library
 //
-//                    制作者: がっちょ (wanotaitei@gmail.com)
+//                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
 
@@ -21,7 +21,7 @@ namespace AsLib
 		//タイトル
 		std::string title_name;
 	public:
-		MainControl(const char* const title_, const Pos2& window_size_ = WINDOW_SIZE, const Color& c_ = BG_COLOR) 
+		MainControl(const char* const title_, const Pos2& window_size_ = aslib_default_window_size, const Color& c_ = aslib_bg_color) 
 			:window_size(window_size_), color(c_), title_name(title_)
 		{
 			//OF例外措置

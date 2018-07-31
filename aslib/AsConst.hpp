@@ -1,8 +1,8 @@
 //     ----------     ----------     ----------     ----------     ----------
 //
-//                              AsLib - Asライブラリ
+//                              AsLib - AsProject Library
 //
-//                    制作者: がっちょ (wanotaitei@gmail.com)
+//                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
 
@@ -11,28 +11,28 @@ namespace AsLib
 {
 
 	//デフォルト背景色
-	constexpr uint8_t BG_COLOR_R = 230;
-	constexpr uint8_t BG_COLOR_G = 230;
-	constexpr uint8_t BG_COLOR_B = 230;
-	constexpr ColorRGB BG_COLOR(BG_COLOR_R, BG_COLOR_G, BG_COLOR_B);
-	constexpr ColorRGB defaultColorBG() { return BG_COLOR; }
+	constexpr uint8_t aslib_bg_color_r = 230;
+	constexpr uint8_t aslib_bg_color_g = 230;
+	constexpr uint8_t aslib_bg_color_b = 230;
+	constexpr ColorRGB aslib_bg_color(aslib_bg_color_r, aslib_bg_color_g, aslib_bg_color_b);
+	constexpr ColorRGB defaultColorBG() { return aslib_bg_color; }
 
 	//デフォルトウィンドウサイズ
-	constexpr int32_t WINDOW_SIZE_X = 360;
-	constexpr int32_t WINDOW_SIZE_Y = 640;
-	constexpr Pos2 WINDOW_SIZE(WINDOW_SIZE_X, WINDOW_SIZE_Y);
-	constexpr Pos2 defaultWindowSize() { return WINDOW_SIZE; }
+	constexpr int32_t aslib_default_window_size_x = 360;
+	constexpr int32_t aslib_default_window_size_y = 640;
+	constexpr Pos2 aslib_default_window_size(aslib_default_window_size_x, aslib_default_window_size_y);
+	constexpr Pos2 defaultWindowSize() { return aslib_default_window_size; }
 
 
 	//色
-	constexpr ColorRGB white(250, 250, 250);
-	constexpr Color whiteA(250, 250, 250, 255);
+	constexpr ColorRGB aslib_color_white(250, 250, 250);
+	constexpr Color aslib_color_white_a(250, 250, 250, 255);
 
-	constexpr ColorRGB black_RGB(0, 0, 0);
-	constexpr Color black_RGBA(0, 0, 0, 255);
+	constexpr ColorRGB aslib_color_black(0, 0, 0);
+	constexpr Color aslib_color_black_a(0, 0, 0, 255);
 
 	//フルスクリーン
-	constexpr Pos2 FULL_SCREEN_POS(-1, -1);
+	constexpr Pos2 aslib_full_screen_pos(-1, -1);
 
 	//原点位置
 	constexpr Pos2 pos2_0(0, 0);

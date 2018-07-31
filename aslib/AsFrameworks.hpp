@@ -2,7 +2,7 @@
 //
 //                                   AsFrameworks
 //
-//                    §ìÒ: ‚ª‚Á‚¿‚å (wanotaitei@gmail.com)
+//                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //                                   Ver 0.0.0.0 Alpha
 //
