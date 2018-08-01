@@ -1,0 +1,27 @@
+簡易コーディング規約
+
+・プロジェクト名
+AsLib
+・プロジェクト名 略称
+As
+
+・クラス, 構造体
+AsTestName
+
+・関数
+asTestName
+
+・ローカル変数
+test_name
+
+・グローバル変数, static, constexpr
+aslib_test_name
+
+・マクロ
+ASLIB_TEST_NAME
+
+・forカウンタ
+i,j,k
+
+・仮引数
+test_name_

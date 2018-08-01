@@ -93,7 +93,7 @@ namespace AsLib
 	}
 
 	template<typename... Rest>
-	const std::string printStringS3(const char *format_string, const Rest&... rest)
+	const std::string printStringS3(const char* const format_string, const Rest&... rest)
 	{
 		constexpr size_t PRINT_STRING_MAX = 1024;
 		char sn_string[PRINT_STRING_MAX];
@@ -173,7 +173,7 @@ namespace AsLib
 
 
 
-	struct FontMainData
+	struct AsFont
 	{
 	private:
 		//フォントデータのID
@@ -185,10 +185,10 @@ namespace AsLib
 		//フォント名
 		std::string fontname = u8"Meiryo UI";
 	public:
-		FontMainData(){}
-		FontMainData(const int32_t add_size, const char* const str_ = u8"Meiryo UI", const int32_t add_thick = FONT_THICK) :id(asMakeFont(add_size,str_)), size(add_size), thick(add_thick), fontname(std::string(str_)) {}//stdmovea
+		AsFont(){}
+		AsFont(const int32_t add_size, const char* const str_ = u8"Meiryo UI", const int32_t add_thick = FONT_THICK) :id(asMakeFont(add_size,str_)), size(add_size), thick(add_thick), fontname(std::string(str_)) {}//stdmovea
 
-		FontMainData& operator()(const int32_t add_size = 10, const char* const str_ = u8"Meiryo UI", const int32_t add_thick = FONT_THICK)
+		AsFont& operator()(const int32_t add_size = 10, const char* const str_ = u8"Meiryo UI", const int32_t add_thick = FONT_THICK)
 		{
 			id = asMakeFont(add_size, str_);
 			size = add_size;
@@ -197,42 +197,42 @@ namespace AsLib
 			return *this;
 		}
 
-		FontMainData& draw(const char* const format_string, const Pos2& pos_, const Color& color_) { asFont(this->id, format_string, pos_, color_); return *this; }
-		FontMainData& draw(const std::string& string_, const Color& color_ = aslib_color_black_a) { return this->draw(string_.c_str(), color_); }
-		FontMainData& draw(const Color& color_, const std::string& string_) { return this->draw(string_.c_str(), color_); }
-		FontMainData& draw(const Color& color_, const char* const string_) { return this->draw(string_, color_); }
+		AsFont& draw(const char* const format_string, const Pos2& pos_, const Color& color_) { asFont(this->id, format_string, pos_, color_); return *this; }
+		AsFont& draw(const std::string& string_, const Color& color_ = aslib_color_black_a) { return this->draw(string_.c_str(), color_); }
+		AsFont& draw(const Color& color_, const std::string& string_) { return this->draw(string_.c_str(), color_); }
+		AsFont& draw(const Color& color_, const char* const string_) { return this->draw(string_, color_); }
 
-		FontMainData& drawAt(const char* const format_string, const Pos2& pos_, const Color& color_) { asFontAt(this->id, format_string, pos_, color_); return *this; }
-		FontMainData& drawAt(const std::string& string_, const Color& color_ = aslib_color_black_a) { return this->drawAt(string_.c_str(), color_); }
-		FontMainData& drawAt(const Color& color_, const std::string& string_) { return this->drawAt(string_.c_str(), color_); }
-		FontMainData& drawAt(const Color& color_, const char* const string_) { return this->drawAt(string_, color_); }
-
-		//書式付き
-		template<typename... Rest>
-		FontMainData& draw(const char* const format_string, const Pos2& pos_, const Color& color_, const Rest&... rest) { asFont(this->id, format_string, pos_, color_, rest...); return *this; }
-		template<typename... Rest>
-		FontMainData& draw(const Color& color_, const char* const str_, const Rest&... rest) { return this->draw(str_, pos2_0, color_, rest...); }
-		template<typename... Rest>
-		FontMainData& draw(const Pos2& pos_, const char* const str_, const Rest&... rest) { return this->draw(str_, pos_, aslib_color_white_a, rest...); }
-		template<typename... Rest>
-		FontMainData& draw(const char* const str_, const Rest&... rest) { return this->draw(str_, pos2_0, aslib_color_white_a, rest...); }
+		AsFont& drawAt(const char* const format_string, const Pos2& pos_, const Color& color_) { asFontAt(this->id, format_string, pos_, color_); return *this; }
+		AsFont& drawAt(const std::string& string_, const Color& color_ = aslib_color_black_a) { return this->drawAt(string_.c_str(), color_); }
+		AsFont& drawAt(const Color& color_, const std::string& string_) { return this->drawAt(string_.c_str(), color_); }
+		AsFont& drawAt(const Color& color_, const char* const string_) { return this->drawAt(string_, color_); }
 
 		//書式付き
 		template<typename... Rest>
-		FontMainData& drawAt(const char* const str_, const Pos2& p_, const Color& c_, const Rest&... rest) { asFontAt(this->id, str_, p_, c_, rest...); return *this; }
+		AsFont& draw(const char* const format_string, const Pos2& pos_, const Color& color_, const Rest&... rest) { asFont(this->id, format_string, pos_, color_, rest...); return *this; }
 		template<typename... Rest>
-		FontMainData& drawAt(const Color& color_, const char* const str_, const Rest&... rest) { return this->drawAt(str_, pos2_0, color_, rest...); }
+		AsFont& draw(const Color& color_, const char* const str_, const Rest&... rest) { return this->draw(str_, pos2_0, color_, rest...); }
 		template<typename... Rest>
-		FontMainData& drawAt(const Pos2& pos_, const char* const str_, const Rest&... rest) { return this->drawAt(str_, pos_, aslib_color_white_a, rest...); }
+		AsFont& draw(const Pos2& pos_, const char* const str_, const Rest&... rest) { return this->draw(str_, pos_, aslib_color_white_a, rest...); }
 		template<typename... Rest>
-		FontMainData& drawAt(const char* const str_, const Rest&... rest) { return this->drawAt(str_, pos2_0, aslib_color_white_a, rest...); }
+		AsFont& draw(const char* const str_, const Rest&... rest) { return this->draw(str_, pos2_0, aslib_color_white_a, rest...); }
+
+		//書式付き
+		template<typename... Rest>
+		AsFont& drawAt(const char* const str_, const Pos2& p_, const Color& c_, const Rest&... rest) { asFontAt(this->id, str_, p_, c_, rest...); return *this; }
+		template<typename... Rest>
+		AsFont& drawAt(const Color& color_, const char* const str_, const Rest&... rest) { return this->drawAt(str_, pos2_0, color_, rest...); }
+		template<typename... Rest>
+		AsFont& drawAt(const Pos2& pos_, const char* const str_, const Rest&... rest) { return this->drawAt(str_, pos_, aslib_color_white_a, rest...); }
+		template<typename... Rest>
+		AsFont& drawAt(const char* const str_, const Rest&... rest) { return this->drawAt(str_, pos2_0, aslib_color_white_a, rest...); }
 
 		//出力
 		OriginatorFont ID() const { return this->id; };
 		int32_t Size() const { return this->size; };
 		const char* const fontName() const { return this->fontname.c_str(); };
 
-		FontMainData& changeSize(const int32_t& size_) {
+		AsFont& changeSize(const int32_t& size_) {
 			this->size += size_;
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 			DxLib::DeleteFontToHandle(this->id);

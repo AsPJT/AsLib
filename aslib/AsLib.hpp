@@ -134,17 +134,18 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //--------------------------------------------------
 //基本インクルード
 //--------------------------------------------------
-#include <string>
-#include <fstream>
-#include <iostream>
-#include <functional>
-#include <array>
-#include <vector>
-#include <memory>
-#include <utility>
 #include <cmath>
 #include <ctime>
 #include <cstring>
+#include <memory>
+#include <utility>
+#include <functional>
+#include <array>
+#include <vector>
+#include <string>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
 //--------------------------------------------------
 //個別インクルード
@@ -255,6 +256,8 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //共存ライブラリ----------------------------------------
 
 #include "AsDL.hpp"
+
+#include "AsUsing.hpp"
 
 //namespace使用
 #ifndef AS_NON_USING_NAMESPACE

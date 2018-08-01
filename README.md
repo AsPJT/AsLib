@@ -27,7 +27,7 @@ These codes are licensed under CC0.
 | キーボード入力 | Key | × | × | 〇 | 〇 |
 | ゲームパッド入力 | GamePad | × | × | × | × |
 | 文字入力 | KeyInput | × | × | 〇 | × |
-| 画像表示 | Texture | × | 〇 | 〇 | 〇 |
+| 画像表示 | AsTexture | × | 〇 | 〇 | 〇 |
 | 音声 | Sound | × | × | 〇 | 〇 |
 | フォント文字表示 | Font | × | ▲ | 〇 | 〇 |
 | 四角形描画 | Rect | × | 〇 | 〇 | 〇 |

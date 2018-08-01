@@ -137,6 +137,17 @@ namespace AsLib
 			return rect;
 		}
 #endif
+
+		const char* const c_str()
+		{
+			std::stringstream ss;
+			ss << '(' << this->x << ',' << this->y << ')';
+			static thread_local std::string aslib_str;
+			aslib_str = ss.str();
+			return aslib_str.c_str();
+		}
+		operator const char* const() { return this->c_str(); }
+
 	};
 	//’·•ûŒ`‚Ì‘å‚«‚³(¶ã‚Æ‰E‰º‚ÌˆÊ’u)
 	struct Pos4

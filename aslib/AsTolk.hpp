@@ -14,14 +14,14 @@ namespace AsLib
 		//名前
 		std::vector<std::string> list_name{};
 		//画像
-		std::vector<Texture*> list_texture{};
+		std::vector<AsTexture*> list_texture{};
 		//音
 		std::string sound;
 		//文章
 		std::string str;
 
 		WindowEvent(std::vector<std::string>& name_) :list_name(name_) {}
-		WindowEvent(std::vector<std::string>& name_, std::vector<Texture*>& t_) :list_name(name_), list_texture(t_) {}
+		WindowEvent(std::vector<std::string>& name_, std::vector<AsTexture*>& t_) :list_name(name_), list_texture(t_) {}
 
 	};
 
@@ -35,7 +35,7 @@ namespace AsLib
 	struct MessageWindow {
 	private:
 		//ウィンドウの画像
-		Texture* main_window = nullptr;
+		AsTexture* main_window = nullptr;
 
 		//メッセージを表示するか否か
 		bool is_on = false;
@@ -61,7 +61,7 @@ namespace AsLib
 		bool is_end_texture = false;
 
 		//ウィンドウとともに流される音
-		BGM sound;
+		AsBGM sound;
 		//何番目の音を流すか
 		int32_t count_sound = 0;
 		//音のファイル名
@@ -87,7 +87,7 @@ namespace AsLib
 		Pos2 frame_default{};
 
 		//ウィンドウ内のフォント
-		FontMainData* font;
+		AsFont* font;
 
 		//早送り機能を使用するか
 		bool is_fast_forward = false;
@@ -100,11 +100,11 @@ namespace AsLib
 		bool on_str_clear = true;
 
 		//人物画像を表示するか
-		Texture* person_texture = nullptr;
+		AsTexture* person_texture = nullptr;
 		bool is_person = false;
 		Effect person_effect;
 
-		Texture* end_anime = nullptr;
+		AsTexture* end_anime = nullptr;
 
 		int32_t update_count = 0;
 		int32_t update_end_count = 0;
@@ -119,19 +119,19 @@ namespace AsLib
 
 	public:
 #if defined(ANIME_TEXTURE_1)
-		MessageWindow(Texture& t_) : main_window(&t_) {}
+		MessageWindow(AsTexture& t_) : main_window(&t_) {}
 #elif defined(ANIME_TEXTURE_2)
-		MessageWindow(Texture& t_) : main_window(&t_) {}
+		MessageWindow(AsTexture& t_) : main_window(&t_) {}
 #endif
 
 		MessageWindow& setWindowEvent(WindowEvent& is_) { window_event = &is_; return *this; }
 		MessageWindow& setPerson(const bool is_) { is_person = is_; return *this; }
 		MessageWindow& setFastForward(const bool fast_) { is_fast_forward = fast_; return *this; }
 		MessageWindow& setOnFastForward(const bool fast_) { is_on_fast_forward = fast_; return *this; }
-		MessageWindow& setFont(FontMainData& font_) { font = &font_; return *this; }
+		MessageWindow& setFont(AsFont& font_) { font = &font_; return *this; }
 		MessageWindow& setLine(const int32_t var_) {
 			number_of_lines = var_ + 1;
-			*font = FontMainData((PosL4(pos_draw_default).h - frame_default.y * 2) / number_of_lines, font->fontName());
+			*font = AsFont((PosL4(pos_draw_default).h - frame_default.y * 2) / number_of_lines, font->fontName());
 			return *this;
 		}
 		MessageWindow& setPos(const Pos4& pos_) { pos_default = pos_; pos_draw_default = pos_; return *this; }
@@ -150,9 +150,11 @@ namespace AsLib
 
 		MessageWindow& playSound() {
 			if (!is_sound || sound_name[0] == 0) return *this;
-			char sound_str[64];
-			snprintf(sound_str, 64, "%s%d.%s", sound_name.c_str(), count_sound, sound_extension.c_str());
-			sound.set(sound_str);
+			std::stringstream ss;
+			std::string sound_str;
+			ss << sound_name << count_sound << '.' << sound_extension;
+			ss >> sound_str;
+			sound.set(sound_str.c_str());
 			sound.play();
 			is_sound = false;
 			return *this;
@@ -183,7 +185,7 @@ namespace AsLib
 			}
 			return *this;
 		}
-		MessageWindow& drawWindow(const PosL4& p_, const Pos2& p2_, Texture& texture) {
+		MessageWindow& drawWindow(const PosL4& p_, const Pos2& p2_, AsTexture& texture) {
 			if (main_window == nullptr || main_window->Num() != 9) return *this;
 			this->size_pos = p_;
 			Pos2 p2_2(p2_);
@@ -209,7 +211,7 @@ namespace AsLib
 		MessageWindow& drawWindow(const PosL4& p_, const Pos2& p2_) { return (main_window == nullptr) ? *this : drawWindow(p_, p2_, *this->main_window); }
 		MessageWindow& drawWindow(const PosL4& p_) { return (main_window == nullptr) ? *this : drawWindow(p_, this->main_window->pixelSize(), *this->main_window); }
 		MessageWindow& drawWindow() { return (main_window == nullptr) ? *this : drawWindow(pos_draw_default, frame_default, *this->main_window); }
-		MessageWindow& drawWindow(Texture& texture_) { return (main_window == nullptr) ? *this : drawWindow(pos_draw_default, frame_default, texture_); }
+		MessageWindow& drawWindow(AsTexture& texture_) { return (main_window == nullptr) ? *this : drawWindow(pos_draw_default, frame_default, texture_); }
 
 		MessageWindow& initWindow() {
 			is_on = true;
@@ -240,7 +242,7 @@ namespace AsLib
 			effect_count = 0;
 			return this->initWindow();
 		}
-		MessageWindow& printName(FontMainData& font_) {
+		MessageWindow& printName(AsFont& font_) {
 			drawWindow(PosL4(pos_draw_default.x1, pos_draw_default.y1 - (pos_draw_default.y2 - pos_draw_default.y1) / number_of_lines - frame_default.y * 2, (pos_draw_default.x2 - pos_draw_default.x1) / 3, (pos_draw_default.y2 - pos_draw_default.y1) / number_of_lines + frame_default.y * 2), frame_default);
 			font_.draw(speaker_name.c_str(), Pos2(pos.x, pos_draw_default.y1 - (pos_draw_default.y2 - pos_draw_default.y1) / number_of_lines - frame_default.y), Color(255, 255, 255));
 			return *this;
@@ -415,7 +417,7 @@ namespace AsLib
 			else out_str += end_str_;
 			return *this;
 		}
-		MessageWindow& drawEndTexture(Texture& texture_, const Pos2& p_) {
+		MessageWindow& drawEndTexture(AsTexture& texture_, const Pos2& p_) {
 			//表示機関に指定した画像を描画
 			if (is_end_texture) texture_.draw(Pos4(end_pos.x - p_.x / 4, end_pos.y - p_.y / 4, end_pos.x, end_pos.y));
 
@@ -424,10 +426,10 @@ namespace AsLib
 			else is_end_texture = true;
 			return *this;
 		}
-		MessageWindow& drawEndTexture(Texture& texture_) {
+		MessageWindow& drawEndTexture(AsTexture& texture_) {
 			return drawEndTexture(texture_, Pos2(this->size_pos.h, this->size_pos.h));
 		}
-		MessageWindow& drawEndAnime(Texture& texture_, const Pos2& p_) {
+		MessageWindow& drawEndAnime(AsTexture& texture_, const Pos2& p_) {
 			if (is_str32) return *this;
 			static size_t draw_id = 0;
 			//指定した画像を描画
@@ -439,12 +441,12 @@ namespace AsLib
 			}
 			return *this;
 		}
-		MessageWindow& drawEndAnime(Texture& texture_) {
+		MessageWindow& drawEndAnime(AsTexture& texture_) {
 			return drawEndAnime(texture_, Pos2(this->size_pos.h / 2, this->size_pos.h / 2));
 		}
 		MessageWindow& drawEndAnime() { return (end_anime == nullptr) ? *this : this->drawEndAnime(*end_anime); }
-		MessageWindow& setEndAnime(Texture& texture_) { this->end_anime = &texture_; return *this; }
-		MessageWindow& printString(FontMainData& font_, const Color& color_ = { 255,255,255,255 }) {
+		MessageWindow& setEndAnime(AsTexture& texture_) { this->end_anime = &texture_; return *this; }
+		MessageWindow& printString(AsFont& font_, const Color& color_ = { 255,255,255,255 }) {
 			font_.draw(out_str.c_str(), this->pos, color_);
 			return *this;
 		}
@@ -473,13 +475,13 @@ namespace AsLib
 		}
 		MessageWindow& next(const std::vector<bool>& is_next) { for (size_t i = 0; i < is_next.size(); ++i) this->next(is_next[i]); return *this; }
 		MessageWindow& next(const bool* const is_next, const size_t size_) { if (is_next == nullptr) return *this; for (size_t i = 0; i < size_; ++i) this->next(is_next[i]); return *this; }
-		MessageWindow& drawPerson(Texture& t_) {
+		MessageWindow& drawPerson(AsTexture& t_) {
 			if (!is_person) return *this;
 
 			t_.draw(PosA4(asWindowSize().x / 2, asWindowSize().y / 2, asWindowSize().y* t_.pixelSize().x / t_.pixelSize().y, asWindowSize().y));
 			return *this;
 		}
 		MessageWindow& drawPerson() { return (person_texture == nullptr) ? *this : this->drawPerson(*person_texture); }
-		MessageWindow& setPerson(Texture& t_) { this->person_texture = &t_; return *this; }
+		MessageWindow& setPerson(AsTexture& t_) { this->person_texture = &t_; return *this; }
 	};
 }

@@ -122,10 +122,10 @@ namespace AsLib
 #if defined(_MSC_VER)
 
 	//ファイル読み込み
-	const int32_t asWrite(const char* const file_name, const char* const log_)
+	const int32_t asWrite(const std::string& file_name, const char* const log_)
 	{
 		FILE* cfp_fp;
-		const errno_t cfp_error = fopen_s(&cfp_fp, file_name, "w");
+		const errno_t cfp_error = fopen_s(&cfp_fp, file_name.c_str(), "w");
 		if (cfp_error) return -1;
 
 		fputs(log_, cfp_fp);
@@ -134,10 +134,10 @@ namespace AsLib
 	}
 
 	//ファイル読み込み
-	const int32_t asAddWrite(const char* const file_name, const char* const log_)
+	const int32_t asAddWrite(const std::string& file_name, const char* const log_)
 	{
 		FILE* cfp_fp;
-		const errno_t cfp_error = fopen_s(&cfp_fp, file_name, "a");
+		const errno_t cfp_error = fopen_s(&cfp_fp, file_name.c_str(), "a");
 		if (cfp_error) return -1;
 
 		fputs(log_, cfp_fp);
@@ -149,13 +149,13 @@ namespace AsLib
 #elif defined(__ANDROID__)
 
 	//ファイル読み込み
-	const int32_t asWrite(const char* const file_name, const char* const log_)
+	const int32_t asWrite(const std::string& file_name, const char* const log_)
 	{
 		constexpr size_t file_path_max = 256;
 		char FilePath[file_path_max];
 		DxLib::GetInternalDataPath(FilePath, sizeof(FilePath));
 
-		const std::string fp_name = std::string(FilePath) + u8"\\" + std::string(file_name);
+		const std::string fp_name = std::string(FilePath) + u8"\\" + file_name;
 		FILE* const cfp_fp = fopen(fp_name.c_str(), "w");
 
 		if (cfp_fp == nullptr) return -1;
@@ -166,13 +166,13 @@ namespace AsLib
 	}
 
 	//ファイル読み込み
-	const int32_t asAddWrite(const char* const file_name, const char* const log_)
+	const int32_t asAddWrite(const std::string& file_name, const char* const log_)
 	{
 		constexpr size_t file_path_max = 256;
 		char FilePath[file_path_max];
 		DxLib::GetInternalDataPath(FilePath, sizeof(FilePath));
 
-		const std::string fp_name = std::string(FilePath) + u8"\\" + std::string(file_name);
+		const std::string fp_name = std::string(FilePath) + u8"\\" + file_name;
 		FILE* const cfp_fp = fopen(fp_name.c_str(), "a");
 
 		if (cfp_fp == nullptr) return -1;
@@ -185,9 +185,9 @@ namespace AsLib
 #else
 
 	//ファイル読み込み
-	const int32_t asWrite(const char* const file_name, const char* const log_)
+	const int32_t asWrite(const std::string& file_name, const char* const log_)
 	{
-		FILE* const cfp_fp = fopen(file_name, "w");
+		FILE* const cfp_fp = fopen(file_name.c_str(), "w");
 		if (cfp_fp == nullptr) return -1;
 
 		fputs(log_, cfp_fp);
@@ -196,9 +196,9 @@ namespace AsLib
 	}
 
 	//ファイル読み込み
-	const int32_t asAddWrite(const char* const file_name, const char* const log_)
+	const int32_t asAddWrite(const std::string& file_name, const char* const log_)
 	{
-		FILE* const cfp_fp = fopen(file_name, "a");
+		FILE* const cfp_fp = fopen(file_name.c_str(), "a");
 		if (cfp_fp == nullptr) return -1;
 
 		fputs(log_, cfp_fp);
@@ -214,7 +214,8 @@ namespace AsLib
 	{
 		char String[256];
 		int FileHandle = DxLib::FileRead_open(str_);
-		std::string str = u8"";
+		static thread_local std::string str;
+		str = u8"";
 		while (DxLib::FileRead_eof(FileHandle) == 0)
 		{
 			DxLib::FileRead_gets(String, 256, FileHandle);

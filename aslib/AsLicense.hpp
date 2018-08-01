@@ -14,6 +14,7 @@ namespace AsLib
 		AsLib_LICENSE,
 		Abseil_LICENSE,
 		AngelCode_Scripting_Library_LICENSE,
+		Base64_LICENSE,
 		Box2D_LICENSE,
 		Bullet_LICENSE,
 		cereal_LICENSE,
@@ -67,6 +68,7 @@ namespace AsLib
 		Siv3D_Engine_LICENSE,
 		TinySoundFont_LICENSE,
 		TinyXML_2_LICENSE,
+		utflib_LICENSE,
 		xxHash_LICENSE,
 		zlib_LICENSE,
 		Zstandard_LICENSE,
@@ -81,6 +83,7 @@ namespace AsLib
 #if defined(ASLIB_INCLUDE_S3) //Siv3D
 		AngelCode_Scripting_Library_LICENSE,
 #endif
+		Base64_LICENSE,
 #if defined(ASLIB_INCLUDE_S3) //Siv3D
 		Box2D_LICENSE,
 #endif
@@ -240,6 +243,7 @@ namespace AsLib
 #if defined(ASLIB_INCLUDE_S3) //Siv3D
 		TinyXML_2_LICENSE,
 #endif
+			utflib_LICENSE,
 #if defined(ASLIB_INCLUDE_S3) //Siv3D
 		xxHash_LICENSE,
 #endif
@@ -262,20 +266,22 @@ namespace AsLib
 		const char* const write() const {
 			if (start_year == 0) return c;
 
-			std::string str(u8"Copyright (c) ");
+			static thread_local std::string str;
+			str = u8"Copyright (c) ";
+
 #if defined(__ANDROID__)
-			char snp[256];
-			snprintf(snp, 256, "%s%d", str.c_str(), start_year);
-			str = std::string(snp);
+			std::stringstream ss;
+			ss << start_year;
+			str += ss.str();
 #else
 			str += std::to_string(start_year);
 #endif
 			if (end_year != 0) {
 				str += u8"-";
 #if defined(__ANDROID__)
-				char snp[256];
-				snprintf(snp, 256, "%s%d", str.c_str(), end_year);
-				str = std::string(snp);
+				std::stringstream ss2;
+				ss2 << end_year;
+				str += ss2.str();
 #else
 				str += std::to_string(end_year);
 #endif
@@ -292,6 +298,10 @@ namespace AsLib
 		{
 		case(AsLib_LICENSE):
 			name_ = u8"AsLib";
+			str_ = u8"This software is licensed under CC0.";
+			return;
+		case(Base64_LICENSE):
+			name_ = u8"Base64Lib";
 			str_ = u8"This software is licensed under CC0.";
 			return;
 		case(libjpeg_LICENSE):
@@ -593,6 +603,10 @@ namespace AsLib
 			name_ = u8"xxHash";
 			copyright_.emplace_back(Copyright(u8"Yann Collet.", 2012, 2016));
 			str_ = u8"Redistribution and use in source and binary forms, with or without<br>modification, are permitted provided that the following conditions are<br>met:<br><br>* Redistributions of source code must retain the above copyright<br>notice, this list of conditions and the following disclaimer.<br>* Redistributions in binary form must reproduce the above<br>copyright notice, this list of conditions and the following disclaimer<br>in the documentation and/or other materials provided with the<br>distribution.<br><br>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS<br>\"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT<br>LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR<br>A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT<br>OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,<br>SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT<br>LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,<br>DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY<br>THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT<br>(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE<br>OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.";
+			return;
+		case(utflib_LICENSE):
+			name_ = u8"utflib";
+			str_ = u8"This software is licensed under CC0.";
 			return;
 		case(zlib_LICENSE):
 			name_ = u8"zlib";

@@ -154,9 +154,9 @@ int32_t asMain()
 	//ä«óùÉNÉâÉX
 	MainControl mc(u8"Simple Counter", Pos2(960,700), aslib_bg_color);
 	makeLog();
-	Texture feri("Picture/ikari.png", 6, 4);
+	AsTexture feri("Picture/ikari.png", 6, 4);
 
-	Texture crystal1("p/crystal1.png");
+	AsTexture crystal1("p/crystal1.png");
 
 	size_t dir_id = MOB_DOWN;
 	size_t move_id = MOB_STOP;
@@ -164,7 +164,6 @@ int32_t asMain()
 
 	while (asLoop())
 	{
-
 		constexpr Pos2 w_pos2(64, 32);
 		static worldMap w(w_pos2);
 		static bool is_w = true;
@@ -185,8 +184,8 @@ int32_t asMain()
 		if (moveMobCross(fps, pl)) mobMoveSet(move_id, count);
 		else move_id = MOB_STOP;
 
-		DxLib::clsDx();
-		DxLib::printfDx("(%f,%f,%f,%f)", pl.x, pl.y, pl.w, pl.h);
+		//DxLib::clsDx();
+		//DxLib::printfDx("(%f,%f,%f,%f)", pl.x, pl.y, pl.w, pl.h);
 
 		if (asKeyUp()) dir_id = MOB_UP;
 		else if (asKeyDown()) dir_id = MOB_DOWN;

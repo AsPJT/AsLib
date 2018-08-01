@@ -173,6 +173,7 @@
     <ClInclude Include="AsTolk.hpp" />
     <ClInclude Include="AsTouch.hpp" />
     <ClInclude Include="AsType.hpp" />
+    <ClInclude Include="AsUsing.hpp" />
     <ClInclude Include="AsUTF.hpp" />
     <ClInclude Include="AsWiFi.hpp" />
   </ItemGroup>
@@ -187,6 +188,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="rl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="styleguide.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

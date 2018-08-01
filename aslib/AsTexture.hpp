@@ -114,7 +114,7 @@ namespace AsLib
 	}
 
 	//画像を管理する
-	struct Texture
+	struct AsTexture
 	{
 	private:
 #if defined(ANIME_TEXTURE_1)
@@ -128,9 +128,9 @@ namespace AsLib
 		Pos2 pixel_size;
 		size_t num = 0;
 	public:
-		Texture() = default;
+		AsTexture() = default;
 #if defined(ANIME_TEXTURE_1)
-		Texture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_, x_, y_)), num(x_*y_) 
+		AsTexture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_, x_, y_)), num(x_*y_) 
 		{
 			//画像サイズ取得
 			asTextureSize(this->id, this->pixel_size);
@@ -138,7 +138,7 @@ namespace AsLib
 			this->pixel_size.y /= int32_t(y_);
 			this->turn_id = size_t(x_);
 		}
-		Texture& operator()(const char* const name_, const size_t x_ = 1, const size_t y_ = 1)
+		AsTexture& operator()(const char* const name_, const size_t x_ = 1, const size_t y_ = 1)
 		{
 			id = asLoadTexture(name_, x_, y_);
 			num = x_ * y_;
@@ -150,9 +150,9 @@ namespace AsLib
 			return *this;
 		}
 #elif defined(ANIME_TEXTURE_2)
-		Texture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_,x_,y_)), pixel_size(asTextureSize(this->id[0])), num(x_*y_) {}//stdmovea
+		AsTexture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_,x_,y_)), pixel_size(asTextureSize(this->id[0])), num(x_*y_) {}//stdmovea
 
-		Texture& operator()(const char* const name_, const size_t x_ = 1, const size_t y_ = 1)
+		AsTexture& operator()(const char* const name_, const size_t x_ = 1, const size_t y_ = 1)
 		{
 			id = asLoadTexture(name_, x_, y_);//stdmovea
 			pixel_size = asTextureSize(this->id[0]);
@@ -160,7 +160,7 @@ namespace AsLib
 			return *this;
 		}
 #elif defined(ANIME_TEXTURE_3)
-		Texture(const size_t id_num, const int32_t add_id) {}
+		AsTexture(const size_t id_num, const int32_t add_id) {}
 #endif
 
 		//--------------------------------------------------
@@ -168,7 +168,7 @@ namespace AsLib
 		//--------------------------------------------------
 
 		//サイズ 指定なし 透明度 指定あり
-		Texture& draw(const size_t anime_size, const uint8_t alpha = 255)
+		AsTexture& draw(const size_t anime_size, const uint8_t alpha = 255)
 		{
 #if defined(ANIME_TEXTURE_1)
 			asTextureType1(this->id, Pos2(), this->pixel_size, PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha);
@@ -177,10 +177,10 @@ namespace AsLib
 #endif
 			return *this;
 		}
-		Texture& draw(const uint8_t alpha = 255) { return this->draw((size_t)0, alpha); }
+		AsTexture& draw(const uint8_t alpha = 255) { return this->draw((size_t)0, alpha); }
 
 		//サイズ等倍 位置指定
-		Texture& draw(const size_t anime_size, const Pos4& add_pos, const uint8_t alpha=255)
+		AsTexture& draw(const size_t anime_size, const Pos4& add_pos, const uint8_t alpha=255)
 		{
 #if defined(ANIME_TEXTURE_1)
 			asTextureType1(this->id, Pos2(add_pos.x1, add_pos.y1), Pos2(add_pos.x2 - add_pos.x1, add_pos.y2 - add_pos.y1), PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha);
@@ -189,8 +189,8 @@ namespace AsLib
 #endif
 			return *this;
 		}
-		Texture& draw(const Pos4& add_pos, const uint8_t alpha=255) { return this->draw((size_t)0, add_pos, alpha); }
-		const Texture& draw(const size_t, const PosA4F&, const float, const uint8_t = 255);
+		AsTexture& draw(const Pos4& add_pos, const uint8_t alpha=255) { return this->draw((size_t)0, add_pos, alpha); }
+		const AsTexture& draw(const size_t, const PosA4F&, const float, const uint8_t = 255);
 
 		const size_t Num() const { return this->num; };
 		const Pos2 pixelSize() const { return this->pixel_size; };
@@ -200,7 +200,7 @@ namespace AsLib
 	struct TextureUI
 	{
 	private:
-		Texture* id;
+		AsTexture* id;
 		size_t anime_count = 0;
 		//毎フレーム
 		size_t fps_size = 2;
@@ -223,12 +223,12 @@ namespace AsLib
 		int32_t touch_num = 0;
 	public:
 		TextureUI() = default;
-		TextureUI(Texture* const add_tmd, const uint8_t add_alpha, const Pos4& add_pos4) :id(add_tmd), alpha(add_alpha), pos4(add_pos4) {}
-		TextureUI(Texture* const add_tmd, const uint8_t add_alpha, const PosA4F& add_pR) : id(add_tmd), alpha(add_alpha), pR(add_pR) {}
+		TextureUI(AsTexture* const add_tmd, const uint8_t add_alpha, const Pos4& add_pos4) :id(add_tmd), alpha(add_alpha), pos4(add_pos4) {}
+		TextureUI(AsTexture* const add_tmd, const uint8_t add_alpha, const PosA4F& add_pR) : id(add_tmd), alpha(add_alpha), pR(add_pR) {}
 		TextureUI & fpsUpdate();
 
 		//出力
-		const Texture* const Point() const { return this->id; };
+		const AsTexture* const Point() const { return this->id; };
 		uint8_t Alpha() const { return this->alpha; };
 		Pos4 Pos() const { return this->pos4; };
 		PosA4F PosF() const { return this->pR; };
@@ -262,7 +262,7 @@ namespace AsLib
 		TextureUI& addRota(const float r_) { rota += r_; return *this; }
 		const float Rota() const { return this->rota; };
 
-		TextureUI& setUI(Texture* const add_tmd, const uint8_t add_alpha, const PosA4F& add_pR) { id = add_tmd; alpha = add_alpha; pR = add_pR; return *this; }
+		TextureUI& setUI(AsTexture* const add_tmd, const uint8_t add_alpha, const PosA4F& add_pR) { id = add_tmd; alpha = add_alpha; pR = add_pR; return *this; }
 		TextureUI& setPosF(const PosA4F& pR_) { pR = pR_; return *this; }
 		bool isOutWindowF() {
 			const Pos2F w2(asWindowSizeF()); const Pos4F p4r(pR);
@@ -372,7 +372,7 @@ namespace AsLib
 
 
 	//サイズ等倍 位置指定 回転指定あり
-	inline const Texture& Texture::draw(const size_t anime_size, const PosA4F& add_pos, const float r_, const uint8_t alpha)
+	inline const AsTexture& AsTexture::draw(const size_t anime_size, const PosA4F& add_pos, const float r_, const uint8_t alpha)
 	{
 #if defined(ANIME_TEXTURE_1)
 		const Pos4 add_pos_(add_pos);

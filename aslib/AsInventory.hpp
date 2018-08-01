@@ -12,14 +12,14 @@ namespace AsLib
 	//アイテムデータを管理する
 	struct Item {
 		size_t type = 0;
-		Texture* texture = nullptr;
+		AsTexture* texture = nullptr;
 		size_t stack_max = 0;
 		std::string name{};
 		Item() = default;
-		Item(const size_t type_, Texture& t_, const size_t stack_, const char* const name_) :type(type_), texture(&t_), stack_max(stack_), name(name_) {}
-		Item(Texture& t_, const size_t stack_, const char* const name_) :type(0), texture(&t_), stack_max(stack_), name(name_) {}
-		Item(const size_t type_, Texture& t_, const char* const name_) :type(type_), texture(&t_), stack_max(1), name(name_) {}
-		Item(Texture& t_, const char* const name_) :type(0), texture(&t_), stack_max(1), name(name_) {}
+		Item(const size_t type_, AsTexture& t_, const size_t stack_, const char* const name_) :type(type_), texture(&t_), stack_max(stack_), name(name_) {}
+		Item(AsTexture& t_, const size_t stack_, const char* const name_) :type(0), texture(&t_), stack_max(stack_), name(name_) {}
+		Item(const size_t type_, AsTexture& t_, const char* const name_) :type(type_), texture(&t_), stack_max(1), name(name_) {}
+		Item(AsTexture& t_, const char* const name_) :type(0), texture(&t_), stack_max(1), name(name_) {}
 	};
 
 	struct UniqueItem {
@@ -101,15 +101,15 @@ namespace AsLib
 	};
 	//インベントリ機能を管理する
 	struct Inventory {
-		Texture* frame = nullptr;
-		Texture* select_frame_texture = nullptr;
-		FontMainData* font = nullptr;
+		AsTexture* frame = nullptr;
+		AsTexture* select_frame_texture = nullptr;
+		AsFont* font = nullptr;
 		ShareItem* share_item = nullptr;
 		PosA4 pos{};
 		size_t num_frame = 0;
 		size_t select_frame = 0;
 
-		Inventory(Texture& frame_, Texture& select_frame_texture, FontMainData& font_, ShareItem& share_, const PosA4& pos_, const size_t num_frame_, const size_t select_frame_)
+		Inventory(AsTexture& frame_, AsTexture& select_frame_texture, AsFont& font_, ShareItem& share_, const PosA4& pos_, const size_t num_frame_, const size_t select_frame_)
 			:frame(&frame_), select_frame_texture(&select_frame_texture), font(&font_), share_item(&share_), pos(pos_), num_frame(num_frame_), select_frame(select_frame_) {}
 		const UniqueItem itemClear() { return (share_item == nullptr) ? aslib_unique_item_init : share_item->clear(select_frame); }
 		Inventory& selectAdd(const int32_t add_) {

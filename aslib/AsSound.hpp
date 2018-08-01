@@ -22,42 +22,42 @@ namespace AsLib
 #endif
 }
 
-	class BGM {
+	class AsBGM {
 	private:
 		OriginatorBGM sound;
 	public:
-		BGM() = default;
-		BGM(const char* const name_) :sound(asLoadBGM(name_)) {}
-		BGM& set(const char* const name_) { if (name_ != nullptr) sound = asLoadBGM(name_); return *this; }
+		AsBGM() = default;
+		AsBGM(const char* const name_) :sound(asLoadBGM(name_)) {}
+		AsBGM& set(const char* const name_) { if (name_ != nullptr) sound = asLoadBGM(name_); return *this; }
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-		BGM& stop() { DxLib::StopSoundMem(sound); return *this; }
-		BGM& volume(const uint8_t vol_) { DxLib::ChangeVolumeSoundMem(vol_, sound); return *this; }
-		BGM& playStart() { DxLib::PlaySoundMem(sound, DX_PLAYTYPE_BACK, TRUE); return *this; }
-		BGM& playStartLoop() { DxLib::PlaySoundMem(sound, DX_PLAYTYPE_LOOP, TRUE); return *this; }
-		BGM& play() { DxLib::PlaySoundMem(sound, DX_PLAYTYPE_BACK, FALSE); return *this; }
-		BGM& playLoop() { DxLib::PlaySoundMem(sound, DX_PLAYTYPE_LOOP, FALSE); return *this; }
+		AsBGM& stop() { DxLib::StopSoundMem(sound); return *this; }
+		AsBGM& volume(const uint8_t vol_) { DxLib::ChangeVolumeSoundMem(vol_, sound); return *this; }
+		AsBGM& playStart() { DxLib::PlaySoundMem(sound, DX_PLAYTYPE_BACK, TRUE); return *this; }
+		AsBGM& playStartLoop() { DxLib::PlaySoundMem(sound, DX_PLAYTYPE_LOOP, TRUE); return *this; }
+		AsBGM& play() { DxLib::PlaySoundMem(sound, DX_PLAYTYPE_BACK, FALSE); return *this; }
+		AsBGM& playLoop() { DxLib::PlaySoundMem(sound, DX_PLAYTYPE_LOOP, FALSE); return *this; }
 		const bool isPlay() { if (DxLib::CheckSoundMem(sound) == 1) { return true; }return false; }
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		BGM& stop() { sound.pause(); return *this; }
-		BGM& play() { sound.play(); return *this; }
-		BGM& playStart() { sound.stop(); return this->play(); }
-		BGM& playStartLoop() { sound.stop(); sound.setLoop(true); return this->play(); }
-		BGM& playLoop() { sound.setLoop(true); return this->play(); }
-		BGM& volume(const uint8_t vol_) { sound.setVolume(double(vol_) / 255.0); return *this; }
+		AsBGM& stop() { sound.pause(); return *this; }
+		AsBGM& play() { sound.play(); return *this; }
+		AsBGM& playStart() { sound.stop(); return this->play(); }
+		AsBGM& playStartLoop() { sound.stop(); sound.setLoop(true); return this->play(); }
+		AsBGM& playLoop() { sound.setLoop(true); return this->play(); }
+		AsBGM& volume(const uint8_t vol_) { sound.setVolume(double(vol_) / 255.0); return *this; }
 #elif defined(ASLIB_INCLUDE_OF)
-		BGM& stop() { return *this; }
-		BGM& play() { return *this; }
-		BGM& playStart() { return *this; }
-		BGM& playStartLoop() { return *this; }
-		BGM& playLoop() { return *this; }
-		BGM& volume(const uint8_t vol_) { return *this; }
+		AsBGM& stop() { return *this; }
+		AsBGM& play() { return *this; }
+		AsBGM& playStart() { return *this; }
+		AsBGM& playStartLoop() { return *this; }
+		AsBGM& playLoop() { return *this; }
+		AsBGM& volume(const uint8_t vol_) { return *this; }
 #else //Console
-		BGM& stop() { return *this; }
-		BGM& play() { return *this; }
-		BGM& playStart() { return *this; }
-		BGM& playStartLoop() { return *this; }
-		BGM& playLoop() { return *this; }
-		BGM& volume(const uint8_t vol_) { return *this; }
+		AsBGM& stop() { return *this; }
+		AsBGM& play() { return *this; }
+		AsBGM& playStart() { return *this; }
+		AsBGM& playStartLoop() { return *this; }
+		AsBGM& playLoop() { return *this; }
+		AsBGM& volume(const uint8_t vol_) { return *this; }
 #endif
 	};
 

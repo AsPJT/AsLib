@@ -14,7 +14,7 @@ namespace AsLib
 
 #if defined(__WINDOWS__)
 	inline void asClipboard(const char* const str_) { DxLib::SetClipboardText(str_); }
-	inline void asClipboard(const std::string str_) { asClipboard(str_.c_str()); }
+	inline void asClipboard(const std::string& str_) { asClipboard(str_.c_str()); }
 
 	const std::string asClipboard() {
 		const size_t b = size_t(DxLib::GetClipboardText(NULL) + 1);

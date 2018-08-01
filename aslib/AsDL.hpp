@@ -1285,7 +1285,7 @@ constexpr int CTRL_CODE_CMP=0x20;
 
 		inline const bool ControlHandle(const int handle_, const size_t id_) { return (handle_ < 0 || size_t(handle_) >= id_); }
 		const int ControlGraph(const size_t id_, const int handle_ = -1, const char* const f_ = nullptr, const Pos4& p_ = pos4_0, const Pos2& p2_ = pos2_0, int* const x_ = nullptr, int* const y_ = nullptr) {
-			static std::vector<Texture> DL_tmd;
+			static std::vector<AsTexture> DL_tmd;
 			switch (id_)
 			{
 			case USING_DL_GRAPH_LOAD:
@@ -1354,7 +1354,7 @@ constexpr int CTRL_CODE_CMP=0x20;
 		inline const int DrawExtendGraph(const int x1, const int y1, const int x2, const int y2, const int handle, const int flag=1) { return ControlGraph(USING_DL_GRAPH_EXTEND_DRAW, handle, nullptr, Pos4(int32_t(x1), int32_t(y1), int32_t(x2), int32_t(y2))); }
 		inline const int DrawExtendGraph(const Pos4& p_, const int handle, const int flag = 1) { return ControlGraph(USING_DL_GRAPH_EXTEND_DRAW, handle, nullptr, p_); }
 		inline const int GetGraphSize(const int handle, int * const x_, int * const y_) { return ControlPixelGraph(handle, x_, y_); }
-		//const int LoadGraphScreen(const int x_, const int y_, const char* const f_, const int flag = 1) { Texture(1, asLoadTexture(f_, 1)).draw(0, Pos2(int32_t(x_), int32_t(y_))); return 0; }
+		//const int LoadGraphScreen(const int x_, const int y_, const char* const f_, const int flag = 1) { AsTexture(1, asLoadTexture(f_, 1)).draw(0, Pos2(int32_t(x_), int32_t(y_))); return 0; }
 
 		//ä»à’âÊñ èoóÕä÷êî
 		template<typename... Rest>inline const int printfDx(const char* const format_string, const Rest&... rest) { return int(asPrint(format_string, rest...)); }

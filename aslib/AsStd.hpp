@@ -85,14 +85,14 @@ namespace AsLib
 
 
 	//タイトルを記録する関数
-	const char* const asTitleSave(const bool b_, const char* const str_ = nullptr)
+	std::string asTitleSave(const bool b_, const char* const str_ = nullptr)
 	{
-		static std::string str;
-		if (b_ && str_ != nullptr) str = str_;
-		return str.c_str();
+		static thread_local std::string aslib_title_save_str;
+		if (b_ && str_ != nullptr) aslib_title_save_str = str_;
+		return aslib_title_save_str;
 	}
 	//タイトルを取得する関数
-	inline const char* const asTitle() { return asTitleSave(false); }
+	inline std::string asTitle() { return asTitleSave(false); }
 
 	//タイトル変更
 	inline const int32_t asSetTitle(const char* const title)
@@ -227,15 +227,15 @@ namespace AsLib
 	}
 
 
-	const int32_t makeLog(const char* const str_)
+	const int32_t makeLog(const std::string& str_)
 	{
 		asWrite(str_, u8"<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"/>");
 		asAddWrite(str_, u8"<title>");
-		asAddWrite(str_, asTitle());
+		asAddWrite(str_, asTitle().c_str());
 		asAddWrite(str_, u8"</title>");
 		asAddWrite(str_, u8"<style>body{background-color:#f9f9f9;font-family:'SegoeUI','メイリオ','Meiryo','ヒラギノ角ゴProW3','HiraginoKakuGothicPro','Osaka','ＭＳＰゴシック','MSPGothic','Arial',sans-serif;}h2{color:#333333;text-align:center;font-size:28px;}h3{color:#333333;text-align:center;font-size:24px;}main{font-size:14px;line-height:2;word-wrap:break-word;}main.name{color:#333333;text-align:center;font-size:20px;}main.copyright{padding-bottom:8px;color:#555555;text-align:center;font-size:12px;}main.license{padding-bottom:24px;color:#888888;text-align:center;font-size:9px;}</style></head><body>");
 		asAddWrite(str_, u8"<h2>");
-		asAddWrite(str_, asTitle());
+		asAddWrite(str_, asTitle().c_str());
 		asAddWrite(str_, u8"</h2><br><h3>Licenses</h3>");
 
 		std::string license_name = u8"";
@@ -265,9 +265,7 @@ namespace AsLib
 	}
 
 	const int32_t makeLog() {
-		std::string str = asTitle();
-		str += u8"_Licenses.html";
-		return makeLog(str.c_str());
+		return makeLog(asTitle() + u8"_Licenses.html");
 	}
 
 
