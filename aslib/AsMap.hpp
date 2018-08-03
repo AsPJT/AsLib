@@ -11,7 +11,6 @@ namespace AsLib
 {
 	enum :size_t {
 		MAP_VIEW_DRAW_COLOR,
-		MAP_VIEW_DRAW_TEXTURE,
 		MAP_VIEW_DRAW_ANIME,
 	};
 
@@ -21,6 +20,10 @@ namespace AsLib
 	private:
 		//マップの中心位置と幅
 		PosA4F p;
+		//開始から終了まで
+		Pos4 in_map;
+		//マップサイズ
+		Pos2 p2;
 
 		//全体の描画
 		MapView& drawMob(const Pos2& p_, const size_t num_, Color* const col_ = nullptr, AsTexture* const t_ = nullptr, AsTexture* const a_ = nullptr, const size_t id_ = 0)
@@ -30,25 +33,28 @@ namespace AsLib
 
 			//1マスの描画幅
 			const Pos2F m(asWindowSizeF().x / this->p.w, asWindowSizeF().y / this->p.h);
-			//描画ピクセル数
-			const PosA4F in_mapA(this->p.x, this->p.y, m.x*(floor(this->p.w) + 3.0f), m.y*(floor(this->p.h) + 4.0f));
-			//描画マス数
-			const Pos4 in_map(PosA4(int32_t(p.x), int32_t(p.y), int32_t(this->p.w) + 2, int32_t(this->p.h) + 2));
+
+			//中心幅
+			const Pos2F ce_length(this->p.w/2.0f, this->p.h/2.0f);
+			//前
+			const Pos2F be_pos(this->p.x - ce_length.x, this->p.y - ce_length.y);
+			//後
+			const Pos2F af_pos(this->p.x + ce_length.x, this->p.y + ce_length.y);
 
 			//描画初期位置
-			const Pos2F in_draw((asWindowSizeF().x - in_mapA.w) / 2.0f - m.x*(this->p.x - floor(this->p.x)), (asWindowSizeF().y - in_mapA.h) / 2.0f - m.y*(this->p.y - floor(this->p.y)));
-
-			Pos2 select_map(0);
+			const Pos2F in_draw((floor(be_pos.x) - be_pos.x)*m.x-m.x, (floor(be_pos.y) - be_pos.y)*m.y-m.y);
+			in_map = Pos4(floor(be_pos.x), floor(be_pos.y), ceil(af_pos.x), ceil(af_pos.y));
+			Pos2 select_map;
 			Pos2F draw_map(in_draw);
 
-			for (int32_t i = in_map.y1; i <= in_map.y2; ++i) {
+			for (int32_t i = in_map.y1; i < in_map.y2; ++i) {
 				draw_map.x = in_draw.x;
 				draw_map.y += m.y;
 				select_map.y = i;
 				while (select_map.y < 0) { select_map.y += p_.y; }
 				select_map.y = select_map.y % p_.y;
 
-				for (int32_t j = in_map.x1; j <= in_map.x2; ++j) {
+				for (int32_t j = in_map.x1; j < in_map.x2; ++j) {
 					draw_map.x += m.x;
 					select_map.x = j;
 					while (select_map.x < 0) { select_map.x += p_.x; }
@@ -84,6 +90,13 @@ namespace AsLib
 		}
 
 		//中心位置を指定--------------------------------------------------------------
+
+		//
+		MapView& setMap(const Pos2& p2_) {
+			if (p2_.is_minus()) return *this;
+			p2=p2_;
+			return *this;
+		}
 
 		//視点変更
 		MapView& setMob(PosA4F& p_, const Pos2& p2_) {
@@ -135,7 +148,7 @@ namespace AsLib
 			return this->draw(PosA4F(float((int32_t(p_.x) + p2_.x) % p2_.x) + p_.x - floor(p_.x), float((int32_t(p_.y) + p2_.y) % p2_.y) + p_.y - floor(p_.y), p_.w, p_.h), t_);
 		}
 		//描画する物のサイズ、カラー
-		MapView& draw(const Pos4F& p_, AsTexture& t_) { return this->drawMob(p_, MAP_VIEW_DRAW_TEXTURE, nullptr, &t_, nullptr); }
+		MapView& draw(const Pos4F& p_, AsTexture& t_) { return this->drawMob(p_, MAP_VIEW_DRAW_ANIME, nullptr, &t_, nullptr); }
 		//プレイヤーの位置、マップサイズ、画像
 		MapView& draw(const PosA4F& p_, const Pos2& p2_, AsTexture& a_,const size_t id_=0)
 		{
@@ -148,12 +161,163 @@ namespace AsLib
 		//色の全体描画
 		MapView& draw(Color* const col_, const Pos2& p_) { return this->drawMob(p_, MAP_VIEW_DRAW_COLOR, col_, nullptr, nullptr); }
 		//画像の全体描画
-		MapView& draw(AsTexture* t_, const Pos2& p_) { return this->drawMob(p_, MAP_VIEW_DRAW_TEXTURE, nullptr, t_, nullptr); }
+		MapView& draw(AsTexture* t_, const Pos2& p_) { return this->drawMob(p_, MAP_VIEW_DRAW_ANIME, nullptr, t_, nullptr); }
 		//画像の全体描画
 		MapView& draw(AsTexture* a_, const Pos2& p_, const size_t id_) { return this->drawMob(p_, MAP_VIEW_DRAW_ANIME, nullptr, nullptr, a_, id_); }
 
 
 	};
+
+	//dir_move
+	enum :size_t
+	{
+		MOB_DOWN_MOVE1,
+		MOB_DOWN_STOP,
+		MOB_DOWN_MOVE2,
+		MOB_LEFT_DOWN_MOVE1,
+		MOB_LEFT_DOWN_STOP,
+		MOB_LEFT_DOWN_MOVE2,
+		MOB_LEFT_MOVE1,
+		MOB_LEFT_STOP,
+		MOB_LEFT_MOVE2,
+		MOB_RIGHT_DOWN_MOVE1,
+		MOB_RIGHT_DOWN_STOP,
+		MOB_RIGHT_DOWN_MOVE2,
+		MOB_RIGHT_MOVE1,
+		MOB_RIGHT_STOP,
+		MOB_RIGHT_MOVE2,
+		MOB_LEFT_UP_MOVE1,
+		MOB_LEFT_UP_STOP,
+		MOB_LEFT_UP_MOVE2,
+		MOB_UP_MOVE1,
+		MOB_UP_STOP,
+		MOB_UP_MOVE2,
+		MOB_RIGHT_UP_MOVE1,
+		MOB_RIGHT_UP_STOP,
+		MOB_RIGHT_UP_MOVE2,
+	};
+	//dir
+	enum :size_t
+	{
+		MOB_DOWN,
+		MOB_UP,
+		MOB_LEFT,
+		MOB_RIGHT,
+		MOB_LEFT_UP,
+		MOB_RIGHT_UP,
+		MOB_LEFT_DOWN,
+		MOB_RIGHT_DOWN,
+		MOB_CENTER,
+	};
+	//move
+	enum :size_t
+	{
+		MOB_STOP,//静止
+		MOB_MOVE1,//左足
+		MOB_MOVE2,//真ん中
+		MOB_MOVE3,//右足
+		MOB_MOVE4,//真ん中
+	};
+
+	const size_t mobMoveDirect(const size_t mob_direct_id, const size_t mob_move_id)
+	{
+		switch (mob_move_id)
+		{
+		case MOB_STOP:
+			switch (mob_direct_id) {
+			case MOB_DOWN:return MOB_DOWN_STOP;
+			case MOB_UP:return MOB_UP_STOP;
+			case MOB_LEFT:return MOB_LEFT_STOP;
+			case MOB_RIGHT:return MOB_RIGHT_STOP;
+			case MOB_LEFT_UP:return MOB_LEFT_UP_STOP;
+			case MOB_RIGHT_UP:return MOB_RIGHT_UP_STOP;
+			case MOB_LEFT_DOWN:return MOB_LEFT_DOWN_STOP;
+			case MOB_RIGHT_DOWN:return MOB_RIGHT_DOWN_STOP;
+			}
+			return 0;
+		case MOB_MOVE1:
+			switch (mob_direct_id) {
+			case MOB_DOWN:return MOB_DOWN_MOVE1;
+			case MOB_UP:return MOB_UP_MOVE1;
+			case MOB_LEFT:return MOB_LEFT_MOVE1;
+			case MOB_RIGHT:return MOB_RIGHT_MOVE1;
+			case MOB_LEFT_UP:return MOB_LEFT_UP_MOVE1;
+			case MOB_RIGHT_UP:return MOB_RIGHT_UP_MOVE1;
+			case MOB_LEFT_DOWN:return MOB_LEFT_DOWN_MOVE1;
+			case MOB_RIGHT_DOWN:return MOB_RIGHT_DOWN_MOVE1;
+			}
+			return 0;
+		case MOB_MOVE2:
+			switch (mob_direct_id) {
+			case MOB_DOWN:return MOB_DOWN_STOP;
+			case MOB_UP:return MOB_UP_STOP;
+			case MOB_LEFT:return MOB_LEFT_STOP;
+			case MOB_RIGHT:return MOB_RIGHT_STOP;
+			case MOB_LEFT_UP:return MOB_LEFT_UP_STOP;
+			case MOB_RIGHT_UP:return MOB_RIGHT_UP_STOP;
+			case MOB_LEFT_DOWN:return MOB_LEFT_DOWN_STOP;
+			case MOB_RIGHT_DOWN:return MOB_RIGHT_DOWN_STOP;
+			}
+			return 0;
+		case MOB_MOVE3:
+			switch (mob_direct_id) {
+			case MOB_DOWN:return MOB_DOWN_MOVE2;
+			case MOB_UP:return MOB_UP_MOVE2;
+			case MOB_LEFT:return MOB_LEFT_MOVE2;
+			case MOB_RIGHT:return MOB_RIGHT_MOVE2;
+			case MOB_LEFT_UP:return MOB_LEFT_UP_MOVE2;
+			case MOB_RIGHT_UP:return MOB_RIGHT_UP_MOVE2;
+			case MOB_LEFT_DOWN:return MOB_LEFT_DOWN_MOVE2;
+			case MOB_RIGHT_DOWN:return MOB_RIGHT_DOWN_MOVE2;
+			}
+			return 0;
+		case MOB_MOVE4:
+			switch (mob_direct_id) {
+			case MOB_DOWN:return MOB_DOWN_STOP;
+			case MOB_UP:return MOB_UP_STOP;
+			case MOB_LEFT:return MOB_LEFT_STOP;
+			case MOB_RIGHT:return MOB_RIGHT_STOP;
+			case MOB_LEFT_UP:return MOB_LEFT_UP_STOP;
+			case MOB_RIGHT_UP:return MOB_RIGHT_UP_STOP;
+			case MOB_LEFT_DOWN:return MOB_LEFT_DOWN_STOP;
+			case MOB_RIGHT_DOWN:return MOB_RIGHT_DOWN_STOP;
+			}
+			return 0;
+		}
+		return 0;
+	}
+
+	//mobに歩行アニメーションをさせる
+	const bool mobMoveSet(size_t& move_id_, size_t& count, const size_t move_max = 6)
+	{
+		switch (move_id_)
+		{
+		case MOB_STOP:
+			++move_id_;
+			return true;
+		case MOB_MOVE1:
+		case MOB_MOVE2:
+		case MOB_MOVE3:
+			++count;
+			if (count >= move_max) {
+				count = 0;
+				++move_id_;
+			}
+			return true;
+		case MOB_MOVE4:
+			++count;
+			if (count >= move_max) {
+				count = 0;
+				move_id_ = MOB_MOVE1;
+			}
+			return true;
+		}
+		return false;
+	}
+
+
+
+
 
 	//マップサイズを変更する
 	template<typename Map_> void mapSize(const Pos2& b_, const Pos2& a_, Map_* m_, const Map_ count_ = Map_(0))

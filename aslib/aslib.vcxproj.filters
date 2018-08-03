@@ -149,13 +149,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="rl.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="styleguide.txt">
       <Filter>リソース ファイル</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="inventory.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

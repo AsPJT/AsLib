@@ -49,6 +49,28 @@ namespace AsLib
 				unique[i].stack = 0;
 			}
 		}
+
+		ShareItem& setSize(const size_t max_) {
+			const size_t before_size = unique.size();
+			unique.resize(max_);
+			for (size_t i = before_size; i < max_; ++i) {
+				unique[i].item = 0;
+				unique[i].stack = 0;
+		}
+			return *this;
+	}
+
+		ShareItem& addSize(const int32_t add_) {
+			const size_t before_size = unique.size();
+			const size_t total_size = ((int32_t(unique.size()) + add_) < 0) ? 0 : size_t((before_size + add_));
+			unique.resize(total_size);
+			for (size_t i = before_size; i < total_size; ++i) {
+				unique[i].item = 0;
+				unique[i].stack = 0;
+			}
+			return *this;
+		}
+
 #if !defined(__ANDROID__)
 		ShareItem& sortUp() { sort(unique.begin(), unique.end()); return *this; }
 		ShareItem& sortDown() { sort(unique.begin(), unique.end(), std::greater<UniqueItem>()); return *this; }
@@ -136,6 +158,14 @@ namespace AsLib
 			}
 			return *this;
 		}
+
+		Inventory& addSize(const int32_t add_) {
+			if (share_item == nullptr) return *this;
+			share_item->addSize(add_);
+			num_frame = ((int32_t(num_frame) + add_) < 0) ? 0 : size_t((num_frame + add_));
+			return *this;
+		}
+
 	};
 
 }
