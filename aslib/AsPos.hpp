@@ -138,7 +138,7 @@ namespace AsLib
 		}
 #endif
 
-		const char* const c_str()
+		const char* const c_str() const
 		{
 			std::stringstream ss;
 			ss << '(' << this->x << ',' << this->y << ')';
@@ -1297,11 +1297,11 @@ namespace AsLib
 	inline void asRand(Pos8F* const array_, const size_t s_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i]); }
 	inline void asRand(std::vector<Pos8F>& array_) { const size_t s = array_.size(); for (size_t i = 0; i < s; ++i) asRand(array_[i]); }
 	constexpr Pos2 aslib_full_screen(-1, -1);
-	const Pos2 asPlatformPos(const Pos2& p1_, const Pos2& p2_) {
+	const Pos2 asPlatformPos(const Pos2& pc_= aslib_full_screen, const Pos2& sp_= aslib_full_screen) {
 		switch (aslib_platform)
 		{
-		case aslib_platform_pc:return p1_;
-		case aslib_platform_sp:return p2_;
+		case aslib_platform_pc:return pc_;
+		case aslib_platform_sp:return sp_;
 		}
 		return aslib_full_screen;
 	}

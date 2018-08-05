@@ -21,10 +21,21 @@ namespace AsLib
 	}
 #endif
 
+	//初期化を記録
+	const bool asIsInitSave(const bool b_, const bool& p_ = false)
+	{
+		static thread_local bool p = false;
+		if (b_) p = p_;
+		return p;
+	}
+	//初期化を取得する関数
+	inline const bool asIsInit() { return asIsInitSave(false); }
+
+
 	//ウィンドウサイズを記録する関数
 	const Pos2 asWindowSizeSave(const bool b_, const Pos2& p_ = pos2_0)
 	{
-		static Pos2 p;
+		static thread_local Pos2 p;
 		if (b_) p = p_;
 		return p;
 	}
@@ -346,9 +357,10 @@ namespace AsLib
 #endif
 
 #if !defined(ASLIB_DONOT_USE_LOG)
-makeLog();
+		makeLog();
 #endif
-return 0;
+		asIsInitSave(true, true);
+		return 0;
 	}
 
 	//終了処理

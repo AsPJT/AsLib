@@ -101,6 +101,16 @@ namespace AsLib
 		return std::string(sn_string);
 	}
 
+	inline void asPrintClear() 
+	{
+#if defined(ASLIB_INCLUDE_DL) //DxLib
+		DxLib::clsDx();
+		return;
+#else
+		return;
+#endif
+	}
+
 	inline const bool asFont(const OriginatorFont& id_, const char* const format_string, const Pos2& pos_, const Color& color_)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib

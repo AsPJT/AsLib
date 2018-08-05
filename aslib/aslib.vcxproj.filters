@@ -132,6 +132,9 @@
     <ClInclude Include="AsUsing.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="AsBase64.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc">
@@ -154,7 +157,7 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="inventory.cpp">
+    <ClCompile Include="s20180806.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

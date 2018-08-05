@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AsBase64.hpp" />
     <ClInclude Include="AsBattery.hpp" />
     <ClInclude Include="AsCircle.hpp" />
     <ClInclude Include="AsClipboard.hpp" />
@@ -190,7 +191,7 @@
     <Text Include="styleguide.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="inventory.cpp" />
+    <ClCompile Include="s20180806.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
