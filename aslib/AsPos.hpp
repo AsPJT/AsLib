@@ -115,7 +115,7 @@ namespace AsLib
 		const Pos2& randPlus(const uint32_t);
 		const Pos2& operator()(Pos2* const p_) const { if (p_ != nullptr)*p_ = *this; return *this; }
 		const Pos2& operator()(pos_int* const x_, pos_int* const y_) const { *x_ = this->x; *y_ = this->y; return *this; }
-		const bool is_minus() const { return (this->x <= 0 || this->y <= 0) ? true : false; };
+		const bool is_minus() const { return (this->x < 0 || this->y < 0) ? true : false; };
 		const pos_int plus() const { return (this->x + this->y); }
 		const pos_float Hypot() const { return pos_float(hypot(this->x, this->y)); }
 		const Pos2& Hypot(pos_float& f_) const { f_ = pos_float(hypot(this->x, this->y)); return *this; }

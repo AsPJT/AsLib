@@ -238,6 +238,9 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //ゲームパッド (T)
 #include "AsGamePad.hpp"
 
+//迷路アルゴリズム
+#include "AsMaze.hpp"
+
 //空間を扱う(All) (N)
 #include "AsMap.hpp"
 

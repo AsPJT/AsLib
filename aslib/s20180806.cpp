@@ -6,15 +6,18 @@ int32_t asMain()
 	MainControl mc(u8"AsRPG", Pos2(560, 700));
 
 	//マップテクスチャ
-	AsTexture empty_texture(u8"p/empty.png");
 	AsTexture crystal1_texture(u8"p/crystal1.png");
 	AsTexture crystal2_texture(u8"p/crystal2.png");
 
 	//マップ管理
 	AsTextureMapArray tma;
-	tma.add(empty_texture);
-	tma.add(crystal1_texture);
-	tma.add(crystal2_texture);
+	tma.add(nullptr);
+	tma.add(&crystal1_texture);
+	tma.add(&crystal2_texture);
+
+	//マップ生成
+	tma.resizeMap(13*17);
+	tma.randMap();
 
 	//モンスター
 	std::vector<AsTexture> monster;
@@ -26,7 +29,7 @@ int32_t asMain()
 	size_t move_id = MOB_STOP;
 	size_t count = 0;
 
-	constexpr Pos2 w_pos2(8, 8);
+	constexpr Pos2 w_pos2(13, 17);
 	worldMap w(w_pos2);
 	bool is_w = true;
 
@@ -52,8 +55,11 @@ int32_t asMain()
 		else if (asKeyLeft()) dir_id = MOB_LEFT;
 		else if (asKeyRight()) dir_id = MOB_RIGHT;
 
-		mv.setMob(pl, w_pos2);
-		mv.draw(&w.col[0], w_pos2);
+		mv.setMobView(pl);
+		mv.draw(&w.col[0]);
+
+		mv.draw(&tma);
+
 		mv.draw(pl2, w_pos2, Color(0, 255, 0, 255));
 		mv.draw(PosA4F(5.5f, 5.5f, 1.0f, 1.0f), w_pos2, Color(0, 205, 50, 255));
 		mv.draw(PosA4F(0.5f, 0.5f, 1.0f, 1.0f), w_pos2, Color(0, 255, 0, 255));
