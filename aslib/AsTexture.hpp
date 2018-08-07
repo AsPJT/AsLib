@@ -127,10 +127,12 @@ namespace AsLib
 #endif
 		Pos2 pixel_size;
 		size_t num = 0;
+		size_t num_x = 0;
+		size_t num_y = 0;
 	public:
 		AsTexture() = default;
 #if defined(ANIME_TEXTURE_1)
-		AsTexture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_, x_, y_)), num(x_*y_) 
+		AsTexture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_, x_, y_)), num(x_*y_), num_x(x_), num_y(y_)
 		{
 			//画像サイズ取得
 			asTextureSize(this->id, this->pixel_size);
@@ -142,6 +144,8 @@ namespace AsLib
 		{
 			id = asLoadTexture(name_, x_, y_);
 			num = x_ * y_;
+			num_x = x_;
+			num_y = y_;
 			//画像サイズ取得
 			asTextureSize(this->id, this->pixel_size);
 			this->pixel_size.x /= int32_t(x_);
@@ -150,13 +154,15 @@ namespace AsLib
 			return *this;
 		}
 #elif defined(ANIME_TEXTURE_2)
-		AsTexture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_,x_,y_)), pixel_size(asTextureSize(this->id[0])), num(x_*y_) {}//stdmovea
+		AsTexture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_,x_,y_)), pixel_size(asTextureSize(this->id[0])), num(x_*y_), num_x(x_), num_y(y_) {}//stdmovea
 
 		AsTexture& operator()(const char* const name_, const size_t x_ = 1, const size_t y_ = 1)
 		{
 			id = asLoadTexture(name_, x_, y_);//stdmovea
 			pixel_size = asTextureSize(this->id[0]);
 			num = x_ * y_;
+			num_x = x_;
+			num_y = y_;
 			return *this;
 		}
 #elif defined(ANIME_TEXTURE_3)
@@ -193,6 +199,8 @@ namespace AsLib
 		const AsTexture& draw(const size_t, const PosA4F&, const float, const uint8_t = 255);
 
 		const size_t Num() const { return this->num; };
+		const size_t NumX() const { return this->num_x; };
+		const size_t NumY() const { return this->num_y; };
 		const Pos2 pixelSize() const { return this->pixel_size; };
 	};
 

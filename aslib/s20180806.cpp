@@ -5,6 +5,17 @@ int32_t asMain()
 {
 	MainControl mc(u8"AsRPG", Pos2(560, 700));
 
+	//マップテクスチャ
+	AsTexture empty_texture(u8"p/empty.png");
+	AsTexture crystal1_texture(u8"p/crystal1.png");
+	AsTexture crystal2_texture(u8"p/crystal2.png");
+
+	//マップ管理
+	AsTextureMapArray tma;
+	tma.add(empty_texture);
+	tma.add(crystal1_texture);
+	tma.add(crystal2_texture);
+
 	//モンスター
 	std::vector<AsTexture> monster;
 	monster.push_back({ u8"Picture/ikari.png", 6, 4 });
@@ -27,7 +38,7 @@ int32_t asMain()
 	static PosA4F pl(0.5f, 0.5f, 1.0f, 1.0f);
 
 	constexpr PosA4F map_p(0.0f, 0.0f, 5.0f, 20.0f);
-	MapView mv(map_p, 'y');
+	AsMapView mv(map_p, 'y');
 	mv.setMap(w_pos2);
 	constexpr float fps = 0.2f;
 
