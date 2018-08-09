@@ -33,7 +33,7 @@ namespace AsLib
 		aslib_texture_map_type_1n,
 		aslib_texture_map_type_20n,
 	};
-
+	//フィールドタイプ
 	enum :size_t {
 		aslib_texture_map_field_type_empty,
 		aslib_texture_map_field_type_wall,
@@ -137,15 +137,42 @@ namespace AsLib
 			s_layer = layer_;
 			s.resize(p_.x*p_.y*layer_, 0);
 		}
-		void randMap() {
-			if (tm.size() < 2) return;
-			for (size_t i = 0; i < s.size(); ++i) {
-				s[i] = 1 + size_t(asRand32(uint32_t(tm.size() - 2)));
+		void setLayer(const size_t layer_ = 1, const size_t var_ = 0) {
+			s.resize(s_x*s_y*layer_);
+			const size_t layer_max = s_x * s_y;
+			for (size_t i = 0; i < layer_max; ++i) {
+				s[i] = var_;
+			}
+			for (size_t i = layer_max; i < s.size(); ++i) {
+				s[i] = 0;
+			}
+			s_layer = layer_;
+		}
+		void putMap(const size_t id_ = 0, const size_t layer_ = 0) {
+			if (tm.size() < 2 || layer_ >= s_layer) return;
+			const size_t layer_min = s_x * s_y*layer_;
+			const size_t layer_max = layer_min + s_x * s_y;
+			for (size_t i = layer_min; i < layer_max; ++i) {
+				s[i] = id_;
 			}
 		}
-		void mazeMap(const size_t wall_, const size_t empty_ = 0) {
-			if (tm.size() < 2 || s_x % 2 == 0 || s_y % 2 == 0) return;
-			s = vector2ToVector1(asMazeMapMake(s_y, s_x, wall_, empty_));
+		void randMap(const size_t layer_ = 0) {
+			if (tm.size() < 2 || layer_ >= s_layer) return;
+			const size_t layer_min = s_x * s_y*layer_;
+			const size_t layer_max = layer_min + s_x * s_y;
+			for (size_t i = layer_min; i < layer_max; ++i) {
+				s[i] = size_t(1 + asRand32(uint32_t(tm.size() - 2)));
+			}
+		}
+		void mazeMap(const size_t wall_, const size_t empty_ = 0, const size_t layer_ = 0) {
+			if (tm.size() < 2 || s_x % 2 == 0 || s_y % 2 == 0 || layer_ >= s_layer) return;
+			const std::vector<size_t>& v2v1 = vector2ToVector1(asMazeMapMake(s_y, s_x, wall_, empty_));
+			const size_t layer_min = s_x * s_y*layer_;
+			const size_t layer_max = layer_min + s_x * s_y;
+			for (size_t i = layer_min, k = 0; i < layer_max; ++i, ++k) {
+				s[i] = v2v1[k];
+			}
+			
 		}
 
 	};
@@ -204,15 +231,20 @@ namespace AsLib
 			Pos2 select_map;
 			Pos2F draw_map(in_draw);
 			size_t array_num = 0;
+
 			AsTexture* texture_id = nullptr;
 			AsTextureMap* tm_id = nullptr;
 			size_t map_field_type = 0;
 			bool amap[8]{};
 			size_t pym, pyp, pxm, pxp;
 
+
+
 			//レイヤー指定
 			for (int32_t layer = 0; layer < draw_layer_max; ++layer) {
 				draw_layer_plus = layer_plus * layer;
+				draw_map = in_draw;
+
 				//Y軸指定
 				for (int32_t i = in_map.y1; i < in_map.y2; ++i) {
 					draw_map.x = in_draw.x;
@@ -220,6 +252,7 @@ namespace AsLib
 					select_map.y = i;
 					while (select_map.y < 0) { select_map.y += p_.y; }
 					select_map.y = select_map.y % p_.y;
+
 					//X軸指定
 					for (int32_t j = in_map.x1; j < in_map.x2; ++j) {
 						draw_map.x += m.x;
@@ -244,7 +277,6 @@ namespace AsLib
 								texture_id->draw(a_->tm[a_->s[array_num]].anime_show_id, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)));
 								break;
 							case aslib_texture_map_type_20n:
-								//map20n_Number
 								tm_id = &a_->tm[a_->s[array_num]];
 								map_field_type = tm_id->field_type;
 							

@@ -3,7 +3,8 @@
 
 int32_t asMain()
 {
-	MainControl mc(u8"AsRPG", Pos2(560, 700));
+	//560, 700
+	MainControl mc(u8"AsRPG", Pos2(1280,720));
 
 	//アイテムUIの画像
 	Texture item_ui(u8"p/itemUI.png");
@@ -41,7 +42,7 @@ int32_t asMain()
 	AsTexture crystal1_te(u8"p/crystal1.png");
 	AsTexture crystal2_te(u8"p/crystal2.png");
 	AsTexture anime_te(u8"p/anime.png", 4);
-	AsTexture water_te(u8"p/rock3.png", 2,10);
+	AsTexture water_te(u8"p/mizu1.png", 4,10);
 
 	//マップ管理
 	AsTextureMapArray tma;
@@ -53,24 +54,23 @@ int32_t asMain()
 
 	//マップ生成
 	tma.resizeMap(w_pos2);
-	tma.mazeMap(0,4);
+	//
+
+	tma.setLayer(2, 1);
+	//tma.randMap(1);
+
+	//tma.putMap(1, 1);
+
+	tma.mazeMap(4,0,1);
 
 	//モンスター
 	AsTexture feri(u8"Picture/ikari.png", 6, 4);
 
 	size_t dir_id = MOB_DOWN;
 	size_t move_id = MOB_STOP;
-	size_t is_move = MOB_CENTER;
+	size_t moving = MOB_CENTER;
 	size_t count = 0;
-	bool moving = false;
 
-	worldMap w(w_pos2);
-	bool is_w = true;
-
-	if (is_w) {
-		w.rand().randC(100); is_w = false;
-		w.col[0] = { 255,255,255,255 };
-	}
 	constexpr PosA4F pl2(7.5f, 8.5f, 1.0f, 1.0f);
 	static PosA4F pl(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -82,7 +82,7 @@ int32_t asMain()
 	while (asLoop())
 	{
 		tma.update();
-		if (movingMobCross(fps, pl,is_move) != MOB_CENTER) {
+		if (movingMobCross(fps, pl,moving) != MOB_CENTER) {
 			mobMoveSet(move_id, count);
 			directionMobCross(dir_id);
 		}
@@ -91,12 +91,12 @@ int32_t asMain()
 		mv.setMobView(pl, aslib_mob_walk_type_big);
 		mv.draw(&tma);
 
-		mv.draw(pl2, w_pos2, Color(0, 255, 0, 255));
-		mv.draw(PosA4F(5.5f, 5.5f, 1.0f, 1.0f), w_pos2, Color(0, 205, 50, 255));
-		mv.draw(PosA4F(0.5f, 0.5f, 1.0f, 1.0f), w_pos2, Color(0, 255, 0, 255));
+		//mv.draw(pl2, w_pos2, Color(0, 255, 0, 255));
+		//mv.draw(PosA4F(5.5f, 5.5f, 1.0f, 1.0f), w_pos2, Color(0, 205, 50, 255));
+		//mv.draw(PosA4F(0.5f, 0.5f, 1.0f, 1.0f), w_pos2, Color(0, 255, 0, 255));
 		mv.draw(pl, w_pos2, feri, mobMoveDirect(dir_id, move_id), aslib_mob_walk_type_big);
 
-		tma.putBlock(4, pl, 0);
+		//tma.putBlock(4, pl, 0);
 
 		//
 		inv.selectAdd(mouseWheel()).draw(item).isSelectUp(asKeyL_Up()).isSelectDown(asKeyK_Up());
