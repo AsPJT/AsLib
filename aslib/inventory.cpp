@@ -14,9 +14,9 @@ int32_t asMain()
 	
 	//アイテムデータ
 	std::vector<Item> item;
-	item.push_back(Item(item_ui, u8"Empty"));
-	item.push_back(Item(mushroom_texture, 10,u8"mushroom"));
-	item.push_back(Item(mushroom_texture2, 5,u8"mushroom2"));
+	item.emplace_back(Item(nullptr, u8"Empty"));
+	item.emplace_back(Item(&mushroom_texture, 10,u8"mushroom"));
+	item.emplace_back(Item(&mushroom_texture2, 5,u8"mushroom2"));
 
 	enum :size_t
 	{
@@ -40,8 +40,8 @@ int32_t asMain()
 	//asStop();
 	while (asLoop()) {
 		if (asKeyU_Up()) share_item.sortDown();
-		//inv.selectAdd(mouseWheel()).draw(item);
-		inv.addSize(mouseWheel()).draw(item);
+		inv.selectAdd(mouseWheel()).draw(item);
+		//inv.addSize(mouseWheel()).draw(item);
 
 		if (asKeyY_Up()) inv.itemClear();
 

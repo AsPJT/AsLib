@@ -17,9 +17,9 @@ namespace AsLib
 		std::string name{};
 		Item() = default;
 		Item(const size_t type_, AsTexture& t_, const size_t stack_, const char* const name_) :type(type_), texture(&t_), stack_max(stack_), name(name_) {}
-		Item(AsTexture& t_, const size_t stack_, const char* const name_) :type(0), texture(&t_), stack_max(stack_), name(name_) {}
+		Item(AsTexture* const t_, const size_t stack_, const char* const name_) :type(0), texture(t_), stack_max(stack_), name(name_) {}
 		Item(const size_t type_, AsTexture& t_, const char* const name_) :type(type_), texture(&t_), stack_max(1), name(name_) {}
-		Item(AsTexture& t_, const char* const name_) :type(0), texture(&t_), stack_max(1), name(name_) {}
+		Item(AsTexture* const t_, const char* const name_) :type(0), texture(t_), stack_max(1), name(name_) {}
 	};
 
 	struct UniqueItem {

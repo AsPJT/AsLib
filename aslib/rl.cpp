@@ -30,8 +30,8 @@ int32_t asMain()
 	constexpr PosA4F pl2(7.5f, 8.5f, 1.0f, 1.0f);
 	static PosA4F pl(0.5f, 0.5f, 1.0f, 1.0f);
 
-	constexpr PosA4F map_p(0.0f, 0.0f, 5.0f, 20.0f);
-	MapView mv(map_p, 'y');
+	constexpr PosA4F map_p(0.0f, 0.0f, 5.0f, 10.0f);
+	AsMapView mv(map_p, 'y');
 	mv.setMap(w_pos2);
 
 	while (asLoop())
@@ -54,8 +54,8 @@ int32_t asMain()
 		else if (asKeyLeft()) dir_id = MOB_LEFT;
 		else if (asKeyRight()) dir_id = MOB_RIGHT;
 		//マップ描画の中心をプレイヤーの位置にセット
-		mv.setMob(pl, w_pos2);
-		mv.draw(&w.col[0], w_pos2);
+		mv.setMobView(pl);
+		mv.draw(&w.col[0]);
 
 		mv.draw(pl2, w_pos2, Color(0, 255, 0, 255));
 		mv.draw(PosA4F(5.5f, 5.5f, 1.0f, 1.0f), w_pos2, Color(0, 205, 50, 255));

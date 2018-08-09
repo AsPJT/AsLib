@@ -1,13 +1,16 @@
 ﻿# As Library
 当ライブラリはC++でのマルチプラットフォーム開発をサポートします。
 
+当ライブラリで開発した作品はopenFrameworksやOpenSiv3D等の
+多岐に渡るC++ - GUIライブラリで実行することが出来ます。
+
 ## License
 
 These codes are licensed under CC0.
 
 [![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png "CC0")](http://creativecommons.org/publicdomain/zero/1.0/deed.ja)
 
-当ライブラリは、他のゲームエンジンと組み合わせて使うことを前提としていますので、
+当ライブラリは、他のGUIライブラリと組み合わせて使うことを前提としていますので、
 組み合わせる際は、他のライブラリのライセンスをご確認の上、ご使用ください。
 
 ## ゲームエンジン等の対応度
