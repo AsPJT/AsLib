@@ -9,6 +9,20 @@
 
 namespace AsLib
 {
+	//dir
+	enum :size_t
+	{
+		MOB_DOWN,
+		MOB_UP,
+		MOB_LEFT,
+		MOB_RIGHT,
+		MOB_LEFT_UP,
+		MOB_RIGHT_UP,
+		MOB_LEFT_DOWN,
+		MOB_RIGHT_DOWN,
+		MOB_CENTER,
+	};
+
 	//キーボード配列ID
 	enum :size_t {
 		aslib_key_Unknown,
@@ -90,17 +104,17 @@ namespace AsLib
 		aslib_key_Delete_Forward,
 		aslib_key_Unknown14,
 		aslib_key_Unknown15,
-		aslib_key_LeftArrow,
+		aslib_key_left,
 		aslib_key_Home,
 		aslib_key_End,
 		aslib_key_Unknown16,
-		aslib_key_UpArrow,
-		aslib_key_DownArrow,
+		aslib_key_up,
+		aslib_key_down,
 		aslib_key_PageUp,
 		aslib_key_PageDown,
 		aslib_key_Unknown17,
 		aslib_key_Unknown18,
-		aslib_key_RightArrow,
+		aslib_key_right,
 		Keypad_Num_Locklear,
 		Keypad_7,
 		Keypad_4,
@@ -146,6 +160,135 @@ namespace AsLib
 		aslib_key_International4,
 		aslib_key_International2,
 		aslib_key_KeyLast,
+		aslib_key_135,
+		aslib_key_136,
+		aslib_key_137,
+		aslib_key_138,
+		aslib_key_139,
+		aslib_key_140,
+		aslib_key_141,
+		aslib_key_142,
+		aslib_key_143,
+		aslib_key_144,
+		aslib_key_145,
+		aslib_key_146,
+		aslib_key_147,
+		aslib_key_148,
+		aslib_key_149,
+		aslib_key_150,
+		aslib_key_151,
+		aslib_key_152,
+		aslib_key_153,
+		aslib_key_154,
+		aslib_key_155,
+		aslib_key_156,
+		aslib_key_157,
+		aslib_key_158,
+		aslib_key_159,
+		aslib_key_160,
+		aslib_key_161,
+		aslib_key_162,
+		aslib_key_163,
+		aslib_key_164,
+		aslib_key_165,
+		aslib_key_166,
+		aslib_key_167,
+		aslib_key_168,
+		aslib_key_169,
+		aslib_key_170,
+		aslib_key_171,
+		aslib_key_172,
+		aslib_key_173,
+		aslib_key_174,
+		aslib_key_175,
+		aslib_key_176,
+		aslib_key_177,
+		aslib_key_178,
+		aslib_key_179,
+		aslib_key_180,
+		aslib_key_181,
+		aslib_key_182,
+		aslib_key_183,
+		aslib_key_184,
+		aslib_key_185,
+		aslib_key_186,
+		aslib_key_187,
+		aslib_key_188,
+		aslib_key_189,
+		aslib_key_190,
+		aslib_key_191,
+		aslib_key_192,
+		aslib_key_193,
+		aslib_key_194,
+		aslib_key_195,
+		aslib_key_196,
+		aslib_key_197,
+		aslib_key_198,
+		aslib_key_199,
+		aslib_key_200,
+		aslib_key_201,
+		aslib_key_202,
+		aslib_key_203,
+		aslib_key_204,
+		aslib_key_205,
+		aslib_key_206,
+		aslib_key_207,
+		aslib_key_208,
+		aslib_key_209,
+		aslib_key_210,
+		aslib_key_211,
+		aslib_key_212,
+		aslib_key_213,
+		aslib_key_214,
+		aslib_key_215,
+		aslib_key_216,
+		aslib_key_217,
+		aslib_key_218,
+		aslib_key_219,
+		aslib_key_220,
+		aslib_key_221,
+		aslib_key_222,
+		aslib_key_223,
+		aslib_key_224,
+		aslib_key_225,
+		aslib_key_226,
+		aslib_key_227,
+		aslib_key_228,
+		aslib_key_229,
+		aslib_key_230,
+		aslib_key_231,
+		aslib_key_232,
+		aslib_key_233,
+		aslib_key_234,
+		aslib_key_235,
+		aslib_key_236,
+		aslib_key_237,
+		aslib_key_238,
+		aslib_key_239,
+		aslib_key_240,
+		aslib_key_241,
+		aslib_key_242,
+		aslib_key_243,
+		aslib_key_244,
+		aslib_key_245,
+		aslib_key_246,
+		aslib_key_247,
+		aslib_key_248,
+		aslib_key_249,
+		aslib_key_250,
+		aslib_key_251,
+		aslib_key_252,
+		aslib_key_253,
+		aslib_key_254,
+		aslib_key_255,
+		aslib_key_left_up,
+		aslib_key_right_up,
+		aslib_key_left_down,
+		aslib_key_right_down,
+		aslib_key_w_a,
+		aslib_key_w_d,
+		aslib_key_s_a,
+		aslib_key_s_d,
 	};
 
 	//class KeyControl
@@ -626,10 +769,10 @@ void checkKey(bool* const AS_key, Counter* const AS_count)
 	AS_key[aslib_key_F10] = bool(s3d::KeyF10.pressed());
 	AS_key[aslib_key_F11] = bool(s3d::KeyF11.pressed());
 	AS_key[aslib_key_F12] = bool(s3d::KeyF12.pressed());
-	AS_key[aslib_key_LeftArrow] = bool(s3d::KeyLeft.pressed());
-	AS_key[aslib_key_RightArrow] = bool(s3d::KeyRight.pressed());
-	AS_key[aslib_key_UpArrow] = bool(s3d::KeyUp.pressed());
-	AS_key[aslib_key_DownArrow] = bool(s3d::KeyDown.pressed());
+	AS_key[aslib_key_left] = bool(s3d::KeyLeft.pressed());
+	AS_key[aslib_key_right] = bool(s3d::KeyRight.pressed());
+	AS_key[aslib_key_up] = bool(s3d::KeyUp.pressed());
+	AS_key[aslib_key_down] = bool(s3d::KeyDown.pressed());
 	AS_key[aslib_key_left_shift] = bool(s3d::KeyLShift.pressed());
 	AS_key[aslib_key_right_shift] = bool(s3d::KeyRShift.pressed());
 	AS_key[aslib_key_left_control] = bool(s3d::KeyLControl.pressed());
@@ -992,37 +1135,37 @@ inline const bool asKeyEnterUp0() { return updateKey_(aslib_key_Return_ENTER, fa
 inline const bool asKeyEnterDown() { return updateKey_(aslib_key_Return_ENTER, false, aslib_counter_down); }
 inline const bool asKeyEnterDown0() { return updateKey_(aslib_key_Return_ENTER, false, aslib_counter_down0); }
 
-inline const bool asKeyUp() { return updateKey_(aslib_key_UpArrow, false); }
-inline const bool asKeyUpTouch() { return updateKey_(aslib_key_UpArrow, false, aslib_counter_touch); }
-inline const bool asKeyUpTouch0() { return updateKey_(aslib_key_UpArrow, false, aslib_counter_touch0); }
-inline const bool asKeyUpUp() { return updateKey_(aslib_key_UpArrow, false, aslib_counter_up); }
-inline const bool asKeyUpUp0() { return updateKey_(aslib_key_UpArrow, false, aslib_counter_up0); }
-inline const bool asKeyUpDown() { return updateKey_(aslib_key_UpArrow, false, aslib_counter_down); }
-inline const bool asKeyUpDown0() { return updateKey_(aslib_key_UpArrow, false, aslib_counter_down0); }
+inline const bool asKeyUp() { return updateKey_(aslib_key_up, false); }
+inline const bool asKeyUpTouch() { return updateKey_(aslib_key_up, false, aslib_counter_touch); }
+inline const bool asKeyUpTouch0() { return updateKey_(aslib_key_up, false, aslib_counter_touch0); }
+inline const bool asKeyUpUp() { return updateKey_(aslib_key_up, false, aslib_counter_up); }
+inline const bool asKeyUpUp0() { return updateKey_(aslib_key_up, false, aslib_counter_up0); }
+inline const bool asKeyUpDown() { return updateKey_(aslib_key_up, false, aslib_counter_down); }
+inline const bool asKeyUpDown0() { return updateKey_(aslib_key_up, false, aslib_counter_down0); }
 
-inline const bool asKeyDown() { return updateKey_(aslib_key_DownArrow, false); }
-inline const bool asKeyDownTouch() { return updateKey_(aslib_key_DownArrow, false, aslib_counter_touch); }
-inline const bool asKeyDownTouch0() { return updateKey_(aslib_key_DownArrow, false, aslib_counter_touch0); }
-inline const bool asKeyDownUp() { return updateKey_(aslib_key_DownArrow, false, aslib_counter_up); }
-inline const bool asKeyDownUp0() { return updateKey_(aslib_key_DownArrow, false, aslib_counter_up0); }
-inline const bool asKeyDownDown() { return updateKey_(aslib_key_DownArrow, false, aslib_counter_down); }
-inline const bool asKeyDownDown0() { return updateKey_(aslib_key_DownArrow, false, aslib_counter_down0); }
+inline const bool asKeyDown() { return updateKey_(aslib_key_down, false); }
+inline const bool asKeyDownTouch() { return updateKey_(aslib_key_down, false, aslib_counter_touch); }
+inline const bool asKeyDownTouch0() { return updateKey_(aslib_key_down, false, aslib_counter_touch0); }
+inline const bool asKeyDownUp() { return updateKey_(aslib_key_down, false, aslib_counter_up); }
+inline const bool asKeyDownUp0() { return updateKey_(aslib_key_down, false, aslib_counter_up0); }
+inline const bool asKeyDownDown() { return updateKey_(aslib_key_down, false, aslib_counter_down); }
+inline const bool asKeyDownDown0() { return updateKey_(aslib_key_down, false, aslib_counter_down0); }
 
-inline const bool asKeyLeft() { return updateKey_(aslib_key_LeftArrow, false); }
-inline const bool asKeyLeftTouch() { return updateKey_(aslib_key_LeftArrow, false, aslib_counter_touch); }
-inline const bool asKeyLeftTouch0() { return updateKey_(aslib_key_LeftArrow, false, aslib_counter_touch0); }
-inline const bool asKeyLeftUp() { return updateKey_(aslib_key_LeftArrow, false, aslib_counter_up); }
-inline const bool asKeyLeftUp0() { return updateKey_(aslib_key_LeftArrow, false, aslib_counter_up0); }
-inline const bool asKeyLeftDown() { return updateKey_(aslib_key_LeftArrow, false, aslib_counter_down); }
-inline const bool asKeyLeftDown0() { return updateKey_(aslib_key_LeftArrow, false, aslib_counter_down0); }
+inline const bool asKeyLeft() { return updateKey_(aslib_key_left, false); }
+inline const bool asKeyLeftTouch() { return updateKey_(aslib_key_left, false, aslib_counter_touch); }
+inline const bool asKeyLeftTouch0() { return updateKey_(aslib_key_left, false, aslib_counter_touch0); }
+inline const bool asKeyLeftUp() { return updateKey_(aslib_key_left, false, aslib_counter_up); }
+inline const bool asKeyLeftUp0() { return updateKey_(aslib_key_left, false, aslib_counter_up0); }
+inline const bool asKeyLeftDown() { return updateKey_(aslib_key_left, false, aslib_counter_down); }
+inline const bool asKeyLeftDown0() { return updateKey_(aslib_key_left, false, aslib_counter_down0); }
 
-inline const bool asKeyRight() { return updateKey_(aslib_key_RightArrow, false); }
-inline const bool asKeyRightTouch() { return updateKey_(aslib_key_RightArrow, false, aslib_counter_touch); }
-inline const bool asKeyRightTouch0() { return updateKey_(aslib_key_RightArrow, false, aslib_counter_touch0); }
-inline const bool asKeyRightUp() { return updateKey_(aslib_key_RightArrow, false, aslib_counter_up); }
-inline const bool asKeyRightUp0() { return updateKey_(aslib_key_RightArrow, false, aslib_counter_up0); }
-inline const bool asKeyRightDown() { return updateKey_(aslib_key_RightArrow, false, aslib_counter_down); }
-inline const bool asKeyRightDown0() { return updateKey_(aslib_key_RightArrow, false, aslib_counter_down0); }
+inline const bool asKeyRight() { return updateKey_(aslib_key_right, false); }
+inline const bool asKeyRightTouch() { return updateKey_(aslib_key_right, false, aslib_counter_touch); }
+inline const bool asKeyRightTouch0() { return updateKey_(aslib_key_right, false, aslib_counter_touch0); }
+inline const bool asKeyRightUp() { return updateKey_(aslib_key_right, false, aslib_counter_up); }
+inline const bool asKeyRightUp0() { return updateKey_(aslib_key_right, false, aslib_counter_up0); }
+inline const bool asKeyRightDown() { return updateKey_(aslib_key_right, false, aslib_counter_down); }
+inline const bool asKeyRightDown0() { return updateKey_(aslib_key_right, false, aslib_counter_down0); }
 
 //inline const bool asKeyA() { return updateKey_(aslib_key_a, false); }
 //inline const bool asKeyA_Touch() { return updateKey_(aslib_key_a, false, aslib_counter_touch); }
@@ -1033,6 +1176,164 @@ inline const bool asKeyRightDown0() { return updateKey_(aslib_key_RightArrow, fa
 //inline const bool asKeyA_Down0() { return updateKey_(aslib_key_a, false, aslib_counter_down0); }
 
 inline void updateKey() { updateKey_(0, true); }
+
+
+//switch (player_move_left_up[i])
+//{
+//case aslib_key_w_a:
+//	if (asKeyW_Touch() && asKeyA_Touch()) return MOB_LEFT_UP;
+//	break;
+//case aslib_key_w_d:
+//	if (asKeyW_Touch() && asKeyD_Touch()) return MOB_RIGHT_UP;
+//	return MOB_CENTER;
+//case aslib_key_s_a:
+//	if (asKeyS_Touch() && asKeyA_Touch()) return MOB_LEFT_DOWN;
+//	return MOB_CENTER;
+//case aslib_key_s_d:
+//	if (asKeyS_Touch() && asKeyD_Touch()) return MOB_RIGHT_DOWN;
+//	return MOB_CENTER;
+//case aslib_key_left_up:
+//	if (asKeyLeftTouch() && asKeyUpTouch()) return MOB_LEFT_UP;
+//	return MOB_CENTER;
+//case aslib_key_right_up:
+//	if (asKeyRightTouch() && asKeyUpTouch()) return MOB_RIGHT_UP;
+//	return MOB_CENTER;
+//case aslib_key_left_down:
+//	if (asKeyLeftTouch() && asKeyDownTouch()) return MOB_LEFT_DOWN;
+//	return MOB_CENTER;
+//case aslib_key_right_down:
+//	if (asKeyRightTouch() && asKeyDownTouch()) return MOB_RIGHT_DOWN;
+//	return MOB_CENTER;
+//}
+
+struct AsKeyList {
+	std::vector<size_t> player_move_down;
+	std::vector<size_t> player_move_up;
+	std::vector<size_t> player_move_left;
+	std::vector<size_t> player_move_right;
+	std::vector<size_t> player_move_left_up;
+	std::vector<size_t> player_move_right_up;
+	std::vector<size_t> player_move_left_down;
+	std::vector<size_t> player_move_right_down;
+
+	void addCross() {
+		player_move_down.emplace_back(aslib_key_down);
+		player_move_up.emplace_back(aslib_key_up);
+		player_move_left.emplace_back(aslib_key_left);
+		player_move_right.emplace_back(aslib_key_right);
+		player_move_left_up.emplace_back(aslib_key_left_up);
+		player_move_right_up.emplace_back(aslib_key_right_up);
+		player_move_left_down.emplace_back(aslib_key_left_down);
+		player_move_right_down.emplace_back(aslib_key_right_down);
+	}
+	void addKeyCross() {
+		player_move_down.emplace_back(aslib_key_s);
+		player_move_up.emplace_back(aslib_key_w);
+		player_move_left.emplace_back(aslib_key_a);
+		player_move_right.emplace_back(aslib_key_d);
+		player_move_left_up.emplace_back(aslib_key_w_a);
+		player_move_right_up.emplace_back(aslib_key_w_d);
+		player_move_left_down.emplace_back(aslib_key_s_a);
+		player_move_right_down.emplace_back(aslib_key_s_d);
+	}
+
+	const bool isTouch(const size_t is_) {
+		switch (is_)
+		{
+		case aslib_key_w_a:
+			if (asKeyW_Touch() && asKeyA_Touch()) return true;
+			return false;
+		case aslib_key_w_d:
+			if (asKeyW_Touch() && asKeyD_Touch()) return true;
+			return false;
+		case aslib_key_s_a:
+			if (asKeyS_Touch() && asKeyA_Touch()) return true;
+			return false;
+		case aslib_key_s_d:
+			if (asKeyS_Touch() && asKeyD_Touch()) return true;
+			return false;
+		case aslib_key_left_up:
+			if (asKeyLeftTouch() && asKeyUpTouch()) return true;
+			return false;
+		case aslib_key_right_up:
+			if (asKeyRightTouch() && asKeyUpTouch()) return true;
+			return false;
+		case aslib_key_left_down:
+			if (asKeyLeftTouch() && asKeyDownTouch()) return true;
+			return false;
+		case aslib_key_right_down:
+			if (asKeyRightTouch() && asKeyDownTouch()) return true;
+			return false;
+		}
+		return false;
+	}
+
+	const size_t playerMove4() {
+		for (size_t i = 0; i < player_move_down.size(); ++i) {
+			if (player_move_down[i] > 255) {
+				if (isTouch(player_move_down[i])) return MOB_DOWN;
+				else continue;
+			}
+			if (asKeyTouch(player_move_down[i])) return MOB_DOWN;
+		}
+		for (size_t i = 0; i < player_move_up.size(); ++i) {
+			if (player_move_up[i] > 255) {
+				if (isTouch(player_move_up[i])) return MOB_UP;
+				else continue;
+			}
+			if (asKeyTouch(player_move_up[i])) return MOB_UP;
+		}
+		for (size_t i = 0; i < player_move_left.size(); ++i) {
+			if (player_move_left[i] > 255) {
+				if (isTouch(player_move_left[i])) return MOB_LEFT;
+				else continue;
+			}
+			if (asKeyTouch(player_move_left[i])) return MOB_LEFT;
+		}
+		for (size_t i = 0; i < player_move_right.size(); ++i) {
+			if (player_move_right[i] > 255) {
+				if (isTouch(player_move_right[i])) return MOB_RIGHT;
+				else continue;
+			}
+			if (asKeyTouch(player_move_right[i])) return MOB_RIGHT;
+		}
+		return MOB_CENTER;
+	}
+
+	const size_t playerMove8() {
+		for (size_t i = 0; i < player_move_left_up.size(); ++i) {
+			if (player_move_left_up[i] > 255) {
+				if (isTouch(player_move_left_up[i])) return MOB_LEFT_UP;
+				else continue;
+			}
+			if (asKeyTouch(player_move_left_up[i])) return MOB_LEFT_UP;
+		}
+		for (size_t i = 0; i < player_move_right_up.size(); ++i) {
+			if (player_move_right_up[i] > 255) {
+				if (isTouch(player_move_right_up[i])) return MOB_RIGHT_UP;
+				else continue;
+			}
+			if (asKeyTouch(player_move_right_up[i])) return MOB_RIGHT_UP;
+		}
+		for (size_t i = 0; i < player_move_left_down.size(); ++i) {
+			if (player_move_left_down[i] > 255) {
+				if (isTouch(player_move_left_down[i])) return MOB_LEFT_DOWN;
+				else continue;
+			}
+			if (asKeyTouch(player_move_left_down[i])) return MOB_LEFT_DOWN;
+		}
+		for (size_t i = 0; i < player_move_right_down.size(); ++i) {
+			if (player_move_right_down[i] > 255) {
+				if (isTouch(player_move_right_down[i])) return MOB_RIGHT_DOWN;
+				else continue;
+			}
+			if (asKeyTouch(player_move_right_down[i])) return MOB_RIGHT_DOWN;
+		}
+		return playerMove4();
+	}
+
+};
+
 
 }
 
@@ -1238,15 +1539,15 @@ inline void updateKey() { updateKey_(0, true); }
 //			0,//KPAUSE0xC5//PauseBreakキーD_DIK_PAUSE 
 //			aslib_key_Unknown,//Ka198 
 //			0,//KHOME0xC7//HomeキーD_DIK_HOME 
-//				aslib_key_UpArrow,//KUP0xC8//上キーD_DIK_UP 
+//				aslib_key_up,//KUP0xC8//上キーD_DIK_UP 
 //			0,//KPGUP0xC9//PageUpキーD_DIK_PGUP 
 //			aslib_key_Unknown,//Ka202 
-//				aslib_key_LeftArrow,//KLEFT0xCB//左キーD_DIK_LEFT 
+//				aslib_key_left,//KLEFT0xCB//左キーD_DIK_LEFT 
 //			aslib_key_Unknown,//Ka204 
-//				aslib_key_RightArrow,//KRIGHT0xCD//右キーD_DIK_RIGHT 
+//				aslib_key_right,//KRIGHT0xCD//右キーD_DIK_RIGHT 
 //			aslib_key_Unknown,//Ka206 
 //			0,//KEND0xCF//EndキーD_DIK_END 
-//				aslib_key_DownArrow,//KDOWN0xD0//下キーD_DIK_DOWN 
+//				aslib_key_down,//KDOWN0xD0//下キーD_DIK_DOWN 
 //			0,//KPGDN0xD1//PageDownキーD_DIK_PGDN 
 //			0,//KINSERT0xD2//InsertキーD_DIK_INSERT 
 //			0,//KDELETE0xD3//DeleteキーD_DIK_DELETE 

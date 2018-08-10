@@ -9,19 +9,241 @@
 
 namespace AsLib
 {
-	//dir
-	enum :size_t
+
+
+	//属性数を記録
+	const size_t asAttributeSave(const bool b_, const size_t p_ = 0)
 	{
-		MOB_DOWN,
-		MOB_UP,
-		MOB_LEFT,
-		MOB_RIGHT,
-		MOB_LEFT_UP,
-		MOB_RIGHT_UP,
-		MOB_LEFT_DOWN,
-		MOB_RIGHT_DOWN,
-		MOB_CENTER,
+		static thread_local size_t p = 1;
+		if (b_) p = p_;
+		return p;
+	}
+	//属性数を取得する関数
+	inline const size_t asAttribute() { return asAttributeSave(false); }
+	inline const size_t asSetAttribute(const size_t p_ = 0) { return asAttributeSave(true, p_); }
+
+	enum :size_t {
+		aslib_pass_true,
+		aslib_pass_false,
+		aslib_pass_no_wall_false,
 	};
+
+	//デフォルト属性
+	enum :size_t {
+		aslib_attribute_human,
+		aslib_attribute_fish,
+		aslib_attribute_bird,
+		aslib_attribute_ghost,
+		aslib_attribute_num
+	};
+	//フィールドタイプ
+	enum :size_t {
+		aslib_texture_map_field_type_empty,
+		aslib_texture_map_field_type_wall,
+		aslib_texture_map_field_type_water,
+	};
+
+	constexpr size_t aslib_default_field_attribute_empty[aslib_attribute_num] = {
+		aslib_pass_true,
+		aslib_pass_true,
+		aslib_pass_true,
+		aslib_pass_true
+	};
+	constexpr size_t aslib_default_field_attribute_wall[aslib_attribute_num] = {
+		aslib_pass_false,
+		aslib_pass_false,
+		aslib_pass_false,
+		aslib_pass_true
+	};
+	constexpr size_t aslib_default_field_attribute_water[aslib_attribute_num] = {
+		aslib_pass_no_wall_false,
+		aslib_pass_true,
+		aslib_pass_true,
+		aslib_pass_true
+	};
+
+
+
+	struct AsAttribute {
+		//通過設定
+
+		//各属性のID
+		std::vector<size_t> id;
+		AsAttribute() { id.resize(asAttribute(), 0); }
+
+		void add(const size_t* const type_) {
+			if (type_ == nullptr) return;
+			for (size_t i = 0; i < id.size(); ++i) {
+				id[i]=type_[i];
+			}
+
+		}
+		AsAttribute(const size_t* const type_) { id.resize(asAttribute(), 0); add(type_); }
+
+	};
+	struct AsAllAttribute {
+		std::vector<AsAttribute> all_id;
+		AsAllAttribute() = default;
+		void push(const size_t* const id_) {
+			all_id.emplace_back(id_);
+		}
+	};
+
+	//斜め移動あたり判定
+	const size_t asMoveMobDiagonal(const size_t lr_, const size_t uw_, const size_t dia_) {
+
+		//switch (lr_)
+		//{
+		//case aslib_pass_true:
+		//	switch (uw_)
+		//	{
+		//	case aslib_pass_true:
+		//		switch (dia_)
+		//		{
+		//		case aslib_pass_true:
+		//			break;
+		//		case aslib_pass_no_wall_false:
+		//			break;
+		//		case aslib_pass_false:
+		//			break;
+		//		}
+		//		break;
+		//	case aslib_pass_no_wall_false:
+		//		switch (dia_)
+		//		{
+		//		case aslib_pass_true:
+		//			break;
+		//		case aslib_pass_no_wall_false:
+		//			break;
+		//		case aslib_pass_false:
+		//			break;
+		//		}
+		//		break;
+		//	case aslib_pass_false:
+		//		switch (dia_)
+		//		{
+		//		case aslib_pass_true:
+		//			break;
+		//		case aslib_pass_no_wall_false:
+		//			break;
+		//		case aslib_pass_false:
+		//			break;
+		//		}
+		//		break;
+		//	}
+		//	break;
+		//case aslib_pass_no_wall_false:
+		//	switch (uw_)
+		//	{
+		//	case aslib_pass_true:
+		//		switch (dia_)
+		//		{
+		//		case aslib_pass_true:
+		//			break;
+		//		case aslib_pass_no_wall_false:
+		//			break;
+		//		case aslib_pass_false:
+		//			break;
+		//		}
+		//		break;
+		//	case aslib_pass_no_wall_false:
+		//		switch (dia_)
+		//		{
+		//		case aslib_pass_true:
+		//			break;
+		//		case aslib_pass_no_wall_false:
+		//			break;
+		//		case aslib_pass_false:
+		//			break;
+		//		}
+		//		break;
+		//	case aslib_pass_false:
+		//		switch (dia_)
+		//		{
+		//		case aslib_pass_true:
+		//			break;
+		//		case aslib_pass_no_wall_false:
+		//			break;
+		//		case aslib_pass_false:
+		//			break;
+		//		}
+		//		break;
+		//	}
+		//	break;
+		//case aslib_pass_false:
+		//	switch (uw_)
+		//	{
+		//	case aslib_pass_true:
+		//		switch (dia_)
+		//		{
+		//		case aslib_pass_true:
+		//			break;
+		//		case aslib_pass_no_wall_false:
+		//			break;
+		//		case aslib_pass_false:
+		//			break;
+		//		}
+		//		break;
+		//	case aslib_pass_no_wall_false:
+		//		switch (dia_)
+		//		{
+		//		case aslib_pass_true:
+		//			break;
+		//		case aslib_pass_no_wall_false:
+		//			break;
+		//		case aslib_pass_false:
+		//			break;
+		//		}
+		//		break;
+		//	case aslib_pass_false:
+		//		switch (dia_)
+		//		{
+		//		case aslib_pass_true:
+		//			break;
+		//		case aslib_pass_no_wall_false:
+		//			break;
+		//		case aslib_pass_false:
+		//			break;
+		//		}
+		//		break;
+		//	}
+		//	break;
+		//}
+
+		////switch (dia_)
+		////{
+		////case aslib_pass_true:
+		////	break;
+		////case aslib_pass_no_wall_false:
+		////	break;
+		////case aslib_pass_false:
+		////	break;
+		////}
+
+		//if (lr_ == aslib_pass_true) {
+
+		//}
+
+
+		//if (lr_ == aslib_pass_true) {
+		//	if (uw_ == aslib_pass_false) return 1;
+		//	if (dia_ != aslib_pass_true) return 1;
+		//	return 3;
+		//}
+		//if (lr_ == aslib_pass_false) {
+		//	if (uw_ == aslib_pass_true) return 2;
+		//	if (dia_ != aslib_pass_true) return 2;
+		//	return 0;
+		//}
+		//if (uw_ == aslib_pass_false) return 1;
+		return 3;
+	}
+	//縦横あたり判定
+	inline const bool asMoveMobCross(const size_t lruw_) {
+		return (lruw_ == aslib_pass_true) ? true : false;
+	}
+
+
 
 	enum :size_t {
 		aslib_mob_walk_type_small,
@@ -32,11 +254,6 @@ namespace AsLib
 		aslib_texture_map_type_empty,
 		aslib_texture_map_type_1n,
 		aslib_texture_map_type_20n,
-	};
-	//フィールドタイプ
-	enum :size_t {
-		aslib_texture_map_field_type_empty,
-		aslib_texture_map_field_type_wall,
 	};
 
 	const size_t map20n_Number(const bool lr_, const bool ud_, const bool dia_) {
@@ -64,9 +281,13 @@ namespace AsLib
 
 		//地形タイプ
 		size_t field_type = aslib_texture_map_field_type_empty;
+		//通過設定
+		size_t pass = aslib_pass_true;
 
+		AsAllAttribute* att = nullptr;
 		AsTextureMap() = default;
 		AsTextureMap(const size_t type_, const size_t ftype_, const size_t anime_) :type(type_), field_type(ftype_), anime_counter(anime_) {}
+		//AsTextureMap(const size_t type_, const size_t ftype_, const size_t anime_) :type(type_), field_type(ftype_), anime_counter(anime_),att(asAttribute()) {}
 	};
 
 	struct AsTextureMapArray {
@@ -78,6 +299,8 @@ namespace AsLib
 		//地面のテクスチャデータ
 		std::vector<AsTexture*> t;
 		std::vector<AsTextureMap> tm;
+
+		AsTextureMapArray() = default;
 
 		void putBlock(const size_t s_, const Pos2 p_, const size_t layer_ = 0) {
 			if (p_.is_minus() || p_.x >= s_x || p_.y >= s_y || layer_ >= s_layer) return;
@@ -185,6 +408,20 @@ namespace AsLib
 	//マップの見える範囲
 	struct AsMapView
 	{
+	public:
+		AsMapView() = default;
+		constexpr AsMapView(const PosA4F& p_) : p(p_) {}
+		AsMapView(const PosA4F& p_, const char c_) : p(p_) {
+			switch (c_)
+			{
+				//正方形
+			case 'x': p.h = p.w*(float(asWindowSize().y) / float(asWindowSize().x)); break;
+			case 'y': p.w = p.h*(float(asWindowSize().x) / float(asWindowSize().y)); break;
+				//画面サイズと同比率
+			case 'X': p.h = p.w; break;
+			case 'Y': p.w = p.h; break;
+			}
+		}
 	private:
 		//マップの中心位置と幅
 		PosA4F p;
@@ -309,19 +546,6 @@ namespace AsLib
 		}
 
 	public:
-		AsMapView() = default;
-		constexpr AsMapView(const PosA4F& p_) : p(p_) {}
-		AsMapView(const PosA4F& p_,const char c_) : p(p_) {
-			switch (c_)
-			{
-				//正方形
-			case 'x': p.h = p.w*(float(asWindowSize().y) / float(asWindowSize().x)); break;
-			case 'y': p.w = p.h*(float(asWindowSize().x) / float(asWindowSize().y)); break;
-				//画面サイズと同比率
-			case 'X': p.h = p.w; break;
-			case 'Y': p.w = p.h; break;
-			}
-		}
 
 		//中心位置を指定--------------------------------------------------------------
 
@@ -652,11 +876,47 @@ namespace AsLib
 		return MOB_CENTER;
 	}
 
-	inline const bool moveMobCross(const float s_, PosA4F& p_) {
-		return (moveMobCross(asKey(aslib_key_DownArrow), asKey(aslib_key_UpArrow), asKey(aslib_key_LeftArrow), asKey(aslib_key_RightArrow), s_, p_) == MOB_CENTER) ? false : true;
+	const size_t moveMobCross(const size_t id_, const float s_, PosA4F& p_)
+	{
+		switch (id_)
+		{
+		case MOB_UP:
+			p_.y -= s_;
+			break;
+		case MOB_DOWN:
+			p_.y += s_;
+			break;
+		case MOB_LEFT:
+			p_.x -= s_;
+			break;
+		case MOB_RIGHT:
+			p_.x += s_;
+			break;
+		case MOB_LEFT_UP:
+			p_.x -= s_;
+			p_.y -= s_;
+			break;
+		case MOB_RIGHT_UP:
+			p_.x += s_;
+			p_.y -= s_;
+			break;
+		case MOB_LEFT_DOWN:
+			p_.x -= s_;
+			p_.y += s_;
+			break;
+		case MOB_RIGHT_DOWN:
+			p_.x += s_;
+			p_.y += s_;
+			break;
+		}
+		return id_;
 	}
 
-	const size_t movingMobCross(const float s_, PosA4F& p_,size_t& is_move_) {
+	inline const bool moveMobCross(const float s_, PosA4F& p_) {
+		return (moveMobCross(asKey(aslib_key_down), asKey(aslib_key_up), asKey(aslib_key_left), asKey(aslib_key_right), s_, p_) == MOB_CENTER) ? false : true;
+	}
+
+	const size_t movingMob(const float s_, PosA4F& p_,size_t& is_move_) {
 
 		const Pos2F p2f(p_.x, p_.y);
 		switch (is_move_)
@@ -689,18 +949,224 @@ namespace AsLib
 				p_.x = floor(p_.x);
 			}
 			break;
+		case MOB_LEFT_UP:
+			p_.x -= s_;
+			p_.y -= s_;
+			if (floor(p2f.x) != floor(p_.x)) {
+				is_move_ = MOB_CENTER;
+				p_.x = floor(p_.x) + 1.0f;
+			}
+			if (floor(p2f.y) != floor(p_.y)) {
+				is_move_ = MOB_CENTER;
+				p_.y = floor(p_.y) + 1.0f;
+			}
+			break;
+		case MOB_RIGHT_UP:
+			p_.x += s_;
+			p_.y -= s_;
+			if (floor(p2f.x) != floor(p_.x)) {
+				is_move_ = MOB_CENTER;
+				p_.x = floor(p_.x);
+			}
+			if (floor(p2f.y) != floor(p_.y)) {
+				is_move_ = MOB_CENTER;
+				p_.y = floor(p_.y) + 1.0f;
+			}
+			break;
+		case MOB_LEFT_DOWN:
+			p_.x -= s_;
+			p_.y += s_;
+			if (floor(p2f.x) != floor(p_.x)) {
+				is_move_ = MOB_CENTER;
+				p_.x = floor(p_.x) + 1.0f;
+			}
+			if (floor(p2f.y) != floor(p_.y)) {
+				is_move_ = MOB_CENTER;
+				p_.y = floor(p_.y);
+			}
+			break;
+		case MOB_RIGHT_DOWN:
+			p_.x += s_;
+			p_.y += s_;
+			if (floor(p2f.x) != floor(p_.x)) {
+				is_move_ = MOB_CENTER;
+				p_.x = floor(p_.x);
+			}
+			if (floor(p2f.y) != floor(p_.y)) {
+				is_move_ = MOB_CENTER;
+				p_.y = floor(p_.y);
+			}
+			break;
 		}
 
-		if (is_move_ == MOB_CENTER) {
-			is_move_ = moveMobCross(asKey(aslib_key_DownArrow), asKey(aslib_key_UpArrow), asKey(aslib_key_LeftArrow), asKey(aslib_key_RightArrow), s_, p_);
-		}
+
 
 		return is_move_;
 	}
 
-	inline const bool moveMob(const float s_, PosA4F& p_) {
-		return moveMob(asKey(aslib_key_DownArrow), asKey(aslib_key_UpArrow), asKey(aslib_key_LeftArrow), asKey(aslib_key_RightArrow), s_, p_);
+	const bool movingCollisionDetection(AsAllAttribute& att_,AsTextureMapArray& tma_, const Pos2& p_, size_t& is_move_,const size_t player_id_= aslib_attribute_human) {
+		
+		//const size_t player_array = p_.y*tma_.s_x + p_.x;
+		const size_t map_total = tma_.s_x*tma_.s_y;
+		size_t move_array = 0;
+		size_t move_array_lr = 0;
+		size_t move_array_uw = 0;
+
+		bool is_moving = false;
+		size_t moving_id = 4;
+
+		switch (is_move_)
+		{
+		case MOB_DOWN:
+			move_array = ((p_.y + 1) % tma_.s_y)*tma_.s_x + p_.x;
+			break;
+		case MOB_UP:
+			move_array = (((p_.y - 1) + tma_.s_y) % tma_.s_y)*tma_.s_x + p_.x;
+			break;
+		case MOB_LEFT:
+			move_array = p_.y*tma_.s_x + (((p_.x - 1) + tma_.s_x) % tma_.s_x);
+			break;
+		case MOB_RIGHT:
+			move_array = p_.y*tma_.s_x + ((p_.x + 1) % tma_.s_x);
+			break;
+		case MOB_LEFT_UP:
+			move_array_lr = p_.y*tma_.s_x + (((p_.x - 1) + tma_.s_x) % tma_.s_x);
+			move_array_uw = (((p_.y - 1) + tma_.s_y) % tma_.s_y)*tma_.s_x + p_.x;
+			move_array = (((p_.y - 1) + tma_.s_y) % tma_.s_y)*tma_.s_x + (((p_.x - 1) + tma_.s_x) % tma_.s_x);
+			break;
+		case MOB_RIGHT_UP:
+			move_array_lr = p_.y*tma_.s_x + ((p_.x + 1) % tma_.s_x);
+			move_array_uw = (((p_.y - 1) + tma_.s_y) % tma_.s_y)*tma_.s_x + p_.x;
+			move_array = (((p_.y - 1) + tma_.s_y) % tma_.s_y)*tma_.s_x + ((p_.x + 1) % tma_.s_x);
+			break;
+		case MOB_LEFT_DOWN:
+			move_array_lr = p_.y*tma_.s_x + (((p_.x - 1) + tma_.s_x) % tma_.s_x);
+			move_array_uw = ((p_.y + 1) % tma_.s_y)*tma_.s_x + p_.x;
+			move_array = ((p_.y + 1) % tma_.s_y)*tma_.s_x + (((p_.x - 1) + tma_.s_x) % tma_.s_x);
+			break;
+		case MOB_RIGHT_DOWN:
+			move_array_lr = p_.y*tma_.s_x + ((p_.x + 1) % tma_.s_x);
+			move_array_uw = ((p_.y + 1) % tma_.s_y)*tma_.s_x + p_.x;
+			move_array = ((p_.y + 1) % tma_.s_y)*tma_.s_x + ((p_.x + 1) % tma_.s_x);
+			break;
+		default:return false;
+		}
+
+		for (size_t i = 0; i < tma_.s_layer; ++i) {
+
+			switch (is_move_)
+			{
+			case MOB_DOWN:
+			case MOB_UP:
+			case MOB_LEFT:
+			case MOB_RIGHT:
+				is_moving = asMoveMobCross(att_.all_id[tma_.tm[tma_.s[move_array + map_total * i]].field_type].id[player_id_]);
+				//asPrint("(%d)", att_.all_id[tma_.tm[tma_.s[move_array + map_total * i]].field_type].id[player_id_]);
+				if (!is_moving) return is_moving;
+				break;
+			case MOB_LEFT_UP:
+			case MOB_RIGHT_UP:
+			case MOB_LEFT_DOWN:
+			case MOB_RIGHT_DOWN:
+				asPrint("(%d,%d,%d)", att_.all_id[tma_.tm[tma_.s[move_array_lr + map_total * i]].field_type].id[player_id_], att_.all_id[tma_.tm[tma_.s[move_array_uw + map_total * i]].field_type].id[player_id_], att_.all_id[tma_.tm[tma_.s[move_array + map_total * i]].field_type].id[player_id_]);
+				switch (asMoveMobDiagonal(att_.all_id[tma_.tm[tma_.s[move_array_lr + map_total * i]].field_type].id[player_id_], att_.all_id[tma_.tm[tma_.s[move_array_uw + map_total * i]].field_type].id[player_id_], att_.all_id[tma_.tm[tma_.s[move_array + map_total * i]].field_type].id[player_id_])) {
+				case 0:return false;
+				case 1:
+					if (moving_id == 2) return false;
+					moving_id = 1;
+					//is_moving = true;
+					break;
+				case 2:
+					if (moving_id == 1) return false;
+					moving_id = 2;
+					//is_moving = true;
+					break;
+				case 3:
+					if (moving_id == 4) moving_id = 3;
+					//is_moving = true;
+					break;
+				}
+				break;
+			}
+			//is_move_ = 0;
+
+			asPrint("%d", moving_id);
+
+			switch (is_move_)
+			{
+			case MOB_LEFT_UP:
+				switch (moving_id)
+				{
+				case 1:is_move_ = MOB_LEFT; return true;
+				case 2:is_move_ = MOB_UP; return true;
+				}
+				break;
+			case MOB_RIGHT_UP:
+				switch (moving_id)
+				{
+				case 1:is_move_ = MOB_RIGHT; return true;
+				case 2:is_move_ = MOB_UP; return true;
+				}
+				break;
+			case MOB_LEFT_DOWN:
+				switch (moving_id)
+				{
+				case 1:is_move_ = MOB_LEFT; return true;
+				case 2:is_move_ = MOB_DOWN; return true;
+				}
+				break;
+			case MOB_RIGHT_DOWN:
+				switch (moving_id)
+				{
+				case 1:is_move_ = MOB_RIGHT; return true;
+				case 2:is_move_ = MOB_DOWN; return true;
+				}
+				break;
+			}
+		}
+		//att_.all_id[tma_.tm[tma_.s[player_array+map_total*i]].field_type].id[aslib_attribute_human];
+		return is_moving;
 	}
+
+	const bool directionMob(const size_t& moving_, size_t& dir_) {
+		switch (moving_)
+		{
+		case MOB_DOWN:
+		case MOB_UP:
+		case MOB_LEFT:
+		case MOB_RIGHT:
+		case MOB_LEFT_UP:
+		case MOB_RIGHT_UP:
+		case MOB_LEFT_DOWN:
+		case MOB_RIGHT_DOWN:
+			dir_ = moving_;
+			return true;
+		}
+		return false;
+	}
+
+	const bool movingMob8(AsAllAttribute& att_, AsTextureMapArray& tma_, AsKeyList& kl_, const float s_, PosA4F& p_, size_t& is_move_,size_t& dir_id_) {
+		if (is_move_ != MOB_CENTER) return true;
+		is_move_ = kl_.playerMove8();
+		if (is_move_ == MOB_CENTER) return false;
+
+		directionMob(is_move_, dir_id_);
+
+		if (!movingCollisionDetection(att_, tma_, p_, is_move_)) {
+			is_move_ = MOB_CENTER;
+		}
+		else {
+			is_move_ = moveMobCross(is_move_, s_, p_);
+		}
+		//is_move_ = moveMobCross(asKey(aslib_key_down), asKey(aslib_key_up), asKey(aslib_key_left), asKey(aslib_key_right), s_, p_);
+		return true;
+	}
+
+	inline const bool moveMob(const float s_, PosA4F& p_) {
+		return moveMob(asKey(aslib_key_down), asKey(aslib_key_up), asKey(aslib_key_left), asKey(aslib_key_right), s_, p_);
+	}
+
+
 
 	const bool directionMobCross(const bool d_, const bool u_, const bool l_, const bool r_, size_t& dir_)
 	{
@@ -720,7 +1186,7 @@ namespace AsLib
 	}
 
 	const bool directionMobCross(size_t& dir_) {
-		return directionMobCross(asKey(aslib_key_DownArrow), asKey(aslib_key_UpArrow), asKey(aslib_key_LeftArrow), asKey(aslib_key_RightArrow), dir_);
+		return directionMobCross(asKey(aslib_key_down), asKey(aslib_key_up), asKey(aslib_key_left), asKey(aslib_key_right), dir_);
 	}
 	//if (asKeyUp()) dir_id = MOB_UP;
 	//else if (asKeyDown()) dir_id = MOB_DOWN;

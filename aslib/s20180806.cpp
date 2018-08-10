@@ -6,6 +6,11 @@ int32_t asMain()
 	//560, 700
 	MainControl mc(u8"AsRPG", Pos2(1280,720));
 
+	//キー
+	AsKeyList kl;
+	kl.addCross();
+	kl.addKeyCross();
+
 	//アイテムUIの画像
 	Texture item_ui(u8"p/itemUI.png");
 	Texture item_ui2(u8"p/itemUI2.png");
@@ -18,6 +23,9 @@ int32_t asMain()
 	item.emplace_back(Item(nullptr, u8"Empty"));
 	item.emplace_back(Item(&mushroom_te, 10, u8"mushroom"));
 	item.emplace_back(Item(&mushroom2_te, 5, u8"mushroom2"));
+
+	//属性数
+	asSetAttribute(aslib_attribute_num);
 
 	enum :size_t
 	{
@@ -47,10 +55,16 @@ int32_t asMain()
 	//マップ管理
 	AsTextureMapArray tma;
 	tma.push(nullptr);
-	tma.push(&crystal1_te);
-	tma.push(&crystal2_te);
-	tma.push(&anime_te);
-	tma.push(&water_te, aslib_texture_map_field_type_wall);
+	tma.push(&crystal1_te, aslib_texture_map_field_type_empty);
+	tma.push(&crystal2_te, aslib_texture_map_field_type_empty);
+	tma.push(&anime_te, aslib_texture_map_field_type_empty);
+	tma.push(&water_te, aslib_texture_map_field_type_water);
+
+	//属性
+	AsAllAttribute att;
+	att.push(aslib_default_field_attribute_empty);
+	att.push(aslib_default_field_attribute_wall);
+	att.push(aslib_default_field_attribute_water);
 
 	//マップ生成
 	tma.resizeMap(w_pos2);
@@ -69,6 +83,7 @@ int32_t asMain()
 	size_t dir_id = MOB_DOWN;
 	size_t move_id = MOB_STOP;
 	size_t moving = MOB_CENTER;
+	size_t pl_field_type = aslib_attribute_human;
 	size_t count = 0;
 
 	constexpr PosA4F pl2(7.5f, 8.5f, 1.0f, 1.0f);
@@ -82,11 +97,14 @@ int32_t asMain()
 	while (asLoop())
 	{
 		tma.update();
-		if (movingMobCross(fps, pl,moving) != MOB_CENTER) {
+		if (movingMob8(att,tma, kl, fps, pl, moving = movingMob(fps, pl, moving),dir_id)) {
+			//asPrint("a");
 			mobMoveSet(move_id, count);
-			directionMobCross(dir_id);
+			//directionMob(moving, dir_id);
 		}
 		else move_id = MOB_STOP;
+
+
 
 		mv.setMobView(pl, aslib_mob_walk_type_big);
 		mv.draw(&tma);
@@ -96,6 +114,7 @@ int32_t asMain()
 		//mv.draw(PosA4F(0.5f, 0.5f, 1.0f, 1.0f), w_pos2, Color(0, 255, 0, 255));
 		mv.draw(pl, w_pos2, feri, mobMoveDirect(dir_id, move_id), aslib_mob_walk_type_big);
 
+		//asPrint("(%d)", att.all_id[tma.tm[tma.s[pl.y*tma.s_x + pl.x]].field_type].id[aslib_attribute_human]);
 		//tma.putBlock(4, pl, 0);
 
 		//
