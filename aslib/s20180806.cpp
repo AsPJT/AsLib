@@ -44,7 +44,7 @@ int32_t asMain()
 
 	Inventory inv(item_ui, item_ui2, item_font, share_item, item_pos, 8, 0);
 
-	constexpr Pos2 w_pos2(5, 11);
+	constexpr Pos2 w_pos2(25, 25);
 
 	//マップテクスチャ
 	AsTexture crystal1_te(u8"p/crystal1.png");
@@ -78,8 +78,8 @@ int32_t asMain()
 
 	//マップ生成
 	tma.resizeMap(w_pos2);
-	tma.putTexture();
-	//tma.setLayer(2, 1);
+	//tma.putTexture();
+	tma.setLayer(2, 1);
 	//tma.randMap(1);
 	//tma.putMap(1, 1);
 	//tma.mazeMap(4,0,1);
@@ -104,21 +104,22 @@ int32_t asMain()
 	while (asLoop())
 	{
 		tma.update();
-		if (movingMob8(att,tma, kl, fps, pl, moving = movingMob(fps, pl, moving),dir_id)) {
+		if (movingMob8(att, tma, kl, fps, pl, moving = movingMob(fps, pl, moving), dir_id)) {
+
 			//asPrint("a");
 			mobMoveSet(move_id, count);
 			//directionMob(moving, dir_id);
 		}
 		else move_id = MOB_STOP;
 
-		asPrint("(%.2f,%.2f)", pl.x, pl.y);
-
+		//asPrint("(%.2f,%.2f)", pl.x, pl.y);
 		mv.setMobView(pl, aslib_mob_walk_type_big);
+		
 		mv.draw(&tma);
-
-		//mv.draw(pl2, w_pos2, Color(0, 255, 0, 255));
-		//mv.draw(PosA4F(5.5f, 5.5f, 1.0f, 1.0f), w_pos2, Color(0, 205, 50, 255));
-		//mv.draw(PosA4F(0.5f, 0.5f, 1.0f, 1.0f), w_pos2, Color(0, 255, 0, 255));
+		asPrint("[%f,%f,%f,%f]", pl.x, pl.y, pl.w, pl.h);
+		mv.draw(pl2, w_pos2, Color(0, 255, 0, 255));
+		mv.draw(PosA4F(5.5f, 5.5f, 1.0f, 1.0f), w_pos2, Color(0, 205, 50, 255));
+		mv.draw(PosA4F(0.5f, 0.5f, 1.0f, 1.0f), w_pos2, feri, 0);
 		mv.draw(pl, w_pos2, feri, mobMoveDirect(dir_id, move_id), aslib_mob_walk_type_big);
 
 		//asPrint("(%d)", att.all_id[tma.tm[tma.s[pl.y*tma.s_x + pl.x]].field_type].id[aslib_attribute_human]);

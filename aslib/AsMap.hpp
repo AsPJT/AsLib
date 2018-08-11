@@ -400,10 +400,8 @@ namespace AsLib
 		//全体の描画
 		//AsMapView& drawMob(const Pos2& p_, const size_t num_, Color* const col_ = nullptr, AsTextureMapArray* const a_ = nullptr, const size_t id_ = 0)
 
-		AsMapView& drawMap(const Pos2& p_, const size_t num_, Color* const col_ = nullptr, AsTextureMapArray* const a_ = nullptr, const size_t id_ = 0)
+		AsMapView& drawMap(const size_t num_, Color* const col_ = nullptr, AsTextureMapArray* const a_ = nullptr, const size_t id_ = 0)
 		{
-			if (p_.is_minus()) return *this;
-
 			size_t draw_layer_max = 1;
 			switch (num_)
 			{
@@ -426,7 +424,7 @@ namespace AsLib
 			//後
 			const Pos2F af_pos(this->p.x + ce_length.x, this->p.y + ce_length.y);
 
-			const size_t layer_plus = p_.x*p_.y;
+			const size_t layer_plus = p2.x*p2.y;
 			size_t draw_layer_plus = layer_plus;
 
 			//描画初期位置
@@ -442,7 +440,8 @@ namespace AsLib
 			bool amap[8]{};
 			size_t pym, pyp, pxm, pxp;
 
-
+			asPrintClear();
+			asPrint("(%d,%d,%d,%d)", in_map.x1, in_map.y1, in_map.x2, in_map.y2);
 
 			//レイヤー指定
 			for (size_t layer = 0; layer < draw_layer_max; ++layer) {
@@ -454,18 +453,18 @@ namespace AsLib
 					draw_map.x = in_draw.x;
 					draw_map.y += m.y;
 					select_map.y = i;
-					while (select_map.y < 0) { select_map.y += p_.y; }
-					select_map.y = select_map.y % p_.y;
+					while (select_map.y < 0) { select_map.y += p2.y; }
+					select_map.y = select_map.y % p2.y;
 
 					//X軸指定
 					for (int32_t j = in_map.x1; j < in_map.x2; ++j) {
 						draw_map.x += m.x;
 						select_map.x = j;
-						while (select_map.x < 0) { select_map.x += p_.x; }
-						select_map.x = select_map.x % p_.x;
+						while (select_map.x < 0) { select_map.x += p2.x; }
+						select_map.x = select_map.x % p2.x;
 
 						//描画するデータのある配列の場所
-						array_num = select_map.y*p_.x + select_map.x + draw_layer_plus;
+						array_num = select_map.y*p2.x + select_map.x + draw_layer_plus;
 
 						switch (num_)
 						{
@@ -484,18 +483,18 @@ namespace AsLib
 								tm_id = &a_->tm[a_->s[array_num]];
 								map_field_type = tm_id->field_type;
 							
-								pym = ((select_map.y - 1 + p_.y) % p_.y)*p_.x;
-								pyp = ((select_map.y + 1) % p_.y)*p_.x;
-								pxm = ((select_map.x - 1 + p_.x) % p_.x);
-								pxp = ((select_map.x + 1) % p_.x);
+								pym = ((select_map.y - 1 + p2.y) % p2.y)*p2.x;
+								pyp = ((select_map.y + 1) % p2.y)*p2.x;
+								pxm = ((select_map.x - 1 + p2.x) % p2.x);
+								pxp = ((select_map.x + 1) % p2.x);
 
 								if (pym + pxm + draw_layer_plus >= a_->s.size()) break;
 
 								amap[MOB_LEFT_UP] = (a_->tm[a_->s[pym + pxm + draw_layer_plus]].field_type == map_field_type);
 								amap[MOB_UP] = (a_->tm[a_->s[pym + select_map.x + draw_layer_plus]].field_type == map_field_type);
 								amap[MOB_RIGHT_UP] = (a_->tm[a_->s[pym + pxp + draw_layer_plus]].field_type == map_field_type);
-								amap[MOB_LEFT] = (a_->tm[a_->s[select_map.y*p_.x + pxm + draw_layer_plus]].field_type == map_field_type);
-								amap[MOB_RIGHT] = (a_->tm[a_->s[select_map.y*p_.x + pxp + draw_layer_plus]].field_type == map_field_type);
+								amap[MOB_LEFT] = (a_->tm[a_->s[select_map.y*p2.x + pxm + draw_layer_plus]].field_type == map_field_type);
+								amap[MOB_RIGHT] = (a_->tm[a_->s[select_map.y*p2.x + pxp + draw_layer_plus]].field_type == map_field_type);
 								amap[MOB_LEFT_DOWN] = (a_->tm[a_->s[pyp + pxm + draw_layer_plus]].field_type == map_field_type);
 								amap[MOB_DOWN] = (a_->tm[a_->s[pyp + select_map.x + draw_layer_plus]].field_type == map_field_type);
 								amap[MOB_RIGHT_DOWN] = (a_->tm[a_->s[pyp + pxp + draw_layer_plus]].field_type == map_field_type);
@@ -530,6 +529,7 @@ namespace AsLib
 			const Pos2F p2f = p2;
 			while (p_.x < 0.0f) { p_.x += p2f.x; }
 			while (p_.y < 0.0f) { p_.y += p2f.y; }
+
 			p.x = p_.x += float(int32_t(p_.x) % p2.x) - floor(p_.x);
 			p.y = p_.y += float(int32_t(p_.y) % p2.y) - floor(p_.y);
 
@@ -564,19 +564,85 @@ namespace AsLib
 		AsMapView& drawMob(const Pos4F& p_, const size_t num_, const Color* c_ = nullptr, AsTexture* a_ = nullptr,const size_t id_=0)
 		{
 			//範囲外は描画無し
-			const Pos4F Dp = Pos4F(this->p);
-			if (p_.x2 < Dp.x1 || p_.y2 < Dp.y1 || p_.x1 > Dp.x2 || p_.y1 > Dp.y2) return *this;
+			//const Pos4F Dp = Pos4F(this->p);
+			//if (p_.x2 < Dp.x1 || p_.y2 < Dp.y1 || p_.x1 > Dp.x2 || p_.y1 > Dp.y2) return *this;
 
-			const PosL4F Lp = PosL4F(this->p);
-			const Pos2 w_ = asWindowSize();
-			switch (num_)
-			{
-			case MAP_VIEW_DRAW_COLOR:
-				asRect(Pos4(int32_t((p_.x1 - Lp.x) / Lp.w*w_.x), int32_t((p_.y1 - Lp.y) / Lp.h*w_.y), int32_t((p_.x2 - Lp.x) / Lp.w*w_.x), int32_t((p_.y2 - Lp.y) / Lp.h*w_.y)), *c_);
-				break;
-			case MAP_VIEW_DRAW_ANIME:
-				a_->draw(id_,Pos4(int32_t((p_.x1 - Lp.x) / Lp.w*w_.x), int32_t((p_.y1 - Lp.y) / Lp.h*w_.y), int32_t((p_.x2 - Lp.x) / Lp.w*w_.x), int32_t((p_.y2 - Lp.y) / Lp.h*w_.y)));
-				break;
+
+
+			//const PosL4F Lp = PosL4F(this->p);
+			//const Pos2 w_ = asWindowSize();
+			//switch (num_)
+			//{
+			//case MAP_VIEW_DRAW_COLOR:
+			//	asRect(Pos4(int32_t((p_.x1 - Lp.x) / Lp.w*w_.x), int32_t((p_.y1 - Lp.y) / Lp.h*w_.y), int32_t((p_.x2 - Lp.x) / Lp.w*w_.x), int32_t((p_.y2 - Lp.y) / Lp.h*w_.y)), *c_);
+			//	break;
+			//case MAP_VIEW_DRAW_ANIME:
+			//	a_->draw(id_,Pos4(int32_t((p_.x1 - Lp.x) / Lp.w*w_.x), int32_t((p_.y1 - Lp.y) / Lp.h*w_.y), int32_t((p_.x2 - Lp.x) / Lp.w*w_.x), int32_t((p_.y2 - Lp.y) / Lp.h*w_.y)));
+			//	break;
+			//}
+
+			const PosA4F p_a4f = p_;
+			Pos2 player_p(int32_t(floor(p_a4f.x)), int32_t(floor(p_a4f.y)));
+			while (player_p.x < 0) player_p.x += p2.x;
+			while (player_p.y < 0) player_p.y += p2.y;
+
+			player_p.x = player_p.x%p2.x;
+			player_p.y = player_p.y%p2.y;
+
+			//1マスの描画幅
+			const Pos2F m(asWindowSizeF().x / this->p.w, asWindowSizeF().y / this->p.h);
+			//中心幅
+			const Pos2F ce_length(this->p.w / 2.0f, this->p.h / 2.0f);
+			//前
+			const Pos2F be_pos(this->p.x - ce_length.x, this->p.y - ce_length.y);
+			//後
+			const Pos2F af_pos(this->p.x + ce_length.x, this->p.y + ce_length.y);
+
+			//描画初期位置
+			const Pos2F in_draw((floor(be_pos.x) - be_pos.x)*m.x - m.x, (floor(be_pos.y) - be_pos.y)*m.y - m.y);
+			in_map = Pos4(Pos4F(floor(be_pos.x), floor(be_pos.y), ceil(af_pos.x), ceil(af_pos.y)));
+			Pos2 select_map;
+			Pos2F draw_map(in_draw);
+			size_t array_num = 0;
+
+			AsTexture* texture_id = nullptr;
+			AsTextureMap* tm_id = nullptr;
+			size_t map_field_type = 0;
+			bool amap[8]{};
+			size_t pym, pyp, pxm, pxp;
+
+			PosA4F draw_mob;
+
+			//Y軸指定
+			for (int32_t i = in_map.y1; i < in_map.y2; ++i) {
+				draw_map.x = in_draw.x;
+				draw_map.y += m.y;
+				select_map.y = i;
+				while (select_map.y < 0) { select_map.y += p2.y; }
+				select_map.y = select_map.y % p2.y;
+
+				//X軸指定
+				for (int32_t j = in_map.x1; j < in_map.x2; ++j) {
+					draw_map.x += m.x;
+					select_map.x = j;
+					while (select_map.x < 0) { select_map.x += p2.x; }
+					select_map.x = select_map.x % p2.x;
+					if (select_map.x != player_p.x || select_map.y != player_p.y) continue;
+
+					//描画するデータのある配列の場所
+					array_num = select_map.y*p2.x + select_map.x;
+					draw_mob = PosA4F(draw_map.x + (p_a4f.x - floor(p_a4f.x))*m.x, draw_map.y + (p_a4f.y - floor(p_a4f.y))*m.y, m.x*p_a4f.w, m.y*p_a4f.h);
+
+					switch (num_)
+					{
+					case MAP_VIEW_DRAW_COLOR:
+						asRect(Pos4(draw_mob), *c_);
+						break;
+					case MAP_VIEW_DRAW_ANIME:
+						a_->draw(id_, draw_mob);
+						break;
+					}
+				}
 			}
 			return *this;
 		}
@@ -607,9 +673,9 @@ namespace AsLib
 			return this->draw(PosA4F(float((int32_t(p_2.x) + p2.x) % p2.x) + p_2.x - floor(p_2.x), float((int32_t(p_2.y) + p2.y) % p2.y) + p_2.y - floor(p_2.y), p_2.w, p_2.h), a_, id_);
 		}
 		//色の全体描画
-		AsMapView& draw(Color* const col_) { return this->drawMap(p2, MAP_VIEW_DRAW_COLOR, col_, nullptr); }
+		AsMapView& draw(Color* const col_) { return this->drawMap(MAP_VIEW_DRAW_COLOR, col_, nullptr); }
 		//画像の全体描画
-		AsMapView& draw(AsTextureMapArray* const t_) { return this->drawMap(p2, MAP_VIEW_DRAW_ANIME, nullptr, t_); }
+		AsMapView& draw(AsTextureMapArray* const t_) { return this->drawMap(MAP_VIEW_DRAW_ANIME, nullptr, t_); }
 
 	};
 
@@ -896,28 +962,28 @@ namespace AsLib
 				is_move_ = MOB_CENTER;
 				p_.y = floor(p_.y);
 			}
-			break;
+			return is_move_;
 		case MOB_UP:
 			p_.y -= s_;
 			if (floor(p2f.y) != floor(p_.y)) {
 				is_move_ = MOB_CENTER;
 				p_.y = floor(p_.y) + 1.0f;
 			}
-			break;
+			return is_move_;
 		case MOB_LEFT:
 			p_.x -= s_;
 			if (floor(p2f.x) != floor(p_.x)) {
 				is_move_ = MOB_CENTER;
 				p_.x = floor(p_.x) + 1.0f;
 			}
-			break;
+			return is_move_;
 		case MOB_RIGHT:
 			p_.x += s_;
 			if (floor(p2f.x) != floor(p_.x)) {
 				is_move_ = MOB_CENTER;
 				p_.x = floor(p_.x);
 			}
-			break;
+			return is_move_;
 		case MOB_LEFT_UP:
 			p_.x -= s_;
 			p_.y -= s_;
@@ -929,7 +995,7 @@ namespace AsLib
 				is_move_ = (is_move_ == MOB_UP) ? MOB_CENTER : MOB_LEFT;
 				p_.y = floor(p_.y) + 1.0f;
 			}
-			break;
+			return is_move_;
 		case MOB_RIGHT_UP:
 			p_.x += s_;
 			p_.y -= s_;
@@ -941,7 +1007,7 @@ namespace AsLib
 				is_move_ = (is_move_ == MOB_UP) ? MOB_CENTER : MOB_RIGHT;
 				p_.y = floor(p_.y) + 1.0f;
 			}
-			break;
+			return is_move_;
 		case MOB_LEFT_DOWN:
 			p_.x -= s_;
 			p_.y += s_;
@@ -953,7 +1019,7 @@ namespace AsLib
 				is_move_ = (is_move_ == MOB_DOWN) ? MOB_CENTER : MOB_LEFT;
 				p_.y = floor(p_.y);
 			}
-			break;
+			return is_move_;
 		case MOB_RIGHT_DOWN:
 			p_.x += s_;
 			p_.y += s_;
@@ -965,7 +1031,7 @@ namespace AsLib
 				is_move_ = (is_move_ == MOB_DOWN) ? MOB_CENTER : MOB_RIGHT;
 				p_.y = floor(p_.y);
 			}
-			break;
+			return is_move_;
 		}
 
 
@@ -987,35 +1053,35 @@ namespace AsLib
 		switch (is_move_)
 		{
 		case MOB_DOWN:
-			move_array = ((p_.y + 1) % tma_.s_y)*tma_.s_x + p_.x;
+			move_array = ((p_.y + 1) % tma_.s_y)*tma_.s_x + ((p_.x + tma_.s_x) % tma_.s_x);
 			break;
 		case MOB_UP:
-			move_array = (((p_.y - 1) + tma_.s_y) % tma_.s_y)*tma_.s_x + p_.x;
+			move_array = (((p_.y - 1) + tma_.s_y) % tma_.s_y)*tma_.s_x + ((p_.x + tma_.s_x) % tma_.s_x);
 			break;
 		case MOB_LEFT:
-			move_array = p_.y*tma_.s_x + (((p_.x - 1) + tma_.s_x) % tma_.s_x);
+			move_array = ((p_.y + tma_.s_y) % tma_.s_y)*tma_.s_x + (((p_.x - 1) + tma_.s_x) % tma_.s_x);
 			break;
 		case MOB_RIGHT:
-			move_array = p_.y*tma_.s_x + ((p_.x + 1) % tma_.s_x);
+			move_array = ((p_.y + tma_.s_y) % tma_.s_y)*tma_.s_x + ((p_.x + 1) % tma_.s_x);
 			break;
 		case MOB_LEFT_UP:
-			move_array_lr = p_.y*tma_.s_x + (((p_.x - 1) + tma_.s_x) % tma_.s_x);
-			move_array_uw = (((p_.y - 1) + tma_.s_y) % tma_.s_y)*tma_.s_x + p_.x;
+			move_array_lr = ((p_.y + tma_.s_y) % tma_.s_y)*tma_.s_x + (((p_.x - 1) + tma_.s_x) % tma_.s_x);
+			move_array_uw = (((p_.y - 1) + tma_.s_y) % tma_.s_y)*tma_.s_x + ((p_.x + tma_.s_x) % tma_.s_x);
 			move_array = (((p_.y - 1) + tma_.s_y) % tma_.s_y)*tma_.s_x + (((p_.x - 1) + tma_.s_x) % tma_.s_x);
 			break;
 		case MOB_RIGHT_UP:
-			move_array_lr = p_.y*tma_.s_x + ((p_.x + 1) % tma_.s_x);
-			move_array_uw = (((p_.y - 1) + tma_.s_y) % tma_.s_y)*tma_.s_x + p_.x;
+			move_array_lr = ((p_.y + tma_.s_y) % tma_.s_y)*tma_.s_x + ((p_.x + 1) % tma_.s_x);
+			move_array_uw = (((p_.y - 1) + tma_.s_y) % tma_.s_y)*tma_.s_x + ((p_.x + tma_.s_x) % tma_.s_x);
 			move_array = (((p_.y - 1) + tma_.s_y) % tma_.s_y)*tma_.s_x + ((p_.x + 1) % tma_.s_x);
 			break;
 		case MOB_LEFT_DOWN:
-			move_array_lr = p_.y*tma_.s_x + (((p_.x - 1) + tma_.s_x) % tma_.s_x);
-			move_array_uw = ((p_.y + 1) % tma_.s_y)*tma_.s_x + p_.x;
+			move_array_lr = ((p_.y + tma_.s_y) % tma_.s_y)*tma_.s_x + (((p_.x - 1) + tma_.s_x) % tma_.s_x);
+			move_array_uw = ((p_.y + 1) % tma_.s_y)*tma_.s_x + ((p_.x + tma_.s_x) % tma_.s_x);
 			move_array = ((p_.y + 1) % tma_.s_y)*tma_.s_x + (((p_.x - 1) + tma_.s_x) % tma_.s_x);
 			break;
 		case MOB_RIGHT_DOWN:
-			move_array_lr = p_.y*tma_.s_x + ((p_.x + 1) % tma_.s_x);
-			move_array_uw = ((p_.y + 1) % tma_.s_y)*tma_.s_x + p_.x;
+			move_array_lr = ((p_.y + tma_.s_y) % tma_.s_y)*tma_.s_x + ((p_.x + 1) % tma_.s_x);
+			move_array_uw = ((p_.y + 1) % tma_.s_y)*tma_.s_x + ((p_.x + tma_.s_x) % tma_.s_x);
 			move_array = ((p_.y + 1) % tma_.s_y)*tma_.s_x + ((p_.x + 1) % tma_.s_x);
 			break;
 		default:return false;
@@ -1029,6 +1095,7 @@ namespace AsLib
 			case MOB_UP:
 			case MOB_LEFT:
 			case MOB_RIGHT:
+				if (move_array + map_total * i >= tma_.s.size()) { asPrint("ca:(%d:%d+%d*%d>=%d)", is_move_, move_array, map_total, i, tma_.s.size()); break; }
 				is_moving = asMoveMobCross(att_.all_id[tma_.tm[tma_.s[move_array + map_total * i]].field_type].id[player_id_]);
 				//asPrint("(%d)", att_.all_id[tma_.tm[tma_.s[move_array + map_total * i]].field_type].id[player_id_]);
 				if (!is_moving) return is_moving;
@@ -1038,7 +1105,16 @@ namespace AsLib
 			case MOB_LEFT_DOWN:
 			case MOB_RIGHT_DOWN:
 				//asPrint("(%d,%d,%d)", att_.all_id[tma_.tm[tma_.s[move_array_lr + map_total * i]].field_type].id[player_id_], att_.all_id[tma_.tm[tma_.s[move_array_uw + map_total * i]].field_type].id[player_id_], att_.all_id[tma_.tm[tma_.s[move_array + map_total * i]].field_type].id[player_id_]);
-				if (move_array_lr + map_total * i >= tma_.s.size()) break;
+				if (move_array_lr + map_total * i >= tma_.s.size()) { asPrint("a:(%d:%d+%d*%d>=%d)", is_move_,move_array_lr, map_total, i, tma_.s.size()); break;}
+				if (move_array_uw + map_total * i >= tma_.s.size()) { asPrint("b:(%d:%d+%d*%d>=%d)", is_move_,move_array_uw, map_total, i, tma_.s.size()); break;}
+				if (move_array + map_total * i >= tma_.s.size()) { asPrint("c:(%d:%d+%d*%d>=%d)", is_move_,move_array, map_total, i, tma_.s.size()); break;}
+				if (tma_.s[move_array_lr + map_total * i] >= tma_.tm.size()) { asPrint("d"); break; }
+				if (tma_.s[move_array_uw + map_total * i] >= tma_.tm.size()) { asPrint("e"); break; }
+				if (tma_.s[move_array + map_total * i] >= tma_.tm.size()) { asPrint("f"); break; }
+				if(tma_.tm[tma_.s[move_array_lr + map_total * i]].field_type >= att_.all_id.size()) { asPrint("g"); break; }
+				if (tma_.tm[tma_.s[move_array_uw + map_total * i]].field_type >= att_.all_id.size()) { asPrint("h"); break; }
+				if (tma_.tm[tma_.s[move_array + map_total * i]].field_type >= att_.all_id.size()) { asPrint("i"); break; }
+
 				switch (asMoveMobDiagonal(att_.all_id[tma_.tm[tma_.s[move_array_lr + map_total * i]].field_type].id[player_id_], att_.all_id[tma_.tm[tma_.s[move_array_uw + map_total * i]].field_type].id[player_id_], att_.all_id[tma_.tm[tma_.s[move_array + map_total * i]].field_type].id[player_id_])) {
 				case 0:return false;
 				case 1:
