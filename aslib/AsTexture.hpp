@@ -125,12 +125,18 @@ namespace AsLib
 #elif defined(ANIME_TEXTURE_3)
 		int32_t id;
 #endif
+		Pos2 before_pixel_size;
 		Pos2 pixel_size;
 		size_t num = 0;
 		size_t num_x = 0;
 		size_t num_y = 0;
 	public:
 		AsTexture() = default;
+		~AsTexture() { 
+#if defined(ASLIB_INCLUDE_DL)
+			for (size_t i = 0; i < num; ++i) DxLib::DeleteGraph(id[i]);
+#endif
+		}
 #if defined(ANIME_TEXTURE_1)
 		AsTexture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_, x_, y_)), num(x_*y_), num_x(x_), num_y(y_)
 		{
@@ -155,9 +161,11 @@ namespace AsLib
 		}
 #elif defined(ANIME_TEXTURE_2)
 		AsTexture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_,x_,y_)), pixel_size(asTextureSize(this->id[0])), num(x_*y_), num_x(x_), num_y(y_) {}//stdmovea
-
 		AsTexture& operator()(const char* const name_, const size_t x_ = 1, const size_t y_ = 1)
 		{
+#if defined(ASLIB_INCLUDE_DL)
+			for (size_t i = 0; i < num; ++i) DxLib::DeleteGraph(id[i]);
+#endif
 			id = asLoadTexture(name_, x_, y_);//stdmovea
 			pixel_size = asTextureSize(this->id[0]);
 			num = x_ * y_;
@@ -202,6 +210,8 @@ namespace AsLib
 		const size_t NumX() const { return this->num_x; };
 		const size_t NumY() const { return this->num_y; };
 		const Pos2 pixelSize() const { return this->pixel_size; };
+		const float pixelNumX() const { return float(this->pixel_size.x) / this->pixel_size.y; };
+		const float pixelNumY() const { return float(this->pixel_size.y) / this->pixel_size.x; };
 	};
 
 	//複数の画像UIの情報を管理する

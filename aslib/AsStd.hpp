@@ -306,6 +306,7 @@ namespace AsLib
 		else {//通常のモード
 			if (DxLib::ChangeWindowMode(TRUE) == -1) return -1;
 			asSetWindowSize(window_size);
+			DxLib::SetAlwaysRunFlag(TRUE);
 		}
 #endif
 		if (asSetBackGround(BG_color) == -1) return -1;

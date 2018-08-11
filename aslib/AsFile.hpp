@@ -282,7 +282,7 @@ namespace AsLib
 		array_.y = (uint64_t(str_[4]) << 24) + (uint64_t(str_[5]) << 16) + (uint64_t(str_[6]) << 8) + uint64_t(str_[7]);
 		array_.s = (uint64_t(str_[8]) << 24) + (uint64_t(str_[9]) << 16) + (uint64_t(str_[10]) << 8) + uint64_t(str_[11]);
 
-		array_.v.resize(array_.x*array_.y);
+		array_.v.resize(size_t(array_.x*array_.y));
 
 	}
 

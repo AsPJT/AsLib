@@ -44,13 +44,18 @@ int32_t asMain()
 
 	Inventory inv(item_ui, item_ui2, item_font, share_item, item_pos, 8, 0);
 
-	constexpr Pos2 w_pos2(23, 27);
+	constexpr Pos2 w_pos2(5, 11);
 
 	//マップテクスチャ
 	AsTexture crystal1_te(u8"p/crystal1.png");
 	AsTexture crystal2_te(u8"p/crystal2.png");
 	AsTexture anime_te(u8"p/anime.png", 4);
-	AsTexture water_te(u8"p/mizu1.png", 4,10);
+	AsTexture sea1_te(u8"p/world_umi1.png", 4, 10);
+	AsTexture sea2_te(u8"p/world_umi2.png", 4, 10);
+	AsTexture sea3_te(u8"p/world_umi1.png", 4, 10);
+	AsTexture sea4_te(u8"p/world_umi2.png", 4, 10);
+	AsTexture mo1_te(u8"p/world_yama2.png", 2, 10);
+	AsTexture mo2_te(u8"p/world_yama2-yuki.png", 2, 10);
 
 	//マップ管理
 	AsTextureMapArray tma;
@@ -58,24 +63,26 @@ int32_t asMain()
 	tma.push(&crystal1_te, aslib_texture_map_field_type_empty);
 	tma.push(&crystal2_te, aslib_texture_map_field_type_empty);
 	tma.push(&anime_te, aslib_texture_map_field_type_empty);
-	tma.push(&water_te, aslib_texture_map_field_type_water);
-
+	tma.push(&sea1_te, aslib_texture_map_field_type_water);
+	tma.push(&sea2_te, aslib_texture_map_field_type_water);
+	tma.push(&sea3_te, aslib_texture_map_field_type_water);
+	tma.push(&sea4_te, aslib_texture_map_field_type_water);
+	tma.push(&mo1_te, aslib_texture_map_field_type_wall);
+	tma.push(&mo2_te, aslib_texture_map_field_type_wall);
 	//属性
 	AsAllAttribute att;
 	att.push(aslib_default_field_attribute_empty);
 	att.push(aslib_default_field_attribute_wall);
 	att.push(aslib_default_field_attribute_water);
+	att.push(aslib_default_field_attribute_keep_out);
 
 	//マップ生成
 	tma.resizeMap(w_pos2);
-	//
-
-	tma.setLayer(2, 1);
+	tma.putTexture();
+	//tma.setLayer(2, 1);
 	//tma.randMap(1);
-
 	//tma.putMap(1, 1);
-
-	tma.mazeMap(4,0,1);
+	//tma.mazeMap(4,0,1);
 
 	//モンスター
 	AsTexture feri(u8"Picture/ikari.png", 6, 4);
@@ -104,7 +111,7 @@ int32_t asMain()
 		}
 		else move_id = MOB_STOP;
 
-
+		asPrint("(%.2f,%.2f)", pl.x, pl.y);
 
 		mv.setMobView(pl, aslib_mob_walk_type_big);
 		mv.draw(&tma);
