@@ -25,7 +25,7 @@ namespace AsLib
 
 	//キーボード配列ID
 	enum :size_t {
-		aslib_key_Unknown,
+		aslib_key_unknown,
 		aslib_key_grave_accentilde,
 		aslib_key_1,
 		aslib_key_2,
@@ -39,9 +39,9 @@ namespace AsLib
 		aslib_key_0,
 		aslib_key_hyphennderscore,
 		aslib_key_equallus,
-		aslib_key_International3,
-		aslib_key_DELETE_Backspace,
-		aslib_key_Tab,
+		aslib_key_international3,
+		aslib_key_dELETE_Backspace,
+		aslib_key_tab,
 		aslib_key_q,
 		aslib_key_w,
 		aslib_key_e,
@@ -55,7 +55,7 @@ namespace AsLib
 		aslib_key_left_square_bracketeft_curly_bracket,
 		aslib_key_right_square_bracketight_curly_bracket,
 		aslib_key_ertical_line,
-		aslib_key_Caps_Lock,
+		aslib_key_caps_Lock,
 		aslib_key_a,
 		aslib_key_s,
 		aslib_key_d,
@@ -67,10 +67,10 @@ namespace AsLib
 		aslib_key_l,
 		aslib_key_semicolon,
 		aslib_key_colon,
-		aslib_key_Non_US_numberilde,
-		aslib_key_Return_ENTER,
+		aslib_key_non_US_numberilde,
+		aslib_key_enter,
 		aslib_key_left_shift,
-		aslib_key_Unknown1,
+		aslib_key_unknown1,
 		aslib_key_z,
 		aslib_key_x,
 		aslib_key_c,
@@ -81,45 +81,45 @@ namespace AsLib
 		aslib_key_commaess_than_sign,
 		aslib_key_full_stopreater_than_sign,
 		aslib_key_solidusuestion,
-		aslib_key_International1,
+		aslib_key_international1,
 		aslib_key_right_shift,
 		aslib_key_left_control,
-		aslib_key_Unknown2,
+		aslib_key_unknown2,
 		aslib_key_left_alt,
-		aslib_key_Spacebar,
+		aslib_key_space,
 		aslib_key_right_alt,
-		aslib_key_Unknown3,
+		aslib_key_unknown3,
 		aslib_key_right_control,
-		aslib_key_Unknown4,
-		aslib_key_Unknown5,
-		aslib_key_Unknown6,
-		aslib_key_Unknown7,
-		aslib_key_Unknown8,
-		aslib_key_Unknown9,
-		aslib_key_Unknown10,
-		aslib_key_Unknown11,
-		aslib_key_Unknown12,
-		aslib_key_Unknown13,
-		aslib_key_Insert,
-		aslib_key_Delete_Forward,
-		aslib_key_Unknown14,
-		aslib_key_Unknown15,
+		aslib_key_unknown4,
+		aslib_key_unknown5,
+		aslib_key_unknown6,
+		aslib_key_unknown7,
+		aslib_key_unknown8,
+		aslib_key_unknown9,
+		aslib_key_unknown10,
+		aslib_key_unknown11,
+		aslib_key_unknown12,
+		aslib_key_unknown13,
+		aslib_key_insert,
+		aslib_key_delete_Forward,
+		aslib_key_unknown14,
+		aslib_key_unknown15,
 		aslib_key_left,
-		aslib_key_Home,
-		aslib_key_End,
-		aslib_key_Unknown16,
+		aslib_key_home,
+		aslib_key_end,
+		aslib_key_unknown16,
 		aslib_key_up,
 		aslib_key_down,
-		aslib_key_PageUp,
-		aslib_key_PageDown,
-		aslib_key_Unknown17,
-		aslib_key_Unknown18,
+		aslib_key_pageUp,
+		aslib_key_pageDown,
+		aslib_key_unknown17,
+		aslib_key_unknown18,
 		aslib_key_right,
 		Keypad_Num_Locklear,
 		Keypad_7,
 		Keypad_4,
 		Keypad_1,
-		aslib_key_Unknown19,
+		aslib_key_unknown19,
 		Keypad_solidus,
 		Keypad_8,
 		Keypad_5,
@@ -132,34 +132,34 @@ namespace AsLib
 		Keypad_full_stopelete,
 		Keypad_hyphen,
 		Keypad_plus,
-		aslib_key_Unknown20,
+		aslib_key_unknown20,
 		Keypad_ENTER,
-		aslib_key_Unknown21,
-		aslib_key_ESCAPE,
-		aslib_key_Unknown22,
-		aslib_key_F1,
-		aslib_key_F2,
-		aslib_key_F3,
-		aslib_key_F4,
-		aslib_key_F5,
-		aslib_key_F6,
-		aslib_key_F7,
-		aslib_key_F8,
-		aslib_key_F9,
-		aslib_key_F10,
-		aslib_key_F11,
-		aslib_key_F12,
-		aslib_key_PrintScreen,
-		aslib_key_Scroll_Lock,
-		aslib_key_Pause,
-		aslib_key_Left_GUI,
-		aslib_key_Right_GUI,
-		aslib_key_Application,
-		aslib_key_Unknown23,
-		aslib_key_International5,
-		aslib_key_International4,
-		aslib_key_International2,
-		aslib_key_KeyLast,
+		aslib_key_unknown21,
+		aslib_key_eSCAPE,
+		aslib_key_unknown22,
+		aslib_key_f1,
+		aslib_key_f2,
+		aslib_key_f3,
+		aslib_key_f4,
+		aslib_key_f5,
+		aslib_key_f6,
+		aslib_key_f7,
+		aslib_key_f8,
+		aslib_key_f9,
+		aslib_key_f10,
+		aslib_key_f11,
+		aslib_key_f12,
+		aslib_key_printScreen,
+		aslib_key_scroll_Lock,
+		aslib_key_pause,
+		aslib_key_left_GUI,
+		aslib_key_right_GUI,
+		aslib_key_application,
+		aslib_key_unknown23,
+		aslib_key_international5,
+		aslib_key_international4,
+		aslib_key_international2,
+		aslib_key_keyLast,
 		aslib_key_135,
 		aslib_key_136,
 		aslib_key_137,
@@ -567,7 +567,7 @@ bba0
 	
 void checkKey(bool* const AS_key,Counter* const AS_count)
 {
-	constexpr std::array<size_t, aslib_key_KeyLast> DL_AS_key{
+	constexpr std::array<size_t, aslib_key_keyLast> DL_AS_key{
 		0,
 		KEY_INPUT_KANJI,
 		KEY_INPUT_1,
@@ -706,7 +706,7 @@ void checkKey(bool* const AS_key,Counter* const AS_count)
 
 	std::array<char, 256> DL_key;
 	DxLib::GetHitKeyStateAll(DL_key.data());
-	for (size_t i = 0; i < aslib_key_KeyLast; ++i) {
+	for (size_t i = 0; i < aslib_key_keyLast; ++i) {
 		if (DL_key[DL_AS_key[i]] != 0) AS_key[i] = true;
 		else AS_key[i] = false;
 		AS_count[i].update(bool(AS_key[i]));
@@ -718,7 +718,7 @@ void checkKey(bool* const AS_key,Counter* const AS_count)
 
 void checkKey(bool* const AS_key, Counter* const AS_count)
 {
-	for (size_t i = 0; i < aslib_key_KeyLast; ++i) {
+	for (size_t i = 0; i < aslib_key_keyLast; ++i) {
 		AS_key[i] = false;
 	}
 	AS_key[aslib_key_1] = bool(s3d::Key1.pressed());
@@ -757,18 +757,18 @@ void checkKey(bool* const AS_key, Counter* const AS_count)
 	AS_key[aslib_key_x] = bool(s3d::KeyX.pressed());
 	AS_key[aslib_key_y] = bool(s3d::KeyY.pressed());
 	AS_key[aslib_key_z] = bool(s3d::KeyZ.pressed());
-	AS_key[aslib_key_F1] = bool(s3d::KeyF1.pressed());
-	AS_key[aslib_key_F2] = bool(s3d::KeyF2.pressed());
-	AS_key[aslib_key_F3] = bool(s3d::KeyF3.pressed());
-	AS_key[aslib_key_F4] = bool(s3d::KeyF4.pressed());
-	AS_key[aslib_key_F5] = bool(s3d::KeyF5.pressed());
-	AS_key[aslib_key_F6] = bool(s3d::KeyF6.pressed());
-	AS_key[aslib_key_F7] = bool(s3d::KeyF7.pressed());
-	AS_key[aslib_key_F8] = bool(s3d::KeyF8.pressed());
-	AS_key[aslib_key_F9] = bool(s3d::KeyF9.pressed());
-	AS_key[aslib_key_F10] = bool(s3d::KeyF10.pressed());
-	AS_key[aslib_key_F11] = bool(s3d::KeyF11.pressed());
-	AS_key[aslib_key_F12] = bool(s3d::KeyF12.pressed());
+	AS_key[aslib_key_f1] = bool(s3d::KeyF1.pressed());
+	AS_key[aslib_key_f2] = bool(s3d::KeyF2.pressed());
+	AS_key[aslib_key_f3] = bool(s3d::KeyF3.pressed());
+	AS_key[aslib_key_f4] = bool(s3d::KeyF4.pressed());
+	AS_key[aslib_key_f5] = bool(s3d::KeyF5.pressed());
+	AS_key[aslib_key_f6] = bool(s3d::KeyF6.pressed());
+	AS_key[aslib_key_f7] = bool(s3d::KeyF7.pressed());
+	AS_key[aslib_key_f8] = bool(s3d::KeyF8.pressed());
+	AS_key[aslib_key_f9] = bool(s3d::KeyF9.pressed());
+	AS_key[aslib_key_f10] = bool(s3d::KeyF10.pressed());
+	AS_key[aslib_key_f11] = bool(s3d::KeyF11.pressed());
+	AS_key[aslib_key_f12] = bool(s3d::KeyF12.pressed());
 	AS_key[aslib_key_left] = bool(s3d::KeyLeft.pressed());
 	AS_key[aslib_key_right] = bool(s3d::KeyRight.pressed());
 	AS_key[aslib_key_up] = bool(s3d::KeyUp.pressed());
@@ -779,9 +779,9 @@ void checkKey(bool* const AS_key, Counter* const AS_count)
 	AS_key[aslib_key_right_control] = bool(s3d::KeyRControl.pressed());
 	AS_key[aslib_key_left_alt] = bool(s3d::KeyLAlt.pressed());
 	AS_key[aslib_key_right_alt] = bool(s3d::KeyRAlt.pressed());
-	AS_key[aslib_key_Return_ENTER] = bool(s3d::KeyEnter.pressed());
+	AS_key[aslib_key_enter] = bool(s3d::KeyEnter.pressed());
 
-	for (size_t i = 0; i < aslib_key_KeyLast; ++i) {
+	for (size_t i = 0; i < aslib_key_keyLast; ++i) {
 		AS_count[i].update(bool(AS_key[i]));
 	}
 	return;
@@ -815,8 +815,8 @@ enum :size_t {
 
 const bool updateKey_(const size_t id_ = 0, const bool is_update = false, const size_t count_id = aslib_counter_empty)
 {
-	static bool aslib_update_key[aslib_key_KeyLast];
-	static Counter aslib_update_count[aslib_key_KeyLast];
+	static bool aslib_update_key[aslib_key_keyLast];
+	static Counter aslib_update_count[aslib_key_keyLast];
 	if (is_update) checkKey(aslib_update_key, aslib_update_count);
 	switch (count_id)
 	{
@@ -1127,13 +1127,13 @@ inline const bool asKey9_Up0() { return updateKey_(aslib_key_9, false, aslib_cou
 inline const bool asKey9_Down() { return updateKey_(aslib_key_9, false, aslib_counter_down); }
 inline const bool asKey9_Down0() { return updateKey_(aslib_key_9, false, aslib_counter_down0); }
 
-inline const bool asKeyEnter() { return updateKey_(aslib_key_Return_ENTER, false); }
-inline const bool asKeyEnterTouch() { return updateKey_(aslib_key_Return_ENTER, false, aslib_counter_touch); }
-inline const bool asKeyEnterTouch0() { return updateKey_(aslib_key_Return_ENTER, false, aslib_counter_touch0); }
-inline const bool asKeyEnterUp() { return updateKey_(aslib_key_Return_ENTER, false, aslib_counter_up); }
-inline const bool asKeyEnterUp0() { return updateKey_(aslib_key_Return_ENTER, false, aslib_counter_up0); }
-inline const bool asKeyEnterDown() { return updateKey_(aslib_key_Return_ENTER, false, aslib_counter_down); }
-inline const bool asKeyEnterDown0() { return updateKey_(aslib_key_Return_ENTER, false, aslib_counter_down0); }
+inline const bool asKeyEnter() { return updateKey_(aslib_key_enter, false); }
+inline const bool asKeyEnterTouch() { return updateKey_(aslib_key_enter, false, aslib_counter_touch); }
+inline const bool asKeyEnterTouch0() { return updateKey_(aslib_key_enter, false, aslib_counter_touch0); }
+inline const bool asKeyEnterUp() { return updateKey_(aslib_key_enter, false, aslib_counter_up); }
+inline const bool asKeyEnterUp0() { return updateKey_(aslib_key_enter, false, aslib_counter_up0); }
+inline const bool asKeyEnterDown() { return updateKey_(aslib_key_enter, false, aslib_counter_down); }
+inline const bool asKeyEnterDown0() { return updateKey_(aslib_key_enter, false, aslib_counter_down0); }
 
 inline const bool asKeyUp() { return updateKey_(aslib_key_up, false); }
 inline const bool asKeyUpTouch() { return updateKey_(aslib_key_up, false, aslib_counter_touch); }
@@ -1207,6 +1207,10 @@ inline void updateKey() { updateKey_(0, true); }
 //}
 
 struct AsKeyList {
+
+	AsKeyList() = default;
+
+	//プレイヤー系
 	std::vector<size_t> player_move_down;
 	std::vector<size_t> player_move_up;
 	std::vector<size_t> player_move_left;
@@ -1216,7 +1220,20 @@ struct AsKeyList {
 	std::vector<size_t> player_move_left_down;
 	std::vector<size_t> player_move_right_down;
 
-	void addCross() {
+	//通常系
+	std::vector<size_t> ok;
+	std::vector<size_t> back;
+	std::vector<size_t> menu;
+
+	void addKeyOK() {
+		ok.emplace_back(aslib_key_enter);
+		ok.emplace_back(aslib_key_space);
+		ok.emplace_back(aslib_key_z);
+	}
+	void addKeyBack() {
+		back.emplace_back(aslib_key_x);
+	}
+	void addKeyCross() {
 		player_move_down.emplace_back(aslib_key_down);
 		player_move_up.emplace_back(aslib_key_up);
 		player_move_left.emplace_back(aslib_key_left);
@@ -1226,7 +1243,7 @@ struct AsKeyList {
 		player_move_left_down.emplace_back(aslib_key_left_down);
 		player_move_right_down.emplace_back(aslib_key_right_down);
 	}
-	void addKeyCross() {
+	void addKeyCrossW() {
 		player_move_down.emplace_back(aslib_key_s);
 		player_move_up.emplace_back(aslib_key_w);
 		player_move_left.emplace_back(aslib_key_a);
@@ -1237,7 +1254,7 @@ struct AsKeyList {
 		player_move_right_down.emplace_back(aslib_key_s_d);
 	}
 
-	const bool isTouch(const size_t is_) {
+	const bool isTouch(const size_t is_) const {
 		switch (is_)
 		{
 		case aslib_key_w_a:
@@ -1268,7 +1285,7 @@ struct AsKeyList {
 		return false;
 	}
 
-	const size_t playerMove4() {
+	const size_t playerMove4() const {
 		for (size_t i = 0; i < player_move_down.size(); ++i) {
 			if (player_move_down[i] > 255) {
 				if (isTouch(player_move_down[i])) return MOB_DOWN;
@@ -1300,7 +1317,7 @@ struct AsKeyList {
 		return MOB_CENTER;
 	}
 
-	const size_t playerMove8() {
+	const size_t playerMove8() const {
 		for (size_t i = 0; i < player_move_left_up.size(); ++i) {
 			if (player_move_left_up[i] > 255) {
 				if (isTouch(player_move_left_up[i])) return MOB_LEFT_UP;
@@ -1339,8 +1356,8 @@ struct AsKeyList {
 
 //	bool* checkKey9() {
 //		constexpr std::array<size_t, 256> AS_DL_key{
-//			aslib_key_Unknown,//Ka0 
-//			aslib_key_ESCAPE,//KESCAPE0x01//EscキーD_DIK_ESCAPE 
+//			aslib_key_unknown,//Ka0 
+//			aslib_key_eSCAPE,//KESCAPE0x01//EscキーD_DIK_ESCAPE 
 //			aslib_key_1,//K10x02//１キーD_DIK_1 
 //			aslib_key_2,//K20x03//２キーD_DIK_2 
 //			aslib_key_3,//K30x04//３キーD_DIK_3 
@@ -1352,7 +1369,7 @@ struct AsKeyList {
 //			aslib_key_9,//K90x0A//９キーD_DIK_9 
 //			aslib_key_0,//K00x0B//０キーD_DIK_0 
 //			0,//KMINUS0x0C//－キーD_DIK_MINUS 
-//			aslib_key_Unknown,//Ka13 
+//			aslib_key_unknown,//Ka13 
 //			0,//KBACK0x0E//BackSpaceキーD_DIK_BACK 
 //			0,//KTAB0x0F//TabキーD_DIK_TAB 
 //			aslib_key_q,//KQ0x10//ＱキーD_DIK_Q 
@@ -1379,8 +1396,8 @@ struct AsKeyList {
 //			aslib_key_k,//KK0x25//ＫキーD_DIK_K 
 //			aslib_key_l,//KL0x26//ＬキーD_DIK_L 
 //			aslib_key_semicolon,//KSEMICOLON0x27//；キーD_DIK_SEMICOLON 
-//			aslib_key_Unknown,//Ka40 
-//			aslib_key_Unknown,//Ka41 
+//			aslib_key_unknown,//Ka40 
+//			aslib_key_unknown,//Ka41 
 //			0,//KLSHIFT0x2A//左ShiftキーD_DIK_LSHIFT 
 //			0,//KBACKSLASH0x2B//＼キーD_DIK_BACKSLASH 
 //			aslib_key_z,//KZ0x2C//ＺキーD_DIK_Z 
@@ -1398,16 +1415,16 @@ struct AsKeyList {
 //			0,//KLALT0x38//左AltキーD_DIK_LALT 
 //			0,//KSPACE0x39//スペースキーD_DIK_SPACE 
 //			0,//KCAPSLOCK0x3A//CaspLockキーD_DIK_CAPSLOCK 
-//			aslib_key_F1,//KF10x3B//Ｆ１キーD_DIK_F1 
-//			aslib_key_F2,//KF20x3C//Ｆ２キーD_DIK_F2 
-//			aslib_key_F3,//KF30x3D//Ｆ３キーD_DIK_F3 
-//			aslib_key_F4,//KF40x3E//Ｆ４キーD_DIK_F4 
-//			aslib_key_F5,//KF50x3F//Ｆ５キーD_DIK_F5 
-//			aslib_key_F6,//KF60x40//Ｆ６キーD_DIK_F6 
-//			aslib_key_F7,//KF70x41//Ｆ７キーD_DIK_F7 
-//			aslib_key_F8,//KF80x42//Ｆ８キーD_DIK_F8 
-//			aslib_key_F9,//KF90x43//Ｆ９キーD_DIK_F9 
-//			aslib_key_F10,//KF100x44//Ｆ１０キーD_DIK_F10 
+//			aslib_key_f1,//KF10x3B//Ｆ１キーD_DIK_F1 
+//			aslib_key_f2,//KF20x3C//Ｆ２キーD_DIK_F2 
+//			aslib_key_f3,//KF30x3D//Ｆ３キーD_DIK_F3 
+//			aslib_key_f4,//KF40x3E//Ｆ４キーD_DIK_F4 
+//			aslib_key_f5,//KF50x3F//Ｆ５キーD_DIK_F5 
+//			aslib_key_f6,//KF60x40//Ｆ６キーD_DIK_F6 
+//			aslib_key_f7,//KF70x41//Ｆ７キーD_DIK_F7 
+//			aslib_key_f8,//KF80x42//Ｆ８キーD_DIK_F8 
+//			aslib_key_f9,//KF90x43//Ｆ９キーD_DIK_F9 
+//			aslib_key_f10,//KF100x44//Ｆ１０キーD_DIK_F10 
 //			0,//KNUMLOCK0x45//テンキーNumLockキーD_DIK_NUMLOCK 
 //			0,//KSCROLL0x46//ScrollLockキーD_DIK_SCROLL 
 //			Keypad_7,//KNUMPAD70x47//テンキー７D_DIK_NUMPAD7 
@@ -1417,186 +1434,186 @@ struct AsKeyList {
 //			Keypad_4,//KNUMPAD40x4B//テンキー４D_DIK_NUMPAD4 
 //			Keypad_5,//KNUMPAD50x4C//テンキー５D_DIK_NUMPAD5 
 //			Keypad_6,//KNUMPAD60x4D//テンキー６D_DIK_NUMPAD6 
-//			aslib_key_Unknown,//KaDD0x4E//テンキー＋キーD_DIK_ADD 
+//			aslib_key_unknown,//KaDD0x4E//テンキー＋キーD_DIK_ADD 
 //			Keypad_1,//KNUMPAD10x4F//テンキー１D_DIK_NUMPAD1 
 //			Keypad_2,//KNUMPAD20x50//テンキー２D_DIK_NUMPAD2 
 //			Keypad_3,//KNUMPAD30x51//テンキー３D_DIK_NUMPAD3 
 //			Keypad_0,//KNUMPAD00x52//テンキー０D_DIK_NUMPAD0 
 //			0,//KDECIMAL0x53//テンキー．キーD_DIK_DECIMAL 
-//			aslib_key_Unknown,//Ka84 
-//			aslib_key_Unknown,//Ka85 
-//			aslib_key_Unknown,//Ka86 
-//			aslib_key_F11,//KF110x57//Ｆ１１キーD_DIK_F11 
-//			aslib_key_F12,//KF120x58//Ｆ１２キーD_DIK_F12 
-//			aslib_key_Unknown,//Ka89 
-//			aslib_key_Unknown,//Ka90 
-//			aslib_key_Unknown,//Ka91 
-//			aslib_key_Unknown,//Ka92 
-//			aslib_key_Unknown,//Ka93 
-//			aslib_key_Unknown,//Ka94 
-//			aslib_key_Unknown,//Ka95 
-//			aslib_key_Unknown,//Ka96 
-//			aslib_key_Unknown,//Ka97 
-//			aslib_key_Unknown,//Ka98 
-//			aslib_key_Unknown,//Ka99 
-//			aslib_key_Unknown,//Ka100 
-//			aslib_key_Unknown,//Ka101 
-//			aslib_key_Unknown,//Ka102 
-//			aslib_key_Unknown,//Ka103 
-//			aslib_key_Unknown,//Ka104 
-//			aslib_key_Unknown,//Ka105 
-//			aslib_key_Unknown,//Ka106 
-//			aslib_key_Unknown,//Ka107 
-//			aslib_key_Unknown,//Ka108 
-//			aslib_key_Unknown,//Ka109 
-//			aslib_key_Unknown,//Ka110 
-//			aslib_key_Unknown,//Ka111 
+//			aslib_key_unknown,//Ka84 
+//			aslib_key_unknown,//Ka85 
+//			aslib_key_unknown,//Ka86 
+//			aslib_key_f11,//KF110x57//Ｆ１１キーD_DIK_F11 
+//			aslib_key_f12,//KF120x58//Ｆ１２キーD_DIK_F12 
+//			aslib_key_unknown,//Ka89 
+//			aslib_key_unknown,//Ka90 
+//			aslib_key_unknown,//Ka91 
+//			aslib_key_unknown,//Ka92 
+//			aslib_key_unknown,//Ka93 
+//			aslib_key_unknown,//Ka94 
+//			aslib_key_unknown,//Ka95 
+//			aslib_key_unknown,//Ka96 
+//			aslib_key_unknown,//Ka97 
+//			aslib_key_unknown,//Ka98 
+//			aslib_key_unknown,//Ka99 
+//			aslib_key_unknown,//Ka100 
+//			aslib_key_unknown,//Ka101 
+//			aslib_key_unknown,//Ka102 
+//			aslib_key_unknown,//Ka103 
+//			aslib_key_unknown,//Ka104 
+//			aslib_key_unknown,//Ka105 
+//			aslib_key_unknown,//Ka106 
+//			aslib_key_unknown,//Ka107 
+//			aslib_key_unknown,//Ka108 
+//			aslib_key_unknown,//Ka109 
+//			aslib_key_unknown,//Ka110 
+//			aslib_key_unknown,//Ka111 
 //			0,//KKANA0x70//カナキーD_DIK_KANA 
-//			aslib_key_Unknown,//Ka113 
-//			aslib_key_Unknown,//Ka114 
-//			aslib_key_Unknown,//Ka115 
-//			aslib_key_Unknown,//Ka116 
-//			aslib_key_Unknown,//Ka117 
-//			aslib_key_Unknown,//Ka118 
-//			aslib_key_Unknown,//Ka119 
-//			aslib_key_Unknown,//Ka120 
+//			aslib_key_unknown,//Ka113 
+//			aslib_key_unknown,//Ka114 
+//			aslib_key_unknown,//Ka115 
+//			aslib_key_unknown,//Ka116 
+//			aslib_key_unknown,//Ka117 
+//			aslib_key_unknown,//Ka118 
+//			aslib_key_unknown,//Ka119 
+//			aslib_key_unknown,//Ka120 
 //			0,//KCONVERT0x79//変換キーD_DIK_CONVERT 
-//			aslib_key_Unknown,//Ka122 
+//			aslib_key_unknown,//Ka122 
 //			0,//KNOCONVERT0x7B//無変換キーD_DIK_NOCONVERT 
-//			aslib_key_Unknown,//Ka124 
+//			aslib_key_unknown,//Ka124 
 //			0,//KYEN0x7D//￥キーD_DIK_YEN 
-//			aslib_key_Unknown,//Ka126 
-//			aslib_key_Unknown,//Ka127 
-//			aslib_key_Unknown,//Ka128 
-//			aslib_key_Unknown,//Ka129 
-//			aslib_key_Unknown,//Ka130 
-//			aslib_key_Unknown,//Ka131 
-//			aslib_key_Unknown,//Ka132 
-//			aslib_key_Unknown,//Ka133 
-//			aslib_key_Unknown,//Ka134 
-//			aslib_key_Unknown,//Ka135 
-//			aslib_key_Unknown,//Ka136 
-//			aslib_key_Unknown,//Ka137 
-//			aslib_key_Unknown,//Ka138 
-//			aslib_key_Unknown,//Ka139 
-//			aslib_key_Unknown,//Ka140 
-//			aslib_key_Unknown,//Ka141 
-//			aslib_key_Unknown,//Ka142 
-//			aslib_key_Unknown,//Ka143 
+//			aslib_key_unknown,//Ka126 
+//			aslib_key_unknown,//Ka127 
+//			aslib_key_unknown,//Ka128 
+//			aslib_key_unknown,//Ka129 
+//			aslib_key_unknown,//Ka130 
+//			aslib_key_unknown,//Ka131 
+//			aslib_key_unknown,//Ka132 
+//			aslib_key_unknown,//Ka133 
+//			aslib_key_unknown,//Ka134 
+//			aslib_key_unknown,//Ka135 
+//			aslib_key_unknown,//Ka136 
+//			aslib_key_unknown,//Ka137 
+//			aslib_key_unknown,//Ka138 
+//			aslib_key_unknown,//Ka139 
+//			aslib_key_unknown,//Ka140 
+//			aslib_key_unknown,//Ka141 
+//			aslib_key_unknown,//Ka142 
+//			aslib_key_unknown,//Ka143 
 //			0,//KPREVTRACK0x90//＾キーD_DIK_PREVTRACK 
-//			aslib_key_Unknown,//KaT0x91//＠キーD_DIK_AT 
+//			aslib_key_unknown,//KaT0x91//＠キーD_DIK_AT 
 //			0,//KCOLON0x92//：キーD_DIK_COLON 
-//			aslib_key_Unknown,//Ka147 
+//			aslib_key_unknown,//Ka147 
 //			aslib_key_grave_accentilde,//KKANJI0x94//漢字キーD_DIK_KANJI 
-//			aslib_key_Unknown,//Ka149 
-//			aslib_key_Unknown,//Ka150 
-//			aslib_key_Unknown,//Ka151 
-//			aslib_key_Unknown,//Ka152 
-//			aslib_key_Unknown,//Ka153 
-//			aslib_key_Unknown,//Ka154 
-//			aslib_key_Unknown,//Ka155 
+//			aslib_key_unknown,//Ka149 
+//			aslib_key_unknown,//Ka150 
+//			aslib_key_unknown,//Ka151 
+//			aslib_key_unknown,//Ka152 
+//			aslib_key_unknown,//Ka153 
+//			aslib_key_unknown,//Ka154 
+//			aslib_key_unknown,//Ka155 
 //			Keypad_ENTER,//KNUMPADENTER0x9C//テンキーのエンターキーD_DIK_NUMPADENTER 
 //			0,//KRCONTROL0x9D//右CtrlキーD_DIK_RCONTROL 
-//			aslib_key_Unknown,//Ka158 
-//			aslib_key_Unknown,//Ka159 
-//			aslib_key_Unknown,//Ka160 
-//			aslib_key_Unknown,//Ka161 
-//			aslib_key_Unknown,//Ka162 
-//			aslib_key_Unknown,//Ka163 
-//			aslib_key_Unknown,//Ka164 
-//			aslib_key_Unknown,//Ka165 
-//			aslib_key_Unknown,//Ka166 
-//			aslib_key_Unknown,//Ka167 
-//			aslib_key_Unknown,//Ka168 
-//			aslib_key_Unknown,//Ka169 
-//			aslib_key_Unknown,//Ka170 
-//			aslib_key_Unknown,//Ka171 
-//			aslib_key_Unknown,//Ka172 
-//			aslib_key_Unknown,//Ka173 
-//			aslib_key_Unknown,//Ka174 
-//			aslib_key_Unknown,//Ka175 
-//			aslib_key_Unknown,//Ka176 
-//			aslib_key_Unknown,//Ka177 
-//			aslib_key_Unknown,//Ka178 
-//			aslib_key_Unknown,//Ka179 
-//			aslib_key_Unknown,//Ka180 
+//			aslib_key_unknown,//Ka158 
+//			aslib_key_unknown,//Ka159 
+//			aslib_key_unknown,//Ka160 
+//			aslib_key_unknown,//Ka161 
+//			aslib_key_unknown,//Ka162 
+//			aslib_key_unknown,//Ka163 
+//			aslib_key_unknown,//Ka164 
+//			aslib_key_unknown,//Ka165 
+//			aslib_key_unknown,//Ka166 
+//			aslib_key_unknown,//Ka167 
+//			aslib_key_unknown,//Ka168 
+//			aslib_key_unknown,//Ka169 
+//			aslib_key_unknown,//Ka170 
+//			aslib_key_unknown,//Ka171 
+//			aslib_key_unknown,//Ka172 
+//			aslib_key_unknown,//Ka173 
+//			aslib_key_unknown,//Ka174 
+//			aslib_key_unknown,//Ka175 
+//			aslib_key_unknown,//Ka176 
+//			aslib_key_unknown,//Ka177 
+//			aslib_key_unknown,//Ka178 
+//			aslib_key_unknown,//Ka179 
+//			aslib_key_unknown,//Ka180 
 //			0,//KDIVIDE0xB5//テンキー／キーD_DIK_DIVIDE 
-//			aslib_key_Unknown,//Ka182 
+//			aslib_key_unknown,//Ka182 
 //			0,//KSYSRQ0xB7//PrintScreenキーD_DIK_SYSRQ 
 //			0,//KRALT0xB8//右AltキーD_DIK_RALT 
-//			aslib_key_Unknown,//Ka185 
-//			aslib_key_Unknown,//Ka186 
-//			aslib_key_Unknown,//Ka187 
-//			aslib_key_Unknown,//Ka188 
-//			aslib_key_Unknown,//Ka189 
-//			aslib_key_Unknown,//Ka190 
-//			aslib_key_Unknown,//Ka191 
-//			aslib_key_Unknown,//Ka192 
-//			aslib_key_Unknown,//Ka193 
-//			aslib_key_Unknown,//Ka194 
-//			aslib_key_Unknown,//Ka195 
-//			aslib_key_Unknown,//Ka196 
+//			aslib_key_unknown,//Ka185 
+//			aslib_key_unknown,//Ka186 
+//			aslib_key_unknown,//Ka187 
+//			aslib_key_unknown,//Ka188 
+//			aslib_key_unknown,//Ka189 
+//			aslib_key_unknown,//Ka190 
+//			aslib_key_unknown,//Ka191 
+//			aslib_key_unknown,//Ka192 
+//			aslib_key_unknown,//Ka193 
+//			aslib_key_unknown,//Ka194 
+//			aslib_key_unknown,//Ka195 
+//			aslib_key_unknown,//Ka196 
 //			0,//KPAUSE0xC5//PauseBreakキーD_DIK_PAUSE 
-//			aslib_key_Unknown,//Ka198 
+//			aslib_key_unknown,//Ka198 
 //			0,//KHOME0xC7//HomeキーD_DIK_HOME 
 //				aslib_key_up,//KUP0xC8//上キーD_DIK_UP 
 //			0,//KPGUP0xC9//PageUpキーD_DIK_PGUP 
-//			aslib_key_Unknown,//Ka202 
+//			aslib_key_unknown,//Ka202 
 //				aslib_key_left,//KLEFT0xCB//左キーD_DIK_LEFT 
-//			aslib_key_Unknown,//Ka204 
+//			aslib_key_unknown,//Ka204 
 //				aslib_key_right,//KRIGHT0xCD//右キーD_DIK_RIGHT 
-//			aslib_key_Unknown,//Ka206 
+//			aslib_key_unknown,//Ka206 
 //			0,//KEND0xCF//EndキーD_DIK_END 
 //				aslib_key_down,//KDOWN0xD0//下キーD_DIK_DOWN 
 //			0,//KPGDN0xD1//PageDownキーD_DIK_PGDN 
 //			0,//KINSERT0xD2//InsertキーD_DIK_INSERT 
 //			0,//KDELETE0xD3//DeleteキーD_DIK_DELETE 
-//			aslib_key_Unknown,//Ka212 
-//			aslib_key_Unknown,//Ka213 
-//			aslib_key_Unknown,//Ka214 
-//			aslib_key_Unknown,//Ka215 
-//			aslib_key_Unknown,//Ka216 
-//			aslib_key_Unknown,//Ka217 
-//			aslib_key_Unknown,//Ka218 
+//			aslib_key_unknown,//Ka212 
+//			aslib_key_unknown,//Ka213 
+//			aslib_key_unknown,//Ka214 
+//			aslib_key_unknown,//Ka215 
+//			aslib_key_unknown,//Ka216 
+//			aslib_key_unknown,//Ka217 
+//			aslib_key_unknown,//Ka218 
 //			0,//KLWIN0xDB//左WinキーD_DIK_LWIN 
 //			0,//KRWIN0xDC//右WinキーD_DIK_RWIN 
-//			aslib_key_Unknown,//KaPPS0xDD//アプリケーションメニューキーD_DIK_APPS 
-//			aslib_key_Unknown,//Ka222 
-//			aslib_key_Unknown,//Ka223 
-//			aslib_key_Unknown,//Ka224 
-//			aslib_key_Unknown,//Ka225 
-//			aslib_key_Unknown,//Ka226 
-//			aslib_key_Unknown,//Ka227 
-//			aslib_key_Unknown,//Ka228 
-//			aslib_key_Unknown,//Ka229 
-//			aslib_key_Unknown,//Ka230 
-//			aslib_key_Unknown,//Ka231 
-//			aslib_key_Unknown,//Ka232 
-//			aslib_key_Unknown,//Ka233 
-//			aslib_key_Unknown,//Ka234 
-//			aslib_key_Unknown,//Ka235 
-//			aslib_key_Unknown,//Ka236 
-//			aslib_key_Unknown,//Ka237 
-//			aslib_key_Unknown,//Ka238 
-//			aslib_key_Unknown,//Ka239 
-//			aslib_key_Unknown,//Ka240 
-//			aslib_key_Unknown,//Ka241 
-//			aslib_key_Unknown,//Ka242 
-//			aslib_key_Unknown,//Ka243 
-//			aslib_key_Unknown,//Ka244 
-//			aslib_key_Unknown,//Ka245 
-//			aslib_key_Unknown,//Ka246 
-//			aslib_key_Unknown,//Ka247 
-//			aslib_key_Unknown,//Ka248 
-//			aslib_key_Unknown,//Ka249 
-//			aslib_key_Unknown,//Ka250 
-//			aslib_key_Unknown,//Ka251 
-//			aslib_key_Unknown,//Ka252 
-//			aslib_key_Unknown,//Ka253 
-//			aslib_key_Unknown,//Ka254 
-//			aslib_key_Unknown//Ka255 
+//			aslib_key_unknown,//KaPPS0xDD//アプリケーションメニューキーD_DIK_APPS 
+//			aslib_key_unknown,//Ka222 
+//			aslib_key_unknown,//Ka223 
+//			aslib_key_unknown,//Ka224 
+//			aslib_key_unknown,//Ka225 
+//			aslib_key_unknown,//Ka226 
+//			aslib_key_unknown,//Ka227 
+//			aslib_key_unknown,//Ka228 
+//			aslib_key_unknown,//Ka229 
+//			aslib_key_unknown,//Ka230 
+//			aslib_key_unknown,//Ka231 
+//			aslib_key_unknown,//Ka232 
+//			aslib_key_unknown,//Ka233 
+//			aslib_key_unknown,//Ka234 
+//			aslib_key_unknown,//Ka235 
+//			aslib_key_unknown,//Ka236 
+//			aslib_key_unknown,//Ka237 
+//			aslib_key_unknown,//Ka238 
+//			aslib_key_unknown,//Ka239 
+//			aslib_key_unknown,//Ka240 
+//			aslib_key_unknown,//Ka241 
+//			aslib_key_unknown,//Ka242 
+//			aslib_key_unknown,//Ka243 
+//			aslib_key_unknown,//Ka244 
+//			aslib_key_unknown,//Ka245 
+//			aslib_key_unknown,//Ka246 
+//			aslib_key_unknown,//Ka247 
+//			aslib_key_unknown,//Ka248 
+//			aslib_key_unknown,//Ka249 
+//			aslib_key_unknown,//Ka250 
+//			aslib_key_unknown,//Ka251 
+//			aslib_key_unknown,//Ka252 
+//			aslib_key_unknown,//Ka253 
+//			aslib_key_unknown,//Ka254 
+//			aslib_key_unknown//Ka255 
 //		};
-//		bool AS_key[aslib_key_KeyLast] = { false };
+//		bool AS_key[aslib_key_keyLast] = { false };
 //
 //		std::array<char,256> DL_key;
 //		DxLib::GetHitKeyStateAll(DL_key.data());

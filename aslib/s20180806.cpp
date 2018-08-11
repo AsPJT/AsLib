@@ -8,8 +8,10 @@ int32_t asMain()
 
 	//キー
 	AsKeyList kl;
-	kl.addCross();
+	kl.addKeyOK();
+	kl.addKeyBack();
 	kl.addKeyCross();
+	kl.addKeyCrossW();
 
 	//アイテムUIの画像
 	Texture item_ui(u8"p/itemUI.png");
@@ -44,8 +46,9 @@ int32_t asMain()
 
 	Inventory inv(item_ui, item_ui2, item_font, share_item, item_pos, 8, 0);
 
-	constexpr Pos2 w_pos2(25, 25);
-
+	constexpr Pos2 w_pos2(11,11);
+	//モンスター
+	AsTexture feri(u8"Picture/ikari.png", 6, 4);
 	//マップテクスチャ
 	AsTexture crystal1_te(u8"p/crystal1.png");
 	AsTexture crystal2_te(u8"p/crystal2.png");
@@ -56,20 +59,23 @@ int32_t asMain()
 	AsTexture sea4_te(u8"p/world_umi2.png", 4, 10);
 	AsTexture mo1_te(u8"p/world_yama2.png", 2, 10);
 	AsTexture mo2_te(u8"p/world_yama2-yuki.png", 2, 10);
+	AsTexture underground_stairs_te(u8"undergroundStairs2.png");
 
 	//マップ管理
-	AsTextureMapArray tma;
-	tma.push(nullptr);
-	tma.push(&crystal1_te, aslib_texture_map_field_type_empty);
-	tma.push(&crystal2_te, aslib_texture_map_field_type_empty);
-	tma.push(&anime_te, aslib_texture_map_field_type_empty);
-	tma.push(&sea1_te, aslib_texture_map_field_type_water);
-	tma.push(&sea2_te, aslib_texture_map_field_type_water);
-	tma.push(&sea3_te, aslib_texture_map_field_type_water);
-	tma.push(&sea4_te, aslib_texture_map_field_type_water);
-	tma.push(&mo1_te, aslib_texture_map_field_type_wall);
-	tma.push(&mo2_te, aslib_texture_map_field_type_wall);
-	//属性
+	AsTextureMapArray main_map;
+	main_map.push(nullptr);
+	main_map.push(&crystal1_te, aslib_texture_map_field_type_empty);
+	main_map.push(&crystal2_te, aslib_texture_map_field_type_empty);
+	main_map.push(&anime_te, aslib_texture_map_field_type_empty);
+	main_map.push(&sea1_te, aslib_texture_map_field_type_water);
+	main_map.push(&sea2_te, aslib_texture_map_field_type_water);
+	main_map.push(&sea3_te, aslib_texture_map_field_type_water);
+	main_map.push(&sea4_te, aslib_texture_map_field_type_water);
+	main_map.push(&mo1_te, aslib_texture_map_field_type_wall);
+	main_map.push(&mo2_te, aslib_texture_map_field_type_wall);
+	main_map.push(&underground_stairs_te, aslib_texture_map_field_type_empty);
+
+	//フィールド属性
 	AsAllAttribute att;
 	att.push(aslib_default_field_attribute_empty);
 	att.push(aslib_default_field_attribute_wall);
@@ -77,57 +83,40 @@ int32_t asMain()
 	att.push(aslib_default_field_attribute_keep_out);
 
 	//マップ生成
-	tma.resizeMap(w_pos2);
-	//tma.putTexture();
-	tma.setLayer(2, 1);
-	//tma.randMap(1);
-	//tma.putMap(1, 1);
-	//tma.mazeMap(4,0,1);
+	main_map.resizeMap(w_pos2);
+	//main_map.putTexture();
+	main_map.setLayer(2, 1);
+	//main_map.randMap(1);
+	//main_map.putMap(1, 1);
+	main_map.mazeMap(4,0,1);
 
-	//モンスター
-	AsTexture feri(u8"Picture/ikari.png", 6, 4);
+	constexpr PosA4F pl2(7.0f, 8.0f, 3.0f, 3.0f);
+	constexpr PosA4F pl(1.0f, 1.0f, 1.0f, 1.0f);
 
-	size_t dir_id = MOB_DOWN;
-	size_t move_id = MOB_STOP;
-	size_t moving = MOB_CENTER;
-	size_t pl_field_type = aslib_attribute_human;
-	size_t count = 0;
+	//イベント管理
+	AsMapEventControl map_event(aslib_mob_walk_type_big, &feri, pl, aslib_map_event_type_mob);
+	map_event.add(&feri, pl2);
 
-	constexpr PosA4F pl2(7.5f, 8.5f, 1.0f, 1.0f);
-	static PosA4F pl(1.0f, 1.0f, 1.0f, 1.0f);
-
+	//マップ描画管理
 	constexpr PosA4F map_p(0.0f, 0.0f, 5.0f, 10.0f);
-	AsMapView mv(map_p, 'y');
-	mv.setMap(w_pos2);
-	constexpr float fps = 0.1f;
+	AsMapView map_view(map_p, 'y');
+	map_view.setMap(w_pos2);
+	
 
 	while (asLoop())
 	{
-		tma.update();
-		if (movingMob8(att, tma, kl, fps, pl, moving = movingMob(fps, pl, moving), dir_id)) {
-
-			//asPrint("a");
-			mobMoveSet(move_id, count);
-			//directionMob(moving, dir_id);
-		}
-		else move_id = MOB_STOP;
-
-		//asPrint("(%.2f,%.2f)", pl.x, pl.y);
-		mv.setMobView(pl, aslib_mob_walk_type_big);
-		
-		mv.draw(&tma);
-		asPrint("[%f,%f,%f,%f]", pl.x, pl.y, pl.w, pl.h);
-		mv.draw(pl2, w_pos2, Color(0, 255, 0, 255));
-		mv.draw(PosA4F(5.5f, 5.5f, 1.0f, 1.0f), w_pos2, Color(0, 205, 50, 255));
-		mv.draw(PosA4F(0.5f, 0.5f, 1.0f, 1.0f), w_pos2, feri, 0);
-		mv.draw(pl, w_pos2, feri, mobMoveDirect(dir_id, move_id), aslib_mob_walk_type_big);
-
-		//asPrint("(%d)", att.all_id[tma.tm[tma.s[pl.y*tma.s_x + pl.x]].field_type].id[aslib_attribute_human]);
-		//tma.putBlock(4, pl, 0);
-
-		//
-		inv.selectAdd(mouseWheel()).draw(item).isSelectUp(asKeyL_Up()).isSelectDown(asKeyK_Up());
+		//更新
+		main_map.update();
+		map_event.update(main_map, att, kl);
+		//視点
+		map_view.setMobView(map_event);
+		//マップ描画
+		map_view.draw(&main_map);
+		//イベント描画
+		map_view.draw(&map_event);
 	}
 
+	//for (size_t i = 0; i < kl.ok.size(); ++i) if (kl.ok[i] < 256 && asKeyUp(kl.ok[i])) main_map.putBlock(4, pl, 1);
+	//inv.selectAdd(mouseWheel()).draw(item).isSelectUp(asKeyL_Up()).isSelectDown(asKeyK_Up());
 	return 0;
 }
