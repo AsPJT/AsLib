@@ -1403,7 +1403,7 @@ constexpr int CTRL_CODE_CMP=0x20;
 
 		//—”æ“¾ŠÖ”
 		inline const int GetRand(const int rand_) { return int(asRand32(int32_t(rand_))); }
-		inline const int SRand(const int seed_) { return int(asSRand32(int32_t(seed_))); }
+		inline const int asSRand32(const int seed_) { return int(asSRand32(int32_t(seed_))); }
 	}
 #endif
 

@@ -51,7 +51,7 @@ namespace AsLib
 		size_t layer = 0;
 		vec_.clear();
 		while (true) {
-			if (asSize_t_ReadCSV(str_ + u8"_" + std::to_string(layer) + u8".csv", vec_, x_, y_) == 1) break;
+			if (asSize_t_ReadCSV(u8"asrpg_map_" + str_ + u8"_" + std::to_string(layer) + u8".csv", vec_, x_, y_) == 1) break;
 			++layer;
 		}
 		if (layer_ != nullptr) *layer_ = layer;
@@ -60,7 +60,7 @@ namespace AsLib
 
 	const int32_t asMapWrite(const std::string& str_, const std::vector<size_t>& vec_, const size_t x_, const size_t y_, const size_t layer_) {
 		for (size_t i = 0; i < layer_; ++i) {
-			asSize_t_WriteCSV(str_ + u8"_" + std::to_string(i) + u8".csv", vec_, x_, y_, x_*y_*i);
+			asSize_t_WriteCSV(u8"asrpg_map_" + str_ + u8"_" + std::to_string(i) + u8".csv", vec_, x_, y_, x_*y_*i);
 		}
 		return 0;
 	}

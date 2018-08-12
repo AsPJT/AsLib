@@ -43,7 +43,7 @@ int32_t asMain()
 
 	Inventory inv(item_ui, item_ui2, item_font, share_item, item_pos, 8, 0);
 
-	constexpr Pos2 w_pos2(11,11);
+	constexpr Pos2 w_pos2(32,32);
 	//モンスター
 	AsTexture feri(u8"Picture/ikari.png", 6, 4);
 	//マップテクスチャ
@@ -81,24 +81,39 @@ int32_t asMain()
 
 	//マップ生成
 	main_map.resizeMap(w_pos2);
+	main_map.worldMap(2, 4, 8, 9);
+	//if (main_map.readCSV() == 1 && main_map.readBackupCSV() == 1) {
+	//	main_map.resizeMap(w_pos2);
+	//	main_map.setLayer(2, 1);
+	//	main_map.randMap(1);
+	//}
+	//main_map.resizeMap(w_pos2);
 	//main_map.putTexture();
-	main_map.setLayer(2, 1);
+	//main_map.setLayer(2, 1);
 	//main_map.randMap(1);
 	//main_map.putMap(1, 1);
-	main_map.mazeMap(4,0,1);
+	//main_map.mazeMap(4,0,1);
 
 	constexpr PosA4F pl2(7.0f, 8.0f, 3.0f, 3.0f);
+	constexpr PosA4F pl3(7.0f, 8.0f, 0.7f, 0.7f);
+
 	constexpr PosA4F pl(1.0f, 1.0f, 1.0f, 1.0f);
 
 	//イベント管理
-	AsMapEventControl map_event(aslib_mob_walk_type_big, &feri, pl, aslib_map_event_type_mob);
-	map_event.add(&feri, pl2);
+	AsMapEventControl map_event(w_pos2,aslib_mob_walk_type_big, &feri, pl, aslib_map_event_type_mob);
+	map_event.spawn().add(&feri, pl2);
 
 	//マップ描画管理
 	constexpr PosA4F map_p(0.0f, 0.0f, 5.0f, 10.0f);
 	AsMapView map_view(map_p, 'y');
 	map_view.setMap(w_pos2);
 	
+	constexpr size_t auto_save_timer = 60 * 22;
+	size_t auto_save_counter = 0;
+	constexpr size_t auto_backup_timer = 60 * 55;
+	size_t auto_backup_counter = 0;
+
+	map_event.setLandSpawn(main_map,att);
 
 	while (asLoop())
 	{
@@ -111,11 +126,28 @@ int32_t asMain()
 		map_view.draw(&main_map);
 		//イベント描画
 		map_view.draw(&map_event);
+
+		map_event.talk(kl);
+
+		//ランダムスポーン
+		map_event.spawn(1).add(&feri, pl3);
+
+		//++auto_save_counter;
+		//if (auto_save_counter >= auto_save_timer) {
+		//	auto_save_counter = 0;
+		//	main_map.writeCSV();
+		//}
+		//++auto_backup_counter;
+		//if (auto_backup_counter >= auto_backup_timer) {
+		//	auto_backup_counter = 0;
+		//	main_map.writeBackupCSV();
+		//}
 	}
 
-	asMapWrite("map_data", main_map.s, main_map.s_x, main_map.s_y, main_map.s_layer);
+	//main_map.writeCSV();
 
 	//for (size_t i = 0; i < kl.ok.size(); ++i) if (kl.ok[i] < 256 && asKeyUp(kl.ok[i])) main_map.putBlock(4, pl, 1);
 	//inv.selectAdd(mouseWheel()).draw(item).isSelectUp(asKeyL_Up()).isSelectDown(asKeyK_Up());
+
 	return 0;
 }

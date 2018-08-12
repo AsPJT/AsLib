@@ -1225,6 +1225,13 @@ struct AsKeyList {
 	std::vector<size_t> back;
 	std::vector<size_t> menu;
 
+	const bool is_ok() const {
+		for (size_t i = 0; i < ok.size(); ++i) {
+			if (ok[i] < 256 && asKeyUp(ok[i])) return true;
+		}
+		return false;
+	}
+
 	AsKeyList& addKeyOK() {
 		ok.emplace_back(aslib_key_enter);
 		ok.emplace_back(aslib_key_space);

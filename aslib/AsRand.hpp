@@ -29,7 +29,6 @@ namespace AsLib
 
 	inline const int32_t asRand() { return int32_t(asRand32()); }
 
-
 	const int32_t asRand32(const int32_t i)
 	{
 		if (i <= 0) return 0;
@@ -46,6 +45,7 @@ namespace AsLib
 		if (i >= INT32_MAX) return int32_t(asRand32() & INT32_MAX);
 		return (int32_t(asRand32() & INT32_MAX) % (i + 1));
 	}
+	inline const int32_t asRand(const uint32_t rand_) { return int32_t(asRand32(rand_)); }
 
 
 	static uint8_t rand_8 = UINT8_MAX;

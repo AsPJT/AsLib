@@ -507,12 +507,32 @@ namespace AsLib
 		size_t s_x = 0;
 		size_t s_y = 0;
 		size_t s_layer = 1;
+		std::string s_name = u8"main";
 		std::vector<size_t> s;
 		//地面のテクスチャデータ
 		std::vector<AsTexture*> t;
 		std::vector<AsTextureMap> tm;
 
 		AsTextureMapArray() = default;
+
+		const int32_t readCSV() {
+			return asMapRead(s_name, s, &s_x, &s_y, &s_layer);
+		}
+		const int32_t readBackupCSV() {
+			return asMapRead(u8"backup_" + s_name, s, &s_x, &s_y, &s_layer);
+		}
+		const int32_t readCSV(const std::string& str_) {
+			return asMapRead(str_, s, &s_x, &s_y, &s_layer);
+		}
+		const int32_t writeCSV() {
+			return asMapWrite(s_name, s, s_x, s_y, s_layer);
+		}
+		const int32_t writeBackupCSV() {
+			return asMapWrite(u8"backup_" + s_name, s, s_x, s_y, s_layer);
+		}
+		const int32_t writeCSV(const std::string& str_) {
+			return asMapWrite(str_, s, s_x, s_y, s_layer);
+		}
 
 		void putTexture(const size_t layer_ = 0) {
 			if (layer_ >= s_layer) return;
@@ -626,8 +646,10 @@ namespace AsLib
 			const size_t layer_max = layer_min + s_x * s_y;
 			for (size_t i = layer_min, k = 0; i < layer_max; ++i, ++k) {
 				s[i] = v2v1[k];
-			}
-			
+			}	
+		}
+		void worldMap(const size_t under_, const size_t sea_, const size_t green_, const size_t snow_, const size_t seed_ = 0) {
+			worldMapSimplePaint(s, s_x, s_y, s_layer, under_, sea_, green_, snow_, seed_);
 		}
 
 	};
@@ -833,6 +855,8 @@ namespace AsLib
 		AsTexture* t = nullptr;
 		//あたり判定
 		bool is_collision_detection = true;
+		//イベント中
+		bool is_event = false;
 
 		constexpr AsMapEvent(AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const size_t& type_ = aslib_map_event_type_empty, const size_t ai_ = aslib_map_event_ai_ai) :type(type_), ai(ai_), t(t_), pl(p_) {}
 	};
@@ -951,13 +975,110 @@ namespace AsLib
 		return false;
 	}
 	struct AsMapEventControl {
+		Pos2 size = { 1,1 };
 		size_t view_id = 0;
 		size_t walk_type = aslib_mob_walk_type_small;
+
+		bool is_spawn = true;
+
 		std::vector<AsMapEvent> me;
-		AsMapEventControl(const size_t walk_type_, AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const size_t& type_ = aslib_map_event_type_empty) :walk_type(walk_type_) { me.emplace_back(t_,p_, type_, aslib_map_event_ai_human); }
+		AsMapEventControl(const Pos2 size_,const size_t walk_type_, AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const size_t& type_ = aslib_map_event_type_empty) :size(size_),walk_type(walk_type_) { me.emplace_back(t_,p_, type_, aslib_map_event_ai_human); }
 		void add(AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const size_t& type_ = aslib_map_event_type_empty, const size_t ai_ = aslib_map_event_ai_ai) {
-			me.emplace_back(t_, p_, type_, ai_);
+			if(is_spawn) me.emplace_back(t_, p_, type_, ai_);
 		}
+		AsMapEventControl& talk(const AsKeyList& kl_) {
+			if (!kl_.is_ok() || view_id >= me.size() || me[view_id].moving != MOB_CENTER) return *this;
+			Pos2 player_pos(int32_t(me[view_id].pl.x), int32_t(me[view_id].pl.y));
+			switch (me[view_id].dir_id)
+			{
+			case MOB_DOWN:
+				player_pos.x = int32_t(me[view_id].pl.x);
+				player_pos.y = (int32_t(me[view_id].pl.y) + 1) % size.y;
+				break;
+			case MOB_UP:
+				player_pos.x = int32_t(me[view_id].pl.x);
+				player_pos.y = (int32_t(me[view_id].pl.y) - 1 + size.y) % size.y;
+				break;
+			case MOB_LEFT:
+				player_pos.x = (int32_t(me[view_id].pl.x) - 1 + size.x) % size.x;
+				player_pos.y = int32_t(me[view_id].pl.y);
+				break;
+			case MOB_RIGHT:
+				player_pos.x = (int32_t(me[view_id].pl.x) + 1) % size.x;
+				player_pos.y = int32_t(me[view_id].pl.y);
+				break;
+			case MOB_LEFT_UP:
+				player_pos.x = (int32_t(me[view_id].pl.x) - 1 + size.x) % size.x;
+				player_pos.y = (int32_t(me[view_id].pl.y) - 1 + size.y) % size.y;
+				break;
+			case MOB_RIGHT_UP:
+				player_pos.x = (int32_t(me[view_id].pl.x) + 1) % size.x;
+				player_pos.y = (int32_t(me[view_id].pl.y) - 1 + size.y) % size.y;
+				break;
+			case MOB_LEFT_DOWN:
+				player_pos.x = (int32_t(me[view_id].pl.x) - 1 + size.x) % size.x;
+				player_pos.y = (int32_t(me[view_id].pl.y) + 1) % size.y;
+				break;
+			case MOB_RIGHT_DOWN:
+				player_pos.x = (int32_t(me[view_id].pl.x) + 1) % size.x;
+				player_pos.y = (int32_t(me[view_id].pl.y) + 1) % size.y;
+				break;
+			}
+			for (size_t i = 0; i < me.size(); ++i) {
+				if (me[i].moving != MOB_CENTER || me[i].is_event == true) continue;
+				if (int32_t(me[i].pl.x) == player_pos.x&&int32_t(me[i].pl.y) == player_pos.y) {
+					asPrint("a");
+					me[i].is_event = true;
+					switch (me[view_id].dir_id)
+					{
+					case MOB_DOWN:me[i].dir_id = MOB_UP;break;
+					case MOB_UP:me[i].dir_id = MOB_DOWN; break;
+					case MOB_LEFT:me[i].dir_id = MOB_RIGHT; break;
+					case MOB_RIGHT:me[i].dir_id = MOB_LEFT; break;
+					case MOB_LEFT_UP:me[i].dir_id = MOB_RIGHT_DOWN; break;
+					case MOB_RIGHT_UP:me[i].dir_id = MOB_LEFT_DOWN; break;
+					case MOB_LEFT_DOWN:me[i].dir_id = MOB_RIGHT_UP; break;
+					case MOB_RIGHT_DOWN:me[i].dir_id = MOB_LEFT_UP; break;
+					}
+					break;
+				}
+			}
+
+			return *this;
+		}
+		AsMapEventControl& spawn(const float rand_) {
+			if (uint32_t(UINT32_MAX*(rand_/100.0f)) >= asRand32()) is_spawn = true;
+			else is_spawn = false;
+			return *this;
+		}
+		AsMapEventControl& setSpawn(const PosA4F p_) {
+			if (view_id >= me.size()) return *this;
+			me[view_id].pl = p_;
+		}
+		//todo
+		AsMapEventControl& setLandSpawn(const AsTextureMapArray& tma_, AsAllAttribute& att_) {
+			if (view_id >= me.size()) return *this;
+			const size_t xy_ = tma_.s_x*tma_.s_y;
+			const size_t pl_field = me[view_id].pl_field_type;
+
+			for (size_t i = 0, k = 0; i < xy_; ++i) {
+				if (att_.all_id[tma_.tm[tma_.s[i]].field_type].id[pl_field] != aslib_pass_true) continue;
+				for (size_t j = 1; j < tma_.s_layer; ++j) {
+					if (att_.all_id[tma_.tm[tma_.s[i + xy_ * j]].field_type].id[pl_field] != aslib_pass_true) {
+						k = 0;
+						break;
+					}
+					++k;
+				}
+				if (k > 0) {
+					me[view_id].pl.x = float(i % tma_.s_x);
+					me[view_id].pl.y = float(i / tma_.s_x);
+					return *this;
+				}
+			}
+		}
+		AsMapEventControl& spawn() { is_spawn = true; return *this; }
+
 		void update(const AsTextureMapArray& tma_, const AsAllAttribute& att_, const AsKeyList& kl_) {
 			for (size_t i = 0; i < me.size(); ++i) {
 				switch (me[i].ai)
@@ -970,7 +1091,9 @@ namespace AsLib
 					else me[i].move_id = MOB_STOP;
 					break;
 				case aslib_map_event_ai_ai:
+					if (me[i].is_event) break;//イベント中は歩行無し
 					me[i].moving = movingMob(&me[i]);
+					if (asRand8(100) > 1) break;
 					if (movingMob8_AI(att_, tma_, me[i].fps, me[i].pl, me[i].moving, me[i].dir_id)) {
 						mobMoveSet(&me[i]);
 					}
@@ -1045,6 +1168,8 @@ namespace AsLib
 			bool amap[8]{};
 			size_t pym, pyp, pxm, pxp;
 
+			const size_t tma_size = a_->s.size();
+
 			//レイヤー指定
 			for (size_t layer = 0; layer < draw_layer_max; ++layer) {
 				draw_layer_plus = layer_plus * layer;
@@ -1060,6 +1185,8 @@ namespace AsLib
 
 					//X軸指定
 					for (int32_t j = in_map.x1; j < in_map.x2; ++j) {
+
+
 						draw_map.x += m.x;
 						select_map.x = j;
 						while (select_map.x < 0) { select_map.x += p2.x; }
@@ -1067,6 +1194,7 @@ namespace AsLib
 
 						//描画するデータのある配列の場所
 						array_num = select_map.y*p2.x + select_map.x + draw_layer_plus;
+						if (array_num >= tma_size) continue;
 
 						switch (num_)
 						{
