@@ -161,6 +161,7 @@
     <ClInclude Include="AsMainControl.hpp" />
     <ClInclude Include="AsMap.hpp" />
     <ClInclude Include="AsColor.hpp" />
+    <ClInclude Include="AsMapFile.hpp" />
     <ClInclude Include="AsMaze.hpp" />
     <ClInclude Include="AsMouse.hpp" />
     <ClInclude Include="AsRand.hpp" />

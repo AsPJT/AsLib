@@ -8,10 +8,7 @@ int32_t asMain()
 
 	//キー
 	AsKeyList kl;
-	kl.addKeyOK();
-	kl.addKeyBack();
-	kl.addKeyCross();
-	kl.addKeyCrossW();
+	kl.addKeyOK().addKeyBack().addKeyCross().addKeyCrossW();
 
 	//アイテムUIの画像
 	Texture item_ui(u8"p/itemUI.png");
@@ -115,6 +112,8 @@ int32_t asMain()
 		//イベント描画
 		map_view.draw(&map_event);
 	}
+
+	asMapWrite("map_data", main_map.s, main_map.s_x, main_map.s_y, main_map.s_layer);
 
 	//for (size_t i = 0; i < kl.ok.size(); ++i) if (kl.ok[i] < 256 && asKeyUp(kl.ok[i])) main_map.putBlock(4, pl, 1);
 	//inv.selectAdd(mouseWheel()).draw(item).isSelectUp(asKeyL_Up()).isSelectDown(asKeyK_Up());

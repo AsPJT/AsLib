@@ -1023,7 +1023,7 @@ namespace AsLib
 			const Pos2F m(asWindowSizeF().x / this->p.w, asWindowSizeF().y / this->p.h);
 
 			//中心幅
-			const Pos2F ce_length(this->p.w/2.0f, this->p.h/2.0f);
+			const Pos2F ce_length(this->p.w / 2.0f, this->p.h / 2.0f);
 			//前
 			const Pos2F be_pos(this->p.x - ce_length.x, this->p.y - ce_length.y);
 			//後
@@ -1033,7 +1033,7 @@ namespace AsLib
 			size_t draw_layer_plus = layer_plus;
 
 			//描画初期位置
-			const Pos2F in_draw((floor(be_pos.x) - be_pos.x)*m.x-m.x, (floor(be_pos.y) - be_pos.y)*m.y-m.y);
+			const Pos2F in_draw((floor(be_pos.x) - be_pos.x)*m.x - m.x, (floor(be_pos.y) - be_pos.y)*m.y - m.y);
 			in_map = Pos4(Pos4F(floor(be_pos.x), floor(be_pos.y), ceil(af_pos.x), ceil(af_pos.y)));
 			Pos2 select_map;
 			Pos2F draw_map(in_draw);
@@ -1044,9 +1044,6 @@ namespace AsLib
 			size_t map_field_type = 0;
 			bool amap[8]{};
 			size_t pym, pyp, pxm, pxp;
-
-			//asPrintClear();
-			//asPrint("(%d,%d,%d,%d)", in_map.x1, in_map.y1, in_map.x2, in_map.y2);
 
 			//レイヤー指定
 			for (size_t layer = 0; layer < draw_layer_max; ++layer) {
@@ -1087,7 +1084,7 @@ namespace AsLib
 							case aslib_texture_map_type_20n:
 								tm_id = &a_->tm[a_->s[array_num]];
 								map_field_type = tm_id->field_type;
-							
+
 								pym = ((select_map.y - 1 + p2.y) % p2.y)*p2.x;
 								pyp = ((select_map.y + 1) % p2.y)*p2.x;
 								pxm = ((select_map.x - 1 + p2.x) % p2.x);
@@ -1105,9 +1102,9 @@ namespace AsLib
 								amap[MOB_RIGHT_DOWN] = (a_->tm[a_->s[pyp + pxp + draw_layer_plus]].field_type == map_field_type);
 
 								texture_id->draw(texture_id->NumX() * 2 * map20n_Number(amap[MOB_LEFT], amap[MOB_UP], amap[MOB_LEFT_UP]) + tm_id->anime_show_id, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f)));
-								texture_id->draw(texture_id->NumX() * 2 * map20n_Number(amap[MOB_RIGHT], amap[MOB_UP], amap[MOB_RIGHT_UP]) + tm_id->anime_show_id+1, Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y / 2.0f)));
+								texture_id->draw(texture_id->NumX() * 2 * map20n_Number(amap[MOB_RIGHT], amap[MOB_UP], amap[MOB_RIGHT_UP]) + tm_id->anime_show_id + 1, Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y / 2.0f)));
 								texture_id->draw(texture_id->NumX() * 2 * map20n_Number(amap[MOB_LEFT], amap[MOB_DOWN], amap[MOB_LEFT_DOWN]) + tm_id->anime_show_id + texture_id->NumX(), Pos4(int32_t(draw_map.x), int32_t(draw_map.y + m.y / 2.0f), int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y)));
-								texture_id->draw(texture_id->NumX() * 2 * map20n_Number(amap[MOB_RIGHT], amap[MOB_DOWN], amap[MOB_RIGHT_DOWN]) + tm_id->anime_show_id+1 + texture_id->NumX(), Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)));
+								texture_id->draw(texture_id->NumX() * 2 * map20n_Number(amap[MOB_RIGHT], amap[MOB_DOWN], amap[MOB_RIGHT_DOWN]) + tm_id->anime_show_id + 1 + texture_id->NumX(), Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)));
 								break;
 							}
 							break;
@@ -1130,7 +1127,7 @@ namespace AsLib
 		}
 
 		//視点変更
-		AsMapView& setMobView(PosA4F& p_,const size_t type_= aslib_mob_walk_type_small) {
+		AsMapView& setMobView(PosA4F& p_, const size_t type_ = aslib_mob_walk_type_small) {
 			const Pos2F p2f = p2;
 			while (p_.x < 0.0f) { p_.x += p2f.x; }
 			while (p_.y < 0.0f) { p_.y += p2f.y; }
@@ -1168,13 +1165,12 @@ namespace AsLib
 			return *this;
 		}
 		AsMapView& setMap(const PosA4F& p_) { p = p_; return *this; }
-		AsMapView& setMapX(const PosA4F& p_) { p = p_; p.h = p.w*(float(asWindowSize().y) / float(asWindowSize().x)); return *this;}
+		AsMapView& setMapX(const PosA4F& p_) { p = p_; p.h = p.w*(float(asWindowSize().y) / float(asWindowSize().x)); return *this; }
 
 		//描画する物のサイズ
 		AsMapView& draw(AsMapEventControl* const mec_ = nullptr)
 		{
 			if (mec_ == nullptr || mec_->me.size() == 0) return *this;
-
 
 			//1マスの描画幅
 			const Pos2F m(asWindowSizeF().x / this->p.w, asWindowSizeF().y / this->p.h);
@@ -1197,34 +1193,34 @@ namespace AsLib
 			PosA4F p_a4f;
 			Pos2 player_p;
 
-				//Y軸指定
-				for (int32_t i = in_map.y1; i < in_map.y2; ++i) {
-					draw_map.x = in_draw.x;
-					draw_map.y += m.y;
-					select_map.y = i;
-					while (select_map.y < 0) { select_map.y += p2.y; }
-					select_map.y = select_map.y % p2.y;
+			//Y軸指定
+			for (int32_t i = in_map.y1; i < in_map.y2; ++i) {
+				draw_map.x = in_draw.x;
+				draw_map.y += m.y;
+				select_map.y = i;
+				while (select_map.y < 0) { select_map.y += p2.y; }
+				select_map.y = select_map.y % p2.y;
 
-					//X軸指定
-					for (int32_t j = in_map.x1; j < in_map.x2; ++j) {
-						draw_map.x += m.x;
-						select_map.x = j;
-						while (select_map.x < 0) { select_map.x += p2.x; }
-						select_map.x = select_map.x % p2.x;
+				//X軸指定
+				for (int32_t j = in_map.x1; j < in_map.x2; ++j) {
+					draw_map.x += m.x;
+					select_map.x = j;
+					while (select_map.x < 0) { select_map.x += p2.x; }
+					select_map.x = select_map.x % p2.x;
 
-						for (size_t k = 0; k < mec_->me.size(); ++k) {
-							if (mec_->me[k].t == nullptr) continue;
-							id_ = mobMoveDirect(mec_->me[k].dir_id, mec_->me[k].move_id);
-							if (mec_->me[k].t->Num() <= id_) continue;
+					for (size_t k = 0; k < mec_->me.size(); ++k) {
+						if (mec_->me[k].t == nullptr) continue;
+						id_ = mobMoveDirect(mec_->me[k].dir_id, mec_->me[k].move_id);
+						if (mec_->me[k].t->Num() <= id_) continue;
 
-							p_a4f = (mec_->walk_type == aslib_mob_walk_type_big) ? PosA4F(mec_->me[k].pl.x + 0.5f, mec_->me[k].pl.y + 0.6f - 0.3f*mec_->me[k].pl.h, mec_->me[k].pl.w, mec_->me[k].pl.h) : mec_->me[k].pl;
+						p_a4f = (mec_->walk_type == aslib_mob_walk_type_big) ? PosA4F(mec_->me[k].pl.x + 0.5f, mec_->me[k].pl.y + 0.6f - 0.3f*mec_->me[k].pl.h, mec_->me[k].pl.w, mec_->me[k].pl.h) : mec_->me[k].pl;
 
-							player_p = Pos2(int32_t(floor(p_a4f.x)), int32_t(floor(p_a4f.y)));
-							//while (player_p.x < 0) player_p.x += p2.x;
-						//	while (player_p.y < 0) player_p.y += p2.y;
+						player_p = Pos2(int32_t(floor(p_a4f.x)), int32_t(floor(p_a4f.y)));
+						while (player_p.x < 0) player_p.x += p2.x;
+						while (player_p.y < 0) player_p.y += p2.y;
 
-							player_p.x = player_p.x%p2.x;
-							player_p.y = player_p.y%p2.y;
+						player_p.x = player_p.x%p2.x;
+						player_p.y = player_p.y%p2.y;
 
 						if (select_map.x != player_p.x || select_map.y != player_p.y) continue;
 
@@ -1232,8 +1228,6 @@ namespace AsLib
 						array_num = select_map.y*p2.x + select_map.x;
 						draw_mob = PosA4F(draw_map.x + (p_a4f.x - floor(p_a4f.x))*m.x, draw_map.y + (p_a4f.y - floor(p_a4f.y))*m.y, m.x*p_a4f.w, m.y*p_a4f.h);
 
-						asPrintClear();
-						asPrint("(%d,%.2f,%.2f,%.2f,%.2f)", id_, draw_mob.x, draw_mob.y, draw_mob.w, draw_mob.h);
 						mec_->me[k].t->draw(id_, draw_mob);
 					}
 				}

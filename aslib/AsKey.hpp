@@ -1225,15 +1225,17 @@ struct AsKeyList {
 	std::vector<size_t> back;
 	std::vector<size_t> menu;
 
-	void addKeyOK() {
+	AsKeyList& addKeyOK() {
 		ok.emplace_back(aslib_key_enter);
 		ok.emplace_back(aslib_key_space);
 		ok.emplace_back(aslib_key_z);
+		return *this;
 	}
-	void addKeyBack() {
+	AsKeyList& addKeyBack() {
 		back.emplace_back(aslib_key_x);
+		return *this;
 	}
-	void addKeyCross() {
+	AsKeyList& addKeyCross() {
 		player_move_down.emplace_back(aslib_key_down);
 		player_move_up.emplace_back(aslib_key_up);
 		player_move_left.emplace_back(aslib_key_left);
@@ -1242,8 +1244,9 @@ struct AsKeyList {
 		player_move_right_up.emplace_back(aslib_key_right_up);
 		player_move_left_down.emplace_back(aslib_key_left_down);
 		player_move_right_down.emplace_back(aslib_key_right_down);
+		return *this;
 	}
-	void addKeyCrossW() {
+	AsKeyList& addKeyCrossW() {
 		player_move_down.emplace_back(aslib_key_s);
 		player_move_up.emplace_back(aslib_key_w);
 		player_move_left.emplace_back(aslib_key_a);
@@ -1252,6 +1255,7 @@ struct AsKeyList {
 		player_move_right_up.emplace_back(aslib_key_w_d);
 		player_move_left_down.emplace_back(aslib_key_s_a);
 		player_move_right_down.emplace_back(aslib_key_s_d);
+		return *this;
 	}
 
 	const bool isTouch(const size_t is_) const {
