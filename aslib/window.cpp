@@ -3,11 +3,11 @@
 int32_t asMain()
 {
 	//640,360//960, 540//320,180
-	MainControl mc(u8"Voice", asPlatformPos(Pos2(960,540), aslib_full_screen), BG_COLOR);
+	MainControl mc(u8"Voice", asPlatformPos(Pos2(960,540), aslib_full_screen));
 
 	Texture red(u8"p/2_0.png");
 
-	FontMainData font(10, u8"07にくまるフォント");
+	AsFont font(10, u8"07にくまるフォント");
 
 	Texture window_t(u8"p/win3.png", 3, 3);
 
@@ -35,8 +35,8 @@ int32_t asMain()
 	window.setEndAnime(ani);
 	window.setUpdate(8);
 	window.setUpdateEnd(6);
-	//window.setEffectTimer(20);
-	//window.setEffect(aslib_effect_event_zoom);
+	window.setEffectTimer(20);
+	window.setEffect(aslib_effect_event_zoom);
 
 	asStop();
 	while (asLoop()) {

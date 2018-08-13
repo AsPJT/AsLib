@@ -5,7 +5,6 @@ int32_t asMain()
 {
 	//560, 700
 	MainControl mc(u8"AsRPG", Pos2(1280,720));
-
 	//キー
 	AsKeyList kl;
 	kl.addKeyOK().addKeyBack().addKeyCross().addKeyCrossW();
@@ -22,6 +21,9 @@ int32_t asMain()
 	item.emplace_back(Item(nullptr, u8"Empty"));
 	item.emplace_back(Item(&mushroom_te, 10, u8"mushroom"));
 	item.emplace_back(Item(&mushroom2_te, 5, u8"mushroom2"));
+
+	//Texture key_cross_te(u8"p/key_cross.png", 3, 3);
+	
 
 	//属性数
 	asSetAttribute(aslib_attribute_num);
@@ -43,7 +45,7 @@ int32_t asMain()
 
 	Inventory inv(item_ui, item_ui2, item_font, share_item, item_pos, 8, 0);
 
-	constexpr Pos2 w_pos2(32,32);
+	constexpr Pos2 w_pos2(63,63);
 	//モンスター
 	AsTexture feri(u8"Picture/ikari.png", 6, 4);
 	//マップテクスチャ
@@ -56,7 +58,7 @@ int32_t asMain()
 	AsTexture sea4_te(u8"p/world_umi2.png", 4, 10);
 	AsTexture mo1_te(u8"p/world_yama2.png", 2, 10);
 	AsTexture mo2_te(u8"p/world_yama2-yuki.png", 2, 10);
-	AsTexture underground_stairs_te(u8"undergroundStairs2.png");
+	AsTexture underground_stairs_te(u8"p/undergroundStairs2.png");
 
 	//マップ管理
 	AsTextureMapArray main_map;
@@ -81,7 +83,7 @@ int32_t asMain()
 
 	//マップ生成
 	main_map.resizeMap(w_pos2);
-	main_map.worldMap(2, 4, 8, 9);
+	//main_map.worldMap(2, 4, 8, 9);
 	//if (main_map.readCSV() == 1 && main_map.readBackupCSV() == 1) {
 	//	main_map.resizeMap(w_pos2);
 	//	main_map.setLayer(2, 1);
@@ -89,10 +91,10 @@ int32_t asMain()
 	//}
 	//main_map.resizeMap(w_pos2);
 	//main_map.putTexture();
-	//main_map.setLayer(2, 1);
+	main_map.setLayer(2, 1);
 	//main_map.randMap(1);
 	//main_map.putMap(1, 1);
-	//main_map.mazeMap(4,0,1);
+	main_map.mazeMap(4,0,1);
 
 	constexpr PosA4F pl2(7.0f, 8.0f, 3.0f, 3.0f);
 	constexpr PosA4F pl3(7.0f, 8.0f, 0.7f, 0.7f);
@@ -104,7 +106,7 @@ int32_t asMain()
 	map_event.spawn().add(&feri, pl2);
 
 	//マップ描画管理
-	constexpr PosA4F map_p(0.0f, 0.0f, 5.0f, 10.0f);
+	PosA4F map_p(0.0f, 0.0f, 5.0f, 10.0f);
 	AsMapView map_view(map_p, 'y');
 	map_view.setMap(w_pos2);
 	
@@ -115,8 +117,30 @@ int32_t asMain()
 
 	map_event.setLandSpawn(main_map,att);
 
+	//臨時タッチ
+	Pos2 touch_event;
+
 	while (asLoop())
 	{
+		//if (asTouch()) {
+		//	touch_event = asTouchEndPos();
+		//	if (touch_event.x < asWindowSize().x / 3) {
+		//		if (touch_event.y < asWindowSize().y / 3) { asKeySet(aslib_key_w); asKeySet(aslib_key_a); }
+		//		else if (touch_event.y < asWindowSize().y * 2 / 3) { asKeySet(aslib_key_a); }
+		//		else { asKeySet(aslib_key_a); asKeySet(aslib_key_s); }
+		//	}
+		//	else if (touch_event.x < asWindowSize().x * 2 / 3) {
+		//		if (touch_event.y < asWindowSize().y / 3) { asKeySet(aslib_key_w); }
+		//		else if (touch_event.y < asWindowSize().y * 2 / 3) {}
+		//		else { asKeySet(aslib_key_s); }
+		//	}
+		//	else {
+		//		if (touch_event.y < asWindowSize().y / 3) { asKeySet(aslib_key_w); asKeySet(aslib_key_d); }
+		//		else if (touch_event.y < asWindowSize().y * 2 / 3) { asKeySet(aslib_key_d); }
+		//		else { asKeySet(aslib_key_d); asKeySet(aslib_key_s); }
+		//	}
+		//}
+
 		//更新
 		main_map.update();
 		map_event.update(main_map, att, kl);
@@ -131,6 +155,9 @@ int32_t asMain()
 
 		//ランダムスポーン
 		map_event.spawn(1).add(&feri, pl3);
+
+		asTouchPinch(map_p, 10.0f);
+		map_view.setLookSize(map_p, 'y');
 
 		//++auto_save_counter;
 		//if (auto_save_counter >= auto_save_timer) {

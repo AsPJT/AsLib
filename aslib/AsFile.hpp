@@ -63,7 +63,6 @@ namespace AsLib
 		FILE  *cfp_fp;
 		char FilePath[file_path_max];
 		DxLib::GetInternalDataPath(FilePath, sizeof(FilePath));
-
 		const std::string fp_name = std::string(FilePath) + u8"\\" + std::string(file_name);
 		cfp_fp = fopen(fp_name.c_str(), "rb");
 
@@ -81,7 +80,6 @@ namespace AsLib
 		FILE  *cfp_fp;
 		char FilePath[file_path_max];
 		DxLib::GetInternalDataPath(FilePath, sizeof(FilePath));
-
 		const std::string fp_name = std::string(FilePath) + u8"\\" + std::string(file_name);
 		cfp_fp = fopen(fp_name.c_str(), "wb");
 
@@ -214,7 +212,7 @@ namespace AsLib
 	{
 		char String[256];
 		int FileHandle = DxLib::FileRead_open(str_);
-		static thread_local std::string str;
+		static std::string str;
 		str = u8"";
 		while (DxLib::FileRead_eof(FileHandle) == 0)
 		{
@@ -234,7 +232,7 @@ namespace AsLib
 		std::istreambuf_iterator<char> it(ifs);
 		std::istreambuf_iterator<char> last;
 
-		static thread_local std::string final_str;
+		static std::string final_str;
 		final_str = std::string(it, last);
 		return 	final_str;
 	}
@@ -246,7 +244,7 @@ namespace AsLib
 	inline int32_t asAddWriteBase64(const std::string& file_name, const char* const log_) { return asAddWrite(file_name, base64_Encode(log_).c_str()); }
 
 	const std::vector<size_t> asAllReadToSize_t(const std::string& str_) {
-		static thread_local std::vector<size_t> final_str;
+		static std::vector<size_t> final_str;
 		final_str.resize(0);
 
 		const size_t size = sizeof(size_t);

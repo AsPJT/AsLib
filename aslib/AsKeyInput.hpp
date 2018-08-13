@@ -17,7 +17,7 @@ namespace AsLib
 
 	const char* const asKeyInputAndroid()
 	{
-		static thread_local std::string InputString;
+		static std::string InputString;
 		InputString = u8"Error!";
 
 		JNIEnv* env;

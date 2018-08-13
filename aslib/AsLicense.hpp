@@ -266,7 +266,7 @@ namespace AsLib
 		const char* const write() const {
 			if (start_year == 0) return c;
 
-			static thread_local std::string str;
+			static std::string str;
 			str = u8"Copyright (c) ";
 
 #if defined(__ANDROID__)

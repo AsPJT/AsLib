@@ -184,17 +184,17 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //
 #include "AsEffect.hpp"
 
-//タッチ系(DL/S3?) (T)
-#include "AsTouch.hpp"
-
 //基本ファイル読み書き(DL/S3/NO/All) (N)
 #include "AsFile.hpp"
 
-//キーボード (T)
-#include "AsKey.hpp"
-
 //基本系(DL/S3) (T)
 #include "AsStd.hpp"
+
+//タッチ系(DL/S3?) (T)
+#include "AsTouch.hpp"
+
+//キーボード (T)
+#include "AsKey.hpp"
 
 //マウス (T)
 #include "AsMouse.hpp"

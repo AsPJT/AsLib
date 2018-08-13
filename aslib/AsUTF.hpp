@@ -60,7 +60,7 @@ namespace AsLib
 	// UTF-32(char32_t*) ‚©‚ç UTF-8(char*)‚Ö
 	const char* const utf8(const char32_t* const src)
 	{
-		static thread_local std::string u8str;
+		static std::string u8str;
 		u8str = u8"";
 
 		for (size_t j = 0;; ++j) {
@@ -74,7 +74,7 @@ namespace AsLib
 	// UTF-32(u32string) ‚©‚ç UTF-8(char*)‚Ö
 	const char* const utf8(const std::u32string& src)
 	{
-		static thread_local std::string u8str;
+		static std::string u8str;
 		u8str = u8"";
 
 		const size_t src_len = src.length();
@@ -107,7 +107,7 @@ namespace AsLib
 	// UTF-16(char16_t*) ‚©‚ç UTF-32(char32_t*)‚Ö
 	const char32_t* const utf32(const char16_t* const src)
 	{
-		static thread_local std::u32string u32str;
+		static std::u32string u32str;
 		u32str = U"";
 
 		for (size_t j = 0;; ++j) {
@@ -120,7 +120,7 @@ namespace AsLib
 	// UTF-16(u16string) ‚©‚ç UTF-32(char32_t*)‚Ö
 	const char32_t* const utf32(const std::u16string& src)
 	{
-		static thread_local std::u32string u32str;
+		static std::u32string u32str;
 		u32str = U"";
 
 		const size_t src_len = src.length();
@@ -189,7 +189,7 @@ namespace AsLib
 	// UTF-32(char32_t*) ‚©‚ç UTF-16(char16_t*)‚Ö
 	const char16_t* const utf16(const char32_t* const src)
 	{
-		static thread_local std::u16string u16str;
+		static std::u16string u16str;
 		u16str = u"";
 
 		for (size_t j = 0;; ++j) {
@@ -203,7 +203,7 @@ namespace AsLib
 	// UTF-32(u32string) ‚©‚ç UTF-16(char16_t*)‚Ö
 	const char16_t* const utf16(const std::u32string& src)
 	{
-		static thread_local std::u16string u16str;
+		static std::u16string u16str;
 		u16str = u"";
 
 		const size_t src_len = src.length();
@@ -303,7 +303,7 @@ namespace AsLib
 	// UTF-8(string) ‚©‚ç UTF-32(char32_t*)‚Ö
 	const char32_t* const utf32(const std::string& src)
 	{
-		static thread_local std::u32string u32str;
+		static std::u32string u32str;
 		u32str = U"";
 
 		char u8char[5]{};
@@ -341,7 +341,7 @@ namespace AsLib
 	// UTF-8(char*) ‚©‚ç UTF-32(char32_t*)‚Ö
 	const char32_t* const utf32(const char* const src)
 	{
-		static thread_local std::u32string u32str;
+		static std::u32string u32str;
 		u32str = U"";
 
 		char u8char[5]{};
@@ -435,7 +435,7 @@ namespace AsLib
 	// SJIS(char*) ‚©‚ç UTF-16(char16_t*)‚Ö
 	const char16_t* const utf16_s(const char* const src)
 	{
-		static thread_local std::u16string u16str;
+		static std::u16string u16str;
 		u16str = u"";
 
 		uint8_t src_i;
@@ -461,7 +461,7 @@ namespace AsLib
 	// SJIS(char) ‚©‚ç UTF-16(char16_t*)‚Ö
 	const char16_t* const utf16_s(const char src)
 	{
-		static thread_local std::u16string u16str;
+		static std::u16string u16str;
 		u16str = u"";
 
 		const uint8_t src_8 = uint8_t(src);

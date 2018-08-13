@@ -24,7 +24,7 @@ namespace AsLib
 	//初期化を記録
 	const bool asIsInitSave(const bool b_, const bool& p_ = false)
 	{
-		static thread_local bool p = false;
+		static bool p = false;
 		if (b_) p = p_;
 		return p;
 	}
@@ -35,7 +35,7 @@ namespace AsLib
 	//ウィンドウサイズを記録する関数
 	const Pos2 asWindowSizeSave(const bool b_, const Pos2& p_ = pos2_0)
 	{
-		static thread_local Pos2 p;
+		static Pos2 p;
 		if (b_) p = p_;
 		return p;
 	}
@@ -98,7 +98,7 @@ namespace AsLib
 	//タイトルを記録する関数
 	std::string asTitleSave(const bool b_, const char* const str_ = nullptr)
 	{
-		static thread_local std::string aslib_title_save_str;
+		static std::string aslib_title_save_str;
 		if (b_ && str_ != nullptr) aslib_title_save_str = str_;
 		return aslib_title_save_str;
 	}
@@ -390,7 +390,7 @@ return 0;
 		s3d::Print(s3d::Unicode::UTF8ToUTF32(printString(format_string, rest...)));
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
-
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 return 0;
 #else //Console

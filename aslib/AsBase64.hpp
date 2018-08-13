@@ -65,7 +65,7 @@ const std::string base64_Encode(const char* const str_, const size_t length_, co
 	}
 	*str_ptr = 0;
 
-	static thread_local std::string final_str;
+	static std::string final_str;
 	final_str = std::string(str.get());
 	return 	final_str;
 }
@@ -109,7 +109,7 @@ const std::string base64_Decode(const char* const str_, const size_t type_ = bas
 	}
 	*str_ptr = 0;
 
-	static thread_local std::string final_str;
+	static std::string final_str;
 	final_str = std::string(str.get());
 	return 	final_str;
 }

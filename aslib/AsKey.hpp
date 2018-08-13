@@ -813,7 +813,7 @@ enum :size_t {
 	aslib_counter_down0,
 };
 
-const bool updateKey_(const size_t id_ = 0, const bool is_update = false, const size_t count_id = aslib_counter_empty)
+const bool updateKey_(const size_t id_ = 0, const bool is_update = false, const size_t count_id = aslib_counter_empty,const bool is_set=false)
 {
 	static bool aslib_update_key[aslib_key_keyLast];
 	static Counter aslib_update_count[aslib_key_keyLast];
@@ -828,9 +828,14 @@ const bool updateKey_(const size_t id_ = 0, const bool is_update = false, const 
 	case aslib_counter_down0: return aslib_update_count[id_].Down0();
 	default: break;
 	}
+	if (is_set) {
+		aslib_update_key[id_] = true;
+		aslib_update_count[id_].update(true);
+	}
 	return aslib_update_key[id_];
 }
 
+inline const bool asKeySet(const size_t& id_) { return updateKey_(id_, false, aslib_counter_empty, true); }
 inline const bool asKey(const size_t& id_) { return updateKey_(id_, false); }
 inline const bool asKeyTouch(const size_t& id_) { return updateKey_(id_, false, aslib_counter_touch); }
 inline const bool asKeyTouch0(const size_t& id_) { return updateKey_(id_, false, aslib_counter_touch0); }

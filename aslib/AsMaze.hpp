@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -67,33 +67,33 @@ namespace AsLib
 		static size_t b = 0;
 		map[x][y] = 2;
 		if (x == map.size() - 2 && y == map.data()->size() - 2) b = 1;
-		//ã
+		//ä¸Š
 		if (b != 1 && map[x][y - 1] == 0) mazeRoot(map, x, y - 1, aslib_maze_empty);
-		//‰º
+		//ä¸‹
 		if (b != 1 && map[x][y + 1] == 0) mazeRoot(map, x, y + 1, aslib_maze_empty);
-		//¶
+		//å·¦
 		if (b != 1 && map[x - 1][y] == 0) mazeRoot(map, x - 1, y, aslib_maze_empty);
-		//‰E
+		//å³
 		if (b != 1 && map[x + 1][y] == 0) mazeRoot(map, x + 1, y, aslib_maze_empty);
 
 		if (b != 1) map[x][y] = aslib_maze_empty;
 		return;
 	}
-	//o—Í
+	//å‡ºåŠ›
 	void mazeOutput(const std::vector<std::vector<size_t>>& map, const size_t aslib_maze_wall, const size_t aslib_maze_empty)
 	{
 		const size_t i_max = map.size();
 		const size_t j_max = map.data()->size();
 		for (size_t i = 0; i < i_max; ++i) {
 			for (size_t j = 0; j < j_max; ++j) {
-				if (map[i][j] == aslib_maze_empty)std::cout << "@";
-				else if (map[i][j] == aslib_maze_wall)std::cout << "¡";
-				else if (map[i][j] == 2)std::cout << "E";
+				if (map[i][j] == aslib_maze_empty)std::cout << u8"ã€€";
+				else if (map[i][j] == aslib_maze_wall)std::cout << u8"â– ";
+				else if (map[i][j] == 2)std::cout << u8"ãƒ»";
 			}
 			std::cout << std::endl;
 		}
 	}
-	//–À˜H¶¬
+	//è¿·è·¯ç”Ÿæˆ
 	void mazeMake(std::vector<std::vector<size_t>>& map, const size_t aslib_maze_wall, const size_t aslib_maze_empty)
 	{
 		map[1][1] = aslib_maze_empty;
@@ -135,11 +135,11 @@ namespace AsLib
 		const size_t size_x_2 = (size_x % 2 == 1) ? size_x : size_x - 1;
 		const size_t size_y_2 = (size_y % 2 == 1) ? size_y : size_y - 1;
 
-		//–À˜Hƒ}ƒbƒv
+		//è¿·è·¯ãƒãƒƒãƒ—
 		static thread_local std::vector<std::vector<size_t>> map;
 		map = std::vector<std::vector<size_t>>(size_x_2, std::vector<size_t>(size_y_2, aslib_maze_wall));
 
-		//–À˜H‚ğ¶¬
+		//è¿·è·¯ã‚’ç”Ÿæˆ
 		mazeMake(map, aslib_maze_wall, aslib_maze_empty);
 		return map;
 	}
@@ -149,69 +149,68 @@ namespace AsLib
 		const size_t size_x_2 = (size_x % 2 == 1) ? size_x : size_x - 1;
 		const size_t size_y_2 = (size_y % 2 == 1) ? size_y : size_y - 1;
 
-		//–À˜Hƒ}ƒbƒv
+		//è¿·è·¯ãƒãƒƒãƒ—
 		static thread_local std::vector<std::vector<size_t>> map;
 		map = std::vector<std::vector<size_t>>(size_x_2, std::vector<size_t>(size_y_2, aslib_maze_wall));
-		//–À˜H‚ğ¶¬
+		//è¿·è·¯ã‚’ç”Ÿæˆ
 		mazeMake(map, aslib_maze_wall, aslib_maze_empty);
-		//Œo˜H’Tõ
+		//çµŒè·¯æ¢ç´¢
 		mazeRoot(map, 1, 1, aslib_maze_empty);
-		//“ü‚èŒû‚ÆoŒû’Ç‰Á
+		//å…¥ã‚Šå£ã¨å‡ºå£è¿½åŠ 
 		map[1][0] = 2;
 		map[size_x - 2][size_y - 1] = 2;
-		//o—Í
+		//å‡ºåŠ›
 		mazeOutput(map, aslib_maze_wall, aslib_maze_empty);
 		return map;
 	}
 
 
-	//ƒ`ƒƒƒ“ƒN¶¬
-	void worldMapMake(const size_t x_, const size_t y_, const size_t size_, const uint32_t t1_, const uint32_t t2_, const uint32_t t3_, const uint32_t t4_, uint32_t map_[17][17])
+	//ãƒãƒ£ãƒ³ã‚¯ç”Ÿæˆ
+	void asWorldMapMake(const size_t x_, const size_t y_, const size_t size_, const uint32_t t1_, const uint32_t t2_, const uint32_t t3_, const uint32_t t4_, uint32_t map_[17][17])
 	{
-		//Ä‹N‚ÌI—¹ˆ—
+		//å†èµ·ã®çµ‚äº†å‡¦ç†
 		if (size_ == 0) return;
-		//’¸“_‚Ì‚‚³‚ğŒˆ‚ß‚é
+		//é ‚ç‚¹ã®é«˜ã•ã‚’æ±ºã‚ã‚‹
 		const uint32_t mapPlus = ((t1_ + t2_ + t3_ + t4_) >> 2) + asRand(size_);
 		map_[x_][y_] = (mapPlus >= 255) ? 255 : mapPlus;
-		//lŠpŒ`‚Ì2“_“¯m‚Ì’†“_‚Ì‚‚³‚ğŒˆ’è
+		//å››è§’å½¢ã®2ç‚¹åŒå£«ã®ä¸­ç‚¹ã®é«˜ã•ã‚’æ±ºå®š
 		const uint32_t s1 = ((t1_ + t2_) >> 1);
 		const uint32_t s2 = ((t1_ + t3_) >> 1);
 		const uint32_t s3 = ((t2_ + t4_) >> 1);
 		const uint32_t s4 = ((t3_ + t4_) >> 1);
-		//4‚Â‚Ì’n“_‚ÌÀ•W‚ğŒˆ‚ß‚é
+		//4ã¤ã®åœ°ç‚¹ã®åº§æ¨™ã‚’æ±ºã‚ã‚‹
 		map_[x_ + size_][y_] = s3;
 		map_[x_ - size_][y_] = s2;
 		map_[x_][y_ + size_] = s4;
 		map_[x_][y_ - size_] = s1;
-		//•ªŠ„ƒTƒCƒY‚ğ”¼•ª‚É‚·‚é
+		//åˆ†å‰²ã‚µã‚¤ã‚ºã‚’åŠåˆ†ã«ã™ã‚‹
 		const size_t size = size_ >> 1;
-		//4‚Â‚É•ªŠ„
-		worldMapMake(x_ - size, y_ - size, size, t1_, s1, s2, map_[x_][y_], map_);
-		worldMapMake(x_ + size, y_ - size, size, s1, t2_, map_[x_][y_], s3, map_);
-		worldMapMake(x_ - size, y_ + size, size, s2, map_[x_][y_], t3_, s4, map_);
-		worldMapMake(x_ + size, y_ + size, size, map_[x_][y_], s3, s4, t4_, map_);
+		//4ã¤ã«åˆ†å‰²
+		asWorldMapMake(x_ - size, y_ - size, size, t1_, s1, s2, map_[x_][y_], map_);
+		asWorldMapMake(x_ + size, y_ - size, size, s1, t2_, map_[x_][y_], s3, map_);
+		asWorldMapMake(x_ - size, y_ + size, size, s2, map_[x_][y_], t3_, s4, map_);
+		asWorldMapMake(x_ + size, y_ + size, size, map_[x_][y_], s3, s4, t4_, map_);
 	}
 
-	//ƒ`ƒƒƒ“ƒN¶¬‚ÌŒÄ‚Ño‚µ
-	inline void worldMapSimple(uint32_t map_[17][17])
+	//ãƒãƒ£ãƒ³ã‚¯ç”Ÿæˆã®å‘¼ã³å‡ºã—
+	inline void asWorldMapSimple(uint32_t map_[17][17])
 	{
-		//ƒ`ƒƒƒ“ƒN¶¬‚ğÀs
-		worldMapMake(8, 8, 8, map_[0][0], map_[16][0], map_[0][16], map_[16][16], map_);
+		//ãƒãƒ£ãƒ³ã‚¯ç”Ÿæˆã‚’å®Ÿè¡Œ
+		asWorldMapMake(8, 8, 8, map_[0][0], map_[16][0], map_[0][16], map_[16][16], map_);
 	}
 
-	constexpr size_t world_make_seed1 = 10;
-	constexpr size_t world_make_seed2 = 7;
+	constexpr size_t aslib_world_make_seed1 = 0x3220;
+	constexpr size_t aslib_world_make_seed2 = 0x292;
 
-	//ƒ[ƒ‹ƒhƒ}ƒbƒv¶¬
-	void worldMake(std::vector<std::vector<uint32_t>>& world_map, size_t seed_ = 0)
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰ãƒãƒƒãƒ—ç”Ÿæˆ
+	void asWorldMake(std::vector<std::vector<uint32_t>>& world_map, size_t seed_ = 0)
 	{
 		if (seed_ == 0) seed_ = asRand(65535);
-
-		static 	uint32_t map_[17][17] = { 255 };
-
-		//‰¡‰æ–ÊƒTƒCƒY
+		static uint32_t map_[17][17]{};
+		
+		//æ¨ªç”»é¢ã‚µã‚¤ã‚º
 		const size_t map_x = world_map.size();
-		//c‰æ–ÊƒTƒCƒY
+		//ç¸¦ç”»é¢ã‚µã‚¤ã‚º
 		const size_t map_y = world_map.front().size();
 
 		const size_t chunk_x = (map_x >> 4);
@@ -220,20 +219,20 @@ namespace AsLib
 		for (size_t i = 0; i < chunk_x; ++i) {
 			for (size_t j = 0; j < chunk_y; ++j) {
 
-				//lŠpŒ`‚Ì4“_‚Ì‚‚³‚ğŒˆ’è
-				asSRand32(seed_ + i + (j << world_make_seed1) + ((i&j) << world_make_seed2));
+				//å››è§’å½¢ã®4ç‚¹ã®é«˜ã•ã‚’æ±ºå®š
+				asSRand32(seed_ + i + (j * aslib_world_make_seed1) + ((i^j) * aslib_world_make_seed2));
 				map_[0][0] = asRand(255);
-				asSRand32(seed_ + ((i + 1) % chunk_x) + (j << world_make_seed1) + ((((i + 1) % chunk_x)&j) << world_make_seed2));
+				asSRand32(seed_ + ((i + 1) % chunk_x) + (j * aslib_world_make_seed1) + ((((i + 1) % chunk_x) ^ j) * aslib_world_make_seed2));
 				map_[16][0] = asRand(255);
-				asSRand32(seed_ + i + (((j + 1) % chunk_y) << world_make_seed1) + ((i&((j + 1) % chunk_y)) << world_make_seed2));
+				asSRand32(seed_ + i + (((j + 1) % chunk_y) * aslib_world_make_seed1) + ((i ^ ((j + 1) % chunk_y)) * aslib_world_make_seed2));
 				map_[0][16] = asRand(255);
-				asSRand32(seed_ + ((i + 1) % chunk_x) + (((j + 1) % chunk_y) << world_make_seed1) + ((((i + 1) % chunk_x)&((j + 1) % chunk_y)) << world_make_seed2));
+				asSRand32(seed_ + ((i + 1) % chunk_x) + (((j + 1) % chunk_y) * aslib_world_make_seed1) + ((((i + 1) % chunk_x) ^ ((j + 1) % chunk_y)) * aslib_world_make_seed2));
 				map_[16][16] = asRand(255);
 
-				//ƒ`ƒƒƒ“ƒN¶¬
-				worldMapSimple(map_);
+				//ãƒãƒ£ãƒ³ã‚¯ç”Ÿæˆ
+				asWorldMapSimple(map_);
 
-				//¶¬‚µ‚½ƒ`ƒƒƒ“ƒN‚ğƒ[ƒ‹ƒhƒ}ƒbƒv‚ÉƒRƒsƒy
+				//ç”Ÿæˆã—ãŸãƒãƒ£ãƒ³ã‚¯ã‚’ãƒ¯ãƒ¼ãƒ«ãƒ‰ãƒãƒƒãƒ—ã«ã‚³ãƒ”ãƒš
 				for (size_t i2 = 0; i2 < 16; ++i2)
 					for (size_t j2 = 0; j2 < 16; ++j2)
 						world_map[(i << 4) + i2][(j << 4) + j2] = map_[i2][j2];
@@ -242,13 +241,13 @@ namespace AsLib
 		}
 	}
 
-	//¢ŠE‚ğID‚Ö•ÏŠ·
-	void worldMapSimplePaint(std::vector<size_t>& vec_, const size_t& x_, const size_t& y_, size_t& layer_, const size_t under_, const size_t sea_, const size_t green_, const size_t snow_, const size_t seed_ = 0) {
+	//ä¸–ç•Œã‚’IDã¸å¤‰æ›
+	void asWorldMapSimplePaint(std::vector<size_t>& vec_, const size_t& x_, const size_t& y_, size_t& layer_, const size_t under_, const size_t sea_, const size_t green_, const size_t snow_, const size_t seed_ = 0) {
 		std::vector<std::vector<uint32_t>> wmap(x_, std::vector<uint32_t>(y_, 255));
 		//wmap = std::vector<std::vector<uint32_t>>(x_, std::vector<size_t>(y_, 255));
 		//wmap.shrink_to_fit();
 
-		worldMake(wmap, seed_);
+		asWorldMake(wmap, seed_);
 
 		const size_t xy_ = x_ * y_;
 
@@ -264,15 +263,15 @@ namespace AsLib
 				j = 0;
 				++i;
 			}
-			//ƒ[ƒ‹ƒhƒ}ƒbƒv‚Ìü‰æ
+			//ãƒ¯ãƒ¼ãƒ«ãƒ‰ãƒãƒƒãƒ—ã®ç·šç”»
 			if (wmap[i][j] <= 110 && wmap[i][j] > 50) continue;
 			else if (wmap[i][j] < 15) {
 				vec_[k] = snow_;
-			}//“à—¤
+			}//å†…é™¸
 			else if (wmap[i][j] <= 50) {
 				vec_[k] = green_;
 			}
-			else {//ŠC
+			else {//æµ·
 				vec_[k] = sea_;
 			}
 		}

@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -9,13 +9,30 @@
 
 namespace AsLib
 {
-	//‘®«
+	//ã‚¤ãƒ™ãƒ³ãƒˆèµ·å‹•
+	enum :size_t {
+		aslib_event_init_touch,
+		aslib_event_init_tolk,
+		aslib_event_auto,
+		aslib_event_timer,
+	};
+
+	struct AsMapEventData {
+		size_t event_init = aslib_event_init_touch;
+		PosA4F event_init_pos;
+
+		std::vector<size_t> event_main;
+
+	};
+
+
+	//å±æ€§
 	enum :size_t {
 		aslib_pass_true,
 		aslib_pass_false,
 		aslib_pass_no_wall_false,
 	};
-	//ƒfƒtƒHƒ‹ƒg‘®«
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå±æ€§
 	enum :size_t {
 		aslib_attribute_human,
 		aslib_attribute_fish,
@@ -25,7 +42,7 @@ namespace AsLib
 		aslib_attribute_no,
 		aslib_attribute_num
 	};
-	//ƒtƒB[ƒ‹ƒhƒ^ƒCƒv
+	//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚¿ã‚¤ãƒ—
 	enum :size_t {
 		aslib_texture_map_field_type_empty,
 		aslib_texture_map_field_type_wall,
@@ -106,11 +123,11 @@ namespace AsLib
 	//move
 	enum :size_t
 	{
-		MOB_STOP,//Ã~
-		MOB_MOVE1,//¶‘«
-		MOB_MOVE2,//^‚ñ’†
-		MOB_MOVE3,//‰E‘«
-		MOB_MOVE4,//^‚ñ’†
+		MOB_STOP,//é™æ­¢
+		MOB_MOVE1,//å·¦è¶³
+		MOB_MOVE2,//çœŸã‚“ä¸­
+		MOB_MOVE3,//å³è¶³
+		MOB_MOVE4,//çœŸã‚“ä¸­
 	};
 
 	enum :size_t {
@@ -123,20 +140,20 @@ namespace AsLib
 		aslib_texture_map_type_1n,
 		aslib_texture_map_type_20n,
 	};
-	//•`‰æƒ^ƒCƒv
+	//æç”»ã‚¿ã‚¤ãƒ—
 	enum :size_t {
 		MAP_VIEW_DRAW_COLOR,
 		MAP_VIEW_DRAW_ANIME,
 	};
 
-	//‘®«”‚ğ‹L˜^
+	//å±æ€§æ•°ã‚’è¨˜éŒ²
 	const size_t asAttributeSave(const bool b_, const size_t p_ = 0)
 	{
 		static thread_local size_t p = 1;
 		if (b_) p = p_;
 		return p;
 	}
-	//‘®«”‚ğæ“¾‚·‚éŠÖ”
+	//å±æ€§æ•°ã‚’å–å¾—ã™ã‚‹é–¢æ•°
 	inline const size_t asAttribute() { return asAttributeSave(false); }
 	inline const size_t asSetAttribute(const size_t p_ = 0) { return asAttributeSave(true, p_); }
 
@@ -214,18 +231,18 @@ namespace AsLib
 
 
 
-	//ƒ}ƒbƒvƒTƒCƒY‚ğ•ÏX‚·‚é
+	//ãƒãƒƒãƒ—ã‚µã‚¤ã‚ºã‚’å¤‰æ›´ã™ã‚‹
 	template<typename Map_> void mapSize(const Pos2& b_, const Pos2& a_, Map_* m_, const Map_ count_ = Map_(0))
 	{
 		if (b_.is_minus() || a_.is_minus()) return;
 		const int32_t b_max = b_.x*b_.y;
 		const int32_t a_max = a_.x*a_.y;
 
-		//‹ó”’•”•ª‚ğ”CˆÓ‚Ì”š‚Å–„‚ß‚é
+		//ç©ºç™½éƒ¨åˆ†ã‚’ä»»æ„ã®æ•°å­—ã§åŸ‹ã‚ã‚‹
 		for (int32_t i = b_max; i < a_max; ++i) m_[i] = count_;
 
 		if (a_.x > b_.x) {
-			//’l‚ğˆÚ“®
+			//å€¤ã‚’ç§»å‹•
 			const int32_t f = ((a_.x < b_.x) ? (a_.x - 1) : (b_.x - 1));
 			for (int32_t i = b_max - b_.x, ii = (a_.x*b_.y) - a_.x; i > 0; i -= b_.x, ii -= a_.x) {
 				for (int32_t j = f; j >= 0; --j) {
@@ -235,7 +252,7 @@ namespace AsLib
 			}
 		}
 		else if (a_.x < b_.x) {
-			//’l‚ğˆÚ“®
+			//å€¤ã‚’ç§»å‹•
 			const int32_t f = ((a_.x < b_.x) ? (a_.x) : (b_.x));
 			for (int32_t i = b_.x, ii = a_.x; i < b_max; i += b_.x, ii += a_.x) {
 				for (int32_t j = 0; j < f; ++j) {
@@ -246,7 +263,7 @@ namespace AsLib
 		}
 		return;
 	}
-	//ƒ}ƒbƒvƒTƒCƒY‚ğ•ÏX‚·‚é(Vector)
+	//ãƒãƒƒãƒ—ã‚µã‚¤ã‚ºã‚’å¤‰æ›´ã™ã‚‹(Vector)
 	template<typename Map_> void mapSize(const Pos2& b_, const Pos2& a_, std::vector<Map_>& m_, const Map_ count_ = Map_(0))
 	{
 		if (b_.is_minus() || a_.is_minus()) return;
@@ -262,7 +279,7 @@ namespace AsLib
 		}
 		return;
 	}
-	//“®‚­”»’è
+	//å‹•ãåˆ¤å®š
 	const bool moveMob(const bool d_, const bool u_, const bool l_, const bool r_, const float s_, PosA4F& p_)
 	{
 		size_t count = 0;
@@ -289,7 +306,7 @@ namespace AsLib
 		}
 		return false;
 	}
-	//“®‚­”»’è
+	//å‹•ãåˆ¤å®š
 	const size_t moveMobCross(const bool d_, const bool u_, const bool l_, const bool r_, const float s_, PosA4F& p_)
 	{
 		if (d_) {
@@ -369,9 +386,9 @@ namespace AsLib
 	}
 
 	struct AsAttribute {
-		//’Ê‰ßİ’è
+		//é€šéè¨­å®š
 
-		//Še‘®«‚ÌID
+		//å„å±æ€§ã®ID
 		std::vector<size_t> id;
 		AsAttribute() { id.resize(asAttribute(), 0); }
 
@@ -393,7 +410,7 @@ namespace AsLib
 		}
 	};
 
-	//Î‚ßˆÚ“®‚ ‚½‚è”»’è
+	//æ–œã‚ç§»å‹•ã‚ãŸã‚Šåˆ¤å®š
 	const size_t asMoveMobDiagonal(const size_t lr_, const size_t uw_, const size_t dia_) {
 
 		//asPrint("(%d,%d,%d)", lr_, uw_, dia_);
@@ -463,7 +480,7 @@ namespace AsLib
 
 		return 3;
 	}
-	//c‰¡‚ ‚½‚è”»’è
+	//ç¸¦æ¨ªã‚ãŸã‚Šåˆ¤å®š
 	inline const bool asMoveMobCross(const size_t lruw_) {
 		return (lruw_ == aslib_pass_true) ? true : false;
 	}
@@ -483,33 +500,33 @@ namespace AsLib
 	}
 
 	struct AsTextureMap {
-		//ƒ}ƒbƒvƒ^ƒCƒv
+		//ãƒãƒƒãƒ—ã‚¿ã‚¤ãƒ—
 		size_t type = aslib_texture_map_type_empty;
 		size_t total_num = 0;
-		//ƒAƒjƒ[ƒVƒ‡ƒ“ƒtƒŒ[ƒ€
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ 
 		size_t anime_count = 60;
 		size_t anime_counter = 0;
 		size_t anime_show_id = 0;
 
-		//’nŒ`ƒ^ƒCƒv
+		//åœ°å½¢ã‚¿ã‚¤ãƒ—
 		size_t field_type = aslib_texture_map_field_type_empty;
-		//’Ê‰ßİ’è
+		//é€šéè¨­å®š
 		size_t pass = aslib_pass_true;
 
 		AsAllAttribute* att = nullptr;
 		AsTextureMap() = default;
-		AsTextureMap(const size_t type_, const size_t ftype_, const size_t anime_) :type(type_), field_type(ftype_), anime_count(anime_) {}
+		AsTextureMap(const size_t type_, const size_t ftype_, const size_t anime_) :type(type_), anime_count(anime_), field_type(ftype_) {}
 		//AsTextureMap(const size_t type_, const size_t ftype_, const size_t anime_) :type(type_), field_type(ftype_), anime_counter(anime_),att(asAttribute()) {}
 	};
 
 	struct AsTextureMapArray {
-		//’nŒ`ƒf[ƒ^
+		//åœ°å½¢ãƒ‡ãƒ¼ã‚¿
 		size_t s_x = 0;
 		size_t s_y = 0;
 		size_t s_layer = 1;
 		std::string s_name = u8"main";
 		std::vector<size_t> s;
-		//’n–Ê‚ÌƒeƒNƒXƒ`ƒƒƒf[ƒ^
+		//åœ°é¢ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ‡ãƒ¼ã‚¿
 		std::vector<AsTexture*> t;
 		std::vector<AsTextureMap> tm;
 
@@ -541,7 +558,7 @@ namespace AsLib
 
 			const size_t layer_min = s_x * s_y*layer_;
 			const size_t layer_max = layer_min + s_x * s_y;
-			for (size_t i = layer_min, k = 0; i < layer_max, k < t_total; ++i, ++k) {
+			for (size_t i = layer_min, k = 0; i < layer_max && k < t_total; ++i, ++k) {//
 				s[i] = k;
 			}
 		}
@@ -649,13 +666,13 @@ namespace AsLib
 			}	
 		}
 		void worldMap(const size_t under_, const size_t sea_, const size_t green_, const size_t snow_, const size_t seed_ = 0) {
-			worldMapSimplePaint(s, s_x, s_y, s_layer, under_, sea_, green_, snow_, seed_);
+			asWorldMapSimplePaint(s, s_x, s_y, s_layer, under_, sea_, green_, snow_, seed_);
 		}
 
 	};
 
 
-	//‚ ‚½‚è”»’è
+	//ã‚ãŸã‚Šåˆ¤å®š
 	const bool movingCollisionDetection(const AsAllAttribute& att_, const AsTextureMapArray& tma_, const Pos2& p_, size_t& is_move_, const size_t player_id_ = aslib_attribute_human) {
 
 		const size_t map_total = tma_.s_x*tma_.s_y;
@@ -774,7 +791,7 @@ namespace AsLib
 
 		return is_moving;
 	}
-	//Œü‚«‚ğŒˆ’è‚·‚é
+	//å‘ãã‚’æ±ºå®šã™ã‚‹
 	const bool directionMob(const size_t& moving_, size_t& dir_) {
 		switch (moving_)
 		{
@@ -819,46 +836,46 @@ namespace AsLib
 		return moveMob(asKey(aslib_key_down), asKey(aslib_key_up), asKey(aslib_key_left), asKey(aslib_key_right), s_, p_);
 	}
 
-	//ƒCƒxƒ“ƒg‚Ì‘®«
+	//ã‚¤ãƒ™ãƒ³ãƒˆã®å±æ€§
 	enum :size_t {
 		aslib_map_event_type_empty,
 		aslib_map_event_type_mob,
 		aslib_map_event_type_move,
 	};
-	//ƒCƒxƒ“ƒg‚Ì’m”\
+	//ã‚¤ãƒ™ãƒ³ãƒˆã®çŸ¥èƒ½
 	enum :size_t {
 		aslib_map_event_ai_human,
-		aslib_map_event_ai_ai,
+		aslib_map_event_ai_ai
 	};
 
 	struct AsMapEvent {
-		//ƒCƒxƒ“ƒgƒ^ƒCƒv
+		//ã‚¤ãƒ™ãƒ³ãƒˆã‚¿ã‚¤ãƒ—
 		size_t type = aslib_map_event_type_empty;
 		//
 		size_t ai = aslib_map_event_ai_ai;
-		//Œü‚«
+		//å‘ã
 		size_t dir_id = MOB_DOWN;
-		//ˆÚ“®ID
+		//ç§»å‹•ID
 		size_t move_id = MOB_STOP;
-		//ˆÚ“®ó‘Ô
+		//ç§»å‹•çŠ¶æ…‹
 		size_t moving = MOB_CENTER;
-		//ˆÚ“®‘®«
+		//ç§»å‹•å±æ€§
 		size_t pl_field_type = aslib_attribute_human;
-		//ƒAƒjƒ[ƒVƒ‡ƒ“ƒtƒŒ[ƒ€
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ 
 		size_t count = 0;
 		size_t move_count_max = 6;
-		//ˆÊ’u‚Æ‘å‚«‚³
+		//ä½ç½®ã¨å¤§ãã•
 		PosA4F pl;
-		//ˆÚ“®‚·‚é‹——£
+		//ç§»å‹•ã™ã‚‹è·é›¢
 		float fps = 0.1f;
-		//‰æ‘œ
+		//ç”»åƒ
 		AsTexture* t = nullptr;
-		//‚ ‚½‚è”»’è
+		//ã‚ãŸã‚Šåˆ¤å®š
 		bool is_collision_detection = true;
-		//ƒCƒxƒ“ƒg’†
+		//ã‚¤ãƒ™ãƒ³ãƒˆä¸­
 		bool is_event = false;
 
-		constexpr AsMapEvent(AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const size_t& type_ = aslib_map_event_type_empty, const size_t ai_ = aslib_map_event_ai_ai) :type(type_), ai(ai_), t(t_), pl(p_) {}
+		constexpr AsMapEvent(AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const size_t& type_ = aslib_map_event_type_empty, const size_t ai_ = aslib_map_event_ai_ai) :type(type_), ai(ai_), pl(p_), t(t_) {}
 	};
 
 	const size_t movingMob(AsMapEvent* const me_) {
@@ -946,7 +963,7 @@ namespace AsLib
 		}
 		return me_->moving;
 	}
-	//mob‚É•àsƒAƒjƒ[ƒVƒ‡ƒ“‚ğ‚³‚¹‚é
+	//mobã«æ­©è¡Œã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã•ã›ã‚‹
 	const bool mobMoveSet(AsMapEvent* const me_) {
 		if (me_ == nullptr) return false;
 
@@ -1054,8 +1071,8 @@ namespace AsLib
 		AsMapEventControl& setSpawn(const PosA4F p_) {
 			if (view_id >= me.size()) return *this;
 			me[view_id].pl = p_;
+			return *this;
 		}
-		//todo
 		AsMapEventControl& setLandSpawn(const AsTextureMapArray& tma_, AsAllAttribute& att_) {
 			if (view_id >= me.size()) return *this;
 			const size_t xy_ = tma_.s_x*tma_.s_y;
@@ -1076,6 +1093,7 @@ namespace AsLib
 					return *this;
 				}
 			}
+			return *this;
 		}
 		AsMapEventControl& spawn() { is_spawn = true; return *this; }
 
@@ -1091,7 +1109,7 @@ namespace AsLib
 					else me[i].move_id = MOB_STOP;
 					break;
 				case aslib_map_event_ai_ai:
-					if (me[i].is_event) break;//ƒCƒxƒ“ƒg’†‚Í•às–³‚µ
+					if (me[i].is_event) break;//ã‚¤ãƒ™ãƒ³ãƒˆä¸­ã¯æ­©è¡Œç„¡ã—
 					me[i].moving = movingMob(&me[i]);
 					if (asRand8(100) > 1) break;
 					if (movingMob8_AI(att_, tma_, me[i].fps, me[i].pl, me[i].moving, me[i].dir_id)) {
@@ -1103,7 +1121,7 @@ namespace AsLib
 		}
 	};
 
-	//ƒ}ƒbƒv‚ÌŒ©‚¦‚é”ÍˆÍ
+	//ãƒãƒƒãƒ—ã®è¦‹ãˆã‚‹ç¯„å›²
 	struct AsMapView
 	{
 	public:
@@ -1112,20 +1130,33 @@ namespace AsLib
 		AsMapView(const PosA4F& p_, const char c_) : p(p_) {
 			switch (c_)
 			{
-				//³•ûŒ`
+				//æ­£æ–¹å½¢
 			case 'x': p.h = p.w*(float(asWindowSize().y) / float(asWindowSize().x)); break;
 			case 'y': p.w = p.h*(float(asWindowSize().x) / float(asWindowSize().y)); break;
-				//‰æ–ÊƒTƒCƒY‚Æ“¯”ä—¦
+				//ç”»é¢ã‚µã‚¤ã‚ºã¨åŒæ¯”ç‡
 			case 'X': p.h = p.w; break;
 			case 'Y': p.w = p.h; break;
 			}
 		}
+		AsMapView& setLookSize(const PosA4F& p_, const char c_) {
+			p = p_;
+			switch (c_)
+			{
+				//æ­£æ–¹å½¢
+			case 'x': p.h = p.w*(float(asWindowSize().y) / float(asWindowSize().x)); break;
+			case 'y': p.w = p.h*(float(asWindowSize().x) / float(asWindowSize().y)); break;
+				//ç”»é¢ã‚µã‚¤ã‚ºã¨åŒæ¯”ç‡
+			case 'X': p.h = p.w; break;
+			case 'Y': p.w = p.h; break;
+			}
+			return *this;
+		}
 	private:
-		//ƒ}ƒbƒv‚Ì’†SˆÊ’u‚Æ•
+		//ãƒãƒƒãƒ—ã®ä¸­å¿ƒä½ç½®ã¨å¹…
 		PosA4F p;
-		//ŠJn‚©‚çI—¹‚Ü‚Å
+		//é–‹å§‹ã‹ã‚‰çµ‚äº†ã¾ã§
 		Pos4 in_map;
-		//ƒ}ƒbƒvƒTƒCƒY
+		//ãƒãƒƒãƒ—ã‚µã‚¤ã‚º
 		Pos2 p2;
 
 		AsMapView& drawMap(const size_t num_, Color* const col_ = nullptr, AsTextureMapArray* const a_ = nullptr)
@@ -1142,20 +1173,20 @@ namespace AsLib
 				break;
 			}
 
-			//1ƒ}ƒX‚Ì•`‰æ•
+			//1ãƒã‚¹ã®æç”»å¹…
 			const Pos2F m(asWindowSizeF().x / this->p.w, asWindowSizeF().y / this->p.h);
 
-			//’†S•
+			//ä¸­å¿ƒå¹…
 			const Pos2F ce_length(this->p.w / 2.0f, this->p.h / 2.0f);
-			//‘O
+			//å‰
 			const Pos2F be_pos(this->p.x - ce_length.x, this->p.y - ce_length.y);
-			//Œã
+			//å¾Œ
 			const Pos2F af_pos(this->p.x + ce_length.x, this->p.y + ce_length.y);
 
 			const size_t layer_plus = p2.x*p2.y;
 			size_t draw_layer_plus = layer_plus;
 
-			//•`‰æ‰ŠúˆÊ’u
+			//æç”»åˆæœŸä½ç½®
 			const Pos2F in_draw((floor(be_pos.x) - be_pos.x)*m.x - m.x, (floor(be_pos.y) - be_pos.y)*m.y - m.y);
 			in_map = Pos4(Pos4F(floor(be_pos.x), floor(be_pos.y), ceil(af_pos.x), ceil(af_pos.y)));
 			Pos2 select_map;
@@ -1170,12 +1201,12 @@ namespace AsLib
 
 			const size_t tma_size = a_->s.size();
 
-			//ƒŒƒCƒ„[w’è
+			//ãƒ¬ã‚¤ãƒ¤ãƒ¼æŒ‡å®š
 			for (size_t layer = 0; layer < draw_layer_max; ++layer) {
 				draw_layer_plus = layer_plus * layer;
 				draw_map = in_draw;
 
-				//Y²w’è
+				//Yè»¸æŒ‡å®š
 				for (int32_t i = in_map.y1; i < in_map.y2; ++i) {
 					draw_map.x = in_draw.x;
 					draw_map.y += m.y;
@@ -1183,7 +1214,7 @@ namespace AsLib
 					while (select_map.y < 0) { select_map.y += p2.y; }
 					select_map.y = select_map.y % p2.y;
 
-					//X²w’è
+					//Xè»¸æŒ‡å®š
 					for (int32_t j = in_map.x1; j < in_map.x2; ++j) {
 
 
@@ -1192,7 +1223,7 @@ namespace AsLib
 						while (select_map.x < 0) { select_map.x += p2.x; }
 						select_map.x = select_map.x % p2.x;
 
-						//•`‰æ‚·‚éƒf[ƒ^‚Ì‚ ‚é”z—ñ‚ÌêŠ
+						//æç”»ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã®ã‚ã‚‹é…åˆ—ã®å ´æ‰€
 						array_num = select_map.y*p2.x + select_map.x + draw_layer_plus;
 						if (array_num >= tma_size) continue;
 
@@ -1245,7 +1276,7 @@ namespace AsLib
 
 	public:
 
-		//’†SˆÊ’u‚ğw’è--------------------------------------------------------------
+		//ä¸­å¿ƒä½ç½®ã‚’æŒ‡å®š--------------------------------------------------------------
 
 		//
 		AsMapView& setMap(const Pos2& p2_) {
@@ -1254,7 +1285,7 @@ namespace AsLib
 			return *this;
 		}
 
-		//‹“_•ÏX
+		//è¦–ç‚¹å¤‰æ›´
 		AsMapView& setMobView(PosA4F& p_, const size_t type_ = aslib_mob_walk_type_small) {
 			const Pos2F p2f = p2;
 			while (p_.x < 0.0f) { p_.x += p2f.x; }
@@ -1295,21 +1326,21 @@ namespace AsLib
 		AsMapView& setMap(const PosA4F& p_) { p = p_; return *this; }
 		AsMapView& setMapX(const PosA4F& p_) { p = p_; p.h = p.w*(float(asWindowSize().y) / float(asWindowSize().x)); return *this; }
 
-		//•`‰æ‚·‚é•¨‚ÌƒTƒCƒY
+		//æç”»ã™ã‚‹ç‰©ã®ã‚µã‚¤ã‚º
 		AsMapView& draw(AsMapEventControl* const mec_ = nullptr)
 		{
 			if (mec_ == nullptr || mec_->me.size() == 0) return *this;
 
-			//1ƒ}ƒX‚Ì•`‰æ•
+			//1ãƒã‚¹ã®æç”»å¹…
 			const Pos2F m(asWindowSizeF().x / this->p.w, asWindowSizeF().y / this->p.h);
-			//’†S•
+			//ä¸­å¿ƒå¹…
 			const Pos2F ce_length(this->p.w / 2.0f, this->p.h / 2.0f);
-			//‘O
+			//å‰
 			const Pos2F be_pos(this->p.x - ce_length.x, this->p.y - ce_length.y);
-			//Œã
+			//å¾Œ
 			const Pos2F af_pos(this->p.x + ce_length.x, this->p.y + ce_length.y);
 
-			//•`‰æ‰ŠúˆÊ’u
+			//æç”»åˆæœŸä½ç½®
 			const Pos2F in_draw((floor(be_pos.x) - be_pos.x)*m.x - m.x, (floor(be_pos.y) - be_pos.y)*m.y - m.y);
 			in_map = Pos4(Pos4F(floor(be_pos.x), floor(be_pos.y), ceil(af_pos.x), ceil(af_pos.y)));
 			Pos2 select_map;
@@ -1321,7 +1352,7 @@ namespace AsLib
 			PosA4F p_a4f;
 			Pos2 player_p;
 
-			//Y²w’è
+			//Yè»¸æŒ‡å®š
 			for (int32_t i = in_map.y1; i < in_map.y2; ++i) {
 				draw_map.x = in_draw.x;
 				draw_map.y += m.y;
@@ -1329,7 +1360,7 @@ namespace AsLib
 				while (select_map.y < 0) { select_map.y += p2.y; }
 				select_map.y = select_map.y % p2.y;
 
-				//X²w’è
+				//Xè»¸æŒ‡å®š
 				for (int32_t j = in_map.x1; j < in_map.x2; ++j) {
 					draw_map.x += m.x;
 					select_map.x = j;
@@ -1352,7 +1383,7 @@ namespace AsLib
 
 						if (select_map.x != player_p.x || select_map.y != player_p.y) continue;
 
-						//•`‰æ‚·‚éƒf[ƒ^‚Ì‚ ‚é”z—ñ‚ÌêŠ
+						//æç”»ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã®ã‚ã‚‹é…åˆ—ã®å ´æ‰€
 						array_num = select_map.y*p2.x + select_map.x;
 						draw_mob = PosA4F(draw_map.x + (p_a4f.x - floor(p_a4f.x))*m.x, draw_map.y + (p_a4f.y - floor(p_a4f.y))*m.y, m.x*p_a4f.w, m.y*p_a4f.h);
 
@@ -1363,9 +1394,9 @@ namespace AsLib
 			return *this;
 		}
 
-		//F‚Ì‘S‘Ì•`‰æ
+		//è‰²ã®å…¨ä½“æç”»
 		AsMapView& draw(Color* const col_) { return this->drawMap(MAP_VIEW_DRAW_COLOR, col_, nullptr); }
-		//‰æ‘œ‚Ì‘S‘Ì•`‰æ
+		//ç”»åƒã®å…¨ä½“æç”»
 		AsMapView& draw(AsTextureMapArray* const t_) { return this->drawMap(MAP_VIEW_DRAW_ANIME, nullptr, t_); }
 
 	};

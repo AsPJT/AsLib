@@ -95,6 +95,43 @@ namespace AsLib
 
 	const Pos2 asTouchUpPos() { return updateTouch_(false, true); }
 
+	const int32_t asTouchPinch() {
+		static bool is_pinch = false;
+		if (asTouchNum() != 2) {
+			is_pinch = false;
+			return 0;
+		}
+		static int32_t before_p{};
 
+		const Pos2 after_p0 = asTouch(0);
+		const Pos2 after_p1 = asTouch(1);
+		const int32_t after_p = hypot(abs(after_p0.x - after_p1.x), abs(after_p0.y - after_p1.y));
+
+		if (!is_pinch) {
+			is_pinch = true;
+			before_p = after_p;
+			return 0;
+		}
+		is_pinch = true;
+		const int32_t total_p = after_p - before_p;
+		before_p = after_p;
+		return total_p;
+	}
+
+	inline void asTouchPinch(int32_t& add_) {
+		add_ += asTouchPinch();
+		if (add_ < 0) add_ = 0;
+	}
+
+	inline const bool asIsTouchPinch() {
+		return (asTouchPinch() == 0) ? false : true;
+	}
+	inline void asTouchPinch(PosA4F& add_, const float f_ = 5) {
+		float pinch = asTouchPinch() / f_;
+		add_.w -= pinch;
+		add_.h -= pinch;
+		if (add_.w < 0.0f) add_.w = 0.0f;
+		if (add_.h < 0.0f) add_.h = 0.0f;
+	}
 
 }
