@@ -8,6 +8,41 @@ int32_t asMain()
 	//キー
 	AsKeyList kl;
 	kl.addKeyOK().addKeyBack().addKeyCross().addKeyCrossW();
+	
+	//プレイヤーキャラテクスチャ
+	Texture red_te(u8"p/2_0.png");
+	//メッセージフォント
+	AsFont font(10, u8"07にくまるフォント");
+	//ウィンドウテクスチャ
+	Texture window_te(u8"p/win3.png", 3, 3);
+	//win2//windowa
+	MessageWindow window(window_te);
+	Texture window_ui(u8"p/cho.png");
+	//window.readSetString32(u8"p/str.txt");
+	//Texture ani(u8"p/pet.png", 8, 4);
+	Texture ani(u8"p/ya.png", 3);
+	std::vector<std::string> list_name{ u8"プレイヤー",u8"仲間１",u8"仲間２" };
+	std::vector<Texture*> list_texture{ &red_te,&window_ui,&window_te };
+	WindowEvent window_event(list_name, list_texture);
+
+	//ウィンドウ系
+	window.setWindowEvent(window_event);
+	window.setPerson(true);
+	window.setFont(font);
+	window.setSound(u8"p/om");
+	////window.setName(u8"赤い髪の人");
+	window.setPos(Pos4F(0.02f, 0.7f, 0.98f, 0.98f).ratio());
+	window.setFrame(Pos4F(0.02f, 0.7f, 0.98f, 0.98f).ratio().h / 8);
+	window.setLine(4);
+	window.setFastForward(true);
+	////window.setPerson(red);
+	window.setEndAnime(ani);
+	window.setUpdate(8);
+	window.setUpdateEnd(6);
+	window.setEffectTimer(20);
+	window.setEffect(aslib_effect_event_zoom);
+
+	//AsEventMessageWindow emw(&window);
 
 	//アイテムUIの画像
 	Texture item_ui(u8"p/itemUI.png");
@@ -45,7 +80,7 @@ int32_t asMain()
 
 	Inventory inv(item_ui, item_ui2, item_font, share_item, item_pos, 8, 0);
 
-	constexpr Pos2 w_pos2(63,63);
+	constexpr Pos2 w_pos2(64,64);
 	//モンスター
 	AsTexture feri(u8"Picture/ikari.png", 6, 4);
 	//マップテクスチャ
@@ -83,7 +118,7 @@ int32_t asMain()
 
 	//マップ生成
 	main_map.resizeMap(w_pos2);
-	//main_map.worldMap(2, 4, 8, 9);
+	main_map.worldMap(2, 4, 8, 9);
 	//if (main_map.readCSV() == 1 && main_map.readBackupCSV() == 1) {
 	//	main_map.resizeMap(w_pos2);
 	//	main_map.setLayer(2, 1);
@@ -91,11 +126,12 @@ int32_t asMain()
 	//}
 	//main_map.resizeMap(w_pos2);
 	//main_map.putTexture();
-	main_map.setLayer(2, 1);
+	//main_map.setLayer(2, 1);
 	//main_map.randMap(1);
 	//main_map.putMap(1, 1);
-	main_map.mazeMap(4,0,1);
+	//main_map.mazeMap(4,0,1);
 
+	//constexpr PosA4F pl2(1.0f, 1.0f, 1.0f, 1.0f);
 	constexpr PosA4F pl2(7.0f, 8.0f, 3.0f, 3.0f);
 	constexpr PosA4F pl3(7.0f, 8.0f, 0.7f, 0.7f);
 
@@ -104,6 +140,10 @@ int32_t asMain()
 	//イベント管理
 	AsMapEventControl map_event(w_pos2,aslib_mob_walk_type_big, &feri, pl, aslib_map_event_type_mob);
 	map_event.spawn().add(&feri, pl2);
+
+	AsEventMessageWindow emw(&window, u8"p/str.txt");
+	map_event.me[1].event_init = aslib_event_init_tolk;
+	map_event.me[1].med.emplace_back(&emw);
 
 	//マップ描画管理
 	PosA4F map_p(0.0f, 0.0f, 5.0f, 10.0f);
@@ -115,6 +155,7 @@ int32_t asMain()
 	constexpr size_t auto_backup_timer = 60 * 55;
 	size_t auto_backup_counter = 0;
 
+	//プレイヤー初期スポーン指定
 	map_event.setLandSpawn(main_map,att);
 
 	//臨時タッチ
@@ -122,6 +163,7 @@ int32_t asMain()
 
 	while (asLoop())
 	{
+		//臨時タッチ
 		//if (asTouch()) {
 		//	touch_event = asTouchEndPos();
 		//	if (touch_event.x < asWindowSize().x / 3) {
@@ -151,13 +193,18 @@ int32_t asMain()
 		//イベント描画
 		map_view.draw(&map_event);
 
-		map_event.talk(kl);
+
 
 		//ランダムスポーン
 		map_event.spawn(1).add(&feri, pl3);
 
-		asTouchPinch(map_p, 10.0f);
+		asTouchPinch(map_p, 10.0f,30);
 		map_view.setLookSize(map_p, 'y');
+
+		//イベント起動
+		map_event.play_event();
+		//会話起動イベント
+		map_event.talk(kl.is_ok());
 
 		//++auto_save_counter;
 		//if (auto_save_counter >= auto_save_timer) {
@@ -169,6 +216,11 @@ int32_t asMain()
 		//	auto_backup_counter = 0;
 		//	main_map.writeBackupCSV();
 		//}
+
+		//ウィンドウ関連
+		if (window.isWindow()) window.playEffect().update().updateEnd().drawPerson().drawWindow().writeString().drawEndAnime().playSound().printString().printName().next(kl.is_ok());
+		window.initWindow(asKeyY_Up());
+
 	}
 
 	//main_map.writeCSV();

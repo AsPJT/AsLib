@@ -17,13 +17,13 @@ namespace AsLib
 		aslib_event_timer,
 	};
 
-	struct AsMapEventData {
-		size_t event_init = aslib_event_init_touch;
-		PosA4F event_init_pos;
-
-		std::vector<size_t> event_main;
-
+	//イベントタイプ
+	enum :size_t {
+	aslib_event_type_empty,
+	aslib_event_type_talk,
 	};
+
+
 
 
 	//属性
@@ -848,10 +848,31 @@ namespace AsLib
 		aslib_map_event_ai_ai
 	};
 
+	//メッセージウィンドウイベント管理
+	struct AsEventMessageWindow {
+		MessageWindow* const mw = nullptr;
+		AsEventMessageWindow(MessageWindow* const mw_, const char* const str_) :mw(mw_), str(str_) {}
+		//文字
+		std::string str = "";
+
+		const bool play() {
+			if (mw == nullptr) return false;
+
+		}
+	};
+	//イベント管理
+	struct AsMapEventData {
+		size_t event_type = aslib_event_type_empty;
+		AsEventMessageWindow* emw = nullptr;
+
+		AsMapEventData() = default;
+		AsMapEventData(AsEventMessageWindow* emw_) :event_type(aslib_event_type_talk),emw(emw_) {}
+	};
+	//マップ上のイベント管理
 	struct AsMapEvent {
 		//イベントタイプ
 		size_t type = aslib_map_event_type_empty;
-		//
+		//行動
 		size_t ai = aslib_map_event_ai_ai;
 		//向き
 		size_t dir_id = MOB_DOWN;
@@ -873,12 +894,20 @@ namespace AsLib
 		//あたり判定
 		bool is_collision_detection = true;
 		//イベント中
-		bool is_event = false;
+		size_t is_event = 0;
 
-		constexpr AsMapEvent(AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const size_t& type_ = aslib_map_event_type_empty, const size_t ai_ = aslib_map_event_ai_ai) :type(type_), ai(ai_), pl(p_), t(t_) {}
+		//イベント開始条件
+		size_t event_init = aslib_event_init_touch;
+		//イベント開始範囲
+		PosA4F event_init_pos;
+
+		//イベントデータ
+		std::vector<AsMapEventData> med;
+
+		AsMapEvent(AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const size_t& type_ = aslib_map_event_type_empty, const size_t ai_ = aslib_map_event_ai_ai) :type(type_), ai(ai_), pl(p_), t(t_) {}
 	};
 
-	const size_t movingMob(AsMapEvent* const me_) {
+	const size_t movingMob(AsMapEvent* const me_,const size_t x_,const size_t y_) {
 		if (me_ == nullptr) return MOB_CENTER;
 
 		const Pos2F p2f(me_->pl.x, me_->pl.y);
@@ -886,42 +915,38 @@ namespace AsLib
 		{
 		case MOB_DOWN:
 			me_->pl.y += me_->fps;
-			if (floor(p2f.y) != floor(me_->pl.y)) {
+			if (floor(p2f.y) == floor(me_->pl.y)) return me_->moving;
 				me_->moving = MOB_CENTER;
-				me_->pl.y = floor(me_->pl.y);
-			}
+				me_->pl.y = float((int32_t(floor(me_->pl.y)) + y_) % y_);
 			return me_->moving;
 		case MOB_UP:
 			me_->pl.y -= me_->fps;
-			if (floor(p2f.y) != floor(me_->pl.y)) {
+			if (floor(p2f.y) == floor(me_->pl.y)) return me_->moving;
 				me_->moving = MOB_CENTER;
-				me_->pl.y = floor(me_->pl.y) + 1.0f;
-			}
+				me_->pl.y = float((int32_t(floor(me_->pl.y) + 1.0f) + y_) % y_);
 			return me_->moving;
 		case MOB_LEFT:
 			me_->pl.x -= me_->fps;
-			if (floor(p2f.x) != floor(me_->pl.x)) {
+			if (floor(p2f.x) == floor(me_->pl.x)) return me_->moving;
 				me_->moving = MOB_CENTER;
-				me_->pl.x = floor(me_->pl.x) + 1.0f;
-			}
+				me_->pl.x = float((int32_t(floor(me_->pl.x) + 1.0f) + x_) % x_);
 			return me_->moving;
 		case MOB_RIGHT:
 			me_->pl.x += me_->fps;
-			if (floor(p2f.x) != floor(me_->pl.x)) {
+			if (floor(p2f.x) == floor(me_->pl.x)) return me_->moving;
 				me_->moving = MOB_CENTER;
-				me_->pl.x = floor(me_->pl.x);
-			}
+				me_->pl.x = float((int32_t(floor(me_->pl.x)) + x_) % x_);
 			return me_->moving;
 		case MOB_LEFT_UP:
 			me_->pl.x -= me_->fps;
 			me_->pl.y -= me_->fps;
 			if (floor(p2f.x) != floor(me_->pl.x)) {
 				me_->moving = MOB_UP;
-				me_->pl.x = floor(me_->pl.x) + 1.0f;
+				me_->pl.x = float((int32_t(floor(me_->pl.x) + 1.0f) + x_) % x_);
 			}
 			if (floor(p2f.y) != floor(me_->pl.y)) {
 				me_->moving = (me_->moving == MOB_UP) ? MOB_CENTER : MOB_LEFT;
-				me_->pl.y = floor(me_->pl.y) + 1.0f;
+				me_->pl.y = float((int32_t(floor(me_->pl.y) + 1.0f) + y_) % y_);
 			}
 			return me_->moving;
 		case MOB_RIGHT_UP:
@@ -929,11 +954,11 @@ namespace AsLib
 			me_->pl.y -= me_->fps;
 			if (floor(p2f.x) != floor(me_->pl.x)) {
 				me_->moving = MOB_UP;
-				me_->pl.x = floor(me_->pl.x);
+				me_->pl.x = float((int32_t(floor(me_->pl.x)) + x_) % x_);
 			}
 			if (floor(p2f.y) != floor(me_->pl.y)) {
 				me_->moving = (me_->moving == MOB_UP) ? MOB_CENTER : MOB_RIGHT;
-				me_->pl.y = floor(me_->pl.y) + 1.0f;
+				me_->pl.y = float((int32_t(floor(me_->pl.y) + 1.0f) + y_) % y_);
 			}
 			return me_->moving;
 		case MOB_LEFT_DOWN:
@@ -941,11 +966,11 @@ namespace AsLib
 			me_->pl.y += me_->fps;
 			if (floor(p2f.x) != floor(me_->pl.x)) {
 				me_->moving = MOB_DOWN;
-				me_->pl.x = floor(me_->pl.x) + 1.0f;
+				me_->pl.x = float((int32_t(floor(me_->pl.x) + 1.0f) + x_) % x_);
 			}
 			if (floor(p2f.y) != floor(me_->pl.y)) {
 				me_->moving = (me_->moving == MOB_DOWN) ? MOB_CENTER : MOB_LEFT;
-				me_->pl.y = floor(me_->pl.y);
+				me_->pl.y = float((int32_t(floor(me_->pl.y)) + y_) % y_);
 			}
 			return me_->moving;
 		case MOB_RIGHT_DOWN:
@@ -953,11 +978,11 @@ namespace AsLib
 			me_->pl.y += me_->fps;
 			if (floor(p2f.x) != floor(me_->pl.x)) {
 				me_->moving = MOB_DOWN;
-				me_->pl.x = floor(me_->pl.x);
+				me_->pl.x = float((int32_t(floor(me_->pl.x)) + x_) % x_);
 			}
 			if (floor(p2f.y) != floor(me_->pl.y)) {
 				me_->moving = (me_->moving == MOB_DOWN) ? MOB_CENTER : MOB_RIGHT;
-				me_->pl.y = floor(me_->pl.y);
+				me_->pl.y = float((int32_t(floor(me_->pl.y)) + y_) % y_);
 			}
 			return me_->moving;
 		}
@@ -1003,8 +1028,64 @@ namespace AsLib
 		void add(AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const size_t& type_ = aslib_map_event_type_empty, const size_t ai_ = aslib_map_event_ai_ai) {
 			if(is_spawn) me.emplace_back(t_, p_, type_, ai_);
 		}
-		AsMapEventControl& talk(const AsKeyList& kl_) {
-			if (!kl_.is_ok() || view_id >= me.size() || me[view_id].moving != MOB_CENTER) return *this;
+		//初期イベント管理・実行
+		AsMapEventControl& start_event(size_t me_id_) {
+			if (me_id_ >= me.size()) return *this;
+			me[me_id_].is_event = 1;
+			//イベント種類分け
+			switch (me[me_id_].med[me[me_id_].is_event - 1].event_type)
+			{
+				//空(から)イベント
+			case aslib_event_type_empty:
+				++me[me_id_].is_event;
+				if (me[me_id_].is_event > me[me_id_].med.size()) me[me_id_].is_event = 0;
+				else this->start_event(me_id_);
+				return *this;
+				//会話イベント
+			case aslib_event_type_talk:
+				//nullptrの時
+				if (me[me_id_].med[me[me_id_].is_event - 1].emw == nullptr || me[me_id_].med[me[me_id_].is_event - 1].emw->mw == nullptr) {
+					++me[me_id_].is_event;
+					if (me[me_id_].is_event > me[me_id_].med.size()) me[me_id_].is_event = 0;
+					else this->start_event(me_id_);
+					break;
+				}
+				//文字を代入
+				me[me_id_].med[me[me_id_].is_event - 1].emw->mw->readSetString32(me[me_id_].med[me[me_id_].is_event - 1].emw->str.c_str());
+				break;
+			}
+		}
+		//イベント管理・実行
+		AsMapEventControl& play_event() {
+			for (size_t i = 0; i < me.size(); ++i) {
+				//イベントOFFの時
+				if (me[i].is_event == 0) continue;
+				//イベント種類分け
+				switch (me[i].med[me[i].is_event - 1].event_type)
+				{
+					//空(から)イベント
+				case aslib_event_type_empty:
+					++me[i].is_event;
+					if (me[i].is_event > me[i].med.size()) me[i].is_event = 0;
+					else this->start_event(i);
+					return *this;
+					//会話イベント
+				case aslib_event_type_talk:
+					//nullptrの時
+					if (me[i].med[me[i].is_event - 1].emw == nullptr|| me[i].med[me[i].is_event - 1].emw->mw == nullptr|| !me[i].med[me[i].is_event - 1].emw->mw->isWindow()) {
+						++me[i].is_event;
+						if (me[i].is_event > me[i].med.size()) me[i].is_event = 0;
+						else this->start_event(i);
+						return *this;
+					}
+					break;
+				}
+			}
+		}
+
+		AsMapEventControl& talk(const bool is_true) {
+			//会話キーが押されていない・視点が配列外・視点キャラが移動中
+			if (!is_true || view_id >= me.size() || me[view_id].moving != MOB_CENTER) return *this;
 			Pos2 player_pos(int32_t(me[view_id].pl.x), int32_t(me[view_id].pl.y));
 			switch (me[view_id].dir_id)
 			{
@@ -1042,25 +1123,29 @@ namespace AsLib
 				break;
 			}
 			for (size_t i = 0; i < me.size(); ++i) {
-				if (me[i].moving != MOB_CENTER || me[i].is_event == true) continue;
-				if (int32_t(me[i].pl.x) == player_pos.x&&int32_t(me[i].pl.y) == player_pos.y) {
-					asPrint("a");
-					me[i].is_event = true;
-					switch (me[view_id].dir_id)
-					{
-					case MOB_DOWN:me[i].dir_id = MOB_UP;break;
-					case MOB_UP:me[i].dir_id = MOB_DOWN; break;
-					case MOB_LEFT:me[i].dir_id = MOB_RIGHT; break;
-					case MOB_RIGHT:me[i].dir_id = MOB_LEFT; break;
-					case MOB_LEFT_UP:me[i].dir_id = MOB_RIGHT_DOWN; break;
-					case MOB_RIGHT_UP:me[i].dir_id = MOB_LEFT_DOWN; break;
-					case MOB_LEFT_DOWN:me[i].dir_id = MOB_RIGHT_UP; break;
-					case MOB_RIGHT_DOWN:me[i].dir_id = MOB_LEFT_UP; break;
-					}
-					break;
-				}
-			}
 
+				//asPrint("(%d,%d,%d,%d)",me[i].event_init != aslib_event_init_tolk , me[i].moving != MOB_CENTER , me[i].is_event > 0 , me[i].med.size() == 0);
+
+				//選択イベントの開始条件が会話じゃない・選択イベントが移動中・イベントがONになっている・イベント数が0
+				if (me[i].event_init != aslib_event_init_tolk || me[i].moving != MOB_CENTER || me[i].is_event > 0 || me[i].med.size() == 0) continue;
+				//視点キャラの向いている方向にいるかどうか
+				if (int32_t(me[i].pl.x) != player_pos.x || int32_t(me[i].pl.y) != player_pos.y) continue;
+				//イベントON
+				this->start_event(i);
+
+				switch (me[view_id].dir_id)
+				{
+				case MOB_DOWN:me[i].dir_id = MOB_UP; break;
+				case MOB_UP:me[i].dir_id = MOB_DOWN; break;
+				case MOB_LEFT:me[i].dir_id = MOB_RIGHT; break;
+				case MOB_RIGHT:me[i].dir_id = MOB_LEFT; break;
+				case MOB_LEFT_UP:me[i].dir_id = MOB_RIGHT_DOWN; break;
+				case MOB_RIGHT_UP:me[i].dir_id = MOB_LEFT_DOWN; break;
+				case MOB_LEFT_DOWN:me[i].dir_id = MOB_RIGHT_UP; break;
+				case MOB_RIGHT_DOWN:me[i].dir_id = MOB_LEFT_UP; break;
+				}
+				break;
+			}
 			return *this;
 		}
 		AsMapEventControl& spawn(const float rand_) {
@@ -1102,15 +1187,15 @@ namespace AsLib
 				switch (me[i].ai)
 				{
 				case aslib_map_event_ai_human:
-					me[i].moving = movingMob(&me[i]);
+					me[i].moving = movingMob(&me[i], tma_.s_x, tma_.s_y);
 					if (movingMob8(att_, tma_, kl_, me[i].fps, me[i].pl, me[i].moving, me[i].dir_id)) {
 						mobMoveSet(&me[i]);
 					}
 					else me[i].move_id = MOB_STOP;
 					break;
 				case aslib_map_event_ai_ai:
-					if (me[i].is_event) break;//イベント中は歩行無し
-					me[i].moving = movingMob(&me[i]);
+					if (me[i].is_event > 0) break;//イベント中は歩行無し
+					me[i].moving = movingMob(&me[i], tma_.s_x, tma_.s_y);
 					if (asRand8(100) > 1) break;
 					if (movingMob8_AI(att_, tma_, me[i].fps, me[i].pl, me[i].moving, me[i].dir_id)) {
 						mobMoveSet(&me[i]);
@@ -1290,7 +1375,6 @@ namespace AsLib
 			const Pos2F p2f = p2;
 			while (p_.x < 0.0f) { p_.x += p2f.x; }
 			while (p_.y < 0.0f) { p_.y += p2f.y; }
-
 			p.x = p_.x += float(int32_t(p_.x) % p2.x) - floor(p_.x);
 			p.y = p_.y += float(int32_t(p_.y) % p2.y) - floor(p_.y);
 

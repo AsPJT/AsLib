@@ -166,18 +166,18 @@ namespace AsLib
 
 
 	//チャンク生成
-	void asWorldMapMake(const size_t x_, const size_t y_, const size_t size_, const uint32_t t1_, const uint32_t t2_, const uint32_t t3_, const uint32_t t4_, uint32_t map_[17][17])
+	void asWorldMapMake(const size_t x_, const size_t y_, const size_t size_, const size_t t1_, const size_t t2_, const size_t t3_, const size_t t4_, size_t map_[17][17])
 	{
 		//再起の終了処理
 		if (size_ == 0) return;
 		//頂点の高さを決める
-		const uint32_t mapPlus = ((t1_ + t2_ + t3_ + t4_) >> 2) + asRand(size_);
+		const size_t mapPlus = ((t1_ + t2_ + t3_ + t4_) >> 2) + asRand(size_);
 		map_[x_][y_] = (mapPlus >= 255) ? 255 : mapPlus;
 		//四角形の2点同士の中点の高さを決定
-		const uint32_t s1 = ((t1_ + t2_) >> 1);
-		const uint32_t s2 = ((t1_ + t3_) >> 1);
-		const uint32_t s3 = ((t2_ + t4_) >> 1);
-		const uint32_t s4 = ((t3_ + t4_) >> 1);
+		const size_t s1 = ((t1_ + t2_) >> 1);
+		const size_t s2 = ((t1_ + t3_) >> 1);
+		const size_t s3 = ((t2_ + t4_) >> 1);
+		const size_t s4 = ((t3_ + t4_) >> 1);
 		//4つの地点の座標を決める
 		map_[x_ + size_][y_] = s3;
 		map_[x_ - size_][y_] = s2;
@@ -193,7 +193,7 @@ namespace AsLib
 	}
 
 	//チャンク生成の呼び出し
-	inline void asWorldMapSimple(uint32_t map_[17][17])
+	inline void asWorldMapSimple(size_t map_[17][17])
 	{
 		//チャンク生成を実行
 		asWorldMapMake(8, 8, 8, map_[0][0], map_[16][0], map_[0][16], map_[16][16], map_);
@@ -203,10 +203,10 @@ namespace AsLib
 	constexpr size_t aslib_world_make_seed2 = 0x292;
 
 	//ワールドマップ生成
-	void asWorldMake(std::vector<std::vector<uint32_t>>& world_map, size_t seed_ = 0)
+	void asWorldMake(std::vector<std::vector<size_t>>& world_map, size_t seed_ = 0)
 	{
 		if (seed_ == 0) seed_ = asRand(65535);
-		static uint32_t map_[17][17]{};
+		static size_t map_[17][17]{};
 		
 		//横画面サイズ
 		const size_t map_x = world_map.size();
@@ -243,8 +243,8 @@ namespace AsLib
 
 	//世界をIDへ変換
 	void asWorldMapSimplePaint(std::vector<size_t>& vec_, const size_t& x_, const size_t& y_, size_t& layer_, const size_t under_, const size_t sea_, const size_t green_, const size_t snow_, const size_t seed_ = 0) {
-		std::vector<std::vector<uint32_t>> wmap(x_, std::vector<uint32_t>(y_, 255));
-		//wmap = std::vector<std::vector<uint32_t>>(x_, std::vector<size_t>(y_, 255));
+		std::vector<std::vector<size_t>> wmap(x_, std::vector<size_t>(y_, 255));
+		//wmap = std::vector<std::vector<size_t>>(x_, std::vector<size_t>(y_, 255));
 		//wmap.shrink_to_fit();
 
 		asWorldMake(wmap, seed_);

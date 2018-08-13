@@ -126,7 +126,8 @@ namespace AsLib
 	inline const bool asIsTouchPinch() {
 		return (asTouchPinch() == 0) ? false : true;
 	}
-	inline void asTouchPinch(PosA4F& add_, const float f_ = 5) {
+	inline void asTouchPinch(PosA4F& add_, const float f_ = 5,const int32_t view_max_=0) {
+		if (view_max_ != 0 && (int32_t(add_.w) >= view_max_ || int32_t(add_.h) >= view_max_)) return;
 		float pinch = asTouchPinch() / f_;
 		add_.w -= pinch;
 		add_.h -= pinch;
