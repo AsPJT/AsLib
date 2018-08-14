@@ -9,6 +9,13 @@
 
 namespace AsLib
 {
+	constexpr Pos4 aslib_default_area(-1, -1, -1, -1);
+	const bool isArea(const Pos4& area_) {
+		return (area_.x1 < 0 || area_.y1 < 0 || area_.x2 < 0 || area_.y2 < 0) ? false : true;
+	}
+	const bool isArea(const Pos4& area_,const Pos2& p_) {
+		return (area_.x1 > p_.x || area_.y1 > p_.y || area_.x2 < p_.x || area_.y2 < p_.y) ? false : true;
+	}
 
 	//デフォルト背景色
 	constexpr uint8_t aslib_bg_color_r = 230;

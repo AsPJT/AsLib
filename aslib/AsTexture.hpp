@@ -206,6 +206,61 @@ namespace AsLib
 		AsTexture& draw(const Pos4& add_pos, const uint8_t alpha=255) { return this->draw((size_t)0, add_pos, alpha); }
 		const AsTexture& draw(const size_t, const PosA4F&, const float, const uint8_t = 255);
 
+
+		//サイズ等倍 位置指定
+		AsTexture& drawScreen(const size_t anime_size, const Pos4& add_pos, const uint8_t alpha = 255, AsScreen* const s_ = nullptr)
+		{
+#if defined(ANIME_TEXTURE_1)
+			asTextureType1(this->id, Pos2(add_pos.x1, add_pos.y1), Pos2(add_pos.x2 - add_pos.x1, add_pos.y2 - add_pos.y1), PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha);
+#elif defined(ANIME_TEXTURE_2)
+#if defined(ASLIB_INCLUDE_DL)
+			if (s_ != nullptr) {
+				if (s_->isArea()) {
+					s_->area();
+					asTexture(this->id[anime_size], Pos4(add_pos.x1 + s_->pos4().x1, add_pos.y1 + s_->pos4().y1, add_pos.x2 + s_->pos4().x1, add_pos.y2 + s_->pos4().y1), alpha);
+					s_->areaClear();
+				}
+				else {
+					s_->set();
+					asTexture(this->id[anime_size], add_pos, alpha);
+					s_->release();
+				}
+			}
+			else asTexture(this->id[anime_size], add_pos, alpha);
+#else
+			asTexture(this->id[anime_size], add_pos, alpha);
+#endif
+#endif
+			return *this;
+		}
+		AsTexture& drawScreen(const Pos4& add_pos, const uint8_t alpha = 255, AsScreen* const s_ = nullptr) { return this->drawScreen((size_t)0, add_pos, alpha, s_); }
+		const AsTexture& drawScreen(const size_t anime_size, const PosA4F& add_pos, const float r_, const uint8_t alpha = 255, AsScreen* const s_ = nullptr)
+		{
+#if defined(ANIME_TEXTURE_1)
+			const Pos4 add_pos_(add_pos);
+			asTextureType1(this->id, Pos2(add_pos_.x1, add_pos_.y1), Pos2(int32_t(add_pos.w), int32_t(add_pos.h)), PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha, r_);
+#elif defined(ANIME_TEXTURE_2)
+#if defined(ASLIB_INCLUDE_DL)
+			if (s_ != nullptr) {
+				if (s_->isArea()) {
+					//todo
+					//asTexture(this->id[anime_size], Pos4(add_pos.x1 + s_->pos4().x1, add_pos.y1 + s_->pos4().y1, add_pos.x2 + s_->pos4().x2, add_pos.y2 + s_->pos4().y2), alpha);
+				}
+				else {
+					s_->set();
+					asTexture(this->id[anime_size], add_pos, r_, alpha);
+					s_->release();
+				}
+			}
+			else asTexture(this->id[anime_size], add_pos, r_, alpha);
+#else
+			asTexture(this->id[anime_size], add_pos, alpha);
+#endif
+#endif
+			return *this;
+		}
+		//, AsScreen* const s_=nullptr
+
 		const size_t Num() const { return this->num; };
 		const size_t NumX() const { return this->num_x; };
 		const size_t NumY() const { return this->num_y; };

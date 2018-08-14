@@ -85,7 +85,7 @@ int32_t asMain()
 	AsTexture feri(u8"Picture/ikari.png", 6, 4);
 	//マップテクスチャ
 	AsTexture crystal1_te(u8"p/crystal1.png");
-	AsTexture crystal2_te(u8"p/crystal2.png");
+	AsTexture crystal2_te(u8"p/stone1.png");
 	AsTexture anime_te(u8"p/anime.png", 4);
 	AsTexture sea1_te(u8"p/world_umi1.png", 4, 10);
 	AsTexture sea2_te(u8"p/world_umi2.png", 4, 10);
@@ -192,12 +192,9 @@ int32_t asMain()
 		map_view.draw(&main_map);
 		//イベント描画
 		map_view.draw(&map_event);
-
-
-
 		//ランダムスポーン
 		map_event.spawn(1).add(&feri, pl3);
-
+		//ズーム
 		asTouchPinch(map_p, 10.0f,30);
 		map_view.setLookSize(map_p, 'y');
 
@@ -219,14 +216,13 @@ int32_t asMain()
 
 		//ウィンドウ関連
 		if (window.isWindow()) window.playEffect().update().updateEnd().drawPerson().drawWindow().writeString().drawEndAnime().playSound().printString().printName().next(kl.is_ok());
-		window.initWindow(asKeyY_Up());
-
+		else inv.selectAdd(mouseWheel()).draw(item).isSelectUp(asKeyL_Up()).isSelectDown(asKeyK_Up());
 	}
 
 	//main_map.writeCSV();
 
 	//for (size_t i = 0; i < kl.ok.size(); ++i) if (kl.ok[i] < 256 && asKeyUp(kl.ok[i])) main_map.putBlock(4, pl, 1);
-	//inv.selectAdd(mouseWheel()).draw(item).isSelectUp(asKeyL_Up()).isSelectDown(asKeyK_Up());
+	//
 
 	return 0;
 }

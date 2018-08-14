@@ -9,29 +9,6 @@
 
 namespace AsLib
 {
-#if defined(ASLIB_INCLUDE_S3) //Siv3D
-	template<typename... Rest>
-	std::string printString(const char *FormatString, const Rest&... rest)
-	{
-
-		constexpr int32_t PRINT_STRING_MAX = 1024;
-		char snString[PRINT_STRING_MAX];
-		snprintf(snString, sizeof(snString), FormatString, rest...);
-		return std::string(snString);
-	}
-#endif
-
-	//初期化を記録
-	const bool asIsInitSave(const bool b_, const bool& p_ = false)
-	{
-		static bool p = false;
-		if (b_) p = p_;
-		return p;
-	}
-	//初期化を取得する関数
-	inline const bool asIsInit() { return asIsInitSave(false); }
-
-
 	//ウィンドウサイズを記録する関数
 	const Pos2 asWindowSizeSave(const bool b_, const Pos2& p_ = pos2_0)
 	{
@@ -55,8 +32,34 @@ namespace AsLib
 		return Pos2();
 #endif
 	}
+
+#if defined(ASLIB_INCLUDE_S3) //Siv3D
+	template<typename... Rest>
+	std::string printString(const char *FormatString, const Rest&... rest)
+	{
+
+		constexpr int32_t PRINT_STRING_MAX = 1024;
+		char snString[PRINT_STRING_MAX];
+		snprintf(snString, sizeof(snString), FormatString, rest...);
+		return std::string(snString);
+	}
+#endif
+
+	//初期化を記録
+	const bool asIsInitSave(const bool b_, const bool& p_ = false)
+	{
+		static bool p = false;
+		if (b_) p = p_;
+		return p;
+	}
+	//初期化を取得する関数
+	inline const bool asIsInit() { return asIsInitSave(false); }
+
 	//ウィンドウサイズを取得する関数(float)
 	inline const Pos2F asWindowSizeF() { return Pos2F(asWindowSize()); }
+
+	inline const Pos4 asWindowSize4() { return Pos4(0, 0, asWindowSize()); }
+	inline const Pos4F asWindowSize4F() { return Pos4F(0.0f, 0.0f, asWindowSizeF()); }
 
 	//画面サイズ変更
 	inline void asSetWindowSize(const Pos2& window_size = aslib_default_window_size)

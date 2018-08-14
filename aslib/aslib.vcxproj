@@ -193,7 +193,7 @@
     <Text Include="styleguide.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="s20180806.cpp" />
+    <ClCompile Include="rpg_make.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

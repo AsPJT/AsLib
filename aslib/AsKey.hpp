@@ -1247,6 +1247,11 @@ struct AsKeyList {
 		back.emplace_back(aslib_key_x);
 		return *this;
 	}
+	AsKeyList& addKeyUpDown() {
+		player_move_down.emplace_back(aslib_key_down);
+		player_move_up.emplace_back(aslib_key_up);
+		return *this;
+	}
 	AsKeyList& addKeyCross() {
 		player_move_down.emplace_back(aslib_key_down);
 		player_move_up.emplace_back(aslib_key_up);

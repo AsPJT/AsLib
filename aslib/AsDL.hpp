@@ -875,22 +875,22 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	};
 
 	//マウス入力定義
-	constexpr int MOUSE_INPUT_LEFT = 0x0001;
-	constexpr int MOUSE_INPUT_RIGHT = 0x0002;
-	constexpr int MOUSE_INPUT_MIDDLE = 0x0004;
-	constexpr int MOUSE_INPUT_1 = 0x0001;
-	constexpr int MOUSE_INPUT_2 = 0x0002;
-	constexpr int MOUSE_INPUT_3 = 0x0004;
-	constexpr int MOUSE_INPUT_4 = 0x0008;
-	constexpr int MOUSE_INPUT_5 = 0x0010;
-	constexpr int MOUSE_INPUT_6 = 0x0020;
-	constexpr int MOUSE_INPUT_7 = 0x0040;
-	constexpr int MOUSE_INPUT_8 = 0x0080;
+	constexpr int aslib_mouse_INPUT_LEFT = 0x0001;
+	constexpr int aslib_mouse_INPUT_RIGHT = 0x0002;
+	constexpr int aslib_mouse_INPUT_MIDDLE = 0x0004;
+	constexpr int aslib_mouse_INPUT_1 = 0x0001;
+	constexpr int aslib_mouse_INPUT_2 = 0x0002;
+	constexpr int aslib_mouse_INPUT_3 = 0x0004;
+	constexpr int aslib_mouse_INPUT_4 = 0x0008;
+	constexpr int aslib_mouse_INPUT_5 = 0x0010;
+	constexpr int aslib_mouse_INPUT_6 = 0x0020;
+	constexpr int aslib_mouse_INPUT_7 = 0x0040;
+	constexpr int aslib_mouse_INPUT_8 = 0x0080;
 
 	//マウスのログ情報タイプ
 	enum :int {
-		MOUSE_INPUT_LOG_DOWN,
-		MOUSE_INPUT_LOG_UP,
+		aslib_mouse_INPUT_LOG_DOWN,
+		aslib_mouse_INPUT_LOG_UP,
 	};
 
 	//キー定義
@@ -1323,14 +1323,14 @@ constexpr int CTRL_CODE_CMP=0x20;
 			Counter count[mouse_button_num];
 			mouseButton(count);
 
-			if (count[MOUSE_LEFT].Count() > 0)input += MOUSE_INPUT_LEFT;
-			if (count[MOUSE_RIGHT].Count() > 0)input += MOUSE_INPUT_RIGHT;
-			if (count[MOUSE_MIDDLE].Count() > 0)input += MOUSE_INPUT_MIDDLE;
-			if (count[MOUSE_4].Count() > 0)input += MOUSE_INPUT_4;
-			if (count[MOUSE_5].Count() > 0)input += MOUSE_INPUT_5;
-			if (count[MOUSE_6].Count() > 0)input += MOUSE_INPUT_6;
-			if (count[MOUSE_7].Count() > 0)input += MOUSE_INPUT_7;
-			if (count[MOUSE_8].Count() > 0)input += MOUSE_INPUT_8;
+			if (count[aslib_mouse_left].Count() > 0)input += aslib_mouse_INPUT_LEFT;
+			if (count[aslib_mouse_right].Count() > 0)input += aslib_mouse_INPUT_RIGHT;
+			if (count[aslib_mouse_middle].Count() > 0)input += aslib_mouse_INPUT_MIDDLE;
+			if (count[aslib_mouse_4].Count() > 0)input += aslib_mouse_INPUT_4;
+			if (count[aslib_mouse_5].Count() > 0)input += aslib_mouse_INPUT_5;
+			if (count[aslib_mouse_6].Count() > 0)input += aslib_mouse_INPUT_6;
+			if (count[aslib_mouse_7].Count() > 0)input += aslib_mouse_INPUT_7;
+			if (count[aslib_mouse_8].Count() > 0)input += aslib_mouse_INPUT_8;
 			return input;
 		}
 

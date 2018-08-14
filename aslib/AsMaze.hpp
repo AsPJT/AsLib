@@ -9,6 +9,7 @@
 
 namespace AsLib
 {
+	//2次元配列std::vectorから1次元配列std::vectorへ変換する
 	std::vector<size_t> vector2ToVector1(const std::vector<std::vector<size_t>>& map_) {
 		static thread_local std::vector<size_t> vmap;
 		const size_t i_max = map_.size();

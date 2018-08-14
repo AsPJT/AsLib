@@ -169,9 +169,6 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //Base64
 #include "AsBase64.hpp"
 
-//スクリーン
-#include "AsScreen.hpp"
-
 //クリップボード
 #include "AsClipboard.hpp"
 
@@ -189,6 +186,9 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 
 //基本系(DL/S3) (T)
 #include "AsStd.hpp"
+
+//スクリーン
+#include "AsScreen.hpp"
 
 //タッチ系(DL/S3?) (T)
 #include "AsTouch.hpp"
