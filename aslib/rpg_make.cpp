@@ -1,6 +1,13 @@
 #define ASLIB_INCLUDE_DL
 #include "AsLib.hpp"
 
+enum :size_t {
+	aslib_paint_tool_pen,
+	aslib_paint_tool_eraser,
+	aslib_paint_tool_empty,
+	aslib_paint_tool_pipette,
+};
+
 int32_t asMain()
 {
 	//タイトル
@@ -17,7 +24,7 @@ int32_t asMain()
 
 	constexpr Pos2 paint_world_p(128,128);
 	constexpr Pos2 select_world_p(2,50);
-	constexpr Pos2 tool_world_p(2, 5);
+	constexpr Pos2 tool_world_p(2, 2);
 	//モンスター
 	AsTexture feri(u8"Picture/ikari.png", 6, 4);
 	//マップテクスチャ
@@ -47,7 +54,19 @@ int32_t asMain()
 	select_main_map.push(&underground_stairs_te, aslib_texture_map_field_type_empty);
 
 	AsTextureMapArray paint_main_map= select_main_map;
+	
+
+
+	//マップテクスチャ
+	AsTexture pen_tool_te(u8"p/pen_tool.png");
+	AsTexture eraser_tool_te(u8"p/eraser_tool.png");
+	AsTexture empty_tool_te(u8"p/empty_tool.png");
+	AsTexture pipette_tool_te(u8"p/pipette_tool.png");
 	AsTextureMapArray tool_main_map;
+	tool_main_map.push(&pen_tool_te);
+	tool_main_map.push(&eraser_tool_te);
+	tool_main_map.push(&empty_tool_te);
+	tool_main_map.push(&pipette_tool_te);
 
 	//フィールド属性
 	AsAllAttribute att;
@@ -81,8 +100,12 @@ int32_t asMain()
 	//constexpr PosA4F pl(1.0f, 1.0f, 1.0f, 1.0f);
 	constexpr PosA4F pl(select_world_p.x/2, 0.0f, 1.0f, 1.0f);
 
+	PosA4F tool_id_p(0.5f, 0.5f, 0.7f, 0.7f);
 	//イベント管理
 	AsMapEventControl tool_map_event(select_world_p, aslib_mob_walk_type_small, nullptr, pl, aslib_map_event_type_mob);
+	tool_map_event.add(&feri, tool_id_p, aslib_map_event_type_mob, aslib_map_event_ai_stay);
+
+	PosA4F select_id_p(0.5f, 0.5f, 0.7f, 0.7f);
 
 	AsMapEventControl paint_map_event(paint_world_p, aslib_mob_walk_type_big, nullptr, pl, aslib_map_event_type_mob);
 	paint_map_event.me[0].fps = 0.3f;
@@ -90,6 +113,7 @@ int32_t asMain()
 	AsMapEventControl select_map_event(select_world_p, aslib_mob_walk_type_small, nullptr, pl, aslib_map_event_type_mob);
 	select_map_event.me[0].fps = 0.3f;
 	select_map_event.me[0].ai = aslib_map_event_ai_empty;
+	select_map_event.add(&feri, select_id_p, aslib_map_event_type_mob, aslib_map_event_ai_empty);
 
 	//AsScreen paint_screen(Pos2(asWindowSize().x * 7 / 10, asWindowSize().y));
 	//AsScreen select_screen(Pos2(asWindowSize().x * 2 / 10, asWindowSize().y));
@@ -117,6 +141,11 @@ int32_t asMain()
 
 	//選択しているマップのID
 	size_t select_id = 0;
+	Pos2 select_pos;
+	//ツールのID
+	size_t tool_id = 0;
+
+	size_t select_layer = 1;
 
 	while (asLoop())
 	{
@@ -131,20 +160,54 @@ int32_t asMain()
 		paint_map_view.setMobView(paint_map_event);
 		//マップ描画
 		tool_map_view.draw(&tool_main_map, &tool_screen);
+		tool_map_view.draw(&tool_map_event, &tool_screen);
 		//マップ描画
 		select_map_view.draw(&select_main_map, &select_screen);
 		//イベント描画
 		select_map_view.draw(&select_map_event, &select_screen);
 		//マップ描画
-		paint_map_view.draw(&paint_main_map, &paint_screen);
+		//paint_map_view.draw(&paint_main_map, &paint_screen);
+
+		asRect(paint_area, Color(56, 170, 68));
+		paint_map_view.draw(&paint_main_map, &select_layer, &paint_screen);
+
+		tool_map_event.me[1].pl.x = (tool_id % 2) + 0.5f;
+		tool_map_event.me[1].pl.y = (tool_id / 2) + 0.5f;
 
 		//塗り
-		select_map_view.select(&select_main_map, 0, &select_id, select_area,&select_screen);
-		paint_map_view.paint(&paint_main_map, 1, select_id, paint_area,&paint_screen);
+		tool_map_view.select(&tool_main_map, 0, nullptr, &tool_id, tool_area, &tool_screen);
+		select_map_view.select(&select_main_map, 0, &select_pos, &select_id, select_area, &select_screen);
+		
 
+
+		switch (tool_id)
+		{
+				//aslib_paint_tool_pen,
+				//aslib_paint_tool_eraser,
+				//aslib_paint_tool_empty,
+				//aslib_paint_tool_pipette,
+		case aslib_paint_tool_eraser:
+			select_map_event.me[1].pl.x = 0.5f;
+			select_map_event.me[1].pl.y = 0.5f;
+			paint_map_view.paint(&paint_main_map, 1, 0, paint_area, &paint_screen);
+			break;
+		case aslib_paint_tool_pen:
+			select_map_event.me[1].pl.x = (select_id % 2) + 0.5f;
+			select_map_event.me[1].pl.y = (select_id / 2) + 0.5f;
+			paint_map_view.paint(&paint_main_map, 1, select_id, paint_area, &paint_screen);
+			break;
+		case aslib_paint_tool_pipette:
+			paint_map_view.select(&paint_main_map, 1, nullptr, &select_id, paint_area, &paint_screen);
+			select_map_event.me[1].pl.x = (select_id % 2) + 0.5f;
+			select_map_event.me[1].pl.y = (select_id / 2) + 0.5f;
+			break;
+		}
+		
 		//ズーム
 		asTouchPinch(paint_map_p, 10.0f, 30, paint_area);
 		paint_map_view.setLookSize(paint_map_p, 'y', &select_screen);
+
+
 	}
 	return 0;
 }

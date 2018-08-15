@@ -855,7 +855,8 @@ namespace AsLib
 	enum :size_t {
 		aslib_map_event_ai_empty,
 		aslib_map_event_ai_human,
-		aslib_map_event_ai_ai
+		aslib_map_event_ai_ai,
+		aslib_map_event_ai_stay
 	};
 
 	//メッセージウィンドウイベント管理
@@ -1218,6 +1219,9 @@ namespace AsLib
 					}
 					else me[i].move_id = MOB_STOP;
 					break;
+				case aslib_map_event_ai_stay:
+
+					break;
 				}
 			}
 		}
@@ -1266,19 +1270,12 @@ namespace AsLib
 		//補正
 		Pos2F about_p;
 
-		AsMapView& drawMap(const size_t num_, Color* const col_ = nullptr, AsTextureMapArray* const a_ = nullptr, AsScreen* const s_=nullptr)
+		AsMapView& drawMap(const size_t num_, Color* const col_ = nullptr, const size_t* const min_ = nullptr, const size_t* const max_ = nullptr, AsTextureMapArray* const a_ = nullptr, AsScreen* const s_ = nullptr)
 		{
-			size_t draw_layer_max = 1;
-			switch (num_)
-			{
-			case MAP_VIEW_DRAW_COLOR:
-				if (col_ == nullptr) return *this;
-				break;
-			case MAP_VIEW_DRAW_ANIME:
-				if (a_ == nullptr) return *this;
-				draw_layer_max = a_->s_layer;
-				break;
-			}
+			if (a_ == nullptr) return *this;
+			const size_t draw_layer_min = (min_ == nullptr) ? 0 : *min_;
+			const size_t draw_layer_max = (max_ == nullptr) ? ((min_ == nullptr) ? a_->s_layer : (*min_ + 1)) : *max_;
+
 			Pos2F mm;
 			if (s_ == nullptr) mm = asWindowSizeF();
 			else mm(float(s_->x()), float(s_->y()));
@@ -1312,7 +1309,7 @@ namespace AsLib
 			const size_t tma_size = a_->s.size();
 
 			//レイヤー指定
-			for (size_t layer = 0; layer < draw_layer_max; ++layer) {
+			for (size_t layer = draw_layer_min; layer < draw_layer_max; ++layer) {
 				draw_layer_plus = layer_plus * layer;
 				draw_map = in_draw;
 
@@ -1335,49 +1332,43 @@ namespace AsLib
 
 						//描画するデータのある配列の場所
 						array_num = select_map.y*p2.x + select_map.x + draw_layer_plus;
-						if (array_num >= tma_size) continue;
+						//例外
+						if (array_num >= tma_size || a_->s[array_num] >= a_->tm.size()) return *this;
+						//画像がないとき
+						if ((texture_id = a_->t[a_->s[array_num]]) == nullptr) continue;
 
-						switch (num_)
+						switch (a_->tm[a_->s[array_num]].type)
 						{
-						case MAP_VIEW_DRAW_COLOR:
-							asRect(Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), col_[array_num]);
+						case aslib_texture_map_type_1n:
+							texture_id->drawScreen(a_->tm[a_->s[array_num]].anime_show_id, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), 255, s_);
 							break;
-						case MAP_VIEW_DRAW_ANIME:
-							if (array_num >= a_->s.size() || a_->s[array_num] >= a_->tm.size() || (texture_id = a_->t[a_->s[array_num]]) == nullptr) break;
+						case aslib_texture_map_type_20n:
+							tm_id = &a_->tm[a_->s[array_num]];
+							map_field_type = tm_id->field_type;
 
-							switch (a_->tm[a_->s[array_num]].type)
-							{
-							case aslib_texture_map_type_1n:
-								texture_id->drawScreen(a_->tm[a_->s[array_num]].anime_show_id, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), 255, s_);
-								break;
-							case aslib_texture_map_type_20n:
-								tm_id = &a_->tm[a_->s[array_num]];
-								map_field_type = tm_id->field_type;
+							pym = ((select_map.y - 1 + p2.y) % p2.y)*p2.x;
+							pyp = ((select_map.y + 1) % p2.y)*p2.x;
+							pxm = ((select_map.x - 1 + p2.x) % p2.x);
+							pxp = ((select_map.x + 1) % p2.x);
 
-								pym = ((select_map.y - 1 + p2.y) % p2.y)*p2.x;
-								pyp = ((select_map.y + 1) % p2.y)*p2.x;
-								pxm = ((select_map.x - 1 + p2.x) % p2.x);
-								pxp = ((select_map.x + 1) % p2.x);
+							if (pym + pxm + draw_layer_plus >= a_->s.size()) break;
 
-								if (pym + pxm + draw_layer_plus >= a_->s.size()) break;
+							amap[MOB_LEFT_UP] = (a_->tm[a_->s[pym + pxm + draw_layer_plus]].field_type == map_field_type);
+							amap[MOB_UP] = (a_->tm[a_->s[pym + select_map.x + draw_layer_plus]].field_type == map_field_type);
+							amap[MOB_RIGHT_UP] = (a_->tm[a_->s[pym + pxp + draw_layer_plus]].field_type == map_field_type);
+							amap[MOB_LEFT] = (a_->tm[a_->s[select_map.y*p2.x + pxm + draw_layer_plus]].field_type == map_field_type);
+							amap[MOB_RIGHT] = (a_->tm[a_->s[select_map.y*p2.x + pxp + draw_layer_plus]].field_type == map_field_type);
+							amap[MOB_LEFT_DOWN] = (a_->tm[a_->s[pyp + pxm + draw_layer_plus]].field_type == map_field_type);
+							amap[MOB_DOWN] = (a_->tm[a_->s[pyp + select_map.x + draw_layer_plus]].field_type == map_field_type);
+							amap[MOB_RIGHT_DOWN] = (a_->tm[a_->s[pyp + pxp + draw_layer_plus]].field_type == map_field_type);
 
-								amap[MOB_LEFT_UP] = (a_->tm[a_->s[pym + pxm + draw_layer_plus]].field_type == map_field_type);
-								amap[MOB_UP] = (a_->tm[a_->s[pym + select_map.x + draw_layer_plus]].field_type == map_field_type);
-								amap[MOB_RIGHT_UP] = (a_->tm[a_->s[pym + pxp + draw_layer_plus]].field_type == map_field_type);
-								amap[MOB_LEFT] = (a_->tm[a_->s[select_map.y*p2.x + pxm + draw_layer_plus]].field_type == map_field_type);
-								amap[MOB_RIGHT] = (a_->tm[a_->s[select_map.y*p2.x + pxp + draw_layer_plus]].field_type == map_field_type);
-								amap[MOB_LEFT_DOWN] = (a_->tm[a_->s[pyp + pxm + draw_layer_plus]].field_type == map_field_type);
-								amap[MOB_DOWN] = (a_->tm[a_->s[pyp + select_map.x + draw_layer_plus]].field_type == map_field_type);
-								amap[MOB_RIGHT_DOWN] = (a_->tm[a_->s[pyp + pxp + draw_layer_plus]].field_type == map_field_type);
-
-								texture_id->drawScreen(texture_id->NumX() * 2 * map20n_Number(amap[MOB_LEFT], amap[MOB_UP], amap[MOB_LEFT_UP]) + tm_id->anime_show_id, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f)), 255, s_);
-								texture_id->drawScreen(texture_id->NumX() * 2 * map20n_Number(amap[MOB_RIGHT], amap[MOB_UP], amap[MOB_RIGHT_UP]) + tm_id->anime_show_id + 1, Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y / 2.0f)), 255, s_);
-								texture_id->drawScreen(texture_id->NumX() * 2 * map20n_Number(amap[MOB_LEFT], amap[MOB_DOWN], amap[MOB_LEFT_DOWN]) + tm_id->anime_show_id + texture_id->NumX(), Pos4(int32_t(draw_map.x), int32_t(draw_map.y + m.y / 2.0f), int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y)), 255, s_);
-								texture_id->drawScreen(texture_id->NumX() * 2 * map20n_Number(amap[MOB_RIGHT], amap[MOB_DOWN], amap[MOB_RIGHT_DOWN]) + tm_id->anime_show_id + 1 + texture_id->NumX(), Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), 255, s_);
-								break;
-							}
+							texture_id->drawScreen(texture_id->NumX() * 2 * map20n_Number(amap[MOB_LEFT], amap[MOB_UP], amap[MOB_LEFT_UP]) + tm_id->anime_show_id, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f)), 255, s_);
+							texture_id->drawScreen(texture_id->NumX() * 2 * map20n_Number(amap[MOB_RIGHT], amap[MOB_UP], amap[MOB_RIGHT_UP]) + tm_id->anime_show_id + 1, Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y / 2.0f)), 255, s_);
+							texture_id->drawScreen(texture_id->NumX() * 2 * map20n_Number(amap[MOB_LEFT], amap[MOB_DOWN], amap[MOB_LEFT_DOWN]) + tm_id->anime_show_id + texture_id->NumX(), Pos4(int32_t(draw_map.x), int32_t(draw_map.y + m.y / 2.0f), int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y)), 255, s_);
+							texture_id->drawScreen(texture_id->NumX() * 2 * map20n_Number(amap[MOB_RIGHT], amap[MOB_DOWN], amap[MOB_RIGHT_DOWN]) + tm_id->anime_show_id + 1 + texture_id->NumX(), Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), 255, s_);
 							break;
 						}
+
 					}
 				}
 			}
@@ -1443,7 +1434,7 @@ namespace AsLib
 
 		};
 		//鉛筆ツール
-		AsMapView& allSelect(const size_t type_, AsTextureMapArray* const t_ = nullptr, const size_t layer_ = 0, size_t* const id_ = 0, Pos4 area_ = aslib_default_area, AsScreen* const s_ = nullptr)
+		AsMapView& allSelect(const size_t type_, AsTextureMapArray* const t_ = nullptr, const size_t layer_ = 0, Pos2* const p_=nullptr, size_t* const id_ = 0, Pos4 area_ = aslib_default_area, AsScreen* const s_ = nullptr)
 		{
 			//nullptrの場合
 			if (t_ == nullptr || t_->t.size() == 0) return *this;
@@ -1483,11 +1474,11 @@ namespace AsLib
 					t_->s[draw_p.y*p2.x + draw_p.x + wp] = *id_;
 					break;
 				case aslib_map_view_type_select:
-					//書き換え
+					//選択
 					*id_ = t_->s[draw_p.y*p2.x + draw_p.x + wp];
 					break;
 				}
-
+				if (p_ != nullptr) *p_ = Pos2(draw_p.x, draw_p.y);
 
 			}
 			return *this;
@@ -1495,12 +1486,12 @@ namespace AsLib
 		//鉛筆ツール
 		AsMapView& paint(AsTextureMapArray* const t_ = nullptr, const size_t layer_ = 0, size_t id_ = 0,Pos4 area_=aslib_default_area,AsScreen* const s_ = nullptr)
 		{
-			return this->allSelect(aslib_map_view_type_paint, t_, layer_, &id_, area_, s_);
+			return this->allSelect(aslib_map_view_type_paint, t_, layer_, nullptr, &id_, area_, s_);
 		}
 		//鉛筆ツール
-		AsMapView& select(AsTextureMapArray* const t_ = nullptr, const size_t layer_ = 0, size_t* const id_ = 0, Pos4 area_ = aslib_default_area, AsScreen* const s_ = nullptr)
+		AsMapView& select(AsTextureMapArray* const t_ = nullptr, const size_t layer_ = 0, Pos2* const p_=nullptr, size_t* const id_ = 0,Pos4 area_ = aslib_default_area, AsScreen* const s_ = nullptr)
 		{
-			return this->allSelect(aslib_map_view_type_select, t_, layer_, id_, area_, s_);
+			return this->allSelect(aslib_map_view_type_select, t_, layer_, p_, id_, area_, s_);
 		}
 
 		//描画する物のサイズ
@@ -1574,11 +1565,10 @@ namespace AsLib
 			}
 			return *this;
 		}
-
-		//色の全体描画
-		AsMapView& draw(Color* const col_) { return this->drawMap(MAP_VIEW_DRAW_COLOR, col_, nullptr); }
 		//画像の全体描画
-		AsMapView& draw(AsTextureMapArray* const t_, AsScreen* const s_ = nullptr) { return this->drawMap(MAP_VIEW_DRAW_ANIME, nullptr, t_,s_); }
+		AsMapView& draw(AsTextureMapArray* const t_, const size_t* const min_, const size_t* const max_, AsScreen* const s_ = nullptr) { return this->drawMap(MAP_VIEW_DRAW_ANIME, nullptr, min_,max_,t_,s_); }
+		AsMapView& draw(AsTextureMapArray* const t_, const size_t* const min_, AsScreen* const s_ = nullptr) { return this->drawMap(MAP_VIEW_DRAW_ANIME, nullptr, min_, nullptr, t_, s_); }
+		AsMapView& draw(AsTextureMapArray* const t_, AsScreen* const s_ = nullptr) { return this->drawMap(MAP_VIEW_DRAW_ANIME, nullptr, nullptr, nullptr, t_, s_); }
 
 	};
 
