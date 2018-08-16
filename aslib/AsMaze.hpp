@@ -278,4 +278,106 @@ namespace AsLib
 		}
 	}
 
+
+	struct AsPaintLine {
+		size_t lx = 0;
+		size_t rx = 0;
+		size_t y = 0;
+		size_t oy = 0;
+	};
+
+	static AsPaintLine *end_b = nullptr;
+	void asPaintScanLine(std::vector<size_t>& map_, const size_t size_x_, std::unique_ptr<AsPaintLine[]>& buffer_, const size_t b_max_, int32_t lx_, const int32_t rx_, const size_t y_, const size_t oy_, const size_t id_)
+	{
+		while (lx_ <= rx_) {
+
+			for (; lx_ < rx_; ++lx_) {
+				if (map_[y_*size_x_ + lx_] == id_) break;
+			}
+			if (map_[y_*size_x_ + lx_] != id_) break;
+
+			end_b->lx = lx_;
+
+			for (; lx_ <= rx_; ++lx_) {
+				if (map_[y_*size_x_ + lx_] != id_) break;
+			}
+
+			end_b->rx = lx_ - 1;
+			end_b->y = y_;
+			end_b->oy = oy_;
+
+			if (++end_b == &buffer_[b_max_]) end_b = buffer_.get();
+		}
+	}
+
+	//塗りツール
+	void asPaintTool(std::vector<size_t>& map_, const size_t size_x_, const size_t x_, const size_t y_, const size_t id_)
+	{
+		const size_t size_y_ = map_.size() / size_x_;
+		const size_t map_xy = (size_x_ >= size_y_) ? size_x_ : size_y_;
+		const size_t map_x = size_x_ - 1;
+		const size_t map_y = size_y_ - 1;
+
+		std::unique_ptr<AsPaintLine[]> buffer(new AsPaintLine[map_xy]);
+		AsPaintLine *start_b = nullptr;
+
+
+		size_t lx, rx;
+		size_t ly;
+		size_t oy;
+		const size_t col = map_[y_*size_x_ + x_];
+		if (col == id_) return;
+
+		start_b = buffer.get();
+		end_b = buffer.get() + 1;
+		start_b->lx = start_b->rx = x_;
+		start_b->y = start_b->oy = y_;
+
+		do {
+			lx = start_b->lx;
+			rx = start_b->rx;
+			ly = start_b->y;
+			oy = start_b->oy;
+
+			const size_t lxsav = lx - 1;
+			const size_t rxsav = rx + 1;
+
+			if (++start_b == &buffer[map_xy]) start_b = buffer.get();
+
+			if (map_[ly*size_x_ + lx] != col)
+				continue;
+
+			while (rx < map_x) {
+				if (map_[ly*size_x_ + rx + 1] != col) break;
+				rx++;
+			}
+			while (lx > 0) {//x_
+				if (map_[ly*size_x_ + lx - 1] != col) break;
+				lx--;
+			}
+			for (size_t i = lx; i <= rx; ++i) map_[ly*size_x_ + i] = id_;
+
+			if (ly >= 1) {//y_
+				if (ly == oy + 1) {
+					asPaintScanLine(map_, size_x_, buffer, map_xy, lx, lxsav, ly - 1, ly, col);
+					asPaintScanLine(map_, size_x_, buffer, map_xy, rxsav, rx, ly - 1, ly, col);
+				}
+				else {
+					asPaintScanLine(map_, size_x_, buffer, map_xy, lx, rx, ly - 1, ly, col);
+				}
+			}
+
+			if (ly + 1 <= map_y) {
+				if (ly + 1 == oy) {
+					asPaintScanLine(map_, size_x_, buffer, map_xy, lx, lxsav, ly + 1, ly, col);
+					asPaintScanLine(map_, size_x_, buffer, map_xy, rxsav, rx, ly + 1, ly, col);
+				}
+				else {
+					asPaintScanLine(map_, size_x_, buffer, map_xy, lx, rx, ly + 1, ly, col);
+				}
+			}
+
+		} while (start_b != end_b);
+	}
+
 }

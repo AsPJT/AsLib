@@ -677,6 +677,7 @@ namespace AsLib
 	enum :size_t {
 		aslib_map_return_empty,
 		aslib_map_return_paint,
+		aslib_map_return_bucket,
 	};
 
 	struct AsmapReturn {
@@ -760,6 +761,27 @@ namespace AsLib
 				layer = return_map[now_len].layer;
 				tma_->s[(tma_->s_x*y + x) + tma_->s_x*tma_->s_y*layer] = id;
 				return *this;
+			case aslib_map_return_bucket:
+				x = return_map[now_len].size_x;
+				y = return_map[now_len].size_y;
+				id = return_map[now_len].id;
+				layer = return_map[now_len].layer;
+
+				const size_t wp = tma_->s_x*tma_->s_y*layer;
+				const size_t wpm = tma_->s_x*tma_->s_y*(layer + 1);
+
+				std::vector<size_t> vmap;
+				vmap.resize(tma_->s_x*tma_->s_y);
+				for (size_t i = wp, k = 0; i < wpm; ++i, ++k) {
+					vmap[k] = tma_->s[i];
+				}
+
+				asPaintTool(vmap, tma_->s_x, x, y, id);
+
+				for (size_t i = wp, k = 0; i < wpm; ++i, ++k) {
+					tma_->s[i] = vmap[k];
+				}
+				return *this;
 			}
 			//while (true) {
 			//	if (return_map[now_len].count != now) break;
@@ -785,6 +807,27 @@ namespace AsLib
 				id = return_map[now_len - 1].after_id;
 				layer = return_map[now_len - 1].layer;
 				tma_->s[(tma_->s_x*y + x) + tma_->s_x*tma_->s_y*layer] = id;
+				return *this;
+			case aslib_map_return_bucket:
+				x = return_map[now_len - 1].size_x;
+				y = return_map[now_len - 1].size_y;
+				id = return_map[now_len - 1].after_id;
+				layer = return_map[now_len - 1].layer;
+
+				const size_t wp = tma_->s_x*tma_->s_y*layer;
+				const size_t wpm = tma_->s_x*tma_->s_y*(layer + 1);
+
+				std::vector<size_t> vmap;
+				vmap.resize(tma_->s_x*tma_->s_y);
+				for (size_t i = wp, k = 0; i < wpm; ++i, ++k) {
+					vmap[k] = tma_->s[i];
+				}
+
+				asPaintTool(vmap, tma_->s_x, x, y, id);
+
+				for (size_t i = wp, k = 0; i < wpm; ++i, ++k) {
+					tma_->s[i] = vmap[k];
+				}
 				return *this;
 			}
 			//while (true) {
@@ -1537,6 +1580,24 @@ namespace AsLib
 			}
 			return *this;
 		}
+		AsMapView& setTouchSlide(AsMapEventControl& mec_, Pos4 area_ = aslib_default_area, const char c_ = 'o') {
+			if (mec_.view_id >= mec_.me.size()) return *this;
+			if (!isArea(area_)) area_ = asWindowSize4();
+			//1マスの描画幅
+			const Pos2F m((area_.x2 - area_.x1) / this->p.w, (area_.y2 - area_.y1) / this->p.h);
+			if (c_ != 'y')  mec_.me[mec_.view_id].pl.x += float(asTouchSlide(area_).x) / m.x;
+			if (c_ != 'x') mec_.me[mec_.view_id].pl.y += float(asTouchSlide(area_).y) / m.y;
+			return *this;
+		}
+		AsMapView& setMouseSlide(AsMapEventControl& mec_, Pos4 area_ = aslib_default_area, const char c_ = 'o') {
+			if (mec_.view_id >= mec_.me.size()) return *this;
+			if (!isArea(area_)) area_ = asWindowSize4();
+			//1マスの描画幅
+			const Pos2F m((area_.x2 - area_.x1) / this->p.w, (area_.y2 - area_.y1) / this->p.h);
+			if (c_ != 'y')  mec_.me[mec_.view_id].pl.x += float(asMouseSlide(area_).x) / m.x;
+			if (c_ != 'x') mec_.me[mec_.view_id].pl.y += float(asMouseSlide(area_).y) / m.y;
+			return *this;
+		}
 		AsMapView& setMobView(AsMapEventControl& mec_) {
 			if (mec_.view_id >= mec_.me.size()) return *this;
 			this->setMobView(mec_.me[mec_.view_id].pl, mec_.walk_type);
@@ -1566,7 +1627,7 @@ namespace AsLib
 		enum :size_t {
 			aslib_map_view_type_paint,
 			aslib_map_view_type_select,
-
+			aslib_map_view_type_bucket,
 		};
 		//鉛筆ツール
 		AsMapView& allSelect(const size_t type_, AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, Pos2* const p_=nullptr, size_t* const id_ = 0, Pos4 area_ = aslib_default_area, AsScreen* const s_ = nullptr)
@@ -1584,6 +1645,7 @@ namespace AsLib
 			size_t draw_id = 0;
 
 			const size_t wp = p2.x*p2.y*layer_;
+			const size_t wpm = p2.x*p2.y*(layer_ + 1);
 
 			size_t touch_num = asTouchNum();
 			for (size_t i = 0; i <= touch_num; ++i) {
@@ -1610,6 +1672,17 @@ namespace AsLib
 					if (mrc_ != nullptr) mrc_->start().push(aslib_map_return_paint, t_->s[draw_id = draw_p.y*p2.x + draw_p.x + wp], *id_, draw_p.x, draw_p.y, layer_).end();
 					t_->s[draw_id] = *id_;
 					break;
+				case aslib_map_view_type_bucket:
+					if (asTouchDown()||asMouseL_Down()) {
+						//書き換え
+						if (mrc_ != nullptr) mrc_->start().push(aslib_map_return_bucket, t_->s[draw_id = draw_p.y*p2.x + draw_p.x + wp], *id_, draw_p.x, draw_p.y, layer_).end();
+						std::vector<size_t> vmap;
+						vmap.resize(t_->s_x*t_->s_y);
+						for (size_t ii = wp, k = 0; ii < wpm; ++ii, ++k) vmap[k] = t_->s[ii];
+						asPaintTool(vmap, t_->s_x, draw_p.x, draw_p.y, *id_);
+						for (size_t ii = wp, k = 0; ii < wpm; ++ii, ++k) t_->s[ii] = vmap[k];
+					}
+					break;
 				case aslib_map_view_type_select:
 					//選択
 					*id_ = t_->s[draw_p.y*p2.x + draw_p.x + wp];
@@ -1619,6 +1692,11 @@ namespace AsLib
 
 			}
 			return *this;
+		}
+		//塗りツール
+		AsMapView& bucket(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, size_t id_ = 0, Pos4 area_ = aslib_default_area, AsScreen* const s_ = nullptr)
+		{
+			return this->allSelect(aslib_map_view_type_bucket, t_, mrc_, layer_, nullptr, &id_, area_, s_);
 		}
 		//鉛筆ツール
 		AsMapView& paint(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_=nullptr, const size_t layer_ = 0, size_t id_ = 0,Pos4 area_=aslib_default_area,AsScreen* const s_ = nullptr)

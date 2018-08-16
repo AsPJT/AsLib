@@ -73,6 +73,26 @@ namespace AsLib
 #endif
 	}
 
+	const int32_t asMouseWheel(const Pos4& p_) {
+		const int32_t wheel = mouseWheel();
+		if (wheel == 0) return 0;
+
+		const Pos2 touch_p = mousePos();
+		if (touch_p.x > p_.x1&&touch_p.y > p_.y1&&touch_p.x < p_.x2&&touch_p.y < p_.y2) return wheel;
+		return 0;
+	}
+	inline void asMouseWheel(PosA4F& add_, const float f_ = 5.0, const int32_t view_max_ = 0, Pos4 area_ = aslib_default_area) {
+		if (!isArea(area_)) area_ = asWindowSize4();
+		float pinch = asMouseWheel(area_) / f_;
+		add_.w -= pinch;
+		add_.h -= pinch;
+		if (add_.w < 1.0f) add_.w = 1.0f;
+		if (add_.h < 1.0f) add_.h = 1.0f;
+		if (view_max_ == 0) return;
+		if (int32_t(add_.w) >= view_max_) add_.w = float(view_max_);
+		if (int32_t(add_.h) >= view_max_) add_.h = float(view_max_);
+	}
+
 	//ウィンドウサイズを記録する関数
 	const bool* const asMouseButtonSave(const bool b_, const bool c_ = false, const bool p_ = false, const size_t s_ = 0)
 	{
@@ -129,6 +149,19 @@ namespace AsLib
 #endif
 	}
 
+	const bool asMouseL_Down(const bool is_=false) {
+		static bool is_down = false;
+		static bool hit = false;
+
+		if (!is_) return hit;
+		//押したとき
+		if (!is_down &&asMouseL()) hit = true;
+		else hit = false;
+		is_down = asMouseL();
+
+		return hit;
+	}
+
 	const bool asMouseL(const Pos4& p_) {
 		if (!asMouseL()) return false;
 		Pos2 touch_p = mousePos();
@@ -136,12 +169,52 @@ namespace AsLib
 		return false;
 	}
 
+	const Pos2 asMouseSlide(const bool is_update = false) {
+		static Pos2 total_p(0,0);
+		if (!is_update) return total_p;
+
+		static bool is_pinch = false;
+		if (!asMouseL()) {
+			is_pinch = false;
+			return total_p(0, 0);
+			asPrint("a");
+		}
+		static Pos2 before_p{};
+		const Pos2 after_p = mousePos();
+
+		if (!is_pinch) {
+			is_pinch = true;
+			before_p = after_p;
+			return 0;
+		}
+		is_pinch = true;
+		total_p(before_p.x - after_p.x, before_p.y - after_p.y);
+		before_p = after_p;
+		return total_p;
+	}
+
+	const Pos2 asMouseSlide(const Pos4& area_) {
+		if (!asMouseL()) return 0;
+		if (!isArea(area_, mousePos())) return 0;
+		return asMouseSlide();
+	}
+
+
 	inline Counter* const mouseButton()
 	{
 		static Counter count[mouse_button_num];
 		mouseButton(count);
 		return count;
 	}
+
+	const bool updateMouse()
+	{
+		//スライド更新
+		asMouseSlide(true);
+		asMouseL_Down(true);
+		return true;
+	}
+
 
 	class Mouse
 	{

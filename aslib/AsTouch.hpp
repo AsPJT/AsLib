@@ -102,7 +102,7 @@ namespace AsLib
 		return (asTouchPinch() == 0) ? false : true;
 	}
 	//
-	inline void asTouchPinch(PosA4F& add_, const float f_ = 5, const int32_t view_max_ = 0, Pos4 area_ = aslib_default_area) {
+	inline void asTouchPinch(PosA4F& add_, const float f_ = 5.0, const int32_t view_max_ = 0, Pos4 area_ = aslib_default_area) {
 		if (!isArea(area_)) area_ = asWindowSize4();
 		float pinch = asTouchPinch(area_) / f_;
 		add_.w -= pinch;
@@ -112,6 +112,35 @@ namespace AsLib
 		if (view_max_ == 0) return;
 		if (int32_t(add_.w) >= view_max_) add_.w = float(view_max_);
 		if (int32_t(add_.h) >= view_max_) add_.h = float(view_max_);
+	}
+
+	const Pos2 asTouchSlide(const bool is_update = false) {
+		static Pos2 total_p = 0;
+		if (!is_update) return total_p;
+
+		static bool is_pinch = false;
+		if (asTouchNum() != 1) {
+			is_pinch = false;
+			return total_p(0, 0);
+		}
+		static Pos2 before_p{};
+		const Pos2 after_p = asTouch(0);
+
+		if (!is_pinch) {
+			is_pinch = true;
+			before_p = after_p;
+			return 0;
+		}
+		is_pinch = true;
+		total_p(before_p.x-after_p.x, before_p.y-after_p.y);
+		before_p = after_p;
+		return total_p;
+	}
+
+	const Pos2 asTouchSlide(const Pos4& area_) {
+		if (asTouchNum() != 1) return 0;
+		if (!isArea(area_, asTouch(0))) return 0;
+		return asTouchSlide();
 	}
 
 	const Pos2 updateTouchPos(const bool is_push = false,const Pos2& p_ = { -1,-1 }) {
@@ -147,6 +176,8 @@ namespace AsLib
 
 		//ピンチ更新
 		asTouchPinch(true);
+		//スライド更新
+		asTouchSlide(true);
 		
 		static size_t before_num = 0;
 		static Pos2 before_up_pos(0, 0);

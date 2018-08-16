@@ -166,9 +166,6 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //基本構造体(All) (N)
 #include "AsPos.hpp"
 
-//ボタン
-#include "AsButton.hpp"
-
 //Base64
 #include "AsBase64.hpp"
 
@@ -219,6 +216,9 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 
 //テクスチャ
 #include "AsTexture.hpp"
+
+//ボタン
+#include "AsButton.hpp"
 
 //会話関連
 #include "AsTolk.hpp"

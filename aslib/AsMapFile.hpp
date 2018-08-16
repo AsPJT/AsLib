@@ -150,8 +150,8 @@ namespace AsLib
 		size_t type_id = 0;
 		
 		std::string token;
-#if defined(__ANDROID__)
 
+#if defined(ASLIB_INCLUDE_DL)
 		char String[256];
 		int FileHandle = DxLib::FileRead_open(str_.c_str());
 		static std::string str__2;
@@ -167,7 +167,11 @@ namespace AsLib
 					name_.emplace_back(token);
 				}
 				else {
+#if defined(__ANDROID__)
 					vec_.emplace_back(stos(token));
+#else
+					vec_.emplace_back(size_t(stoull(token)));
+#endif
 				}
 				++type_id;
 				++num;
@@ -179,7 +183,8 @@ namespace AsLib
 
 		DxLib::FileRead_close(FileHandle);
 		if (vec_.size() != 0) return 0;
-
+#endif
+#if defined(__ANDROID__)
 		constexpr size_t file_path_max = 256;
 		char FilePath[file_path_max];
 		DxLib::GetInternalDataPath(FilePath, sizeof(FilePath));
