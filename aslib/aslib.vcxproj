@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="AsBase64.hpp" />
     <ClInclude Include="AsBattery.hpp" />
+    <ClInclude Include="AsButton.hpp" />
     <ClInclude Include="AsCircle.hpp" />
     <ClInclude Include="AsClipboard.hpp" />
     <ClInclude Include="AsConst.hpp" />

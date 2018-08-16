@@ -121,33 +121,46 @@ namespace AsLib
 
 	inline const Pos2 asTouchEndPos() { return updateTouchPos(false); }
 
+	const bool asTouchUp(const bool on_ = false, const bool update_ = false) {
+		static bool is_touch = false;
+		if (on_) is_touch = update_;
+		return is_touch;
+	}
+	const bool asTouchDown(const bool on_ = false, const bool update_ = false) {
+		static bool is_touch = false;
+		if (on_) is_touch = update_;
+		return is_touch;
+	}
+
+	const Pos2 asTouchUpPos(const bool on_ = false, const Pos2 update_ = false) {
+		static Pos2 is_touch(0, 0);
+		if (on_) is_touch = update_;
+		return is_touch;
+	}
+
+	//毎フレーム更新
 	void updateTouch() {
 		static size_t aslib_num = 0;
 
 		const size_t num = asTouchNum();
 		if (aslib_num != num && num != 0) updateTouchPos(true, asTouch(num - 1));
 
+		//ピンチ更新
 		asTouchPinch(true);
-	}
+		
+		static size_t before_num = 0;
+		static Pos2 before_up_pos(0, 0);
 
-	const bool updateTouch_(const bool is_down_, const bool is_up_ = false) {
-		static size_t aslib_touch_num = 0;
-		const size_t num = asTouchNum();
+		asTouchUpPos(true, before_up_pos);
+		asTouchUp(true, before_num > num);
+		asTouchDown(true, before_num < num);
 
-		bool is_true = false;
-
-		if (is_down_&&aslib_touch_num < num) is_true = true;
-		else if (is_up_&&aslib_touch_num > num) is_true = true;
-
-		aslib_touch_num = num;
-		return is_true;
+		//今回のを入れる
+		before_num = num;
+		if (before_num != 0) before_up_pos = asTouch(before_num - 1);
 	}
 
 	inline const bool asTouch() { return (asTouchNum() == 0) ? false : true; }
-	inline const bool asTouchUp() { return updateTouch_(false, true); }
-	inline const bool asTouchDown() { return updateTouch_(true, false); }
-
-	const Pos2 asTouchUpPos() { return updateTouch_(false, true); }
 
 	const bool asTouch(const Pos4& p_) {
 		const size_t num = asTouchNum();

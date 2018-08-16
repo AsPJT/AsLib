@@ -6,12 +6,23 @@ enum :size_t {
 	aslib_paint_tool_eraser,
 	aslib_paint_tool_empty,
 	aslib_paint_tool_pipette,
+	aslib_paint_tool_left,
+	aslib_paint_tool_right,
 };
+
 
 int32_t asMain()
 {
 	//タイトル
 	MainControl mc(u8"AsRPG", Pos2(960,540));
+
+	AsMapReturnControl mrc(100);
+
+
+	//マップサイズを決める
+	//size_t map_x = size_t(asKeyInputNum(Pos2(0, 0), 2048, 1));
+	//size_t map_y = size_t(asKeyInputNum(Pos2(0, 0), 2048, 1));
+
 	//キー
 	AsKeyList kl;
 	kl.addKeyOK().addKeyBack().addKeyUpDown();
@@ -22,9 +33,9 @@ int32_t asMain()
 	//属性数
 	asSetAttribute(aslib_attribute_num);
 
-	constexpr Pos2 paint_world_p(128,128);
+	const Pos2 paint_world_p(128,128);
 	constexpr Pos2 select_world_p(2,100);
-	constexpr Pos2 tool_world_p(2, 2);
+	constexpr Pos2 tool_world_p(2, 3);
 	//モンスター
 	AsTexture feri(u8"Picture/ikari.png", 6, 4);
 	//マップテクスチャ
@@ -75,11 +86,15 @@ int32_t asMain()
 	AsTexture eraser_tool_te(u8"p/eraser_tool.png");
 	AsTexture empty_tool_te(u8"p/empty_tool.png");
 	AsTexture pipette_tool_te(u8"p/pipette_tool.png");
+	AsTexture left_tool_te(u8"p/left_tool.png");
+	AsTexture right_tool_te(u8"p/right_tool.png");
 	AsTextureMapArray tool_main_map;
 	tool_main_map.push(&pen_tool_te);
 	tool_main_map.push(&eraser_tool_te);
 	tool_main_map.push(&empty_tool_te);
 	tool_main_map.push(&pipette_tool_te);
+	tool_main_map.push(&left_tool_te);
+	tool_main_map.push(&right_tool_te);
 
 	//フィールド属性
 	AsAllAttribute att;
@@ -96,8 +111,8 @@ int32_t asMain()
 	select_main_map.putTexture();
 
 	paint_main_map.resizeMap(paint_world_p);
-	paint_main_map.worldMap(2, 4, 8, 9);
-	//paint_main_map.setLayer(2, 1);
+	//paint_main_map.worldMap(2, 4, 8, 9);
+	paint_main_map.setLayer(2, 1);
 	//paint_main_map.randMap(1);
 
 	//select_main_map.worldMap(2, 4, 8, 9);
@@ -193,29 +208,40 @@ int32_t asMain()
 		tool_map_event.me[1].pl.y = (tool_id / 2) + 0.5f;
 
 		//塗り
-		tool_map_view.select(&tool_main_map, 0, nullptr, &tool_id, tool_area, &tool_screen);
-		select_map_view.select(&select_main_map, 0, &select_pos, &select_id, select_area, &select_screen);
+		tool_map_view.select(&tool_main_map, &mrc, 0, nullptr, &tool_id, tool_area, &tool_screen);
+		select_map_view.select(&select_main_map, &mrc, 0, &select_pos, &select_id, select_area, &select_screen);
 		
-
+		//asPrintClear();
+		//for (size_t i = 0; i < mrc.max_len; ++i) {
+		//	asPrint("(%d,%d,%d),", mrc.return_map[i].size_x, mrc.return_map[i].size_y, mrc.return_map[i].count);
+		//}
+		//asPrint("%d", mrc.max_len);
 
 		switch (tool_id)
 		{
 		case aslib_paint_tool_eraser:
 			select_map_event.me[1].pl.x = 0.5f;
 			select_map_event.me[1].pl.y = 0.5f;
-			paint_map_view.paint(&paint_main_map, 1, 0, paint_area, &paint_screen);
+			paint_map_view.paint(&paint_main_map, &mrc, 1, 0, paint_area, &paint_screen);
 			break;
 		case aslib_paint_tool_pen:
 			select_map_event.me[1].pl.x = (select_id % 2) + 0.5f;
 			select_map_event.me[1].pl.y = (select_id / 2) + 0.5f;
-			paint_map_view.paint(&paint_main_map, 1, select_id, paint_area, &paint_screen);
+			paint_map_view.paint(&paint_main_map, &mrc, 1, select_id, paint_area, &paint_screen);
 			break;
 		case aslib_paint_tool_pipette:
-			paint_map_view.select(&paint_main_map, 1, nullptr, &select_id, paint_area, &paint_screen);
+			paint_map_view.select(&paint_main_map, &mrc, 1, nullptr, &select_id, paint_area, &paint_screen);
 			select_map_event.me[1].pl.x = (select_id % 2) + 0.5f;
 			select_map_event.me[1].pl.y = (select_id / 2) + 0.5f;
 			break;
+		case aslib_paint_tool_left:
+			if(asTouchUp()) mrc.left(&paint_main_map);
+			break;
+		case aslib_paint_tool_right:
+			if (asTouchUp()) mrc.right(&paint_main_map);
+			break;
 		}
+
 	}
 	return 0;
 }

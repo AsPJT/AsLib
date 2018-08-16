@@ -166,6 +166,9 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //基本構造体(All) (N)
 #include "AsPos.hpp"
 
+//ボタン
+#include "AsButton.hpp"
+
 //Base64
 #include "AsBase64.hpp"
 

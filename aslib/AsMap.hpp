@@ -9,6 +9,9 @@
 
 namespace AsLib
 {
+
+
+
 	//イベント起動
 	enum :size_t {
 		aslib_event_init_touch,
@@ -671,6 +674,130 @@ namespace AsLib
 
 	};
 
+	enum :size_t {
+		aslib_map_return_empty,
+		aslib_map_return_paint,
+	};
+
+	struct AsmapReturn {
+		//巻き戻しのタイプ
+		size_t type = aslib_map_return_empty;
+		//巻き戻しするマップID
+		size_t id = 0;
+		//変換後のマップID
+		size_t after_id = 0;
+		//座標X
+		size_t size_x = 0;
+		//座標Y
+		size_t size_y = 0;
+		//巻き戻しするレイヤー
+		size_t layer = 0;
+		//巻き戻しのカウンター
+		size_t count = 0;
+
+		AsmapReturn() = default;
+	};
+
+	struct AsMapReturnControl {
+		//最大の長さ
+		size_t max_len = 0;
+		//今の長さ
+		size_t now_len = 0;
+		//最大登録数
+		size_t max = 0;
+		//現在の登録数
+		size_t now = 0;
+		//最大の長さ
+		size_t return_map_num;
+		std::unique_ptr<AsmapReturn[]> return_map;
+
+		AsMapReturnControl(const size_t num_) :return_map_num(num_), return_map(new AsmapReturn[num_]) { if (num_ > 1)return_map[num_ - 1].count = SIZE_MAX; }
+
+		//新しく登録する
+		AsMapReturnControl& start() { max = now; return *this; }
+		//登録するものを入れる
+		AsMapReturnControl& push(const size_t type_, const size_t id_, const size_t after_id_, const size_t x_, const size_t y_, const size_t layer_) {
+			AsmapReturn* b = &return_map[(max_len - 1 + return_map_num) % return_map_num];
+			if (b->size_x == x_ && b->size_y == y_ && b->layer == layer_ && b->after_id == after_id_) return *this;
+
+			return_map[max_len].type = type_;
+			return_map[max_len].id = id_;
+			return_map[max_len].after_id = after_id_;
+			return_map[max_len].size_x = x_;
+			return_map[max_len].size_y = y_;
+			return_map[max_len].layer = layer_;
+			return_map[max_len].count = max;
+
+			if (max_len == SIZE_MAX) return *this;
+			++max_len;
+			max_len %= return_map_num;
+			return *this;
+		}
+		//新しく登録する
+		AsMapReturnControl& end() {
+			if (now_len == max_len) return *this;
+
+			now_len = max_len;
+			if (max == SIZE_MAX) return *this;
+			++max;
+			now = max;
+			return *this;
+		}
+		AsMapReturnControl& left(AsTextureMapArray* const tma_) {
+			if (tma_ == nullptr || now == 0) return *this;
+			--now;
+			--now_len;
+			now_len += return_map_num;
+			now_len %= return_map_num;
+			size_t x, y, id, layer;
+			switch (return_map[now_len].type)
+			{
+			case aslib_map_return_empty:return *this;
+			case aslib_map_return_paint:
+				x = return_map[now_len].size_x;
+				y = return_map[now_len].size_y;
+				id = return_map[now_len].id;
+				layer = return_map[now_len].layer;
+				tma_->s[(tma_->s_x*y + x) + tma_->s_x*tma_->s_y*layer] = id;
+				return *this;
+			}
+			//while (true) {
+			//	if (return_map[now_len].count != now) break;
+			//	--now_len;
+			//	now_len += return_map_num;
+			//	now_len %= return_map_num;
+			//}
+			return *this;
+		}
+		AsMapReturnControl& right(AsTextureMapArray* const tma_) {
+			if (tma_ == nullptr || now == max) return *this;
+			++now;
+			++now_len;
+			now_len %= return_map_num;
+			size_t x, y, id, layer;
+
+			switch (return_map[now_len - 1].type)
+			{
+			case aslib_map_return_empty:return *this;
+			case aslib_map_return_paint:
+				x = return_map[now_len - 1].size_x;
+				y = return_map[now_len - 1].size_y;
+				id = return_map[now_len - 1].after_id;
+				layer = return_map[now_len - 1].layer;
+				tma_->s[(tma_->s_x*y + x) + tma_->s_x*tma_->s_y*layer] = id;
+				return *this;
+			}
+			//while (true) {
+			//	//if (return_map[now_len].count != now) break;
+
+			//	++now_len;
+			//	now_len %= return_map_num;
+			//}
+			return *this;
+		}
+
+	};
+
 
 	//あたり判定
 	const bool movingCollisionDetection(const AsAllAttribute& att_, const AsTextureMapArray& tma_, const Pos2& p_, size_t& is_move_, const size_t player_id_ = aslib_attribute_human) {
@@ -1264,12 +1391,8 @@ namespace AsLib
 	private:
 		//マップの中心位置と幅
 		PosA4F p;
-		//開始から終了まで
-		Pos4 in_map;
 		//マップサイズ
 		Pos2 p2;
-		//補正
-		Pos2F about_p;
 
 		AsMapView& drawMap(const size_t* const min_ = nullptr, const size_t* const max_ = nullptr, AsTextureMapArray* const a_ = nullptr, AsScreen* const s_ = nullptr)
 		{
@@ -1296,7 +1419,8 @@ namespace AsLib
 
 			//描画初期位置
 			const Pos2F in_draw((floor(be_pos.x) - be_pos.x)*m.x - m.x, (floor(be_pos.y) - be_pos.y)*m.y - m.y);
-			in_map = Pos4(Pos4F(floor(be_pos.x), floor(be_pos.y), ceil(af_pos.x), ceil(af_pos.y)));
+			//開始から終了まで
+			const Pos4 in_map = Pos4(Pos4F(floor(be_pos.x), floor(be_pos.y), ceil(af_pos.x), ceil(af_pos.y)));
 			Pos2 select_map;
 			Pos2F draw_map(in_draw);
 			size_t array_num = 0;
@@ -1410,8 +1534,6 @@ namespace AsLib
 			if (type_ == aslib_mob_walk_type_big) {
 				p.x += 0.5f;
 				p.y += (0.6f - 0.3f*p_.h);
-				about_p.x = -0.5f;
-				about_p.y = -(0.6f - 0.3f*p_.h);
 			}
 			return *this;
 		}
@@ -1447,7 +1569,7 @@ namespace AsLib
 
 		};
 		//鉛筆ツール
-		AsMapView& allSelect(const size_t type_, AsTextureMapArray* const t_ = nullptr, const size_t layer_ = 0, Pos2* const p_=nullptr, size_t* const id_ = 0, Pos4 area_ = aslib_default_area, AsScreen* const s_ = nullptr)
+		AsMapView& allSelect(const size_t type_, AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, Pos2* const p_=nullptr, size_t* const id_ = 0, Pos4 area_ = aslib_default_area, AsScreen* const s_ = nullptr)
 		{
 			//nullptrの場合
 			if (t_ == nullptr || t_->t.size() == 0) return *this;
@@ -1459,6 +1581,7 @@ namespace AsLib
 			const Pos2 pos(area_.x1 + (area_.x2 - area_.x1) / 2, area_.y1 + (area_.y2 - area_.y1) / 2);
 			Pos2 t_p;
 			Pos2 draw_p;
+			size_t draw_id = 0;
 
 			const size_t wp = p2.x*p2.y*layer_;
 
@@ -1484,7 +1607,8 @@ namespace AsLib
 				{
 				case aslib_map_view_type_paint:
 					//書き換え
-					t_->s[draw_p.y*p2.x + draw_p.x + wp] = *id_;
+					if (mrc_ != nullptr) mrc_->start().push(aslib_map_return_paint, t_->s[draw_id = draw_p.y*p2.x + draw_p.x + wp], *id_, draw_p.x, draw_p.y, layer_).end();
+					t_->s[draw_id] = *id_;
 					break;
 				case aslib_map_view_type_select:
 					//選択
@@ -1497,14 +1621,14 @@ namespace AsLib
 			return *this;
 		}
 		//鉛筆ツール
-		AsMapView& paint(AsTextureMapArray* const t_ = nullptr, const size_t layer_ = 0, size_t id_ = 0,Pos4 area_=aslib_default_area,AsScreen* const s_ = nullptr)
+		AsMapView& paint(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_=nullptr, const size_t layer_ = 0, size_t id_ = 0,Pos4 area_=aslib_default_area,AsScreen* const s_ = nullptr)
 		{
-			return this->allSelect(aslib_map_view_type_paint, t_, layer_, nullptr, &id_, area_, s_);
+			return this->allSelect(aslib_map_view_type_paint, t_, mrc_, layer_, nullptr, &id_, area_, s_);
 		}
 		//鉛筆ツール
-		AsMapView& select(AsTextureMapArray* const t_ = nullptr, const size_t layer_ = 0, Pos2* const p_=nullptr, size_t* const id_ = 0,Pos4 area_ = aslib_default_area, AsScreen* const s_ = nullptr)
+		AsMapView& select(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, Pos2* const p_=nullptr, size_t* const id_ = 0,Pos4 area_ = aslib_default_area, AsScreen* const s_ = nullptr)
 		{
-			return this->allSelect(aslib_map_view_type_select, t_, layer_, p_, id_, area_, s_);
+			return this->allSelect(aslib_map_view_type_select, t_, mrc_, layer_, p_, id_, area_, s_);
 		}
 
 		//描画する物のサイズ
@@ -1527,7 +1651,7 @@ namespace AsLib
 
 			//描画初期位置
 			const Pos2F in_draw((floor(be_pos.x) - be_pos.x)*m.x - m.x, (floor(be_pos.y) - be_pos.y)*m.y - m.y);
-			in_map = Pos4(Pos4F(floor(be_pos.x), floor(be_pos.y), ceil(af_pos.x), ceil(af_pos.y)));
+			const Pos4 in_map = Pos4(Pos4F(floor(be_pos.x), floor(be_pos.y), ceil(af_pos.x), ceil(af_pos.y)));
 			Pos2 select_map;
 			Pos2F draw_map(in_draw);
 			size_t array_num = 0;
