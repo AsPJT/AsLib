@@ -125,12 +125,12 @@ namespace AsLib
 		}
 
 		//カウンター出力
-		bool Down() const { return counter.Down(); };
-		bool Up() const { return counter.Up(); };
-		int32_t Count() const { return counter.Count(); };
-		bool Down0() { return counter.Down0(); };
-		bool Up0() { return counter.Up0(); };
-		int32_t Count0() { return counter.Count0(); };
+		bool down() const { return counter.down(); };
+		bool up() const { return counter.up(); };
+		int32_t count() const { return counter.count(); };
+		bool down0() { return counter.down0(); };
+		bool up0() { return counter.up0(); };
+		int32_t count0() { return counter.count0(); };
 		int32_t Touch() const { return this->touch_num; };
 		int32_t Touch0() { const int32_t num = this->touch_num; this->touch_num = 0; return num; };
 		Battery& touch(const Pos2& add_pos)

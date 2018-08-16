@@ -1233,9 +1233,9 @@ namespace AsLib
 	public:
 		AsMapView() = default;
 		AsMapView(const PosA4F& p_) : p(p_) {}
-		AsMapView(const PosA4F& p_, const char c_, AsScreen* const s_ = nullptr) : p(p_) {
-
-			const Pos2F mm((s_ == nullptr) ? asWindowSizeF() : Pos2F(float(s_->x()), float(s_->y())));
+		AsMapView(const PosA4F& p_, const char c_, Pos4 area_ = aslib_default_area) : p(p_) {
+			if (!isArea(area_)) area_ = asWindowSize4();
+			const Pos2F mm(float(area_.x2 - area_.x1), float(area_.y2 - area_.y1));
 			switch (c_)
 			{
 				//正方形
@@ -1246,9 +1246,10 @@ namespace AsLib
 			case 'Y': p.w = p.h; break;
 			}
 		}
-		AsMapView& setLookSize(const PosA4F& p_, const char c_, AsScreen* const s_ = nullptr) {
+		AsMapView& setLookSize(const PosA4F& p_, const char c_, Pos4 area_ = aslib_default_area) {
 			p = p_;
-			const Pos2F mm((s_ == nullptr) ? asWindowSizeF() : (float(s_->x()), float(s_->y())));
+			if (!isArea(area_)) area_ = asWindowSize4();
+			const Pos2F mm(float(area_.x2 - area_.x1), float(area_.y2 - area_.y1));
 			switch (c_)
 			{
 				//正方形
@@ -1270,7 +1271,7 @@ namespace AsLib
 		//補正
 		Pos2F about_p;
 
-		AsMapView& drawMap(const size_t num_, Color* const col_ = nullptr, const size_t* const min_ = nullptr, const size_t* const max_ = nullptr, AsTextureMapArray* const a_ = nullptr, AsScreen* const s_ = nullptr)
+		AsMapView& drawMap(const size_t* const min_ = nullptr, const size_t* const max_ = nullptr, AsTextureMapArray* const a_ = nullptr, AsScreen* const s_ = nullptr)
 		{
 			if (a_ == nullptr) return *this;
 			const size_t draw_layer_min = (min_ == nullptr) ? 0 : *min_;
@@ -1302,7 +1303,8 @@ namespace AsLib
 
 			AsTexture* texture_id = nullptr;
 			AsTextureMap* tm_id = nullptr;
-			size_t map_field_type = 0;
+			//size_t map_field_type = 0;
+			size_t map_id = 0;
 			bool amap[8]{};
 			size_t pym, pyp, pxm, pxp;
 
@@ -1344,7 +1346,8 @@ namespace AsLib
 							break;
 						case aslib_texture_map_type_20n:
 							tm_id = &a_->tm[a_->s[array_num]];
-							map_field_type = tm_id->field_type;
+							//map_field_type = tm_id->field_type;
+							map_id = a_->s[array_num];
 
 							pym = ((select_map.y - 1 + p2.y) % p2.y)*p2.x;
 							pyp = ((select_map.y + 1) % p2.y)*p2.x;
@@ -1353,14 +1356,24 @@ namespace AsLib
 
 							if (pym + pxm + draw_layer_plus >= a_->s.size()) break;
 
-							amap[MOB_LEFT_UP] = (a_->tm[a_->s[pym + pxm + draw_layer_plus]].field_type == map_field_type);
-							amap[MOB_UP] = (a_->tm[a_->s[pym + select_map.x + draw_layer_plus]].field_type == map_field_type);
-							amap[MOB_RIGHT_UP] = (a_->tm[a_->s[pym + pxp + draw_layer_plus]].field_type == map_field_type);
-							amap[MOB_LEFT] = (a_->tm[a_->s[select_map.y*p2.x + pxm + draw_layer_plus]].field_type == map_field_type);
-							amap[MOB_RIGHT] = (a_->tm[a_->s[select_map.y*p2.x + pxp + draw_layer_plus]].field_type == map_field_type);
-							amap[MOB_LEFT_DOWN] = (a_->tm[a_->s[pyp + pxm + draw_layer_plus]].field_type == map_field_type);
-							amap[MOB_DOWN] = (a_->tm[a_->s[pyp + select_map.x + draw_layer_plus]].field_type == map_field_type);
-							amap[MOB_RIGHT_DOWN] = (a_->tm[a_->s[pyp + pxp + draw_layer_plus]].field_type == map_field_type);
+							//field_type == map_field_type
+							//amap[MOB_LEFT_UP] = (a_->tm[a_->s[pym + pxm + draw_layer_plus]].field_type == map_field_type);
+							//amap[MOB_UP] = (a_->tm[a_->s[pym + select_map.x + draw_layer_plus]].field_type == map_field_type);
+							//amap[MOB_RIGHT_UP] = (a_->tm[a_->s[pym + pxp + draw_layer_plus]].field_type == map_field_type);
+							//amap[MOB_LEFT] = (a_->tm[a_->s[select_map.y*p2.x + pxm + draw_layer_plus]].field_type == map_field_type);
+							//amap[MOB_RIGHT] = (a_->tm[a_->s[select_map.y*p2.x + pxp + draw_layer_plus]].field_type == map_field_type);
+							//amap[MOB_LEFT_DOWN] = (a_->tm[a_->s[pyp + pxm + draw_layer_plus]].field_type == map_field_type);
+							//amap[MOB_DOWN] = (a_->tm[a_->s[pyp + select_map.x + draw_layer_plus]].field_type == map_field_type);
+							//amap[MOB_RIGHT_DOWN] = (a_->tm[a_->s[pyp + pxp + draw_layer_plus]].field_type == map_field_type);
+
+							amap[MOB_LEFT_UP] = (a_->s[pym + pxm + draw_layer_plus] == map_id);
+							amap[MOB_UP] = (a_->s[pym + select_map.x + draw_layer_plus] == map_id);
+							amap[MOB_RIGHT_UP] = (a_->s[pym + pxp + draw_layer_plus] == map_id);
+							amap[MOB_LEFT] = (a_->s[select_map.y*p2.x + pxm + draw_layer_plus] == map_id);
+							amap[MOB_RIGHT] = (a_->s[select_map.y*p2.x + pxp + draw_layer_plus] == map_id);
+							amap[MOB_LEFT_DOWN] = (a_->s[pyp + pxm + draw_layer_plus] == map_id);
+							amap[MOB_DOWN] = (a_->s[pyp + select_map.x + draw_layer_plus] == map_id);
+							amap[MOB_RIGHT_DOWN] = (a_->s[pyp + pxp + draw_layer_plus] == map_id);
 
 							texture_id->drawScreen(texture_id->NumX() * 2 * map20n_Number(amap[MOB_LEFT], amap[MOB_UP], amap[MOB_LEFT_UP]) + tm_id->anime_show_id, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f)), 255, s_);
 							texture_id->drawScreen(texture_id->NumX() * 2 * map20n_Number(amap[MOB_RIGHT], amap[MOB_UP], amap[MOB_RIGHT_UP]) + tm_id->anime_show_id + 1, Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y / 2.0f)), 255, s_);
@@ -1566,53 +1579,10 @@ namespace AsLib
 			return *this;
 		}
 		//画像の全体描画
-		AsMapView& draw(AsTextureMapArray* const t_, const size_t* const min_, const size_t* const max_, AsScreen* const s_ = nullptr) { return this->drawMap(MAP_VIEW_DRAW_ANIME, nullptr, min_,max_,t_,s_); }
-		AsMapView& draw(AsTextureMapArray* const t_, const size_t* const min_, AsScreen* const s_ = nullptr) { return this->drawMap(MAP_VIEW_DRAW_ANIME, nullptr, min_, nullptr, t_, s_); }
-		AsMapView& draw(AsTextureMapArray* const t_, AsScreen* const s_ = nullptr) { return this->drawMap(MAP_VIEW_DRAW_ANIME, nullptr, nullptr, nullptr, t_, s_); }
+		AsMapView& draw(AsTextureMapArray* const t_, const size_t* const min_, const size_t* const max_, AsScreen* const s_ = nullptr) { return this->drawMap(min_,max_,t_,s_); }
+		AsMapView& draw(AsTextureMapArray* const t_, const size_t* const min_, AsScreen* const s_ = nullptr) { return this->drawMap(min_, nullptr, t_, s_); }
+		AsMapView& draw(AsTextureMapArray* const t_, AsScreen* const s_ = nullptr) { return this->drawMap(nullptr, nullptr, t_, s_); }
 
-	};
-
-
-
-
-
-
-
-	inline static const size_t a2(const size_t& s_, const size_t& i_, const size_t& j_) { return (s_ * j_ + i_); }
-	struct worldMap
-	{
-		Pos2 s;
-		size_t total_size;
-		std::unique_ptr<int32_t[]> map_id;
-		std::unique_ptr<Color[]> col;
-
-#if defined(__ANDROID__)//todo
-		
-#else
-		worldMap(const Pos2& xy_) : s({ xy_.x, xy_.y }), total_size(xy_.x*xy_.y), map_id(new int32_t[xy_.x*xy_.y]), col(new Color[xy_.x*xy_.y]) { clear(); }
-		worldMap(const int32_t x_, const int32_t y_) : s({ x_, y_ }), total_size(x_*y_), map_id(new int32_t[x_*y_]), col(new Color[x_*y_]) { clear(); }
-#endif
-
-		const worldMap& clear() const { for (size_t i = 0; i < total_size; ++i) map_id[i] = 0; return *this; }
-		const worldMap& rand() const { asRand32(&map_id[0], total_size); return *this; }
-		const worldMap& randC(const uint8_t m_) const { asRand(&col[0], total_size,m_); return *this; }
-
-		const worldMap& draw(const size_t size_) const {
-			int32_t a;
-			for (size_t j = 0; j < size_t(this->s.y); ++j) {
-				for (size_t i = 0; i < size_t(this->s.x); ++i) {
-					a = map_id[a2(this->s.x, i, j)];
-					asRect(PosL4(int32_t(i*size_), int32_t(j*size_), int32_t(size_), int32_t(size_)), Color(uint8_t(a), uint8_t(a), uint8_t(a), uint8_t(a)));
-				}
-			}
-			return *this;
-		}
-
-		const worldMap& drawP(const size_t size_, const Pos2& p_) const {
-			const int32_t a = map_id[a2(this->s.x, p_.y, p_.x)];
-			asRect(PosL4(int32_t(p_.x*size_), int32_t(p_.y*size_), int32_t(size_), int32_t(size_)), Color(uint8_t(a), uint8_t(a), uint8_t(a), uint8_t(a)));
-			return *this;
-		}
 	};
 
 }

@@ -1323,14 +1323,14 @@ constexpr int CTRL_CODE_CMP=0x20;
 			Counter count[mouse_button_num];
 			mouseButton(count);
 
-			if (count[aslib_mouse_left].Count() > 0)input += aslib_mouse_INPUT_LEFT;
-			if (count[aslib_mouse_right].Count() > 0)input += aslib_mouse_INPUT_RIGHT;
-			if (count[aslib_mouse_middle].Count() > 0)input += aslib_mouse_INPUT_MIDDLE;
-			if (count[aslib_mouse_4].Count() > 0)input += aslib_mouse_INPUT_4;
-			if (count[aslib_mouse_5].Count() > 0)input += aslib_mouse_INPUT_5;
-			if (count[aslib_mouse_6].Count() > 0)input += aslib_mouse_INPUT_6;
-			if (count[aslib_mouse_7].Count() > 0)input += aslib_mouse_INPUT_7;
-			if (count[aslib_mouse_8].Count() > 0)input += aslib_mouse_INPUT_8;
+			if (count[aslib_mouse_left].count() > 0)input += aslib_mouse_INPUT_LEFT;
+			if (count[aslib_mouse_right].count() > 0)input += aslib_mouse_INPUT_RIGHT;
+			if (count[aslib_mouse_middle].count() > 0)input += aslib_mouse_INPUT_MIDDLE;
+			if (count[aslib_mouse_4].count() > 0)input += aslib_mouse_INPUT_4;
+			if (count[aslib_mouse_5].count() > 0)input += aslib_mouse_INPUT_5;
+			if (count[aslib_mouse_6].count() > 0)input += aslib_mouse_INPUT_6;
+			if (count[aslib_mouse_7].count() > 0)input += aslib_mouse_INPUT_7;
+			if (count[aslib_mouse_8].count() > 0)input += aslib_mouse_INPUT_8;
 			return input;
 		}
 

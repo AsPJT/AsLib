@@ -101,7 +101,7 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 	return 0;
 #elif defined(ASLIB_INCLUDE_OF)
-
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console

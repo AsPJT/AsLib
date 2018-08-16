@@ -77,6 +77,13 @@ namespace AsLib
 #endif
 	}
 
+	const bool asIsWindowSizeW() {
+		return (asWindowSize().x >= asWindowSize().y) ? true : false;
+	}
+	const bool asIsWindowSizeH() {
+		return (asWindowSize().x <= asWindowSize().y) ? true : false;
+	}
+
 	//背景色変更
 	inline const int32_t asSetBackGround(const ColorRGB& BG_color = aslib_bg_color)
 	{
@@ -281,7 +288,6 @@ namespace AsLib
 	const int32_t makeLog() {
 		return makeLog(asTitle() + u8"_Licenses.html");
 	}
-
 
 	//初期化
 	const int32_t AsInit(const Pos2& window_size = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color)

@@ -140,4 +140,84 @@ namespace AsLib
 		}
 		return 0;
 	}
+
+
+	const int32_t asSize_t_MapReadCSV(const std::string& str_, std::vector<std::string>& name_, std::vector<size_t>& vec_, size_t* const x_ = nullptr, size_t* const y_ = nullptr) {
+
+		std::string str;
+		size_t num = 0;
+		size_t num_y = 0;
+		size_t type_id = 0;
+		
+		std::string token;
+#if defined(__ANDROID__)
+
+		char String[256];
+		int FileHandle = DxLib::FileRead_open(str_.c_str());
+		static std::string str__2;
+		str__2= u8"";
+		while (DxLib::FileRead_eof(FileHandle) == 0)
+		{
+			DxLib::FileRead_gets(String, 256, FileHandle);
+			str = String;
+			std::istringstream stream(str);
+			type_id = 0;
+			while (getline(stream, token, ',')) {
+				if (type_id == 0) {
+					name_.emplace_back(token);
+				}
+				else {
+					vec_.emplace_back(stos(token));
+				}
+				++type_id;
+				++num;
+			}
+			++num_y;
+		}
+		if (x_ != nullptr && num_y != 0) *x_ = num / num_y;
+		if (y_ != nullptr) *y_ = num_y;
+
+		DxLib::FileRead_close(FileHandle);
+		if (vec_.size() != 0) return 0;
+
+		constexpr size_t file_path_max = 256;
+		char FilePath[file_path_max];
+		DxLib::GetInternalDataPath(FilePath, sizeof(FilePath));
+		std::ifstream ifs(std::string(FilePath) + u8"\\" + str_);
+		if (!ifs) {
+			DxLib::GetExternalDataPath(FilePath, sizeof(FilePath));
+			std::ifstream ifs(std::string(FilePath) + u8"\\" + str_);
+			if (!ifs) return 1;
+		}
+#else
+		std::ifstream ifs(str_);
+		if (!ifs) return 1;
+#endif
+		while (getline(ifs, str)) {
+			std::istringstream stream(str);
+			type_id = 0;
+			while (getline(stream, token, ',')) {
+				if (type_id == 0) {
+					name_.emplace_back(token);
+				}
+				else {
+#if defined(__ANDROID__)
+					vec_.emplace_back(stos(token));
+#else
+					vec_.emplace_back(size_t(stoull(token)));
+#endif
+
+				}
+				++type_id;
+				++num;
+			}
+			++num_y;
+		}
+
+		if (x_ != nullptr && num_y != 0) *x_ = num / num_y;
+		if (y_ != nullptr) *y_ = num_y;
+
+		return 0;
+	}
+
 }

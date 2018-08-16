@@ -4,7 +4,7 @@
 int32_t asMain()
 {
 	//560, 700
-	MainControl mc(u8"AsRPG", Pos2(1280,720));
+	MainControl mc(u8"AsRPG", Pos2(640,360));
 	//キー
 	AsKeyList kl;
 	kl.addKeyOK().addKeyBack().addKeyCross().addKeyCrossW();
@@ -108,6 +108,23 @@ int32_t asMain()
 	main_map.push(&mo1_te, aslib_texture_map_field_type_wall);
 	main_map.push(&mo2_te, aslib_texture_map_field_type_wall);
 	main_map.push(&underground_stairs_te, aslib_texture_map_field_type_empty);
+
+	size_t read_x = 0;
+	size_t read_y = 0;
+	const std::string str_ = u8"map_tile.csv";
+	std::vector<std::string> name_;
+	std::vector<size_t> vec_;
+	if (asSize_t_MapReadCSV(str_, name_, vec_, &read_x, &read_y) != 0) return 0;
+
+	asPrint("%d,%d,%d,%d", name_.size(), vec_.size(), read_x, read_y);
+
+	std::unique_ptr<AsTexture[]> as_t(new AsTexture[read_y]);
+	for (size_t i = 0; i < name_.size(); ++i) {
+		as_t[i](name_[i].c_str(), vec_[i] * 2, 10);
+		main_map.push(&as_t[i], aslib_texture_map_field_type_water);
+	}
+
+
 
 	//フィールド属性
 	AsAllAttribute att;

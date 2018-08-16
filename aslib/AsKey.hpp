@@ -820,12 +820,12 @@ const bool updateKey_(const size_t id_ = 0, const bool is_update = false, const 
 	if (is_update) checkKey(aslib_update_key, aslib_update_count);
 	switch (count_id)
 	{
-	case aslib_counter_touch: return aslib_update_count[id_].Count();
-	case aslib_counter_up: return aslib_update_count[id_].Up();
-	case aslib_counter_down: return aslib_update_count[id_].Down();
-	case aslib_counter_touch0: return aslib_update_count[id_].Count0();
-	case aslib_counter_up0: return aslib_update_count[id_].Up0();
-	case aslib_counter_down0: return aslib_update_count[id_].Down0();
+	case aslib_counter_touch: return aslib_update_count[id_].count();
+	case aslib_counter_up: return aslib_update_count[id_].up();
+	case aslib_counter_down: return aslib_update_count[id_].down();
+	case aslib_counter_touch0: return aslib_update_count[id_].count0();
+	case aslib_counter_up0: return aslib_update_count[id_].up0();
+	case aslib_counter_down0: return aslib_update_count[id_].down0();
 	default: break;
 	}
 	if (is_set) {

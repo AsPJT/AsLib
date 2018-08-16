@@ -129,6 +129,13 @@ namespace AsLib
 #endif
 	}
 
+	const bool asMouseL(const Pos4& p_) {
+		if (!asMouseL()) return false;
+		Pos2 touch_p = mousePos();
+		if (touch_p.x > p_.x1&&touch_p.y > p_.y1&&touch_p.x < p_.x2&&touch_p.y < p_.y2) return true;
+		return false;
+	}
+
 	inline Counter* const mouseButton()
 	{
 		static Counter count[mouse_button_num];
@@ -141,43 +148,43 @@ namespace AsLib
 	public:
 		const Pos2 Pos() const { return this->pos; };
 		const int32_t Wheel() const { return this->wheel; };
-		const Counter Count(const size_t count_num) const { return this->counter[count_num]; };
+		const Counter count(const size_t count_num) const { return this->counter[count_num]; };
 
-		const bool down() const { return this->counter[aslib_mouse_left].Down(); };
-		const bool up() const { return this->counter[aslib_mouse_left].Up(); };
-		const int32_t count() const { return this->counter[aslib_mouse_left].Count(); };
+		const bool down() const { return this->counter[aslib_mouse_left].down(); };
+		const bool up() const { return this->counter[aslib_mouse_left].up(); };
+		const int32_t count() const { return this->counter[aslib_mouse_left].count(); };
 
-		const bool downL() const { return this->counter[aslib_mouse_left].Down(); };
-		const bool upL() const { return this->counter[aslib_mouse_left].Up(); };
-		const int32_t countL() const { return this->counter[aslib_mouse_left].Count(); };
+		const bool downL() const { return this->counter[aslib_mouse_left].down(); };
+		const bool upL() const { return this->counter[aslib_mouse_left].up(); };
+		const int32_t countL() const { return this->counter[aslib_mouse_left].count(); };
 
-		const bool downR() const { return this->counter[aslib_mouse_right].Down(); };
-		const bool upR() const { return this->counter[aslib_mouse_right].Up(); };
-		const int32_t countR() const { return this->counter[aslib_mouse_right].Count(); };
+		const bool downR() const { return this->counter[aslib_mouse_right].down(); };
+		const bool upR() const { return this->counter[aslib_mouse_right].up(); };
+		const int32_t countR() const { return this->counter[aslib_mouse_right].count(); };
 
-		const bool downM() const { return this->counter[aslib_mouse_middle].Down(); };
-		const bool upM() const { return this->counter[aslib_mouse_middle].Up(); };
-		const int32_t countM() const { return this->counter[aslib_mouse_middle].Count(); };
+		const bool downM() const { return this->counter[aslib_mouse_middle].down(); };
+		const bool upM() const { return this->counter[aslib_mouse_middle].up(); };
+		const int32_t countM() const { return this->counter[aslib_mouse_middle].count(); };
 
-		const bool down4() const { return this->counter[aslib_mouse_4].Down(); };
-		const bool up4() const { return this->counter[aslib_mouse_4].Up(); };
-		const int32_t count4() const { return this->counter[aslib_mouse_4].Count(); };
+		const bool down4() const { return this->counter[aslib_mouse_4].down(); };
+		const bool up4() const { return this->counter[aslib_mouse_4].up(); };
+		const int32_t count4() const { return this->counter[aslib_mouse_4].count(); };
 
-		const bool down5() const { return this->counter[aslib_mouse_5].Down(); };
-		const bool up5() const { return this->counter[aslib_mouse_5].Up(); };
-		const int32_t count5() const { return this->counter[aslib_mouse_5].Count(); };
+		const bool down5() const { return this->counter[aslib_mouse_5].down(); };
+		const bool up5() const { return this->counter[aslib_mouse_5].up(); };
+		const int32_t count5() const { return this->counter[aslib_mouse_5].count(); };
 
-		const bool down6() const { return this->counter[aslib_mouse_6].Down(); };
-		const bool up6() const { return this->counter[aslib_mouse_6].Up(); };
-		const int32_t count6() const { return this->counter[aslib_mouse_6].Count(); };
+		const bool down6() const { return this->counter[aslib_mouse_6].down(); };
+		const bool up6() const { return this->counter[aslib_mouse_6].up(); };
+		const int32_t count6() const { return this->counter[aslib_mouse_6].count(); };
 
-		const bool down7() const { return this->counter[aslib_mouse_7].Down(); };
-		const bool up7() const { return this->counter[aslib_mouse_7].Up(); };
-		const int32_t count7() const { return this->counter[aslib_mouse_7].Count(); };
+		const bool down7() const { return this->counter[aslib_mouse_7].down(); };
+		const bool up7() const { return this->counter[aslib_mouse_7].up(); };
+		const int32_t count7() const { return this->counter[aslib_mouse_7].count(); };
 
-		const bool down8() const { return this->counter[aslib_mouse_8].Down(); };
-		const bool up8() const { return this->counter[aslib_mouse_8].Up(); };
-		const int32_t count8() const { return this->counter[aslib_mouse_8].Count(); };
+		const bool down8() const { return this->counter[aslib_mouse_8].down(); };
+		const bool up8() const { return this->counter[aslib_mouse_8].up(); };
+		const int32_t count8() const { return this->counter[aslib_mouse_8].count(); };
 
 		Mouse() :pos(mousePos()), wheel(mouseWheel()), counter(mouseButton()) {}
 

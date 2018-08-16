@@ -15,17 +15,17 @@ namespace AsLib
 		void update(const bool);
 		void update(const int32_t u_) { (u_ == 0) ? this->update(false) : this->update(true); }
 		//出力
-		const bool Down() const { return this->down; };
-		const bool Up() const { return this->up; };
-		const int32_t Count() const { return this->count; };
-		const bool Down0() { const bool isDown = down; this->down = false; return isDown; };
-		const bool Up0() { const bool isUp = up; this->up = false; return isUp; };
-		const int32_t Count0() { const int32_t isCount = count; this->count = 0; return isCount; };
+		const bool down() const { return this->key_down; };
+		const bool up() const { return this->key_up; };
+		const int32_t count() const { return this->key_count; };
+		const bool down0() { const bool isDown = key_down; this->key_down = false; return isDown; };
+		const bool up0() { const bool isUp = key_up; this->key_up = false; return isUp; };
+		const int32_t count0() { const int32_t isCount = key_count; this->key_count = 0; return isCount; };
 
 	private:
-		bool down = false;
-		bool up = false;
-		int32_t count = 0;
+		bool key_down = false;
+		bool key_up = false;
+		int32_t key_count = 0;
 	};
 
 	inline void Counter::update(const bool is_down)
@@ -33,17 +33,17 @@ namespace AsLib
 		//押されたか
 		if (is_down) {
 			//押された瞬間か
-			if (count == 0) down = true;
-			else down = false;
+			if (key_count == 0) key_down = true;
+			else key_down = false;
 			//カウントを増やす
-			if (count < INT32_MAX) ++count;
+			if (key_count < INT32_MAX) ++key_count;
 		}
 		else {
 			//離された瞬間か
-			if (count != 0) up = true;
-			else up = false;
+			if (key_count != 0) key_up = true;
+			else key_up = false;
 			//カウントをリセット
-			count = 0;
+			key_count = 0;
 		}
 	}
 }
