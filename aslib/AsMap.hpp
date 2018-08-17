@@ -693,33 +693,29 @@ namespace AsLib
 		size_t size_y = 0;
 		//巻き戻しするレイヤー
 		size_t layer = 0;
-		//巻き戻しのカウンター
-		size_t count = 0;
-
 		AsmapReturn() = default;
 	};
 
 	struct AsMapReturnControl {
-		//最大の長さ
+		//登録数の最大の長さ
 		size_t max_len = 0;
-		//今の長さ
+		//登録数の今の長さ
 		size_t now_len = 0;
-		//最大登録数
-		size_t max = 0;
-		//現在の登録数
-		size_t now = 0;
+		//登録数の最小数
+		size_t min_len = 0;
 		//最大の長さ
 		size_t return_map_num;
 		std::unique_ptr<AsmapReturn[]> return_map;
 
-		AsMapReturnControl(const size_t num_) :return_map_num(num_), return_map(new AsmapReturn[num_]) { if (num_ > 1)return_map[num_ - 1].count = SIZE_MAX; }
+		AsMapReturnControl(const size_t num_) :return_map_num(num_), return_map(new AsmapReturn[num_]) {}
 
-		//新しく登録する
-		AsMapReturnControl& start() { max = now; return *this; }
 		//登録するものを入れる
 		AsMapReturnControl& push(const size_t type_, const size_t id_, const size_t after_id_, const size_t x_, const size_t y_, const size_t layer_) {
+			if (id_ == after_id_) return *this;
 			AsmapReturn* b = &return_map[(max_len - 1 + return_map_num) % return_map_num];
 			if (b->size_x == x_ && b->size_y == y_ && b->layer == layer_ && b->after_id == after_id_) return *this;
+
+			max_len = now_len;
 
 			return_map[max_len].type = type_;
 			return_map[max_len].id = id_;
@@ -727,30 +723,26 @@ namespace AsLib
 			return_map[max_len].size_x = x_;
 			return_map[max_len].size_y = y_;
 			return_map[max_len].layer = layer_;
-			return_map[max_len].count = max;
 
-			if (max_len == SIZE_MAX) return *this;
 			++max_len;
 			max_len %= return_map_num;
-			return *this;
-		}
-		//新しく登録する
-		AsMapReturnControl& end() {
-			if (now_len == max_len) return *this;
+
+			if (max_len == min_len) {
+				++min_len;
+				min_len %= return_map_num;
+			}
 
 			now_len = max_len;
-			if (max == SIZE_MAX) return *this;
-			++max;
-			now = max;
 			return *this;
 		}
+
 		AsMapReturnControl& left(AsTextureMapArray* const tma_) {
-			if (tma_ == nullptr || now == 0) return *this;
-			--now;
+			if (tma_ == nullptr || now_len == min_len) return *this;
 			--now_len;
 			now_len += return_map_num;
 			now_len %= return_map_num;
 			size_t x, y, id, layer;
+
 			switch (return_map[now_len].type)
 			{
 			case aslib_map_return_empty:return *this;
@@ -772,70 +764,47 @@ namespace AsLib
 
 				std::vector<size_t> vmap;
 				vmap.resize(tma_->s_x*tma_->s_y);
-				for (size_t i = wp, k = 0; i < wpm; ++i, ++k) {
-					vmap[k] = tma_->s[i];
-				}
-
+				for (size_t i = wp, k = 0; i < wpm; ++i, ++k) vmap[k] = tma_->s[i];
 				asPaintTool(vmap, tma_->s_x, x, y, id);
-
-				for (size_t i = wp, k = 0; i < wpm; ++i, ++k) {
-					tma_->s[i] = vmap[k];
-				}
+				for (size_t i = wp, k = 0; i < wpm; ++i, ++k) tma_->s[i] = vmap[k];
 				return *this;
 			}
-			//while (true) {
-			//	if (return_map[now_len].count != now) break;
-			//	--now_len;
-			//	now_len += return_map_num;
-			//	now_len %= return_map_num;
-			//}
+
 			return *this;
 		}
 		AsMapReturnControl& right(AsTextureMapArray* const tma_) {
-			if (tma_ == nullptr || now == max) return *this;
-			++now;
-			++now_len;
-			now_len %= return_map_num;
+			if (tma_ == nullptr || now_len == max_len) return *this;
 			size_t x, y, id, layer;
 
-			switch (return_map[now_len - 1].type)
+			switch (return_map[now_len].type)
 			{
 			case aslib_map_return_empty:return *this;
 			case aslib_map_return_paint:
-				x = return_map[now_len - 1].size_x;
-				y = return_map[now_len - 1].size_y;
-				id = return_map[now_len - 1].after_id;
-				layer = return_map[now_len - 1].layer;
+				x = return_map[now_len].size_x;
+				y = return_map[now_len].size_y;
+				id = return_map[now_len].after_id;
+				layer = return_map[now_len].layer;
 				tma_->s[(tma_->s_x*y + x) + tma_->s_x*tma_->s_y*layer] = id;
-				return *this;
+				break;
 			case aslib_map_return_bucket:
-				x = return_map[now_len - 1].size_x;
-				y = return_map[now_len - 1].size_y;
-				id = return_map[now_len - 1].after_id;
-				layer = return_map[now_len - 1].layer;
+				x = return_map[now_len].size_x;
+				y = return_map[now_len].size_y;
+				id = return_map[now_len].after_id;
+				layer = return_map[now_len].layer;
 
 				const size_t wp = tma_->s_x*tma_->s_y*layer;
 				const size_t wpm = tma_->s_x*tma_->s_y*(layer + 1);
 
 				std::vector<size_t> vmap;
 				vmap.resize(tma_->s_x*tma_->s_y);
-				for (size_t i = wp, k = 0; i < wpm; ++i, ++k) {
-					vmap[k] = tma_->s[i];
-				}
-
+				for (size_t i = wp, k = 0; i < wpm; ++i, ++k) vmap[k] = tma_->s[i];
 				asPaintTool(vmap, tma_->s_x, x, y, id);
-
-				for (size_t i = wp, k = 0; i < wpm; ++i, ++k) {
-					tma_->s[i] = vmap[k];
-				}
-				return *this;
+				for (size_t i = wp, k = 0; i < wpm; ++i, ++k) tma_->s[i] = vmap[k];
+				break;
 			}
-			//while (true) {
-			//	//if (return_map[now_len].count != now) break;
+			++now_len;
+			now_len %= return_map_num;
 
-			//	++now_len;
-			//	now_len %= return_map_num;
-			//}
 			return *this;
 		}
 
@@ -1061,15 +1030,17 @@ namespace AsLib
 		size_t move_id = MOB_STOP;
 		//移動状態
 		size_t moving = MOB_CENTER;
-		//移動属性
+		//移動属性(あたり判定の種類)
 		size_t pl_field_type = aslib_attribute_human;
 		//アニメーションフレーム
 		size_t count = 0;
 		size_t move_count_max = 6;
 		//位置と大きさ
 		PosA4F pl;
-		//移動する距離
+		//移動する距離(移動速度)
 		float fps = 0.1f;
+		//移動頻度(NEW)
+		float move_cadence = 0.1f;
 		//画像
 		AsTexture* t = nullptr;
 		//あたり判定
@@ -1669,13 +1640,13 @@ namespace AsLib
 				{
 				case aslib_map_view_type_paint:
 					//書き換え
-					if (mrc_ != nullptr) mrc_->start().push(aslib_map_return_paint, t_->s[draw_id = draw_p.y*p2.x + draw_p.x + wp], *id_, draw_p.x, draw_p.y, layer_).end();
+					if (mrc_ != nullptr) mrc_->push(aslib_map_return_paint, t_->s[draw_id = draw_p.y*p2.x + draw_p.x + wp], *id_, draw_p.x, draw_p.y, layer_);
 					t_->s[draw_id] = *id_;
 					break;
 				case aslib_map_view_type_bucket:
 					if (asTouchDown()||asMouseL_Down()) {
 						//書き換え
-						if (mrc_ != nullptr) mrc_->start().push(aslib_map_return_bucket, t_->s[draw_id = draw_p.y*p2.x + draw_p.x + wp], *id_, draw_p.x, draw_p.y, layer_).end();
+						if (mrc_ != nullptr) mrc_->push(aslib_map_return_bucket, t_->s[draw_id = draw_p.y*p2.x + draw_p.x + wp], *id_, draw_p.x, draw_p.y, layer_);
 						std::vector<size_t> vmap;
 						vmap.resize(t_->s_x*t_->s_y);
 						for (size_t ii = wp, k = 0; ii < wpm; ++ii, ++k) vmap[k] = t_->s[ii];

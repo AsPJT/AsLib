@@ -349,11 +349,11 @@ namespace AsLib
 
 			while (rx < map_x) {
 				if (map_[ly*size_x_ + rx + 1] != col) break;
-				rx++;
+				++rx;
 			}
 			while (lx > 0) {//x_
 				if (map_[ly*size_x_ + lx - 1] != col) break;
-				lx--;
+				--lx;
 			}
 			for (size_t i = lx; i <= rx; ++i) map_[ly*size_x_ + i] = id_;
 

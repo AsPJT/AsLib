@@ -10,7 +10,7 @@
 namespace AsLib
 {
 #if defined(__ANDROID__)
-	const size_t stos(const std::string& str_) {
+	const size_t asAndroidStos(const std::string& str_) {
 		if (str_.size() == 0) return 0;
 		size_t s = 0;
 		switch (str_[0])
@@ -46,21 +46,60 @@ namespace AsLib
 }
 #endif
 
-	const int32_t asSize_t_ReadCSV(const std::string& str_, std::vector<size_t>& vec_, size_t* const x_ = nullptr, size_t* const y_ = nullptr) {
+	const size_t asStos(const std::string& str_) {
+#if defined(__ANDROID__)
+		return asAndroidStos(str_);
+#else
+		return size_t(stoull(str_));
+#endif
+	}
+
+
+
+	const int32_t asStreamRead(std::ifstream& ifs_, const std::string& str_) {
 #if defined(__ANDROID__)
 		constexpr size_t file_path_max = 256;
-		char FilePath[file_path_max];
-		DxLib::GetInternalDataPath(FilePath, sizeof(FilePath));
-		std::ifstream ifs(std::string(FilePath) + u8"\\" + str_);
-		if (!ifs) {
-			DxLib::GetExternalDataPath(FilePath, sizeof(FilePath));
-			std::ifstream ifs(std::string(FilePath) + u8"\\" + str_);
-			if (!ifs) return 1;
+		std::unique_ptr<char[]> file_path(new char[file_path_max]);
+		//アプリ内(内部データ)を調べる
+		DxLib::GetExternalDataPath(file_path.get(), file_path_max);
+		ifs_.open(std::string(file_path.get()) + u8"\\" + str_);
+		if (!ifs_) {
+			//本体内(外部データ)を調べる
+			DxLib::GetInternalDataPath(file_path.get(), file_path_max);
+			ifs_.open(std::string(file_path.get()) + u8"\\" + str_);
+			if (!ifs_) return 1;
 		}
 #else
-		std::ifstream ifs(str_);
-		if (!ifs) return 1;
+		ifs_.open(str_);
+		if (!ifs_) return 1;
 #endif
+		return 0;
+	}
+	const int32_t asStreamWrite(std::ofstream& ofs_, const std::string& str_) {
+#if defined(__ANDROID__)
+		constexpr size_t file_path_max = 256;
+		std::unique_ptr<char[]> file_path(new char[file_path_max]);
+		//アプリ内(内部データ)を調べる
+		DxLib::GetExternalDataPath(file_path.get(), file_path_max);
+		ofs_.open(std::string(file_path.get()) + u8"\\" + str_);
+		if (!ofs_) {
+			//本体内(外部データ)を調べる
+			DxLib::GetInternalDataPath(file_path.get(), file_path_max);
+			ofs_.open(std::string(file_path.get()) + u8"\\" + str_);
+			if (!ofs_) return 1;
+		}
+#else
+		ofs_.open(str_);
+		if (!ofs_) return 1;
+#endif
+		return 0;
+	}
+
+	//全てがsize_t型のcsvファイルを読み込む
+	const int32_t asSize_t_ReadCSV(const std::string& str_, std::vector<size_t>& vec_, size_t* const x_ = nullptr, size_t* const y_ = nullptr) {
+		//ファイル読み込み
+		std::ifstream ifs;
+		if (asStreamRead(ifs, str_) == 1) return 1;
 
 		std::string str;
 		size_t num = 0;
@@ -70,37 +109,22 @@ namespace AsLib
 		while (getline(ifs, str)) {
 			std::istringstream stream(str);
 			while (getline(stream, token, ',')) {
-#if defined(__ANDROID__)
-				vec_.emplace_back(stos(token));
-#else
-				vec_.emplace_back(size_t(stoull(token)));
-#endif
+				vec_.emplace_back(asStos(token));
 				++num;
 			}
 			++num_y;
 	}
-
+		//縦と横の長さを格納
 		if (x_ != nullptr && num_y != 0) *x_ = num / num_y;
 		if (y_ != nullptr) *y_ = num_y;
-
 		return 0;
 }
 
 	const int32_t asSize_t_WriteCSV(const std::string& str_, const std::vector<size_t>& vec_, const size_t x_, const size_t y_, const size_t ii_ = 0) {
-#if defined(__ANDROID__)
-		constexpr size_t file_path_max = 256;
-		char FilePath[file_path_max];
-		DxLib::GetInternalDataPath(FilePath, sizeof(FilePath));
-		std::ofstream ofs(std::string(FilePath) + u8"\\" + str_);
-		if (!ofs) {
-			DxLib::GetExternalDataPath(FilePath, sizeof(FilePath));
-			std::ifstream ifs(std::string(FilePath) + u8"\\" + str_);
-			if (!ofs) return 1;
-		}
-#else
-		std::ofstream ofs(str_);
-		if (!ofs) return 1;
-#endif
+		//ファイル書き込み
+		std::ofstream ofs;
+		if (asStreamWrite(ofs, str_) == 1) return 1;
+
 		const size_t xy_ = ii_ + x_ * y_;
 		for (size_t i = ii_, k = 1; i < xy_; ++i, ++k) {
 			ofs << vec_[i] << ',';
@@ -112,8 +136,8 @@ namespace AsLib
 	}
 
 	const int32_t asMapRead(const std::string& str_, std::vector<size_t>& vec_, size_t* const x_ = nullptr, size_t* const y_ = nullptr, size_t* const layer_ = nullptr) {
+		vec_.resize(0);
 		size_t layer = 0;
-		vec_.clear();
 		while (true) {
 #if defined(__ANDROID__)
 			std::stringstream ss;
@@ -125,6 +149,8 @@ namespace AsLib
 			++layer;
 		}
 		if (layer_ != nullptr) *layer_ = layer;
+
+		if (layer == 0) return 1;
 		return 0;
 	}
 
@@ -133,9 +159,9 @@ namespace AsLib
 #if defined(__ANDROID__)
 			std::stringstream ss;
 			ss << i;
-			asSize_t_WriteCSV(u8"asrpg_map_" + str_ + u8"_" + ss.str() + u8".csv", vec_, x_, y_, x_*y_*i);
+			if (asSize_t_WriteCSV(u8"asrpg_map_" + str_ + u8"_" + ss.str() + u8".csv", vec_, x_, y_, x_*y_*i) == 1) return 1;
 #else
-			asSize_t_WriteCSV(u8"asrpg_map_" + str_ + u8"_" + std::to_string(i) + u8".csv", vec_, x_, y_, x_*y_*i);
+			if (asSize_t_WriteCSV(u8"asrpg_map_" + str_ + u8"_" + asSizeToString(i) + u8".csv", vec_, x_, y_, x_*y_*i) == 1) return 1;
 #endif
 		}
 		return 0;
@@ -152,27 +178,20 @@ namespace AsLib
 		std::string token;
 
 #if defined(ASLIB_INCLUDE_DL)
-		char String[256];
+		constexpr size_t file_path_max = 256;
+		std::unique_ptr<char[]> file_path(new char[file_path_max]);
 		int FileHandle = DxLib::FileRead_open(str_.c_str());
 		static std::string str__2;
 		str__2= u8"";
 		while (DxLib::FileRead_eof(FileHandle) == 0)
 		{
-			DxLib::FileRead_gets(String, 256, FileHandle);
-			str = String;
+			DxLib::FileRead_gets(file_path.get(), file_path_max, FileHandle);
+			str = std::string(file_path.get());
 			std::istringstream stream(str);
 			type_id = 0;
 			while (getline(stream, token, ',')) {
-				if (type_id == 0) {
-					name_.emplace_back(token);
-				}
-				else {
-#if defined(__ANDROID__)
-					vec_.emplace_back(stos(token));
-#else
-					vec_.emplace_back(size_t(stoull(token)));
-#endif
-				}
+				if (type_id == 0) name_.emplace_back(token);
+				else vec_.emplace_back(asStos(token));
 				++type_id;
 				++num;
 			}
@@ -184,35 +203,16 @@ namespace AsLib
 		DxLib::FileRead_close(FileHandle);
 		if (vec_.size() != 0) return 0;
 #endif
-#if defined(__ANDROID__)
-		constexpr size_t file_path_max = 256;
-		char FilePath[file_path_max];
-		DxLib::GetInternalDataPath(FilePath, sizeof(FilePath));
-		std::ifstream ifs(std::string(FilePath) + u8"\\" + str_);
-		if (!ifs) {
-			DxLib::GetExternalDataPath(FilePath, sizeof(FilePath));
-			std::ifstream ifs(std::string(FilePath) + u8"\\" + str_);
-			if (!ifs) return 1;
-		}
-#else
-		std::ifstream ifs(str_);
-		if (!ifs) return 1;
-#endif
+		//ファイル読み込み
+		std::ifstream ifs;
+		if (asStreamRead(ifs, str_) == 1) return 1;
+
 		while (getline(ifs, str)) {
 			std::istringstream stream(str);
 			type_id = 0;
 			while (getline(stream, token, ',')) {
-				if (type_id == 0) {
-					name_.emplace_back(token);
-				}
-				else {
-#if defined(__ANDROID__)
-					vec_.emplace_back(stos(token));
-#else
-					vec_.emplace_back(size_t(stoull(token)));
-#endif
-
-				}
+				if (type_id == 0) name_.emplace_back(token);
+				else vec_.emplace_back(asStos(token));
 				++type_id;
 				++num;
 			}

@@ -9,7 +9,15 @@
 
 namespace AsLib
 {
-
+	const std::string asSizeToString(const size_t s_) {
+#if defined(__ANDROID__)
+		std::stringstream ss;
+		ss << s_;
+		return ss.str();
+#else
+		return std::to_string(s_);
+#endif
+	}
 
 	//言語リスト
 	enum :size_t {
@@ -60,6 +68,7 @@ namespace AsLib
 		aslib_button_type_number,
 	};
 
+	//画像のみを表示するシンプルなボタン
 	struct AsTextureButton {
 		//位置
 		PosA4 pos;
@@ -89,6 +98,37 @@ namespace AsLib
 		const bool isOn() const { return on_off; }
 		AsTextureButton& bit() { if (on_off) on_off = false; else on_off = true; return *this; }
 		AsTextureButton& bitSet(const bool is_) { on_off = is_; return *this; }
+	};
+	//数値ボタン付き
+	struct AsTextureNumButton :public AsTextureButton {
+		PosA4 p_up;
+		PosA4 p_down;
+
+		AsFont font;
+
+		AsTextureNumButton(const PosA4& p_, AsTexture* const t_) :AsTextureButton(p_, t_), p_up(PosA4(p_.x, p_.y - p_.h / 2, p_.w, p_.h / 2)), p_down(PosA4(p_.x, p_.y + p_.h / 2, p_.w, p_.h / 2)), font(p_.h/2) {}
+		//タッチカウント
+		Counter counter_up;
+		void updateUp() { counter_up.update(asTouch(p_up) || asMouseL(p_up)); }
+		const bool downUp() const { return counter_up.down(); };
+		const bool upUp() const { return counter_up.up(); };
+		const int32_t countUp() const { return counter_up.count(); };
+		const bool down0_Up() { return counter_up.down0(); };
+		const bool up0_Up() { return counter_up.up0(); };
+		const int32_t count0_Up() { return counter_up.count0(); };
+		//タッチカウント
+		Counter counter_down;
+		void updateDown() { counter_down.update(asTouch(p_down) || asMouseL(p_down)); }
+		const bool downDown() const { return counter_down.down(); };
+		const bool upDown() const { return counter_down.up(); };
+		const int32_t countDown() const { return counter_down.count(); };
+		const bool down0_Down() { return counter_down.down0(); };
+		const bool up0_Down() { return counter_down.up0(); };
+		const int32_t count0_Down() { return counter_down.count0(); };
+
+		void drawNum(const size_t var_,const Color& c_=aslib_color_black_a) {
+			font.drawAt(asSizeToString(var_).c_str(), Pos2(pos.x, pos.y), c_);
+		}
 	};
 
 	struct AsButton {
