@@ -329,7 +329,7 @@ namespace AsLib
 		}
 #endif
 #if defined(__ANDROID__)
-		asSetWindowSize(asWindowSizeTrue(window_size));
+		asSetWindowSize(asWindowSizeTrue(p_));
 #endif
 		if (DxLib::SetDXArchiveExtension("as") == -1) return -1;
 
@@ -355,7 +355,7 @@ namespace AsLib
 #endif
 		if (DxLib::SetUseASyncLoadFlag(FALSE) == -1) return -1;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		s3d::Window::Resize(window_size.x, window_size.y);
+		s3d::Window::Resize(p_.x, p_.y);
 		s3d::Graphics::SetBackground(s3d::Color(BG_color));
 		static s3d::RenderStateBlock2D wireframe(s3d::SamplerState::ClampNearest);
 #elif defined(ASLIB_INCLUDE_OF)

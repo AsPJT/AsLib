@@ -168,7 +168,7 @@ namespace AsLib
 	}
 
 
-	const int32_t asSize_t_MapReadCSV(const std::string& str_, std::vector<std::string>& name_, std::vector<size_t>& vec_, size_t* const x_ = nullptr, size_t* const y_ = nullptr) {
+	const int32_t asSize_t_MapReadCSV(const std::string& str_, std::vector<std::string>& name_, std::vector<size_t>& vec_, std::vector<size_t>& type_, std::vector<size_t>& field_, size_t* const x_ = nullptr, size_t* const y_ = nullptr) {
 
 		std::string str;
 		size_t num = 0;
@@ -190,8 +190,13 @@ namespace AsLib
 			std::istringstream stream(str);
 			type_id = 0;
 			while (getline(stream, token, ',')) {
-				if (type_id == 0) name_.emplace_back(token);
-				else vec_.emplace_back(asStos(token));
+				switch (type_id)
+				{
+				case 0:name_.emplace_back(token); break;
+				case 1:vec_.emplace_back(asStos(token)); break;
+				case 2:type_.emplace_back(asStos(token)); break;
+				case 3:field_.emplace_back(asStos(token)); break;
+				}
 				++type_id;
 				++num;
 			}
@@ -211,8 +216,13 @@ namespace AsLib
 			std::istringstream stream(str);
 			type_id = 0;
 			while (getline(stream, token, ',')) {
-				if (type_id == 0) name_.emplace_back(token);
-				else vec_.emplace_back(asStos(token));
+				switch (type_id)
+				{
+				case 0:name_.emplace_back(token); break;
+				case 1:vec_.emplace_back(asStos(token)); break;
+				case 2:type_.emplace_back(asStos(token)); break;
+				case 3:field_.emplace_back(asStos(token)); break;
+				}
 				++type_id;
 				++num;
 			}

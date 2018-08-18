@@ -12,7 +12,7 @@ namespace AsLib
 
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 	//画像を分割ロードする
-	std::unique_ptr<OriginatorTexture[]> asLoadTexture(const char* const name, const size_t tex_num_x = 1, const size_t tex_num_y = 1)
+	std::unique_ptr<OriginatorTexture[]> asLoadTexture(const char* const name, const size_t tex_num_x = 1, const size_t tex_num_y = 1,const bool a_=true)
 	{
 		const size_t aslib_load_texture_xy = tex_num_x * tex_num_y;
 		std::unique_ptr<OriginatorTexture[]> texs(new OriginatorTexture[aslib_load_texture_xy]);
@@ -89,23 +89,23 @@ namespace AsLib
 	}
 #endif
 
-	inline void asTexture(const OriginatorTexture& tex, const PosA4F& p_, const float& r_, const uint8_t& alpha = 255)
+	inline void asTexture(const OriginatorTexture& tex, const PosA4F& p_, const float& r_, const uint8_t& alpha = 255, const bool is_a_ = true)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		DxLib::SetDrawBlendMode(1, int(alpha));
 		const Pos2 s(asTextureSize(tex));
-		DxLib::DrawRotaGraphFast3(int(p_.x), int(p_.y), s.x / 2, s.y / 2, p_.w / s.x, p_.h / s.y, r_, tex, 1);
+		DxLib::DrawRotaGraphFast3(int(p_.x), int(p_.y), s.x / 2, s.y / 2, p_.w / s.x, p_.h / s.y, r_, tex, (is_a_) ? TRUE : FALSE);
 #else
 #if defined(ANIME_TEXTURE_1)
 
 #endif
 #endif
 	}
-	inline void asTexture(const OriginatorTexture& tex, const Pos4& pos, const uint8_t& alpha = 255)
+	inline void asTexture(const OriginatorTexture& tex, const Pos4& pos, const uint8_t& alpha = 255, const bool is_a_ = true)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		DxLib::SetDrawBlendMode(1, int(alpha));
-		DxLib::DrawExtendGraph(int(pos.x1), int(pos.y1), int(pos.x2), int(pos.y2), tex, TRUE);
+		DxLib::DrawExtendGraph(int(pos.x1), int(pos.y1), int(pos.x2), int(pos.y2), tex, (is_a_) ? TRUE : FALSE);
 #else //Console
 #if defined(ANIME_TEXTURE_1)
 
@@ -130,6 +130,7 @@ namespace AsLib
 		size_t num = 0;
 		size_t num_x = 0;
 		size_t num_y = 0;
+		bool is_alpha = true;
 	public:
 		AsTexture() = default;
 		~AsTexture() { 
@@ -138,7 +139,7 @@ namespace AsLib
 #endif
 		}
 #if defined(ANIME_TEXTURE_1)
-		AsTexture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_, x_, y_)), num(x_*y_), num_x(x_), num_y(y_)
+		AsTexture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1, const bool a_ = true) :id(asLoadTexture(name_, x_, y_)), num(x_*y_), num_x(x_), num_y(y_), is_alpha(a_)
 		{
 			//画像サイズ取得
 			asTextureSize(this->id, this->pixel_size);
@@ -146,12 +147,13 @@ namespace AsLib
 			this->pixel_size.y /= int32_t(y_);
 			this->turn_id = size_t(x_);
 		}
-		AsTexture& operator()(const char* const name_, const size_t x_ = 1, const size_t y_ = 1)
+		AsTexture& operator()(const char* const name_, const size_t x_ = 1, const size_t y_ = 1, const bool a_ = true)
 		{
 			id = asLoadTexture(name_, x_, y_);
 			num = x_ * y_;
 			num_x = x_;
 			num_y = y_;
+			is_alpha = a_;
 			//画像サイズ取得
 			asTextureSize(this->id, this->pixel_size);
 			this->pixel_size.x /= int32_t(x_);
@@ -160,10 +162,11 @@ namespace AsLib
 			return *this;
 		}
 #elif defined(ANIME_TEXTURE_2)
-		AsTexture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1) :id(asLoadTexture(name_,x_,y_)), pixel_size(asTextureSize(this->id[0])), num(x_*y_), num_x(x_), num_y(y_) {}//stdmovea
-		AsTexture& operator()(const char* const name_, const size_t x_ = 1, const size_t y_ = 1)
+		AsTexture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1, const bool a_ = true) :id(asLoadTexture(name_,x_,y_)), pixel_size(asTextureSize(this->id[0])), num(x_*y_), num_x(x_), num_y(y_), is_alpha(a_) {}//stdmovea
+		AsTexture& operator()(const char* const name_, const size_t x_ = 1, const size_t y_ = 1, const bool a_ = true)
 		{
 #if defined(ASLIB_INCLUDE_DL)
+			//以前のデータを削除
 			for (size_t i = 0; i < num; ++i) DxLib::DeleteGraph(id[i]);
 #endif
 			id = asLoadTexture(name_, x_, y_);//stdmovea
@@ -171,6 +174,7 @@ namespace AsLib
 			num = x_ * y_;
 			num_x = x_;
 			num_y = y_;
+			is_alpha = a_;
 			return *this;
 		}
 #elif defined(ANIME_TEXTURE_3)
@@ -187,7 +191,7 @@ namespace AsLib
 #if defined(ANIME_TEXTURE_1)
 			asTextureType1(this->id, Pos2(), this->pixel_size, PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha);
 #elif defined(ANIME_TEXTURE_2)
-			asTexture(this->id[anime_size], this->pixel_size, alpha);
+			asTexture(this->id[anime_size], this->pixel_size, alpha, is_alpha);
 #endif
 			return *this;
 		}
@@ -199,7 +203,7 @@ namespace AsLib
 #if defined(ANIME_TEXTURE_1)
 			asTextureType1(this->id, Pos2(add_pos.x1, add_pos.y1), Pos2(add_pos.x2 - add_pos.x1, add_pos.y2 - add_pos.y1), PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha);
 #elif defined(ANIME_TEXTURE_2)
-			asTexture(this->id[anime_size], add_pos, alpha);
+			asTexture(this->id[anime_size], add_pos, alpha, is_alpha);
 #endif
 			return *this;
 		}
@@ -210,8 +214,11 @@ namespace AsLib
 		//サイズ等倍 位置指定
 		AsTexture& drawArea(const size_t anime_size, const Pos4& add_pos, const uint8_t alpha = 255, Pos4 area_ = aslib_default_area)
 		{
+#if defined(ASLIB_INCLUDE_S3)
+			s3d::ViewportBlock2D area(area_.x1, area_.y1, area_.x2 - area_.x1, area_.y2 - area_.y1);
+#endif
 #if defined(ANIME_TEXTURE_1)
-			asTextureType1(this->id, Pos2(add_pos.x1 + area_.x1, add_pos.y1 + area_.y1), Pos2(add_pos.x2 - add_pos.x1, add_pos.y2 - add_pos.y1), PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha);
+			asTextureType1(this->id, Pos2(add_pos.x1, add_pos.y1), Pos2(add_pos.x2 - add_pos.x1, add_pos.y2 - add_pos.y1), PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha);
 #elif defined(ANIME_TEXTURE_2)
 #if defined(ASLIB_INCLUDE_DL)
 			//bool is_area = false;
@@ -219,7 +226,7 @@ namespace AsLib
 			//if(is_area) 
 				DxLib::SetDrawArea(area_.x1, area_.y1, area_.x2, area_.y2);
 			//if(is_area) 
-				asTexture(this->id[anime_size], Pos4(add_pos.x1 + area_.x1, add_pos.y1 + area_.y1, add_pos.x2 + area_.x1, add_pos.y2 + area_.y1), alpha);
+				asTexture(this->id[anime_size], Pos4(add_pos.x1 + area_.x1, add_pos.y1 + area_.y1, add_pos.x2 + area_.x1, add_pos.y2 + area_.y1), alpha, is_alpha);
 
 				DxLib::SetDrawAreaFull();
 #else

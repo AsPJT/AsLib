@@ -109,22 +109,23 @@ int32_t asMain()
 	main_map.push(&mo2_te, aslib_texture_map_field_type_wall);
 	main_map.push(&underground_stairs_te, aslib_texture_map_field_type_empty);
 
-	size_t read_x = 0;
-	size_t read_y = 0;
-	const std::string str_ = u8"map_tile.csv";
-	std::vector<std::string> name_;
-	std::vector<size_t> vec_;
-	if (asSize_t_MapReadCSV(str_, name_, vec_, &read_x, &read_y) != 0) return 0;
+	//size_t read_x = 0;
+	//size_t read_y = 0;
+	//const std::string str_ = u8"map_tile.csv";
+	//std::vector<std::string> name_;
+	//std::vector<size_t> vec_;
+	//if (asSize_t_MapReadCSV(str_, name_, vec_, &read_x, &read_y) != 0) return 0;
 
-	asPrint("%d,%d,%d,%d", name_.size(), vec_.size(), read_x, read_y);
+	//asPrint("%d,%d,%d,%d", name_.size(), vec_.size(), read_x, read_y);
 
-	std::unique_ptr<AsTexture[]> as_t(new AsTexture[read_y]);
-	for (size_t i = 0; i < name_.size(); ++i) {
-		as_t[i](name_[i].c_str(), vec_[i] * 2, 10);
-		main_map.push(&as_t[i], aslib_texture_map_field_type_water);
-	}
-
-
+	//std::unique_ptr<AsTexture[]> as_t(new AsTexture[read_y]);
+	//for (size_t i = 0; i < name_.size(); ++i) {
+	//	as_t[i](name_[i].c_str(), vec_[i] * 2, 10);
+	//	main_map.push(&as_t[i], aslib_texture_map_field_type_water);
+	//}
+	//マップ読み込み
+	//size_t as_t_size = 0;
+	//std::unique_ptr<AsTexture[]> as_t = main_map.readMapCSV(u8"Picture/map_tile.csv", &as_t_size);
 
 	//フィールド属性
 	AsAllAttribute att;
@@ -137,16 +138,16 @@ int32_t asMain()
 	main_map.resizeMap(w_pos2);
 	main_map.worldMap(2, 4, 8, 9);
 	//if (main_map.readCSV() == 1 && main_map.readBackupCSV() == 1) {
-	//	main_map.resizeMap(w_pos2);
-	//	main_map.setLayer(2, 1);
-	//	main_map.randMap(1);
+		//main_map.resizeMap(w_pos2);
+		//main_map.setLayer(2, 1);
+		//main_map.randMap(1);
 	//}
-	//main_map.resizeMap(w_pos2);
+	main_map.resizeMap(w_pos2);
 	//main_map.putTexture();
 	//main_map.setLayer(2, 1);
 	//main_map.randMap(1);
 	//main_map.putMap(1, 1);
-	//main_map.mazeMap(4,0,1);
+	main_map.mazeMap(4,0,1);
 
 	//constexpr PosA4F pl2(1.0f, 1.0f, 1.0f, 1.0f);
 	constexpr PosA4F pl2(7.0f, 8.0f, 3.0f, 3.0f);
@@ -156,7 +157,7 @@ int32_t asMain()
 
 	//イベント管理
 	AsMapEventControl map_event(w_pos2,aslib_mob_walk_type_big, &feri, pl, aslib_map_event_type_mob);
-	map_event.spawn().add(&feri, pl2);
+	map_event.spawn().add(&feri, pl2, aslib_map_event_type_mob);
 
 	AsEventMessageWindow emw(&window, u8"p/str.txt");
 	map_event.me[1].event_init = aslib_event_init_tolk;
@@ -210,7 +211,7 @@ int32_t asMain()
 		//イベント描画
 		map_view.draw(&map_event);
 		//ランダムスポーン
-		map_event.spawn(1).add(&feri, pl3);
+		map_event.spawn(1).add(&feri, pl3, aslib_map_event_type_mob);
 		//ズーム
 		asTouchPinch(map_p, 10.0f,30);
 		map_view.setLookSize(map_p, 'y');
@@ -220,23 +221,23 @@ int32_t asMain()
 		//会話起動イベント
 		map_event.talk(kl.is_ok());
 
-		//++auto_save_counter;
-		//if (auto_save_counter >= auto_save_timer) {
-		//	auto_save_counter = 0;
-		//	main_map.writeCSV();
-		//}
-		//++auto_backup_counter;
-		//if (auto_backup_counter >= auto_backup_timer) {
-		//	auto_backup_counter = 0;
-		//	main_map.writeBackupCSV();
-		//}
+		++auto_save_counter;
+		if (auto_save_counter >= auto_save_timer) {
+			auto_save_counter = 0;
+			main_map.writeCSV();
+		}
+		++auto_backup_counter;
+		if (auto_backup_counter >= auto_backup_timer) {
+			auto_backup_counter = 0;
+			main_map.writeBackupCSV();
+		}
 
 		//ウィンドウ関連
 		if (window.isWindow()) window.playEffect().update().updateEnd().drawPerson().drawWindow().writeString().drawEndAnime().playSound().printString().printName().next(kl.is_ok());
 		else inv.selectAdd(mouseWheel()).draw(item).isSelectUp(asKeyL_Up()).isSelectDown(asKeyK_Up());
 	}
 
-	//main_map.writeCSV();
+	main_map.writeCSV();
 
 	//for (size_t i = 0; i < kl.ok.size(); ++i) if (kl.ok[i] < 256 && asKeyUp(kl.ok[i])) main_map.putBlock(4, pl, 1);
 	//

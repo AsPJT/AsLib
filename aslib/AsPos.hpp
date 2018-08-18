@@ -1362,4 +1362,33 @@ namespace AsLib
 		Pos8A2& operator()(const Pos8& p_) { this->p1 = p_; this->p2 = p_; return *this; }
 		Pos8A2& operator()(const Pos8& p1_, Pos8& p2_) { this->p1 = p1_; this->p2 = p2_; return *this; }
 	};
+
+	//ˆÊ’u‚ðŒˆ‚ß‚é
+	struct AsPosFArray {
+	private:
+		PosL4F pos;
+		size_t num_x;
+		size_t num_y;
+		size_t num;
+
+		bool is_x = false;
+		bool is_y = false;
+
+	public:
+		void setX(const float f_) { is_x = true; is_y = false; }
+		void setY(const float f_) { is_x = false; is_y = true; }
+
+		constexpr AsPosFArray(const PosL4F& p_, const size_t x_ = 1, const size_t y_ = 1) :pos(p_), num_x((x_ == 0) ? 1 : x_), num_y((y_ == 0) ? 1 : y_), num((x_*y_ == 0) ? 1 : x_ * y_) {}
+		const PosL4F operator[](const size_t num_) {
+			const size_t num_x_ = num_ % num_x;
+			const size_t num_y_ = num_ / num_x;
+
+			if (is_x) return PosL4F(pos.x + pos.h*num_x_ / num_y, pos.y + pos.h*num_y_ / num_y, pos.h / num_y, pos.h / num_y);
+			if (is_y) return PosL4F(pos.x + pos.w*num_x_ / num_x, pos.y + pos.w*num_y_ / num_x, pos.w / num_x, pos.w / num_x);
+			return PosL4F(pos.x + pos.w*num_x_ / num_x, pos.y + pos.h*num_y_ / num_y, pos.w / num_x, pos.h / num_y);
+		}
+
+
+	};
+
 }

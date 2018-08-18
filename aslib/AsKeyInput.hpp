@@ -183,6 +183,62 @@ namespace AsLib
 	}
 #endif
 
+	//•¶Žš“ü—ÍƒVƒXƒeƒ€
+	struct AsKeyInput {
+		size_t size = 0;
+		int handle = -1;
+		bool is_on = false;
+		char mode = 'a';
+		std::string str{};
+
+#if defined(ASLIB_INCLUDE_DL) //DxLib
+#if defined(__WINDOWS__)
+		AsKeyInput(const size_t s_, const char mode_ = 'a') :size(s_), mode(mode_) {
+			handle = DxLib::MakeKeyInput((s_ == 0) ? 1 : size, FALSE, (mode_ == 'h') ? TRUE : FALSE, (mode_ == 'n') ? TRUE : FALSE);
+		}
+
+		void on() {
+			DxLib::SetActiveKeyInput(handle);
+			is_on = true;
+			str.clear();
+		}
+		void off() { DxLib::SetActiveKeyInput(-1); is_on = false; }
+		const bool check() {
+			if (!is_on) return false;
+			return (DxLib::CheckKeyInput(handle) != 0);
+		}
+		void draw(const int32_t x_, const int32_t y_) {
+			if (is_on) DxLib::DrawKeyInputString(x_, y_, handle);
+		}
+		const std::string output() {
+			if (size == 0) return str;
+			std::unique_ptr<char[]> unique_str(new char[size]);
+			for (size_t i = 0; i < size; ++i) unique_str[i] = 0;
+			DxLib::GetKeyInputString(unique_str.get(), handle);
+			str = std::string(unique_str.get());
+			return str;
+		}
+		void clear() {
+			DxLib::DeleteKeyInput(handle);
+			str.clear();
+			str.shrink_to_fit();
+			handle = -1;
+		}
+		const int32_t outputNum() {
+			if (mode != 'n') return 0;
+			return DxLib::GetKeyInputNumber(handle);
+		}
+		void inputNum(const int32_t num_) {
+			if (mode != 'n') return;
+			DxLib::SetKeyInputNumber(num_, handle);
+		}
+		void input(const char* const str_) {
+			DxLib::SetKeyInputString(str_, handle);
+		}
+#endif
+#endif
+	};
+
 
 
 }

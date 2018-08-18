@@ -73,6 +73,13 @@ namespace AsLib
 #endif
 	}
 
+	const bool asMousePos(const Pos4& p_) {
+		const Pos2 touch_p = mousePos();
+		if (touch_p.x > p_.x1&&touch_p.y > p_.y1&&touch_p.x < p_.x2&&touch_p.y < p_.y2) return true;
+		else false;
+		return 0;
+	}
+
 	const int32_t asMouseWheel(const Pos4& p_) {
 		const int32_t wheel = mouseWheel();
 		if (wheel == 0) return 0;
@@ -81,6 +88,7 @@ namespace AsLib
 		if (touch_p.x > p_.x1&&touch_p.y > p_.y1&&touch_p.x < p_.x2&&touch_p.y < p_.y2) return wheel;
 		return 0;
 	}
+
 	inline void asMouseWheel(PosA4F& add_, const float f_ = 5.0, const int32_t view_max_ = 0, Pos4 area_ = aslib_default_area) {
 		if (!isArea(area_)) area_ = asWindowSize4();
 		float pinch = asMouseWheel(area_) / f_;
