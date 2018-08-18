@@ -136,7 +136,7 @@ namespace AsLib
 	}
 
 	const int32_t asMapRead(const std::string& str_, std::vector<size_t>& vec_, size_t* const x_ = nullptr, size_t* const y_ = nullptr, size_t* const layer_ = nullptr) {
-		vec_.resize(0);
+		vec_.clear();
 		size_t layer = 0;
 		while (true) {
 #if defined(__ANDROID__)

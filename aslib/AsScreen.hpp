@@ -26,8 +26,8 @@ namespace AsLib
 
 	public:
 		const Pos4 pos4()const { return p4; }
-		void area() { DxLib::SetDrawArea(p4.x1, p4.y1, p4.x2, p4.y2); }
-		void areaClear() { DxLib::SetDrawArea(0, 0, asWindowSize().x, asWindowSize().y); }
+		//void area() { DxLib::SetDrawArea(p4.x1, p4.y1, p4.x2, p4.y2); }
+		//void areaClear() { DxLib::SetDrawArea(0, 0, asWindowSize().x, asWindowSize().y); }
 		const bool isArea()const { return is_p4; }
 		AsScreen(const Pos4& p_) :s_x(p_.x2 - p_.x1), s_y(p_.y2 - p_.y1), p4(p_), is_p4(true) {};
 		AsScreen(const Pos2& p_, const bool is_alpha = true) :s_x(p_.x),s_y(p_.y),screen(DxLib::MakeScreen(int(p_.x), int(p_.y), (is_alpha == true) ? 1 : 0)), is_alpha(is_alpha), is_error(checkScreen(screen)) {}

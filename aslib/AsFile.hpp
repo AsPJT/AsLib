@@ -245,7 +245,7 @@ namespace AsLib
 
 	const std::vector<size_t> asAllReadToSize_t(const std::string& str_) {
 		static std::vector<size_t> final_str;
-		final_str.resize(0);
+		final_str.clear();
 
 		const size_t size = sizeof(size_t);
 		size_t total_size = 0;

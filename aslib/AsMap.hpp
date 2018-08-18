@@ -535,6 +535,24 @@ namespace AsLib
 
 		AsTextureMapArray() = default;
 
+		std::unique_ptr<AsTexture[]> readMapCSV(const std::string str_, size_t* const s_ = nullptr, size_t* const var_ = nullptr) {
+			std::unique_ptr<AsTexture[]> as_t;
+			size_t read_x = 0;
+			size_t read_y = 0;
+			std::vector<std::string> name_;
+			std::vector<size_t> vec_;
+			if (asSize_t_MapReadCSV(str_, name_, vec_, &read_x, &read_y) == 0) {
+				//asPrint("%d,%d,%d,%d", name_.size(), vec_.size(), read_x, read_y);
+				as_t.reset(new AsTexture[read_y]);
+				for (size_t i = 0; i < name_.size(); ++i) {
+					as_t[i](name_[i].c_str(), vec_[i] * 2, 10);
+					this->push(&as_t[i], aslib_texture_map_field_type_water);
+				}
+			}
+			if (s_ != nullptr) *s_ = name_.size();
+			if (var_ != nullptr) *var_ = this->t.size();
+			return as_t;
+		}
 		const int32_t readCSV() {
 			return asMapRead(s_name, s, &s_x, &s_y, &s_layer);
 		}
@@ -565,7 +583,6 @@ namespace AsLib
 				s[i] = k;
 			}
 		}
-
 		void putBlock(const size_t s_, const Pos2 p_, const size_t layer_ = 0) {
 			if (p_.is_minus() || p_.x >= (signed)s_x || p_.y >= (signed)s_y || layer_ >= s_layer) return;
 			this->s[layer_*this->s_x*this->s_y + p_.y*this->s_x + p_.x] = s_;
@@ -1408,18 +1425,15 @@ namespace AsLib
 		//マップサイズ
 		Pos2 p2;
 
-		AsMapView& drawMap(const size_t* const min_ = nullptr, const size_t* const max_ = nullptr, AsTextureMapArray* const a_ = nullptr, AsScreen* const s_ = nullptr)
+		AsMapView& drawMap(const size_t* const min_ = nullptr, const size_t* const max_ = nullptr, AsTextureMapArray* const a_ = nullptr, Pos4 area_ = aslib_default_area)
 		{
 			if (a_ == nullptr) return *this;
 			const size_t draw_layer_min = (min_ == nullptr) ? 0 : *min_;
 			const size_t draw_layer_max = (max_ == nullptr) ? ((min_ == nullptr) ? a_->s_layer : (*min_ + 1)) : *max_;
 
-			Pos2F mm;
-			if (s_ == nullptr) mm = asWindowSizeF();
-			else mm(float(s_->x()), float(s_->y()));
-
+			if (!isArea(area_)) area_ = asWindowSize4();
 			//1マスの描画幅
-			const Pos2F m(mm.x / this->p.w, mm.y / this->p.h);
+			const Pos2F m((area_.x2 - area_.x1) / this->p.w, (area_.y2 - area_.y1) / this->p.h);
 
 			//中心幅
 			const Pos2F ce_length(this->p.w / 2.0f, this->p.h / 2.0f);
@@ -1458,7 +1472,7 @@ namespace AsLib
 					draw_map.x = in_draw.x;
 					draw_map.y += m.y;
 					select_map.y = i;
-					while (select_map.y < 0) { select_map.y += p2.y; }
+					while (select_map.y < 0) select_map.y += p2.y;
 					select_map.y = select_map.y % p2.y;
 
 					//X軸指定
@@ -1467,7 +1481,7 @@ namespace AsLib
 
 						draw_map.x += m.x;
 						select_map.x = j;
-						while (select_map.x < 0) { select_map.x += p2.x; }
+						while (select_map.x < 0) select_map.x += p2.x;
 						select_map.x = select_map.x % p2.x;
 
 						//描画するデータのある配列の場所
@@ -1480,7 +1494,7 @@ namespace AsLib
 						switch (a_->tm[a_->s[array_num]].type)
 						{
 						case aslib_texture_map_type_1n:
-							texture_id->drawScreen(a_->tm[a_->s[array_num]].anime_show_id, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), 255, s_);
+							texture_id->drawArea(a_->tm[a_->s[array_num]].anime_show_id, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), 255, area_);
 							break;
 						case aslib_texture_map_type_20n:
 							tm_id = &a_->tm[a_->s[array_num]];
@@ -1513,10 +1527,10 @@ namespace AsLib
 							amap[MOB_DOWN] = (a_->s[pyp + select_map.x + draw_layer_plus] == map_id);
 							amap[MOB_RIGHT_DOWN] = (a_->s[pyp + pxp + draw_layer_plus] == map_id);
 
-							texture_id->drawScreen(texture_id->NumX() * 2 * map20n_Number(amap[MOB_LEFT], amap[MOB_UP], amap[MOB_LEFT_UP]) + tm_id->anime_show_id, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f)), 255, s_);
-							texture_id->drawScreen(texture_id->NumX() * 2 * map20n_Number(amap[MOB_RIGHT], amap[MOB_UP], amap[MOB_RIGHT_UP]) + tm_id->anime_show_id + 1, Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y / 2.0f)), 255, s_);
-							texture_id->drawScreen(texture_id->NumX() * 2 * map20n_Number(amap[MOB_LEFT], amap[MOB_DOWN], amap[MOB_LEFT_DOWN]) + tm_id->anime_show_id + texture_id->NumX(), Pos4(int32_t(draw_map.x), int32_t(draw_map.y + m.y / 2.0f), int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y)), 255, s_);
-							texture_id->drawScreen(texture_id->NumX() * 2 * map20n_Number(amap[MOB_RIGHT], amap[MOB_DOWN], amap[MOB_RIGHT_DOWN]) + tm_id->anime_show_id + 1 + texture_id->NumX(), Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), 255, s_);
+							texture_id->drawArea(texture_id->NumX() * 2 * map20n_Number(amap[MOB_LEFT], amap[MOB_UP], amap[MOB_LEFT_UP]) + tm_id->anime_show_id, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f)), 255, area_);
+							texture_id->drawArea(texture_id->NumX() * 2 * map20n_Number(amap[MOB_RIGHT], amap[MOB_UP], amap[MOB_RIGHT_UP]) + tm_id->anime_show_id + 1, Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y / 2.0f)), 255, area_);
+							texture_id->drawArea(texture_id->NumX() * 2 * map20n_Number(amap[MOB_LEFT], amap[MOB_DOWN], amap[MOB_LEFT_DOWN]) + tm_id->anime_show_id + texture_id->NumX(), Pos4(int32_t(draw_map.x), int32_t(draw_map.y + m.y / 2.0f), int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y)), 255, area_);
+							texture_id->drawArea(texture_id->NumX() * 2 * map20n_Number(amap[MOB_RIGHT], amap[MOB_DOWN], amap[MOB_RIGHT_DOWN]) + tm_id->anime_show_id + 1 + texture_id->NumX(), Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), 255, area_);
 							break;
 						}
 
@@ -1601,7 +1615,7 @@ namespace AsLib
 			aslib_map_view_type_bucket,
 		};
 		//鉛筆ツール
-		AsMapView& allSelect(const size_t type_, AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, Pos2* const p_=nullptr, size_t* const id_ = 0, Pos4 area_ = aslib_default_area, AsScreen* const s_ = nullptr)
+		AsMapView& allSelect(const size_t type_, AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, Pos2* const p_=nullptr, size_t* const id_ = 0, Pos4 area_ = aslib_default_area)
 		{
 			//nullptrの場合
 			if (t_ == nullptr || t_->t.size() == 0) return *this;
@@ -1665,32 +1679,28 @@ namespace AsLib
 			return *this;
 		}
 		//塗りツール
-		AsMapView& bucket(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, size_t id_ = 0, Pos4 area_ = aslib_default_area, AsScreen* const s_ = nullptr)
+		AsMapView& bucket(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, size_t id_ = 0, Pos4 area_ = aslib_default_area)
 		{
-			return this->allSelect(aslib_map_view_type_bucket, t_, mrc_, layer_, nullptr, &id_, area_, s_);
+			return this->allSelect(aslib_map_view_type_bucket, t_, mrc_, layer_, nullptr, &id_, area_);
 		}
 		//鉛筆ツール
-		AsMapView& paint(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_=nullptr, const size_t layer_ = 0, size_t id_ = 0,Pos4 area_=aslib_default_area,AsScreen* const s_ = nullptr)
+		AsMapView& paint(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_=nullptr, const size_t layer_ = 0, size_t id_ = 0,Pos4 area_=aslib_default_area)
 		{
-			return this->allSelect(aslib_map_view_type_paint, t_, mrc_, layer_, nullptr, &id_, area_, s_);
+			return this->allSelect(aslib_map_view_type_paint, t_, mrc_, layer_, nullptr, &id_, area_);
 		}
 		//鉛筆ツール
-		AsMapView& select(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, Pos2* const p_=nullptr, size_t* const id_ = 0,Pos4 area_ = aslib_default_area, AsScreen* const s_ = nullptr)
+		AsMapView& select(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, Pos2* const p_=nullptr, size_t* const id_ = 0,Pos4 area_ = aslib_default_area)
 		{
-			return this->allSelect(aslib_map_view_type_select, t_, mrc_, layer_, p_, id_, area_, s_);
+			return this->allSelect(aslib_map_view_type_select, t_, mrc_, layer_, p_, id_, area_);
 		}
 
 		//描画する物のサイズ
-		AsMapView& draw(AsMapEventControl* const mec_ = nullptr, AsScreen* const s_ = nullptr)
+		AsMapView& draw(AsMapEventControl* const mec_ = nullptr, Pos4 area_ = aslib_default_area)
 		{
 			if (mec_ == nullptr || mec_->me.size() == 0) return *this;
-
-			Pos2F mm;
-			if (s_ == nullptr) mm = asWindowSizeF();
-			else mm(float(s_->x()), float(s_->y()));
-
+			if (!isArea(area_)) area_ = asWindowSize4();
 			//1マスの描画幅
-			const Pos2F m(mm.x / this->p.w, mm.y / this->p.h);
+			const Pos2F m((area_.x2 - area_.x1) / this->p.w, (area_.y2 - area_.y1) / this->p.h);
 			//中心幅
 			const Pos2F ce_length(this->p.w / 2.0f, this->p.h / 2.0f);
 			//前
@@ -1745,16 +1755,16 @@ namespace AsLib
 						array_num = select_map.y*p2.x + select_map.x;
 						draw_mob = PosA4F(draw_map.x + (p_a4f.x - floor(p_a4f.x))*m.x, draw_map.y + (p_a4f.y - floor(p_a4f.y))*m.y, m.x*p_a4f.w, m.y*p_a4f.h);
 
-						mec_->me[k].t->drawScreen(id_, draw_mob, 255, s_);
+						mec_->me[k].t->drawArea(id_, draw_mob, 255, area_);
 					}
 				}
 			}
 			return *this;
 		}
 		//画像の全体描画
-		AsMapView& draw(AsTextureMapArray* const t_, const size_t* const min_, const size_t* const max_, AsScreen* const s_ = nullptr) { return this->drawMap(min_,max_,t_,s_); }
-		AsMapView& draw(AsTextureMapArray* const t_, const size_t* const min_, AsScreen* const s_ = nullptr) { return this->drawMap(min_, nullptr, t_, s_); }
-		AsMapView& draw(AsTextureMapArray* const t_, AsScreen* const s_ = nullptr) { return this->drawMap(nullptr, nullptr, t_, s_); }
+		AsMapView& draw(AsTextureMapArray* const t_, const size_t* const min_, const size_t* const max_, Pos4 area_ = aslib_default_area) { return this->drawMap(min_,max_,t_,area_); }
+		AsMapView& draw(AsTextureMapArray* const t_, const size_t* const min_, Pos4 area_ = aslib_default_area) { return this->drawMap(min_, nullptr, t_, area_); }
+		AsMapView& draw(AsTextureMapArray* const t_, Pos4 area_ = aslib_default_area) { return this->drawMap(nullptr, nullptr, t_, area_); }
 
 	};
 

@@ -14,11 +14,39 @@ enum :size_t {
 	aslib_paint_tool_right,
 };
 
+struct AsPosFArray {
+	PosL4F pos;
+	size_t num_x;
+	size_t num_y;
+	size_t num;
+	//float fx = 1.0f;
+	//float fy = 1.0f;
+	bool is_x = false;
+	bool is_y = false;
+
+	void setX(const float f_) { is_x = true; is_y = false; }
+	void setY(const float f_) { is_x = false; is_y = true; }
+
+	constexpr AsPosFArray(const PosL4F& p_, const size_t x_ = 1, const size_t y_ = 1) :pos(p_), num_x(x_), num_y(y_), num(x_*y_) {}
+	const PosL4F operator[](const size_t num_) {
+		if (num_ >= num) return PosL4F();
+
+		const size_t num_x_ = num_ % num_x;
+		const size_t num_y_ = num_ / num_x;
+
+		if (is_x) return PosL4F(pos.x + pos.h*num_x_ / num_y, pos.y + pos.h*num_y_ / num_y, pos.h / num_y, pos.h / num_y);
+		if (is_y) return PosL4F(pos.x + pos.w*num_x_ / num_x, pos.y + pos.w*num_y_ / num_x, pos.w / num_x, pos.w / num_x);
+		return PosL4F(pos.x + pos.w*num_x_ / num_x, pos.y + pos.h*num_y_ / num_y, pos.w / num_x, pos.h / num_y);
+	}
+
+
+};
+
 
 int32_t asMain()
 {
 	//タイトル
-	MainControl mc(u8"AsRPG", Pos2(1280,720));
+	MainControl mc(u8"AsRPG", Pos2(1280, 800),Color(66,66,66));
 
 	//戻る登録数
 	AsMapReturnControl mrc(128);
@@ -38,8 +66,8 @@ int32_t asMain()
 	asSetAttribute(aslib_attribute_num);
 
 	//サイズ
-	Pos2 paint_world_p(128,128);
-	constexpr Pos2 select_world_p(2,100);
+	Pos2 paint_world_p(128, 128);
+	Pos2 select_world_p(2, 100);
 
 	//モンスター
 	AsTexture feri(u8"Picture/ikari.png", 6, 4);
@@ -69,23 +97,12 @@ int32_t asMain()
 	select_main_map.push(&mo2_te, aslib_texture_map_field_type_wall);
 	select_main_map.push(&underground_stairs_te, aslib_texture_map_field_type_empty);
 
-	size_t read_x = 0;
-	size_t read_y = 0;
-	const std::string str_ = u8"Picture/map_tile.csv";
-	std::vector<std::string> name_;
-	std::vector<size_t> vec_;
-	if (asSize_t_MapReadCSV(str_, name_, vec_, &read_x, &read_y) != 0) return 0;
+	//マップ読み込み
+	size_t as_t_size = 0;
+	std::unique_ptr<AsTexture[]> as_t = select_main_map.readMapCSV(u8"Picture/map_tile.csv", &as_t_size);
+	if(as_t_size!=0) select_world_p.y = (select_main_map.t.size() + 1) / 2;
+	AsTextureMapArray paint_main_map = select_main_map;
 
-	asPrint("%d,%d,%d,%d", name_.size(), vec_.size(), read_x, read_y);
-
-	std::unique_ptr<AsTexture[]> as_t(new AsTexture[read_y]);
-	for (size_t i = 0; i < name_.size(); ++i) {
-		as_t[i](name_[i].c_str(), vec_[i] * 2, 10);
-		select_main_map.push(&as_t[i], aslib_texture_map_field_type_water);
-	}
-
-	AsTextureMapArray paint_main_map= select_main_map;
-	
 	//ペイントツールテクスチャ
 	AsTexture pen_tool_te(u8"p/pen_tool.png");
 	AsTexture eraser_tool_te(u8"p/eraser_tool.png");
@@ -96,17 +113,25 @@ int32_t asMain()
 	AsTexture up_down_layer_tool_te(u8"p/up_down_layer_tool.png");
 	AsTexture left_tool_te(u8"p/left_tool.png");
 	AsTexture right_tool_te(u8"p/right_tool.png");
+	AsTexture white_ascll(u8"Picture/white_ascll.png");
+
 	//ペイントツールボタン
+	AsPosFArray button_p(Pos4F(0.015f, 0.015f, 0.1f, 1.0f).ratio(), 2, 100);
+
 	float sf = asWindowSizeF().x / asWindowSizeF().y;
-	AsTextureButton pen_button(Pos4F(0.0f, 0.0f, 0.05f, 0.05f*sf).ratio(), &pen_tool_te);
-	AsTextureButton eraser_button(Pos4F(0.05f, 0.0f, 0.1f, 0.05f*sf).ratio(), &eraser_tool_te);
-	AsTextureButton empty_button(Pos4F(0.0f, 0.05f*sf, 0.05f, 0.1f*sf).ratio(), &empty_tool_te);
-	AsTextureButton pipette_button(Pos4F(0.05f, 0.05f*sf, 0.1f, 0.1f*sf).ratio(), &pipette_tool_te);
-	AsTextureButton bucket_button(Pos4F(0.0f, 0.15f*sf, 0.05f, 0.2f*sf).ratio(), &bucket_tool_te);
-	AsTextureButton see_button(Pos4F(0.05f, 0.15f*sf, 0.1f, 0.2f*sf).ratio(), &see_tool_te);
-	AsTextureNumButton up_down_layer_button(Pos4F(0.0f, 0.2f*sf, 0.05f, 0.25f*sf).ratio(), &up_down_layer_tool_te);
-	AsTextureButton left_button(Pos4F(0.0f, 0.1f*sf, 0.05f, 0.15f*sf).ratio(), &left_tool_te);
-	AsTextureButton right_button(Pos4F(0.05f, 0.1f*sf, 0.1f, 0.15f*sf).ratio(), &right_tool_te);
+	button_p.setY(sf);
+	AsTextureButton left_button(button_p[0], &left_tool_te);
+	AsTextureButton right_button(button_p[1], &right_tool_te);
+	AsTextureButton pen_button(button_p[2], &pen_tool_te);
+	AsTextureButton eraser_button(button_p[3], &eraser_tool_te);
+	AsTextureButton bucket_button(button_p[4], &bucket_tool_te);
+	AsTextureButton pipette_button(button_p[5], &pipette_tool_te);
+	AsTextureButton empty_button(button_p[6], &empty_tool_te);
+	AsTextureButton see_button(button_p[7], &see_tool_te);
+	AsTextureNumButton up_down_layer_button(button_p[8], &up_down_layer_tool_te);
+
+
+	AsTextureButton white_ascll_button(Pos4F(0.0f, 0.98f - 0.1f*sf, 0.1f, 0.98f).ratio(), &white_ascll);
 
 	//フィールド属性
 	AsAllAttribute att;
@@ -125,12 +150,12 @@ int32_t asMain()
 	}
 	//大きさ設定
 	paint_world_p(int32_t(paint_main_map.s_x), int32_t(paint_main_map.s_y));
-	
+
 	//paint_main_map.worldMap(2, 4, 8, 9);
 	//paint_main_map.randMap(1);
 	//select_main_map.worldMap(2, 4, 8, 9);
 	//select_main_map.resizeMap(select_world_p);
-	
+
 	//select_main_map.setLayer(2, 1);
 	//select_main_map.randMap(1);
 	//select_main_map.putMap(1, 1);
@@ -141,7 +166,7 @@ int32_t asMain()
 	constexpr PosA4F pl3(7.0f, 8.0f, 0.7f, 0.7f);
 
 	//constexpr PosA4F pl(1.0f, 1.0f, 1.0f, 1.0f);
-	constexpr PosA4F pl(float(select_world_p.x/2), 0.0f, 1.0f, 1.0f);
+	const PosA4F pl(float(select_world_p.x / 2), 0.0f, 1.0f, 1.0f);
 
 	PosA4F tool_id_p(0.5f, 0.5f, 0.7f, 0.7f);
 	//イベント管理
@@ -158,18 +183,17 @@ int32_t asMain()
 	select_map_event.me[0].ai = aslib_map_event_ai_empty;
 	select_map_event.add(&feri, select_id_p, aslib_map_event_type_mob, aslib_map_event_ai_stay);
 
-	Pos4 select_area = Pos4F(0.1f, 0.0f, 0.2f, 1.0f).ratio();
-	Pos4 paint_area = Pos4F(0.2f, 0.0f, 1.0f, 1.0f).ratio();
-
-	AsScreen paint_screen(paint_area);
-	AsScreen select_screen(select_area);
+	Pos4 select_area = Pos4F(0.115f, 0.02f, 0.185f, 0.98f).ratio();
+	Pos4 paint_area = Pos4F(0.2f, 0.02f, 0.985f, 0.98f).ratio();
+	//Pos4 select_area = Pos4F(0.1f, 0.0f, 0.2f, 1.0f).ratio();
+	//Pos4 paint_area = Pos4F(0.2f, 0.0f, 1.0f, 1.0f).ratio();
 
 	//マップ描画管理
 	PosA4F select_map_p(0.0f, 0.0f, 2.0f, 1.0f);
 	AsMapView select_map_view(select_map_p, 'x', select_area);
 	select_map_view.setMap(select_world_p);
 
-	PosA4F paint_map_p(0.0f, 0.0f, 4.0f, 12.0f);
+	PosA4F paint_map_p(0.0f, 0.0f, 4.0f, 15.0f);
 	AsMapView paint_map_view(paint_map_p, 'y', paint_area);
 	paint_map_view.setMap(paint_world_p);
 
@@ -218,17 +242,19 @@ int32_t asMain()
 		paint_map_view.setMobView(paint_map_event);
 
 		//マップ描画
-		select_map_view.draw(&select_main_map, &select_screen);
-		//イベント描画
-		select_map_view.draw(&select_map_event, &select_screen);
-		//マップ描画
 		if (see_button.isOn()) {
 			asRect(paint_area, Color(56, 170, 68));
-			paint_map_view.draw(&paint_main_map, &select_layer, &paint_screen);
+			paint_map_view.draw(&paint_main_map, &select_layer, paint_area);
 		}
-		else paint_map_view.draw(&paint_main_map, &paint_screen);
+		else paint_map_view.draw(&paint_main_map, paint_area);
 
-		select_map_view.select(&select_main_map, &mrc, 0, &select_pos, &select_id, select_area, &select_screen);
+		//マップ描画
+		asRect(select_area, Color(245,245,245));
+		select_map_view.draw(&select_main_map, select_area);
+		//イベント描画
+		select_map_view.draw(&select_map_event, select_area);
+
+		select_map_view.select(&select_main_map, &mrc, 0, &select_pos, &select_id, select_area);
 
 		//ボタンを押したとき
 		if (pen_button.up()) tool_id = aslib_paint_tool_pen;
@@ -253,20 +279,20 @@ int32_t asMain()
 		case aslib_paint_tool_eraser:
 			select_map_event.me[1].pl.x = 0.5f;
 			select_map_event.me[1].pl.y = 0.5f;
-			paint_map_view.paint(&paint_main_map, &mrc, select_layer, 0, paint_area, &paint_screen);
+			paint_map_view.paint(&paint_main_map, &mrc, select_layer, 0, paint_area);
 			break;
 		case aslib_paint_tool_pen:
 			select_map_event.me[1].pl.x = (select_id % 2) + 0.5f;
 			select_map_event.me[1].pl.y = (select_id / 2) + 0.5f;
-			paint_map_view.paint(&paint_main_map, &mrc, select_layer, select_id, paint_area, &paint_screen);
+			paint_map_view.paint(&paint_main_map, &mrc, select_layer, select_id, paint_area);
 			break;
 		case aslib_paint_tool_bucket:
 			select_map_event.me[1].pl.x = (select_id % 2) + 0.5f;
 			select_map_event.me[1].pl.y = (select_id / 2) + 0.5f;
-			paint_map_view.bucket(&paint_main_map, &mrc, select_layer, select_id, paint_area, &paint_screen);
+			paint_map_view.bucket(&paint_main_map, &mrc, select_layer, select_id, paint_area);
 			break;
 		case aslib_paint_tool_pipette:
-			paint_map_view.select(&paint_main_map, &mrc, select_layer, nullptr, &select_id, paint_area, &paint_screen);
+			paint_map_view.select(&paint_main_map, &mrc, select_layer, nullptr, &select_id, paint_area);
 			select_map_event.me[1].pl.x = (select_id % 2) + 0.5f;
 			select_map_event.me[1].pl.y = (select_id / 2) + 0.5f;
 			break;
@@ -290,6 +316,7 @@ int32_t asMain()
 		up_down_layer_button.drawNum(select_layer, Color(81, 78, 72));
 		left_button.draw();
 		right_button.draw();
+		white_ascll_button.draw();
 
 		//自動セーブ
 		++auto_save_counter;

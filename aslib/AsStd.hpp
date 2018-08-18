@@ -290,20 +290,18 @@ namespace AsLib
 	}
 
 	//初期化
-	const int32_t AsInit(const Pos2& window_size = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color)
+	const int32_t AsInit(const Pos2& p_ = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color)
 	{
-		asSRand8(uint8_t(std::time(nullptr) & 0xff));
-		asSRand32(uint32_t(std::time(nullptr) & 0xffffffff));
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-		if (DxLib::SetOutApplicationLogValidFlag(FALSE) == -1) return -1;
-		if (DxLib::SetChangeScreenModeGraphicsSystemResetFlag(FALSE) == -1) return -1;
+		DxLib::SetOutApplicationLogValidFlag(FALSE);
+		DxLib::SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
 #if defined(__WINDOWS__)
 		DxLib::SetWindowIconID(22);
 		DxLib::SetWindowSizeChangeEnableFlag(TRUE);
-		if (DxLib::SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8) == -1) return -1;
+		DxLib::SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8);
 
 		//フルスクリーンモード
-		if (is_asFullScreenSize(window_size)) {
+		if (is_asFullScreenSize(p_)) {
 			DxLib::SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_NATIVE);
 			if (DxLib::ChangeWindowMode(FALSE) == -1) return -1;
 			RECT rc;
@@ -314,17 +312,18 @@ namespace AsLib
 		}
 		else {//通常のモード
 			if (DxLib::ChangeWindowMode(TRUE) == -1) return -1;
-			asSetWindowSize(window_size);
+			asSetWindowSize(p_);
 			DxLib::SetAlwaysRunFlag(TRUE);
 		}
 #endif
 		if (asSetBackGround(BG_color) == -1) return -1;
 		//ここで初期化
 		if (DxLib::DxLib_Init() == -1) return -1;
-
+		//描画
+		DxLib::DrawExtendGraph(p_.x / 4, p_.y / 4, p_.x * 3 / 4, p_.y * 3 / 4, DxLib::LoadGraph(u8"Picture/aslib.png"), TRUE);
 #if defined(__WINDOWS__)
 		//フルスクリーンモード
-		if (is_asFullScreenSize(window_size)) {
+		if (is_asFullScreenSize(p_)) {
 			//マウスの表示をON
 			DxLib::SetMouseDispFlag(TRUE);
 		}
@@ -369,6 +368,8 @@ namespace AsLib
 #if !defined(ASLIB_DONOT_USE_LOG)
 		makeLog();
 #endif
+		asSRand8(uint8_t(std::time(nullptr) & 0xff));
+		asSRand32(uint32_t(std::time(nullptr) & 0xffffffff));
 		asIsInitSave(true, true);
 		return 0;
 	}
@@ -406,6 +407,7 @@ return 0;
 return 0;
 #endif
 	}
+
 	inline const int32_t asPrint(const char* const format_string)
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
@@ -416,9 +418,9 @@ return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
-return 0;
+		return 0;
 #else //Console
-return 0;
+		return 0;
 #endif
 	}
 
