@@ -12,20 +12,20 @@ namespace AsLib
 	//ウィンドウサイズを記録する関数
 	const Pos2 asWindowSizeSave(const bool b_, const Pos2& p_ = pos2_0)
 	{
-		static Pos2 p;
+		static thread_local Pos2 p;
 		if (b_) p = p_;
 		return p;
 	}
 
 	//ウィンドウサイズを取得する関数
-	inline const Pos2 asWindowSize()
+	const Pos2 asWindowSize()
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return asWindowSizeSave(false);
 #elif defined(ASLIB_INCLUDE_S3)
 		return Pos2(s3d::Window::Width(), s3d::Window::Height());
 #elif defined(ASLIB_INCLUDE_OF)
-		return Pos2();
+		return asWindowSizeSave(false);
 #elif defined(ASLIB_INCLUDE_TP)
 		return Pos2();
 #else //Console
@@ -70,6 +70,7 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		s3d::Window::Resize(window_size.x, window_size.y);
 #elif defined(ASLIB_INCLUDE_OF)
+		asWindowSizeSave(true, window_size);
 #elif defined(ASLIB_INCLUDE_TP)
 		window_size(0);
 #else //Console
@@ -187,7 +188,7 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return pos2;
 #elif defined(ASLIB_INCLUDE_OF)
-		return 0;
+		return Pos2(0,0);
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -359,7 +360,8 @@ namespace AsLib
 		s3d::Graphics::SetBackground(s3d::Color(BG_color));
 		static s3d::RenderStateBlock2D wireframe(s3d::SamplerState::ClampNearest);
 #elif defined(ASLIB_INCLUDE_OF)
-		//asSetWindowSize(window_size);
+		asSetWindowSize(asWindowSizeTrue(p_));
+		//asSetWindowSize(p_);
 		asSetBackGround(BG_color);
 #elif defined(ASLIB_INCLUDE_TP)
 #else //Console
@@ -382,7 +384,7 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
-
+		return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 return 0;
 #else //Console

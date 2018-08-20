@@ -77,7 +77,13 @@ namespace AsLib
 
 		bool on_off = false;
 
+		AsTextureButton() = default;
 		AsTextureButton(const PosA4& p_, AsTexture* const t_) :pos(p_), texture(t_) {}
+
+		void reset(const PosA4& p_, AsTexture* const t_) {
+			pos = p_;
+			texture = t_;
+		}
 
 		//タッチカウント
 		Counter counter;
@@ -106,7 +112,17 @@ namespace AsLib
 
 		AsFont font;
 
+		AsTextureNumButton() = default;
 		AsTextureNumButton(const PosA4& p_, AsTexture* const t_) :AsTextureButton(p_, t_), p_up(PosA4(p_.x, p_.y - p_.h / 2, p_.w, p_.h / 2)), p_down(PosA4(p_.x, p_.y + p_.h / 2, p_.w, p_.h / 2)), font(p_.h/2) {}
+		
+		void reset(const PosA4& p_, AsTexture* const t_) {
+			pos = p_;
+			texture = t_;
+			p_up = (PosA4(p_.x, p_.y - p_.h / 2, p_.w, p_.h / 2));
+			p_down = (PosA4(p_.x, p_.y + p_.h / 2, p_.w, p_.h / 2));
+			font = p_.h / 2;
+		}
+		
 		//タッチカウント
 		Counter counter_up;
 		void updateUp() { counter_up.update(asTouch(p_up) || asMouseL(p_up)); }

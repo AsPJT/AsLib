@@ -55,7 +55,7 @@ namespace AsLib
 		if (as_app == nullptr) return -1;
 		as_app->asInit();
 		as_app->asSetup();
-		while (mc.loop())
+		while (asLoop())
 		{
 			as_app->asUpdate();
 			as_app->asDraw();

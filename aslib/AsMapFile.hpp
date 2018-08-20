@@ -105,11 +105,11 @@ namespace AsLib
 		size_t num = 0;
 		size_t num_y = 0;
 
-		std::string token;
+		std::string read_token;
 		while (getline(ifs, str)) {
 			std::istringstream stream(str);
-			while (getline(stream, token, ',')) {
-				vec_.emplace_back(asStos(token));
+			while (getline(stream, read_token, ',')) {
+				vec_.emplace_back(asStos(read_token));
 				++num;
 			}
 			++num_y;
@@ -175,7 +175,7 @@ namespace AsLib
 		size_t num_y = 0;
 		size_t type_id = 0;
 		
-		std::string token;
+		std::string read_token;
 
 #if defined(ASLIB_INCLUDE_DL)
 		constexpr size_t file_path_max = 256;
@@ -189,13 +189,13 @@ namespace AsLib
 			str = std::string(file_path.get());
 			std::istringstream stream(str);
 			type_id = 0;
-			while (getline(stream, token, ',')) {
+			while (getline(stream, read_token, ',')) {
 				switch (type_id)
 				{
-				case 0:name_.emplace_back(token); break;
-				case 1:vec_.emplace_back(asStos(token)); break;
-				case 2:type_.emplace_back(asStos(token)); break;
-				case 3:field_.emplace_back(asStos(token)); break;
+				case 0:name_.emplace_back(read_token); break;
+				case 1:vec_.emplace_back(asStos(read_token)); break;
+				case 2:type_.emplace_back(asStos(read_token)); break;
+				case 3:field_.emplace_back(asStos(read_token)); break;
 				}
 				++type_id;
 				++num;
@@ -215,13 +215,13 @@ namespace AsLib
 		while (getline(ifs, str)) {
 			std::istringstream stream(str);
 			type_id = 0;
-			while (getline(stream, token, ',')) {
+			while (getline(stream, read_token, ',')) {
 				switch (type_id)
 				{
-				case 0:name_.emplace_back(token); break;
-				case 1:vec_.emplace_back(asStos(token)); break;
-				case 2:type_.emplace_back(asStos(token)); break;
-				case 3:field_.emplace_back(asStos(token)); break;
+				case 0:name_.emplace_back(read_token); break;
+				case 1:vec_.emplace_back(asStos(read_token)); break;
+				case 2:type_.emplace_back(asStos(read_token)); break;
+				case 3:field_.emplace_back(asStos(read_token)); break;
 				}
 				++type_id;
 				++num;

@@ -3,8 +3,11 @@
 
 int32_t asMain()
 {
+	
+
 	//560, 700
-	MainControl mc(u8"AsRPG", Pos2(640,360));
+	MainControl mc(u8"AsRPG", Pos2(960,540));
+
 	//キー
 	AsKeyList kl;
 	kl.addKeyOK().addKeyBack().addKeyCross().addKeyCrossW();
@@ -84,30 +87,33 @@ int32_t asMain()
 	//モンスター
 	AsTexture feri(u8"Picture/ikari.png", 6, 4);
 	//マップテクスチャ
-	AsTexture crystal1_te(u8"p/crystal1.png");
-	AsTexture crystal2_te(u8"p/stone1.png");
-	AsTexture anime_te(u8"p/anime.png", 4);
-	AsTexture sea1_te(u8"p/world_umi1.png", 4, 10);
-	AsTexture sea2_te(u8"p/world_umi2.png", 4, 10);
-	AsTexture sea3_te(u8"p/world_umi1.png", 4, 10);
-	AsTexture sea4_te(u8"p/world_umi2.png", 4, 10);
-	AsTexture mo1_te(u8"p/world_yama2.png", 2, 10);
-	AsTexture mo2_te(u8"p/world_yama2-yuki.png", 2, 10);
-	AsTexture underground_stairs_te(u8"p/undergroundStairs2.png");
+	//AsTexture crystal1_te(u8"p/crystal1.png");
+	//AsTexture crystal2_te(u8"p/stone1.png");
+	//AsTexture anime_te(u8"p/anime.png", 4);
+	//AsTexture sea1_te(u8"p/world_umi1.png", 4, 10);
+	//AsTexture sea2_te(u8"p/world_umi2.png", 4, 10);
+	//AsTexture sea3_te(u8"p/world_umi1.png", 4, 10);
+	//AsTexture sea4_te(u8"p/world_umi2.png", 4, 10);
+	//AsTexture mo1_te(u8"p/world_yama2.png", 2, 10);
+	//AsTexture mo2_te(u8"p/world_yama2-yuki.png", 2, 10);
+	//AsTexture underground_stairs_te(u8"p/undergroundStairs2.png");
 
 	//マップ管理
 	AsTextureMapArray main_map;
 	main_map.push(nullptr);
-	main_map.push(&crystal1_te, aslib_texture_map_field_type_empty);
-	main_map.push(&crystal2_te, aslib_texture_map_field_type_empty);
-	main_map.push(&anime_te, aslib_texture_map_field_type_empty);
-	main_map.push(&sea1_te, aslib_texture_map_field_type_water);
-	main_map.push(&sea2_te, aslib_texture_map_field_type_water);
-	main_map.push(&sea3_te, aslib_texture_map_field_type_water);
-	main_map.push(&sea4_te, aslib_texture_map_field_type_water);
-	main_map.push(&mo1_te, aslib_texture_map_field_type_wall);
-	main_map.push(&mo2_te, aslib_texture_map_field_type_wall);
-	main_map.push(&underground_stairs_te, aslib_texture_map_field_type_empty);
+	//マップ読み込み
+	std::unique_ptr<AsTexture[]> as_t = main_map.readMapCSV(u8"Picture/map_tile.csv", nullptr);
+
+	//main_map.push(&crystal1_te, aslib_texture_map_field_type_empty);
+	//main_map.push(&crystal2_te, aslib_texture_map_field_type_empty);
+	//main_map.push(&anime_te, aslib_texture_map_field_type_empty);
+	//main_map.push(&sea1_te, aslib_texture_map_field_type_water);
+	//main_map.push(&sea2_te, aslib_texture_map_field_type_water);
+	//main_map.push(&sea3_te, aslib_texture_map_field_type_water);
+	//main_map.push(&sea4_te, aslib_texture_map_field_type_water);
+	//main_map.push(&mo1_te, aslib_texture_map_field_type_wall);
+	//main_map.push(&mo2_te, aslib_texture_map_field_type_wall);
+	//main_map.push(&underground_stairs_te, aslib_texture_map_field_type_empty);
 
 	//size_t read_x = 0;
 	//size_t read_y = 0;
@@ -142,12 +148,12 @@ int32_t asMain()
 		//main_map.setLayer(2, 1);
 		//main_map.randMap(1);
 	//}
-	main_map.resizeMap(w_pos2);
+	//main_map.resizeMap(w_pos2);
 	//main_map.putTexture();
 	//main_map.setLayer(2, 1);
 	//main_map.randMap(1);
 	//main_map.putMap(1, 1);
-	main_map.mazeMap(4,0,1);
+	//main_map.mazeMap(4,0,1);
 
 	//constexpr PosA4F pl2(1.0f, 1.0f, 1.0f, 1.0f);
 	constexpr PosA4F pl2(7.0f, 8.0f, 3.0f, 3.0f);
@@ -168,10 +174,10 @@ int32_t asMain()
 	AsMapView map_view(map_p, 'y');
 	map_view.setMap(w_pos2);
 	
-	constexpr size_t auto_save_timer = 60 * 22;
-	size_t auto_save_counter = 0;
-	constexpr size_t auto_backup_timer = 60 * 55;
-	size_t auto_backup_counter = 0;
+	//constexpr size_t auto_save_timer = 60 * 22;
+	//size_t auto_save_counter = 0;
+	//constexpr size_t auto_backup_timer = 60 * 55;
+	//size_t auto_backup_counter = 0;
 
 	//プレイヤー初期スポーン指定
 	map_event.setLandSpawn(main_map,att);
@@ -181,6 +187,7 @@ int32_t asMain()
 
 	while (asLoop())
 	{
+
 		//臨時タッチ
 		//if (asTouch()) {
 		//	touch_event = asTouchEndPos();
@@ -221,23 +228,23 @@ int32_t asMain()
 		//会話起動イベント
 		map_event.talk(kl.is_ok());
 
-		++auto_save_counter;
-		if (auto_save_counter >= auto_save_timer) {
-			auto_save_counter = 0;
-			main_map.writeCSV();
-		}
-		++auto_backup_counter;
-		if (auto_backup_counter >= auto_backup_timer) {
-			auto_backup_counter = 0;
-			main_map.writeBackupCSV();
-		}
+		//++auto_save_counter;
+		//if (auto_save_counter >= auto_save_timer) {
+		//	auto_save_counter = 0;
+		//	main_map.writeCSV();
+		//}
+		//++auto_backup_counter;
+		//if (auto_backup_counter >= auto_backup_timer) {
+		//	auto_backup_counter = 0;
+		//	main_map.writeBackupCSV();
+		//}
 
 		//ウィンドウ関連
 		if (window.isWindow()) window.playEffect().update().updateEnd().drawPerson().drawWindow().writeString().drawEndAnime().playSound().printString().printName().next(kl.is_ok());
 		else inv.selectAdd(mouseWheel()).draw(item).isSelectUp(asKeyL_Up()).isSelectDown(asKeyK_Up());
 	}
 
-	main_map.writeCSV();
+	//main_map.writeCSV();
 
 	//for (size_t i = 0; i < kl.ok.size(); ++i) if (kl.ok[i] < 256 && asKeyUp(kl.ok[i])) main_map.putBlock(4, pl, 1);
 	//

@@ -751,7 +751,12 @@ namespace AsLib
 		size_t return_map_num;
 		std::unique_ptr<AsmapReturn[]> return_map;
 
+		AsMapReturnControl() = default;
 		AsMapReturnControl(const size_t num_) :return_map_num(num_), return_map(new AsmapReturn[num_]) {}
+		void reset(const size_t num_) {
+			return_map_num = num_;
+			return_map.reset(new AsmapReturn[num_]);
+		}
 
 		//登録するものを入れる
 		AsMapReturnControl& push(const size_t type_, const size_t id_, const size_t after_id_, const size_t x_, const size_t y_, const size_t layer_) {
@@ -1219,8 +1224,18 @@ namespace AsLib
 
 		bool is_spawn = true;
 
+		AsMapEventControl() = default;
 		std::vector<AsMapEvent> me;
 		AsMapEventControl(const Pos2 size_,const size_t walk_type_, AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const size_t& type_ = aslib_map_event_type_empty) :size(size_),walk_type(walk_type_) { me.emplace_back(t_,p_, type_, aslib_map_event_ai_human); }
+
+		void reset(const Pos2 size_, const size_t walk_type_, AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const size_t& type_ = aslib_map_event_type_empty) {
+			size=size_; 
+			walk_type = walk_type_;
+			
+			me.clear();
+			me.emplace_back(t_, p_, type_, aslib_map_event_ai_human);
+		}
+
 		void add(AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const size_t& type_ = aslib_map_event_type_empty, const size_t ai_ = aslib_map_event_ai_ai) {
 			if(is_spawn) me.emplace_back(t_, p_, type_, ai_);
 		}
@@ -1319,9 +1334,6 @@ namespace AsLib
 				break;
 			}
 			for (size_t i = 0; i < me.size(); ++i) {
-
-				//asPrint("(%d,%d,%d,%d)",me[i].event_init != aslib_event_init_tolk , me[i].moving != MOB_CENTER , me[i].is_event > 0 , me[i].med.size() == 0);
-
 				//選択イベントの開始条件が会話じゃない・選択イベントが移動中・イベントがONになっている・イベント数が0
 				if (me[i].event_init != aslib_event_init_tolk || me[i].moving != MOB_CENTER || me[i].is_event > 0 || me[i].med.size() == 0) continue;
 				//視点キャラの向いている方向にいるかどうか
@@ -1431,6 +1443,22 @@ namespace AsLib
 			case 'Y': p.w = p.h; break;
 			}
 		}
+		//todo
+		AsMapView& reset(const PosA4F& p_, const char c_, Pos4 area_ = aslib_default_area) {
+			p = p_;
+			if (!isArea(area_)) area_ = asWindowSize4();
+			const Pos2F mm(float(area_.x2 - area_.x1), float(area_.y2 - area_.y1));
+			switch (c_)
+			{
+				//正方形
+			case 'x': p.h = p.w*(mm.y / mm.x); break;
+			case 'y': p.w = p.h*(mm.x / mm.y); break;
+				//画面サイズと同比率
+			case 'X': p.h = p.w; break;
+			case 'Y': p.w = p.h; break;
+			}
+			return *this;
+		}
 		AsMapView& setLookSize(const PosA4F& p_, const char c_, Pos4 area_ = aslib_default_area) {
 			p = p_;
 			if (!isArea(area_)) area_ = asWindowSize4();
@@ -1452,16 +1480,108 @@ namespace AsLib
 		//マップサイズ
 		Pos2 p2;
 
+		//チップを描画
+		AsMapView& drawChip(AsTexture* const t_, const size_t id_, const Pos4& p_, const uint8_t a_, const Pos4& area_) {
+			if (t_ == nullptr) return *this;
+			t_->drawArea(id_, p_, a_, area_);
+			return *this;
+		}
+
+		//マップ描画・分岐
+		AsMapView& drawMapBranch(const AsTextureMapArray* const a_, const size_t s_num, const Pos2F& draw_map, const Pos4& area_, const size_t draw_layer_plus, const Pos2& select_map, const Pos2F& m) {
+			if (a_ == nullptr) return *this;
+			AsTexture* const texture_id = a_->t[s_num];
+			if (texture_id == nullptr) return *this;
+			switch (a_->tm[s_num].type)
+			{
+			case aslib_texture_map_type_1n:
+				this->drawChip(texture_id, a_->tm[s_num].anime_show_id, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), 255, area_);
+				break;
+			case aslib_texture_map_type_1n_n:
+				this->drawChip(texture_id, a_->tm[s_num].array_num, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), 255, area_);
+				break;
+			case aslib_texture_map_type_20n:
+				const size_t pym = ((select_map.y - 1 + p2.y) % p2.y)*p2.x;
+				const size_t pxm = ((select_map.x - 1 + p2.x) % p2.x);
+				if (pym + pxm + draw_layer_plus >= a_->s.size()) return *this;
+				const size_t pyp = ((select_map.y + 1) % p2.y)*p2.x;
+				const size_t pxp = ((select_map.x + 1) % p2.x);
+				const size_t tm_id = a_->tm[s_num].anime_show_id;
+
+				const bool map_left_up = (a_->s[pym + pxm + draw_layer_plus] == s_num);
+				const bool map_up = (a_->s[pym + select_map.x + draw_layer_plus] == s_num);
+				const bool map_right_up = (a_->s[pym + pxp + draw_layer_plus] == s_num);
+				const bool map_left = (a_->s[select_map.y*p2.x + pxm + draw_layer_plus] == s_num);
+				const bool map_right = (a_->s[select_map.y*p2.x + pxp + draw_layer_plus] == s_num);
+				const bool map_left_down = (a_->s[pyp + pxm + draw_layer_plus] == s_num);
+				const bool map_down = (a_->s[pyp + select_map.x + draw_layer_plus] == s_num);
+				const bool map_right_down = (a_->s[pyp + pxp + draw_layer_plus] == s_num);
+
+				this->drawChip(texture_id, texture_id->NumX() * 2 * map20n_Number(map_left, map_up, map_left_up) + tm_id, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f)), 255, area_);
+				this->drawChip(texture_id, texture_id->NumX() * 2 * map20n_Number(map_right, map_up, map_right_up) + tm_id + 1, Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y / 2.0f)), 255, area_);
+				this->drawChip(texture_id, texture_id->NumX() * 2 * map20n_Number(map_left, map_down, map_left_down) + tm_id + texture_id->NumX(), Pos4(int32_t(draw_map.x), int32_t(draw_map.y + m.y / 2.0f), int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y)), 255, area_);
+				this->drawChip(texture_id, texture_id->NumX() * 2 * map20n_Number(map_right, map_down, map_right_down) + tm_id + 1 + texture_id->NumX(), Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), 255, area_);
+				return *this;
+			}
+			return *this;
+		}
+
+		//マップ描画・X座標
+		AsMapView& drawMapX(const AsTextureMapArray* const a_, const Pos4& in_map, Pos2F& draw_map, const Pos4& area_, const size_t draw_layer_plus, Pos2& select_map, const Pos2F& m) {
+			if (a_ == nullptr) return *this;
+			size_t array_num = 0;
+			size_t s_num = 0;
+			//X軸指定
+			for (int32_t j = in_map.x1; j < in_map.x2; ++j) {
+				draw_map.x += m.x;
+				select_map.x = j;
+				while (select_map.x < 0) select_map.x += p2.x;
+				select_map.x = select_map.x % p2.x;
+				//描画するデータのある配列の場所
+				array_num = select_map.y*p2.x + select_map.x + draw_layer_plus;
+				//例外
+				if (array_num >= a_->s.size() || (s_num = a_->s[array_num]) >= a_->tm.size()) return *this;
+				//画像がないとき
+				if (a_->t[s_num] == nullptr) continue;
+				this->drawMapBranch(a_, s_num, draw_map, area_, draw_layer_plus, select_map, m);
+			}
+			return *this;
+		}
+
+		//マップ描画・Y座標
+		AsMapView& drawMapY(const AsTextureMapArray* const a_, const Pos2F& in_draw,const Pos4& in_map, Pos2F& draw_map, const Pos4& area_, const size_t draw_layer_plus, const Pos2F& m) {
+			if (a_ == nullptr) return *this;
+			Pos2 select_map;
+			//Y軸指定
+			for (int32_t i = in_map.y1; i < in_map.y2; ++i) {
+				draw_map.x = in_draw.x;
+				draw_map.y += m.y;
+				select_map.y = i;
+				while (select_map.y < 0) select_map.y += p2.y;
+				select_map.y = select_map.y % p2.y;
+				this->drawMapX(a_, in_map, draw_map, area_, draw_layer_plus, select_map, m);
+			}
+			return *this;
+		}
+		//マップ描画・レイヤー
+		AsMapView& drawMapLayer(const size_t min_,const size_t max_,const AsTextureMapArray* const a_, const Pos2F& in_draw, const Pos4& in_map, const Pos4& area_, const Pos2F& m) {
+			if (a_ == nullptr) return *this;
+			const size_t layer_plus = p2.x*p2.y;
+			size_t draw_layer_plus = layer_plus;
+			Pos2F draw_map(in_draw);
+			//レイヤー指定
+			for (size_t layer = min_; layer < max_; ++layer) {
+				draw_layer_plus = layer_plus * layer;
+				draw_map = in_draw;
+				this->drawMapY(a_, in_draw, in_map, draw_map, area_, draw_layer_plus, m);
+			}
+			return *this;
+		}
+
 		AsMapView& drawMap(const size_t* const min_ = nullptr, const size_t* const max_ = nullptr, AsTextureMapArray* const a_ = nullptr, Pos4 area_ = aslib_default_area)
 		{
 			if (a_ == nullptr) return *this;
-			const size_t draw_layer_min = (min_ == nullptr) ? 0 : *min_;
-			const size_t draw_layer_max = (max_ == nullptr) ? ((min_ == nullptr) ? a_->s_layer : (*min_ + 1)) : *max_;
-
 			if (!isArea(area_)) area_ = asWindowSize4();
-			//1マスの描画幅
-			const Pos2F m((area_.x2 - area_.x1) / this->p.w, (area_.y2 - area_.y1) / this->p.h);
-
 			//中心幅
 			const Pos2F ce_length(this->p.w / 2.0f, this->p.h / 2.0f);
 			//前
@@ -1469,105 +1589,16 @@ namespace AsLib
 			//後
 			const Pos2F af_pos(this->p.x + ce_length.x, this->p.y + ce_length.y);
 
-			const size_t layer_plus = p2.x*p2.y;
-			size_t draw_layer_plus = layer_plus;
-
+			//1マスの描画幅
+			const Pos2F m((area_.x2 - area_.x1) / this->p.w, (area_.y2 - area_.y1) / this->p.h);
 			//描画初期位置
 			const Pos2F in_draw((floor(be_pos.x) - be_pos.x)*m.x - m.x, (floor(be_pos.y) - be_pos.y)*m.y - m.y);
+			
 			//開始から終了まで
 			const Pos4 in_map = Pos4(Pos4F(floor(be_pos.x), floor(be_pos.y), ceil(af_pos.x), ceil(af_pos.y)));
-			Pos2 select_map;
-			Pos2F draw_map(in_draw);
-			size_t array_num = 0;
-
-			AsTexture* texture_id = nullptr;
-			AsTextureMap* tm_id = nullptr;
-			//size_t map_field_type = 0;
-			size_t map_id = 0;
-			bool amap[8]{};
-			size_t pym, pyp, pxm, pxp;
-
-			const size_t tma_size = a_->s.size();
-			size_t s_num = 0;
-
-			//レイヤー指定
-			for (size_t layer = draw_layer_min; layer < draw_layer_max; ++layer) {
-				draw_layer_plus = layer_plus * layer;
-				draw_map = in_draw;
-
-				//Y軸指定
-				for (int32_t i = in_map.y1; i < in_map.y2; ++i) {
-					draw_map.x = in_draw.x;
-					draw_map.y += m.y;
-					select_map.y = i;
-					while (select_map.y < 0) select_map.y += p2.y;
-					select_map.y = select_map.y % p2.y;
-
-					//X軸指定
-					for (int32_t j = in_map.x1; j < in_map.x2; ++j) {
-
-
-						draw_map.x += m.x;
-						select_map.x = j;
-						while (select_map.x < 0) select_map.x += p2.x;
-						select_map.x = select_map.x % p2.x;
-
-						//描画するデータのある配列の場所
-						array_num = select_map.y*p2.x + select_map.x + draw_layer_plus;
-
-						//例外
-						if (array_num >= tma_size || (s_num = a_->s[array_num]) >= a_->tm.size()) return *this;
-						//画像がないとき
-						if ((texture_id = a_->t[s_num]) == nullptr) continue;
-
-						switch (a_->tm[s_num].type)
-						{
-						case aslib_texture_map_type_1n:
-							texture_id->drawArea(a_->tm[s_num].anime_show_id, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), 255, area_);
-							break;
-						case aslib_texture_map_type_1n_n:
-							texture_id->drawArea(a_->tm[s_num].array_num, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), 255, area_);
-							break;
-						case aslib_texture_map_type_20n:
-							tm_id = &a_->tm[s_num];
-							//map_field_type = tm_id->field_type;
-
-							pym = ((select_map.y - 1 + p2.y) % p2.y)*p2.x;
-							pyp = ((select_map.y + 1) % p2.y)*p2.x;
-							pxm = ((select_map.x - 1 + p2.x) % p2.x);
-							pxp = ((select_map.x + 1) % p2.x);
-
-							if (pym + pxm + draw_layer_plus >= a_->s.size()) break;
-
-							//field_type == map_field_type
-							//amap[MOB_LEFT_UP] = (a_->tm[a_->s[pym + pxm + draw_layer_plus]].field_type == map_field_type);
-							//amap[MOB_UP] = (a_->tm[a_->s[pym + select_map.x + draw_layer_plus]].field_type == map_field_type);
-							//amap[MOB_RIGHT_UP] = (a_->tm[a_->s[pym + pxp + draw_layer_plus]].field_type == map_field_type);
-							//amap[MOB_LEFT] = (a_->tm[a_->s[select_map.y*p2.x + pxm + draw_layer_plus]].field_type == map_field_type);
-							//amap[MOB_RIGHT] = (a_->tm[a_->s[select_map.y*p2.x + pxp + draw_layer_plus]].field_type == map_field_type);
-							//amap[MOB_LEFT_DOWN] = (a_->tm[a_->s[pyp + pxm + draw_layer_plus]].field_type == map_field_type);
-							//amap[MOB_DOWN] = (a_->tm[a_->s[pyp + select_map.x + draw_layer_plus]].field_type == map_field_type);
-							//amap[MOB_RIGHT_DOWN] = (a_->tm[a_->s[pyp + pxp + draw_layer_plus]].field_type == map_field_type);
-
-							amap[MOB_LEFT_UP] = (a_->s[pym + pxm + draw_layer_plus] == s_num);
-							amap[MOB_UP] = (a_->s[pym + select_map.x + draw_layer_plus] == s_num);
-							amap[MOB_RIGHT_UP] = (a_->s[pym + pxp + draw_layer_plus] == s_num);
-							amap[MOB_LEFT] = (a_->s[select_map.y*p2.x + pxm + draw_layer_plus] == s_num);
-							amap[MOB_RIGHT] = (a_->s[select_map.y*p2.x + pxp + draw_layer_plus] == s_num);
-							amap[MOB_LEFT_DOWN] = (a_->s[pyp + pxm + draw_layer_plus] == s_num);
-							amap[MOB_DOWN] = (a_->s[pyp + select_map.x + draw_layer_plus] == s_num);
-							amap[MOB_RIGHT_DOWN] = (a_->s[pyp + pxp + draw_layer_plus] == s_num);
-
-							texture_id->drawArea(texture_id->NumX() * 2 * map20n_Number(amap[MOB_LEFT], amap[MOB_UP], amap[MOB_LEFT_UP]) + tm_id->anime_show_id, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f)), 255, area_);
-							texture_id->drawArea(texture_id->NumX() * 2 * map20n_Number(amap[MOB_RIGHT], amap[MOB_UP], amap[MOB_RIGHT_UP]) + tm_id->anime_show_id + 1, Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y / 2.0f)), 255, area_);
-							texture_id->drawArea(texture_id->NumX() * 2 * map20n_Number(amap[MOB_LEFT], amap[MOB_DOWN], amap[MOB_LEFT_DOWN]) + tm_id->anime_show_id + texture_id->NumX(), Pos4(int32_t(draw_map.x), int32_t(draw_map.y + m.y / 2.0f), int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y)), 255, area_);
-							texture_id->drawArea(texture_id->NumX() * 2 * map20n_Number(amap[MOB_RIGHT], amap[MOB_DOWN], amap[MOB_RIGHT_DOWN]) + tm_id->anime_show_id + 1 + texture_id->NumX(), Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), 255, area_);
-							break;
-						}
-
-					}
-				}
-			}
+			const size_t&& draw_layer_min = (min_ == nullptr) ? 0 : *min_;
+			const size_t&& draw_layer_max = (max_ == nullptr) ? ((min_ == nullptr) ? a_->s_layer : (*min_ + 1)) : *max_;
+			this->drawMapLayer(draw_layer_min, draw_layer_max, a_, in_draw, in_map, area_, m);
 			return *this;
 		}
 
@@ -1645,12 +1676,26 @@ namespace AsLib
 			aslib_map_view_type_select,
 			aslib_map_view_type_bucket,
 			aslib_map_view_type_mouse_select,
+			aslib_map_view_type_event_select,
 		};
 		//鉛筆ツール
-		const bool allSelect(const size_t type_, AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, Pos2* const p_=nullptr, size_t* const id_ = 0, Pos4 area_ = aslib_default_area)
+		const bool allSelect(const size_t type_, AsTextureMapArray* const t_ = nullptr, AsMapEventControl* const mec_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, Pos2* const p_=nullptr, size_t* const id_ = 0, Pos4 area_ = aslib_default_area)
 		{
-			//nullptrの場合
-			if (t_ == nullptr || t_->t.size() == 0) return false;
+			switch (type_)
+			{
+			case aslib_map_view_type_paint:
+			case aslib_map_view_type_bucket:
+			case aslib_map_view_type_select:
+			case aslib_map_view_type_mouse_select:
+				//nullptrの場合
+				if (t_ == nullptr || t_->t.size() == 0) return false;
+				break;
+			case aslib_map_view_type_event_select:
+				//nullptrの場合
+				if (mec_ == nullptr || mec_->me.size() == 0) return false;
+				break;
+			}
+
 
 			if (!isArea(area_)) area_ = asWindowSize4();
 			//1マスの描画幅
@@ -1664,6 +1709,8 @@ namespace AsLib
 
 			const size_t wp = p2.x*p2.y*layer_;
 			const size_t wpm = p2.x*p2.y*(layer_ + 1);
+
+			std::vector<size_t> vmap;
 
 			size_t touch_num = asTouchNum();
 			for (size_t i = 0; i <= touch_num; ++i) {
@@ -1694,44 +1741,111 @@ namespace AsLib
 					t_->s[draw_id] = *id_;
 					break;
 				case aslib_map_view_type_bucket:
-					if (asTouchDown() || asMouseL_Down()) {
+					if (!asTouchDown() && !asMouseL_Down()) continue;
 						//書き換え
 						if (mrc_ != nullptr) mrc_->push(aslib_map_return_bucket, t_->s[draw_id = draw_p.y*p2.x + draw_p.x + wp], *id_, draw_p.x, draw_p.y, layer_);
-						std::vector<size_t> vmap;
 						vmap.resize(t_->s_x*t_->s_y);
 						for (size_t ii = wp, k = 0; ii < wpm; ++ii, ++k) vmap[k] = t_->s[ii];
 						asPaintTool(vmap, t_->s_x, draw_p.x, draw_p.y, *id_);
 						for (size_t ii = wp, k = 0; ii < wpm; ++ii, ++k) t_->s[ii] = vmap[k];
-					}
 					return true;
 				case aslib_map_view_type_select:
 				case aslib_map_view_type_mouse_select:
 					//選択
 					if (id_ != nullptr) *id_ = t_->s[draw_p.y*p2.x + draw_p.x + wp];
 					return true;
+				case aslib_map_view_type_event_select:
+					for (size_t i = 1; i < mec_->me.size(); ++i) {
+						if (int32_t(floor(mec_->me[i].pl.x)) != draw_p.x || int32_t(floor(mec_->me[i].pl.y)) != draw_p.y) continue;
+						mec_->me[i].pl.x += 1.0f;
+						return true;
+					}
+					return false;
 				}
 			}
 			return is_touch;
 		}
+		//イベント選択ツール
+		const bool eventSelect(AsMapEventControl* const mec_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, Pos2* const p_ = nullptr, size_t* const id_ = 0, Pos4 area_ = aslib_default_area)
+		{
+			return this->allSelect(aslib_map_view_type_event_select, nullptr, mec_, mrc_, layer_, p_, id_, area_);
+		}
 		//塗りツール
 		const bool bucket(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, size_t id_ = 0, Pos4 area_ = aslib_default_area)
 		{
-			return this->allSelect(aslib_map_view_type_bucket, t_, mrc_, layer_, nullptr, &id_, area_);
+			return this->allSelect(aslib_map_view_type_bucket, t_, nullptr, mrc_, layer_, nullptr, &id_, area_);
 		}
 		//鉛筆ツール
 		const bool paint(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_=nullptr, const size_t layer_ = 0, size_t id_ = 0,Pos4 area_=aslib_default_area)
 		{
-			return this->allSelect(aslib_map_view_type_paint, t_, mrc_, layer_, nullptr, &id_, area_);
+			return this->allSelect(aslib_map_view_type_paint, t_, nullptr, mrc_, layer_, nullptr, &id_, area_);
 		}
 		//選択ツール
 		const bool select(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, Pos2* const p_=nullptr, size_t* const id_ = 0,Pos4 area_ = aslib_default_area)
 		{
-			return this->allSelect(aslib_map_view_type_select, t_, mrc_, layer_, p_, id_, area_);
+			return this->allSelect(aslib_map_view_type_select, t_, nullptr, mrc_, layer_, p_, id_, area_);
 		}
 		//マウス位置ツール
 		const bool mouseSelect(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, Pos2* const p_ = nullptr, size_t* const id_ = 0, Pos4 area_ = aslib_default_area)
 		{
-			return this->allSelect(aslib_map_view_type_mouse_select, t_, mrc_, layer_, p_, id_, area_);
+			return this->allSelect(aslib_map_view_type_mouse_select, t_, nullptr, mrc_, layer_, p_, id_, area_);
+		}
+		//イベント描画
+		AsMapView& drawEvent(AsMapEventControl* const mec_, const Pos2F& draw_map, const Pos2& select_map, const Pos4& area_, const Pos2F& m) {
+			if (mec_ == nullptr || mec_->me.size() == 0) return *this;
+			size_t id_ = 0;
+			Pos2 player_p;
+			PosA4F p_a4f;
+			for (size_t k = 0; k < mec_->me.size(); ++k) {
+				if (mec_->me[k].t == nullptr) continue;
+				if (mec_->me[k].type == aslib_map_event_type_mob) id_ = mobMoveDirect(mec_->me[k].dir_id, mec_->me[k].move_id);
+				if (mec_->me[k].t->Num() <= id_) continue;
+
+				p_a4f = (mec_->walk_type == aslib_mob_walk_type_big) ? PosA4F(mec_->me[k].pl.x + 0.5f, mec_->me[k].pl.y + 0.6f - 0.3f*mec_->me[k].pl.h, mec_->me[k].pl.w, mec_->me[k].pl.h) : mec_->me[k].pl;
+
+				player_p = Pos2(int32_t(floor(p_a4f.x)), int32_t(floor(p_a4f.y)));
+				while (player_p.x < 0) player_p.x += p2.x;
+				while (player_p.y < 0) player_p.y += p2.y;
+
+				player_p.x = player_p.x%p2.x;
+				player_p.y = player_p.y%p2.y;
+
+				if (select_map.x != player_p.x || select_map.y != player_p.y) continue;
+
+				//描画するデータのある配列の場所
+				const PosA4F&& draw_mob = PosA4F(draw_map.x + (p_a4f.x - floor(p_a4f.x))*m.x, draw_map.y + (p_a4f.y - floor(p_a4f.y))*m.y, m.x*p_a4f.w, m.y*p_a4f.h);
+				this->drawChip(mec_->me[k].t, id_, draw_mob, (uint8_t)255, area_);
+			}
+			return *this;
+		}
+		//イベント描画・X軸
+		AsMapView& drawEventX(AsMapEventControl* const mec_, const Pos4& in_map, Pos2F& draw_map, Pos2& select_map, const Pos4& area_, const Pos2F& m) {
+			if (mec_ == nullptr || mec_->me.size() == 0) return *this;
+			//X軸指定
+			for (int32_t j = in_map.x1; j < in_map.x2; ++j) {
+				draw_map.x += m.x;
+				select_map.x = j;
+				while (select_map.x < 0) { select_map.x += p2.x; }
+				select_map.x = select_map.x % p2.x;
+				this->drawEvent(mec_, draw_map, select_map, area_, m);
+			}
+			return *this;
+		}
+
+		AsMapView& drawEventY(AsMapEventControl* const mec_, const Pos2F& in_draw,const Pos4& in_map, const Pos4& area_, const Pos2F& m) {
+			if (mec_ == nullptr || mec_->me.size() == 0) return *this;
+			Pos2F draw_map(in_draw);
+			Pos2 select_map;
+			//Y軸指定
+			for (int32_t i = in_map.y1; i < in_map.y2; ++i) {
+				draw_map.x = in_draw.x;
+				draw_map.y += m.y;
+				select_map.y = i;
+				while (select_map.y < 0) { select_map.y += p2.y; }
+				select_map.y = select_map.y % p2.y;
+				this->drawEventX(mec_, in_map, draw_map, select_map, area_, m);
+			}
+			return *this;
 		}
 
 		//描画する物のサイズ
@@ -1751,54 +1865,8 @@ namespace AsLib
 			//描画初期位置
 			const Pos2F in_draw((floor(be_pos.x) - be_pos.x)*m.x - m.x, (floor(be_pos.y) - be_pos.y)*m.y - m.y);
 			const Pos4 in_map = Pos4(Pos4F(floor(be_pos.x), floor(be_pos.y), ceil(af_pos.x), ceil(af_pos.y)));
-			Pos2 select_map;
-			Pos2F draw_map(in_draw);
-			size_t array_num = 0;
 
-			PosA4F draw_mob;
-			size_t id_ = 0;
-			PosA4F p_a4f;
-			Pos2 player_p;
-
-			//Y軸指定
-			for (int32_t i = in_map.y1; i < in_map.y2; ++i) {
-				draw_map.x = in_draw.x;
-				draw_map.y += m.y;
-				select_map.y = i;
-				while (select_map.y < 0) { select_map.y += p2.y; }
-				select_map.y = select_map.y % p2.y;
-
-				//X軸指定
-				for (int32_t j = in_map.x1; j < in_map.x2; ++j) {
-					draw_map.x += m.x;
-					select_map.x = j;
-					while (select_map.x < 0) { select_map.x += p2.x; }
-					select_map.x = select_map.x % p2.x;
-
-					for (size_t k = 0; k < mec_->me.size(); ++k) {
-						if (mec_->me[k].t == nullptr) continue;
-						if(mec_->me[k].type==aslib_map_event_type_mob) id_ = mobMoveDirect(mec_->me[k].dir_id, mec_->me[k].move_id);
-						if (mec_->me[k].t->Num() <= id_) continue;
-
-						p_a4f = (mec_->walk_type == aslib_mob_walk_type_big) ? PosA4F(mec_->me[k].pl.x + 0.5f, mec_->me[k].pl.y + 0.6f - 0.3f*mec_->me[k].pl.h, mec_->me[k].pl.w, mec_->me[k].pl.h) : mec_->me[k].pl;
-
-						player_p = Pos2(int32_t(floor(p_a4f.x)), int32_t(floor(p_a4f.y)));
-						while (player_p.x < 0) player_p.x += p2.x;
-						while (player_p.y < 0) player_p.y += p2.y;
-
-						player_p.x = player_p.x%p2.x;
-						player_p.y = player_p.y%p2.y;
-
-						if (select_map.x != player_p.x || select_map.y != player_p.y) continue;
-
-						//描画するデータのある配列の場所
-						array_num = select_map.y*p2.x + select_map.x;
-						draw_mob = PosA4F(draw_map.x + (p_a4f.x - floor(p_a4f.x))*m.x, draw_map.y + (p_a4f.y - floor(p_a4f.y))*m.y, m.x*p_a4f.w, m.y*p_a4f.h);
-
-						mec_->me[k].t->drawArea(id_, draw_mob, 255, area_);
-					}
-				}
-			}
+			this->drawEventY(mec_, in_draw, in_map, area_, m);
 			return *this;
 		}
 		//画像の全体描画

@@ -1378,7 +1378,16 @@ namespace AsLib
 		void setX(const float f_) { is_x = true; is_y = false; }
 		void setY(const float f_) { is_x = false; is_y = true; }
 
+		AsPosFArray() = default;
 		constexpr AsPosFArray(const PosL4F& p_, const size_t x_ = 1, const size_t y_ = 1) :pos(p_), num_x((x_ == 0) ? 1 : x_), num_y((y_ == 0) ? 1 : y_), num((x_*y_ == 0) ? 1 : x_ * y_) {}
+
+		void reset(const PosL4F& p_, const size_t x_ = 1, const size_t y_ = 1) {
+			pos = p_;
+			num_x = ((x_ == 0) ? 1 : x_);
+			num_y = ((y_ == 0) ? 1 : y_);
+			num = ((x_*y_ == 0) ? 1 : x_ * y_);
+		}
+
 		const PosL4F operator[](const size_t num_) {
 			const size_t num_x_ = num_ % num_x;
 			const size_t num_y_ = num_ / num_x;

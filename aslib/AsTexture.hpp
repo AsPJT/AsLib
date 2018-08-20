@@ -80,12 +80,24 @@ namespace AsLib
 		t_(cut_p_.x, cut_p_.y, cut_p_.w, cut_p_.h).resized(l_.x, l_.y).rotated(double(r_)).draw(p_.x, p_.y, s3d::Alpha(a_));
 	}
 #elif defined(ASLIB_INCLUDE_OF)
-	inline void asTextureType1(const OriginatorTexture& t_, const Pos2& p_, const Pos2& l_, const PosL4& cut_p_, const uint8_t& a_ = 255, const float& r_ = 0.0f)
+	inline void asTextureType1(const OriginatorTexture& t_, const Pos2& p_, const Pos2& l_, const PosL4& cut_p_, const uint8_t& a_ = 255)
 	{
-		ofTranslate(l_.x / 2, l_.y / 2);
-		ofRotateRad(r_);
+		//ofTranslate(l_.x / 2, l_.y / 2);
+		//ofRotateRad(r_);
 		ofSetColor(255, 255, 255, int(a_));
-		t_.drawSubsection(cut_p_.x, cut_p_.y, cut_p_.w, cut_p_.h, p_.x, p_.y, l_.x, l_.y);
+		t_.drawSubsection(p_.x, p_.y, l_.x, l_.y, cut_p_.x, cut_p_.y, cut_p_.w, cut_p_.h);
+		//t_.drawSubsection(0,0,200,200,0,0,480,480);
+		//t_.drawSubsection(cut_p_.x, cut_p_.y,cut_p_.w, cut_p_.h, p_.x, p_.y, l_.x, l_.y);
+	}
+	//todo
+	inline void asTextureType1(const OriginatorTexture& t_, const Pos2& p_, const Pos2& l_, const PosL4& cut_p_, const uint8_t& a_, const float& r_)
+	{
+		//ofTranslate(l_.x / 2, l_.y / 2);
+		//ofRotateRad(r_);
+		ofSetColor(255, 255, 255, int(a_));
+		t_.drawSubsection(p_.x, p_.y, l_.x, l_.y, cut_p_.x, cut_p_.y, cut_p_.w, cut_p_.h);
+		//t_.drawSubsection(0,0,200,200,0,0,480,480);
+		//t_.drawSubsection(cut_p_.x, cut_p_.y,cut_p_.w, cut_p_.h, p_.x, p_.y, l_.x, l_.y);
 	}
 #endif
 
@@ -216,9 +228,15 @@ namespace AsLib
 		{
 #if defined(ASLIB_INCLUDE_S3)
 			s3d::ViewportBlock2D area(area_.x1, area_.y1, area_.x2 - area_.x1, area_.y2 - area_.y1);
+			asTextureType1(this->id, Pos2(add_pos.x1, add_pos.y1), Pos2(add_pos.x2 - add_pos.x1, add_pos.y2 - add_pos.y1), PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha);
+#endif
+#if defined(ASLIB_INCLUDE_OF)
+			asTextureType1(this->id, Pos2(area_.x1+add_pos.x1, area_.y1+add_pos.y1), Pos2(add_pos.x2 - add_pos.x1, add_pos.y2 - add_pos.y1), PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha);
+			//return *this;
+			//asTextureType1(this->id, Pos2(add_pos.x1, add_pos.y1), Pos2(add_pos.x2 - add_pos.x1, add_pos.y2 - add_pos.y1), PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha);
 #endif
 #if defined(ANIME_TEXTURE_1)
-			asTextureType1(this->id, Pos2(add_pos.x1, add_pos.y1), Pos2(add_pos.x2 - add_pos.x1, add_pos.y2 - add_pos.y1), PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha);
+			//asTextureType1(this->id, Pos2(add_pos.x1, add_pos.y1), Pos2(add_pos.x2 - add_pos.x1, add_pos.y2 - add_pos.y1), PosL4(this->pixel_size.x*int32_t(anime_size%this->turn_id), this->pixel_size.y*int32_t(anime_size / this->turn_id), this->pixel_size.x, this->pixel_size.y), alpha);
 #elif defined(ANIME_TEXTURE_2)
 #if defined(ASLIB_INCLUDE_DL)
 			//bool is_area = false;
