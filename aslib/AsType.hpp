@@ -95,6 +95,29 @@ namespace AsLib
 	inline bool checkMovie(const OriginatorMovie& ori_) { return (ori_ == -1) ? false : true; }
 	inline bool checkFont(const OriginatorFont& ori_) { return (ori_ == -1) ? false : true; }
 	inline bool checkScreen(const OriginatorScreen& ori_) { return (ori_ == -1) ? false : true; }
+#elif defined(ASLIB_INCLUDE_SF)
+	//•`‰æ‰æ‘œŒn
+	using OriginatorTexture = int32_t;
+	//CPU‰æ‘œŒn
+	using OriginatorImage = int32_t;
+	//å‰¹ºŒn
+	using OriginatorBGM = int32_t;
+	//•›‰¹ºŒn
+	using OriginatorSE = int32_t;
+	//“®‰æŒn
+	using OriginatorMovie = int32_t;
+	//•¶šŒn
+	using OriginatorFont = int32_t;
+	//”wŒi‰æ‘œŒn
+	using OriginatorScreen = int32_t;
+
+	inline bool checkTexture(const OriginatorTexture& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkImage(const OriginatorImage& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkBGM(const OriginatorBGM& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkSE(const OriginatorSE& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkMovie(const OriginatorMovie& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkFont(const OriginatorFont& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkScreen(const OriginatorScreen& ori_) { return (ori_ == -1) ? false : true; }
 #elif defined(ASLIB_INCLUDE_TP)
 	//•`‰æ‰æ‘œŒn
 	using OriginatorTexture = int32_t;

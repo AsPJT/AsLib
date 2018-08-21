@@ -140,6 +140,8 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 	return int(asMain());
 }
 #endif
+#elif defined(ASLIB_INCLUDE_SF)
+
 #elif defined(ASLIB_INCLUDE_TP)
 	constexpr size_t aslib_platform = aslib_platform_empty;
 int main() { return int(asMain()); }
@@ -152,8 +154,8 @@ int main() { return int(asMain()); }
 int main() { return int(asMain() && AsLib::asEnd()); }
 #define ANIME_TEXTURE_3
 #endif
-//#elif defined\(ASLIB_INCLUDE_TP\)
-//#elif defined(ASLIB_INCLUDE_C2)\nreturn 0;\n#elif defined(ASLIB_INCLUDE_TP)
+//#elif defined\(ASLIB_INCLUDE_TあP\)
+//#elif defined(ASLIB_INCLUDE_C2)\nreturn 0;\n#elif defined(ASLIB_INCLUDE_TあP)
 
 //--------------------------------------------------
 //基本インクルード
@@ -190,14 +192,17 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //基本構造体(All) (N)
 #include "AsPos.hpp"
 
+//基本的な定数宣言(All) (N)
+#include "AsConst.hpp"
+
+//描画管理
+#include "AsDraw.hpp"
+
 //Base64
 #include "AsBase64.hpp"
 
 //クリップボード
 #include "AsClipboard.hpp"
-
-//基本的な定数宣言(All) (N)
-#include "AsConst.hpp"
 
 //タッチカウント(All) (N)
 #include "AsCounter.hpp"

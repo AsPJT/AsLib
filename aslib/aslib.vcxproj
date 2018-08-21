@@ -150,6 +150,7 @@
     <ClInclude Include="AsAsFile.hpp" />
     <ClInclude Include="AsDistance.hpp" />
     <ClInclude Include="AsDL.hpp" />
+    <ClInclude Include="AsDraw.hpp" />
     <ClInclude Include="AsEffect.hpp" />
     <ClInclude Include="AsFile.hpp" />
     <ClInclude Include="AsFont.hpp" />
@@ -196,7 +197,7 @@
     <Text Include="styleguide.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="rpg_make.cpp" />
+    <ClCompile Include="texture_all.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -24,6 +24,8 @@ namespace AsLib
 		ofDrawCircle(float(pos_.x), float(pos_.y), float(r_));
 #elif defined(ASLIB_INCLUDE_C2)
 
+#elif defined(ASLIB_INCLUDE_SF)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 #else //Console
 #endif

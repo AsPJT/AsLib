@@ -49,6 +49,8 @@ namespace AsLib
 		return asMousePosSave(false);
 #elif defined(ASLIB_INCLUDE_C2)
 return 0;
+#elif defined(ASLIB_INCLUDE_SF)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return Pos2();
 #else //Console
@@ -69,6 +71,8 @@ return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
 #elif defined(ASLIB_INCLUDE_C2)
+return 0;
+#elif defined(ASLIB_INCLUDE_SF)
 return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
@@ -141,6 +145,8 @@ return 0;
 		}
 #elif defined(ASLIB_INCLUDE_C2)
 
+#elif defined(ASLIB_INCLUDE_SF)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 
 #else //Console
@@ -157,6 +163,8 @@ return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 		return (asMouseButtonSave(false)[aslib_mouse_left]);
 #elif defined(ASLIB_INCLUDE_C2)
+return 0;
+#elif defined(ASLIB_INCLUDE_SF)
 return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return false;

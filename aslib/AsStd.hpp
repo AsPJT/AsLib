@@ -28,6 +28,8 @@ namespace AsLib
 		return asWindowSizeSave(false);
 #elif defined(ASLIB_INCLUDE_C2)
 return 0;
+#elif defined(ASLIB_INCLUDE_SF)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return Pos2();
 #else //Console
@@ -75,6 +77,8 @@ return 0;
 		asWindowSizeSave(true, window_size);
 #elif defined(ASLIB_INCLUDE_C2)
 		asWindowSizeSave(true, window_size);
+#elif defined(ASLIB_INCLUDE_SF)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		window_size(0);
 #else //Console
@@ -101,6 +105,8 @@ return 0;
 		ofBackground(int(BG_color.r), int(BG_color.g), int(BG_color.b));
 		return 0;
 #elif defined(ASLIB_INCLUDE_C2)
+return 0;
+#elif defined(ASLIB_INCLUDE_SF)
 return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
@@ -137,6 +143,8 @@ return 0;
 		return 0;
 #elif defined(ASLIB_INCLUDE_C2)
 return 0;
+#elif defined(ASLIB_INCLUDE_SF)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -162,6 +170,8 @@ return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 
 #elif defined(ASLIB_INCLUDE_C2)
+return 0;
+#elif defined(ASLIB_INCLUDE_SF)
 return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
@@ -198,6 +208,8 @@ return 0;
 		return Pos2(0,0);
 #elif defined(ASLIB_INCLUDE_C2)
 return 0;
+#elif defined(ASLIB_INCLUDE_SF)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -214,6 +226,8 @@ return 0;
 		return 0;
 #elif defined(ASLIB_INCLUDE_C2)
 return 0;
+#elif defined(ASLIB_INCLUDE_SF)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -228,6 +242,8 @@ return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
 #elif defined(ASLIB_INCLUDE_C2)
+return 0;
+#elif defined(ASLIB_INCLUDE_SF)
 return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
@@ -255,6 +271,8 @@ return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
 #elif defined(ASLIB_INCLUDE_C2)
+return 0;
+#elif defined(ASLIB_INCLUDE_SF)
 return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
@@ -380,6 +398,8 @@ return 0;
 		asSetBackGround(BG_color);
 #elif defined(ASLIB_INCLUDE_C2)
 		asSetWindowSize(p_);
+#elif defined(ASLIB_INCLUDE_SF)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 #else //Console
 #endif
@@ -404,6 +424,8 @@ return 0;
 		return 0;
 #elif defined(ASLIB_INCLUDE_C2)
 return 0;
+#elif defined(ASLIB_INCLUDE_SF)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 return 0;
 #else //Console
@@ -424,6 +446,8 @@ return 0;
 		return 0;
 #elif defined(ASLIB_INCLUDE_C2)
 return 0;
+#elif defined(ASLIB_INCLUDE_SF)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 return 0;
 #else //Console
@@ -441,6 +465,8 @@ return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
 #elif defined(ASLIB_INCLUDE_C2)
+return 0;
+#elif defined(ASLIB_INCLUDE_SF)
 return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;

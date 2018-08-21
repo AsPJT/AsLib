@@ -11,40 +11,48 @@ namespace AsLib
 {
 
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-	//画像を分割ロードする
-	std::unique_ptr<OriginatorTexture[]> asLoadTexture(const char* const name, const size_t tex_num_x = 1, const size_t tex_num_y = 1,const bool a_=true)
+	//DxLibは画像を分割ロードした方が描画しやすい
+	//(ファイル名、横の分割数、縦の分割数、透過の有無)
+	std::unique_ptr<OriginatorTexture[]> asLoadTexture(const char* const name_, const size_t num_x_ = 1, const size_t num_y_ = 1,const bool a_=true)
 	{
-		const size_t aslib_load_texture_xy = tex_num_x * tex_num_y;
+		//画像の枚数分 配列を作成
+		const size_t aslib_load_texture_xy = num_x_ * num_y_;
 		std::unique_ptr<OriginatorTexture[]> texs(new OriginatorTexture[aslib_load_texture_xy]);
-
 		for (size_t i = 0; i < aslib_load_texture_xy; ++i) texs[i] = -1;
-		if (name == nullptr) return texs;
-
-		const OriginatorTexture tex = DxLib::LoadGraph(name);
+		//ぬるぽチェック
+		if (name_ == nullptr) return texs;
+		//画像の分割が必要ない場合
+		if (num_x_ == 1 && num_y_ == 1) {
+			texs[0] = DxLib::LoadGraph(name_);
+			return texs;
+		}
+		//読み込み
+		const OriginatorTexture tex = DxLib::LoadGraph(name_);
 		if (tex == -1) return texs;
-
+		//通常通り画像を読み込み画像サイズを得る
 		int size_x = 0, size_y = 0;
 		DxLib::GetGraphSize(tex, &size_x, &size_y);
 		DxLib::DeleteGraph(tex);
 		if (size_x == 0 || size_y == 0) return texs;
-		
-		DxLib::LoadDivGraph(name, int(aslib_load_texture_xy), int(tex_num_x), int(tex_num_y), size_x / int(tex_num_x), size_y / int(tex_num_y), &texs[0]);
+		//画像を分割ロード
+		DxLib::LoadDivGraph(name_, int(aslib_load_texture_xy), int(num_x_), int(num_y_), size_x / int(num_x_), size_y / int(num_y_), &texs[0]);
 		return texs;
 	}
 #else
-
-
 	//画像読み込み
-	inline OriginatorTexture asLoadTexture(const char* const name, const size_t tex_num_x = 1, const size_t tex_num_y = 1)
+	//(ファイル名、横の分割数、縦の分割数、透過の有無)
+	inline OriginatorTexture asLoadTexture(const char* const name_, const size_t num_x_ = 1, const size_t num_y_ = 1)
 	{
 #if defined(ASLIB_INCLUDE_S3) //Siv3D
-		return s3d::Texture(s3d::Unicode::UTF8ToUTF32(name));
+		return s3d::Texture(s3d::Unicode::UTF8ToUTF32(name_));
 #elif defined(ASLIB_INCLUDE_OF)
 		static OriginatorTexture tex;
-		tex.load(name);
+		tex.load(name_);
 		return tex;
 #elif defined(ASLIB_INCLUDE_C2)
-		return Sprite::create(name);
+		return Sprite::create(name_);
+#elif defined(ASLIB_INCLUDE_SF)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -57,7 +65,7 @@ namespace AsLib
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		if (id == -1) { texture_size(0, 0); return; }
-		int size_x = 0, size_y = 0;
+		int size_x{}, size_y{};
 		DxLib::GetGraphSize(id, &size_x, &size_y);
 		texture_size(int32_t(size_x), int32_t(size_y));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
@@ -65,6 +73,8 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_OF)
 		texture_size(int32_t(id.getWidth()), int32_t(id.getHeight()));
 #elif defined(ASLIB_INCLUDE_C2)
+
+#elif defined(ASLIB_INCLUDE_SF)
 
 #elif defined(ASLIB_INCLUDE_TP)
 #else //Console
@@ -137,6 +147,7 @@ namespace AsLib
 		OriginatorTexture id;
 		size_t turn_id = 1;
 #elif defined(ANIME_TEXTURE_2)
+		//画像ID
 		std::unique_ptr<OriginatorTexture[]> id;
 #elif defined(ANIME_TEXTURE_3)
 		int32_t id;
@@ -144,10 +155,15 @@ namespace AsLib
 		OriginatorTexture id;
 #endif
 		Pos2 before_pixel_size;
+		//画像サイズ
 		Pos2 pixel_size;
+		//合計サイズ
 		size_t num = 0;
+		//横サイズ
 		size_t num_x = 0;
+		//縦サイズ
 		size_t num_y = 0;
+		//透過の有無
 		bool is_alpha = true;
 	public:
 		AsTexture() = default;
@@ -203,6 +219,44 @@ namespace AsLib
 		AsTexture& operator()(const char* const name_, const size_t x_ = 1, const size_t y_ = 1, const bool a_ = true) { return *this; }
 #endif
 
+		//--------------------------------------------------
+		//描画テスト機能
+		//--------------------------------------------------
+
+		//描画範囲(大きさ)
+		AsTexture& operator()(const PosL4& p_) {asSetDrawPosSave(p_);return *this;}
+		AsTexture& operator()(const int32_t x_, const int32_t y_, const int32_t w_, const int32_t h_) {asSetDrawPosSave(PosL4(x_, y_, w_, h_));return *this;}
+		AsTexture& operator()(const int32_t x_, const int32_t y_, const int32_t l_) {asSetDrawPosSave(PosL4(x_, y_, l_));return *this;}
+		AsTexture& setRect(const PosL4& p_) {asSetDrawPosSave(p_);return *this;}
+		AsTexture& setRect(const int32_t x_, const int32_t y_, const int32_t w_, const int32_t h_) {asSetDrawPosSave(PosL4(x_, y_, w_, h_));return *this;}
+		AsTexture& setRect(const int32_t x_, const int32_t y_, const int32_t l_) {asSetDrawPosSave(PosL4(x_, y_, l_));return *this;}
+		//描画ID
+		AsTexture& setID(const size_t num_ = 0) {
+			asSetDrawNumSave(num_);
+			return *this;
+		}
+		//描画透過度
+		AsTexture& setAlpha(const uint8_t num_ = 255) {
+			asSetDrawAlphaSave(num_);
+			return *this;
+		}
+
+		AsTexture& drawAuto() {
+#if defined(ANIME_TEXTURE_2)
+			//描画サイズを決める
+			PosL4 p= asDrawPosSave();
+			if (asIsDraw(p)) p = PosL4(0, 0, this->pixel_size.x, this->pixel_size.y);
+			
+			int a=0;
+
+			DxLib::SetDrawBlendMode(1, a=int(asDrawAlphaSave()));
+
+			DxLib::printfDx("(%d)", a);
+
+			DxLib::DrawExtendGraph(p.x, p.y, p.x + p.w, p.y + p.h, this->id[0], is_alpha);
+#endif
+			return *this;
+		}
 		//--------------------------------------------------
 		//描画
 		//--------------------------------------------------

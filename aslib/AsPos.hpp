@@ -308,6 +308,8 @@ namespace AsLib
 		const PosL4& operator()(const Pos4& add_pos);
 		const PosL4& operator()(const PosA4& add_pos);
 		const PosL4& operator()(const Pos8& add_pos);
+		const PosL4& operator()(const pos_int x_, const pos_int y_, const pos_int l_) { x = x_; y = y_; w = l_; h = l_; return *this; }
+		const PosL4& operator()(const pos_int x_, const pos_int y_, const pos_int w_, const pos_int h_) { x = x_; y = y_; w = w_; h = h_; return *this; }
 		const PosL4& operator()(PosL4* const p_) const { if (p_ != nullptr)*p_ = *this; return *this; }
 	};
 	//’†SˆÊ’u‚Æ‘å‚«‚³‚ğ•¹‚¹‚Â
