@@ -1,4 +1,4 @@
-﻿# As Library
+﻿# As Library <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.ja"><img src="https://img.shields.io/badge/license-CC0-blue.svg"></a>
 当ライブラリはC++でのマルチプラットフォーム開発をサポートします。
 [![AsLib](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/aslib/Picture/Title/aslib150.png "AsLib")](https://github.com/Kasugaccho/AsLib)
 
