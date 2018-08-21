@@ -20,6 +20,8 @@ namespace AsLib
 		return pos_;
 #elif defined(ASLIB_INCLUDE_OF)
 		return Pos2();
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return Pos2();
 #else //Console
@@ -45,6 +47,8 @@ namespace AsLib
 		font.setLineHeight(24);
 		font.setLetterSpacing(1.0);
 		return font;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -68,6 +72,8 @@ namespace AsLib
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -85,6 +91,8 @@ namespace AsLib
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -121,6 +129,8 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_OF)
 		id_.drawString(format_string, pos_.x, pos_.y);
 		return true;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return true;
 #else //Console
@@ -138,6 +148,8 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_OF)
 		id_.drawString(format_string, pos_.x, pos_.y);
 		return true;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return true;
 #else //Console
@@ -156,6 +168,8 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_OF)
 		id_.drawString(format_string, pos_.x, pos_.y);
 		return true;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return true;
 #else //Console
@@ -174,6 +188,8 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_OF)
 		id_.drawString(format_string, pos_.x, pos_.y);
 		return true;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return true;
 #else //Console
@@ -250,6 +266,8 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 			this->id = OriginatorFont(size_);
 #elif defined(ASLIB_INCLUDE_OF)
+
+#elif defined(ASLIB_INCLUDE_C2)
 
 #elif defined(ASLIB_INCLUDE_TP)
 #else //Console

@@ -17,6 +17,8 @@ namespace AsLib
 		DxLib::WaitKey();
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 #elif defined(ASLIB_INCLUDE_OF)
+#elif defined(ASLIB_INCLUDE_C2)
+
 #elif defined(ASLIB_INCLUDE_TP)
 #else //Console
 #endif

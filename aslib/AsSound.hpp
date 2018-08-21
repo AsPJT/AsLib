@@ -16,6 +16,8 @@ namespace AsLib
 		return OriginatorBGM(s3d::Unicode::UTF8ToUTF32(std::string(name_)));
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 #else //Console
 		return 0;

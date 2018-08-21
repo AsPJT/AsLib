@@ -26,6 +26,8 @@ namespace AsLib
 		return Pos2(s3d::Window::Width(), s3d::Window::Height());
 #elif defined(ASLIB_INCLUDE_OF)
 		return asWindowSizeSave(false);
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return Pos2();
 #else //Console
@@ -71,6 +73,8 @@ namespace AsLib
 		s3d::Window::Resize(window_size.x, window_size.y);
 #elif defined(ASLIB_INCLUDE_OF)
 		asWindowSizeSave(true, window_size);
+#elif defined(ASLIB_INCLUDE_C2)
+		asWindowSizeSave(true, window_size);
 #elif defined(ASLIB_INCLUDE_TP)
 		window_size(0);
 #else //Console
@@ -96,15 +100,14 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_OF)
 		ofBackground(int(BG_color.r), int(BG_color.g), int(BG_color.b));
 		return 0;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
 	return 0;
 #endif
 	}
-
-
-
 
 	//タイトルを記録する関数
 	std::string asTitleSave(const bool b_, const char* const str_ = nullptr)
@@ -132,6 +135,8 @@ namespace AsLib
 #elif defined(ASLIB_INCLUDE_OF)
 		ofSetWindowTitle(title);
 		return 0;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -156,6 +161,8 @@ namespace AsLib
 #endif
 #elif defined(ASLIB_INCLUDE_OF)
 
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -189,6 +196,8 @@ namespace AsLib
 		return pos2;
 #elif defined(ASLIB_INCLUDE_OF)
 		return Pos2(0,0);
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -203,6 +212,8 @@ namespace AsLib
 		else return false;
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -216,6 +227,8 @@ namespace AsLib
 		return { -1,-1 };
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -241,6 +254,8 @@ namespace AsLib
 #endif
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -363,6 +378,8 @@ namespace AsLib
 		asSetWindowSize(asWindowSizeTrue(p_));
 		//asSetWindowSize(p_);
 		asSetBackGround(BG_color);
+#elif defined(ASLIB_INCLUDE_C2)
+		asSetWindowSize(p_);
 #elif defined(ASLIB_INCLUDE_TP)
 #else //Console
 #endif
@@ -385,6 +402,8 @@ namespace AsLib
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 return 0;
 #else //Console
@@ -403,6 +422,8 @@ return 0;
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 return 0;
 #else //Console
@@ -419,6 +440,8 @@ return 0;
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console

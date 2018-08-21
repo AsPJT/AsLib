@@ -102,6 +102,8 @@ namespace AsLib
 	return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 	return 0;
 #else //Console
@@ -132,6 +134,8 @@ namespace AsLib
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -151,6 +155,8 @@ namespace AsLib
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -175,6 +181,8 @@ namespace AsLib
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console

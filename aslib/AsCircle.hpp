@@ -22,6 +22,8 @@ namespace AsLib
 		ofSetColor(col_.r, col_.g, col_.b, col_.a);
 		ofFill();
 		ofDrawCircle(float(pos_.x), float(pos_.y), float(r_));
+#elif defined(ASLIB_INCLUDE_C2)
+
 #elif defined(ASLIB_INCLUDE_TP)
 #else //Console
 #endif

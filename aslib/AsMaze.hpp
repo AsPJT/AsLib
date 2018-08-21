@@ -310,8 +310,26 @@ namespace AsLib
 		}
 	}
 
+	struct AsPaintSave {
+		size_t x=0;
+		size_t y=0;
+		size_t before_id=0;
+		size_t after_id=0;
+		AsPaintSave() = default;
+		AsPaintSave(const size_t x_, const size_t y_, const size_t bid_, const size_t aid_)
+			:x(x_), y(y_), before_id(bid_), after_id(aid_) {}
+	};
+	struct AsPaintSaveAll {
+	private:
+		std::vector<AsPaintSave> save;
+	public:
+		void push(const size_t x_, const size_t y_, const size_t bid_, const size_t aid_) {
+			save.emplace_back(x_, y_, bid_, aid_);
+		}
+	};
+
 	//塗りツール
-	void asPaintTool(std::vector<size_t>& map_, const size_t size_x_, const size_t x_, const size_t y_, const size_t id_)
+	void asPaintTool(std::vector<size_t>& map_, const size_t size_x_, const size_t x_, const size_t y_, const size_t id_, AsPaintSaveAll* const save_=nullptr)
 	{
 		const size_t size_y_ = map_.size() / size_x_;
 		const size_t map_xy = (size_x_ >= size_y_) ? size_x_ : size_y_;
@@ -319,30 +337,26 @@ namespace AsLib
 		const size_t map_y = size_y_ - 1;
 
 		std::unique_ptr<AsPaintLine[]> buffer(new AsPaintLine[map_xy]);
-		AsPaintLine *start_b = nullptr;
+		AsPaintLine *start_b = buffer.get();
 
-
-		size_t lx, rx;
-		size_t ly;
-		size_t oy;
 		const size_t col = map_[y_*size_x_ + x_];
 		if (col == id_) return;
 
-		start_b = buffer.get();
 		end_b = buffer.get() + 1;
 		start_b->lx = start_b->rx = x_;
 		start_b->y = start_b->oy = y_;
 
+		size_t lx, rx;
 		do {
 			lx = start_b->lx;
 			rx = start_b->rx;
-			ly = start_b->y;
-			oy = start_b->oy;
+			size_t& ly = start_b->y;
+			size_t& oy = start_b->oy;
 
 			const size_t lxsav = lx - 1;
 			const size_t rxsav = rx + 1;
 
-			if (++start_b == &buffer[map_xy]) start_b = buffer.get();
+			if (++start_b == &buffer[map_xy]) start_b = buffer.get();	
 
 			if (map_[ly*size_x_ + lx] != col)
 				continue;
@@ -355,7 +369,10 @@ namespace AsLib
 				if (map_[ly*size_x_ + lx - 1] != col) break;
 				--lx;
 			}
-			for (size_t i = lx; i <= rx; ++i) map_[ly*size_x_ + i] = id_;
+			for (size_t i = lx; i <= rx; ++i) {
+				map_[ly*size_x_ + i] = id_;
+				if (save_ != nullptr) save_->push(i, ly, map_[ly*size_x_ + i], id_);
+			}
 
 			if (ly >= 1) {//y_
 				if (ly == oy + 1) {

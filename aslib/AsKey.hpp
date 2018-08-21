@@ -791,6 +791,11 @@ void checkKey(bool* const AS_key, Counter* const AS_count)
 {
 	return;
 }
+#elif defined(ASLIB_INCLUDE_C2)
+void checkKey(bool* const AS_key, Counter* const AS_count)
+{
+	return;
+}
 #elif defined(ASLIB_INCLUDE_TP)
 void checkKey(bool* const AS_key, Counter* const AS_count)
 {

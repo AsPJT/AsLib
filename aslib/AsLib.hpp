@@ -118,6 +118,28 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 #include <ofMain.h>
 int main() { return int(asMain()); }
 #define ANIME_TEXTURE_1
+#elif defined(ASLIB_INCLUDE_C2)
+#include "cocos2d.h"
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	constexpr size_t aslib_platform = aslib_platform_pc;
+#define ANIME_TEXTURE_4
+#ifndef __MAIN_H__
+#define __MAIN_H__
+	//Exclude rarely-used stuff from Windows headers
+#define WIN32_LEAN_AND_MEAN
+	//Windowsヘッダーファイル
+#include <windows.h>
+#include <tchar.h>
+	// C RunTimeヘッダーファイル
+#include "platform/CCStdC.h"
+#endif//__MAIN_H__
+	USING_NS_CC;
+int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
+	UNREFERENCED_PARAMETER(hPrevInstance);
+	UNREFERENCED_PARAMETER(lpCmdLine);
+	return int(asMain());
+}
+#endif
 #elif defined(ASLIB_INCLUDE_TP)
 	constexpr size_t aslib_platform = aslib_platform_empty;
 int main() { return int(asMain()); }
@@ -130,6 +152,8 @@ int main() { return int(asMain()); }
 int main() { return int(asMain() && AsLib::asEnd()); }
 #define ANIME_TEXTURE_3
 #endif
+//#elif defined\(ASLIB_INCLUDE_TP\)
+//#elif defined(ASLIB_INCLUDE_C2)\nreturn 0;\n#elif defined(ASLIB_INCLUDE_TP)
 
 //--------------------------------------------------
 //基本インクルード

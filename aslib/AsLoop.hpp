@@ -21,6 +21,8 @@ namespace AsLib
 		return s3d::System::Update();
 #elif defined(ASLIB_INCLUDE_OF)
 		return false;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return false;
 #else //Console
@@ -40,6 +42,8 @@ namespace AsLib
 		return s3d::System::Update();
 #elif defined(ASLIB_INCLUDE_OF)
 		return false;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return false;
 #else //Console

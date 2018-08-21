@@ -21,7 +21,7 @@ namespace AsLib
 		//タイトル
 		std::string title_name;
 	public:
-		MainControl(const char* const title_=u8"AsLib", const Pos2& window_size_ = aslib_default_window_size, const Color& c_ = aslib_bg_color) :window_size(window_size_), color(c_), title_name(title_)
+		MainControl(const char* const title_=u8"AsLib", const Pos2& window_size_ = aslib_default_window_size, const Color& c_ = aslib_bg_color) :window_size(asWindowSizeSave(true,window_size_)), color(c_), title_name(title_)
 		{
 			//OF例外措置
 #if defined(ASLIB_INCLUDE_OF)

@@ -216,20 +216,7 @@ int32_t asMain()
 		select_map_view.setMobView(select_map_event);
 		paint_map_view.setMobView(paint_map_event);
 
-		//マップ描画
-		if (see_button.isOn()) {
-			asRect(paint_area, Color(56, 170, 68));
-			paint_map_view.draw(&paint_main_map, &select_layer, paint_area);
-		}
-		else paint_map_view.draw(&paint_main_map, paint_area);
-		paint_map_view.draw(&paint_map_event, paint_area);
 
-		//マップ描画
-		if (tool_id != aslib_paint_tool_event) {
-			asRect(select_area, Color(245, 245, 245));
-			select_map_view.draw(&select_main_map, select_area);
-			select_map_view.draw(&select_map_event, select_area);
-		}
 
 		is_select = select_map_view.select(&select_main_map, &mrc, 0, &select_pos, &select_id, select_area);
 
@@ -254,6 +241,21 @@ int32_t asMain()
 		if (empty_button.up()) tool_id = aslib_paint_tool_empty;
 		if (left_button.up()) mrc.left(&paint_main_map);
 		if (right_button.up()) mrc.right(&paint_main_map);
+
+		//マップ描画
+		if (see_button.isOn()) {
+			asRect(paint_area, Color(56, 170, 68));
+			paint_map_view.draw(&paint_main_map, &select_layer, paint_area);
+		}
+		else paint_map_view.draw(&paint_main_map, paint_area);
+		paint_map_view.draw(&paint_map_event, paint_area);
+
+		//マップ描画
+		if (tool_id != aslib_paint_tool_event) {
+			asRect(select_area, Color(245, 245, 245));
+			select_map_view.draw(&select_main_map, select_area);
+			select_map_view.draw(&select_map_event, select_area);
+		}
 
 		switch (tool_id)
 		{
@@ -287,8 +289,19 @@ int32_t asMain()
 			paint_map_view.setLookSize(paint_map_p, 'y', paint_area);
 			break;
 		case aslib_paint_tool_event:
-
 			break;
+		}
+
+		//自動セーブ
+		++auto_save_counter;
+		if (auto_save_counter >= auto_save_timer) {
+			auto_save_counter = 0;
+			paint_main_map.writeCSV();
+		}
+		++auto_backup_counter;
+		if (auto_backup_counter >= auto_backup_timer) {
+			auto_backup_counter = 0;
+			paint_main_map.writeBackupCSV();
 		}
 
 		//ボタン描画
@@ -304,18 +317,6 @@ int32_t asMain()
 		right_button.draw();
 		event_button.bitSet(tool_id == aslib_paint_tool_event).draw();
 		//white_ascll_button.draw();
-
-		//自動セーブ
-		++auto_save_counter;
-		if (auto_save_counter >= auto_save_timer) {
-			auto_save_counter = 0;
-			paint_main_map.writeCSV();
-		}
-		++auto_backup_counter;
-		if (auto_backup_counter >= auto_backup_timer) {
-			auto_backup_counter = 0;
-			paint_main_map.writeBackupCSV();
-		}
 	}
 	//終了セーブ
 	paint_main_map.writeCSV();

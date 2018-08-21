@@ -47,6 +47,8 @@ namespace AsLib
 		return Pos2(int32_t(s3d::Cursor::Pos().x), int32_t(s3d::Cursor::Pos().y));
 #elif defined(ASLIB_INCLUDE_OF)
 		return asMousePosSave(false);
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return Pos2();
 #else //Console
@@ -66,6 +68,8 @@ namespace AsLib
 		return int32_t(s3d::Mouse::Wheel());
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -135,6 +139,8 @@ namespace AsLib
 		for (size_t i = 0; i < mouse_button_num; ++i) {
 			count[i].update(asMouseButtonSave(false)[i]);
 		}
+#elif defined(ASLIB_INCLUDE_C2)
+
 #elif defined(ASLIB_INCLUDE_TP)
 
 #else //Console
@@ -150,6 +156,8 @@ namespace AsLib
 		return (s3d::MouseL.pressed() != 0);
 #elif defined(ASLIB_INCLUDE_OF)
 		return (asMouseButtonSave(false)[aslib_mouse_left]);
+#elif defined(ASLIB_INCLUDE_C2)
+return 0;
 #elif defined(ASLIB_INCLUDE_TP)
 		return false;
 #else //Console

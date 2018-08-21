@@ -137,6 +137,9 @@ namespace AsLib
 			return rect;
 		}
 #endif
+#if defined(ASLIB_INCLUDE_C2)
+		operator cocos2d::Size() { return cocos2d::Size(float(this->x), float(this->y)); }
+#endif
 
 		const char* const c_str() const
 		{
@@ -553,6 +556,10 @@ namespace AsLib
 		const Pos2F moveHypot(const float f_) const { return Pos2F(this->Hypot()*sin(f_), -this->Hypot()*cos(f_)); }
 		const pos_float minusX() const { return -1 * this->x; }
 		const pos_float minusY() const { return -1 * this->y; }
+
+#if defined(ASLIB_INCLUDE_C2)
+		operator cocos2d::Size() { return cocos2d::Size(float(this->x), float(this->y)); }
+#endif
 	};
 	//í∑ï˚å`ÇÃëÂÇ´Ç≥(ç∂è„Ç∆âEâ∫ÇÃà íu)
 	struct Pos4F
@@ -1396,8 +1403,17 @@ namespace AsLib
 			if (is_y) return PosL4F(pos.x + pos.w*num_x_ / num_x, pos.y + pos.w*num_y_ / num_x, pos.w / num_x, pos.w / num_x);
 			return PosL4F(pos.x + pos.w*num_x_ / num_x, pos.y + pos.h*num_y_ / num_y, pos.w / num_x, pos.h / num_y);
 		}
-
-
 	};
+
+	using AsVector = Pos2;
+	using AsVectorFloat = Pos2F;
+	using AsVec2 = Pos2;
+	using AsVec2Float = Pos2F;
+	using AsRect = Pos4;
+	using AsRectFloat = Pos4F;
+	using AsRectOrigin = PosL4;
+	using AsRectOriginFloat = PosL4F;
+	using AsRectCenter = PosA4;
+	using AsRectCenterFloat = PosA4F;
 
 }

@@ -43,6 +43,8 @@ namespace AsLib
 		static OriginatorTexture tex;
 		tex.load(name);
 		return tex;
+#elif defined(ASLIB_INCLUDE_C2)
+		return Sprite::create(name);
 #elif defined(ASLIB_INCLUDE_TP)
 		return 0;
 #else //Console
@@ -62,6 +64,8 @@ namespace AsLib
 		texture_size(int32_t(id.width()), int32_t(id.height()));
 #elif defined(ASLIB_INCLUDE_OF)
 		texture_size(int32_t(id.getWidth()), int32_t(id.getHeight()));
+#elif defined(ASLIB_INCLUDE_C2)
+
 #elif defined(ASLIB_INCLUDE_TP)
 #else //Console
 #endif
@@ -136,6 +140,8 @@ namespace AsLib
 		std::unique_ptr<OriginatorTexture[]> id;
 #elif defined(ANIME_TEXTURE_3)
 		int32_t id;
+#elif defined(ANIME_TEXTURE_4)
+		OriginatorTexture id;
 #endif
 		Pos2 before_pixel_size;
 		Pos2 pixel_size;
@@ -190,7 +196,11 @@ namespace AsLib
 			return *this;
 		}
 #elif defined(ANIME_TEXTURE_3)
-		AsTexture(const size_t id_num, const int32_t add_id) {}
+		AsTexture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1, const bool a_ = true) :id(asLoadTexture(name_, x_, y_)) {}//stdmovea
+		AsTexture& operator()(const char* const name_, const size_t x_ = 1, const size_t y_ = 1, const bool a_ = true) { return *this; }
+#elif defined(ANIME_TEXTURE_4)
+		AsTexture(const char* const name_, const size_t x_ = 1, const size_t y_ = 1, const bool a_ = true) : id(asLoadTexture(name_, x_, y_)) {}//stdmovea
+		AsTexture& operator()(const char* const name_, const size_t x_ = 1, const size_t y_ = 1, const bool a_ = true) { return *this; }
 #endif
 
 		//--------------------------------------------------
