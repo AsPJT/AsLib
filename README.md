@@ -1,4 +1,4 @@
-﻿# As Library <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.ja"><img src="https://img.shields.io/badge/license-CC0-blue.svg"></a>
+﻿# As Library <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.ja"><img src="https://img.shields.io/badge/license-CC0-blue.svg"></a> <a href="https://github.com/Kasugaccho/AsLib"><img src="https://img.shields.io/badge/0.4.0.0%20%CE%B1-passing-brightgreen.svg"></a>
 当ライブラリはC++でのマルチプラットフォーム開発をサポートします。
 [![AsLib](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/aslib/Picture/Title/aslib150.png "AsLib")](https://github.com/Kasugaccho/AsLib)
 
