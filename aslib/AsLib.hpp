@@ -15,13 +15,13 @@
 #include <cstdint>
 
 //AsLibバージョン
-constexpr int32_t ASLIB_VERSION = 0x0210;
-const char* const ASLIB_VERSION_STR = "0.2.1.0 Alpha";
+constexpr int32_t ASLIB_VERSION = 0x0400;
+const char* const ASLIB_VERSION_STR = "0.4.0.0 Alpha";
 
 //AsLibバージョン (UTF)
-const char* const ASLIB_VERSION_STR8 = u8"0.2.1.0 Alpha";
-const char16_t* const ASLIB_VERSION_STR16 = u"0.2.1.0 Alpha";
-const char32_t* const ASLIB_VERSION_STR32 = U"0.2.1.0 Alpha";
+const char* const ASLIB_VERSION_STR8 = u8"0.4.0.0 Alpha";
+const char16_t* const ASLIB_VERSION_STR16 = u"0.4.0.0 Alpha";
+const char32_t* const ASLIB_VERSION_STR32 = U"0.4.0.0 Alpha";
 
 enum:size_t{
 	aslib_platform_empty,
