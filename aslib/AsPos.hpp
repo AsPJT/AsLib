@@ -96,6 +96,7 @@ namespace AsLib
 		//Pos2F operator^(const pos_float int_) { const Pos2F pos(pos_float(pow(this->x, int_)), pos_float(pow(this->y, int_))); return pos; }
 		//Pos2F operator^(const pos_int int_) { const Pos2F pos(pos_float(pow(this->x, int_)), pos_float(pow(this->y, int_))); return pos; }
 		//--------------------
+		const Pos2& operator()(const Pos2& add_pos) { *this = add_pos; return *this; }
 		const Pos2& operator=(const Pos4& add_pos);
 		const Pos2& operator=(const PosL4& add_pos);
 		const Pos2& operator=(const PosA4& add_pos);
@@ -220,6 +221,7 @@ namespace AsLib
 		const Pos4& operator>>=(const Pos4& p_) { *this = *this >> p_; return *this; }
 		const Pos4& operator%=(const Pos4& p_) { *this = *this % p_; return *this; }
 		//--------------------
+		const Pos4& operator()(const Pos4& add_pos) { *this = add_pos; return *this; }
 		const Pos4& operator=(const Pos2&);
 		const Pos4& operator=(const Pos8&);
 		const Pos4& operator=(const PosA4&);
@@ -300,6 +302,7 @@ namespace AsLib
 		const PosL4& operator>>=(const PosL4& p_) { *this = *this >> p_; return *this; }
 		const PosL4& operator%=(const PosL4& p_) { *this = *this % p_; return *this; }
 		//--------------------
+		const PosL4& operator()(const PosL4& add_pos) { *this = add_pos; return *this; }
 		const PosL4& operator=(const Pos2& add_pos);
 		const PosL4& operator=(const Pos4& add_pos);
 		const PosL4& operator=(const PosA4& add_pos);
@@ -380,6 +383,7 @@ namespace AsLib
 		const PosA4& operator>>=(const PosL4& p_) { *this = *this >> p_; return *this; }
 		const PosA4& operator%=(const PosL4& p_) { *this = *this % p_; return *this; }
 		//--------------------
+		const PosA4& operator()(const PosA4& add_pos) { *this = add_pos; return *this; }
 		const PosA4& operator=(const Pos2& add_pos);
 		const PosA4& operator=(const Pos4& add_pos);
 		const PosA4& operator=(const PosL4& add_pos);
@@ -469,6 +473,7 @@ namespace AsLib
 		const Pos8& operator>>=(const Pos8& p_) { *this = *this >> p_; return *this; }
 		const Pos8& operator%=(const Pos8& p_) { *this = *this % p_; return *this; }
 		//--------------------
+		const Pos8& operator()(const Pos8& add_pos) { *this = add_pos; return *this; }
 		const Pos8& operator=(const Pos2& add_pos);
 		const Pos8& operator=(const Pos4& add_pos);
 		const Pos8& operator=(const PosL4& add_pos);
@@ -534,6 +539,7 @@ namespace AsLib
 		const Pos2F& operator*=(const Pos2F& p_) { *this = *this * p_; return *this; }
 		const Pos2F& operator/=(const Pos2F& p_) { *this = *this / p_; return *this; }
 		//--------------------
+		const Pos2F& operator()(const Pos2F& add_pos) { *this = add_pos; return *this; }
 		const Pos2F& operator=(const Pos4F& add_pos);
 		const Pos2F& operator=(const PosL4F& add_pos);
 		const Pos2F& operator=(const PosA4F& add_pos);
@@ -618,6 +624,7 @@ namespace AsLib
 		const Pos4F& operator*=(const Pos4F& p_) { *this = *this * p_; return *this; }
 		const Pos4F& operator/=(const Pos4F& p_) { *this = *this / p_; return *this; }
 		//--------------------
+		const Pos4F& operator()(const Pos4F& add_pos) { *this = add_pos; return *this; }
 		const Pos4F& operator=(const Pos2F&);
 		const Pos4F& operator=(const Pos8F&);
 		const Pos4F& operator=(const PosA4F&);
@@ -684,6 +691,7 @@ namespace AsLib
 		const PosL4F& operator*=(const PosL4F& p_) { *this = *this * p_; return *this; }
 		const PosL4F& operator/=(const PosL4F& p_) { *this = *this / p_; return *this; }
 		//--------------------
+		const PosL4F& operator()(const PosL4F& add_pos) { *this = add_pos; return *this; }
 		const PosL4F& operator=(const Pos2F& add_pos);
 		const PosL4F& operator=(const Pos4F& add_pos);
 		const PosL4F& operator=(const PosA4F& add_pos);
@@ -748,6 +756,7 @@ namespace AsLib
 		const PosA4F& operator*=(const PosA4F& p_) { *this = *this * p_; return *this; }
 		const PosA4F& operator/=(const PosA4F& p_) { *this = *this / p_; return *this; }
 		//--------------------
+		const PosA4F& operator()(const PosA4F& add_pos) { *this = add_pos; return *this; }
 		const PosA4F& operator=(const Pos2F& add_pos);
 		const PosA4F& operator=(const Pos4F& add_pos);
 		const PosA4F& operator=(const PosL4F& add_pos);
@@ -817,6 +826,7 @@ namespace AsLib
 		const Pos8F& operator*=(const Pos8F& p_) { *this = *this * p_; return *this; }
 		const Pos8F& operator/=(const Pos8F& p_) { *this = *this / p_; return *this; }
 		//--------------------
+		const Pos8F& operator()(const Pos8F& add_pos) { *this = add_pos; return *this; }
 		const Pos8F& operator=(const Pos2F& add_pos);
 		const Pos8F& operator=(const Pos4F& add_pos);
 		const Pos8F& operator=(const PosL4F& add_pos);
