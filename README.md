@@ -3,7 +3,7 @@
 [![AsLib](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/aslib/Picture/Title/aslib150.png "AsLib")](https://github.com/Kasugaccho/AsLib)
 
 当ライブラリで開発した作品はopenFrameworksやOpenSiv3D等の
-多岐に渡るC++(GUI)ライブラリで実行することが出来ます。
+多岐に渡るC++ - GUIライブラリで実行することが出来ます。
 
 ## License
 
