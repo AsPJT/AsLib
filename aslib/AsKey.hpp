@@ -567,7 +567,7 @@ bba0
 
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 	
-void checkKey(bool* const AS_key,Counter* const AS_count)
+void checkKey(bool* const AS_key,Counter* const AS_count) noexcept
 {
 	constexpr std::array<size_t, aslib_key_keyLast> DL_AS_key{
 		0,
@@ -708,7 +708,7 @@ void checkKey(bool* const AS_key,Counter* const AS_count)
 
 	std::array<char, 256> DL_key;
 	DxLib::GetHitKeyStateAll(DL_key.data());
-	for (size_t i = 0; i < aslib_key_keyLast; ++i) {
+	for (size_t i{}; i < aslib_key_keyLast; ++i) {
 		if (DL_key[DL_AS_key[i]] != 0) AS_key[i] = true;
 		else AS_key[i] = false;
 		AS_count[i].update(bool(AS_key[i]));
@@ -718,9 +718,9 @@ void checkKey(bool* const AS_key,Counter* const AS_count)
 
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 
-void checkKey(bool* const AS_key, Counter* const AS_count)
+void checkKey(bool* const AS_key, Counter* const AS_count) noexcept
 {
-	for (size_t i = 0; i < aslib_key_keyLast; ++i) {
+	for (size_t i{}; i < aslib_key_keyLast; ++i) {
 		AS_key[i] = false;
 	}
 	AS_key[aslib_key_1] = bool(s3d::Key1.pressed());
@@ -783,30 +783,30 @@ void checkKey(bool* const AS_key, Counter* const AS_count)
 	AS_key[aslib_key_right_alt] = bool(s3d::KeyRAlt.pressed());
 	AS_key[aslib_key_enter] = bool(s3d::KeyEnter.pressed());
 
-	for (size_t i = 0; i < aslib_key_keyLast; ++i) {
+	for (size_t i{}; i < aslib_key_keyLast; ++i) {
 		AS_count[i].update(bool(AS_key[i]));
 	}
 	return;
 }
 #elif defined(ASLIB_INCLUDE_OF)
-void checkKey(bool* const AS_key, Counter* const AS_count)
+void checkKey(bool* const AS_key, Counter* const AS_count) noexcept
 {
 	return;
 }
 #elif defined(ASLIB_INCLUDE_C2)
-void checkKey(bool* const AS_key, Counter* const AS_count)
+void checkKey(bool* const AS_key, Counter* const AS_count) noexcept
 {
 	return;
 }
 #elif defined(ASLIB_INCLUDE_SF)
 return 0;
 #elif defined(ASLIB_INCLUDE_TP)
-void checkKey(bool* const AS_key, Counter* const AS_count)
+void checkKey(bool* const AS_key, Counter* const AS_count) noexcept
 {
 	return;
 }
 #else //Console
-void checkKey(bool* const AS_key, Counter* const AS_count)
+void checkKey(bool* const AS_key, Counter* const AS_count) noexcept
 {
 	return;
 }
@@ -822,7 +822,7 @@ enum :size_t {
 	aslib_counter_down0,
 };
 
-const bool updateKey_(const size_t id_ = 0, const bool is_update = false, const size_t count_id = aslib_counter_empty,const bool is_set=false)
+const bool updateKey_(const size_t id_ = 0, const bool is_update = false, const size_t count_id = aslib_counter_empty,const bool is_set=false) noexcept
 {
 	static bool aslib_update_key[aslib_key_keyLast];
 	static Counter aslib_update_count[aslib_key_keyLast];
@@ -844,352 +844,352 @@ const bool updateKey_(const size_t id_ = 0, const bool is_update = false, const 
 	return aslib_update_key[id_];
 }
 
-inline const bool asKeySet(const size_t& id_) { return updateKey_(id_, false, aslib_counter_empty, true); }
-inline const bool asKey(const size_t& id_) { return updateKey_(id_, false); }
-inline const bool asKeyTouch(const size_t& id_) { return updateKey_(id_, false, aslib_counter_touch); }
-inline const bool asKeyTouch0(const size_t& id_) { return updateKey_(id_, false, aslib_counter_touch0); }
-inline const bool asKeyUp(const size_t& id_) { return updateKey_(id_, false, aslib_counter_up); }
-inline const bool asKeyUp0(const size_t& id_) { return updateKey_(id_, false, aslib_counter_up0); }
-inline const bool asKeyDown(const size_t& id_) { return updateKey_(id_, false, aslib_counter_down); }
-inline const bool asKeyDown0(const size_t& id_) { return updateKey_(id_, false, aslib_counter_down0); }
+inline bool asKeySet(const size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_empty, true); }
+inline bool asKey(const size_t& id_) noexcept { return updateKey_(id_, false); }
+inline bool asKeyTouch(const size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_touch); }
+inline bool asKeyTouch0(const size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_touch0); }
+inline bool asKeyUp(const size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_up); }
+inline bool asKeyUp0(const size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_up0); }
+inline bool asKeyDown(const size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_down); }
+inline bool asKeyDown0(const size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_down0); }
 
-inline const bool asKeyA() { return updateKey_(aslib_key_a, false); }
-inline const bool asKeyA_Touch() { return updateKey_(aslib_key_a, false, aslib_counter_touch); }
-inline const bool asKeyA_Touch0() { return updateKey_(aslib_key_a, false, aslib_counter_touch0); }
-inline const bool asKeyA_Up() { return updateKey_(aslib_key_a, false, aslib_counter_up); }
-inline const bool asKeyA_Up0() { return updateKey_(aslib_key_a, false, aslib_counter_up0); }
-inline const bool asKeyA_Down() { return updateKey_(aslib_key_a, false, aslib_counter_down); }
-inline const bool asKeyA_Down0() { return updateKey_(aslib_key_a, false, aslib_counter_down0); }
+inline bool asKeyA() noexcept { return updateKey_(aslib_key_a, false); }
+inline bool asKeyA_Touch() noexcept { return updateKey_(aslib_key_a, false, aslib_counter_touch); }
+inline bool asKeyA_Touch0() noexcept { return updateKey_(aslib_key_a, false, aslib_counter_touch0); }
+inline bool asKeyA_Up() noexcept { return updateKey_(aslib_key_a, false, aslib_counter_up); }
+inline bool asKeyA_Up0() noexcept { return updateKey_(aslib_key_a, false, aslib_counter_up0); }
+inline bool asKeyA_Down() noexcept { return updateKey_(aslib_key_a, false, aslib_counter_down); }
+inline bool asKeyA_Down0() noexcept { return updateKey_(aslib_key_a, false, aslib_counter_down0); }
 
-inline const bool asKeyB() { return updateKey_(aslib_key_b, false); }
-inline const bool asKeyB_Touch() { return updateKey_(aslib_key_b, false, aslib_counter_touch); }
-inline const bool asKeyB_Touch0() { return updateKey_(aslib_key_b, false, aslib_counter_touch0); }
-inline const bool asKeyB_Up() { return updateKey_(aslib_key_b, false, aslib_counter_up); }
-inline const bool asKeyB_Up0() { return updateKey_(aslib_key_b, false, aslib_counter_up0); }
-inline const bool asKeyB_Down() { return updateKey_(aslib_key_b, false, aslib_counter_down); }
-inline const bool asKeyB_Down0() { return updateKey_(aslib_key_b, false, aslib_counter_down0); }
+inline bool asKeyB() noexcept { return updateKey_(aslib_key_b, false); }
+inline bool asKeyB_Touch() noexcept { return updateKey_(aslib_key_b, false, aslib_counter_touch); }
+inline bool asKeyB_Touch0() noexcept { return updateKey_(aslib_key_b, false, aslib_counter_touch0); }
+inline bool asKeyB_Up() noexcept { return updateKey_(aslib_key_b, false, aslib_counter_up); }
+inline bool asKeyB_Up0() noexcept { return updateKey_(aslib_key_b, false, aslib_counter_up0); }
+inline bool asKeyB_Down() noexcept { return updateKey_(aslib_key_b, false, aslib_counter_down); }
+inline bool asKeyB_Down0() noexcept { return updateKey_(aslib_key_b, false, aslib_counter_down0); }
 
-inline const bool asKeyC() { return updateKey_(aslib_key_c, false); }
-inline const bool asKeyC_Touch() { return updateKey_(aslib_key_c, false, aslib_counter_touch); }
-inline const bool asKeyC_Touch0() { return updateKey_(aslib_key_c, false, aslib_counter_touch0); }
-inline const bool asKeyC_Up() { return updateKey_(aslib_key_c, false, aslib_counter_up); }
-inline const bool asKeyC_Up0() { return updateKey_(aslib_key_c, false, aslib_counter_up0); }
-inline const bool asKeyC_Down() { return updateKey_(aslib_key_c, false, aslib_counter_down); }
-inline const bool asKeyC_Down0() { return updateKey_(aslib_key_c, false, aslib_counter_down0); }
+inline bool asKeyC() noexcept { return updateKey_(aslib_key_c, false); }
+inline bool asKeyC_Touch() noexcept { return updateKey_(aslib_key_c, false, aslib_counter_touch); }
+inline bool asKeyC_Touch0() noexcept { return updateKey_(aslib_key_c, false, aslib_counter_touch0); }
+inline bool asKeyC_Up() noexcept { return updateKey_(aslib_key_c, false, aslib_counter_up); }
+inline bool asKeyC_Up0() noexcept { return updateKey_(aslib_key_c, false, aslib_counter_up0); }
+inline bool asKeyC_Down() noexcept { return updateKey_(aslib_key_c, false, aslib_counter_down); }
+inline bool asKeyC_Down0() noexcept { return updateKey_(aslib_key_c, false, aslib_counter_down0); }
 
-inline const bool asKeyD() { return updateKey_(aslib_key_d, false); }
-inline const bool asKeyD_Touch() { return updateKey_(aslib_key_d, false, aslib_counter_touch); }
-inline const bool asKeyD_Touch0() { return updateKey_(aslib_key_d, false, aslib_counter_touch0); }
-inline const bool asKeyD_Up() { return updateKey_(aslib_key_d, false, aslib_counter_up); }
-inline const bool asKeyD_Up0() { return updateKey_(aslib_key_d, false, aslib_counter_up0); }
-inline const bool asKeyD_Down() { return updateKey_(aslib_key_d, false, aslib_counter_down); }
-inline const bool asKeyD_Down0() { return updateKey_(aslib_key_d, false, aslib_counter_down0); }
+inline bool asKeyD() noexcept { return updateKey_(aslib_key_d, false); }
+inline bool asKeyD_Touch() noexcept { return updateKey_(aslib_key_d, false, aslib_counter_touch); }
+inline bool asKeyD_Touch0() noexcept { return updateKey_(aslib_key_d, false, aslib_counter_touch0); }
+inline bool asKeyD_Up() noexcept { return updateKey_(aslib_key_d, false, aslib_counter_up); }
+inline bool asKeyD_Up0() noexcept { return updateKey_(aslib_key_d, false, aslib_counter_up0); }
+inline bool asKeyD_Down() noexcept { return updateKey_(aslib_key_d, false, aslib_counter_down); }
+inline bool asKeyD_Down0() noexcept { return updateKey_(aslib_key_d, false, aslib_counter_down0); }
 
-inline const bool asKeyE() { return updateKey_(aslib_key_e, false); }
-inline const bool asKeyE_Touch() { return updateKey_(aslib_key_e, false, aslib_counter_touch); }
-inline const bool asKeyE_Touch0() { return updateKey_(aslib_key_e, false, aslib_counter_touch0); }
-inline const bool asKeyE_Up() { return updateKey_(aslib_key_e, false, aslib_counter_up); }
-inline const bool asKeyE_Up0() { return updateKey_(aslib_key_e, false, aslib_counter_up0); }
-inline const bool asKeyE_Down() { return updateKey_(aslib_key_e, false, aslib_counter_down); }
-inline const bool asKeyE_Down0() { return updateKey_(aslib_key_e, false, aslib_counter_down0); }
+inline bool asKeyE() noexcept { return updateKey_(aslib_key_e, false); }
+inline bool asKeyE_Touch() noexcept { return updateKey_(aslib_key_e, false, aslib_counter_touch); }
+inline bool asKeyE_Touch0() noexcept { return updateKey_(aslib_key_e, false, aslib_counter_touch0); }
+inline bool asKeyE_Up() noexcept { return updateKey_(aslib_key_e, false, aslib_counter_up); }
+inline bool asKeyE_Up0() noexcept { return updateKey_(aslib_key_e, false, aslib_counter_up0); }
+inline bool asKeyE_Down() noexcept { return updateKey_(aslib_key_e, false, aslib_counter_down); }
+inline bool asKeyE_Down0() noexcept { return updateKey_(aslib_key_e, false, aslib_counter_down0); }
 
-inline const bool asKeyF() { return updateKey_(aslib_key_f, false); }
-inline const bool asKeyF_Touch() { return updateKey_(aslib_key_f, false, aslib_counter_touch); }
-inline const bool asKeyF_Touch0() { return updateKey_(aslib_key_f, false, aslib_counter_touch0); }
-inline const bool asKeyF_Up() { return updateKey_(aslib_key_f, false, aslib_counter_up); }
-inline const bool asKeyF_Up0() { return updateKey_(aslib_key_f, false, aslib_counter_up0); }
-inline const bool asKeyF_Down() { return updateKey_(aslib_key_f, false, aslib_counter_down); }
-inline const bool asKeyF_Down0() { return updateKey_(aslib_key_f, false, aslib_counter_down0); }
+inline bool asKeyF() noexcept { return updateKey_(aslib_key_f, false); }
+inline bool asKeyF_Touch() noexcept { return updateKey_(aslib_key_f, false, aslib_counter_touch); }
+inline bool asKeyF_Touch0() noexcept { return updateKey_(aslib_key_f, false, aslib_counter_touch0); }
+inline bool asKeyF_Up() noexcept { return updateKey_(aslib_key_f, false, aslib_counter_up); }
+inline bool asKeyF_Up0() noexcept { return updateKey_(aslib_key_f, false, aslib_counter_up0); }
+inline bool asKeyF_Down() noexcept { return updateKey_(aslib_key_f, false, aslib_counter_down); }
+inline bool asKeyF_Down0() noexcept { return updateKey_(aslib_key_f, false, aslib_counter_down0); }
 
-inline const bool asKeyG() { return updateKey_(aslib_key_g, false); }
-inline const bool asKeyG_Touch() { return updateKey_(aslib_key_g, false, aslib_counter_touch); }
-inline const bool asKeyG_Touch0() { return updateKey_(aslib_key_g, false, aslib_counter_touch0); }
-inline const bool asKeyG_Up() { return updateKey_(aslib_key_g, false, aslib_counter_up); }
-inline const bool asKeyG_Up0() { return updateKey_(aslib_key_g, false, aslib_counter_up0); }
-inline const bool asKeyG_Down() { return updateKey_(aslib_key_g, false, aslib_counter_down); }
-inline const bool asKeyG_Down0() { return updateKey_(aslib_key_g, false, aslib_counter_down0); }
+inline bool asKeyG() noexcept { return updateKey_(aslib_key_g, false); }
+inline bool asKeyG_Touch() noexcept { return updateKey_(aslib_key_g, false, aslib_counter_touch); }
+inline bool asKeyG_Touch0() noexcept { return updateKey_(aslib_key_g, false, aslib_counter_touch0); }
+inline bool asKeyG_Up() noexcept { return updateKey_(aslib_key_g, false, aslib_counter_up); }
+inline bool asKeyG_Up0() noexcept { return updateKey_(aslib_key_g, false, aslib_counter_up0); }
+inline bool asKeyG_Down() noexcept { return updateKey_(aslib_key_g, false, aslib_counter_down); }
+inline bool asKeyG_Down0() noexcept { return updateKey_(aslib_key_g, false, aslib_counter_down0); }
 
-inline const bool asKeyH() { return updateKey_(aslib_key_h, false); }
-inline const bool asKeyH_Touch() { return updateKey_(aslib_key_h, false, aslib_counter_touch); }
-inline const bool asKeyH_Touch0() { return updateKey_(aslib_key_h, false, aslib_counter_touch0); }
-inline const bool asKeyH_Up() { return updateKey_(aslib_key_h, false, aslib_counter_up); }
-inline const bool asKeyH_Up0() { return updateKey_(aslib_key_h, false, aslib_counter_up0); }
-inline const bool asKeyH_Down() { return updateKey_(aslib_key_h, false, aslib_counter_down); }
-inline const bool asKeyH_Down0() { return updateKey_(aslib_key_h, false, aslib_counter_down0); }
+inline bool asKeyH() noexcept { return updateKey_(aslib_key_h, false); }
+inline bool asKeyH_Touch() noexcept { return updateKey_(aslib_key_h, false, aslib_counter_touch); }
+inline bool asKeyH_Touch0() noexcept { return updateKey_(aslib_key_h, false, aslib_counter_touch0); }
+inline bool asKeyH_Up() noexcept { return updateKey_(aslib_key_h, false, aslib_counter_up); }
+inline bool asKeyH_Up0() noexcept { return updateKey_(aslib_key_h, false, aslib_counter_up0); }
+inline bool asKeyH_Down() noexcept { return updateKey_(aslib_key_h, false, aslib_counter_down); }
+inline bool asKeyH_Down0() noexcept { return updateKey_(aslib_key_h, false, aslib_counter_down0); }
 
-inline const bool asKeyI() { return updateKey_(aslib_key_i, false); }
-inline const bool asKeyI_Touch() { return updateKey_(aslib_key_i, false, aslib_counter_touch); }
-inline const bool asKeyI_Touch0() { return updateKey_(aslib_key_i, false, aslib_counter_touch0); }
-inline const bool asKeyI_Up() { return updateKey_(aslib_key_i, false, aslib_counter_up); }
-inline const bool asKeyI_Up0() { return updateKey_(aslib_key_i, false, aslib_counter_up0); }
-inline const bool asKeyI_Down() { return updateKey_(aslib_key_i, false, aslib_counter_down); }
-inline const bool asKeyI_Down0() { return updateKey_(aslib_key_i, false, aslib_counter_down0); }
+inline bool asKeyI() noexcept { return updateKey_(aslib_key_i, false); }
+inline bool asKeyI_Touch() noexcept { return updateKey_(aslib_key_i, false, aslib_counter_touch); }
+inline bool asKeyI_Touch0() noexcept { return updateKey_(aslib_key_i, false, aslib_counter_touch0); }
+inline bool asKeyI_Up() noexcept { return updateKey_(aslib_key_i, false, aslib_counter_up); }
+inline bool asKeyI_Up0() noexcept { return updateKey_(aslib_key_i, false, aslib_counter_up0); }
+inline bool asKeyI_Down() noexcept { return updateKey_(aslib_key_i, false, aslib_counter_down); }
+inline bool asKeyI_Down0() noexcept { return updateKey_(aslib_key_i, false, aslib_counter_down0); }
 
-inline const bool asKeyJ() { return updateKey_(aslib_key_j, false); }
-inline const bool asKeyJ_Touch() { return updateKey_(aslib_key_j, false, aslib_counter_touch); }
-inline const bool asKeyJ_Touch0() { return updateKey_(aslib_key_j, false, aslib_counter_touch0); }
-inline const bool asKeyJ_Up() { return updateKey_(aslib_key_j, false, aslib_counter_up); }
-inline const bool asKeyJ_Up0() { return updateKey_(aslib_key_j, false, aslib_counter_up0); }
-inline const bool asKeyJ_Down() { return updateKey_(aslib_key_j, false, aslib_counter_down); }
-inline const bool asKeyJ_Down0() { return updateKey_(aslib_key_j, false, aslib_counter_down0); }
+inline bool asKeyJ() noexcept { return updateKey_(aslib_key_j, false); }
+inline bool asKeyJ_Touch() noexcept { return updateKey_(aslib_key_j, false, aslib_counter_touch); }
+inline bool asKeyJ_Touch0() noexcept { return updateKey_(aslib_key_j, false, aslib_counter_touch0); }
+inline bool asKeyJ_Up() noexcept { return updateKey_(aslib_key_j, false, aslib_counter_up); }
+inline bool asKeyJ_Up0() noexcept { return updateKey_(aslib_key_j, false, aslib_counter_up0); }
+inline bool asKeyJ_Down() noexcept { return updateKey_(aslib_key_j, false, aslib_counter_down); }
+inline bool asKeyJ_Down0() noexcept { return updateKey_(aslib_key_j, false, aslib_counter_down0); }
 
-inline const bool asKeyK() { return updateKey_(aslib_key_k, false); }
-inline const bool asKeyK_Touch() { return updateKey_(aslib_key_k, false, aslib_counter_touch); }
-inline const bool asKeyK_Touch0() { return updateKey_(aslib_key_k, false, aslib_counter_touch0); }
-inline const bool asKeyK_Up() { return updateKey_(aslib_key_k, false, aslib_counter_up); }
-inline const bool asKeyK_Up0() { return updateKey_(aslib_key_k, false, aslib_counter_up0); }
-inline const bool asKeyK_Down() { return updateKey_(aslib_key_k, false, aslib_counter_down); }
-inline const bool asKeyK_Down0() { return updateKey_(aslib_key_k, false, aslib_counter_down0); }
+inline bool asKeyK() noexcept { return updateKey_(aslib_key_k, false); }
+inline bool asKeyK_Touch() noexcept { return updateKey_(aslib_key_k, false, aslib_counter_touch); }
+inline bool asKeyK_Touch0() noexcept { return updateKey_(aslib_key_k, false, aslib_counter_touch0); }
+inline bool asKeyK_Up() noexcept { return updateKey_(aslib_key_k, false, aslib_counter_up); }
+inline bool asKeyK_Up0() noexcept { return updateKey_(aslib_key_k, false, aslib_counter_up0); }
+inline bool asKeyK_Down() noexcept { return updateKey_(aslib_key_k, false, aslib_counter_down); }
+inline bool asKeyK_Down0() noexcept { return updateKey_(aslib_key_k, false, aslib_counter_down0); }
 
-inline const bool asKeyL() { return updateKey_(aslib_key_l, false); }
-inline const bool asKeyL_Touch() { return updateKey_(aslib_key_l, false, aslib_counter_touch); }
-inline const bool asKeyL_Touch0() { return updateKey_(aslib_key_l, false, aslib_counter_touch0); }
-inline const bool asKeyL_Up() { return updateKey_(aslib_key_l, false, aslib_counter_up); }
-inline const bool asKeyL_Up0() { return updateKey_(aslib_key_l, false, aslib_counter_up0); }
-inline const bool asKeyL_Down() { return updateKey_(aslib_key_l, false, aslib_counter_down); }
-inline const bool asKeyL_Down0() { return updateKey_(aslib_key_l, false, aslib_counter_down0); }
+inline bool asKeyL() noexcept { return updateKey_(aslib_key_l, false); }
+inline bool asKeyL_Touch() noexcept { return updateKey_(aslib_key_l, false, aslib_counter_touch); }
+inline bool asKeyL_Touch0() noexcept { return updateKey_(aslib_key_l, false, aslib_counter_touch0); }
+inline bool asKeyL_Up() noexcept { return updateKey_(aslib_key_l, false, aslib_counter_up); }
+inline bool asKeyL_Up0() noexcept { return updateKey_(aslib_key_l, false, aslib_counter_up0); }
+inline bool asKeyL_Down() noexcept { return updateKey_(aslib_key_l, false, aslib_counter_down); }
+inline bool asKeyL_Down0() noexcept { return updateKey_(aslib_key_l, false, aslib_counter_down0); }
 
-inline const bool asKeyM() { return updateKey_(aslib_key_m, false); }
-inline const bool asKeyM_Touch() { return updateKey_(aslib_key_m, false, aslib_counter_touch); }
-inline const bool asKeyM_Touch0() { return updateKey_(aslib_key_m, false, aslib_counter_touch0); }
-inline const bool asKeyM_Up() { return updateKey_(aslib_key_m, false, aslib_counter_up); }
-inline const bool asKeyM_Up0() { return updateKey_(aslib_key_m, false, aslib_counter_up0); }
-inline const bool asKeyM_Down() { return updateKey_(aslib_key_m, false, aslib_counter_down); }
-inline const bool asKeyM_Down0() { return updateKey_(aslib_key_m, false, aslib_counter_down0); }
+inline bool asKeyM() noexcept { return updateKey_(aslib_key_m, false); }
+inline bool asKeyM_Touch() noexcept { return updateKey_(aslib_key_m, false, aslib_counter_touch); }
+inline bool asKeyM_Touch0() noexcept { return updateKey_(aslib_key_m, false, aslib_counter_touch0); }
+inline bool asKeyM_Up() noexcept { return updateKey_(aslib_key_m, false, aslib_counter_up); }
+inline bool asKeyM_Up0() noexcept { return updateKey_(aslib_key_m, false, aslib_counter_up0); }
+inline bool asKeyM_Down() noexcept { return updateKey_(aslib_key_m, false, aslib_counter_down); }
+inline bool asKeyM_Down0() noexcept { return updateKey_(aslib_key_m, false, aslib_counter_down0); }
 
-inline const bool asKeyN() { return updateKey_(aslib_key_n, false); }
-inline const bool asKeyN_Touch() { return updateKey_(aslib_key_n, false, aslib_counter_touch); }
-inline const bool asKeyN_Touch0() { return updateKey_(aslib_key_n, false, aslib_counter_touch0); }
-inline const bool asKeyN_Up() { return updateKey_(aslib_key_n, false, aslib_counter_up); }
-inline const bool asKeyN_Up0() { return updateKey_(aslib_key_n, false, aslib_counter_up0); }
-inline const bool asKeyN_Down() { return updateKey_(aslib_key_n, false, aslib_counter_down); }
-inline const bool asKeyN_Down0() { return updateKey_(aslib_key_n, false, aslib_counter_down0); }
+inline bool asKeyN() noexcept { return updateKey_(aslib_key_n, false); }
+inline bool asKeyN_Touch() noexcept { return updateKey_(aslib_key_n, false, aslib_counter_touch); }
+inline bool asKeyN_Touch0() noexcept { return updateKey_(aslib_key_n, false, aslib_counter_touch0); }
+inline bool asKeyN_Up() noexcept { return updateKey_(aslib_key_n, false, aslib_counter_up); }
+inline bool asKeyN_Up0() noexcept { return updateKey_(aslib_key_n, false, aslib_counter_up0); }
+inline bool asKeyN_Down() noexcept { return updateKey_(aslib_key_n, false, aslib_counter_down); }
+inline bool asKeyN_Down0() noexcept { return updateKey_(aslib_key_n, false, aslib_counter_down0); }
 
-inline const bool asKeyO() { return updateKey_(aslib_key_o, false); }
-inline const bool asKeyO_Touch() { return updateKey_(aslib_key_o, false, aslib_counter_touch); }
-inline const bool asKeyO_Touch0() { return updateKey_(aslib_key_o, false, aslib_counter_touch0); }
-inline const bool asKeyO_Up() { return updateKey_(aslib_key_o, false, aslib_counter_up); }
-inline const bool asKeyO_Up0() { return updateKey_(aslib_key_o, false, aslib_counter_up0); }
-inline const bool asKeyO_Down() { return updateKey_(aslib_key_o, false, aslib_counter_down); }
-inline const bool asKeyO_Down0() { return updateKey_(aslib_key_o, false, aslib_counter_down0); }
+inline bool asKeyO() noexcept { return updateKey_(aslib_key_o, false); }
+inline bool asKeyO_Touch() noexcept { return updateKey_(aslib_key_o, false, aslib_counter_touch); }
+inline bool asKeyO_Touch0() noexcept { return updateKey_(aslib_key_o, false, aslib_counter_touch0); }
+inline bool asKeyO_Up() noexcept { return updateKey_(aslib_key_o, false, aslib_counter_up); }
+inline bool asKeyO_Up0() noexcept { return updateKey_(aslib_key_o, false, aslib_counter_up0); }
+inline bool asKeyO_Down() noexcept { return updateKey_(aslib_key_o, false, aslib_counter_down); }
+inline bool asKeyO_Down0() noexcept { return updateKey_(aslib_key_o, false, aslib_counter_down0); }
 
-inline const bool asKeyP() { return updateKey_(aslib_key_p, false); }
-inline const bool asKeyP_Touch() { return updateKey_(aslib_key_p, false, aslib_counter_touch); }
-inline const bool asKeyP_Touch0() { return updateKey_(aslib_key_p, false, aslib_counter_touch0); }
-inline const bool asKeyP_Up() { return updateKey_(aslib_key_p, false, aslib_counter_up); }
-inline const bool asKeyP_Up0() { return updateKey_(aslib_key_p, false, aslib_counter_up0); }
-inline const bool asKeyP_Down() { return updateKey_(aslib_key_p, false, aslib_counter_down); }
-inline const bool asKeyP_Down0() { return updateKey_(aslib_key_p, false, aslib_counter_down0); }
+inline bool asKeyP() noexcept { return updateKey_(aslib_key_p, false); }
+inline bool asKeyP_Touch() noexcept { return updateKey_(aslib_key_p, false, aslib_counter_touch); }
+inline bool asKeyP_Touch0() noexcept { return updateKey_(aslib_key_p, false, aslib_counter_touch0); }
+inline bool asKeyP_Up() noexcept { return updateKey_(aslib_key_p, false, aslib_counter_up); }
+inline bool asKeyP_Up0() noexcept { return updateKey_(aslib_key_p, false, aslib_counter_up0); }
+inline bool asKeyP_Down() noexcept { return updateKey_(aslib_key_p, false, aslib_counter_down); }
+inline bool asKeyP_Down0() noexcept { return updateKey_(aslib_key_p, false, aslib_counter_down0); }
 
-inline const bool asKeyQ() { return updateKey_(aslib_key_q, false); }
-inline const bool asKeyQ_Touch() { return updateKey_(aslib_key_q, false, aslib_counter_touch); }
-inline const bool asKeyQ_Touch0() { return updateKey_(aslib_key_q, false, aslib_counter_touch0); }
-inline const bool asKeyQ_Up() { return updateKey_(aslib_key_q, false, aslib_counter_up); }
-inline const bool asKeyQ_Up0() { return updateKey_(aslib_key_q, false, aslib_counter_up0); }
-inline const bool asKeyQ_Down() { return updateKey_(aslib_key_q, false, aslib_counter_down); }
-inline const bool asKeyQ_Down0() { return updateKey_(aslib_key_q, false, aslib_counter_down0); }
+inline bool asKeyQ() noexcept { return updateKey_(aslib_key_q, false); }
+inline bool asKeyQ_Touch() noexcept { return updateKey_(aslib_key_q, false, aslib_counter_touch); }
+inline bool asKeyQ_Touch0() noexcept { return updateKey_(aslib_key_q, false, aslib_counter_touch0); }
+inline bool asKeyQ_Up() noexcept { return updateKey_(aslib_key_q, false, aslib_counter_up); }
+inline bool asKeyQ_Up0() noexcept { return updateKey_(aslib_key_q, false, aslib_counter_up0); }
+inline bool asKeyQ_Down() noexcept { return updateKey_(aslib_key_q, false, aslib_counter_down); }
+inline bool asKeyQ_Down0() noexcept { return updateKey_(aslib_key_q, false, aslib_counter_down0); }
 
-inline const bool asKeyR() { return updateKey_(aslib_key_r, false); }
-inline const bool asKeyR_Touch() { return updateKey_(aslib_key_r, false, aslib_counter_touch); }
-inline const bool asKeyR_Touch0() { return updateKey_(aslib_key_r, false, aslib_counter_touch0); }
-inline const bool asKeyR_Up() { return updateKey_(aslib_key_r, false, aslib_counter_up); }
-inline const bool asKeyR_Up0() { return updateKey_(aslib_key_r, false, aslib_counter_up0); }
-inline const bool asKeyR_Down() { return updateKey_(aslib_key_r, false, aslib_counter_down); }
-inline const bool asKeyR_Down0() { return updateKey_(aslib_key_r, false, aslib_counter_down0); }
+inline bool asKeyR() noexcept { return updateKey_(aslib_key_r, false); }
+inline bool asKeyR_Touch() noexcept { return updateKey_(aslib_key_r, false, aslib_counter_touch); }
+inline bool asKeyR_Touch0() noexcept { return updateKey_(aslib_key_r, false, aslib_counter_touch0); }
+inline bool asKeyR_Up() noexcept { return updateKey_(aslib_key_r, false, aslib_counter_up); }
+inline bool asKeyR_Up0() noexcept { return updateKey_(aslib_key_r, false, aslib_counter_up0); }
+inline bool asKeyR_Down() noexcept { return updateKey_(aslib_key_r, false, aslib_counter_down); }
+inline bool asKeyR_Down0() noexcept { return updateKey_(aslib_key_r, false, aslib_counter_down0); }
 
-inline const bool asKeyS() { return updateKey_(aslib_key_s, false); }
-inline const bool asKeyS_Touch() { return updateKey_(aslib_key_s, false, aslib_counter_touch); }
-inline const bool asKeyS_Touch0() { return updateKey_(aslib_key_s, false, aslib_counter_touch0); }
-inline const bool asKeyS_Up() { return updateKey_(aslib_key_s, false, aslib_counter_up); }
-inline const bool asKeyS_Up0() { return updateKey_(aslib_key_s, false, aslib_counter_up0); }
-inline const bool asKeyS_Down() { return updateKey_(aslib_key_s, false, aslib_counter_down); }
-inline const bool asKeyS_Down0() { return updateKey_(aslib_key_s, false, aslib_counter_down0); }
+inline bool asKeyS() noexcept { return updateKey_(aslib_key_s, false); }
+inline bool asKeyS_Touch() noexcept { return updateKey_(aslib_key_s, false, aslib_counter_touch); }
+inline bool asKeyS_Touch0() noexcept { return updateKey_(aslib_key_s, false, aslib_counter_touch0); }
+inline bool asKeyS_Up() noexcept { return updateKey_(aslib_key_s, false, aslib_counter_up); }
+inline bool asKeyS_Up0() noexcept { return updateKey_(aslib_key_s, false, aslib_counter_up0); }
+inline bool asKeyS_Down() noexcept { return updateKey_(aslib_key_s, false, aslib_counter_down); }
+inline bool asKeyS_Down0() noexcept { return updateKey_(aslib_key_s, false, aslib_counter_down0); }
 
-inline const bool asKeyT() { return updateKey_(aslib_key_t, false); }
-inline const bool asKeyT_Touch() { return updateKey_(aslib_key_t, false, aslib_counter_touch); }
-inline const bool asKeyT_Touch0() { return updateKey_(aslib_key_t, false, aslib_counter_touch0); }
-inline const bool asKeyT_Up() { return updateKey_(aslib_key_t, false, aslib_counter_up); }
-inline const bool asKeyT_Up0() { return updateKey_(aslib_key_t, false, aslib_counter_up0); }
-inline const bool asKeyT_Down() { return updateKey_(aslib_key_t, false, aslib_counter_down); }
-inline const bool asKeyT_Down0() { return updateKey_(aslib_key_t, false, aslib_counter_down0); }
+inline bool asKeyT() noexcept { return updateKey_(aslib_key_t, false); }
+inline bool asKeyT_Touch() noexcept { return updateKey_(aslib_key_t, false, aslib_counter_touch); }
+inline bool asKeyT_Touch0() noexcept { return updateKey_(aslib_key_t, false, aslib_counter_touch0); }
+inline bool asKeyT_Up() noexcept { return updateKey_(aslib_key_t, false, aslib_counter_up); }
+inline bool asKeyT_Up0() noexcept { return updateKey_(aslib_key_t, false, aslib_counter_up0); }
+inline bool asKeyT_Down() noexcept { return updateKey_(aslib_key_t, false, aslib_counter_down); }
+inline bool asKeyT_Down0() noexcept { return updateKey_(aslib_key_t, false, aslib_counter_down0); }
 
-inline const bool asKeyU() { return updateKey_(aslib_key_u, false); }
-inline const bool asKeyU_Touch() { return updateKey_(aslib_key_u, false, aslib_counter_touch); }
-inline const bool asKeyU_Touch0() { return updateKey_(aslib_key_u, false, aslib_counter_touch0); }
-inline const bool asKeyU_Up() { return updateKey_(aslib_key_u, false, aslib_counter_up); }
-inline const bool asKeyU_Up0() { return updateKey_(aslib_key_u, false, aslib_counter_up0); }
-inline const bool asKeyU_Down() { return updateKey_(aslib_key_u, false, aslib_counter_down); }
-inline const bool asKeyU_Down0() { return updateKey_(aslib_key_u, false, aslib_counter_down0); }
+inline bool asKeyU() noexcept { return updateKey_(aslib_key_u, false); }
+inline bool asKeyU_Touch() noexcept { return updateKey_(aslib_key_u, false, aslib_counter_touch); }
+inline bool asKeyU_Touch0() noexcept { return updateKey_(aslib_key_u, false, aslib_counter_touch0); }
+inline bool asKeyU_Up() noexcept { return updateKey_(aslib_key_u, false, aslib_counter_up); }
+inline bool asKeyU_Up0() noexcept { return updateKey_(aslib_key_u, false, aslib_counter_up0); }
+inline bool asKeyU_Down() noexcept { return updateKey_(aslib_key_u, false, aslib_counter_down); }
+inline bool asKeyU_Down0() noexcept { return updateKey_(aslib_key_u, false, aslib_counter_down0); }
 
-inline const bool asKeyV() { return updateKey_(aslib_key_v, false); }
-inline const bool asKeyV_Touch() { return updateKey_(aslib_key_v, false, aslib_counter_touch); }
-inline const bool asKeyV_Touch0() { return updateKey_(aslib_key_v, false, aslib_counter_touch0); }
-inline const bool asKeyV_Up() { return updateKey_(aslib_key_v, false, aslib_counter_up); }
-inline const bool asKeyV_Up0() { return updateKey_(aslib_key_v, false, aslib_counter_up0); }
-inline const bool asKeyV_Down() { return updateKey_(aslib_key_v, false, aslib_counter_down); }
-inline const bool asKeyV_Down0() { return updateKey_(aslib_key_v, false, aslib_counter_down0); }
+inline bool asKeyV() noexcept { return updateKey_(aslib_key_v, false); }
+inline bool asKeyV_Touch() noexcept { return updateKey_(aslib_key_v, false, aslib_counter_touch); }
+inline bool asKeyV_Touch0() noexcept { return updateKey_(aslib_key_v, false, aslib_counter_touch0); }
+inline bool asKeyV_Up() noexcept { return updateKey_(aslib_key_v, false, aslib_counter_up); }
+inline bool asKeyV_Up0() noexcept { return updateKey_(aslib_key_v, false, aslib_counter_up0); }
+inline bool asKeyV_Down() noexcept { return updateKey_(aslib_key_v, false, aslib_counter_down); }
+inline bool asKeyV_Down0() noexcept { return updateKey_(aslib_key_v, false, aslib_counter_down0); }
 
-inline const bool asKeyW() { return updateKey_(aslib_key_w, false); }
-inline const bool asKeyW_Touch() { return updateKey_(aslib_key_w, false, aslib_counter_touch); }
-inline const bool asKeyW_Touch0() { return updateKey_(aslib_key_w, false, aslib_counter_touch0); }
-inline const bool asKeyW_Up() { return updateKey_(aslib_key_w, false, aslib_counter_up); }
-inline const bool asKeyW_Up0() { return updateKey_(aslib_key_w, false, aslib_counter_up0); }
-inline const bool asKeyW_Down() { return updateKey_(aslib_key_w, false, aslib_counter_down); }
-inline const bool asKeyW_Down0() { return updateKey_(aslib_key_w, false, aslib_counter_down0); }
+inline bool asKeyW() noexcept { return updateKey_(aslib_key_w, false); }
+inline bool asKeyW_Touch() noexcept { return updateKey_(aslib_key_w, false, aslib_counter_touch); }
+inline bool asKeyW_Touch0() noexcept { return updateKey_(aslib_key_w, false, aslib_counter_touch0); }
+inline bool asKeyW_Up() noexcept { return updateKey_(aslib_key_w, false, aslib_counter_up); }
+inline bool asKeyW_Up0() noexcept { return updateKey_(aslib_key_w, false, aslib_counter_up0); }
+inline bool asKeyW_Down() noexcept { return updateKey_(aslib_key_w, false, aslib_counter_down); }
+inline bool asKeyW_Down0() noexcept { return updateKey_(aslib_key_w, false, aslib_counter_down0); }
 
-inline const bool asKeyX() { return updateKey_(aslib_key_x, false); }
-inline const bool asKeyX_Touch() { return updateKey_(aslib_key_x, false, aslib_counter_touch); }
-inline const bool asKeyX_Touch0() { return updateKey_(aslib_key_x, false, aslib_counter_touch0); }
-inline const bool asKeyX_Up() { return updateKey_(aslib_key_x, false, aslib_counter_up); }
-inline const bool asKeyX_Up0() { return updateKey_(aslib_key_x, false, aslib_counter_up0); }
-inline const bool asKeyX_Down() { return updateKey_(aslib_key_x, false, aslib_counter_down); }
-inline const bool asKeyX_Down0() { return updateKey_(aslib_key_x, false, aslib_counter_down0); }
+inline bool asKeyX() noexcept { return updateKey_(aslib_key_x, false); }
+inline bool asKeyX_Touch() noexcept { return updateKey_(aslib_key_x, false, aslib_counter_touch); }
+inline bool asKeyX_Touch0() noexcept { return updateKey_(aslib_key_x, false, aslib_counter_touch0); }
+inline bool asKeyX_Up() noexcept { return updateKey_(aslib_key_x, false, aslib_counter_up); }
+inline bool asKeyX_Up0() noexcept { return updateKey_(aslib_key_x, false, aslib_counter_up0); }
+inline bool asKeyX_Down() noexcept { return updateKey_(aslib_key_x, false, aslib_counter_down); }
+inline bool asKeyX_Down0() noexcept { return updateKey_(aslib_key_x, false, aslib_counter_down0); }
 
-inline const bool asKeyY() { return updateKey_(aslib_key_y, false); }
-inline const bool asKeyY_Touch() { return updateKey_(aslib_key_y, false, aslib_counter_touch); }
-inline const bool asKeyY_Touch0() { return updateKey_(aslib_key_y, false, aslib_counter_touch0); }
-inline const bool asKeyY_Up() { return updateKey_(aslib_key_y, false, aslib_counter_up); }
-inline const bool asKeyY_Up0() { return updateKey_(aslib_key_y, false, aslib_counter_up0); }
-inline const bool asKeyY_Down() { return updateKey_(aslib_key_y, false, aslib_counter_down); }
-inline const bool asKeyY_Down0() { return updateKey_(aslib_key_y, false, aslib_counter_down0); }
+inline bool asKeyY() noexcept { return updateKey_(aslib_key_y, false); }
+inline bool asKeyY_Touch() noexcept { return updateKey_(aslib_key_y, false, aslib_counter_touch); }
+inline bool asKeyY_Touch0() noexcept { return updateKey_(aslib_key_y, false, aslib_counter_touch0); }
+inline bool asKeyY_Up() noexcept { return updateKey_(aslib_key_y, false, aslib_counter_up); }
+inline bool asKeyY_Up0() noexcept { return updateKey_(aslib_key_y, false, aslib_counter_up0); }
+inline bool asKeyY_Down() noexcept { return updateKey_(aslib_key_y, false, aslib_counter_down); }
+inline bool asKeyY_Down0() noexcept { return updateKey_(aslib_key_y, false, aslib_counter_down0); }
 
-inline const bool asKeyZ() { return updateKey_(aslib_key_z, false); }
-inline const bool asKeyZ_Touch() { return updateKey_(aslib_key_z, false, aslib_counter_touch); }
-inline const bool asKeyZ_Touch0() { return updateKey_(aslib_key_z, false, aslib_counter_touch0); }
-inline const bool asKeyZ_Up() { return updateKey_(aslib_key_z, false, aslib_counter_up); }
-inline const bool asKeyZ_Up0() { return updateKey_(aslib_key_z, false, aslib_counter_up0); }
-inline const bool asKeyZ_Down() { return updateKey_(aslib_key_z, false, aslib_counter_down); }
-inline const bool asKeyZ_Down0() { return updateKey_(aslib_key_z, false, aslib_counter_down0); }
+inline bool asKeyZ() noexcept { return updateKey_(aslib_key_z, false); }
+inline bool asKeyZ_Touch() noexcept { return updateKey_(aslib_key_z, false, aslib_counter_touch); }
+inline bool asKeyZ_Touch0() noexcept { return updateKey_(aslib_key_z, false, aslib_counter_touch0); }
+inline bool asKeyZ_Up() noexcept { return updateKey_(aslib_key_z, false, aslib_counter_up); }
+inline bool asKeyZ_Up0() noexcept { return updateKey_(aslib_key_z, false, aslib_counter_up0); }
+inline bool asKeyZ_Down() noexcept { return updateKey_(aslib_key_z, false, aslib_counter_down); }
+inline bool asKeyZ_Down0() noexcept { return updateKey_(aslib_key_z, false, aslib_counter_down0); }
 
-inline const bool asKey0() { return updateKey_(aslib_key_0, false); }
-inline const bool asKey0_Touch() { return updateKey_(aslib_key_0, false, aslib_counter_touch); }
-inline const bool asKey0_Touch0() { return updateKey_(aslib_key_0, false, aslib_counter_touch0); }
-inline const bool asKey0_Up() { return updateKey_(aslib_key_0, false, aslib_counter_up); }
-inline const bool asKey0_Up0() { return updateKey_(aslib_key_0, false, aslib_counter_up0); }
-inline const bool asKey0_Down() { return updateKey_(aslib_key_0, false, aslib_counter_down); }
-inline const bool asKey0_Down0() { return updateKey_(aslib_key_0, false, aslib_counter_down0); }
+inline bool asKey0() noexcept { return updateKey_(aslib_key_0, false); }
+inline bool asKey0_Touch() noexcept { return updateKey_(aslib_key_0, false, aslib_counter_touch); }
+inline bool asKey0_Touch0() noexcept { return updateKey_(aslib_key_0, false, aslib_counter_touch0); }
+inline bool asKey0_Up() noexcept { return updateKey_(aslib_key_0, false, aslib_counter_up); }
+inline bool asKey0_Up0() noexcept { return updateKey_(aslib_key_0, false, aslib_counter_up0); }
+inline bool asKey0_Down() noexcept { return updateKey_(aslib_key_0, false, aslib_counter_down); }
+inline bool asKey0_Down0() noexcept { return updateKey_(aslib_key_0, false, aslib_counter_down0); }
 
-inline const bool asKey1() { return updateKey_(aslib_key_1, false); }
-inline const bool asKey1_Touch() { return updateKey_(aslib_key_1, false, aslib_counter_touch); }
-inline const bool asKey1_Touch0() { return updateKey_(aslib_key_1, false, aslib_counter_touch0); }
-inline const bool asKey1_Up() { return updateKey_(aslib_key_1, false, aslib_counter_up); }
-inline const bool asKey1_Up0() { return updateKey_(aslib_key_1, false, aslib_counter_up0); }
-inline const bool asKey1_Down() { return updateKey_(aslib_key_1, false, aslib_counter_down); }
-inline const bool asKey1_Down0() { return updateKey_(aslib_key_1, false, aslib_counter_down0); }
+inline bool asKey1() noexcept { return updateKey_(aslib_key_1, false); }
+inline bool asKey1_Touch() noexcept { return updateKey_(aslib_key_1, false, aslib_counter_touch); }
+inline bool asKey1_Touch0() noexcept { return updateKey_(aslib_key_1, false, aslib_counter_touch0); }
+inline bool asKey1_Up() noexcept { return updateKey_(aslib_key_1, false, aslib_counter_up); }
+inline bool asKey1_Up0() noexcept { return updateKey_(aslib_key_1, false, aslib_counter_up0); }
+inline bool asKey1_Down() noexcept { return updateKey_(aslib_key_1, false, aslib_counter_down); }
+inline bool asKey1_Down0() noexcept { return updateKey_(aslib_key_1, false, aslib_counter_down0); }
 
-inline const bool asKey2() { return updateKey_(aslib_key_2, false); }
-inline const bool asKey2_Touch() { return updateKey_(aslib_key_2, false, aslib_counter_touch); }
-inline const bool asKey2_Touch0() { return updateKey_(aslib_key_2, false, aslib_counter_touch0); }
-inline const bool asKey2_Up() { return updateKey_(aslib_key_2, false, aslib_counter_up); }
-inline const bool asKey2_Up0() { return updateKey_(aslib_key_2, false, aslib_counter_up0); }
-inline const bool asKey2_Down() { return updateKey_(aslib_key_2, false, aslib_counter_down); }
-inline const bool asKey2_Down0() { return updateKey_(aslib_key_2, false, aslib_counter_down0); }
+inline bool asKey2() noexcept { return updateKey_(aslib_key_2, false); }
+inline bool asKey2_Touch() noexcept { return updateKey_(aslib_key_2, false, aslib_counter_touch); }
+inline bool asKey2_Touch0() noexcept { return updateKey_(aslib_key_2, false, aslib_counter_touch0); }
+inline bool asKey2_Up() noexcept { return updateKey_(aslib_key_2, false, aslib_counter_up); }
+inline bool asKey2_Up0() noexcept { return updateKey_(aslib_key_2, false, aslib_counter_up0); }
+inline bool asKey2_Down() noexcept { return updateKey_(aslib_key_2, false, aslib_counter_down); }
+inline bool asKey2_Down0() noexcept { return updateKey_(aslib_key_2, false, aslib_counter_down0); }
 
-inline const bool asKey3() { return updateKey_(aslib_key_3, false); }
-inline const bool asKey3_Touch() { return updateKey_(aslib_key_3, false, aslib_counter_touch); }
-inline const bool asKey3_Touch0() { return updateKey_(aslib_key_3, false, aslib_counter_touch0); }
-inline const bool asKey3_Up() { return updateKey_(aslib_key_3, false, aslib_counter_up); }
-inline const bool asKey3_Up0() { return updateKey_(aslib_key_3, false, aslib_counter_up0); }
-inline const bool asKey3_Down() { return updateKey_(aslib_key_3, false, aslib_counter_down); }
-inline const bool asKey3_Down0() { return updateKey_(aslib_key_3, false, aslib_counter_down0); }
+inline bool asKey3() noexcept { return updateKey_(aslib_key_3, false); }
+inline bool asKey3_Touch() noexcept { return updateKey_(aslib_key_3, false, aslib_counter_touch); }
+inline bool asKey3_Touch0() noexcept { return updateKey_(aslib_key_3, false, aslib_counter_touch0); }
+inline bool asKey3_Up() noexcept { return updateKey_(aslib_key_3, false, aslib_counter_up); }
+inline bool asKey3_Up0() noexcept { return updateKey_(aslib_key_3, false, aslib_counter_up0); }
+inline bool asKey3_Down() noexcept { return updateKey_(aslib_key_3, false, aslib_counter_down); }
+inline bool asKey3_Down0() noexcept { return updateKey_(aslib_key_3, false, aslib_counter_down0); }
 
-inline const bool asKey4() { return updateKey_(aslib_key_4, false); }
-inline const bool asKey4_Touch() { return updateKey_(aslib_key_4, false, aslib_counter_touch); }
-inline const bool asKey4_Touch0() { return updateKey_(aslib_key_4, false, aslib_counter_touch0); }
-inline const bool asKey4_Up() { return updateKey_(aslib_key_4, false, aslib_counter_up); }
-inline const bool asKey4_Up0() { return updateKey_(aslib_key_4, false, aslib_counter_up0); }
-inline const bool asKey4_Down() { return updateKey_(aslib_key_4, false, aslib_counter_down); }
-inline const bool asKey4_Down0() { return updateKey_(aslib_key_4, false, aslib_counter_down0); }
+inline bool asKey4() noexcept { return updateKey_(aslib_key_4, false); }
+inline bool asKey4_Touch() noexcept { return updateKey_(aslib_key_4, false, aslib_counter_touch); }
+inline bool asKey4_Touch0() noexcept { return updateKey_(aslib_key_4, false, aslib_counter_touch0); }
+inline bool asKey4_Up() noexcept { return updateKey_(aslib_key_4, false, aslib_counter_up); }
+inline bool asKey4_Up0() noexcept { return updateKey_(aslib_key_4, false, aslib_counter_up0); }
+inline bool asKey4_Down() noexcept { return updateKey_(aslib_key_4, false, aslib_counter_down); }
+inline bool asKey4_Down0() noexcept { return updateKey_(aslib_key_4, false, aslib_counter_down0); }
 
-inline const bool asKey5() { return updateKey_(aslib_key_5, false); }
-inline const bool asKey5_Touch() { return updateKey_(aslib_key_5, false, aslib_counter_touch); }
-inline const bool asKey5_Touch0() { return updateKey_(aslib_key_5, false, aslib_counter_touch0); }
-inline const bool asKey5_Up() { return updateKey_(aslib_key_5, false, aslib_counter_up); }
-inline const bool asKey5_Up0() { return updateKey_(aslib_key_5, false, aslib_counter_up0); }
-inline const bool asKey5_Down() { return updateKey_(aslib_key_5, false, aslib_counter_down); }
-inline const bool asKey5_Down0() { return updateKey_(aslib_key_5, false, aslib_counter_down0); }
+inline bool asKey5() noexcept { return updateKey_(aslib_key_5, false); }
+inline bool asKey5_Touch() noexcept { return updateKey_(aslib_key_5, false, aslib_counter_touch); }
+inline bool asKey5_Touch0() noexcept { return updateKey_(aslib_key_5, false, aslib_counter_touch0); }
+inline bool asKey5_Up() noexcept { return updateKey_(aslib_key_5, false, aslib_counter_up); }
+inline bool asKey5_Up0() noexcept { return updateKey_(aslib_key_5, false, aslib_counter_up0); }
+inline bool asKey5_Down() noexcept { return updateKey_(aslib_key_5, false, aslib_counter_down); }
+inline bool asKey5_Down0() noexcept { return updateKey_(aslib_key_5, false, aslib_counter_down0); }
 
-inline const bool asKey6() { return updateKey_(aslib_key_6, false); }
-inline const bool asKey6_Touch() { return updateKey_(aslib_key_6, false, aslib_counter_touch); }
-inline const bool asKey6_Touch0() { return updateKey_(aslib_key_6, false, aslib_counter_touch0); }
-inline const bool asKey6_Up() { return updateKey_(aslib_key_6, false, aslib_counter_up); }
-inline const bool asKey6_Up0() { return updateKey_(aslib_key_6, false, aslib_counter_up0); }
-inline const bool asKey6_Down() { return updateKey_(aslib_key_6, false, aslib_counter_down); }
-inline const bool asKey6_Down0() { return updateKey_(aslib_key_6, false, aslib_counter_down0); }
+inline bool asKey6() noexcept { return updateKey_(aslib_key_6, false); }
+inline bool asKey6_Touch() noexcept { return updateKey_(aslib_key_6, false, aslib_counter_touch); }
+inline bool asKey6_Touch0() noexcept { return updateKey_(aslib_key_6, false, aslib_counter_touch0); }
+inline bool asKey6_Up() noexcept { return updateKey_(aslib_key_6, false, aslib_counter_up); }
+inline bool asKey6_Up0() noexcept { return updateKey_(aslib_key_6, false, aslib_counter_up0); }
+inline bool asKey6_Down() noexcept { return updateKey_(aslib_key_6, false, aslib_counter_down); }
+inline bool asKey6_Down0() noexcept { return updateKey_(aslib_key_6, false, aslib_counter_down0); }
 
-inline const bool asKey7() { return updateKey_(aslib_key_7, false); }
-inline const bool asKey7_Touch() { return updateKey_(aslib_key_7, false, aslib_counter_touch); }
-inline const bool asKey7_Touch0() { return updateKey_(aslib_key_7, false, aslib_counter_touch0); }
-inline const bool asKey7_Up() { return updateKey_(aslib_key_7, false, aslib_counter_up); }
-inline const bool asKey7_Up0() { return updateKey_(aslib_key_7, false, aslib_counter_up0); }
-inline const bool asKey7_Down() { return updateKey_(aslib_key_7, false, aslib_counter_down); }
-inline const bool asKey7_Down0() { return updateKey_(aslib_key_7, false, aslib_counter_down0); }
+inline bool asKey7() noexcept { return updateKey_(aslib_key_7, false); }
+inline bool asKey7_Touch() noexcept { return updateKey_(aslib_key_7, false, aslib_counter_touch); }
+inline bool asKey7_Touch0() noexcept { return updateKey_(aslib_key_7, false, aslib_counter_touch0); }
+inline bool asKey7_Up() noexcept { return updateKey_(aslib_key_7, false, aslib_counter_up); }
+inline bool asKey7_Up0() noexcept { return updateKey_(aslib_key_7, false, aslib_counter_up0); }
+inline bool asKey7_Down() noexcept { return updateKey_(aslib_key_7, false, aslib_counter_down); }
+inline bool asKey7_Down0() noexcept { return updateKey_(aslib_key_7, false, aslib_counter_down0); }
 
-inline const bool asKey8() { return updateKey_(aslib_key_8, false); }
-inline const bool asKey8_Touch() { return updateKey_(aslib_key_8, false, aslib_counter_touch); }
-inline const bool asKey8_Touch0() { return updateKey_(aslib_key_8, false, aslib_counter_touch0); }
-inline const bool asKey8_Up() { return updateKey_(aslib_key_8, false, aslib_counter_up); }
-inline const bool asKey8_Up0() { return updateKey_(aslib_key_8, false, aslib_counter_up0); }
-inline const bool asKey8_Down() { return updateKey_(aslib_key_8, false, aslib_counter_down); }
-inline const bool asKey8_Down0() { return updateKey_(aslib_key_8, false, aslib_counter_down0); }
+inline bool asKey8() noexcept { return updateKey_(aslib_key_8, false); }
+inline bool asKey8_Touch() noexcept { return updateKey_(aslib_key_8, false, aslib_counter_touch); }
+inline bool asKey8_Touch0() noexcept { return updateKey_(aslib_key_8, false, aslib_counter_touch0); }
+inline bool asKey8_Up() noexcept { return updateKey_(aslib_key_8, false, aslib_counter_up); }
+inline bool asKey8_Up0() noexcept { return updateKey_(aslib_key_8, false, aslib_counter_up0); }
+inline bool asKey8_Down() noexcept { return updateKey_(aslib_key_8, false, aslib_counter_down); }
+inline bool asKey8_Down0() noexcept { return updateKey_(aslib_key_8, false, aslib_counter_down0); }
 
-inline const bool asKey9() { return updateKey_(aslib_key_9, false); }
-inline const bool asKey9_Touch() { return updateKey_(aslib_key_9, false, aslib_counter_touch); }
-inline const bool asKey9_Touch0() { return updateKey_(aslib_key_9, false, aslib_counter_touch0); }
-inline const bool asKey9_Up() { return updateKey_(aslib_key_9, false, aslib_counter_up); }
-inline const bool asKey9_Up0() { return updateKey_(aslib_key_9, false, aslib_counter_up0); }
-inline const bool asKey9_Down() { return updateKey_(aslib_key_9, false, aslib_counter_down); }
-inline const bool asKey9_Down0() { return updateKey_(aslib_key_9, false, aslib_counter_down0); }
+inline bool asKey9() noexcept { return updateKey_(aslib_key_9, false); }
+inline bool asKey9_Touch() noexcept { return updateKey_(aslib_key_9, false, aslib_counter_touch); }
+inline bool asKey9_Touch0() noexcept { return updateKey_(aslib_key_9, false, aslib_counter_touch0); }
+inline bool asKey9_Up() noexcept { return updateKey_(aslib_key_9, false, aslib_counter_up); }
+inline bool asKey9_Up0() noexcept { return updateKey_(aslib_key_9, false, aslib_counter_up0); }
+inline bool asKey9_Down() noexcept { return updateKey_(aslib_key_9, false, aslib_counter_down); }
+inline bool asKey9_Down0() noexcept { return updateKey_(aslib_key_9, false, aslib_counter_down0); }
 
-inline const bool asKeyEnter() { return updateKey_(aslib_key_enter, false); }
-inline const bool asKeyEnterTouch() { return updateKey_(aslib_key_enter, false, aslib_counter_touch); }
-inline const bool asKeyEnterTouch0() { return updateKey_(aslib_key_enter, false, aslib_counter_touch0); }
-inline const bool asKeyEnterUp() { return updateKey_(aslib_key_enter, false, aslib_counter_up); }
-inline const bool asKeyEnterUp0() { return updateKey_(aslib_key_enter, false, aslib_counter_up0); }
-inline const bool asKeyEnterDown() { return updateKey_(aslib_key_enter, false, aslib_counter_down); }
-inline const bool asKeyEnterDown0() { return updateKey_(aslib_key_enter, false, aslib_counter_down0); }
+inline bool asKeyEnter() noexcept { return updateKey_(aslib_key_enter, false); }
+inline bool asKeyEnterTouch() noexcept { return updateKey_(aslib_key_enter, false, aslib_counter_touch); }
+inline bool asKeyEnterTouch0() noexcept { return updateKey_(aslib_key_enter, false, aslib_counter_touch0); }
+inline bool asKeyEnterUp() noexcept { return updateKey_(aslib_key_enter, false, aslib_counter_up); }
+inline bool asKeyEnterUp0() noexcept { return updateKey_(aslib_key_enter, false, aslib_counter_up0); }
+inline bool asKeyEnterDown() noexcept { return updateKey_(aslib_key_enter, false, aslib_counter_down); }
+inline bool asKeyEnterDown0() noexcept { return updateKey_(aslib_key_enter, false, aslib_counter_down0); }
 
-inline const bool asKeyUp() { return updateKey_(aslib_key_up, false); }
-inline const bool asKeyUpTouch() { return updateKey_(aslib_key_up, false, aslib_counter_touch); }
-inline const bool asKeyUpTouch0() { return updateKey_(aslib_key_up, false, aslib_counter_touch0); }
-inline const bool asKeyUpUp() { return updateKey_(aslib_key_up, false, aslib_counter_up); }
-inline const bool asKeyUpUp0() { return updateKey_(aslib_key_up, false, aslib_counter_up0); }
-inline const bool asKeyUpDown() { return updateKey_(aslib_key_up, false, aslib_counter_down); }
-inline const bool asKeyUpDown0() { return updateKey_(aslib_key_up, false, aslib_counter_down0); }
+inline bool asKeyUp() noexcept { return updateKey_(aslib_key_up, false); }
+inline bool asKeyUpTouch() noexcept { return updateKey_(aslib_key_up, false, aslib_counter_touch); }
+inline bool asKeyUpTouch0() noexcept { return updateKey_(aslib_key_up, false, aslib_counter_touch0); }
+inline bool asKeyUpUp() noexcept { return updateKey_(aslib_key_up, false, aslib_counter_up); }
+inline bool asKeyUpUp0() noexcept { return updateKey_(aslib_key_up, false, aslib_counter_up0); }
+inline bool asKeyUpDown() noexcept { return updateKey_(aslib_key_up, false, aslib_counter_down); }
+inline bool asKeyUpDown0() noexcept { return updateKey_(aslib_key_up, false, aslib_counter_down0); }
 
-inline const bool asKeyDown() { return updateKey_(aslib_key_down, false); }
-inline const bool asKeyDownTouch() { return updateKey_(aslib_key_down, false, aslib_counter_touch); }
-inline const bool asKeyDownTouch0() { return updateKey_(aslib_key_down, false, aslib_counter_touch0); }
-inline const bool asKeyDownUp() { return updateKey_(aslib_key_down, false, aslib_counter_up); }
-inline const bool asKeyDownUp0() { return updateKey_(aslib_key_down, false, aslib_counter_up0); }
-inline const bool asKeyDownDown() { return updateKey_(aslib_key_down, false, aslib_counter_down); }
-inline const bool asKeyDownDown0() { return updateKey_(aslib_key_down, false, aslib_counter_down0); }
+inline bool asKeyDown() noexcept { return updateKey_(aslib_key_down, false); }
+inline bool asKeyDownTouch() noexcept { return updateKey_(aslib_key_down, false, aslib_counter_touch); }
+inline bool asKeyDownTouch0() noexcept { return updateKey_(aslib_key_down, false, aslib_counter_touch0); }
+inline bool asKeyDownUp() noexcept { return updateKey_(aslib_key_down, false, aslib_counter_up); }
+inline bool asKeyDownUp0() noexcept { return updateKey_(aslib_key_down, false, aslib_counter_up0); }
+inline bool asKeyDownDown() noexcept { return updateKey_(aslib_key_down, false, aslib_counter_down); }
+inline bool asKeyDownDown0() noexcept { return updateKey_(aslib_key_down, false, aslib_counter_down0); }
 
-inline const bool asKeyLeft() { return updateKey_(aslib_key_left, false); }
-inline const bool asKeyLeftTouch() { return updateKey_(aslib_key_left, false, aslib_counter_touch); }
-inline const bool asKeyLeftTouch0() { return updateKey_(aslib_key_left, false, aslib_counter_touch0); }
-inline const bool asKeyLeftUp() { return updateKey_(aslib_key_left, false, aslib_counter_up); }
-inline const bool asKeyLeftUp0() { return updateKey_(aslib_key_left, false, aslib_counter_up0); }
-inline const bool asKeyLeftDown() { return updateKey_(aslib_key_left, false, aslib_counter_down); }
-inline const bool asKeyLeftDown0() { return updateKey_(aslib_key_left, false, aslib_counter_down0); }
+inline bool asKeyLeft() noexcept { return updateKey_(aslib_key_left, false); }
+inline bool asKeyLeftTouch() noexcept { return updateKey_(aslib_key_left, false, aslib_counter_touch); }
+inline bool asKeyLeftTouch0() noexcept { return updateKey_(aslib_key_left, false, aslib_counter_touch0); }
+inline bool asKeyLeftUp() noexcept { return updateKey_(aslib_key_left, false, aslib_counter_up); }
+inline bool asKeyLeftUp0() noexcept { return updateKey_(aslib_key_left, false, aslib_counter_up0); }
+inline bool asKeyLeftDown() noexcept { return updateKey_(aslib_key_left, false, aslib_counter_down); }
+inline bool asKeyLeftDown0() noexcept { return updateKey_(aslib_key_left, false, aslib_counter_down0); }
 
-inline const bool asKeyRight() { return updateKey_(aslib_key_right, false); }
-inline const bool asKeyRightTouch() { return updateKey_(aslib_key_right, false, aslib_counter_touch); }
-inline const bool asKeyRightTouch0() { return updateKey_(aslib_key_right, false, aslib_counter_touch0); }
-inline const bool asKeyRightUp() { return updateKey_(aslib_key_right, false, aslib_counter_up); }
-inline const bool asKeyRightUp0() { return updateKey_(aslib_key_right, false, aslib_counter_up0); }
-inline const bool asKeyRightDown() { return updateKey_(aslib_key_right, false, aslib_counter_down); }
-inline const bool asKeyRightDown0() { return updateKey_(aslib_key_right, false, aslib_counter_down0); }
+inline bool asKeyRight() noexcept { return updateKey_(aslib_key_right, false); }
+inline bool asKeyRightTouch() noexcept { return updateKey_(aslib_key_right, false, aslib_counter_touch); }
+inline bool asKeyRightTouch0() noexcept { return updateKey_(aslib_key_right, false, aslib_counter_touch0); }
+inline bool asKeyRightUp() noexcept { return updateKey_(aslib_key_right, false, aslib_counter_up); }
+inline bool asKeyRightUp0() noexcept { return updateKey_(aslib_key_right, false, aslib_counter_up0); }
+inline bool asKeyRightDown() noexcept { return updateKey_(aslib_key_right, false, aslib_counter_down); }
+inline bool asKeyRightDown0() noexcept { return updateKey_(aslib_key_right, false, aslib_counter_down0); }
 
-//inline const bool asKeyA() { return updateKey_(aslib_key_a, false); }
-//inline const bool asKeyA_Touch() { return updateKey_(aslib_key_a, false, aslib_counter_touch); }
-//inline const bool asKeyA_Touch0() { return updateKey_(aslib_key_a, false, aslib_counter_touch0); }
-//inline const bool asKeyA_Up() { return updateKey_(aslib_key_a, false, aslib_counter_up); }
-//inline const bool asKeyA_Up0() { return updateKey_(aslib_key_a, false, aslib_counter_up0); }
-//inline const bool asKeyA_Down() { return updateKey_(aslib_key_a, false, aslib_counter_down); }
-//inline const bool asKeyA_Down0() { return updateKey_(aslib_key_a, false, aslib_counter_down0); }
+//inline bool asKeyA() { return updateKey_(aslib_key_a, false); }
+//inline bool asKeyA_Touch() { return updateKey_(aslib_key_a, false, aslib_counter_touch); }
+//inline bool asKeyA_Touch0() { return updateKey_(aslib_key_a, false, aslib_counter_touch0); }
+//inline bool asKeyA_Up() { return updateKey_(aslib_key_a, false, aslib_counter_up); }
+//inline bool asKeyA_Up0() { return updateKey_(aslib_key_a, false, aslib_counter_up0); }
+//inline bool asKeyA_Down() { return updateKey_(aslib_key_a, false, aslib_counter_down); }
+//inline bool asKeyA_Down0() { return updateKey_(aslib_key_a, false, aslib_counter_down0); }
 
-inline void updateKey() { updateKey_(0, true); }
+inline void updateKey() noexcept { updateKey_(0, true); }
 
 
 //switch (player_move_left_up[i])
@@ -1239,29 +1239,29 @@ struct AsKeyList {
 	std::vector<size_t> back;
 	std::vector<size_t> menu;
 
-	const bool is_ok() const {
-		for (size_t i = 0; i < ok.size(); ++i) {
+	const bool is_ok() const noexcept {
+		for (size_t i{}; i < ok.size(); ++i) {
 			if (ok[i] < 256 && asKeyUp(ok[i])) return true;
 		}
 		return false;
 	}
 
-	AsKeyList& addKeyOK() {
+	AsKeyList& addKeyOK() noexcept {
 		ok.emplace_back(aslib_key_enter);
 		ok.emplace_back(aslib_key_space);
 		ok.emplace_back(aslib_key_z);
 		return *this;
 	}
-	AsKeyList& addKeyBack() {
+	AsKeyList& addKeyBack() noexcept {
 		back.emplace_back(aslib_key_x);
 		return *this;
 	}
-	AsKeyList& addKeyUpDown() {
+	AsKeyList& addKeyUpDown() noexcept {
 		player_move_down.emplace_back(aslib_key_down);
 		player_move_up.emplace_back(aslib_key_up);
 		return *this;
 	}
-	AsKeyList& addKeyCross() {
+	AsKeyList& addKeyCross() noexcept {
 		player_move_down.emplace_back(aslib_key_down);
 		player_move_up.emplace_back(aslib_key_up);
 		player_move_left.emplace_back(aslib_key_left);
@@ -1272,7 +1272,7 @@ struct AsKeyList {
 		player_move_right_down.emplace_back(aslib_key_right_down);
 		return *this;
 	}
-	AsKeyList& addKeyCrossW() {
+	AsKeyList& addKeyCrossW() noexcept {
 		player_move_down.emplace_back(aslib_key_s);
 		player_move_up.emplace_back(aslib_key_w);
 		player_move_left.emplace_back(aslib_key_a);
@@ -1284,7 +1284,7 @@ struct AsKeyList {
 		return *this;
 	}
 
-	const bool isTouch(const size_t is_) const {
+	const bool isTouch(const size_t is_) const noexcept {
 		switch (is_)
 		{
 		case aslib_key_w_a:
@@ -1315,29 +1315,29 @@ struct AsKeyList {
 		return false;
 	}
 
-	const size_t playerMove4() const {
-		for (size_t i = 0; i < player_move_down.size(); ++i) {
+	const size_t playerMove4() const noexcept {
+		for (size_t i{}; i < player_move_down.size(); ++i) {
 			if (player_move_down[i] > 255) {
 				if (isTouch(player_move_down[i])) return MOB_DOWN;
 				else continue;
 			}
 			if (asKeyTouch(player_move_down[i])) return MOB_DOWN;
 		}
-		for (size_t i = 0; i < player_move_up.size(); ++i) {
+		for (size_t i{}; i < player_move_up.size(); ++i) {
 			if (player_move_up[i] > 255) {
 				if (isTouch(player_move_up[i])) return MOB_UP;
 				else continue;
 			}
 			if (asKeyTouch(player_move_up[i])) return MOB_UP;
 		}
-		for (size_t i = 0; i < player_move_left.size(); ++i) {
+		for (size_t i{}; i < player_move_left.size(); ++i) {
 			if (player_move_left[i] > 255) {
 				if (isTouch(player_move_left[i])) return MOB_LEFT;
 				else continue;
 			}
 			if (asKeyTouch(player_move_left[i])) return MOB_LEFT;
 		}
-		for (size_t i = 0; i < player_move_right.size(); ++i) {
+		for (size_t i{}; i < player_move_right.size(); ++i) {
 			if (player_move_right[i] > 255) {
 				if (isTouch(player_move_right[i])) return MOB_RIGHT;
 				else continue;
@@ -1347,29 +1347,29 @@ struct AsKeyList {
 		return MOB_CENTER;
 	}
 
-	const size_t playerMove8() const {
-		for (size_t i = 0; i < player_move_left_up.size(); ++i) {
+	const size_t playerMove8() const noexcept {
+		for (size_t i{}; i < player_move_left_up.size(); ++i) {
 			if (player_move_left_up[i] > 255) {
 				if (isTouch(player_move_left_up[i])) return MOB_LEFT_UP;
 				else continue;
 			}
 			if (asKeyTouch(player_move_left_up[i])) return MOB_LEFT_UP;
 		}
-		for (size_t i = 0; i < player_move_right_up.size(); ++i) {
+		for (size_t i{}; i < player_move_right_up.size(); ++i) {
 			if (player_move_right_up[i] > 255) {
 				if (isTouch(player_move_right_up[i])) return MOB_RIGHT_UP;
 				else continue;
 			}
 			if (asKeyTouch(player_move_right_up[i])) return MOB_RIGHT_UP;
 		}
-		for (size_t i = 0; i < player_move_left_down.size(); ++i) {
+		for (size_t i{}; i < player_move_left_down.size(); ++i) {
 			if (player_move_left_down[i] > 255) {
 				if (isTouch(player_move_left_down[i])) return MOB_LEFT_DOWN;
 				else continue;
 			}
 			if (asKeyTouch(player_move_left_down[i])) return MOB_LEFT_DOWN;
 		}
-		for (size_t i = 0; i < player_move_right_down.size(); ++i) {
+		for (size_t i{}; i < player_move_right_down.size(); ++i) {
 			if (player_move_right_down[i] > 255) {
 				if (isTouch(player_move_right_down[i])) return MOB_RIGHT_DOWN;
 				else continue;
@@ -1647,7 +1647,7 @@ struct AsKeyList {
 //
 //		std::array<char,256> DL_key;
 //		DxLib::GetHitKeyStateAll(DL_key.data());
-//		for (size_t i = 0; i < 256; ++i) {
+//		for (size_t i{}; i < 256; ++i) {
 //			if (DL_key[i] != 0) {
 //				//AS_key[AS_DL_key[i]] = true;
 //			}

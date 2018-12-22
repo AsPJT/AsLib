@@ -210,7 +210,7 @@ return 0;
 	const bool asTouch(const Pos4& p_) {
 		const size_t num = asTouchNum();
 		Pos2 touch_p;
-		for (size_t i = 0; i < num; ++i) {
+		for (size_t i{}; i < num; ++i) {
 			touch_p = asTouch(i);
 			if (touch_p.x > p_.x1&&touch_p.y > p_.y1&&touch_p.x < p_.x2&&touch_p.y < p_.y2) return true;
 		}

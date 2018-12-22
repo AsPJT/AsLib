@@ -257,7 +257,7 @@ namespace AsLib
 #endif
 	};
 
-	constexpr size_t aslib_license_size = sizeof(aslib_license) / sizeof(size_t);
+	constexpr size_t aslib_license_size{ sizeof(aslib_license) / sizeof(size_t) };
 
 	struct Copyright {
 		const char* const c;
@@ -265,7 +265,7 @@ namespace AsLib
 		const int32_t end_year;
 		constexpr Copyright(const char* const c_, const int32_t s_, const int32_t e_) :c(c_), start_year(s_), end_year(e_) {};
 
-		const char* const write() const {
+		const char* const write() const noexcept {
 			if (start_year == 0) return c;
 
 			static std::string str;
@@ -294,7 +294,7 @@ namespace AsLib
 		}
 	};
 
-	void asLicense(const size_t i, std::string& name_, std::vector<Copyright>& copyright_, std::string& str_)
+	void asLicense(const size_t i, std::string& name_, std::vector<Copyright>& copyright_, std::string& str_) noexcept
 	{
 		switch (i)
 		{

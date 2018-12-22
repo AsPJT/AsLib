@@ -12,9 +12,9 @@
 namespace AsLib
 {
 #if defined(__ANDROID__)
-	const size_t asAndroidStos(const std::string& str_) {
+	size_t asAndroidStos(const std::string& str_) noexcept {
 		if (str_.size() == 0) return 0;
-		size_t s = 0;
+		size_t s{};
 		switch (str_[0])
 		{
 		case '0':s = 0; break;
@@ -48,7 +48,7 @@ namespace AsLib
 }
 #endif
 
-	const size_t asStos(const std::string& str_) {
+	size_t asStos(const std::string& str_) noexcept {
 #if defined(__ANDROID__)
 		return asAndroidStos(str_);
 #else
@@ -58,9 +58,9 @@ namespace AsLib
 
 
 
-	const int32_t asStreamRead(std::ifstream& ifs_, const std::string& str_) {
+	int32_t asStreamRead(std::ifstream& ifs_, const std::string& str_) noexcept {
 #if defined(__ANDROID__)
-		constexpr size_t file_path_max = 256;
+		constexpr size_t file_path_max{ 256 };
 		std::unique_ptr<char[]> file_path(new char[file_path_max]);
 		//アプリ内(内部データ)を調べる
 		DxLib::GetExternalDataPath(file_path.get(), file_path_max);
@@ -77,9 +77,9 @@ namespace AsLib
 #endif
 		return 0;
 	}
-	const int32_t asStreamWrite(std::ofstream& ofs_, const std::string& str_) {
+	int32_t asStreamWrite(std::ofstream& ofs_, const std::string& str_) noexcept {
 #if defined(__ANDROID__)
-		constexpr size_t file_path_max = 256;
+		constexpr size_t file_path_max{ 256 };
 		std::unique_ptr<char[]> file_path(new char[file_path_max]);
 		//アプリ内(内部データ)を調べる
 		DxLib::GetExternalDataPath(file_path.get(), file_path_max);
@@ -98,14 +98,14 @@ namespace AsLib
 	}
 
 	//全てがsize_t型のcsvファイルを読み込む
-	const int32_t asSize_t_ReadCSV(const std::string& str_, std::vector<size_t>& vec_, size_t* const x_ = nullptr, size_t* const y_ = nullptr) {
+	int32_t asSize_t_ReadCSV(const std::string& str_, std::vector<size_t>& vec_, size_t* const x_ = nullptr, size_t* const y_ = nullptr) noexcept {
 		//ファイル読み込み
 		std::ifstream ifs;
 		if (asStreamRead(ifs, str_) == 1) return 1;
 
 		std::string str;
-		size_t num = 0;
-		size_t num_y = 0;
+		size_t num{};
+		size_t num_y{};
 
 		std::string read_token;
 		while (getline(ifs, str)) {
@@ -122,13 +122,13 @@ namespace AsLib
 		return 0;
 }
 
-	const int32_t asSize_t_WriteCSV(const std::string& str_, const std::vector<size_t>& vec_, const size_t x_, const size_t y_, const size_t ii_ = 0) {
+	int32_t asSize_t_WriteCSV(const std::string& str_, const std::vector<size_t>& vec_, const size_t x_, const size_t y_, const size_t ii_ = 0) noexcept {
 		//ファイル書き込み
 		std::ofstream ofs;
 		if (asStreamWrite(ofs, str_) == 1) return 1;
 
-		const size_t xy_ = ii_ + x_ * y_;
-		for (size_t i = ii_, k = 1; i < xy_; ++i, ++k) {
+		const size_t xy_{ ii_ + x_ * y_ };
+		for (size_t i{ ii_ }, k{ 1 }; i < xy_; ++i, ++k) {
 			ofs << vec_[i] << ',';
 			if (k != x_) continue;
 			ofs << std::endl;
@@ -137,9 +137,9 @@ namespace AsLib
 		return 0;
 	}
 
-	const int32_t asMapRead(const std::string& str_, std::vector<size_t>& vec_, size_t* const x_ = nullptr, size_t* const y_ = nullptr, size_t* const layer_ = nullptr) {
+	int32_t asMapRead(const std::string& str_, std::vector<size_t>& vec_, size_t* const x_ = nullptr, size_t* const y_ = nullptr, size_t* const layer_ = nullptr) noexcept {
 		vec_.clear();
-		size_t layer = 0;
+		size_t layer{};
 		while (true) {
 #if defined(__ANDROID__)
 			std::stringstream ss;
@@ -156,8 +156,8 @@ namespace AsLib
 		return 0;
 	}
 
-	const int32_t asMapWrite(const std::string& str_, const std::vector<size_t>& vec_, const size_t x_, const size_t y_, const size_t layer_) {
-		for (size_t i = 0; i < layer_; ++i) {
+	int32_t asMapWrite(const std::string& str_, const std::vector<size_t>& vec_, const size_t x_, const size_t y_, const size_t layer_) noexcept {
+		for (size_t i{}; i < layer_; ++i) {
 #if defined(__ANDROID__)
 			std::stringstream ss;
 			ss << i;
@@ -170,7 +170,7 @@ namespace AsLib
 	}
 
 
-	const int32_t asSize_t_MapNameRead(const std::string& str_, std::vector<std::string>& name_) {
+	int32_t asSize_t_MapNameRead(const std::string& str_, std::vector<std::string>& name_) noexcept {
 		std::string str;
 		//ファイル読み込み
 		std::ifstream ifs;
@@ -182,19 +182,19 @@ namespace AsLib
 		}
 	}
 
-	const int32_t asSize_t_MapReadCSV(const std::string& str_, std::vector<std::string>& name_, std::vector<size_t>& vec_, std::vector<size_t>& type_, std::vector<size_t>& field_, size_t* const x_ = nullptr, size_t* const y_ = nullptr) {
+	int32_t asSize_t_MapReadCSV(const std::string& str_, std::vector<std::string>& name_, std::vector<size_t>& vec_, std::vector<size_t>& type_, std::vector<size_t>& field_, size_t* const x_ = nullptr, size_t* const y_ = nullptr) noexcept {
 
 		std::string str;
-		size_t num = 0;
-		size_t num_y = 0;
-		size_t type_id = 0;
+		size_t num{};
+		size_t num_y{};
+		size_t type_id{};
 		
 		std::string read_token;
 
 #if defined(ASLIB_INCLUDE_DL)
-		constexpr size_t file_path_max = 256;
+		constexpr size_t file_path_max{ 256 };
 		std::unique_ptr<char[]> file_path(new char[file_path_max]);
-		int FileHandle = DxLib::FileRead_open(str_.c_str());
+		int FileHandle{ DxLib::FileRead_open(str_.c_str()) };
 
 		while (DxLib::FileRead_eof(FileHandle) == 0)
 		{

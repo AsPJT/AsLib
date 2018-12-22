@@ -12,25 +12,25 @@
 namespace AsLib
 {
 	//2次元配列std::vectorから1次元配列std::vectorへ変換する
-	std::vector<size_t> vector2ToVector1(const std::vector<std::vector<size_t>>& map_) {
+	std::vector<size_t> vector2ToVector1(const std::vector<std::vector<size_t>>& map_) noexcept {
 		static thread_local std::vector<size_t> vmap;
-		const size_t i_max = map_.size();
-		const size_t j_max = map_.data()->size();
+		const size_t i_max{ map_.size() };
+		const size_t j_max{ map_.data()->size() };
 		vmap.resize(i_max*j_max);
-		for (size_t i = 0, k = 0; i < i_max; ++i) {
-			for (size_t j = 0; j < j_max; ++j, ++k) {
+		for (size_t i{}, k{}; i < i_max; ++i) {
+			for (size_t j{}; j < j_max; ++j, ++k) {
 				vmap[k] = map_[i][j];
 			}
 		}
 		return vmap;
 	}
 
-	void mazeDig(std::vector<std::vector<size_t>>& map, size_t x, size_t y, const size_t aslib_maze_wall, const size_t aslib_maze_empty)
+	void mazeDig(std::vector<std::vector<size_t>>& map, size_t x, size_t y, const size_t aslib_maze_wall, const size_t aslib_maze_empty) noexcept
 	{
-		int32_t dx = 0;
-		int32_t dy = 0;
-		size_t r = size_t(asRand32());
-		size_t c = 0;
+		int32_t dx{};
+		int32_t dy{};
+		size_t r{ size_t(asRand32()) };
+		size_t c{};
 		while (c < 4) {
 			switch ((r + c) % 4)
 			{
@@ -65,9 +65,9 @@ namespace AsLib
 		}
 		return;
 	}
-	void mazeRoot(std::vector<std::vector<size_t>>& map, const size_t x, const size_t y, const size_t aslib_maze_empty)
+	void mazeRoot(std::vector<std::vector<size_t>>& map, const size_t x, const size_t y, const size_t aslib_maze_empty) noexcept
 	{
-		static size_t b = 0;
+		static size_t b{};
 		map[x][y] = 2;
 		if (x == map.size() - 2 && y == map.data()->size() - 2) b = 1;
 		//上
@@ -83,12 +83,12 @@ namespace AsLib
 		return;
 	}
 	//出力
-	void mazeOutput(const std::vector<std::vector<size_t>>& map, const size_t aslib_maze_wall, const size_t aslib_maze_empty)
+	void mazeOutput(const std::vector<std::vector<size_t>>& map, const size_t aslib_maze_wall, const size_t aslib_maze_empty) noexcept
 	{
-		const size_t i_max = map.size();
-		const size_t j_max = map.data()->size();
-		for (size_t i = 0; i < i_max; ++i) {
-			for (size_t j = 0; j < j_max; ++j) {
+		const size_t i_max{ map.size() };
+		const size_t j_max{ map.data()->size() };
+		for (size_t i{}; i < i_max; ++i) {
+			for (size_t j{}; j < j_max; ++j) {
 				if (map[i][j] == aslib_maze_empty)std::cout << u8"　";
 				else if (map[i][j] == aslib_maze_wall)std::cout << u8"■";
 				else if (map[i][j] == 2)std::cout << u8"・";
@@ -97,12 +97,12 @@ namespace AsLib
 		}
 	}
 	//迷路生成
-	void mazeMake(std::vector<std::vector<size_t>>& map, const size_t aslib_maze_wall, const size_t aslib_maze_empty)
+	void mazeMake(std::vector<std::vector<size_t>>& map, const size_t aslib_maze_wall, const size_t aslib_maze_empty) noexcept
 	{
 		map[1][1] = aslib_maze_empty;
 
-		size_t a = 0;
-		size_t ii = 0;
+		size_t a{};
+		size_t ii{};
 		std::unique_ptr<size_t[]> X(new size_t[map.size()*map.data()->size()]);
 		std::unique_ptr<size_t[]> Y(new size_t[map.size()*map.data()->size()]);
 		while (true)
@@ -133,10 +133,10 @@ namespace AsLib
 		return;
 	}
 
-	std::vector<std::vector<size_t>> asMazeMapMake(const size_t size_x, const size_t size_y, const size_t aslib_maze_wall = 1, const size_t aslib_maze_empty = 0)
+	std::vector<std::vector<size_t>> asMazeMapMake(const size_t size_x, const size_t size_y, const size_t aslib_maze_wall = 1, const size_t aslib_maze_empty = 0) noexcept
 	{
-		const size_t size_x_2 = (size_x % 2 == 1) ? size_x : size_x - 1;
-		const size_t size_y_2 = (size_y % 2 == 1) ? size_y : size_y - 1;
+		const size_t size_x_2{ (size_x % 2 == 1) ? size_x : size_x - 1 };
+		const size_t size_y_2{ (size_y % 2 == 1) ? size_y : size_y - 1 };
 
 		//迷路マップ
 		static thread_local std::vector<std::vector<size_t>> map;
@@ -147,10 +147,10 @@ namespace AsLib
 		return map;
 	}
 
-	std::vector<std::vector<size_t>> asMazeMapDefault(const size_t size_x, const size_t size_y, const size_t aslib_maze_wall = 1, const size_t aslib_maze_empty = 0)
+	std::vector<std::vector<size_t>> asMazeMapDefault(const size_t size_x, const size_t size_y, const size_t aslib_maze_wall = 1, const size_t aslib_maze_empty = 0) noexcept
 	{
-		const size_t size_x_2 = (size_x % 2 == 1) ? size_x : size_x - 1;
-		const size_t size_y_2 = (size_y % 2 == 1) ? size_y : size_y - 1;
+		const size_t size_x_2{ (size_x % 2 == 1) ? size_x : size_x - 1 };
+		const size_t size_y_2{ (size_y % 2 == 1) ? size_y : size_y - 1 };
 
 		//迷路マップ
 		static thread_local std::vector<std::vector<size_t>> map;
@@ -169,25 +169,25 @@ namespace AsLib
 
 
 	//チャンク生成
-	void asWorldMapMake(const size_t x_, const size_t y_, const size_t size_, const size_t t1_, const size_t t2_, const size_t t3_, const size_t t4_, size_t map_[17][17])
+	void asWorldMapMake(const size_t x_, const size_t y_, const size_t size_, const size_t t1_, const size_t t2_, const size_t t3_, const size_t t4_, size_t map_[17][17]) noexcept
 	{
 		//再起の終了処理
 		if (size_ == 0) return;
 		//頂点の高さを決める
-		const size_t mapPlus = ((t1_ + t2_ + t3_ + t4_) >> 2) + asRand(size_);
+		const size_t mapPlus{ ((t1_ + t2_ + t3_ + t4_) >> 2) + asRand(size_) };
 		map_[x_][y_] = (mapPlus >= 255) ? 255 : mapPlus;
 		//四角形の2点同士の中点の高さを決定
-		const size_t s1 = ((t1_ + t2_) >> 1);
-		const size_t s2 = ((t1_ + t3_) >> 1);
-		const size_t s3 = ((t2_ + t4_) >> 1);
-		const size_t s4 = ((t3_ + t4_) >> 1);
+		const size_t s1{ ((t1_ + t2_) >> 1) };
+		const size_t s2{ ((t1_ + t3_) >> 1) };
+		const size_t s3{ ((t2_ + t4_) >> 1) };
+		const size_t s4{ ((t3_ + t4_) >> 1) };
 		//4つの地点の座標を決める
 		map_[x_ + size_][y_] = s3;
 		map_[x_ - size_][y_] = s2;
 		map_[x_][y_ + size_] = s4;
 		map_[x_][y_ - size_] = s1;
 		//分割サイズを半分にする
-		const size_t size = size_ >> 1;
+		const size_t size{ size_ >> 1 };
 		//4つに分割
 		asWorldMapMake(x_ - size, y_ - size, size, t1_, s1, s2, map_[x_][y_], map_);
 		asWorldMapMake(x_ + size, y_ - size, size, s1, t2_, map_[x_][y_], s3, map_);
@@ -196,31 +196,31 @@ namespace AsLib
 	}
 
 	//チャンク生成の呼び出し
-	inline void asWorldMapSimple(size_t map_[17][17])
+	inline void asWorldMapSimple(size_t map_[17][17]) noexcept
 	{
 		//チャンク生成を実行
 		asWorldMapMake(8, 8, 8, map_[0][0], map_[16][0], map_[0][16], map_[16][16], map_);
 	}
 
-	constexpr size_t aslib_world_make_seed1 = 0x3220;
-	constexpr size_t aslib_world_make_seed2 = 0x292;
+	constexpr size_t aslib_world_make_seed1{ 0x3220 };
+	constexpr size_t aslib_world_make_seed2{ 0x292 };
 
 	//ワールドマップ生成
-	void asWorldMake(std::vector<std::vector<size_t>>& world_map, size_t seed_ = 0)
+	void asWorldMake(std::vector<std::vector<size_t>>& world_map, size_t seed_ = 0) noexcept
 	{
 		if (seed_ == 0) seed_ = asRand(65535);
 		static size_t map_[17][17]{};
 		
 		//横画面サイズ
-		const size_t map_x = world_map.size();
+		const size_t map_x{ world_map.size() };
 		//縦画面サイズ
-		const size_t map_y = world_map.front().size();
+		const size_t map_y{ world_map.front().size() };
 
-		const size_t chunk_x = (map_x >> 4);
-		const size_t chunk_y = (map_y >> 4);
+		const size_t chunk_x{ (map_x >> 4) };
+		const size_t chunk_y{ (map_y >> 4) };
 
-		for (size_t i = 0; i < chunk_x; ++i) {
-			for (size_t j = 0; j < chunk_y; ++j) {
+		for (size_t i{}; i < chunk_x; ++i) {
+			for (size_t j{}; j < chunk_y; ++j) {
 
 				//四角形の4点の高さを決定
 				asSRand32(seed_ + i + (j * aslib_world_make_seed1) + ((i^j) * aslib_world_make_seed2));
@@ -236,8 +236,8 @@ namespace AsLib
 				asWorldMapSimple(map_);
 
 				//生成したチャンクをワールドマップにコピペ
-				for (size_t i2 = 0; i2 < 16; ++i2)
-					for (size_t j2 = 0; j2 < 16; ++j2)
+				for (size_t i2{}; i2 < 16; ++i2)
+					for (size_t j2{}; j2 < 16; ++j2)
 						world_map[(i << 4) + i2][(j << 4) + j2] = map_[i2][j2];
 
 			}
@@ -245,23 +245,23 @@ namespace AsLib
 	}
 
 	//世界をIDへ変換
-	void asWorldMapSimplePaint(std::vector<size_t>& vec_, const size_t& x_, const size_t& y_, size_t& layer_, const size_t under_, const size_t sea_, const size_t green_, const size_t snow_, const size_t seed_ = 0) {
+	void asWorldMapSimplePaint(std::vector<size_t>& vec_, const size_t& x_, const size_t& y_, size_t& layer_, const size_t under_, const size_t sea_, const size_t green_, const size_t snow_, const size_t seed_ = 0) noexcept {
 		std::vector<std::vector<size_t>> wmap(x_, std::vector<size_t>(y_, 255));
 		//wmap = std::vector<std::vector<size_t>>(x_, std::vector<size_t>(y_, 255));
 		//wmap.shrink_to_fit();
 
 		asWorldMake(wmap, seed_);
 
-		const size_t xy_ = x_ * y_;
+		const size_t xy_{ x_ * y_ };
 
 		layer_ = 2;
 		vec_.resize(xy_ * layer_);
-		for (size_t i = 0; i < xy_; ++i) {
+		for (size_t i{}; i < xy_; ++i) {
 			vec_[i] = under_;
 		}
 
-		const size_t xyl_ = xy_ * layer_;
-		for (size_t k = xy_, i = 0, j = 0; k < xyl_; ++k, ++j) {
+		const size_t xyl_{ xy_ * layer_ };
+		for (size_t k{ xy_ }, i{}, j = 0; k < xyl_; ++k, ++j) {
 			if (x_ <= j) {
 				j = 0;
 				++i;
@@ -282,14 +282,14 @@ namespace AsLib
 
 
 	struct AsPaintLine {
-		size_t lx = 0;
-		size_t rx = 0;
-		size_t y = 0;
-		size_t oy = 0;
+		size_t lx{};
+		size_t rx{};
+		size_t y{};
+		size_t oy{};
 	};
 
 	static AsPaintLine *end_b = nullptr;
-	void asPaintScanLine(std::vector<size_t>& map_, const size_t size_x_, std::unique_ptr<AsPaintLine[]>& buffer_, const size_t b_max_, int32_t lx_, const int32_t rx_, const size_t y_, const size_t oy_, const size_t id_)
+	void asPaintScanLine(std::vector<size_t>& map_, const size_t size_x_, std::unique_ptr<AsPaintLine[]>& buffer_, const size_t b_max_, int32_t lx_, const int32_t rx_, const size_t y_, const size_t oy_, const size_t id_) noexcept
 	{
 		while (lx_ <= rx_) {
 
@@ -313,10 +313,10 @@ namespace AsLib
 	}
 
 	struct AsPaintSave {
-		size_t x=0;
-		size_t y=0;
-		size_t before_id=0;
-		size_t after_id=0;
+		size_t x{};
+		size_t y{};
+		size_t before_id{};
+		size_t after_id{};
 		AsPaintSave() = default;
 		AsPaintSave(const size_t x_, const size_t y_, const size_t bid_, const size_t aid_)
 			:x(x_), y(y_), before_id(bid_), after_id(aid_) {}
@@ -325,23 +325,23 @@ namespace AsLib
 	private:
 		std::vector<AsPaintSave> save;
 	public:
-		void push(const size_t x_, const size_t y_, const size_t bid_, const size_t aid_) {
+		void push(const size_t x_, const size_t y_, const size_t bid_, const size_t aid_) noexcept {
 			save.emplace_back(x_, y_, bid_, aid_);
 		}
 	};
 
 	//塗りツール
-	void asPaintTool(std::vector<size_t>& map_, const size_t size_x_, const size_t x_, const size_t y_, const size_t id_, AsPaintSaveAll* const save_=nullptr)
+	void asPaintTool(std::vector<size_t>& map_, const size_t size_x_, const size_t x_, const size_t y_, const size_t id_, AsPaintSaveAll* const save_=nullptr) noexcept
 	{
-		const size_t size_y_ = map_.size() / size_x_;
-		const size_t map_xy = (size_x_ >= size_y_) ? size_x_ : size_y_;
-		const size_t map_x = size_x_ - 1;
-		const size_t map_y = size_y_ - 1;
+		const size_t size_y_{ map_.size() / size_x_ };
+		const size_t map_xy{ (size_x_ >= size_y_) ? size_x_ : size_y_ };
+		const size_t map_x{ size_x_ - 1 };
+		const size_t map_y{ size_y_ - 1 };
 
 		std::unique_ptr<AsPaintLine[]> buffer(new AsPaintLine[map_xy]);
-		AsPaintLine *start_b = buffer.get();
+		AsPaintLine *start_b{ buffer.get() };
 
-		const size_t col = map_[y_*size_x_ + x_];
+		const size_t col{ map_[y_*size_x_ + x_] };
 		if (col == id_) return;
 
 		end_b = buffer.get() + 1;
@@ -352,11 +352,11 @@ namespace AsLib
 		do {
 			lx = start_b->lx;
 			rx = start_b->rx;
-			size_t& ly = start_b->y;
-			size_t& oy = start_b->oy;
+			size_t& ly{ start_b->y };
+			size_t& oy{ start_b->oy };
 
-			const size_t lxsav = lx - 1;
-			const size_t rxsav = rx + 1;
+			const size_t lxsav{ lx - 1 };
+			const size_t rxsav{ rx + 1 };
 
 			if (++start_b == &buffer[map_xy]) start_b = buffer.get();	
 
@@ -371,7 +371,7 @@ namespace AsLib
 				if (map_[ly*size_x_ + lx - 1] != col) break;
 				--lx;
 			}
-			for (size_t i = lx; i <= rx; ++i) {
+			for (size_t i{ lx }; i <= rx; ++i) {
 				map_[ly*size_x_ + i] = id_;
 				if (save_ != nullptr) save_->push(i, ly, map_[ly*size_x_ + i], id_);
 			}

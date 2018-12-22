@@ -12,7 +12,7 @@
 namespace AsLib
 {
 
-	inline void asStop()
+	inline void asStop() noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		DxLib::ScreenFlip();

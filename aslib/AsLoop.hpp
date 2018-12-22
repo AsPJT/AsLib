@@ -12,7 +12,7 @@
 namespace AsLib
 {
 	//メインループ
-	const bool asLoop()
+	bool asLoop() noexcept
 	{
 		updateKey();
 		updateTouch();
@@ -35,7 +35,7 @@ return 0;
 	}
 
 	//メインループ
-	const bool asNoClearLoop()
+	bool asNoClearLoop() noexcept
 	{
 		updateKey();
 		updateTouch();

@@ -15,20 +15,20 @@ namespace AsLib
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 
 #if defined(__WINDOWS__)
-	inline void asClipboard(const char* const str_) { DxLib::SetClipboardText(str_); }
-	inline void asClipboard(const std::string& str_) { asClipboard(str_.c_str()); }
+	inline void asClipboard(const char* const str_) noexcept { DxLib::SetClipboardText(str_); }
+	inline void asClipboard(const std::string& str_) noexcept { asClipboard(str_.c_str()); }
 
-	const std::string asClipboard() {
-		const size_t b = size_t(DxLib::GetClipboardText(NULL) + 1);
+	std::string asClipboard() noexcept {
+		const size_t b{ size_t(DxLib::GetClipboardText(NULL) + 1) };
 		if (b == 0) return std::string(u8"Error");
 		const std::unique_ptr<char[]> ptr(new char[b]);
 		DxLib::GetClipboardText(ptr.get());
 		return std::string(ptr.get());
 	}
 
-	const std::string asDrag() {
+	std::string asDrag() noexcept {
 		if (DxLib::GetDragFileNum() < 1) return u8"";
-		const size_t b = size_t(DxLib::GetDragFilePath(NULL) + 1);
+		const size_t b{ size_t(DxLib::GetDragFilePath(NULL) + 1) };
 		if (b == 0) return std::string(u8"Error");
 		const std::unique_ptr<char[]> ptr(new char[b]);
 		DxLib::GetDragFilePath(ptr.get());

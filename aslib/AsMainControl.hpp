@@ -15,7 +15,7 @@ namespace AsLib
 	class MainControl
 	{
 	private:
-		int32_t init_true = false;
+		int32_t init_true{ false };
 		//ウィンドウサイズ
 		Pos2 window_size;
 		//背景色
@@ -33,7 +33,7 @@ namespace AsLib
 			init_true = AsInit(title_, window_size_, c_);
 		}
 		~MainControl() {}
-		const Pos2 windowSize() {
+		Pos2 windowSize() const noexcept {
 			return window_size;
 		}
 	};

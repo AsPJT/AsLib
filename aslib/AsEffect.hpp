@@ -16,29 +16,29 @@ namespace AsLib
 
 	private:
 
-		float in=0.0f;
-		float out=0.0f;
+		float in{ 0.0f };
+		float out{ 0.0f };
 
 	public:
 
-		const float floatIn() const { return this->in; }
-		const float floatOut() const { return this->out; }
-		const double doubleIn() const { return double(this->in); }
-		const double doubleOut() const { return double(this->out); }
-		const uint8_t uint8_In() const { return uint8_t(this->in*255.0f); }
-		const uint8_t uint8_Out() const { return uint8_t(this->out*255.0f); }
-		const int32_t int32_In() const { return int32_t(this->in*255.0f); }
-		const int32_t int32_Out() const { return int32_t(this->out*255.0f); }
+		float floatIn() const noexcept { return this->in; }
+		float floatOut() const noexcept { return this->out; }
+		double doubleIn() const noexcept { return double(this->in); }
+		double doubleOut() const noexcept { return double(this->out); }
+		uint8_t uint8_In() const noexcept { return uint8_t(this->in*255.0f); }
+		uint8_t uint8_Out() const noexcept { return uint8_t(this->out*255.0f); }
+		int32_t int32_In() const noexcept { return int32_t(this->in*255.0f); }
+		int32_t int32_Out() const noexcept { return int32_t(this->out*255.0f); }
 
-		Effect& setIn(const uint8_t var_) { this->in = float(var_) / 255.0f; return *this; }
-		Effect& setIn(const int32_t var_) { this->in = float(var_) / 255.0f; return *this; }
-		Effect& setIn(const float var_) { this->in = var_; return *this; }
-		Effect& setIn(const double var_) { this->in = float(var_); return *this; }
+		Effect& setIn(const uint8_t var_) noexcept { this->in = float(var_) / 255.0f; return *this; }
+		Effect& setIn(const int32_t var_) noexcept { this->in = float(var_) / 255.0f; return *this; }
+		Effect& setIn(const float var_) noexcept { this->in = var_; return *this; }
+		Effect& setIn(const double var_) noexcept { this->in = float(var_); return *this; }
 
-		Effect& setOut(const uint8_t var_) { this->out = float(var_) / 255.0f; return *this; }
-		Effect& setOut(const int32_t var_) { this->out = float(var_) / 255.0f; return *this; }
-		Effect& setOut(const float var_) { this->out = var_; return *this; }
-		Effect& setOut(const double var_) { this->out = float(var_); return *this; }
+		Effect& setOut(const uint8_t var_) noexcept { this->out = float(var_) / 255.0f; return *this; }
+		Effect& setOut(const int32_t var_) noexcept { this->out = float(var_) / 255.0f; return *this; }
+		Effect& setOut(const float var_) noexcept { this->out = var_; return *this; }
+		Effect& setOut(const double var_) noexcept { this->out = float(var_); return *this; }
 
 	};
 

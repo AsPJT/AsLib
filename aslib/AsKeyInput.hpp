@@ -11,13 +11,13 @@
 
 namespace AsLib
 {
-	constexpr size_t KEY_INPUT_CHAR_MAX = 255;
-	constexpr size_t KEY_INPUT_CHAR_MAX_1 = KEY_INPUT_CHAR_MAX + 1;
+	constexpr size_t KEY_INPUT_CHAR_MAX{ 255 };
+	constexpr size_t KEY_INPUT_CHAR_MAX_1{ KEY_INPUT_CHAR_MAX + 1 };
 
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__ANDROID__)
 
-	const char* const asKeyInputAndroid()
+	const char* const asKeyInputAndroid() noexcept
 	{
 		static std::string InputString;
 		InputString = u8"Error!";
@@ -59,11 +59,11 @@ namespace AsLib
 		return InputString.c_str();
 	}
 
-	inline int32_t asKeyInput(char* name, const Pos2& pos2 = pos2_0, const size_t& max_char = KEY_INPUT_CHAR_MAX)
+	inline int32_t asKeyInput(char* name, const Pos2& pos2 = pos2_0, const size_t& max_char = KEY_INPUT_CHAR_MAX) noexcept
 	{
 #if defined(DXLIB_ANDROID_MAKE_FUNCTION)
 		std::string InputString = asKeyInputAndroid();
-		for (size_t i = 0;; ++i) {
+		for (size_t i{};; ++i) {
 			name[i] = InputString[i];
 
 			if (InputString[i] == 0) break;
@@ -78,7 +78,7 @@ namespace AsLib
 #endif
 	}
 
-	inline const char* const asKeyInput(const Pos2& pos2 = pos2_0)
+	inline const char* const asKeyInput(const Pos2& pos2 = pos2_0) noexcept
 	{
 #if defined(DXLIB_ANDROID_MAKE_FUNCTION)
 		return asKeyInputAndroid();
@@ -92,7 +92,7 @@ namespace AsLib
 
 
 #if !defined(__ANDROID__)
-	inline int32_t asKeyInput(char* name, const Pos2& p_, const size_t& m_= KEY_INPUT_CHAR_MAX)
+	inline int32_t asKeyInput(char* name, const Pos2& p_, const size_t& m_= KEY_INPUT_CHAR_MAX) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__WINDOWS__)
@@ -114,7 +114,7 @@ return 0;
 		std::string key_string;
 		std::cin >> key_string;
 
-		for (size_t i = 0; i <= m_; ++i) {
+		for (size_t i{}; i <= m_; ++i) {
 
 			name[i] = key_string[i];
 
@@ -126,7 +126,7 @@ return 0;
 	}
 #endif
 
-	inline int32_t asKeyInput1Byte(char* name, const Pos2& pos2 = pos2_0, const size_t& max_char = KEY_INPUT_CHAR_MAX)
+	inline int32_t asKeyInput1Byte(char* name, const Pos2& pos2 = pos2_0, const size_t& max_char = KEY_INPUT_CHAR_MAX) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__WINDOWS__)
@@ -149,7 +149,7 @@ return 0;
 #endif
 	}
 
-	inline int32_t asKeyInputNum(const Pos2& pos2 = pos2_0, const int32_t& max_num = 10, const int32_t& min_num = 0)
+	inline int32_t asKeyInputNum(const Pos2& pos2 = pos2_0, const int32_t& max_num = 10, const int32_t& min_num = 0) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__WINDOWS__)
@@ -173,12 +173,12 @@ return 0;
 	}
 
 #if !defined(__ANDROID__)
-	const char* const asKeyInput(const Pos2& p_)
+	const char* const asKeyInput(const Pos2& p_) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__WINDOWS__)
 		static char key_string[KEY_INPUT_CHAR_MAX_1];
-		for (size_t i = 0; i < KEY_INPUT_CHAR_MAX_1; ++i) key_string[i] = '\0';
+		for (size_t i{}; i < KEY_INPUT_CHAR_MAX_1; ++i) key_string[i] = '\0';
 
 		asKeyInput(key_string, p_);
 		return key_string;
@@ -201,7 +201,7 @@ return 0;
 	}
 #endif
 
-	const int setKeyInput(const int handle_ = -1, const bool is_ = false) {
+	const int setKeyInput(const int handle_ = -1, const bool is_ = false) noexcept {
 		static thread_local int handle = -1;
 		if (is_) handle = handle_;
 		return handle;
@@ -220,45 +220,45 @@ return 0;
 		AsKeyInput(const size_t s_, const char mode_ = 'a') :size(s_), mode(mode_),
 			handle(DxLib::MakeKeyInput((s_ == 0) ? 1 : size, FALSE, (mode_ == 'h') ? TRUE : FALSE, (mode_ == 'n') ? TRUE : FALSE)){}
 
-		void on() {
+		void on() noexcept {
 			DxLib::SetActiveKeyInput(handle);
 			setKeyInput(handle, true);
 			is_on = true;
 			str.clear();
 		}
-		void off() { if (handle == setKeyInput()) DxLib::SetActiveKeyInput(-1); is_on = false; }
+		void off() noexcept { if (handle == setKeyInput()) DxLib::SetActiveKeyInput(-1); is_on = false; }
 		const bool check() {
 			if (handle != setKeyInput()) is_on = false;
 			if (!is_on) return false;
 			return (DxLib::CheckKeyInput(handle) != 0);
 		}
-		void draw(const Pos2& p_) {
+		void draw(const Pos2& p_) noexcept {
 			if (handle != setKeyInput()) is_on = false;
 			if (is_on) DxLib::DrawKeyInputString(p_.x, p_.y, handle);
 		}
-		const std::string output() {
+		const std::string output() noexcept {
 			if (size == 0) return str;
 			std::unique_ptr<char[]> unique_str(new char[size]);
-			for (size_t i = 0; i < size; ++i) unique_str[i] = 0;
+			for (size_t i{}; i < size; ++i) unique_str[i] = 0;
 			DxLib::GetKeyInputString(unique_str.get(), handle);
 			str = std::string(unique_str.get());
 			return str;
 		}
-		void clear() {
+		void clear() noexcept {
 			DxLib::DeleteKeyInput(handle);
 			str.clear();
 			str.shrink_to_fit();
 			handle = -1;
 		}
-		const int32_t outputNum() {
+		const int32_t outputNum() noexcept {
 			if (mode != 'n') return 0;
 			return DxLib::GetKeyInputNumber(handle);
 		}
-		void inputNum(const int32_t num_) {
+		void inputNum(const int32_t num_) noexcept {
 			if (mode != 'n') return;
 			DxLib::SetKeyInputNumber(num_, handle);
 		}
-		void input(const char* const str_) {
+		void input(const char* const str_) noexcept {
 			DxLib::SetKeyInputString(str_, handle);
 		}
 #endif
@@ -276,27 +276,27 @@ return 0;
 	public:
 		AsKeyButton(const size_t num_, const Pos4& p_) :ki(num_), p(p_), f(int32_t((p_.y2 - p_.y1)*0.8f)) {}
 
-		void drawButton() {
+		void drawButton() noexcept {
 			asRect(Color(255, 255, 255, 255), p);
 		}
-		void on(const bool is_) { if (is_)ki.on(); }
-		void off(const bool is_) { if (is_)ki.off(); }
-		void on() { ki.on(); }
-		void off() { ki.off(); }
+		void on(const bool is_) noexcept { if (is_)ki.on(); }
+		void off(const bool is_) noexcept { if (is_)ki.off(); }
+		void on() noexcept { ki.on(); }
+		void off() noexcept { ki.off(); }
 
-		void drawString() {
+		void drawString() noexcept {
 			if(ki.is_on) f.draw(std::string(ki.output()+u8"|").c_str(), Pos2(p.x1, p.y1), Color(0,0,0));
 			else f.draw(ki.output().c_str(), Pos2(p.x1, p.y1), Color(0, 0, 0));
 		}
 
 		//タッチカウント
-		void update() { counter.update(asTouch(p) || asMouseL(p)); }
-		const bool down() const { return counter.down(); };
-		const bool up() const { return counter.up(); };
-		const int32_t count() const { return counter.count(); };
-		const bool down0() { return counter.down0(); };
-		const bool up0() { return counter.up0(); };
-		const int32_t count0() { return counter.count0(); };
+		void update() noexcept { counter.update(asTouch(p) || asMouseL(p)); }
+		const bool down() const noexcept { return counter.down(); };
+		const bool up() const noexcept { return counter.up(); };
+		const int32_t count() const noexcept { return counter.count(); };
+		const bool down0() noexcept { return counter.down0(); };
+		const bool up0() noexcept { return counter.up0(); };
+		const int32_t count0() noexcept { return counter.count0(); };
 
 	};
 

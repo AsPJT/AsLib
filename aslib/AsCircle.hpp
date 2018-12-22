@@ -13,7 +13,7 @@ namespace AsLib
 {
 
 	//‰~‚ð•`‰æ
-	inline void asCircle(const Pos2& pos_, const int32_t& r_,const Color& col_)
+	inline void asCircle(const Pos2& pos_, const int32_t& r_,const Color& col_) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		DxLib::SetDrawBlendMode(1, int(col_.a)); 
@@ -33,15 +33,16 @@ return 0;
 #endif
 	}
 
-	inline void asCircle(const PosA4& pos_, const Color& col_) { asCircle(Pos2(pos_), pos_.w, col_); }
+	inline void asCircle(const PosA4& pos_, const Color& col_) noexcept { asCircle(Pos2(pos_), pos_.w, col_); }
 
 	struct Circle
 	{
 		Circle() = default;
-		constexpr Circle(const Pos2& pos_, const int32_t r_, const Color& col_ = aslib_color_black_a) :pos(pos_), r(r_), col(col_) {};
-		const Circle& draw() const { asCircle(pos, r, col); return *this; }
-		const Circle& draw(const Pos2& pos_) const { asCircle(pos_, r, col); return *this; }
-		const Circle& draw(const Color& col_) const { asCircle(pos, r, col_); return *this; }
+		constexpr explicit Circle(const Pos2& pos_, const int32_t r_, const Color& col_ = aslib_color_black_a) :pos(pos_), r(r_), col(col_) {};
+		//const only
+		const Circle& draw() const noexcept { asCircle(pos, r, col); return *this; }
+		const Circle& draw(const Pos2& pos_) const noexcept { asCircle(pos_, r, col); return *this; }
+		const Circle& draw(const Color& col_) const noexcept { asCircle(pos, r, col_); return *this; }
 		Pos2 pos;
 		int32_t r;
 		Color col;

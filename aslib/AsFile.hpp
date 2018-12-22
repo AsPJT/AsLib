@@ -14,7 +14,7 @@ namespace AsLib
 	//VS
 #if defined(_MSC_VER)
 
-	const int32_t asSecretRead(const char* const file_name, void* const read_buf, const size_t read_size)
+	int32_t asSecretRead(const char* const file_name, void* const read_buf, const size_t read_size) noexcept
 	{
 #if defined(__DXLIB)
 		const int FileHandle = DxLib::FileRead_open(file_name);
@@ -26,7 +26,7 @@ namespace AsLib
 	}
 
 	//ファイル読み込み
-	const int32_t asRead(const char* const file_name, void* const read_buf, const size_t read_size, const size_t read_nmemb)
+	int32_t asRead(const char* const file_name, void* const read_buf, const size_t read_size, const size_t read_nmemb) noexcept
 	{
 		FILE  *cfp_fp;
 		const errno_t cfp_error = fopen_s(&cfp_fp, file_name, "rb");
@@ -44,7 +44,7 @@ namespace AsLib
 	}
 
 	//ファイル書き込み
-	const int32_t asWrite(const char* const file_name, void* const write_buf, const size_t write_size, const size_t write_nmemb)
+	int32_t asWrite(const char* const file_name, void* const write_buf, const size_t write_size, const size_t write_nmemb) noexcept
 	{
 		FILE  *cfp_fp;
 		const errno_t cfp_error = fopen_s(&cfp_fp, file_name, "wb");
@@ -58,7 +58,7 @@ namespace AsLib
 	//Android(VS)
 #elif defined(__ANDROID__)
 
-	const int32_t asRead(const char* const file_name, void* const read_buf, const size_t read_size, const size_t read_nmemb)
+	int32_t asRead(const char* const file_name, void* const read_buf, const size_t read_size, const size_t read_nmemb) noexcept
 	{
 		constexpr size_t file_path_max = 256;
 
@@ -75,7 +75,7 @@ namespace AsLib
 		return 0;
 	}
 
-	const int32_t asWrite(const char* const file_name, void* const write_buf, const size_t write_size, const size_t write_nmemb)
+	int32_t asWrite(const char* const file_name, void* const write_buf, const size_t write_size, const size_t write_nmemb) noexcept
 	{
 		constexpr size_t file_path_max = 256;
 
@@ -95,7 +95,7 @@ namespace AsLib
 #else
 
 	//ファイル読み込み
-	const int32_t asRead(const char* const file_name, void* const read_buf, const size_t read_size, const size_t read_nmemb)
+	int32_t asRead(const char* const file_name, void* const read_buf, const size_t read_size, const size_t read_nmemb) noexcept
 	{
 		FILE* const cfp_fp = fopen(file_name, "rb");
 		if (cfp_fp == nullptr) return -1;
@@ -106,7 +106,7 @@ namespace AsLib
 	}
 
 	//ファイル書き込み
-	const int32_t asWrite(const char* const file_name, void* const write_buf, const size_t write_size, const size_t write_nmemb)
+	int32_t asWrite(const char* const file_name, void* const write_buf, const size_t write_size, const size_t write_nmemb) noexcept
 	{
 		FILE* const cfp_fp = fopen(file_name, "wb");
 		if (cfp_fp == nullptr) return -1;
@@ -122,7 +122,7 @@ namespace AsLib
 #if defined(_MSC_VER)
 
 	//ファイル読み込み
-	const int32_t asWrite(const std::string& file_name, const char* const log_)
+	int32_t asWrite(const std::string& file_name, const char* const log_) noexcept
 	{
 		FILE* cfp_fp;
 		const errno_t cfp_error = fopen_s(&cfp_fp, file_name.c_str(), "w");
@@ -134,7 +134,7 @@ namespace AsLib
 	}
 
 	//ファイル読み込み
-	const int32_t asAddWrite(const std::string& file_name, const char* const log_)
+	int32_t asAddWrite(const std::string& file_name, const char* const log_) noexcept
 	{
 		FILE* cfp_fp;
 		const errno_t cfp_error = fopen_s(&cfp_fp, file_name.c_str(), "a");
@@ -149,7 +149,7 @@ namespace AsLib
 #elif defined(__ANDROID__)
 
 	//ファイル読み込み
-	const int32_t asWrite(const std::string& file_name, const char* const log_)
+	int32_t asWrite(const std::string& file_name, const char* const log_) noexcept
 	{
 		constexpr size_t file_path_max = 256;
 		char FilePath[file_path_max];
@@ -166,7 +166,7 @@ namespace AsLib
 	}
 
 	//ファイル読み込み
-	const int32_t asAddWrite(const std::string& file_name, const char* const log_)
+	int32_t asAddWrite(const std::string& file_name, const char* const log_) noexcept
 	{
 		constexpr size_t file_path_max = 256;
 		char FilePath[file_path_max];
@@ -185,7 +185,7 @@ namespace AsLib
 #else
 
 	//ファイル読み込み
-	const int32_t asWrite(const std::string& file_name, const char* const log_)
+	int32_t asWrite(const std::string& file_name, const char* const log_) noexcept
 	{
 		FILE* const cfp_fp = fopen(file_name.c_str(), "w");
 		if (cfp_fp == nullptr) return -1;
@@ -196,7 +196,7 @@ namespace AsLib
 	}
 
 	//ファイル読み込み
-	const int32_t asAddWrite(const std::string& file_name, const char* const log_)
+	int32_t asAddWrite(const std::string& file_name, const char* const log_) noexcept
 	{
 		FILE* const cfp_fp = fopen(file_name.c_str(), "a");
 		if (cfp_fp == nullptr) return -1;
@@ -210,7 +210,7 @@ namespace AsLib
 
 
 #if defined(__ANDROID__)
-	const std::string asAllRead(const char* const str_)
+	std::string asAllRead(const char* const str_) noexcept
 	{
 		char String[256];
 		int FileHandle = DxLib::FileRead_open(str_);
@@ -227,7 +227,7 @@ namespace AsLib
 	}
 #else
 	//ファイル読み込み
-	const std::string asAllRead(const char* const str_)
+	std::string asAllRead(const char* const str_) noexcept
 	{
 		std::ifstream ifs(str_);
 		if (ifs.fail()) return std::string(u8"(データを読み込めませんでした)");
@@ -240,19 +240,19 @@ namespace AsLib
 	}
 #endif
 
-	inline const std::string asAllReadBase64(const char* const str_) { return base64_Decode(asAllRead(str_).c_str()); }
-	inline int32_t asAllWriteBase64(const std::string& file_name, const char* const log_) { return asWrite(file_name, base64_Encode(log_).c_str()); }
-	inline int32_t asWriteBase64(const std::string& file_name, const char* const log_) { return asWrite(file_name, base64_Encode(log_).c_str()); }
-	inline int32_t asAddWriteBase64(const std::string& file_name, const char* const log_) { return asAddWrite(file_name, base64_Encode(log_).c_str()); }
+	inline std::string asAllReadBase64(const char* const str_) noexcept { return base64_Decode(asAllRead(str_).c_str()); }
+	inline int32_t asAllWriteBase64(const std::string& file_name, const char* const log_) noexcept { return asWrite(file_name, base64_Encode(log_).c_str()); }
+	inline int32_t asWriteBase64(const std::string& file_name, const char* const log_) noexcept { return asWrite(file_name, base64_Encode(log_).c_str()); }
+	inline int32_t asAddWriteBase64(const std::string& file_name, const char* const log_) noexcept { return asAddWrite(file_name, base64_Encode(log_).c_str()); }
 
-	const std::vector<size_t> asAllReadToSize_t(const std::string& str_) {
+	std::vector<size_t> asAllReadToSize_t(const std::string& str_) noexcept {
 		static std::vector<size_t> final_str;
 		final_str.clear();
 
 		const size_t size = sizeof(size_t);
 		size_t total_size = 0;
 
-		for (size_t i = 0; i < str_.size(); i+=size) {
+		for (size_t i{}; i < str_.size(); i+=size) {
 			for (size_t j = 0; j < size; ++j) {
 				total_size <<= 8;
 				total_size += str_[i + j];
@@ -263,20 +263,20 @@ namespace AsLib
 		return 	final_str;
 	}
 	
-	const std::vector<size_t> asReadArraySize_t(const char* const str_) { return asAllReadToSize_t(asAllRead(str_)); }
-	const std::vector<size_t> asReadBase64ArraySize_t(const char* const str_) { return asAllReadToSize_t(asAllReadBase64(str_)); }
+	std::vector<size_t> asReadArraySize_t(const char* const str_) noexcept { return asAllReadToSize_t(asAllRead(str_)); }
+	std::vector<size_t> asReadBase64ArraySize_t(const char* const str_) noexcept { return asAllReadToSize_t(asAllReadBase64(str_)); }
 
 
 
 	struct AsArray {
-		uint64_t x = 0;
-		uint64_t y = 0;
-		uint64_t s = 0;
+		uint64_t x{};
+		uint64_t y{};
+		uint64_t s{};
 		std::vector<uint64_t> v;
 	};
 
 	//todo
-	void asReadArray(const std::string& str_,AsArray& array_) {
+	void asReadArray(const std::string& str_,AsArray& array_) noexcept {
 		if (str_.size() < 13) return;
 		array_.x = (uint64_t(str_[0]) << 24) + (uint64_t(str_[1]) << 16) + (uint64_t(str_[2]) << 8) + uint64_t(str_[3]);
 		array_.y = (uint64_t(str_[4]) << 24) + (uint64_t(str_[5]) << 16) + (uint64_t(str_[6]) << 8) + uint64_t(str_[7]);

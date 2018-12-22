@@ -38,10 +38,10 @@ return 0;
 	//バッテリー描画
 	int32_t asBatteryDraw(const PosL4 pos_, const Color battery_col = { 0,192,32,255 }, const Color out_col = { 75,75,75,255 }) noexcept
 	{
-		const Color empty_col = { 255,255,255,out_col.a };
+		const Color empty_col{ 255,255,255,out_col.a };
 
 		//バッテリー外枠
-		PosL4 out_pos = pos_;
+		PosL4 out_pos{ pos_ };
 		out_pos.h = pos_.w / 2;
 
 		//バッテリー+
@@ -58,10 +58,10 @@ return 0;
 		empty_pos.w = (pos_.w << 2) / 5;
 		empty_pos.h = (out_pos.w << 3) / 25;
 
-		const int32_t battery_power = asBattery();
+		const int32_t battery_power{ asBattery() };
 
 		//バッテリー容量
-		PosL4 battery_pos = empty_pos;
+		PosL4 battery_pos{ empty_pos };
 		battery_pos.w = empty_pos.w*battery_power / 100;
 
 		asRect(out_col, out_pos);
@@ -138,8 +138,8 @@ return 0;
 		int32_t Touch0() noexcept { const int32_t num = this->touch_num; this->touch_num = 0; return num; };
 		Battery& touch(const Pos2& add_pos) noexcept
 		{
-			bool is_touch = false;
-			const Pos4 p = { this->touch_pos.x1 - add_pos.x ,this->touch_pos.y1 - add_pos.y ,this->touch_pos.x2 - add_pos.x ,this->touch_pos.y2 - add_pos.y };
+			bool is_touch{ false };
+			const Pos4 p{ this->touch_pos.x1 - add_pos.x ,this->touch_pos.y1 - add_pos.y ,this->touch_pos.x2 - add_pos.x ,this->touch_pos.y2 - add_pos.y };
 
 			//タッチのあたり判定
 			if (p.x1 <= 0 && p.y1 <= 0 && p.x2 >= 0 && p.y2 >= 0) is_touch = true;
@@ -175,7 +175,7 @@ return 0;
 		Counter counter;
 
 		//タッチ数
-		int32_t touch_num = 0;
+		int32_t touch_num{};
 
 	};
 

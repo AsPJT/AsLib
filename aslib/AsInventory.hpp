@@ -13,9 +13,9 @@ namespace AsLib
 {
 	//アイテムデータを管理する
 	struct Item {
-		size_t type = 0;
-		AsTexture* texture = nullptr;
-		size_t stack_max = 0;
+		size_t type{};
+		AsTexture* texture{ nullptr };
+		size_t stack_max{};
 		std::string name{};
 		Item() = default;
 		Item(const size_t type_, AsTexture& t_, const size_t stack_, const char* const name_) :type(type_), texture(&t_), stack_max(stack_), name(name_) {}
@@ -25,14 +25,14 @@ namespace AsLib
 	};
 
 	struct UniqueItem {
-		size_t item = 0;
-		size_t stack = 0;
+		size_t item{};
+		size_t stack{};
 		UniqueItem() = default;
 		constexpr UniqueItem(const size_t item_, const size_t stack_) :item(item_), stack(stack_) {}
 
 		//ソート用
-		const bool operator<(const UniqueItem& right_) const { return item == right_.item ? stack < right_.stack : item < right_.item; }
-		const bool operator>(const UniqueItem& left_) const { return item == left_.item ? stack > left_.stack : item > left_.item; }
+		bool operator<(const UniqueItem& right_) const noexcept { return item == right_.item ? stack < right_.stack : item < right_.item; }
+		bool operator>(const UniqueItem& left_) const noexcept { return item == left_.item ? stack > left_.stack : item > left_.item; }
 	};
 
 	constexpr UniqueItem aslib_unique_item_init;
@@ -44,29 +44,29 @@ namespace AsLib
 
 		ShareItem() = default;
 		ShareItem(const size_t max_) {
-			const size_t before_size = unique.size();
+			const size_t before_size{ unique.size() };
 			unique.resize(max_);
-			for (size_t i = before_size; i < max_; ++i) {
+			for (size_t i{ before_size }; i < max_; ++i) {
 				unique[i].item = 0;
 				unique[i].stack = 0;
 			}
 		}
 
-		ShareItem& setSize(const size_t max_) {
-			const size_t before_size = unique.size();
+		ShareItem& setSize(const size_t max_) noexcept {
+			const size_t before_size{ unique.size() };
 			unique.resize(max_);
-			for (size_t i = before_size; i < max_; ++i) {
+			for (size_t i{ before_size }; i < max_; ++i) {
 				unique[i].item = 0;
 				unique[i].stack = 0;
 		}
 			return *this;
 	}
 
-		ShareItem& addSize(const int32_t add_) {
-			const size_t before_size = unique.size();
-			const size_t total_size = ((int32_t(unique.size()) + add_) < 0) ? 0 : size_t((before_size + add_));
+		ShareItem& addSize(const int32_t add_) noexcept {
+			const size_t before_size{ unique.size() };
+			const size_t total_size{ ((int32_t(unique.size()) + add_) < 0) ? 0 : size_t((before_size + add_)) };
 			unique.resize(total_size);
-			for (size_t i = before_size; i < total_size; ++i) {
+			for (size_t i{ before_size }; i < total_size; ++i) {
 				unique[i].item = 0;
 				unique[i].stack = 0;
 			}
@@ -74,28 +74,28 @@ namespace AsLib
 		}
 
 #if !defined(__ANDROID__)
-		ShareItem& sortUp() { sort(unique.begin(), unique.end()); return *this; }
-		ShareItem& sortDown() { sort(unique.begin(), unique.end(), std::greater<UniqueItem>()); return *this; }
+		ShareItem& sortUp() noexcept { sort(unique.begin(), unique.end()); return *this; }
+		ShareItem& sortDown() noexcept { sort(unique.begin(), unique.end(), std::greater<UniqueItem>()); return *this; }
 #else
 		ShareItem& sortUp() { return *this; }
 		ShareItem& sortDown() { return *this; }
 #endif
-		const size_t size() const { return unique.size(); }
-		ShareItem& push(const size_t id_, const size_t item_, const size_t stack_ = 1) {
+		size_t size() const noexcept { return unique.size(); }
+		ShareItem& push(const size_t id_, const size_t item_, const size_t stack_ = 1) noexcept {
 			unique[id_].item = item_;
 			unique[id_].stack = stack_;
 			return *this;
 		}
-		ShareItem& push(const size_t id_, const UniqueItem& item_) {
+		ShareItem& push(const size_t id_, const UniqueItem& item_) noexcept {
 			unique[id_].item = item_.item;
 			unique[id_].stack = item_.stack;
 			return *this;
 		}
 		//新しいアイテムを追加する
-		const UniqueItem add(const size_t item_, const size_t stack_,const size_t max_) {
-			size_t add_stack = stack_;
-			size_t s = 0;
-			for (size_t i = 0; i < unique.size(); ++i) {
+		UniqueItem add(const size_t item_, const size_t stack_,const size_t max_) noexcept {
+			size_t add_stack{ stack_ };
+			size_t s{};
+			for (size_t i{}; i < unique.size(); ++i) {
 				if (unique[i].item == item_ || unique[i].item == 0) {
 					unique[i].item = item_;
 					s = max_ - unique[i].stack;
@@ -112,10 +112,10 @@ namespace AsLib
 			}
 			return UniqueItem(item_, add_stack);
 		}
-		const UniqueItem add(const UniqueItem& item_, const size_t max_) { return add(item_.item, item_.stack, max_); }
+		UniqueItem add(const UniqueItem& item_, const size_t max_) noexcept { return add(item_.item, item_.stack, max_); }
 
 		//中身を消去する
-		const UniqueItem clear(const size_t id_) {
+		UniqueItem clear(const size_t id_) noexcept {
 			if (id_ >= unique.size()) return aslib_unique_item_init;
 			const UniqueItem unique_item(unique[id_].item, unique[id_].stack);
 			unique[id_].item = 0;
@@ -125,30 +125,30 @@ namespace AsLib
 	};
 	//インベントリ機能を管理する
 	struct Inventory {
-		AsTexture* frame = nullptr;
-		AsTexture* select_frame_texture = nullptr;
-		AsFont* font = nullptr;
-		ShareItem* share_item = nullptr;
+		AsTexture* frame{ nullptr };
+		AsTexture* select_frame_texture{ nullptr };
+		AsFont* font{ nullptr };
+		ShareItem* share_item{ nullptr };
 		PosA4 pos{};
-		size_t num_frame = 0;
-		size_t select_frame = 0;
+		size_t num_frame{};
+		size_t select_frame{};
 
 		Inventory(AsTexture& frame_, AsTexture& select_frame_texture, AsFont& font_, ShareItem& share_, const PosA4& pos_, const size_t num_frame_, const size_t select_frame_)
 			:frame(&frame_), select_frame_texture(&select_frame_texture), font(&font_), share_item(&share_), pos(pos_), num_frame(num_frame_), select_frame(select_frame_) {}
-		const UniqueItem itemClear() { return (share_item == nullptr) ? aslib_unique_item_init : share_item->clear(select_frame); }
-		Inventory& selectAdd(const int32_t add_) {
+		UniqueItem itemClear() noexcept { return (share_item == nullptr) ? aslib_unique_item_init : share_item->clear(select_frame); }
+		Inventory& selectAdd(const int32_t add_) noexcept {
 			select_frame = (add_ + select_frame + num_frame) % num_frame;
 			return *this;
 		}
-		Inventory& isSelectUp(const bool is_up_) { if (is_up_) select_frame = (select_frame + 1) % num_frame; return *this; }
-		Inventory& isSelectDown(const bool is_down_) { if (is_down_) select_frame = (select_frame + num_frame - 1) % num_frame; return *this; }
-		Inventory& draw(const std::vector<Item>& item_) {
+		Inventory& isSelectUp(const bool is_up_) noexcept { if (is_up_) select_frame = (select_frame + 1) % num_frame; return *this; }
+		Inventory& isSelectDown(const bool is_down_) noexcept { if (is_down_) select_frame = (select_frame + num_frame - 1) % num_frame; return *this; }
+		Inventory& draw(const std::vector<Item>& item_) noexcept {
 			if (frame == nullptr || font == nullptr || share_item == nullptr || select_frame_texture == nullptr) return *this;
 
 			PosA4 draw_pos(pos);
 			draw_pos.h = draw_pos.w;
 			draw_pos.x = pos.x - (int32_t(num_frame * pos.w) - pos.w) / 2;
-			for (size_t i = 0; i < num_frame; ++i) {
+			for (size_t i{}; i < num_frame; ++i) {
 				if (select_frame == i) select_frame_texture->draw(Pos4(draw_pos));
 				else frame->draw(draw_pos);
 
@@ -161,7 +161,7 @@ namespace AsLib
 			return *this;
 		}
 
-		Inventory& addSize(const int32_t add_) {
+		Inventory& addSize(const int32_t add_) noexcept {
 			if (share_item == nullptr) return *this;
 			share_item->addSize(add_);
 			num_frame = ((int32_t(num_frame) + add_) < 0) ? 0 : size_t((num_frame + add_));

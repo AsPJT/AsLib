@@ -415,7 +415,7 @@ namespace AsLib
 		MessageWindow& writeEndString(const char* const end_str_) {
 			if (!is_end_timer || is_str32) return *this;
 			const size_t str_count = strlen(end_str_);
-			if (is_end_str) { for (size_t i = 0; i < str_count; ++i) out_str.pop_back(); }
+			if (is_end_str) { for (size_t i{}; i < str_count; ++i) out_str.pop_back(); }
 			else out_str += end_str_;
 			return *this;
 		}
@@ -475,8 +475,8 @@ namespace AsLib
 			is_end_texture = false;
 			return *this;
 		}
-		MessageWindow& next(const std::vector<bool>& is_next) { for (size_t i = 0; i < is_next.size(); ++i) this->next(is_next[i]); return *this; }
-		MessageWindow& next(const bool* const is_next, const size_t size_) { if (is_next == nullptr) return *this; for (size_t i = 0; i < size_; ++i) this->next(is_next[i]); return *this; }
+		MessageWindow& next(const std::vector<bool>& is_next) { for (size_t i{}; i < is_next.size(); ++i) this->next(is_next[i]); return *this; }
+		MessageWindow& next(const bool* const is_next, const size_t size_) { if (is_next == nullptr) return *this; for (size_t i{}; i < size_; ++i) this->next(is_next[i]); return *this; }
 		MessageWindow& drawPerson(AsTexture& t_) {
 			if (!is_person) return *this;
 

@@ -14,10 +14,10 @@ namespace AsLib
 {
 
 #if !defined(ASLIB_INCLUDE_DL)
-	constexpr double DX_PI = 3.1415926535897932384626433832795;
-	constexpr float DX_PI_F = 3.1415926535897932384626433832795f;
-	constexpr double DX_TWO_PI = 3.1415926535897932384626433832795  * 2.0;
-	constexpr float DX_TWO_PI_F = 3.1415926535897932384626433832795f * 2.0f;
+	constexpr double DX_PI{ 3.1415926535897932384626433832795 };
+	constexpr float DX_PI_F{ 3.1415926535897932384626433832795f };
+	constexpr double DX_TWO_PI{ 3.1415926535897932384626433832795  * 2.0 };
+	constexpr float DX_TWO_PI_F{ 3.1415926535897932384626433832795f * 2.0f };
 
 	using DX_CHAR = char;
 
@@ -1387,25 +1387,25 @@ constexpr int CTRL_CODE_CMP=0x20;
 		const int ScreenFlip() { if (asLoop() == false) { ProcessMessageControl(true, true); return -1; } return 0; }
 
 		//ウインドウモード関係
-		inline const int ChangeWindowMode(const int flag = 1) { return 0; }
-		inline const int SetMainWindowText(const char* const t_) { return int(asSetTitle(t_)); }
-		inline const int SetWindowIconID(const int ID = 1) { return 0; }
-		inline const int SetWindowSizeChangeEnableFlag(const int flag = 1) { return 0; }
-		inline const int SetWindowSizeExtendRate(const double ExRate = 1.0) { return 0; }
+		inline int ChangeWindowMode(const int flag = 1) { return 0; }
+		inline int SetMainWindowText(const char* const t_) { return int(asSetTitle(t_)); }
+		inline int SetWindowIconID(const int ID = 1) { return 0; }
+		inline int SetWindowSizeChangeEnableFlag(const int flag = 1) { return 0; }
+		inline int SetWindowSizeExtendRate(const double ExRate = 1.0) { return 0; }
 
 		//マウス入力関連関数
-		inline const int SetMouseDispFlag(const int DispFlag = 1) { return 0; }
+		inline int SetMouseDispFlag(const int DispFlag = 1) { return 0; }
 		const int GetMousePoint(int* const x_, int* const y_) { const Pos2 p = mousePos(); *x_ = int(p.x); *y_ = int(p.y); return 0; }
 		const int GetMousePoint(int& x_, int& y_) { const Pos2 p = mousePos(); x_ = int(p.x); y_ = int(p.y); return 0; }
 		const int GetMousePoint(Pos2& p_) { p_ = mousePos(); return 0; }
-		inline const int SetMousePoint(const int x_, const int y_) { return 0; }
-		inline const int GetMouseInput() { return MouseControl(); }
-		inline const int GetMouseInputLog2(int* const Button, int* const ClickX, int* const ClickY, int* const LogType, const int LogDelete) { return 0; }
-		inline const int GetMouseWheelRotVol() { return int(mouseWheel()); }
+		inline int SetMousePoint(const int x_, const int y_) { return 0; }
+		inline int GetMouseInput() { return MouseControl(); }
+		inline int GetMouseInputLog2(int* const Button, int* const ClickX, int* const ClickY, int* const LogType, const int LogDelete) { return 0; }
+		inline int GetMouseWheelRotVol() { return int(mouseWheel()); }
 
 		//乱数取得関数
-		inline const int GetRand(const int rand_) { return int(asRand32(int32_t(rand_))); }
-		inline const int asSRand32(const int seed_) { return int(asSRand32(int32_t(seed_))); }
+		inline int GetRand(const int rand_) noexcept { return int(asRand32(int32_t(rand_))); }
+		inline int asSRand32(const int seed_) noexcept { return int(asSRand32(int32_t(seed_))); }
 	}
 #endif
 

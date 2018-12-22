@@ -14,23 +14,23 @@ namespace AsLib
 	struct Counter
 	{
 	public:
-		void update(const bool);
-		void update(const int32_t u_) { (u_ == 0) ? this->update(false) : this->update(true); }
+		void update(const bool) noexcept;
+		void update(const int32_t u_) noexcept { (u_ == 0) ? this->update(false) : this->update(true); }
 		//o—Í
-		const bool down() const { return this->key_down; };
-		const bool up() const { return this->key_up; };
-		const int32_t count() const { return this->key_count; };
-		const bool down0() { const bool isDown = key_down; this->key_down = false; return isDown; };
-		const bool up0() { const bool isUp = key_up; this->key_up = false; return isUp; };
-		const int32_t count0() { const int32_t isCount = key_count; this->key_count = 0; return isCount; };
+		bool down() const noexcept { return this->key_down; };
+		bool up() const noexcept { return this->key_up; };
+		int32_t count() const noexcept { return this->key_count; };
+		bool down0() noexcept { const bool isDown = key_down; this->key_down = false; return isDown; };
+		bool up0() noexcept { const bool isUp = key_up; this->key_up = false; return isUp; };
+		int32_t count0() noexcept { const int32_t isCount = key_count; this->key_count = 0; return isCount; };
 
 	private:
-		bool key_down = false;
-		bool key_up = false;
-		int32_t key_count = 0;
+		bool key_down{ false };
+		bool key_up{ false };
+		int32_t key_count{};
 	};
 
-	inline void Counter::update(const bool is_down)
+	inline void Counter::update(const bool is_down) noexcept
 	{
 		//‰Ÿ‚³‚ê‚½‚©
 		if (is_down) {

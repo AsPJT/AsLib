@@ -54,7 +54,7 @@ namespace AsLib
 	};
 
 	template<typename AsApp>
-	const int32_t asRunApp(MainControl& mc, AsApp* const as_app)
+	int32_t asRunApp(MainControl& mc, AsApp* const as_app) noexcept
 	{
 #if defined(ASLIB_INCLUDE_OF)
 		if (as_app == nullptr) return -1;

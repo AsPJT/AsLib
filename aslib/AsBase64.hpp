@@ -35,12 +35,12 @@ constexpr Base64 base64_url(base64_type_url, base64_str_table_url, 0);
 std::string base64_Encode(const char* const str_, const size_t length_, const size_t type_ = base64_type_default) noexcept
 {
 	if (str_ == nullptr) return nullptr;
-	const Base64 base64 = (type_ == base64_type_default) ? base64_default : base64_url;
+	const Base64 base64{ (type_ == base64_type_default) ? base64_default : base64_url };
 
-	const size_t length = length_ * 4 / 3 + 3 + 1;
+	const size_t length{ length_ * 4 / 3 + 3 + 1 };
 	const std::unique_ptr<char[]> str(new char[length]);
-	char* str_ptr = str.get();
-	for (size_t i = 0, j = length_; j > 0; i += 3, j -= 3) {
+	char* str_ptr{ str.get() };
+	for (size_t i{}, j = length_; j > 0; i += 3, j -= 3) {
 		switch (j)
 		{
 		case 1:
@@ -79,15 +79,15 @@ inline std::string base64_EncodeURL(const std::string& str_, const size_t type_ 
 std::string base64_Decode(const char* const str_, const size_t type_ = base64_type_default) noexcept
 {
 	if (str_ == nullptr) return nullptr;
-	const Base64 base64 = (type_ == base64_type_default) ? base64_default : base64_url;
+	const Base64 base64{ (type_ == base64_type_default) ? base64_default : base64_url };
 
-	const size_t length = strlen(str_);
+	const size_t length{ std::strlen(str_) };
 	const std::unique_ptr<char[]> str(new char[length * 3 / 4 + 2 + 1]);
 	char str_table[128]{};
-	for (size_t i = 0; i < base64_str_table_length; ++i) str_table[base64.str_table[i] & 127] = char(i);
-	char *str_ptr = str.get();
-	char table_char = 0;
-	for (size_t i = 0, j = 0; i < length; ++i, j = i % 4) {
+	for (size_t i{}; i < base64_str_table_length; ++i) str_table[base64.str_table[i] & 127] = char(i);
+	char *str_ptr{ str.get() };
+	char table_char{};
+	for (size_t i{}, j{}; i < length; ++i, j = i % 4) {
 		if (str_[i] == base64.empty_char) break;
 		table_char = str_table[size_t(str_[i] & 127)];
 		if (table_char & 128) continue;

@@ -33,7 +33,7 @@ enum:size_t{
 };
 
 int32_t asMain();
-namespace AsLib { const int32_t asEnd(); }
+namespace AsLib { int32_t asEnd() noexcept; }
 //他ライブラリインクルード
 #if defined(__DXLIB)
 #if !defined(ASLIB_INCLUDE_DL)

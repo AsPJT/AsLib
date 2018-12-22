@@ -11,7 +11,7 @@
 
 namespace AsLib
 {
-	inline void asRect(const PosL4& pos_ = {}, const Color& col = {}) {
+	inline void asRect(const PosL4& pos_ = {}, const Color& col = {}) noexcept {
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		DxLib::SetDrawBlendMode(1, int(col.a));
 		DxLib::DrawBox(int(pos_.x), int(pos_.y), int(pos_.x + pos_.w), int(pos_.y + pos_.h), (unsigned int)col, 1);
@@ -29,7 +29,7 @@ return 0;
 #else //Console
 #endif
 	}
-	inline void asRect(const Color& col = {}, const Pos4& pos = {}) { asRect(pos, col); }
+	inline void asRect(const Color& col = {}, const Pos4& pos = {}) noexcept { asRect(pos, col); }
 }
 
 #endif //Included AsProject Library

@@ -12,7 +12,7 @@
 namespace AsLib
 {
 	//ウィンドウサイズを記録する関数
-	const Pos2 asWindowSizeSave(const bool b_, const Pos2& p_ = pos2_0)
+	Pos2 asWindowSizeSave(const bool b_, const Pos2& p_ = pos2_0) noexcept
 	{
 		static thread_local Pos2 p;
 		if (b_) p = p_;
@@ -20,7 +20,7 @@ namespace AsLib
 	}
 
 	//ウィンドウサイズを取得する関数
-	const Pos2 asWindowSize()
+	Pos2 asWindowSize() noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return asWindowSizeSave(false);
@@ -41,10 +41,10 @@ return 0;
 
 #if defined(ASLIB_INCLUDE_S3) //Siv3D
 	template<typename... Rest>
-	std::string printString(const char *FormatString, const Rest&... rest)
+	std::string printString(const char *FormatString, const Rest&... rest) noexcept
 	{
 
-		constexpr int32_t PRINT_STRING_MAX = 1024;
+		constexpr int32_t PRINT_STRING_MAX{ 1024 };
 		char snString[PRINT_STRING_MAX];
 		snprintf(snString, sizeof(snString), FormatString, rest...);
 		return std::string(snString);
@@ -52,23 +52,23 @@ return 0;
 #endif
 
 	//初期化を記録
-	const bool asIsInitSave(const bool b_, const bool& p_ = false)
+	bool asIsInitSave(const bool b_, const bool& p_ = false) noexcept
 	{
 		static bool p = false;
 		if (b_) p = p_;
 		return p;
 	}
 	//初期化を取得する関数
-	inline const bool asIsInit() { return asIsInitSave(false); }
+	inline bool asIsInit() noexcept { return asIsInitSave(false); }
 
 	//ウィンドウサイズを取得する関数(float)
-	inline const Pos2F asWindowSizeF() { return Pos2F(asWindowSize()); }
+	inline Pos2F asWindowSizeF() noexcept { return Pos2F(asWindowSize()); }
 
-	inline const Pos4 asWindowSize4() { return Pos4(0, 0, asWindowSize()); }
-	inline const Pos4F asWindowSize4F() { return Pos4F(0.0f, 0.0f, asWindowSizeF()); }
+	inline Pos4 asWindowSize4() noexcept { return Pos4(0, 0, asWindowSize()); }
+	inline Pos4F asWindowSize4F() noexcept { return Pos4F(0.0f, 0.0f, asWindowSizeF()); }
 
 	//画面サイズ変更
-	inline void asSetWindowSize(const Pos2& window_size = aslib_default_window_size)
+	inline void asSetWindowSize(const Pos2& window_size = aslib_default_window_size) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		asWindowSizeSave(true, window_size);
@@ -88,15 +88,15 @@ return 0;
 #endif
 	}
 
-	const bool asIsWindowSizeW() {
+	bool asIsWindowSizeW() noexcept {
 		return (asWindowSize().x >= asWindowSize().y) ? true : false;
 	}
-	const bool asIsWindowSizeH() {
+	bool asIsWindowSizeH() noexcept {
 		return (asWindowSize().x <= asWindowSize().y) ? true : false;
 	}
 
 	//背景色変更
-	inline const int32_t asSetBackGround(const ColorRGB& BG_color = aslib_bg_color)
+	inline int32_t asSetBackGround(const ColorRGB& BG_color = aslib_bg_color) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return int32_t(DxLib::SetBackgroundColor(BG_color.r, BG_color.g, BG_color.b));
@@ -118,17 +118,17 @@ return 0;
 	}
 
 	//タイトルを記録する関数
-	std::string asTitleSave(const bool b_, const char* const str_ = nullptr)
+	std::string asTitleSave(const bool b_, const char* const str_ = nullptr) noexcept
 	{
 		static std::string aslib_title_save_str;
 		if (b_ && str_ != nullptr) aslib_title_save_str = str_;
 		return aslib_title_save_str;
 	}
 	//タイトルを取得する関数
-	inline std::string asTitle() { return asTitleSave(false); }
+	inline std::string asTitle() noexcept { return asTitleSave(false); }
 
 	//タイトル変更
-	inline const int32_t asSetTitle(const char* const title)
+	inline int32_t asSetTitle(const char* const title) noexcept
 	{
 		asTitleSave(true, title);
 #if defined(ASLIB_INCLUDE_DL) //DxLib
@@ -154,12 +154,12 @@ return 0;
 #endif
 	}
 	//タイトル変更
-	inline const int32_t asSetTitle(const std::string& title)
+	inline int32_t asSetTitle(const std::string& title) noexcept
 	{
 		return asSetTitle(title.c_str());
 	}
 
-	inline const Pos2 asWindowSizeMain(const Pos2& pos2 = pos2_100)
+	inline Pos2 asWindowSizeMain(const Pos2& pos2 = pos2_100) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__WINDOWS__)
@@ -182,7 +182,7 @@ return 0;
 #endif
 	}
 
-	const Pos2 asWindowSizeTrue(const Pos2& pos2 = pos2_100)
+	Pos2 asWindowSizeTrue(const Pos2& pos2 = pos2_100) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__WINDOWS__)
@@ -219,7 +219,7 @@ return 0;
 #endif
 	}
 
-	const bool is_asFullScreenSize(const Pos2& pos2)
+	bool is_asFullScreenSize(const Pos2& pos2) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		if (pos2.x == -1 || pos2.y == -1) return true;
@@ -237,7 +237,7 @@ return 0;
 #endif
 	}
 
-	inline const Pos2 asFullScreenSize()
+	inline Pos2 asFullScreenSize() noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return { -1,-1 };
@@ -255,7 +255,7 @@ return 0;
 	}
 
 
-	inline const Pos2 asSP_FullScreenSize(const Pos2& pos2 = pos2_100)
+	inline Pos2 asSP_FullScreenSize(const Pos2& pos2 = pos2_100) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__WINDOWS__)
@@ -284,7 +284,7 @@ return 0;
 	}
 
 
-	const int32_t makeLog(const std::string& str_)
+	int32_t makeLog(const std::string& str_) noexcept
 	{
 		asWrite(str_, u8"<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"/>");
 		asAddWrite(str_, u8"<title>");
@@ -298,7 +298,7 @@ return 0;
 		std::string license_name = u8"";
 		std::vector<Copyright> license_copyright;
 		std::string license_str = u8"";
-		for (size_t i = 0; i < aslib_license_size; ++i) {
+		for (size_t i{}; i < aslib_license_size; ++i) {
 			license_copyright.clear();
 			asLicense(aslib_license[i], license_name, license_copyright, license_str);
 
@@ -306,7 +306,7 @@ return 0;
 			asAddWrite(str_, license_name.c_str());
 			asAddWrite(str_, u8"</main>");
 
-			for (size_t j = 0; j < license_copyright.size(); ++j) {
+			for (size_t j{}; j < license_copyright.size(); ++j) {
 				asAddWrite(str_, u8"<main class=\"copyright\">");
 				asAddWrite(str_, license_copyright[j].write());
 				asAddWrite(str_, u8"</main>");
@@ -321,12 +321,12 @@ return 0;
 		return 0;
 	}
 
-	const int32_t makeLog() {
+	int32_t makeLog() noexcept {
 		return makeLog(asTitle() + u8"_Licenses.html");
 	}
 
 	//初期化
-	const int32_t AsInit(const Pos2& p_ = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color)
+	int32_t AsInit(const Pos2& p_ = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		DxLib::SetOutApplicationLogValidFlag(FALSE);
@@ -417,7 +417,7 @@ return 0;
 	}
 
 	//終了処理
-	inline const int32_t asEnd()
+	inline int32_t asEnd() noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return int32_t(DxLib::DxLib_End());
@@ -438,7 +438,7 @@ return 0;
 
 	//文字出力
 	template<typename... Rest>
-	inline const int32_t asPrint(const char* const format_string, const Rest&... rest)
+	inline int32_t asPrint(const char* const format_string, const Rest&... rest) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return int32_t(DxLib::printfDx(format_string, rest...));
@@ -458,7 +458,7 @@ return 0;
 #endif
 	}
 
-	inline const int32_t asPrint(const char* const format_string)
+	inline int32_t asPrint(const char* const format_string) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return int32_t(DxLib::printfDx("%s", format_string));
@@ -480,25 +480,25 @@ return 0;
 
 //以降は他ライブラリ依存なし----------
 
-	const int32_t AsInit(const char* const title = u8"", const Pos2& window_size = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color)
+	int32_t AsInit(const char* const title = u8"", const Pos2& window_size = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color) noexcept
 	{
 		if (asSetTitle(title) == -1) return -1;
 		return AsInit(window_size, BG_color);
 	}
 
-	const int32_t AsInit(const std::string& title = u8"", const Pos2& window_size = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color)
+	int32_t AsInit(const std::string& title = u8"", const Pos2& window_size = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color) noexcept
 	{
 		if (asSetTitle(title.c_str()) == -1) return -1;
 		return AsInit(window_size, BG_color);
 	}
 
 	template<typename... Rest>
-	inline const int32_t asPrint(const std::string& format_string, const Rest&... rest)
+	inline int32_t asPrint(const std::string& format_string, const Rest&... rest) noexcept
 	{
 		return asPrint(format_string.c_str(), rest...);
 	}
 
-	inline const int32_t asPrint(const std::string& format_string)
+	inline int32_t asPrint(const std::string& format_string) noexcept
 	{
 		return asPrint(format_string.c_str());
 	}
