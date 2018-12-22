@@ -27,13 +27,13 @@ namespace AsLib
 	//”wŒi‰æ‘œŒn
 	using OriginatorScreen = int;
 
-	inline bool checkTexture(const OriginatorTexture& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkImage(const OriginatorImage& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkBGM(const OriginatorBGM& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkSE(const OriginatorSE& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkMovie(const OriginatorMovie& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkFont(const OriginatorFont& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkScreen(const OriginatorScreen& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkTexture(const OriginatorTexture& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkImage(const OriginatorImage& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkBGM(const OriginatorBGM& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkSE(const OriginatorSE& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkMovie(const OriginatorMovie& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkFont(const OriginatorFont& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkScreen(const OriginatorScreen& ori_) noexcept { return (ori_ == -1) ? false : true; }
 
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 	//•`‰æ‰æ‘œŒn
@@ -51,13 +51,13 @@ namespace AsLib
 	//”wŒi‰æ‘œŒn
 	using OriginatorScreen = s3d::Texture;
 
-	inline bool checkTexture(const OriginatorTexture& ori_) { return (!ori_) ? false : true; }
-	inline bool checkImage(const OriginatorImage& ori_) { return (!ori_) ? false : true; }
-	inline bool checkBGM(const OriginatorBGM& ori_) { return (!ori_) ? false : true; }
-	inline bool checkSE(const OriginatorSE& ori_) { return (!ori_) ? false : true; }
-	inline bool checkMovie(const OriginatorMovie& ori_) { return (!ori_) ? false : true; }
-	inline bool checkFont(const OriginatorFont& ori_) { return (!ori_) ? false : true; }
-	inline bool checkScreen(const OriginatorScreen& ori_) { return (!ori_) ? false : true; }
+	inline bool checkTexture(const OriginatorTexture& ori_) noexcept { return (!ori_) ? false : true; }
+	inline bool checkImage(const OriginatorImage& ori_) noexcept { return (!ori_) ? false : true; }
+	inline bool checkBGM(const OriginatorBGM& ori_) noexcept { return (!ori_) ? false : true; }
+	inline bool checkSE(const OriginatorSE& ori_) noexcept { return (!ori_) ? false : true; }
+	inline bool checkMovie(const OriginatorMovie& ori_) noexcept { return (!ori_) ? false : true; }
+	inline bool checkFont(const OriginatorFont& ori_) noexcept { return (!ori_) ? false : true; }
+	inline bool checkScreen(const OriginatorScreen& ori_) noexcept { return (!ori_) ? false : true; }
 
 #elif defined(ASLIB_INCLUDE_OF)
 	//•`‰æ‰æ‘œŒn
@@ -90,13 +90,13 @@ namespace AsLib
 	//”wŒi‰æ‘œŒn
 	using OriginatorScreen = int32_t;
 
-	inline bool checkTexture(const OriginatorTexture& ori_) { return (ori_ == nullptr) ? false : true; }
-	inline bool checkImage(const OriginatorImage& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkBGM(const OriginatorBGM& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkSE(const OriginatorSE& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkMovie(const OriginatorMovie& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkFont(const OriginatorFont& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkScreen(const OriginatorScreen& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkTexture(const OriginatorTexture& ori_) noexcept { return (ori_ == nullptr) ? false : true; }
+	inline bool checkImage(const OriginatorImage& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkBGM(const OriginatorBGM& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkSE(const OriginatorSE& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkMovie(const OriginatorMovie& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkFont(const OriginatorFont& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkScreen(const OriginatorScreen& ori_) noexcept { return (ori_ == -1) ? false : true; }
 #elif defined(ASLIB_INCLUDE_SF)
 	//•`‰æ‰æ‘œŒn
 	using OriginatorTexture = int32_t;
@@ -113,13 +113,13 @@ namespace AsLib
 	//”wŒi‰æ‘œŒn
 	using OriginatorScreen = int32_t;
 
-	inline bool checkTexture(const OriginatorTexture& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkImage(const OriginatorImage& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkBGM(const OriginatorBGM& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkSE(const OriginatorSE& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkMovie(const OriginatorMovie& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkFont(const OriginatorFont& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkScreen(const OriginatorScreen& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkTexture(const OriginatorTexture& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkImage(const OriginatorImage& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkBGM(const OriginatorBGM& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkSE(const OriginatorSE& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkMovie(const OriginatorMovie& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkFont(const OriginatorFont& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkScreen(const OriginatorScreen& ori_) noexcept { return (ori_ == -1) ? false : true; }
 #elif defined(ASLIB_INCLUDE_TP)
 	//•`‰æ‰æ‘œŒn
 	using OriginatorTexture = int32_t;
@@ -136,13 +136,13 @@ namespace AsLib
 	//”wŒi‰æ‘œŒn
 	using OriginatorScreen = int32_t;
 
-	inline bool checkTexture(const OriginatorTexture& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkImage(const OriginatorImage& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkBGM(const OriginatorBGM& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkSE(const OriginatorSE& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkMovie(const OriginatorMovie& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkFont(const OriginatorFont& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkScreen(const OriginatorScreen& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkTexture(const OriginatorTexture& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkImage(const OriginatorImage& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkBGM(const OriginatorBGM& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkSE(const OriginatorSE& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkMovie(const OriginatorMovie& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkFont(const OriginatorFont& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkScreen(const OriginatorScreen& ori_) noexcept { return (ori_ == -1) ? false : true; }
 
 #else //Console
 	//•`‰æ‰æ‘œŒn
@@ -160,13 +160,13 @@ namespace AsLib
 	//”wŒi‰æ‘œŒn
 	using OriginatorScreen = int32_t;
 
-	inline bool checkTexture(const OriginatorTexture& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkImage(const OriginatorImage& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkBGM(const OriginatorBGM& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkSE(const OriginatorSE& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkMovie(const OriginatorMovie& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkFont(const OriginatorFont& ori_) { return (ori_ == -1) ? false : true; }
-	inline bool checkScreen(const OriginatorScreen& ori_) { return (ori_ == -1) ? false : true; }
+	inline bool checkTexture(const OriginatorTexture& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkImage(const OriginatorImage& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkBGM(const OriginatorBGM& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkSE(const OriginatorSE& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkMovie(const OriginatorMovie& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkFont(const OriginatorFont& ori_) noexcept { return (ori_ == -1) ? false : true; }
+	inline bool checkScreen(const OriginatorScreen& ori_) noexcept { return (ori_ == -1) ? false : true; }
 
 #endif
 }

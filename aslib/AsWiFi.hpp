@@ -11,7 +11,7 @@
 
 namespace AsLib
 {
-	inline const int32_t asWifi()
+	inline int32_t asWifi() noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__ANDROID__)

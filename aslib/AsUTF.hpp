@@ -15,13 +15,13 @@ namespace AsLib
 {
 
 	// UTF-8(string) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* const utf8(const std::string& src) { return src.c_str(); }
+	const char* const utf8(const std::string& src) noexcept { return src.c_str(); }
 
 	// UTF-8(char*) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* const utf8(const char* const src) { return src; }
+	const char* const utf8(const char* const src) noexcept { return src; }
 
 	// UTF-8(char) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* const utf8(const char src) {
+	const char* const utf8(const char src) noexcept {
 		static char u8char[2];
 		u8char[0] = src;
 		u8char[1] = 0;
@@ -29,7 +29,7 @@ namespace AsLib
 	}
 
 	// UTF-32(char32_t) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* const utf8(const char32_t src) {
+	const char* const utf8(const char32_t src) noexcept {
 
 		static char u8char[5];
 		u8char[0] = 0;
@@ -61,12 +61,12 @@ namespace AsLib
 	}
 
 	// UTF-32(char32_t*) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* const utf8(const char32_t* const src)
+	const char* const utf8(const char32_t* const src) noexcept
 	{
 		static std::string u8str;
 		u8str = u8"";
 
-		for (size_t j = 0;; ++j) {
+		for (size_t j{};; ++j) {
 
 			if (src[j] == 0) break;
 			u8str += utf8(src[j]);
@@ -75,13 +75,13 @@ namespace AsLib
 	}
 
 	// UTF-32(u32string) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* const utf8(const std::u32string& src)
+	const char* const utf8(const std::u32string& src) noexcept
 	{
 		static std::string u8str;
 		u8str = u8"";
 
 		const size_t src_len = src.length();
-		for (size_t j = 0; j < src_len; ++j) {
+		for (size_t j{}; j < src_len; ++j) {
 
 			if (src[j] == 0) break;
 			u8str += utf8(src[j]);
@@ -90,7 +90,7 @@ namespace AsLib
 	}
 
 	// UTF-16(char16_t) Ç©ÇÁ UTF-32(char32_t)Ç÷
-	const char32_t utf32(const char16_t src0, const char16_t src1 = 0) {
+	const char32_t utf32(const char16_t src0, const char16_t src1 = 0) noexcept {
 		char32_t u32char{};
 
 		if (0xd800 <= src0 && src0 < 0xdc00) {
@@ -108,12 +108,12 @@ namespace AsLib
 	}
 
 	// UTF-16(char16_t*) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* const utf32(const char16_t* const src)
+	const char32_t* const utf32(const char16_t* const src) noexcept
 	{
 		static std::u32string u32str;
 		u32str = U"";
 
-		for (size_t j = 0;; ++j) {
+		for (size_t j{};; ++j) {
 			if (src[j] == 0) break;
 			u32str += utf32(src[j], src[j + 1]);
 		}
@@ -121,13 +121,13 @@ namespace AsLib
 	}
 
 	// UTF-16(u16string) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* const utf32(const std::u16string& src)
+	const char32_t* const utf32(const std::u16string& src) noexcept
 	{
 		static std::u32string u32str;
 		u32str = U"";
 
 		const size_t src_len = src.length();
-		for (size_t j = 0; j < src_len; ++j) {
+		for (size_t j{}; j < src_len; ++j) {
 			if (src[j] == 0) break;
 			u32str += utf32(src[j], src[j + 1]);
 		}
@@ -135,22 +135,22 @@ namespace AsLib
 	}
 
 	// UTF-16(char16_t*) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* const utf8(const char16_t* const src) { return utf8(utf32(src)); }
+	const char* const utf8(const char16_t* const src) noexcept { return utf8(utf32(src)); }
 
 	// UTF-16(string) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* const utf8(const std::u16string src) { return utf8(utf32(src)); }
+	const char* const utf8(const std::u16string src) noexcept { return utf8(utf32(src)); }
 
 	// UTF-16(char16_t) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* const utf8(const char16_t src0, const char16_t src1 = 0) { return utf8(utf32(src0, src1)); }
+	const char* const utf8(const char16_t src0, const char16_t src1 = 0) noexcept { return utf8(utf32(src0, src1)); }
 
 	// UTF-32(u32string) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* const utf32(const std::u32string& src) { return src.c_str(); }
+	const char32_t* const utf32(const std::u32string& src) noexcept { return src.c_str(); }
 
 	// UTF-32(char32_t*) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* const utf32(const char32_t* const src) { return src; }
+	const char32_t* const utf32(const char32_t* const src) noexcept { return src; }
 
 	// UTF-32(char32_t) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* const utf32(const char32_t src) {
+	const char32_t* const utf32(const char32_t src) noexcept {
 		static char32_t u32char[2];
 		u32char[0] = src;
 		u32char[1] = 0;
@@ -158,13 +158,13 @@ namespace AsLib
 	}
 
 	// UTF-16(u16string) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* const utf16(const std::u16string& src) { return src.c_str(); }
+	const char16_t* const utf16(const std::u16string& src) noexcept { return src.c_str(); }
 
 	// UTF-16(char16_t*) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* const utf16(const char16_t* const src) { return src; }
+	const char16_t* const utf16(const char16_t* const src) noexcept { return src; }
 
 	// UTF-16(char16_t) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* const utf16(const char16_t src) {
+	const char16_t* const utf16(const char16_t src) noexcept {
 		static char16_t u16char[2];
 		u16char[0] = src;
 		u16char[1] = 0;
@@ -172,7 +172,7 @@ namespace AsLib
 	}
 
 	// UTF-32(char32_t) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* const utf16(const char32_t src) {
+	const char16_t* const utf16(const char32_t src) noexcept {
 		static char16_t u16char[3];
 		u16char[0] = 0;
 		u16char[1] = 0;
@@ -190,12 +190,12 @@ namespace AsLib
 	}
 
 	// UTF-32(char32_t*) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* const utf16(const char32_t* const src)
+	const char16_t* const utf16(const char32_t* const src) noexcept
 	{
 		static std::u16string u16str;
 		u16str = u"";
 
-		for (size_t j = 0;; ++j) {
+		for (size_t j{};; ++j) {
 
 			if (src[j] == 0) break;
 			u16str += utf16(src[j]);
@@ -204,13 +204,13 @@ namespace AsLib
 	}
 
 	// UTF-32(u32string) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* const utf16(const std::u32string& src)
+	const char16_t* const utf16(const std::u32string& src) noexcept
 	{
 		static std::u16string u16str;
 		u16str = u"";
 
 		const size_t src_len = src.length();
-		for (size_t j = 0; j < src_len; ++j) {
+		for (size_t j{}; j < src_len; ++j) {
 
 			if (src[j] == 0) break;
 			u16str += utf16(src[j]);
@@ -218,7 +218,7 @@ namespace AsLib
 		return u16str.c_str();
 	}
 
-	const int32_t utf8Byte(const char src) {
+	int32_t utf8Byte(const char src) noexcept {
 		if (0 <= uint8_t(src) && uint8_t(src) < 0x80) return 1;
 		if (0xc2 <= uint8_t(src) && uint8_t(src) < 0xe0) return 2;
 		if (0xe0 <= uint8_t(src) && uint8_t(src) < 0xf0) return 3;
@@ -226,9 +226,9 @@ namespace AsLib
 		return 0;
 	}
 
-	const bool utf8_0x80To0xc0(const char src) { return 0x80 <= uint8_t(src) && uint8_t(src) < 0xc0; }
+	bool utf8_0x80To0xc0(const char src) noexcept { return 0x80 <= uint8_t(src) && uint8_t(src) < 0xc0; }
 
-	const char32_t char_utf32(const char src[5], int32_t& number_of_byte) {
+	char32_t char_utf32(const char src[5], int32_t& number_of_byte) noexcept {
 		char32_t u32char{};
 
 		number_of_byte = utf8Byte(src[0]);
@@ -273,7 +273,7 @@ namespace AsLib
 	}
 
 	// UTF-8(char) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* const utf32(const char src) {
+	const char32_t* const utf32(const char src) noexcept {
 		static char32_t u32char[2];
 		char u8char[5]{};
 		int32_t number_of_byte;
@@ -284,7 +284,7 @@ namespace AsLib
 		return u32char;
 	}
 
-	const char32_t char_utf32(const std::string& src, char u8char[5], const size_t j, int32_t& number_of_byte)
+	char32_t char_utf32(const std::string& src, char u8char[5], const size_t j, int32_t& number_of_byte) noexcept
 	{
 		u8char[0] = 0;
 		u8char[1] = 0;
@@ -304,7 +304,7 @@ namespace AsLib
 	}
 
 	// UTF-8(string) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* const utf32(const std::string& src)
+	const char32_t* const utf32(const std::string& src) noexcept
 	{
 		static std::u32string u32str;
 		u32str = U"";
@@ -322,7 +322,7 @@ namespace AsLib
 		return u32str.c_str();
 	}
 
-	const char32_t char_utf32(const char* const src, char u8char[5], const size_t j, int32_t& number_of_byte)
+	char32_t char_utf32(const char* const src, char u8char[5], const size_t j, int32_t& number_of_byte) noexcept
 	{
 		u8char[0] = 0;
 		u8char[1] = 0;
@@ -342,7 +342,7 @@ namespace AsLib
 	}
 
 	// UTF-8(char*) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* const utf32(const char* const src)
+	const char32_t* const utf32(const char* const src) noexcept
 	{
 		static std::u32string u32str;
 		u32str = U"";
@@ -360,17 +360,17 @@ namespace AsLib
 	}
 
 	// UTF-8(char*) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* const utf16(const char* const src) { return utf16(utf32(src)); }
+	const char16_t* const utf16(const char* const src) noexcept { return utf16(utf32(src)); }
 
 	// UTF-8(string) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* const utf16(const std::string src) { return utf16(utf32(src)); }
+	const char16_t* const utf16(const std::string src) noexcept { return utf16(utf32(src)); }
 
 	// UTF-8(char) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* const utf16(const char src) { return utf16(utf32(src)); }
+	const char16_t* const utf16(const char src) noexcept { return utf16(utf32(src)); }
 
-	const char16_t sjisUp(const uint8_t before, const uint8_t after)
+	char16_t sjisUp(const uint8_t before, const uint8_t after) noexcept
 	{
-		constexpr size_t number_of_array = 5859;
+		constexpr size_t number_of_array{ 5859 };
 		static constexpr char16_t sjis_up[number_of_array] = {
 			12288,12289,12290,65292,65294,12539,65306,65307,65311,65281,12443,12444,180,65344,168,65342,65507,65343,12541,12542,12445,12446,12291,20189,12293,12294,12295,12540,8213,8208,65295,65340,65374,8741,65372,8230,8229,8216,8217,8220,8221,65288,65289,12308,12309,65339,65341,65371,65373,12296,12297,12298,12299,12300,12301,12302,12303,12304,12305,65291,65293,177,215,0,247,65309,8800,65308,65310,8806,8807,8734,8756,9794,9792,176,8242,8243,8451,65509,65284,65504,65505,65285,65283,65286,65290,65312,167,9734,9733,9675,9679,9678,9671,9670,9633,9632,9651,9650,9661,9660,8251,12306,8594,8592,8593,8595,12307,0,0,0,0,0,0,0,0,0,0,0,8712,8715,8838,8839,8834,8835,8746,8745,0,0,0,0,0,0,0,0,8743,8744,65506,8658,8660,8704,8707,0,0,0,0,0,0,0,0,0,0,0,8736,8869,8978,8706,8711,8801,8786,8810,8811,8730,8765,8733,8757,8747,8748,0,0,0,0,0,0,0,8491,8240,9839,9837,9834,8224,8225,182,0,0,0,0,9711,
 			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,65296,65297,65298,65299,65300,65301,65302,65303,65304,65305,0,0,0,0,0,0,0,65313,65314,65315,65316,65317,65318,65319,65320,65321,65322,65323,65324,65325,65326,65327,65328,65329,65330,65331,65332,65333,65334,65335,65336,65337,65338,0,0,0,0,0,0,0,65345,65346,65347,65348,65349,65350,65351,65352,65353,65354,65355,65356,65357,65358,65359,65360,65361,65362,65363,65364,65365,65366,65367,65368,65369,65370,0,0,0,0,12353,12354,12355,12356,12357,12358,12359,12360,12361,12362,12363,12364,12365,12366,12367,12368,12369,12370,12371,12372,12373,12374,12375,12376,12377,12378,12379,12380,12381,12382,12383,12384,12385,12386,12387,12388,12389,12390,12391,12392,12393,12394,12395,12396,12397,12398,12399,12400,12401,12402,12403,12404,12405,12406,12407,12408,12409,12410,12411,12412,12413,12414,12415,12416,12417,12418,12419,12420,12421,12422,12423,12424,12425,12426,12427,12428,12429,12430,12431,12432,12433,12434,12435,0,0,0,0,0,0,0,0,0,0,0,
@@ -404,14 +404,14 @@ namespace AsLib
 			26308,26296,26326,26330,26336,26175,26342,26345,26352,26357,26359,26383,26390,26398,26406,26407,38712,26414,26431,26422,26433,26424,26423,26438,26462,26464,26457,26467,26468,26505,26480,26537,26492,26474,26508,26507,26534,26529,26501,26551,26607,26548,26604,26547,26601,26552,26596,26590,26589,26594,26606,26553,26574,26566,26599,27292,26654,26694,26665,26688,26701,26674,26702,0,26803,26667,26713,26723,26743,26751,26783,26767,26797,26772,26781,26779,26755,27310,26809,26740,26805,26784,26810,26895,26765,26750,26881,26826,26888,26840,26914,26918,26849,26892,26829,26836,26855,26837,26934,26898,26884,26839,26851,26917,26873,26848,26863,26920,26922,26906,26915,26913,26822,27001,26999,26972,27000,26987,26964,27006,26990,26937,26996,26941,26969,26928,26977,26974,26973,27009,26986,27058,27054,27088,27071,27073,27091,27070,27086,23528,27082,27101,27067,27075,27047,27182,27025,27040,27036,27029,27060,27102,27112,27138,27163,27135,27402,27129,27122,27111,27141,27057,27166,27117,27156,27115,27146,27154,27329,27171,27155,27204,27148,27250,27190,27256,27207,27234,27225,27238,27208,27192,27170,27280,27277,27296,27268,27298,27299,
 			27287,34327,27323,27331,27330,27320,27315,27308,27358,27345,27359,27306,27354,27370,27387,27397,34326,27386,27410,27414,39729,27423,27448,27447,30428,27449,39150,27463,27459,27465,27472,27481,27476,27483,27487,27489,27512,27513,27519,27520,27524,27523,27533,27544,27541,27550,27556,27562,27563,27567,27570,27569,27571,27575,27580,27590,27595,27603,27615,27628,27627,27635,27631,0,40638,27656,27667,27668,27675,27684,27683,27742,27733,27746,27754,27778,27789,27802,27777,27803,27774,27752,27763,27794,27792,27844,27889,27859,27837,27863,27845,27869,27822,27825,27838,27834,27867,27887,27865,27882,27935,34893,27958,27947,27965,27960,27929,27957,27955,27922,27916,28003,28051,28004,27994,28025,27993,28046,28053,28644,28037,28153,28181,28170,28085,28103,28134,28088,28102,28140,28126,28108,28136,28114,28101,28154,28121,28132,28117,28138,28142,28205,28270,28206,28185,28274,28255,28222,28195,28267,28203,28278,28237,28191,28227,28218,28238,28196,28415,28189,28216,28290,28330,28312,28361,28343,28371,28349,28335,28356,28338,28372,28373,28303,28325,28354,28319,28481,28433,28748,28396,28408,28414,28479,28402,28465,28399,28466,28364 };
 
-		size_t i = 189 * (before - 0x81) + (after - 0x40);
+		size_t i{ (size_t)(189 * (before - 0x81) + (after - 0x40)) };
 		if (i < number_of_array) return sjis_up[i];
 		return 0;
 	}
 
-	const char16_t sjisDown(const uint8_t before, const uint8_t after)
+	char16_t sjisDown(const uint8_t before, const uint8_t after) noexcept
 	{
-		constexpr size_t number_of_array = 3024;
+		constexpr size_t number_of_array{ 3024 };
 		static constexpr char16_t sjis_down[number_of_array] = {
 			28478,28435,28407,28550,28538,28536,28545,28544,28527,28507,28659,28525,28546,28540,28504,28558,28561,28610,28518,28595,28579,28577,28580,28601,28614,28586,28639,28629,28652,28628,28632,28657,28654,28635,28681,28683,28666,28689,28673,28687,28670,28699,28698,28532,28701,28696,28703,28720,28734,28722,28753,28771,28825,28818,28847,28913,28844,28856,28851,28846,28895,28875,28893,0,28889,28937,28925,28956,28953,29029,29013,29064,29030,29026,29004,29014,29036,29071,29179,29060,29077,29096,29100,29143,29113,29118,29138,29129,29140,29134,29152,29164,29159,29173,29180,29177,29183,29197,29200,29211,29224,29229,29228,29232,29234,29243,29244,29247,29248,29254,29259,29272,29300,29310,29314,29313,29319,29330,29334,29346,29351,29369,29362,29379,29382,29380,29390,29394,29410,29408,29409,29433,29431,20495,29463,29450,29468,29462,29469,29492,29487,29481,29477,29502,29518,29519,40664,29527,29546,29544,29552,29560,29557,29563,29562,29640,29619,29646,29627,29632,29669,29678,29662,29858,29701,29807,29733,29688,29746,29754,29781,29759,29791,29785,29761,29788,29801,29808,29795,29802,29814,29822,29835,29854,29863,29898,29903,29908,29681,
 			29920,29923,29927,29929,29934,29938,29936,29937,29944,29943,29956,29955,29957,29964,29966,29965,29973,29971,29982,29990,29996,30012,30020,30029,30026,30025,30043,30022,30042,30057,30052,30055,30059,30061,30072,30070,30086,30087,30068,30090,30089,30082,30100,30106,30109,30117,30115,30146,30131,30147,30133,30141,30136,30140,30129,30157,30154,30162,30169,30179,30174,30206,30207,0,30204,30209,30192,30202,30194,30195,30219,30221,30217,30239,30247,30240,30241,30242,30244,30260,30256,30267,30279,30280,30278,30300,30296,30305,30306,30312,30313,30314,30311,30316,30320,30322,30326,30328,30332,30336,30339,30344,30347,30350,30358,30355,30361,30362,30384,30388,30392,30393,30394,30402,30413,30422,30418,30430,30433,30437,30439,30442,34351,30459,30472,30471,30468,30505,30500,30494,30501,30502,30491,30519,30520,30535,30554,30568,30571,30555,30565,30591,30590,30585,30606,30603,30609,30624,30622,30640,30646,30649,30655,30652,30653,30651,30663,30669,30679,30682,30684,30691,30702,30716,30732,30738,31014,30752,31018,30789,30862,30836,30854,30844,30874,30860,30883,30901,30890,30895,30929,30918,30923,30932,30910,30908,30917,30922,30956,
@@ -430,19 +430,19 @@ namespace AsLib
 			29374,29476,64022,29559,29629,29641,29654,29667,29650,29703,29685,29734,29738,29737,29742,29794,29833,29855,29953,30063,30338,30364,30366,30363,30374,64023,30534,21167,30753,30798,30820,30842,31024,64024,64025,64026,31124,64027,31131,31441,31463,64028,31467,31646,64029,32072,32092,32183,32160,32214,32338,32583,32673,64030,33537,33634,33663,33735,33782,33864,33972,34131,34137,0,34155,64031,34224,64032,64033,34823,35061,35346,35383,35449,35495,35518,35551,64034,35574,35667,35711,36080,36084,36114,36214,64035,36559,64036,64037,36967,37086,64038,37141,37159,37338,37335,37342,37357,37358,37348,37349,37382,37392,37386,37434,37440,37436,37454,37465,37457,37433,37479,37543,37495,37496,37607,37591,37593,37584,64039,37589,37600,37587,37669,37665,37627,64040,37662,37631,37661,37634,37744,37719,37796,37830,37854,37880,37937,37957,37960,38290,63964,64041,38557,38575,38707,38715,38723,38733,38735,38737,38741,38999,39013,64042,64043,39207,64044,39326,39502,39641,39644,39797,39794,39823,39857,39867,39936,40304,40299,64045,40473,40657,0,0,8560,8561,8562,8563,8564,8565,8566,8567,8568,8569,65506,65508,65287,65282,
 			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 		};
-		size_t i = 189 * (before - 0xe0) + (after - 0x40);
+		size_t i{ (size_t)(189 * (before - 0xe0) + (after - 0x40)) };
 		if (i < number_of_array) return sjis_down[i];
 		return 0;
 	}
 
 	// SJIS(char*) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* const utf16_s(const char* const src)
+	const char16_t* const utf16_s(const char* const src) noexcept
 	{
 		static std::u16string u16str;
 		u16str = u"";
 
 		uint8_t src_i;
-		for (size_t j = 0;; ++j) {
+		for (size_t j{};; ++j) {
 			if (src[j] == 0) break;
 
 			src_i = uint8_t(src[j]);
@@ -462,12 +462,12 @@ namespace AsLib
 	}
 
 	// SJIS(char) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* const utf16_s(const char src)
+	const char16_t* const utf16_s(const char src) noexcept
 	{
 		static std::u16string u16str;
 		u16str = u"";
 
-		const uint8_t src_8 = uint8_t(src);
+		const uint8_t src_8{ uint8_t(src) };
 
 		if (src_8 <= 127) u16str += char16_t(src);
 		else if (src_8 >= 161 && src_8 <= 223) u16str += char16_t(src_8 - 161) + 0xff61;
@@ -476,33 +476,33 @@ namespace AsLib
 	}
 
 	// SJIS(string) Ç©ÇÁ UTF-16(char16_t*)Ç÷
-	const char16_t* const utf16_s(const std::string src) { return utf16_s(src.c_str()); }
+	const char16_t* const utf16_s(const std::string src) noexcept { return utf16_s(src.c_str()); }
 
 	// SJIS(char*) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* const utf8_s(const char* const src) { return utf8(utf16_s(src)); }
+	const char* const utf8_s(const char* const src) noexcept { return utf8(utf16_s(src)); }
 
 	// SJIS(char) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* const utf8_s(const char src) { return utf8(utf16_s(src)); }
+	const char* const utf8_s(const char src) noexcept { return utf8(utf16_s(src)); }
 
 	// SJIS(string) Ç©ÇÁ UTF-8(char*)Ç÷
-	const char* const utf8_s(const std::string src) { return utf8(utf16_s(src.c_str())); }
+	const char* const utf8_s(const std::string src) noexcept { return utf8(utf16_s(src.c_str())); }
 
 	// SJIS(char*) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* const utf32_s(const char* const src) { return utf32(utf16_s(src)); }
+	const char32_t* const utf32_s(const char* const src) noexcept { return utf32(utf16_s(src)); }
 
 	// SJIS(string) Ç©ÇÁ UTF-32(char*)Ç÷
-	const char32_t* const utf32_s(const std::string src) { return utf32(utf16_s(src.c_str())); }
+	const char32_t* const utf32_s(const std::string src) noexcept { return utf32(utf16_s(src.c_str())); }
 
 	// SJIS(char) Ç©ÇÁ UTF-32(char32_t*)Ç÷
-	const char32_t* const utf32_s(const char src) { return utf32(utf16_s(src)); }
+	const char32_t* const utf32_s(const char src) noexcept { return utf32(utf16_s(src)); }
 
 	// êîíl Ç©ÇÁ UTF-16(char16_t*)Ç÷
 	template <typename type_name>
-	const char16_t* const utf16(const type_name src) { return utf16(utf8(src)); }
+	const char16_t* const utf16(const type_name src) noexcept { return utf16(utf8(src)); }
 
 	// êîíl Ç©ÇÁ UTF-32(char32_t*)Ç÷
 	template <typename type_name>
-	const char32_t* const utf32(const type_name src) { return utf32(utf8(src)); }
+	const char32_t* const utf32(const type_name src) noexcept { return utf32(utf8(src)); }
 
 }
 
