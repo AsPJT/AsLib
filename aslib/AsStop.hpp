@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_STOP
+#define INCLUDED_AS_PROJECT_LIBRARY_STOP
 
 
 namespace AsLib
@@ -27,3 +29,5 @@ return 0;
 	}
 
 }
+
+#endif //Included AsProject Library

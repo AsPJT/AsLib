@@ -7,6 +7,8 @@
 //                                   Ver 0.0.0.0 Alpha
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_FRAMEWORKS
+#define INCLUDED_AS_PROJECT_LIBRARY_FRAMEWORKS
 
 
 namespace AsLib
@@ -79,3 +81,5 @@ namespace AsLib
 	}
 
 }
+
+#endif //Included AsProject Library

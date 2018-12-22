@@ -13,6 +13,7 @@ enum :size_t {
 	aslib_paint_tool_see,
 	aslib_paint_tool_left,
 	aslib_paint_tool_right,
+	aslib_paint_tool_option,
 };
 
 int32_t asMain()
@@ -23,6 +24,11 @@ int32_t asMain()
 
 	//戻る登録数
 	AsMapReturnControl mrc(128);
+
+	AsKeyButton kb(2, Pos4F(0.1f, 0.1f, 0.2f, 0.15f).ratio());
+	//AsKeyInput ki(10);
+	//ki.on();
+	//kb.on();
 
 	//マップサイズを決める
 	//size_t map_x = size_t(asKeyInputNum(Pos2(0, 0), 2048, 1));
@@ -43,17 +49,18 @@ int32_t asMain()
 	Pos2 select_world_p(8, 100);
 
 	//モンスター
-	AsTexture feri(u8"p/ikari.png", 6, 4);
+	//AsTexture feri(u8"p/ikari.png", 6, 4);
 	AsTexture sui(u8"p/select_ui.png");
-	AsTexture sta(u8"p/start_ui.png");
+	//AsTexture sta(u8"p/start_ui.png");
 
 	//マップ管理
 	AsTextureMapArray select_main_map;
 	select_main_map.push(nullptr);
 
-	//マップ読み込み
+	//マップ個数 読み込み
 	size_t as_t_size = 0;
-	std::unique_ptr<AsTexture[]> as_t = select_main_map.readMapCSV(u8"Picture/map_tile.csv", &as_t_size);
+	//マップデータ読み込み
+	const std::unique_ptr<AsTexture[]> as_t = select_main_map.readMapCSV(u8"Picture/map_tile.csv", &as_t_size);
 	if (as_t_size != 0) select_world_p.y = (select_main_map.t.size() + 1) / 8;
 	AsTextureMapArray paint_main_map = select_main_map;
 
@@ -68,10 +75,10 @@ int32_t asMain()
 	AsTexture event_tool_te(u8"p/event_tool.png");
 	AsTexture left_tool_te(u8"p/left_tool.png");
 	AsTexture right_tool_te(u8"p/right_tool.png");
+	AsTexture option_tool_te(u8"p/option_tool.png");
 	AsTexture white_ascll(u8"Picture/white_ascll.png");
 
 	//ペイントツールボタン
-	//AsPosFArray button_p(Pos4F(0.015f, 0.015f, 0.1f, 1.0f).ratio(), 6, 100);
 	AsPosFArray button_p(Pos4F(0.02f, 0.415f, 0.285f, 1.0f).ratio(), 6, 100);
 
 	float sf = asWindowSizeF().x / asWindowSizeF().y;
@@ -86,6 +93,7 @@ int32_t asMain()
 	AsTextureButton see_button(button_p[7], &see_tool_te);
 	AsTextureNumButton up_down_layer_button(button_p[8], &up_down_layer_tool_te);
 	AsTextureButton event_button(button_p[9], &event_tool_te);
+	AsTextureButton option_button(button_p[10], &option_tool_te);
 
 	//AsTextureButton white_ascll_button(Pos4F(0.0f, 0.98f - 0.1f*sf, 0.1f, 0.98f).ratio(), &white_ascll);
 
@@ -127,7 +135,7 @@ int32_t asMain()
 	PosA4F tool_id_p(0.5f, 0.5f, 0.7f, 0.7f);
 	//イベント管理
 	AsMapEventControl tool_map_event(select_world_p, aslib_mob_walk_type_small, nullptr, pl, aslib_map_event_type_mob);
-	tool_map_event.add(&feri, tool_id_p, aslib_map_event_type_mob, aslib_map_event_ai_stay);
+	//tool_map_event.add(&feri, tool_id_p, aslib_map_event_type_mob, aslib_map_event_ai_stay);
 
 	PosA4F select_id_p(0.5f, 0.5f, 1.0f, 1.0f);
 	PosA4F paint_id_p(0.5f, 0.5f, 1.0f, 1.0f);
@@ -136,8 +144,8 @@ int32_t asMain()
 	paint_map_event.me[0].fps = 0.3f;
 	paint_map_event.me[0].ai = aslib_map_event_ai_empty;
 	paint_map_event.add(&sui, paint_id_p, aslib_map_event_type_empty, aslib_map_event_ai_stay);
-	paint_map_event.add(&sta, paint_id_p, aslib_map_event_type_empty, aslib_map_event_ai_stay);
-	paint_map_event.add(&feri, paint_id_p, aslib_map_event_type_empty, aslib_map_event_ai_stay);
+	//paint_map_event.add(&sta, paint_id_p, aslib_map_event_type_empty, aslib_map_event_ai_stay);
+	//paint_map_event.add(&feri, paint_id_p, aslib_map_event_type_empty, aslib_map_event_ai_stay);
 
 	AsMapEventControl select_map_event(select_world_p, aslib_mob_walk_type_small, nullptr, pl, aslib_map_event_type_mob);
 	select_map_event.me[0].fps = 0.3f;
@@ -176,8 +184,12 @@ int32_t asMain()
 
 	Pos2 paint_touch_pos;
 
+	//ki.input(u8"aaaa");
 	while (asLoop())
 	{
+		kb.update();
+		kb.on(kb.up());
+
 		//ボタン更新
 		pen_button.update();
 		eraser_button.update();
@@ -190,6 +202,7 @@ int32_t asMain()
 		left_button.update();
 		right_button.update();
 		event_button.update();
+		option_button.update();
 		//更新
 		select_main_map.update();
 		paint_main_map.update();
@@ -221,7 +234,7 @@ int32_t asMain()
 		is_select = select_map_view.select(&select_main_map, &mrc, 0, &select_pos, &select_id, select_area);
 
 		//テスト
-		paint_map_view.eventSelect(&paint_map_event, &mrc, select_layer, nullptr, &select_id, paint_area);
+		//paint_map_view.eventSelect(&paint_map_event, &mrc, select_layer, nullptr, &select_id, paint_area);
 
 		//ボタンを押したとき
 		if (pen_button.up()) tool_id = aslib_paint_tool_pen;
@@ -229,6 +242,7 @@ int32_t asMain()
 		if (pipette_button.up()) tool_id = aslib_paint_tool_pipette;
 		if (bucket_button.up()) tool_id = aslib_paint_tool_bucket;
 		if (event_button.up()) tool_id = aslib_paint_tool_event;
+		if (option_button.up()) tool_id = aslib_paint_tool_option;
 		if (see_button.up()) see_button.bit();
 		if (up_down_layer_button.upUp() && select_layer < (paint_main_map.s_layer - 1)) {
 			++select_layer;
@@ -251,10 +265,20 @@ int32_t asMain()
 		paint_map_view.draw(&paint_map_event, paint_area);
 
 		//マップ描画
-		if (tool_id != aslib_paint_tool_event) {
+		switch (tool_id)
+		{
+		case aslib_paint_tool_event:
+			break;
+		case aslib_paint_tool_option:
+			//ki.draw(Pos2(50,500));
+			kb.drawButton();
+			kb.drawString();
+			break;
+		default:
 			asRect(select_area, Color(245, 245, 245));
 			select_map_view.draw(&select_main_map, select_area);
 			select_map_view.draw(&select_map_event, select_area);
+			break;
 		}
 
 		switch (tool_id)
@@ -316,7 +340,11 @@ int32_t asMain()
 		left_button.draw();
 		right_button.draw();
 		event_button.bitSet(tool_id == aslib_paint_tool_event).draw();
+		option_button.bitSet(tool_id == aslib_paint_tool_option).draw();
 		//white_ascll_button.draw();
+
+
+
 	}
 	//終了セーブ
 	paint_main_map.writeCSV();

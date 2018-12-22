@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_KEY
+#define INCLUDED_AS_PROJECT_LIBRARY_KEY
 
 
 namespace AsLib
@@ -1652,3 +1654,5 @@ struct AsKeyList {
 //		}
 //		return AS_key;
 //}
+
+#endif //Included AsProject Library

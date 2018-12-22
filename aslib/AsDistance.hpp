@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_DISTANCE
+#define INCLUDED_AS_PROJECT_LIBRARY_DISTANCE
 
 
 namespace AsLib
@@ -61,3 +63,5 @@ namespace AsLib
 	}
 
 }
+
+#endif //Included AsProject Library

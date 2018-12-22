@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_LICENSE
+#define INCLUDED_AS_PROJECT_LIBRARY_LICENSE
 
 
 namespace AsLib
@@ -621,3 +623,5 @@ namespace AsLib
 		}
 	}
 }
+
+#endif //Included AsProject Library

@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_INVENTORY
+#define INCLUDED_AS_PROJECT_LIBRARY_INVENTORY
 
 
 namespace AsLib
@@ -169,3 +171,5 @@ namespace AsLib
 	};
 
 }
+
+#endif //Included AsProject Library

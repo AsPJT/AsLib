@@ -5,6 +5,9 @@
 // êßçÏé“: Ç™Ç¡ÇøÇÂ (wanotaitei@gmail.com)
 //
 // ---------- ---------- ---------- ---------- ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_POS
+#define INCLUDED_AS_PROJECT_LIBRARY_POS
+
 namespace AsLib
 {
 	//ïœêî
@@ -1429,3 +1432,5 @@ namespace AsLib
 	using AsRectCenterFloat = PosA4F;
 
 }
+
+#endif //Included AsProject Library

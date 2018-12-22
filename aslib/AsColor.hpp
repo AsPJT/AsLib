@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_COLOR
+#define INCLUDED_AS_PROJECT_LIBRARY_COLOR
 
 
 namespace AsLib
@@ -325,3 +327,5 @@ namespace AsLib
 	inline void asRand(Color* const array_, const size_t s_, const uint8_t m_) { for (size_t i = 0; i < s_; ++i) asRand(array_[i], m_); }
 	inline void asRandA(Color* const array_, const size_t s_, const uint8_t m_) { for (size_t i = 0; i < s_; ++i) asRandA(array_[i], m_); }
 }
+
+#endif //Included AsProject Library

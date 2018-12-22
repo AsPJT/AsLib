@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_MAP
+#define INCLUDED_AS_PROJECT_LIBRARY_MAP
 
 
 namespace AsLib
@@ -537,7 +539,7 @@ namespace AsLib
 
 		AsTextureMapArray() = default;
 
-		std::unique_ptr<AsTexture[]> readMapCSV(const std::string str_, size_t* const s_ = nullptr, size_t* const var_ = nullptr) {
+		const std::unique_ptr<AsTexture[]> readMapCSV(const std::string str_, size_t* const s_ = nullptr, size_t* const var_ = nullptr) {
 			std::unique_ptr<AsTexture[]> as_t;
 			size_t read_x = 0;
 			size_t read_y = 0;
@@ -545,28 +547,30 @@ namespace AsLib
 			std::vector<size_t> vec_;
 			std::vector<size_t> type_;
 			std::vector<size_t> field_;
-			if (asSize_t_MapReadCSV(str_, name_, vec_, type_, field_, &read_x, &read_y) == 0) {
-				//asPrint("%d,%d,%d,%d", name_.size(), vec_.size(), read_x, read_y);
-				as_t.reset(new AsTexture[read_y]);
-				for (size_t i = 0; i < name_.size(); ++i) {
-					switch (type_[i])
-					{
-					case 1://基本タイル単体
-						as_t[i](name_[i].c_str(), vec_[i]);
-						this->push(&as_t[i], 0, field_[i]);
-						break;
-					case 2://オートタイル
-						as_t[i](name_[i].c_str(), vec_[i] * 2, 10);
-						this->push(&as_t[i], 0, field_[i]);
-						break;
-					case 3://基本タイル複数
-						AsTexture ast(name_[i].c_str());
-						as_t[i](name_[i].c_str(), 8, (ast.pixelSize().x == 0) ? 1 : (ast.pixelSize().y * 8 / ast.pixelSize().x));
-						for (size_t j = 0, as_t_num = as_t[i].Num(); j < as_t_num; ++j) {
-							this->push(&as_t[i], j, field_[i]);//field属性//todo
-						}
-						break;
+			if (asSize_t_MapReadCSV(str_, name_, vec_, type_, field_, &read_x, &read_y) != 0) {
+				if (s_ != nullptr) *s_ = 0;
+				if (var_ != nullptr) *var_ = this->t.size();
+				return as_t;
+			}
+			as_t.reset(new AsTexture[read_y]);
+			for (size_t i = 0; i < name_.size(); ++i) {
+				switch (type_[i])
+				{
+				case 1://基本タイル単体
+					as_t[i](name_[i].c_str(), vec_[i]);
+					this->push(&as_t[i], 0, field_[i]);
+					break;
+				case 2://オートタイル
+					as_t[i](name_[i].c_str(), vec_[i] * 2, 10);
+					this->push(&as_t[i], 0, field_[i]);
+					break;
+				case 3://基本タイル複数
+					AsTexture ast(name_[i].c_str());
+					as_t[i](name_[i].c_str(), 8, (ast.pixelSize().x == 0) ? 1 : (ast.pixelSize().y * 8 / ast.pixelSize().x));
+					for (size_t j = 0, as_t_num = as_t[i].Num(); j < as_t_num; ++j) {
+						this->push(&as_t[i], j, field_[i]);//field属性//todo
 					}
+					break;
 				}
 			}
 			if (s_ != nullptr) *s_ = name_.size();
@@ -1877,3 +1881,5 @@ namespace AsLib
 	};
 
 }
+
+#endif //Included AsProject Library

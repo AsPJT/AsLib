@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_BASE64
+#define INCLUDED_AS_PROJECT_LIBRARY_BASE64
 
 //Base64‚ÌŽí—Þ‚ð’è‹`
 enum :size_t {
@@ -113,3 +115,5 @@ const std::string base64_Decode(const char* const str_, const size_t type_ = bas
 	final_str = std::string(str.get());
 	return 	final_str;
 }
+
+#endif //Included AsProject Library

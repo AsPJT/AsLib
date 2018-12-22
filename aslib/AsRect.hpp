@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_RECT
+#define INCLUDED_AS_PROJECT_LIBRARY_RECT
 
 
 namespace AsLib
@@ -29,3 +31,5 @@ return 0;
 	}
 	inline void asRect(const Color& col = {}, const Pos4& pos = {}) { asRect(pos, col); }
 }
+
+#endif //Included AsProject Library

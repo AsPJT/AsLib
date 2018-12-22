@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_KEYINPUT
+#define INCLUDED_AS_PROJECT_LIBRARY_KEYINPUT
 
 
 namespace AsLib
@@ -199,6 +201,12 @@ return 0;
 	}
 #endif
 
+	const int setKeyInput(const int handle_ = -1, const bool is_ = false) {
+		static thread_local int handle = -1;
+		if (is_) handle = handle_;
+		return handle;
+	}
+
 	//文字入力システム
 	struct AsKeyInput {
 		size_t size = 0;
@@ -209,22 +217,24 @@ return 0;
 
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__WINDOWS__)
-		AsKeyInput(const size_t s_, const char mode_ = 'a') :size(s_), mode(mode_) {
-			handle = DxLib::MakeKeyInput((s_ == 0) ? 1 : size, FALSE, (mode_ == 'h') ? TRUE : FALSE, (mode_ == 'n') ? TRUE : FALSE);
-		}
+		AsKeyInput(const size_t s_, const char mode_ = 'a') :size(s_), mode(mode_),
+			handle(DxLib::MakeKeyInput((s_ == 0) ? 1 : size, FALSE, (mode_ == 'h') ? TRUE : FALSE, (mode_ == 'n') ? TRUE : FALSE)){}
 
 		void on() {
 			DxLib::SetActiveKeyInput(handle);
+			setKeyInput(handle, true);
 			is_on = true;
 			str.clear();
 		}
-		void off() { DxLib::SetActiveKeyInput(-1); is_on = false; }
+		void off() { if (handle == setKeyInput()) DxLib::SetActiveKeyInput(-1); is_on = false; }
 		const bool check() {
+			if (handle != setKeyInput()) is_on = false;
 			if (!is_on) return false;
 			return (DxLib::CheckKeyInput(handle) != 0);
 		}
-		void draw(const int32_t x_, const int32_t y_) {
-			if (is_on) DxLib::DrawKeyInputString(x_, y_, handle);
+		void draw(const Pos2& p_) {
+			if (handle != setKeyInput()) is_on = false;
+			if (is_on) DxLib::DrawKeyInputString(p_.x, p_.y, handle);
 		}
 		const std::string output() {
 			if (size == 0) return str;
@@ -255,6 +265,44 @@ return 0;
 #endif
 	};
 
+	class AsKeyButton {
+	private:
+		AsKeyInput ki;
+		AsFont f;
+		Pos4 p;
+
+		//タッチカウント
+		Counter counter;
+	public:
+		AsKeyButton(const size_t num_, const Pos4& p_) :ki(num_), p(p_), f(int32_t((p_.y2 - p_.y1)*0.8f)) {}
+
+		void drawButton() {
+			asRect(Color(255, 255, 255, 255), p);
+		}
+		void on(const bool is_) { if (is_)ki.on(); }
+		void off(const bool is_) { if (is_)ki.off(); }
+		void on() { ki.on(); }
+		void off() { ki.off(); }
+
+		void drawString() {
+			if(ki.is_on) f.draw(std::string(ki.output()+u8"|").c_str(), Pos2(p.x1, p.y1), Color(0,0,0));
+			else f.draw(ki.output().c_str(), Pos2(p.x1, p.y1), Color(0, 0, 0));
+		}
+
+		//タッチカウント
+		void update() { counter.update(asTouch(p) || asMouseL(p)); }
+		const bool down() const { return counter.down(); };
+		const bool up() const { return counter.up(); };
+		const int32_t count() const { return counter.count(); };
+		const bool down0() { return counter.down0(); };
+		const bool up0() { return counter.up0(); };
+		const int32_t count0() { return counter.count0(); };
+
+	};
+
+
 
 
 }
+
+#endif //Included AsProject Library

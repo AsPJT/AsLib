@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_USING
+#define INCLUDED_AS_PROJECT_LIBRARY_USING
 
 
 namespace AsLib
@@ -16,3 +18,5 @@ namespace AsLib
 	//using Screen = AsScreen;
 #endif
 }
+
+#endif //Included AsProject Library

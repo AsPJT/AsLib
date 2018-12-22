@@ -4,6 +4,9 @@
 //      by Gaccho (wanotaitei@gmail.com)
 //
 //--------------------------------------------------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_UTF
+#define INCLUDED_AS_PROJECT_LIBRARY_UTF
+
 #pragma once
 #include <string>
 #include <cstdint>
@@ -502,3 +505,5 @@ namespace AsLib
 	const char32_t* const utf32(const type_name src) { return utf32(utf8(src)); }
 
 }
+
+#endif //Included AsProject Library

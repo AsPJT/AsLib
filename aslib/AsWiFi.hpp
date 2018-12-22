@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_WIFI
+#define INCLUDED_AS_PROJECT_LIBRARY_WIFI
 
 
 namespace AsLib
@@ -33,3 +35,5 @@ return 0;
 #endif
 	}
 }
+
+#endif //Included AsProject Library

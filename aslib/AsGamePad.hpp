@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_GAMEPAD
+#define INCLUDED_AS_PROJECT_LIBRARY_GAMEPAD
 
 
 namespace AsLib
@@ -19,3 +21,5 @@ namespace AsLib
 #endif
 
 }
+
+#endif //Included AsProject Library

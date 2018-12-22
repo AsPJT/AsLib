@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_TEXTURE
+#define INCLUDED_AS_PROJECT_LIBRARY_TEXTURE
 
 
 namespace AsLib
@@ -514,3 +516,5 @@ return 0;
 		return *this;
 	}
 }
+
+#endif //Included AsProject Library

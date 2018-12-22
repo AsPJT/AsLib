@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_CLIPBOARD
+#define INCLUDED_AS_PROJECT_LIBRARY_CLIPBOARD
 
 
 namespace AsLib
@@ -50,3 +52,5 @@ return 0;
 #endif
 
 }
+
+#endif //Included AsProject Library

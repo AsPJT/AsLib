@@ -5,6 +5,8 @@
 //                   Created by Gaccho (wanotaitei@gmail.com)
 //
 //    ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_DL
+#define INCLUDED_AS_PROJECT_LIBRARY_DL
 
 
 
@@ -1408,3 +1410,5 @@ constexpr int CTRL_CODE_CMP=0x20;
 #endif
 
 }
+
+#endif //Included AsProject Library

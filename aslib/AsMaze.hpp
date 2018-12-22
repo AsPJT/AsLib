@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_MAZE
+#define INCLUDED_AS_PROJECT_LIBRARY_MAZE
 
 
 namespace AsLib
@@ -398,3 +400,5 @@ namespace AsLib
 	}
 
 }
+
+#endif //Included AsProject Library

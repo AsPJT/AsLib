@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_STD
+#define INCLUDED_AS_PROJECT_LIBRARY_STD
 
 
 namespace AsLib
@@ -373,6 +375,7 @@ return 0;
 		//DX_FONTTYPE_ANTIALIASING_EDGE//DX_FONTTYPE_NORMAL
 		if (DxLib::ChangeFontType(DX_FONTTYPE_ANTIALIASING_EDGE_8X8) == -1) return -1;
 #if defined(__WINDOWS__)
+		DxLib::SetActiveKeyInput(-1);
 		if (DxLib::SetKeyInputStringColor(
 			0xff000000, 0xff000000,
 			0xffffffff, 0xff000000,
@@ -512,3 +515,5 @@ return 0;
 
 
 }
+
+#endif //Included AsProject Library

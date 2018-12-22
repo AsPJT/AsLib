@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_MOUSE
+#define INCLUDED_AS_PROJECT_LIBRARY_MOUSE
 
 
 namespace AsLib
@@ -297,3 +299,5 @@ return 0;
 		Counter* const counter;
 	};
 }
+
+#endif //Included AsProject Library

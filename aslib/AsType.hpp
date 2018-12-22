@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_TYPE
+#define INCLUDED_AS_PROJECT_LIBRARY_TYPE
 
 
 namespace AsLib
@@ -168,3 +170,5 @@ namespace AsLib
 
 #endif
 }
+
+#endif //Included AsProject Library

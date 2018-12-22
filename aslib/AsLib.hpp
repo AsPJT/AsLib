@@ -7,6 +7,9 @@
 //                                   Ver 0.2.1.0 Alpha
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY
+#define INCLUDED_AS_PROJECT_LIBRARY
+
 
 #if !defined(ASLIB_ASCLL)
 #define ASLIB_ASCLL
@@ -306,3 +309,5 @@ using namespace AsLib;
 #endif
 
 #endif
+
+#endif //Included AsProject Library

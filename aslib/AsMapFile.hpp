@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_MAP_FILE
+#define INCLUDED_AS_PROJECT_LIBRARY_MAP_FILE
 
 
 namespace AsLib
@@ -168,6 +170,18 @@ namespace AsLib
 	}
 
 
+	const int32_t asSize_t_MapNameRead(const std::string& str_, std::vector<std::string>& name_) {
+		std::string str;
+		//ファイル読み込み
+		std::ifstream ifs;
+		if (asStreamRead(ifs, str_) == 1) return 1;
+
+		//1行読み込み
+		while (getline(ifs, str)) {
+
+		}
+	}
+
 	const int32_t asSize_t_MapReadCSV(const std::string& str_, std::vector<std::string>& name_, std::vector<size_t>& vec_, std::vector<size_t>& type_, std::vector<size_t>& field_, size_t* const x_ = nullptr, size_t* const y_ = nullptr) {
 
 		std::string str;
@@ -181,8 +195,7 @@ namespace AsLib
 		constexpr size_t file_path_max = 256;
 		std::unique_ptr<char[]> file_path(new char[file_path_max]);
 		int FileHandle = DxLib::FileRead_open(str_.c_str());
-		static std::string str__2;
-		str__2= u8"";
+
 		while (DxLib::FileRead_eof(FileHandle) == 0)
 		{
 			DxLib::FileRead_gets(file_path.get(), file_path_max, FileHandle);
@@ -200,8 +213,17 @@ namespace AsLib
 				++type_id;
 				++num;
 			}
+			switch (type_id)
+			{
+			case 0:name_.emplace_back(u8"Empty");
+			case 1:vec_.emplace_back(0);
+			case 2:type_.emplace_back(0);
+			case 3:field_.emplace_back(0); break;
+			}
 			++num_y;
 		}
+		//メモリ解放
+		file_path.reset();
 		if (x_ != nullptr && num_y != 0) *x_ = num / num_y;
 		if (y_ != nullptr) *y_ = num_y;
 
@@ -212,9 +234,11 @@ namespace AsLib
 		std::ifstream ifs;
 		if (asStreamRead(ifs, str_) == 1) return 1;
 
+		//1行読み込み
 		while (getline(ifs, str)) {
 			std::istringstream stream(str);
 			type_id = 0;
+			// 「 , 」で分割
 			while (getline(stream, read_token, ',')) {
 				switch (type_id)
 				{
@@ -226,6 +250,13 @@ namespace AsLib
 				++type_id;
 				++num;
 			}
+			switch (type_id)
+			{
+			case 0:name_.emplace_back(u8"Empty");
+			case 1:vec_.emplace_back(0);
+			case 2:type_.emplace_back(0);
+			case 3:field_.emplace_back(0); break;
+			}
 			++num_y;
 		}
 
@@ -236,3 +267,5 @@ namespace AsLib
 	}
 
 }
+
+#endif //Included AsProject Library

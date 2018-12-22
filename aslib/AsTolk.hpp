@@ -5,6 +5,8 @@
 //                    Created by Gaccho (wanotaitei@gmail.com)
 //
 //     ----------     ----------     ----------     ----------     ----------
+#ifndef INCLUDED_AS_PROJECT_LIBRARY_TOLK
+#define INCLUDED_AS_PROJECT_LIBRARY_TOLK
 
 
 namespace AsLib
@@ -485,3 +487,5 @@ namespace AsLib
 		MessageWindow& setPerson(AsTexture& t_) { this->person_texture = &t_; return *this; }
 	};
 }
+
+#endif //Included AsProject Library
