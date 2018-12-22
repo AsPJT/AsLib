@@ -1,7 +1,7 @@
-#define ASLIB_INCLUDE_DL
+ï»¿#define ASLIB_INCLUDE_DL
 #include "AsLib.hpp"
 
-//ƒyƒCƒ“ƒgƒc[ƒ‹í—Ş
+//ãƒšã‚¤ãƒ³ãƒˆãƒ„ãƒ¼ãƒ«ç¨®é¡
 enum :size_t {
 	aslib_paint_tool_pen,
 	aslib_paint_tool_eraser,
@@ -19,10 +19,10 @@ enum :size_t {
 int32_t asMain()
 {
 	//1280, 800
-	//ƒ^ƒCƒgƒ‹
+	//ã‚¿ã‚¤ãƒˆãƒ«
 	MainControl mc(u8"AsRPG", asPlatformPos(Pos2(960, 540)), Color(66, 66, 66));
 
-	//–ß‚é“o˜^”
+	//æˆ»ã‚‹ç™»éŒ²æ•°
 	AsMapReturnControl mrc(128);
 
 	AsKeyButton kb(2, Pos4F(0.1f, 0.1f, 0.2f, 0.15f).ratio());
@@ -30,41 +30,41 @@ int32_t asMain()
 	//ki.on();
 	//kb.on();
 
-	//ƒ}ƒbƒvƒTƒCƒY‚ğŒˆ‚ß‚é
+	//ãƒãƒƒãƒ—ã‚µã‚¤ã‚ºã‚’æ±ºã‚ã‚‹
 	//size_t map_x = size_t(asKeyInputNum(Pos2(0, 0), 2048, 1));
 	//size_t map_y = size_t(asKeyInputNum(Pos2(0, 0), 2048, 1));
 
-	//ƒL[
+	//ã‚­ãƒ¼
 	AsKeyList kl;
 	kl.addKeyUpDown();
 
 	AsKeyList kl1;
 	kl1.addKeyCrossW();
 
-	//‘®«”
+	//å±æ€§æ•°
 	asSetAttribute(aslib_attribute_num);
 
-	//ƒTƒCƒY
+	//ã‚µã‚¤ã‚º
 	Pos2 paint_world_p(128, 128);
 	Pos2 select_world_p(8, 100);
 
-	//ƒ‚ƒ“ƒXƒ^[
+	//ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼
 	//AsTexture feri(u8"p/ikari.png", 6, 4);
 	AsTexture sui(u8"p/select_ui.png");
 	//AsTexture sta(u8"p/start_ui.png");
 
-	//ƒ}ƒbƒvŠÇ—
+	//ãƒãƒƒãƒ—ç®¡ç†
 	AsTextureMapArray select_main_map;
 	select_main_map.push(nullptr);
 
-	//ƒ}ƒbƒvŒÂ” “Ç‚İ‚İ
+	//ãƒãƒƒãƒ—å€‹æ•° èª­ã¿è¾¼ã¿
 	size_t as_t_size = 0;
-	//ƒ}ƒbƒvƒf[ƒ^“Ç‚İ‚İ
+	//ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
 	const std::unique_ptr<AsTexture[]> as_t = select_main_map.readMapCSV(u8"Picture/map_tile.csv", &as_t_size);
 	if (as_t_size != 0) select_world_p.y = (select_main_map.t.size() + 1) / 8;
 	AsTextureMapArray paint_main_map = select_main_map;
 
-	//ƒyƒCƒ“ƒgƒc[ƒ‹ƒeƒNƒXƒ`ƒƒ
+	//ãƒšã‚¤ãƒ³ãƒˆãƒ„ãƒ¼ãƒ«ãƒ†ã‚¯ã‚¹ãƒãƒ£
 	AsTexture pen_tool_te(u8"p/pen_tool.png");
 	AsTexture eraser_tool_te(u8"p/eraser_tool.png");
 	AsTexture empty_tool_te(u8"p/move_tool.png");
@@ -78,7 +78,7 @@ int32_t asMain()
 	AsTexture option_tool_te(u8"p/option_tool.png");
 	AsTexture white_ascll(u8"Picture/white_ascll.png");
 
-	//ƒyƒCƒ“ƒgƒc[ƒ‹ƒ{ƒ^ƒ“
+	//ãƒšã‚¤ãƒ³ãƒˆãƒ„ãƒ¼ãƒ«ãƒœã‚¿ãƒ³
 	AsPosFArray button_p(Pos4F(0.02f, 0.415f, 0.285f, 1.0f).ratio(), 6, 100);
 
 	float sf = asWindowSizeF().x / asWindowSizeF().y;
@@ -97,22 +97,22 @@ int32_t asMain()
 
 	//AsTextureButton white_ascll_button(Pos4F(0.0f, 0.98f - 0.1f*sf, 0.1f, 0.98f).ratio(), &white_ascll);
 
-	//ƒtƒB[ƒ‹ƒh‘®«
+	//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰å±æ€§
 	AsAllAttribute att;
 	att.push(aslib_default_field_attribute_empty);
 	att.push(aslib_default_field_attribute_wall);
 	att.push(aslib_default_field_attribute_water);
 	att.push(aslib_default_field_attribute_keep_out);
 
-	//ƒ}ƒbƒv¶¬
+	//ãƒãƒƒãƒ—ç”Ÿæˆ
 	select_main_map.resizeMap(select_world_p);
 	select_main_map.putTexture();
-	//ƒ}ƒbƒv“Ç‚İ‚İ
+	//ãƒãƒƒãƒ—èª­ã¿è¾¼ã¿
 	if (paint_main_map.readCSV() == 1 && paint_main_map.readBackupCSV() == 1) {
 		paint_main_map.resizeMap(paint_world_p);
 		paint_main_map.setLayer(2, 1);
 	}
-	//‘å‚«‚³İ’è
+	//å¤§ãã•è¨­å®š
 	paint_world_p(int32_t(paint_main_map.s_x), int32_t(paint_main_map.s_y));
 
 	//paint_main_map.worldMap(2, 4, 8, 9);
@@ -133,7 +133,7 @@ int32_t asMain()
 	const PosA4F pl(float(select_world_p.x / 2), 0.0f, 1.0f, 1.0f);
 
 	PosA4F tool_id_p(0.5f, 0.5f, 0.7f, 0.7f);
-	//ƒCƒxƒ“ƒgŠÇ—
+	//ã‚¤ãƒ™ãƒ³ãƒˆç®¡ç†
 	AsMapEventControl tool_map_event(select_world_p, aslib_mob_walk_type_small, nullptr, pl, aslib_map_event_type_mob);
 	//tool_map_event.add(&feri, tool_id_p, aslib_map_event_type_mob, aslib_map_event_ai_stay);
 
@@ -158,7 +158,7 @@ int32_t asMain()
 	//Pos4 select_area = Pos4F(0.1f, 0.0f, 0.2f, 1.0f).ratio();
 	//Pos4 paint_area = Pos4F(0.2f, 0.0f, 1.0f, 1.0f).ratio();
 
-	//ƒ}ƒbƒv•`‰æŠÇ—
+	//ãƒãƒƒãƒ—æç”»ç®¡ç†
 	PosA4F select_map_p(0.0f, 0.0f, 8.0f, 1.0f);
 	AsMapView select_map_view(select_map_p, 'x', select_area);
 	select_map_view.setMap(select_world_p);
@@ -167,16 +167,16 @@ int32_t asMain()
 	AsMapView paint_map_view(paint_map_p, 'y', paint_area);
 	paint_map_view.setMap(paint_world_p);
 
-	//‘I‘ğ‚µ‚Ä‚¢‚éƒ}ƒbƒv‚ÌID
+	//é¸æŠã—ã¦ã„ã‚‹ãƒãƒƒãƒ—ã®ID
 	size_t select_id = 0;
 	Pos2 select_pos;
-	//ƒc[ƒ‹‚ÌID
+	//ãƒ„ãƒ¼ãƒ«ã®ID
 	size_t tool_id = 0;
 
 	size_t select_layer = 1;
 	bool is_select = false;
 
-	//ƒZ[ƒuƒ^ƒCƒ}[
+	//ã‚»ãƒ¼ãƒ–ã‚¿ã‚¤ãƒãƒ¼
 	constexpr size_t auto_save_timer = 60 * 22;
 	size_t auto_save_counter = 0;
 	constexpr size_t auto_backup_timer = 60 * 55;
@@ -190,7 +190,7 @@ int32_t asMain()
 		kb.update();
 		kb.on(kb.up());
 
-		//ƒ{ƒ^ƒ“XV
+		//ãƒœã‚¿ãƒ³æ›´æ–°
 		pen_button.update();
 		eraser_button.update();
 		empty_button.update();
@@ -203,7 +203,7 @@ int32_t asMain()
 		right_button.update();
 		event_button.update();
 		option_button.update();
-		//XV
+		//æ›´æ–°
 		select_main_map.update();
 		paint_main_map.update();
 		select_map_event.update(select_main_map, att, kl);
@@ -214,7 +214,7 @@ int32_t asMain()
 		select_map_view.setMouseSlide(select_map_event, select_area, 'y');
 		select_map_event.me[0].pl.y += float(asMouseWheel(select_area));
 
-		//‘I‘ğ’n“_
+		//é¸æŠåœ°ç‚¹
 		switch (tool_id)
 		{
 		case aslib_paint_tool_empty:break;
@@ -225,7 +225,7 @@ int32_t asMain()
 			paint_map_event.me[1].pl.y = float(paint_touch_pos.y) + 0.5f;
 			break;
 		}
-		//‹“_
+		//è¦–ç‚¹
 		select_map_view.setMobView(select_map_event);
 		paint_map_view.setMobView(paint_map_event);
 
@@ -233,10 +233,10 @@ int32_t asMain()
 
 		is_select = select_map_view.select(&select_main_map, &mrc, 0, &select_pos, &select_id, select_area);
 
-		//ƒeƒXƒg
+		//ãƒ†ã‚¹ãƒˆ
 		//paint_map_view.eventSelect(&paint_map_event, &mrc, select_layer, nullptr, &select_id, paint_area);
 
-		//ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«
+		//ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ã
 		if (pen_button.up()) tool_id = aslib_paint_tool_pen;
 		if (eraser_button.up()) tool_id = aslib_paint_tool_eraser;
 		if (pipette_button.up()) tool_id = aslib_paint_tool_pipette;
@@ -256,7 +256,7 @@ int32_t asMain()
 		if (left_button.up()) mrc.left(&paint_main_map);
 		if (right_button.up()) mrc.right(&paint_main_map);
 
-		//ƒ}ƒbƒv•`‰æ
+		//ãƒãƒƒãƒ—æç”»
 		if (see_button.isOn()) {
 			asRect(paint_area, Color(56, 170, 68));
 			paint_map_view.draw(&paint_main_map, &select_layer, paint_area);
@@ -264,7 +264,7 @@ int32_t asMain()
 		else paint_map_view.draw(&paint_main_map, paint_area);
 		paint_map_view.draw(&paint_map_event, paint_area);
 
-		//ƒ}ƒbƒv•`‰æ
+		//ãƒãƒƒãƒ—æç”»
 		switch (tool_id)
 		{
 		case aslib_paint_tool_event:
@@ -308,7 +308,7 @@ int32_t asMain()
 			if (is_select) tool_id = aslib_paint_tool_pen;
 			paint_map_view.setTouchSlide(paint_map_event, paint_area);
 			paint_map_view.setMouseSlide(paint_map_event, paint_area);
-			//ƒY[ƒ€
+			//ã‚ºãƒ¼ãƒ 
 			asTouchPinch(paint_map_p, 10.0f, 30, paint_area);
 			paint_map_view.setLookSize(paint_map_p, 'y', paint_area);
 			break;
@@ -316,7 +316,7 @@ int32_t asMain()
 			break;
 		}
 
-		//©“®ƒZ[ƒu
+		//è‡ªå‹•ã‚»ãƒ¼ãƒ–
 		++auto_save_counter;
 		if (auto_save_counter >= auto_save_timer) {
 			auto_save_counter = 0;
@@ -328,7 +328,7 @@ int32_t asMain()
 			paint_main_map.writeBackupCSV();
 		}
 
-		//ƒ{ƒ^ƒ“•`‰æ
+		//ãƒœã‚¿ãƒ³æç”»
 		pen_button.bitSet(tool_id == aslib_paint_tool_pen).draw();
 		eraser_button.bitSet(tool_id == aslib_paint_tool_eraser).draw();
 		empty_button.bitSet(tool_id == aslib_paint_tool_empty).draw();
@@ -346,7 +346,7 @@ int32_t asMain()
 
 
 	}
-	//I—¹ƒZ[ƒu
+	//çµ‚äº†ã‚»ãƒ¼ãƒ–
 	paint_main_map.writeCSV();
 	return 0;
 }

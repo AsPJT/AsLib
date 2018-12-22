@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -12,19 +12,19 @@
 namespace AsLib
 {
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-	//•`‰æ‰æ‘œŒn
+	//æç”»ç”»åƒç³»
 	using OriginatorTexture = int;
-	//CPU‰æ‘œŒn
+	//CPUç”»åƒç³»
 	using OriginatorImage = int;
-	//å‰¹ºŒn
+	//ä¸»éŸ³å£°ç³»
 	using OriginatorBGM = int;
-	//•›‰¹ºŒn
+	//å‰¯éŸ³å£°ç³»
 	using OriginatorSE = int;
-	//“®‰æŒn
+	//å‹•ç”»ç³»
 	using OriginatorMovie = int;
-	//•¶šŒn
+	//æ–‡å­—ç³»
 	using OriginatorFont = int;
-	//”wŒi‰æ‘œŒn
+	//èƒŒæ™¯ç”»åƒç³»
 	using OriginatorScreen = int;
 
 	inline bool checkTexture(const OriginatorTexture& ori_) noexcept { return (ori_ == -1) ? false : true; }
@@ -36,19 +36,19 @@ namespace AsLib
 	inline bool checkScreen(const OriginatorScreen& ori_) noexcept { return (ori_ == -1) ? false : true; }
 
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-	//•`‰æ‰æ‘œŒn
+	//æç”»ç”»åƒç³»
 	using OriginatorTexture = s3d::Texture;
-	//CPU‰æ‘œŒn
+	//CPUç”»åƒç³»
 	using OriginatorImage = s3d::Image;
-	//å‰¹ºŒn
+	//ä¸»éŸ³å£°ç³»
 	using OriginatorBGM = s3d::Audio;
-	//•›‰¹ºŒn
+	//å‰¯éŸ³å£°ç³»
 	using OriginatorSE = s3d::Audio;
-	//“®‰æŒn
+	//å‹•ç”»ç³»
 	using OriginatorMovie = s3d::VideoWriter;
-	//•¶šŒn
+	//æ–‡å­—ç³»
 	using OriginatorFont = s3d::Font;
-	//”wŒi‰æ‘œŒn
+	//èƒŒæ™¯ç”»åƒç³»
 	using OriginatorScreen = s3d::Texture;
 
 	inline bool checkTexture(const OriginatorTexture& ori_) noexcept { return (!ori_) ? false : true; }
@@ -60,34 +60,34 @@ namespace AsLib
 	inline bool checkScreen(const OriginatorScreen& ori_) noexcept { return (!ori_) ? false : true; }
 
 #elif defined(ASLIB_INCLUDE_OF)
-	//•`‰æ‰æ‘œŒn
+	//æç”»ç”»åƒç³»
 	using OriginatorTexture = ofImage;
-	//CPU‰æ‘œŒn
+	//CPUç”»åƒç³»
 	using OriginatorImage = int32_t;
-	//å‰¹ºŒn
+	//ä¸»éŸ³å£°ç³»
 	using OriginatorBGM = int32_t;
-	//•›‰¹ºŒn
+	//å‰¯éŸ³å£°ç³»
 	using OriginatorSE = int32_t;
-	//“®‰æŒn
+	//å‹•ç”»ç³»
 	using OriginatorMovie = int32_t;
-	//•¶šŒn
+	//æ–‡å­—ç³»
 	using OriginatorFont = ofTrueTypeFont;
-	//”wŒi‰æ‘œŒn
+	//èƒŒæ™¯ç”»åƒç³»
 	using OriginatorScreen = int32_t;
 #elif defined(ASLIB_INCLUDE_C2)
-	//•`‰æ‰æ‘œŒn
+	//æç”»ç”»åƒç³»
 	using OriginatorTexture = cocos2d::Sprite*;
-	//CPU‰æ‘œŒn
+	//CPUç”»åƒç³»
 	using OriginatorImage = int32_t;
-	//å‰¹ºŒn
+	//ä¸»éŸ³å£°ç³»
 	using OriginatorBGM = int32_t;
-	//•›‰¹ºŒn
+	//å‰¯éŸ³å£°ç³»
 	using OriginatorSE = int32_t;
-	//“®‰æŒn
+	//å‹•ç”»ç³»
 	using OriginatorMovie = int32_t;
-	//•¶šŒn
+	//æ–‡å­—ç³»
 	using OriginatorFont = int32_t;
-	//”wŒi‰æ‘œŒn
+	//èƒŒæ™¯ç”»åƒç³»
 	using OriginatorScreen = int32_t;
 
 	inline bool checkTexture(const OriginatorTexture& ori_) noexcept { return (ori_ == nullptr) ? false : true; }
@@ -98,19 +98,19 @@ namespace AsLib
 	inline bool checkFont(const OriginatorFont& ori_) noexcept { return (ori_ == -1) ? false : true; }
 	inline bool checkScreen(const OriginatorScreen& ori_) noexcept { return (ori_ == -1) ? false : true; }
 #elif defined(ASLIB_INCLUDE_SF)
-	//•`‰æ‰æ‘œŒn
+	//æç”»ç”»åƒç³»
 	using OriginatorTexture = int32_t;
-	//CPU‰æ‘œŒn
+	//CPUç”»åƒç³»
 	using OriginatorImage = int32_t;
-	//å‰¹ºŒn
+	//ä¸»éŸ³å£°ç³»
 	using OriginatorBGM = int32_t;
-	//•›‰¹ºŒn
+	//å‰¯éŸ³å£°ç³»
 	using OriginatorSE = int32_t;
-	//“®‰æŒn
+	//å‹•ç”»ç³»
 	using OriginatorMovie = int32_t;
-	//•¶šŒn
+	//æ–‡å­—ç³»
 	using OriginatorFont = int32_t;
-	//”wŒi‰æ‘œŒn
+	//èƒŒæ™¯ç”»åƒç³»
 	using OriginatorScreen = int32_t;
 
 	inline bool checkTexture(const OriginatorTexture& ori_) noexcept { return (ori_ == -1) ? false : true; }
@@ -121,19 +121,19 @@ namespace AsLib
 	inline bool checkFont(const OriginatorFont& ori_) noexcept { return (ori_ == -1) ? false : true; }
 	inline bool checkScreen(const OriginatorScreen& ori_) noexcept { return (ori_ == -1) ? false : true; }
 #elif defined(ASLIB_INCLUDE_TP)
-	//•`‰æ‰æ‘œŒn
+	//æç”»ç”»åƒç³»
 	using OriginatorTexture = int32_t;
-	//CPU‰æ‘œŒn
+	//CPUç”»åƒç³»
 	using OriginatorImage = int32_t;
-	//å‰¹ºŒn
+	//ä¸»éŸ³å£°ç³»
 	using OriginatorBGM = int32_t;
-	//•›‰¹ºŒn
+	//å‰¯éŸ³å£°ç³»
 	using OriginatorSE = int32_t;
-	//“®‰æŒn
+	//å‹•ç”»ç³»
 	using OriginatorMovie = int32_t;
-	//•¶šŒn
+	//æ–‡å­—ç³»
 	using OriginatorFont = int32_t;
-	//”wŒi‰æ‘œŒn
+	//èƒŒæ™¯ç”»åƒç³»
 	using OriginatorScreen = int32_t;
 
 	inline bool checkTexture(const OriginatorTexture& ori_) noexcept { return (ori_ == -1) ? false : true; }
@@ -145,19 +145,19 @@ namespace AsLib
 	inline bool checkScreen(const OriginatorScreen& ori_) noexcept { return (ori_ == -1) ? false : true; }
 
 #else //Console
-	//•`‰æ‰æ‘œŒn
+	//æç”»ç”»åƒç³»
 	using OriginatorTexture = int32_t;
-	//CPU‰æ‘œŒn
+	//CPUç”»åƒç³»
 	using OriginatorImage = int32_t;
-	//å‰¹ºŒn
+	//ä¸»éŸ³å£°ç³»
 	using OriginatorBGM = int32_t;
-	//•›‰¹ºŒn
+	//å‰¯éŸ³å£°ç³»
 	using OriginatorSE = int32_t;
-	//“®‰æŒn
+	//å‹•ç”»ç³»
 	using OriginatorMovie = int32_t;
-	//•¶šŒn
+	//æ–‡å­—ç³»
 	using OriginatorFont = int32_t;
-	//”wŒi‰æ‘œŒn
+	//èƒŒæ™¯ç”»åƒç³»
 	using OriginatorScreen = int32_t;
 
 	inline bool checkTexture(const OriginatorTexture& ori_) noexcept { return (ori_ == -1) ? false : true; }

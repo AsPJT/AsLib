@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -8,18 +8,18 @@
 #ifndef INCLUDED_AS_PROJECT_LIBRARY_BASE64
 #define INCLUDED_AS_PROJECT_LIBRARY_BASE64
 
-//Base64‚Ìí—Ş‚ğ’è‹`
+//Base64ã®ç¨®é¡ã‚’å®šç¾©
 enum :size_t {
 	base64_type_default,
 	base64_type_url,
 };
 
-//Base64‚Ì•¶š—ñ‚ğ’è‹`
+//Base64ã®æ–‡å­—åˆ—ã‚’å®šç¾©
 constexpr char base64_str_table_default[] = u8"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 constexpr char base64_str_table_url[] = u8"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 constexpr size_t base64_str_table_length = sizeof(base64_str_table_default) / sizeof(base64_str_table_default[0]) - 1;
 
-//Base64ŠÇ—\‘¢‘Ì
+//Base64ç®¡ç†æ§‹é€ ä½“
 struct Base64 {
 	char empty_char = '=';
 	size_t type = base64_type_default;
@@ -31,7 +31,7 @@ struct Base64 {
 };
 constexpr Base64 base64_default(base64_type_default, base64_str_table_default);
 constexpr Base64 base64_url(base64_type_url, base64_str_table_url, 0);
-//Base64‚Å•¶š—ñ‚ğƒGƒ“ƒR[ƒh‚·‚é
+//Base64ã§æ–‡å­—åˆ—ã‚’ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã™ã‚‹
 std::string base64_Encode(const char* const str_, const size_t length_, const size_t type_ = base64_type_default) noexcept
 {
 	if (str_ == nullptr) return nullptr;
@@ -75,7 +75,7 @@ inline std::string base64_EncodeURL(const char* const str_, const size_t length_
 inline std::string base64_Encode(const std::string& str_, const size_t type_ = base64_type_default) noexcept { return base64_Encode(str_.c_str(), str_.size(), type_); }
 inline std::string base64_EncodeURL(const std::string& str_, const size_t type_ = base64_type_url) noexcept { return base64_Encode(str_.c_str(), str_.size(), type_); }
 
-//Base64‚Å•¶š—ñ‚ğƒfƒR[ƒh‚·‚é
+//Base64ã§æ–‡å­—åˆ—ã‚’ãƒ‡ã‚³ãƒ¼ãƒ‰ã™ã‚‹
 std::string base64_Decode(const char* const str_, const size_t type_ = base64_type_default) noexcept
 {
 	if (str_ == nullptr) return nullptr;

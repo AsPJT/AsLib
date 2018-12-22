@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -62,11 +62,11 @@ namespace AsLib
 #if defined(__ANDROID__)
 		constexpr size_t file_path_max{ 256 };
 		std::unique_ptr<char[]> file_path(new char[file_path_max]);
-		//ƒAƒvƒŠ“à(“à•”ƒf[ƒ^)‚ğ’²‚×‚é
+		//ã‚¢ãƒ—ãƒªå†…(å†…éƒ¨ãƒ‡ãƒ¼ã‚¿)ã‚’èª¿ã¹ã‚‹
 		DxLib::GetExternalDataPath(file_path.get(), file_path_max);
 		ifs_.open(std::string(file_path.get()) + u8"\\" + str_);
 		if (!ifs_) {
-			//–{‘Ì“à(ŠO•”ƒf[ƒ^)‚ğ’²‚×‚é
+			//æœ¬ä½“å†…(å¤–éƒ¨ãƒ‡ãƒ¼ã‚¿)ã‚’èª¿ã¹ã‚‹
 			DxLib::GetInternalDataPath(file_path.get(), file_path_max);
 			ifs_.open(std::string(file_path.get()) + u8"\\" + str_);
 			if (!ifs_) return 1;
@@ -81,11 +81,11 @@ namespace AsLib
 #if defined(__ANDROID__)
 		constexpr size_t file_path_max{ 256 };
 		std::unique_ptr<char[]> file_path(new char[file_path_max]);
-		//ƒAƒvƒŠ“à(“à•”ƒf[ƒ^)‚ğ’²‚×‚é
+		//ã‚¢ãƒ—ãƒªå†…(å†…éƒ¨ãƒ‡ãƒ¼ã‚¿)ã‚’èª¿ã¹ã‚‹
 		DxLib::GetExternalDataPath(file_path.get(), file_path_max);
 		ofs_.open(std::string(file_path.get()) + u8"\\" + str_);
 		if (!ofs_) {
-			//–{‘Ì“à(ŠO•”ƒf[ƒ^)‚ğ’²‚×‚é
+			//æœ¬ä½“å†…(å¤–éƒ¨ãƒ‡ãƒ¼ã‚¿)ã‚’èª¿ã¹ã‚‹
 			DxLib::GetInternalDataPath(file_path.get(), file_path_max);
 			ofs_.open(std::string(file_path.get()) + u8"\\" + str_);
 			if (!ofs_) return 1;
@@ -97,9 +97,9 @@ namespace AsLib
 		return 0;
 	}
 
-	//‘S‚Ä‚ªsize_tŒ^‚Ìcsvƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş
+	//å…¨ã¦ãŒsize_tå‹ã®csvãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€
 	int32_t asSize_t_ReadCSV(const std::string& str_, std::vector<size_t>& vec_, size_t* const x_ = nullptr, size_t* const y_ = nullptr) noexcept {
-		//ƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+		//ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
 		std::ifstream ifs;
 		if (asStreamRead(ifs, str_) == 1) return 1;
 
@@ -116,14 +116,14 @@ namespace AsLib
 			}
 			++num_y;
 	}
-		//c‚Æ‰¡‚Ì’·‚³‚ğŠi”[
+		//ç¸¦ã¨æ¨ªã®é•·ã•ã‚’æ ¼ç´
 		if (x_ != nullptr && num_y != 0) *x_ = num / num_y;
 		if (y_ != nullptr) *y_ = num_y;
 		return 0;
 }
 
 	int32_t asSize_t_WriteCSV(const std::string& str_, const std::vector<size_t>& vec_, const size_t x_, const size_t y_, const size_t ii_ = 0) noexcept {
-		//ƒtƒ@ƒCƒ‹‘‚«‚İ
+		//ãƒ•ã‚¡ã‚¤ãƒ«æ›¸ãè¾¼ã¿
 		std::ofstream ofs;
 		if (asStreamWrite(ofs, str_) == 1) return 1;
 
@@ -172,11 +172,11 @@ namespace AsLib
 
 	int32_t asSize_t_MapNameRead(const std::string& str_, std::vector<std::string>& name_) noexcept {
 		std::string str;
-		//ƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+		//ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
 		std::ifstream ifs;
 		if (asStreamRead(ifs, str_) == 1) return 1;
 
-		//1s“Ç‚İ‚İ
+		//1è¡Œèª­ã¿è¾¼ã¿
 		while (getline(ifs, str)) {
 
 		}
@@ -222,7 +222,7 @@ namespace AsLib
 			}
 			++num_y;
 		}
-		//ƒƒ‚ƒŠ‰ğ•ú
+		//ãƒ¡ãƒ¢ãƒªè§£æ”¾
 		file_path.reset();
 		if (x_ != nullptr && num_y != 0) *x_ = num / num_y;
 		if (y_ != nullptr) *y_ = num_y;
@@ -230,15 +230,15 @@ namespace AsLib
 		DxLib::FileRead_close(FileHandle);
 		if (vec_.size() != 0) return 0;
 #endif
-		//ƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+		//ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
 		std::ifstream ifs;
 		if (asStreamRead(ifs, str_) == 1) return 1;
 
-		//1s“Ç‚İ‚İ
+		//1è¡Œèª­ã¿è¾¼ã¿
 		while (getline(ifs, str)) {
 			std::istringstream stream(str);
 			type_id = 0;
-			// u , v‚Å•ªŠ„
+			// ã€Œ , ã€ã§åˆ†å‰²
 			while (getline(stream, read_token, ',')) {
 				switch (type_id)
 				{

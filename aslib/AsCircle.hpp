@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+Ôªø//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -12,7 +12,7 @@
 namespace AsLib
 {
 
-	//â~Çï`âÊ
+	//ÂÜÜ„ÇíÊèèÁîª
 	inline void asCircle(const Pos2& pos_, const int32_t& r_,const Color& col_) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib

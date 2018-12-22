@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -207,7 +207,7 @@ return 0;
 		return handle;
 	}
 
-	//•¶š“ü—ÍƒVƒXƒeƒ€
+	//æ–‡å­—å…¥åŠ›ã‚·ã‚¹ãƒ†ãƒ 
 	struct AsKeyInput {
 		size_t size = 0;
 		int handle = -1;
@@ -271,7 +271,7 @@ return 0;
 		AsFont f;
 		Pos4 p;
 
-		//ƒ^ƒbƒ`ƒJƒEƒ“ƒg
+		//ã‚¿ãƒƒãƒã‚«ã‚¦ãƒ³ãƒˆ
 		Counter counter;
 	public:
 		AsKeyButton(const size_t num_, const Pos4& p_) :ki(num_), p(p_), f(int32_t((p_.y2 - p_.y1)*0.8f)) {}
@@ -289,7 +289,7 @@ return 0;
 			else f.draw(ki.output().c_str(), Pos2(p.x1, p.y1), Color(0, 0, 0));
 		}
 
-		//ƒ^ƒbƒ`ƒJƒEƒ“ƒg
+		//ã‚¿ãƒƒãƒã‚«ã‚¦ãƒ³ãƒˆ
 		void update() noexcept { counter.update(asTouch(p) || asMouseL(p)); }
 		const bool down() const noexcept { return counter.down(); };
 		const bool up() const noexcept { return counter.up(); };

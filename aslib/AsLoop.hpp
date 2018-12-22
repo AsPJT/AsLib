@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -11,7 +11,7 @@
 
 namespace AsLib
 {
-	//ƒƒCƒ“ƒ‹[ƒv
+	//ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—
 	bool asLoop() noexcept
 	{
 		updateKey();
@@ -34,7 +34,7 @@ return 0;
 #endif
 	}
 
-	//ƒƒCƒ“ƒ‹[ƒv
+	//ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—
 	bool asNoClearLoop() noexcept
 	{
 		updateKey();

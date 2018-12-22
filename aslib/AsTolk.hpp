@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -13,13 +13,13 @@ namespace AsLib
 {
 
 	struct WindowEvent {
-		//–¼‘O
+		//åå‰
 		std::vector<std::string> list_name{};
-		//‰æ‘œ
+		//ç”»åƒ
 		std::vector<AsTexture*> list_texture{};
-		//‰¹
+		//éŸ³
 		std::string sound;
-		//•¶Í
+		//æ–‡ç« 
 		std::string str;
 
 		WindowEvent(std::vector<std::string>& name_) :list_name(name_) {}
@@ -33,15 +33,15 @@ namespace AsLib
 		aslib_effect_event_over_r_slide,
 	};
 
-	//ƒEƒBƒ“ƒhƒEê—p
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å°‚ç”¨
 	struct MessageWindow {
 	private:
-		//ƒEƒBƒ“ƒhƒE‚Ì‰æ‘œ
+		//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ç”»åƒ
 		AsTexture* main_window{ nullptr };
 
-		//ƒƒbƒZ[ƒW‚ğ•\¦‚·‚é‚©”Û‚©
+		//ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤ºã™ã‚‹ã‹å¦ã‹
 		bool is_on{ false };
-		//ƒƒbƒZ[ƒW‚ğI—¹‚·‚é‚©”Û‚©
+		//ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’çµ‚äº†ã™ã‚‹ã‹å¦ã‹
 		bool is_exit{ false };
 
 		Pos2 pos{};
@@ -62,46 +62,46 @@ namespace AsLib
 		//
 		bool is_end_texture{ false };
 
-		//ƒEƒBƒ“ƒhƒE‚Æ‚Æ‚à‚É—¬‚³‚ê‚é‰¹
+		//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã¨ã¨ã‚‚ã«æµã•ã‚Œã‚‹éŸ³
 		AsBGM sound;
-		//‰½”Ô–Ú‚Ì‰¹‚ğ—¬‚·‚©
+		//ä½•ç•ªç›®ã®éŸ³ã‚’æµã™ã‹
 		int32_t count_sound{};
-		//‰¹‚Ìƒtƒ@ƒCƒ‹–¼
+		//éŸ³ã®ãƒ•ã‚¡ã‚¤ãƒ«å
 		std::string sound_name{};
-		//‰¹‚ÌŠg’£q
+		//éŸ³ã®æ‹¡å¼µå­
 		std::string sound_extension{};
-		//‰¹‚ğÄ¶‚·‚é(Às‚·‚é)
+		//éŸ³ã‚’å†ç”Ÿã™ã‚‹(å®Ÿè¡Œã™ã‚‹)
 		bool is_sound = false;
 
-		//˜b‚µ‚Ä‚¢‚él‚Ì–¼‘O
+		//è©±ã—ã¦ã„ã‚‹äººã®åå‰
 		std::string speaker_name{};
 
-		//o—Í‚·‚é•¶š—ñ
+		//å‡ºåŠ›ã™ã‚‹æ–‡å­—åˆ—
 		std::string out_str{};
 
-		//ƒEƒBƒ“ƒhƒE“à‚ÌÅ‘ås”
+		//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å†…ã®æœ€å¤§è¡Œæ•°
 		int32_t number_of_lines{ 5 };
 
-		//ƒEƒBƒ“ƒhƒE‚ÌƒfƒtƒHƒ‹ƒgƒTƒCƒY
+		//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚µã‚¤ã‚º
 		Pos4 pos_default{};
 		Pos4 pos_draw_default{};
-		//‚Ó‚¿‚ÌƒfƒtƒHƒ‹ƒgƒTƒCƒY
+		//ãµã¡ã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚µã‚¤ã‚º
 		Pos2 frame_default{};
 
-		//ƒEƒBƒ“ƒhƒE“à‚ÌƒtƒHƒ“ƒg
+		//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å†…ã®ãƒ•ã‚©ãƒ³ãƒˆ
 		AsFont* font;
 
-		//‘‘—‚è‹@”\‚ğg—p‚·‚é‚©
+		//æ—©é€ã‚Šæ©Ÿèƒ½ã‚’ä½¿ç”¨ã™ã‚‹ã‹
 		bool is_fast_forward{ false };
-		//‘‘—‚è‚ğÀs‚·‚é‚©
+		//æ—©é€ã‚Šã‚’å®Ÿè¡Œã™ã‚‹ã‹
 		bool is_on_fast_forward{ false };
-		//ˆê‘‘—‚è‚ğÀs‚·‚é‚©
+		//ä¸€æ™‚æ—©é€ã‚Šã‚’å®Ÿè¡Œã™ã‚‹ã‹
 		bool is_on_special_fast_forward{ false };
 
-		//•¶š‚ğƒNƒŠƒA‚·‚é‚©
+		//æ–‡å­—ã‚’ã‚¯ãƒªã‚¢ã™ã‚‹ã‹
 		bool on_str_clear{ true };
 
-		//l•¨‰æ‘œ‚ğ•\¦‚·‚é‚©
+		//äººç‰©ç”»åƒã‚’è¡¨ç¤ºã™ã‚‹ã‹
 		AsTexture* person_texture{ nullptr };
 		bool is_person{ false };
 		Effect person_effect;
@@ -111,10 +111,10 @@ namespace AsLib
 		int32_t update_count{};
 		int32_t update_end_count{};
 
-		//–¼‘OƒŠƒXƒg
+		//åå‰ãƒªã‚¹ãƒˆ
 		WindowEvent* window_event{ nullptr };
 
-		//ƒGƒtƒFƒNƒg
+		//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 		size_t effect_event{ aslib_effect_event_empty };
 		int32_t effect_count_max{};
 		int32_t effect_count{};
@@ -391,21 +391,21 @@ namespace AsLib
 			} while (is_on_fast_forward || is_on_special_fast_forward);
 			return *this;
 		}
-		//I’[‹L†‚ğ‚Â‚¯‚é
+		//çµ‚ç«¯è¨˜å·ã‚’ã¤ã‘ã‚‹
 		MessageWindow& updateEnd(const int32_t count_) noexcept {
 			++end_timer;
-			//ƒ^ƒCƒ}[‚ª‚½‚Ü‚Á‚½‚ç
+			//ã‚¿ã‚¤ãƒãƒ¼ãŒãŸã¾ã£ãŸã‚‰
 			if (end_timer >= count_) {
-				//ƒ^ƒCƒ}[‰Šú‰»
+				//ã‚¿ã‚¤ãƒãƒ¼åˆæœŸåŒ–
 				end_timer = 0;
-				//ƒ^ƒCƒ}[‚½‚Ü‚Á‚½ƒtƒ‰ƒO
+				//ã‚¿ã‚¤ãƒãƒ¼ãŸã¾ã£ãŸãƒ•ãƒ©ã‚°
 				is_end_timer = true;
-				//I’[‹L†“ü‚ê‘Ö‚¦
+				//çµ‚ç«¯è¨˜å·å…¥ã‚Œæ›¿ãˆ
 				if (is_end_str) is_end_str = false;
 				else is_end_str = true;
 			}
 			else {
-				//ƒ^ƒCƒ}[‚½‚Ü‚Á‚Ä‚È‚¢ƒtƒ‰ƒO
+				//ã‚¿ã‚¤ãƒãƒ¼ãŸã¾ã£ã¦ãªã„ãƒ•ãƒ©ã‚°
 				is_end_timer = false;
 			}
 			return *this;
@@ -420,7 +420,7 @@ namespace AsLib
 			return *this;
 		}
 		MessageWindow& drawEndTexture(AsTexture& texture_, const Pos2& p_) noexcept {
-			//•\¦‹@ŠÖ‚Éw’è‚µ‚½‰æ‘œ‚ğ•`‰æ
+			//è¡¨ç¤ºæ©Ÿé–¢ã«æŒ‡å®šã—ãŸç”»åƒã‚’æç”»
 			if (is_end_texture) texture_.draw(Pos4(end_pos.x - p_.x / 4, end_pos.y - p_.y / 4, end_pos.x, end_pos.y));
 
 			if (!is_end_timer || is_str32) return *this;
@@ -434,7 +434,7 @@ namespace AsLib
 		MessageWindow& drawEndAnime(AsTexture& texture_, const Pos2& p_) noexcept {
 			if (is_str32) return *this;
 			static size_t draw_id{};
-			//w’è‚µ‚½‰æ‘œ‚ğ•`‰æ
+			//æŒ‡å®šã—ãŸç”»åƒã‚’æç”»
 			texture_.draw(draw_id, Pos4(end_pos.x - p_.x, end_pos.y - p_.y, end_pos.x, end_pos.y));
 			if (!is_end_timer) return *this;
 			if (is_end_str) {

@@ -1,6 +1,6 @@
-//--------------------------------------------------
+Ôªø//--------------------------------------------------
 //
-//           utflib   -   UTFÉâÉCÉuÉâÉä
+//           utflib   -   UTF„É©„Ç§„Éñ„É©„É™
 //      by Gaccho (wanotaitei@gmail.com)
 //
 //--------------------------------------------------
@@ -14,13 +14,13 @@
 namespace AsLib
 {
 
-	// UTF-8(string) Ç©ÇÁ UTF-8(char*)Ç÷
+	// UTF-8(string) „Åã„Çâ UTF-8(char*)„Å∏
 	const char* const utf8(const std::string& src) noexcept { return src.c_str(); }
 
-	// UTF-8(char*) Ç©ÇÁ UTF-8(char*)Ç÷
+	// UTF-8(char*) „Åã„Çâ UTF-8(char*)„Å∏
 	const char* const utf8(const char* const src) noexcept { return src; }
 
-	// UTF-8(char) Ç©ÇÁ UTF-8(char*)Ç÷
+	// UTF-8(char) „Åã„Çâ UTF-8(char*)„Å∏
 	const char* const utf8(const char src) noexcept {
 		static char u8char[2];
 		u8char[0] = src;
@@ -28,7 +28,7 @@ namespace AsLib
 		return u8char;
 	}
 
-	// UTF-32(char32_t) Ç©ÇÁ UTF-8(char*)Ç÷
+	// UTF-32(char32_t) „Åã„Çâ UTF-8(char*)„Å∏
 	const char* const utf8(const char32_t src) noexcept {
 
 		static char u8char[5];
@@ -60,7 +60,7 @@ namespace AsLib
 		return u8char;
 	}
 
-	// UTF-32(char32_t*) Ç©ÇÁ UTF-8(char*)Ç÷
+	// UTF-32(char32_t*) „Åã„Çâ UTF-8(char*)„Å∏
 	const char* const utf8(const char32_t* const src) noexcept
 	{
 		static std::string u8str;
@@ -74,7 +74,7 @@ namespace AsLib
 		return u8str.c_str();
 	}
 
-	// UTF-32(u32string) Ç©ÇÁ UTF-8(char*)Ç÷
+	// UTF-32(u32string) „Åã„Çâ UTF-8(char*)„Å∏
 	const char* const utf8(const std::u32string& src) noexcept
 	{
 		static std::string u8str;
@@ -89,7 +89,7 @@ namespace AsLib
 		return u8str.c_str();
 	}
 
-	// UTF-16(char16_t) Ç©ÇÁ UTF-32(char32_t)Ç÷
+	// UTF-16(char16_t) „Åã„Çâ UTF-32(char32_t)„Å∏
 	const char32_t utf32(const char16_t src0, const char16_t src1 = 0) noexcept {
 		char32_t u32char{};
 
@@ -107,7 +107,7 @@ namespace AsLib
 		return u32char;
 	}
 
-	// UTF-16(char16_t*) Ç©ÇÁ UTF-32(char32_t*)Ç÷
+	// UTF-16(char16_t*) „Åã„Çâ UTF-32(char32_t*)„Å∏
 	const char32_t* const utf32(const char16_t* const src) noexcept
 	{
 		static std::u32string u32str;
@@ -120,7 +120,7 @@ namespace AsLib
 		return u32str.c_str();
 	}
 
-	// UTF-16(u16string) Ç©ÇÁ UTF-32(char32_t*)Ç÷
+	// UTF-16(u16string) „Åã„Çâ UTF-32(char32_t*)„Å∏
 	const char32_t* const utf32(const std::u16string& src) noexcept
 	{
 		static std::u32string u32str;
@@ -134,22 +134,22 @@ namespace AsLib
 		return u32str.c_str();
 	}
 
-	// UTF-16(char16_t*) Ç©ÇÁ UTF-8(char*)Ç÷
+	// UTF-16(char16_t*) „Åã„Çâ UTF-8(char*)„Å∏
 	const char* const utf8(const char16_t* const src) noexcept { return utf8(utf32(src)); }
 
-	// UTF-16(string) Ç©ÇÁ UTF-8(char*)Ç÷
+	// UTF-16(string) „Åã„Çâ UTF-8(char*)„Å∏
 	const char* const utf8(const std::u16string src) noexcept { return utf8(utf32(src)); }
 
-	// UTF-16(char16_t) Ç©ÇÁ UTF-8(char*)Ç÷
+	// UTF-16(char16_t) „Åã„Çâ UTF-8(char*)„Å∏
 	const char* const utf8(const char16_t src0, const char16_t src1 = 0) noexcept { return utf8(utf32(src0, src1)); }
 
-	// UTF-32(u32string) Ç©ÇÁ UTF-32(char32_t*)Ç÷
+	// UTF-32(u32string) „Åã„Çâ UTF-32(char32_t*)„Å∏
 	const char32_t* const utf32(const std::u32string& src) noexcept { return src.c_str(); }
 
-	// UTF-32(char32_t*) Ç©ÇÁ UTF-32(char32_t*)Ç÷
+	// UTF-32(char32_t*) „Åã„Çâ UTF-32(char32_t*)„Å∏
 	const char32_t* const utf32(const char32_t* const src) noexcept { return src; }
 
-	// UTF-32(char32_t) Ç©ÇÁ UTF-32(char32_t*)Ç÷
+	// UTF-32(char32_t) „Åã„Çâ UTF-32(char32_t*)„Å∏
 	const char32_t* const utf32(const char32_t src) noexcept {
 		static char32_t u32char[2];
 		u32char[0] = src;
@@ -157,13 +157,13 @@ namespace AsLib
 		return u32char;
 	}
 
-	// UTF-16(u16string) Ç©ÇÁ UTF-16(char16_t*)Ç÷
+	// UTF-16(u16string) „Åã„Çâ UTF-16(char16_t*)„Å∏
 	const char16_t* const utf16(const std::u16string& src) noexcept { return src.c_str(); }
 
-	// UTF-16(char16_t*) Ç©ÇÁ UTF-16(char16_t*)Ç÷
+	// UTF-16(char16_t*) „Åã„Çâ UTF-16(char16_t*)„Å∏
 	const char16_t* const utf16(const char16_t* const src) noexcept { return src; }
 
-	// UTF-16(char16_t) Ç©ÇÁ UTF-16(char16_t*)Ç÷
+	// UTF-16(char16_t) „Åã„Çâ UTF-16(char16_t*)„Å∏
 	const char16_t* const utf16(const char16_t src) noexcept {
 		static char16_t u16char[2];
 		u16char[0] = src;
@@ -171,7 +171,7 @@ namespace AsLib
 		return u16char;
 	}
 
-	// UTF-32(char32_t) Ç©ÇÁ UTF-16(char16_t*)Ç÷
+	// UTF-32(char32_t) „Åã„Çâ UTF-16(char16_t*)„Å∏
 	const char16_t* const utf16(const char32_t src) noexcept {
 		static char16_t u16char[3];
 		u16char[0] = 0;
@@ -189,7 +189,7 @@ namespace AsLib
 		return u16char;
 	}
 
-	// UTF-32(char32_t*) Ç©ÇÁ UTF-16(char16_t*)Ç÷
+	// UTF-32(char32_t*) „Åã„Çâ UTF-16(char16_t*)„Å∏
 	const char16_t* const utf16(const char32_t* const src) noexcept
 	{
 		static std::u16string u16str;
@@ -203,7 +203,7 @@ namespace AsLib
 		return u16str.c_str();
 	}
 
-	// UTF-32(u32string) Ç©ÇÁ UTF-16(char16_t*)Ç÷
+	// UTF-32(u32string) „Åã„Çâ UTF-16(char16_t*)„Å∏
 	const char16_t* const utf16(const std::u32string& src) noexcept
 	{
 		static std::u16string u16str;
@@ -272,7 +272,7 @@ namespace AsLib
 		return u32char;
 	}
 
-	// UTF-8(char) Ç©ÇÁ UTF-32(char32_t*)Ç÷
+	// UTF-8(char) „Åã„Çâ UTF-32(char32_t*)„Å∏
 	const char32_t* const utf32(const char src) noexcept {
 		static char32_t u32char[2];
 		char u8char[5]{};
@@ -303,7 +303,7 @@ namespace AsLib
 		return char_utf32(u8char, number_of_byte);
 	}
 
-	// UTF-8(string) Ç©ÇÁ UTF-32(char32_t*)Ç÷
+	// UTF-8(string) „Åã„Çâ UTF-32(char32_t*)„Å∏
 	const char32_t* const utf32(const std::string& src) noexcept
 	{
 		static std::u32string u32str;
@@ -341,7 +341,7 @@ namespace AsLib
 		return char_utf32(u8char, number_of_byte);
 	}
 
-	// UTF-8(char*) Ç©ÇÁ UTF-32(char32_t*)Ç÷
+	// UTF-8(char*) „Åã„Çâ UTF-32(char32_t*)„Å∏
 	const char32_t* const utf32(const char* const src) noexcept
 	{
 		static std::u32string u32str;
@@ -359,13 +359,13 @@ namespace AsLib
 		return u32str.c_str();
 	}
 
-	// UTF-8(char*) Ç©ÇÁ UTF-16(char16_t*)Ç÷
+	// UTF-8(char*) „Åã„Çâ UTF-16(char16_t*)„Å∏
 	const char16_t* const utf16(const char* const src) noexcept { return utf16(utf32(src)); }
 
-	// UTF-8(string) Ç©ÇÁ UTF-16(char16_t*)Ç÷
+	// UTF-8(string) „Åã„Çâ UTF-16(char16_t*)„Å∏
 	const char16_t* const utf16(const std::string src) noexcept { return utf16(utf32(src)); }
 
-	// UTF-8(char) Ç©ÇÁ UTF-16(char16_t*)Ç÷
+	// UTF-8(char) „Åã„Çâ UTF-16(char16_t*)„Å∏
 	const char16_t* const utf16(const char src) noexcept { return utf16(utf32(src)); }
 
 	char16_t sjisUp(const uint8_t before, const uint8_t after) noexcept
@@ -435,7 +435,7 @@ namespace AsLib
 		return 0;
 	}
 
-	// SJIS(char*) Ç©ÇÁ UTF-16(char16_t*)Ç÷
+	// SJIS(char*) „Åã„Çâ UTF-16(char16_t*)„Å∏
 	const char16_t* const utf16_s(const char* const src) noexcept
 	{
 		static std::u16string u16str;
@@ -461,7 +461,7 @@ namespace AsLib
 		return u16str.c_str();
 	}
 
-	// SJIS(char) Ç©ÇÁ UTF-16(char16_t*)Ç÷
+	// SJIS(char) „Åã„Çâ UTF-16(char16_t*)„Å∏
 	const char16_t* const utf16_s(const char src) noexcept
 	{
 		static std::u16string u16str;
@@ -475,32 +475,32 @@ namespace AsLib
 		return u16str.c_str();
 	}
 
-	// SJIS(string) Ç©ÇÁ UTF-16(char16_t*)Ç÷
+	// SJIS(string) „Åã„Çâ UTF-16(char16_t*)„Å∏
 	const char16_t* const utf16_s(const std::string src) noexcept { return utf16_s(src.c_str()); }
 
-	// SJIS(char*) Ç©ÇÁ UTF-8(char*)Ç÷
+	// SJIS(char*) „Åã„Çâ UTF-8(char*)„Å∏
 	const char* const utf8_s(const char* const src) noexcept { return utf8(utf16_s(src)); }
 
-	// SJIS(char) Ç©ÇÁ UTF-8(char*)Ç÷
+	// SJIS(char) „Åã„Çâ UTF-8(char*)„Å∏
 	const char* const utf8_s(const char src) noexcept { return utf8(utf16_s(src)); }
 
-	// SJIS(string) Ç©ÇÁ UTF-8(char*)Ç÷
+	// SJIS(string) „Åã„Çâ UTF-8(char*)„Å∏
 	const char* const utf8_s(const std::string src) noexcept { return utf8(utf16_s(src.c_str())); }
 
-	// SJIS(char*) Ç©ÇÁ UTF-32(char32_t*)Ç÷
+	// SJIS(char*) „Åã„Çâ UTF-32(char32_t*)„Å∏
 	const char32_t* const utf32_s(const char* const src) noexcept { return utf32(utf16_s(src)); }
 
-	// SJIS(string) Ç©ÇÁ UTF-32(char*)Ç÷
+	// SJIS(string) „Åã„Çâ UTF-32(char*)„Å∏
 	const char32_t* const utf32_s(const std::string src) noexcept { return utf32(utf16_s(src.c_str())); }
 
-	// SJIS(char) Ç©ÇÁ UTF-32(char32_t*)Ç÷
+	// SJIS(char) „Åã„Çâ UTF-32(char32_t*)„Å∏
 	const char32_t* const utf32_s(const char src) noexcept { return utf32(utf16_s(src)); }
 
-	// êîíl Ç©ÇÁ UTF-16(char16_t*)Ç÷
+	// Êï∞ÂÄ§ „Åã„Çâ UTF-16(char16_t*)„Å∏
 	template <typename type_name>
 	const char16_t* const utf16(const type_name src) noexcept { return utf16(utf8(src)); }
 
-	// êîíl Ç©ÇÁ UTF-32(char32_t*)Ç÷
+	// Êï∞ÂÄ§ „Åã„Çâ UTF-32(char32_t*)„Å∏
 	template <typename type_name>
 	const char32_t* const utf32(const type_name src) noexcept { return utf32(utf8(src)); }
 

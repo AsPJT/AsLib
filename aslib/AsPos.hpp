@@ -1,8 +1,8 @@
-// ---------- ---------- ---------- ---------- ----------
+ï»¿// ---------- ---------- ---------- ---------- ----------
 //
-// AsLib - Asƒ‰ƒCƒuƒ‰ƒŠ
+// AsLib - Asãƒ©ã‚¤ãƒ–ãƒ©ãƒª
 //
-// §ìÒ: ‚ª‚Á‚¿‚å (wanotaitei@gmail.com)
+// åˆ¶ä½œè€…: ãŒã£ã¡ã‚‡ (wanotaitei@gmail.com)
 //
 // ---------- ---------- ---------- ---------- ----------
 #ifndef INCLUDED_AS_PROJECT_LIBRARY_POS
@@ -10,7 +10,7 @@
 
 namespace AsLib
 {
-	//•Ï”
+	//å¤‰æ•°
 #if defined(AS_CHANGE_VAR_POS_INT)
 	using pos_int = AS_CHANGE_VAR_POS;
 #else
@@ -21,27 +21,27 @@ namespace AsLib
 #else
 	using pos_float = float;
 #endif
-	//2“_ˆÊ’u
+	//2ç‚¹ä½ç½®
 	struct Pos2;
 	struct Pos2F;
-	//4“_ˆÊ’u
+	//4ç‚¹ä½ç½®
 	struct Pos4;
 	struct Pos4F;
-	//2“_ˆÊ’u+2“_ƒTƒCƒY
+	//2ç‚¹ä½ç½®+2ç‚¹ã‚µã‚¤ã‚º
 	struct PosA4;
 	struct PosL4;
 	struct PosA4F;
 	struct PosL4F;
-	//8“_ˆÊ’u
+	//8ç‚¹ä½ç½®
 	struct Pos8;
 	struct Pos8F;
-	//‘å‚«‚³(2D)
+	//å¤§ãã•(2D)
 	struct Pos2
 	{
-		//ƒƒ“ƒo•Ï”----------
+		//ãƒ¡ãƒ³ãƒå¤‰æ•°----------
 		pos_int x{};
 		pos_int y{};
-		//ƒRƒ“ƒXƒgƒ‰ƒNƒ^----------
+		//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		Pos2() = default;
 		constexpr Pos2(const pos_int xy_) :x(xy_), y(xy_) {};
 		constexpr Pos2(const pos_int x_, const pos_int y_) :x(x_), y(y_) {};
@@ -55,14 +55,14 @@ namespace AsLib
 		constexpr Pos2(const PosL4F&);
 		constexpr Pos2(const PosA4F&);
 		constexpr Pos2(const Pos8F&);
-		//ƒfƒXƒgƒ‰ƒNƒ^----------
+		//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		~Pos2() = default;
-		//ƒLƒƒƒXƒg----------
+		//ã‚­ãƒ£ã‚¹ãƒˆ----------
 		operator Pos4();
 		operator PosL4();
 		operator PosA4();
 		operator Pos8();
-		//Œ^•ÏŠ·----------
+		//å‹å¤‰æ›----------
 		const Pos2 convPos2() const;
 		const Pos4 convPos4() const;
 		const PosL4 convPosL4() const;
@@ -73,7 +73,7 @@ namespace AsLib
 		const PosL4F convPosL4F() const;
 		const PosA4F convPosA4F() const;
 		const Pos8F convPos8F() const;
-		//ŒvZ----------
+		//è¨ˆç®—----------
 		Pos2 operator+() { Pos2 pos(*this); return pos; }
 		Pos2 operator-() { const Pos2 pos(this->x * -1, this->y * -1); return pos; }
 		Pos2 operator+(const Pos2& p_) { const Pos2 pos(this->x + p_.x, this->y + p_.y); return pos; }
@@ -156,15 +156,15 @@ namespace AsLib
 		operator const char* const() { return this->c_str(); }
 
 	};
-	//’·•ûŒ`‚Ì‘å‚«‚³(¶ã‚Æ‰E‰º‚ÌˆÊ’u)
+	//é•·æ–¹å½¢ã®å¤§ãã•(å·¦ä¸Šã¨å³ä¸‹ã®ä½ç½®)
 	struct Pos4
 	{
-		//ƒƒ“ƒo•Ï”----------
+		//ãƒ¡ãƒ³ãƒå¤‰æ•°----------
 		pos_int x1{};
 		pos_int y1{};
 		pos_int x2{};
 		pos_int y2{};
-		//ƒRƒ“ƒXƒgƒ‰ƒNƒ^----------
+		//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		Pos4() = default;
 		constexpr Pos4(const pos_int xy_) :x1(0), y1(0), x2(xy_), y2(xy_) {};
 		constexpr Pos4(const pos_int x_, const pos_int y_, const Pos2& p_) :x1(0), y1(0), x2(p_.x), y2(p_.y) {};
@@ -182,14 +182,14 @@ namespace AsLib
 		constexpr Pos4(const PosL4F&);
 		constexpr Pos4(const PosA4F&);
 		constexpr Pos4(const Pos8F&);
-		//ƒfƒXƒgƒ‰ƒNƒ^----------
+		//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		~Pos4() = default;
-		//ƒLƒƒƒXƒg----------
+		//ã‚­ãƒ£ã‚¹ãƒˆ----------
 		operator Pos2();
 		operator Pos8();
 		operator PosA4();
 		operator PosL4();
-		//Œ^•ÏŠ·----------
+		//å‹å¤‰æ›----------
 		const Pos2 convPos2() const;
 		const Pos4 convPos4() const;
 		const PosL4 convPosL4() const;
@@ -200,7 +200,7 @@ namespace AsLib
 		const PosL4F convPosL4F() const;
 		const PosA4F convPosA4F() const;
 		const Pos8F convPos8F() const;
-		//ŒvZ----------
+		//è¨ˆç®—----------
 		Pos4 operator+() { Pos4 pos(*this); return pos; }
 		Pos4 operator-() { const Pos4 pos(this->x1 * -1, this->y1 * -1, this->x2 * -1, this->y2 * -1); return pos; }
 		Pos4 operator+(const Pos4& p_) { const Pos4 pos(this->x1 + p_.x1, this->y1 + p_.y1, this->x2 + p_.x2, this->y2 + p_.y2); return pos; }
@@ -235,19 +235,19 @@ namespace AsLib
 		const Pos4& operator()(const PosL4&);
 		const Pos4& rand(const Pos2&);
 		const Pos4& operator() (const Pos4F&, const Pos2&);
-		//”ä—¦
+		//æ¯”ç‡
 		constexpr Pos4(const Pos4F&, const Pos2&);
 		const Pos4& operator()(Pos4* const p_) const { if (p_ != nullptr)*p_ = *this; return *this; }
 	};
-	//’·•ûŒ`‚Ì‘å‚«‚³(ˆÊ’u‚Æ’·‚³)
+	//é•·æ–¹å½¢ã®å¤§ãã•(ä½ç½®ã¨é•·ã•)
 	struct PosL4
 	{
-		//ƒƒ“ƒo•Ï”----------
+		//ãƒ¡ãƒ³ãƒå¤‰æ•°----------
 		pos_int x{};
 		pos_int y{};
 		pos_int w{};
 		pos_int h{};
-		//ƒRƒ“ƒXƒgƒ‰ƒNƒ^----------
+		//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		PosL4() = default;
 		constexpr PosL4(const pos_int xy_) :x(0), y(0), w(xy_), h(xy_) {};
 		constexpr PosL4(const pos_int x_, const pos_int y_) :x(0), y(0), w(x_), h(y_) {};
@@ -263,14 +263,14 @@ namespace AsLib
 		constexpr PosL4(const PosL4F&);
 		constexpr PosL4(const PosA4F&);
 		constexpr PosL4(const Pos8F&);
-		//ƒfƒXƒgƒ‰ƒNƒ^----------
+		//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		~PosL4() = default;
-		//ƒLƒƒƒXƒg----------
+		//ã‚­ãƒ£ã‚¹ãƒˆ----------
 		operator Pos2();
 		operator Pos4();
 		operator PosA4();
 		operator Pos8();
-		//Œ^•ÏŠ·----------
+		//å‹å¤‰æ›----------
 		const Pos2 convPos2() const;
 		const Pos4 convPos4() const;
 		const PosL4 convPosL4() const;
@@ -281,7 +281,7 @@ namespace AsLib
 		const PosL4F convPosL4F() const;
 		const PosA4F convPosA4F() const;
 		const Pos8F convPos8F() const;
-		//ŒvZ----------
+		//è¨ˆç®—----------
 		PosL4 operator+() { PosL4 pos(*this); return pos; }
 		PosL4 operator-() { const PosL4 pos(this->x * -1, this->y * -1, this->w * -1, this->h * -1); return pos; }
 		PosL4 operator+(const PosL4& p_) { const PosL4 pos(this->x + p_.x, this->y + p_.y, this->w + p_.w, this->h + p_.h); return pos; }
@@ -318,15 +318,15 @@ namespace AsLib
 		const PosL4& operator()(const pos_int x_, const pos_int y_, const pos_int w_, const pos_int h_) { x = x_; y = y_; w = w_; h = h_; return *this; }
 		const PosL4& operator()(PosL4* const p_) const { if (p_ != nullptr)*p_ = *this; return *this; }
 	};
-	//’†SˆÊ’u‚Æ‘å‚«‚³‚ğ•¹‚¹‚Â
+	//ä¸­å¿ƒä½ç½®ã¨å¤§ãã•ã‚’ä½µã›æŒã¤
 	struct PosA4
 	{
-		//ƒƒ“ƒo•Ï”----------
+		//ãƒ¡ãƒ³ãƒå¤‰æ•°----------
 		pos_int x{};
 		pos_int y{};
 		pos_int w{};
 		pos_int h{};
-		//ƒRƒ“ƒXƒgƒ‰ƒNƒ^----------
+		//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		PosA4() = default;
 		constexpr PosA4(const pos_int xy_) :x(xy_), y(xy_), w(0), h(0) {};
 		constexpr PosA4(const pos_int x_, const pos_int y_) :x(x_), y(y_), w(0), h(0) {};
@@ -344,14 +344,14 @@ namespace AsLib
 		constexpr PosA4(const PosL4F&);
 		constexpr PosA4(const PosA4F&);
 		constexpr PosA4(const Pos8F&);
-		//ƒfƒXƒgƒ‰ƒNƒ^----------
+		//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		~PosA4() = default;
-		//ƒLƒƒƒXƒg----------
+		//ã‚­ãƒ£ã‚¹ãƒˆ----------
 		operator Pos2();
 		operator Pos4();
 		operator PosL4();
 		operator Pos8();
-		//Œ^•ÏŠ·----------
+		//å‹å¤‰æ›----------
 		const Pos2 convPos2() const;
 		const Pos4 convPos4() const;
 		const PosL4 convPosL4() const;
@@ -362,7 +362,7 @@ namespace AsLib
 		const PosL4F convPosL4F() const;
 		const PosA4F convPosA4F() const;
 		const Pos8F convPos8F() const;
-		//ŒvZ----------
+		//è¨ˆç®—----------
 		PosL4 operator+() { PosL4 pos(*this); return pos; }
 		PosL4 operator-() { const PosL4 pos(this->x * -1, this->y * -1, this->w * -1, this->h * -1); return pos; }
 		PosL4 operator+(const PosL4& p_) { const PosL4 pos(this->x + p_.x, this->y + p_.y, this->w + p_.w, this->h + p_.h); return pos; }
@@ -407,10 +407,10 @@ namespace AsLib
 		this->y += (asRand32(add_pos) - (add_pos >> 1));
 		return *this;
 	}
-	//lŠpŒ`‚Ì‘å‚«‚³
+	//å››è§’å½¢ã®å¤§ãã•
 	struct Pos8
 	{
-		//ƒƒ“ƒo•Ï”----------
+		//ãƒ¡ãƒ³ãƒå¤‰æ•°----------
 		pos_int x1{};
 		pos_int y1{};
 		pos_int x2{};
@@ -419,7 +419,7 @@ namespace AsLib
 		pos_int y3{};
 		pos_int x4{};
 		pos_int y4{};
-		//ƒRƒ“ƒXƒgƒ‰ƒNƒ^----------
+		//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		Pos8() = default;
 		constexpr Pos8(const pos_int x1_, const pos_int y1_, const pos_int x2_, const pos_int y2_, const pos_int x3_, const pos_int y3_, const pos_int x4_, const pos_int y4_) : x1(x1_), y1(y1_), x2(x2_), y2(y2_), x3(x3_), y3(y3_), x4(x4_), y4(y4_) {}
 		constexpr Pos8(const pos_int x1_, const pos_int y1_, const pos_int x2_, const pos_int y2_) : x1(x1_), y1(y1_), x2(x2_), y2(y1_), x3(x1_), y3(y2_), x4(x2_), y4(y2_) {}
@@ -434,14 +434,14 @@ namespace AsLib
 		constexpr Pos8(const PosL4F&);
 		constexpr Pos8(const PosA4F&);
 		constexpr Pos8(const Pos8F&);
-		//ƒfƒXƒgƒ‰ƒNƒ^----------
+		//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		~Pos8() = default;
-		//ƒLƒƒƒXƒg----------
+		//ã‚­ãƒ£ã‚¹ãƒˆ----------
 		operator Pos2();
 		operator Pos4();
 		operator PosL4();
 		operator PosA4();
-		//Œ^•ÏŠ·----------
+		//å‹å¤‰æ›----------
 		const Pos2 convPos2() const;
 		const Pos4 convPos4() const;
 		const PosL4 convPosL4() const;
@@ -452,7 +452,7 @@ namespace AsLib
 		const PosL4F convPosL4F() const;
 		const PosA4F convPosA4F() const;
 		const Pos8F convPos8F() const;
-		//ŒvZ----------
+		//è¨ˆç®—----------
 		Pos8 operator+() { Pos8 pos(*this); return pos; }
 		Pos8 operator-() { const Pos8 pos(this->x1 * -1, this->y1 * -1, this->x2 * -1, this->y2 * -1, this->x3 * -1, this->y3 * -1, this->x4 * -1, this->y4 * -1); return pos; }
 		Pos8 operator+(const Pos8& p_) { const Pos8 pos(this->x1 + p_.x1, this->y1 + p_.y1, this->x2 + p_.x2, this->y2 + p_.y2, this->x3 + p_.x3, this->y3 + p_.y3, this->x4 + p_.x4, this->y4 + p_.y4); return pos; }
@@ -485,20 +485,20 @@ namespace AsLib
 		const Pos8& operator()(const Pos4& add_pos);
 		const Pos8& operator()(const PosL4& add_pos);
 		const Pos8& operator()(const PosA4& add_pos);
-		//‰ñ“]
+		//å›è»¢
 		Pos8(const Pos4&, const double);
 		const Pos8& operator()(const Pos4& p_, const double r_) { *this = Pos8(p_, r_); return *this; };
-		//—§‘Ì‰ñ“]
+		//ç«‹ä½“å›è»¢
 		const Pos8 rotation3D(const Pos4&, const double);
 		const Pos8& operator()(Pos8* const p_) const { if (p_ != nullptr)*p_ = *this; return *this; }
 	};
-	//‘å‚«‚³(2D)
+	//å¤§ãã•(2D)
 	struct Pos2F
 	{
-		//ƒƒ“ƒo•Ï”----------
+		//ãƒ¡ãƒ³ãƒå¤‰æ•°----------
 		pos_float x{};
 		pos_float y{};
-		//ƒRƒ“ƒXƒgƒ‰ƒNƒ^----------
+		//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		Pos2F() = default;
 		constexpr Pos2F(const pos_float xy_) :x(xy_), y(xy_) {};
 		constexpr Pos2F(const pos_float x_, const pos_float y_) :x(x_), y(y_) {};
@@ -512,14 +512,14 @@ namespace AsLib
 		constexpr Pos2F(const PosL4&);
 		constexpr Pos2F(const PosA4&);
 		constexpr Pos2F(const Pos8&);
-		//ƒfƒXƒgƒ‰ƒNƒ^----------
+		//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		~Pos2F() = default;
-		//ƒLƒƒƒXƒg----------
+		//ã‚­ãƒ£ã‚¹ãƒˆ----------
 		operator Pos4F();
 		operator PosL4F();
 		operator PosA4F();
 		operator Pos8F();
-		//Œ^•ÏŠ·----------
+		//å‹å¤‰æ›----------
 		const Pos2 convPos2() const;
 		const Pos4 convPos4() const;
 		const PosL4 convPosL4() const;
@@ -530,7 +530,7 @@ namespace AsLib
 		const PosL4F convPosL4F() const;
 		const PosA4F convPosA4F() const;
 		const Pos8F convPos8F() const;
-		//ŒvZ----------
+		//è¨ˆç®—----------
 		Pos2F operator+() { Pos2F pos(*this); return pos; }
 		Pos2F operator-() { const Pos2F pos(this->x * -1, this->y * -1); return pos; }
 		Pos2F operator+(const Pos2F& p_) { const Pos2F pos(this->x + p_.x, this->y + p_.y); return pos; }
@@ -572,15 +572,15 @@ namespace AsLib
 		operator cocos2d::Size() { return cocos2d::Size(float(this->x), float(this->y)); }
 #endif
 	};
-	//’·•ûŒ`‚Ì‘å‚«‚³(¶ã‚Æ‰E‰º‚ÌˆÊ’u)
+	//é•·æ–¹å½¢ã®å¤§ãã•(å·¦ä¸Šã¨å³ä¸‹ã®ä½ç½®)
 	struct Pos4F
 	{
-		//ƒƒ“ƒo•Ï”----------
+		//ãƒ¡ãƒ³ãƒå¤‰æ•°----------
 		pos_float x1{};
 		pos_float y1{};
 		pos_float x2{};
 		pos_float y2{};
-		//ƒRƒ“ƒXƒgƒ‰ƒNƒ^----------
+		//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		Pos4F() = default;
 		constexpr Pos4F(const pos_float xy_) :x1(0.0f), y1(0.0f), x2(xy_), y2(xy_) {};
 		constexpr Pos4F(const pos_float x_, const pos_float y_, const Pos2F& p_) :x1(0.0f), y1(0.0f), x2(p_.x), y2(p_.y) {};
@@ -597,14 +597,14 @@ namespace AsLib
 		constexpr Pos4F(const PosL4&);
 		constexpr Pos4F(const PosA4&);
 		constexpr Pos4F(const Pos8&);
-		//ƒfƒXƒgƒ‰ƒNƒ^----------
+		//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		~Pos4F() = default;
-		//ƒLƒƒƒXƒg----------
+		//ã‚­ãƒ£ã‚¹ãƒˆ----------
 		operator Pos2F();
 		operator Pos8F();
 		operator PosA4F();
 		operator PosL4F();
-		//Œ^•ÏŠ·----------
+		//å‹å¤‰æ›----------
 		const Pos2 convPos2() const;
 		const Pos4 convPos4() const;
 		const PosL4 convPosL4() const;
@@ -615,7 +615,7 @@ namespace AsLib
 		const PosL4F convPosL4F() const;
 		const PosA4F convPosA4F() const;
 		const Pos8F convPos8F() const;
-		//ŒvZ----------
+		//è¨ˆç®—----------
 		Pos4F operator+() { Pos4F pos(*this); return pos; }
 		Pos4F operator-() { const Pos4F pos(this->x1 * -1, this->y1 * -1, this->x2 * -1, this->y2 * -1); return pos; }
 		Pos4F operator+(const Pos4F& p_) { const Pos4F pos(this->x1 + p_.x1, this->y1 + p_.y1, this->x2 + p_.x2, this->y2 + p_.y2); return pos; }
@@ -640,15 +640,15 @@ namespace AsLib
 		const PosL4 ratio();
 		const PosL4 ratio(const Pos2F p_);
 	};
-	//’·•ûŒ`‚Ì‘å‚«‚³(ˆÊ’u‚Æ’·‚³)
+	//é•·æ–¹å½¢ã®å¤§ãã•(ä½ç½®ã¨é•·ã•)
 	struct PosL4F
 	{
-		//ƒƒ“ƒo•Ï”----------
+		//ãƒ¡ãƒ³ãƒå¤‰æ•°----------
 		pos_float x{};
 		pos_float y{};
 		pos_float w{};
 		pos_float h{};
-		//ƒRƒ“ƒXƒgƒ‰ƒNƒ^----------
+		//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		PosL4F() = default;
 		constexpr PosL4F(const pos_float xy_) :x(0.0f), y(0.0f), w(xy_), h(xy_) {};
 		constexpr PosL4F(const pos_float x_, const pos_float y_) :x(0.0f), y(0.0f), w(x_), h(y_) {};
@@ -664,14 +664,14 @@ namespace AsLib
 		constexpr PosL4F(const PosL4&);
 		constexpr PosL4F(const PosA4&);
 		constexpr PosL4F(const Pos8&);
-		//ƒfƒXƒgƒ‰ƒNƒ^----------
+		//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		~PosL4F() = default;
-		//ƒLƒƒƒXƒg----------
+		//ã‚­ãƒ£ã‚¹ãƒˆ----------
 		operator Pos2F();
 		operator Pos4F();
 		operator PosA4F();
 		operator Pos8F();
-		//Œ^•ÏŠ·----------
+		//å‹å¤‰æ›----------
 		const Pos2 convPos2() const;
 		const Pos4 convPos4() const;
 		const PosL4 convPosL4() const;
@@ -682,7 +682,7 @@ namespace AsLib
 		const PosL4F convPosL4F() const;
 		const PosA4F convPosA4F() const;
 		const Pos8F convPos8F() const;
-		//ŒvZ----------
+		//è¨ˆç®—----------
 		PosL4F operator+() { PosL4F pos(*this); return pos; }
 		PosL4F operator-() { const PosL4F pos(this->x * -1, this->y * -1, this->w * -1, this->h * -1); return pos; }
 		PosL4F operator+(const PosL4F& p_) { const PosL4F pos(this->x + p_.x, this->y + p_.y, this->w + p_.w, this->h + p_.h); return pos; }
@@ -705,15 +705,15 @@ namespace AsLib
 		const PosL4F& operator()(const Pos8F& add_pos);
 		const PosL4F& operator()(PosL4F* const p_) const { *p_ = *this; return *this; }
 	};
-	//’†SˆÊ’u‚Æ‘å‚«‚³‚ğ•¹‚¹‚Â
+	//ä¸­å¿ƒä½ç½®ã¨å¤§ãã•ã‚’ä½µã›æŒã¤
 	struct PosA4F
 	{
-		//ƒƒ“ƒo•Ï”----------
+		//ãƒ¡ãƒ³ãƒå¤‰æ•°----------
 		pos_float x{};
 		pos_float y{};
 		pos_float w{};
 		pos_float h{};
-		//ƒRƒ“ƒXƒgƒ‰ƒNƒ^----------
+		//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		PosA4F() = default;
 		constexpr PosA4F(const pos_float xy_) :x(xy_), y(xy_), w(0.0f), h(0.0f) {};
 		constexpr PosA4F(const pos_float x_, const pos_float y_) :x(x_), y(y_), w(0.0f), h(0.0f) {};
@@ -729,14 +729,14 @@ namespace AsLib
 		constexpr PosA4F(const PosL4&);
 		constexpr PosA4F(const PosA4&);
 		constexpr PosA4F(const Pos8&);
-		//ƒfƒXƒgƒ‰ƒNƒ^----------
+		//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		~PosA4F() = default;
-		//ƒLƒƒƒXƒg----------
+		//ã‚­ãƒ£ã‚¹ãƒˆ----------
 		operator Pos2F();
 		operator Pos4F();
 		operator PosL4F();
 		operator Pos8F();
-		//Œ^•ÏŠ·----------
+		//å‹å¤‰æ›----------
 		const Pos2 convPos2() const;
 		const Pos4 convPos4() const;
 		const PosL4 convPosL4() const;
@@ -747,7 +747,7 @@ namespace AsLib
 		const PosL4F convPosL4F() const;
 		const PosA4F convPosA4F() const;
 		const Pos8F convPos8F() const;
-		//ŒvZ----------
+		//è¨ˆç®—----------
 		PosA4F operator+() { PosA4F pos(*this); return pos; }
 		PosA4F operator-() { const PosA4F pos(this->x * -1, this->y * -1, this->w * -1, this->h * -1); return pos; }
 		PosA4F operator+(const PosA4F& p_) { const PosA4F pos(this->x + p_.x, this->y + p_.y, this->w + p_.w, this->h + p_.h); return pos; }
@@ -772,10 +772,10 @@ namespace AsLib
 		const PosA4F& operator()(const double pos_x, const double pos_y) { this->w = pos_float(this->w*pos_x); this->h = pos_float(this->h*pos_y); return *this; }
 		const PosA4F& operator()(PosA4F* const p_) const { *p_ = *this; return *this; }
 	};
-	//lŠpŒ`‚Ì‘å‚«‚³
+	//å››è§’å½¢ã®å¤§ãã•
 	struct Pos8F
 	{
-		//ƒƒ“ƒo•Ï”----------
+		//ãƒ¡ãƒ³ãƒå¤‰æ•°----------
 		pos_float x1{};
 		pos_float y1{};
 		pos_float x2{};
@@ -784,7 +784,7 @@ namespace AsLib
 		pos_float y3{};
 		pos_float x4{};
 		pos_float y4{};
-		//ƒRƒ“ƒXƒgƒ‰ƒNƒ^----------
+		//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		Pos8F() = default;
 		constexpr Pos8F(const pos_float x1_, const pos_float y1_, const pos_float x2_, const pos_float y2_, const pos_float x3_, const pos_float y3_, const pos_float x4_, const pos_float y4_) : x1(x1_), y1(y1_), x2(x2_), y2(y2_), x3(x3_), y3(y3_), x4(x4_), y4(y4_) {}
 		constexpr Pos8F(const pos_float x1_, const pos_float y1_, const pos_float x2_, const pos_float y2_) : x1(x1_), y1(y1_), x2(x2_), y2(y1_), x3(x1_), y3(y2_), x4(x2_), y4(y2_) {}
@@ -799,14 +799,14 @@ namespace AsLib
 		constexpr Pos8F(const PosL4&);
 		constexpr Pos8F(const PosA4&);
 		constexpr Pos8F(const Pos8&);
-		//ƒfƒXƒgƒ‰ƒNƒ^----------
+		//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿----------
 		~Pos8F() = default;
-		//ƒLƒƒƒXƒg----------
+		//ã‚­ãƒ£ã‚¹ãƒˆ----------
 		operator Pos2F();
 		operator Pos4F();
 		operator PosL4F();
 		operator PosA4F();
-		//Œ^•ÏŠ·----------
+		//å‹å¤‰æ›----------
 		const Pos2 convPos2() const;
 		const Pos4 convPos4() const;
 		const PosL4 convPosL4() const;
@@ -817,7 +817,7 @@ namespace AsLib
 		const PosL4F convPosL4F() const;
 		const PosA4F convPosA4F() const;
 		const Pos8F convPos8F() const;
-		//ŒvZ----------
+		//è¨ˆç®—----------
 		Pos8F operator+() { Pos8F pos(*this); return pos; }
 		Pos8F operator-() { const Pos8F pos(this->x1 * -1, this->y1 * -1, this->x2 * -1, this->y2 * -1, this->x3 * -1, this->y3 * -1, this->x4 * -1, this->y4 * -1); return pos; }
 		Pos8F operator+(const Pos8F& p_) { const Pos8F pos(this->x1 + p_.x1, this->y1 + p_.y1, this->x2 + p_.x2, this->y2 + p_.y2, this->x3 + p_.x3, this->y3 + p_.y3, this->x4 + p_.x4, this->y4 + p_.y4); return pos; }
@@ -859,7 +859,7 @@ namespace AsLib
 		return *this;
 	}
 	//--------------------------------------------------------
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	//--------------------------------------------------------
 	//Pos2
 	inline constexpr Pos2::Pos2(const Pos2& pos_) :x(pos_.x), y(pos_.y) {}
@@ -918,7 +918,7 @@ namespace AsLib
 	inline constexpr Pos8::Pos8(const PosA4F& pos_) : x1(pos_int(pos_.x - (pos_.w / 2))), y1(pos_int(pos_.y - (pos_.h / 2))), x2(pos_int(pos_.x + (pos_.w / 2))), y2(pos_int(pos_.y - (pos_.h / 2))), x3(pos_int(pos_.x - (pos_.w / 2))), y3(pos_int(pos_.y + (pos_.h / 2))), x4(pos_int(pos_.x + (pos_.w / 2))), y4(pos_int(pos_.y + (pos_.h / 2))) {}
 	inline constexpr Pos8::Pos8(const Pos8F& pos_) : x1(pos_int(pos_.x1)), y1(pos_int(pos_.y1)), x2(pos_int(pos_.x2)), y2(pos_int(pos_.y2)), x3(pos_int(pos_.x3)), y3(pos_int(pos_.y3)), x4(pos_int(pos_.x4)), y4(pos_int(pos_.y4)) {}
 	//--------------------------------------------------------
-	//ƒLƒƒƒXƒg
+	//ã‚­ãƒ£ã‚¹ãƒˆ
 	//--------------------------------------------------------
 	//Pos2
 	inline Pos2::operator Pos4() { return Pos4(*this); }
@@ -946,7 +946,7 @@ namespace AsLib
 	inline Pos8::operator PosL4() { return PosL4(*this); }
 	inline Pos8::operator PosA4() { return PosA4(*this); }
 	//--------------------------------------------------------
-	//‘ã“ü
+	//ä»£å…¥
 	//--------------------------------------------------------
 	//Pos2
 	inline const Pos2 & Pos2::operator=(const Pos4 & add_pos) { *this = Pos2(add_pos); return *this; }
@@ -973,7 +973,7 @@ namespace AsLib
 	inline const Pos8& Pos8::operator=(const PosA4& add_pos) { *this = Pos8(add_pos); return *this; }
 	inline const Pos8& Pos8::operator=(const Pos2& add_pos) { *this = Pos8(add_pos); return *this; }
 	//--------------------------------------------------------
-	//Š‡ŒÊ‘ã“ü
+	//æ‹¬å¼§ä»£å…¥
 	//--------------------------------------------------------
 	//Pos2
 	inline const Pos2 & Pos2::operator()(const Pos4 & add_pos) { *this = Pos2(add_pos); return *this; }
@@ -999,22 +999,22 @@ namespace AsLib
 	inline const Pos8& Pos8::operator()(const PosL4& add_pos) { *this = Pos8(add_pos); return *this; }
 	inline const Pos8& Pos8::operator()(const PosA4& add_pos) { *this = Pos8(add_pos); return *this; }
 	inline const Pos8& Pos8::operator()(const Pos2& add_pos) { *this = Pos8(add_pos); return *this; }
-	//—”
+	//ä¹±æ•°
 	inline const PosA4 & PosA4::rand(const Pos2& add_pos) { *this = PosA4(add_pos); return *this; }
-	//‰ñ“]
+	//å›è»¢
 	inline Pos8::Pos8(const Pos4& p_, const double r_) {
 		//todo
 	}
 	inline const Pos8 Pos8::rotation3D(const Pos4& p_, const double r_) {
 		constexpr double pos_pi = 3.141592653589793238462643383279502884197;
-		//’†SˆÊ’u‚©‚ç‚Ì•
+		//ä¸­å¿ƒä½ç½®ã‹ã‚‰ã®å¹…
 		const pos_int size_y = pos_int(fabs((p_.y2 - p_.y1) / 2.0));
 		const pos_int size_x = pos_int(fabs((p_.x2 - p_.x1) / 2.0));
-		//’†SˆÊ’u‚©‚ç‚Ì”¼Œa
+		//ä¸­å¿ƒä½ç½®ã‹ã‚‰ã®åŠå¾„
 		const double size_r = sqrt(size_y * size_y + size_x * size_x);
-		//ˆÊ’u‚ÌŠp“x
+		//ä½ç½®ã®è§’åº¦
 		const double pos_r = r_ + atan2(size_y, size_x);
-		//’†SˆÊ’u
+		//ä¸­å¿ƒä½ç½®
 		const pos_int pos_x = size_x + p_.x1;
 		const pos_int pos_y = size_y + p_.y1;
 		this->x1 = pos_x + pos_int(round(size_r*cos(pos_r + pos_pi)));
@@ -1035,7 +1035,7 @@ namespace AsLib
 		return *this;
 	}
 	//--------------------------------------------------------
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	//--------------------------------------------------------
 	//Pos2F
 	inline constexpr Pos2F::Pos2F(const Pos2F& pos_) :x(pos_.x), y(pos_.y) {}
@@ -1093,7 +1093,7 @@ namespace AsLib
 	inline constexpr Pos8F::Pos8F(const PosA4& pos_) : x1(pos_float(pos_.x - (pos_.w / 2))), y1(pos_float(pos_.y - (pos_.h / 2))), x2(pos_float(pos_.x + (pos_.w / 2))), y2(pos_float(pos_.y - (pos_.h / 2))), x3(pos_float(pos_.x - (pos_.w / 2))), y3(pos_float(pos_.y + (pos_.h / 2))), x4(pos_float(pos_.x + (pos_.w / 2))), y4(pos_float(pos_.y + (pos_.h / 2))) {}
 	inline constexpr Pos8F::Pos8F(const Pos8& pos_) : x1(pos_float(pos_.x1)), y1(pos_float(pos_.y1)), x2(pos_float(pos_.x2)), y2(pos_float(pos_.y2)), x3(pos_float(pos_.x3)), y3(pos_float(pos_.y3)), x4(pos_float(pos_.x4)), y4(pos_float(pos_.y4)) {}
 	//--------------------------------------------------------
-	//ƒLƒƒƒXƒg
+	//ã‚­ãƒ£ã‚¹ãƒˆ
 	//--------------------------------------------------------
 	//Pos2F
 	inline Pos2F::operator Pos4F() { return Pos4F(*this); }
@@ -1121,7 +1121,7 @@ namespace AsLib
 	inline Pos8F::operator PosL4F() { return PosL4F(*this); }
 	inline Pos8F::operator PosA4F() { return PosA4F(*this); }
 	//--------------------------------------------------------
-	//‘ã“ü
+	//ä»£å…¥
 	//--------------------------------------------------------
 	//Pos2F
 	inline const Pos2F & Pos2F::operator=(const Pos4F & add_pos) { *this = Pos2F(add_pos); return *this; }
@@ -1148,7 +1148,7 @@ namespace AsLib
 	inline const Pos8F& Pos8F::operator=(const PosA4F& add_pos) { *this = Pos8F(add_pos); return *this; }
 	inline const Pos8F& Pos8F::operator=(const Pos2F& add_pos) { *this = Pos8F(add_pos); return *this; }
 	//--------------------------------------------------------
-	//Š‡ŒÊ‘ã“ü
+	//æ‹¬å¼§ä»£å…¥
 	//--------------------------------------------------------
 	//Pos2F
 	inline const Pos2F & Pos2F::operator()(const Pos4F & add_pos) { *this = Pos2F(add_pos); return *this; }
@@ -1175,7 +1175,7 @@ namespace AsLib
 	inline const Pos8F& Pos8F::operator()(const PosA4F& add_pos) { *this = Pos8F(add_pos); return *this; }
 	inline const Pos8F& Pos8F::operator()(const Pos2F& add_pos) { *this = Pos8F(add_pos); return *this; }
 	//--------------------------------------------------------
-	//Œ^•ÏŠ·
+	//å‹å¤‰æ›
 	//--------------------------------------------------------
 	//Pos2
 	inline const Pos2 Pos2::convPos2() const { return *this; }
@@ -1288,7 +1288,7 @@ namespace AsLib
 	inline const PosA4F Pos8F::convPosA4F() const { return *this; }
 	inline const Pos8F Pos8F::convPos8F() const { return *this; }
 	//--------------------------------------------------------
-	//‚»‚Ì‘¼AˆÊ’uŠÖ˜A‚ÌŠÖ”
+	//ãã®ä»–ã€ä½ç½®é–¢é€£ã®é–¢æ•°
 	//--------------------------------------------------------
 	inline void asRand(Pos2& p_) { p_.x = asRand(); p_.y = asRand(); }
 	inline void asRand(Pos2F& p_) { p_.x = pos_float(asRand()); p_.y = pos_float(asRand()); }
@@ -1385,7 +1385,7 @@ namespace AsLib
 		Pos8A2& operator()(const Pos8& p1_, Pos8& p2_) { this->p1 = p1_; this->p2 = p2_; return *this; }
 	};
 
-	//ˆÊ’u‚ğŒˆ‚ß‚é
+	//ä½ç½®ã‚’æ±ºã‚ã‚‹
 	struct AsPosFArray {
 	private:
 		PosL4F pos;

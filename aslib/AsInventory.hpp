@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -11,7 +11,7 @@
 
 namespace AsLib
 {
-	//ƒAƒCƒeƒ€ƒf[ƒ^‚ğŠÇ—‚·‚é
+	//ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿ã‚’ç®¡ç†ã™ã‚‹
 	struct Item {
 		size_t type{};
 		AsTexture* texture{ nullptr };
@@ -30,15 +30,15 @@ namespace AsLib
 		UniqueItem() = default;
 		constexpr UniqueItem(const size_t item_, const size_t stack_) :item(item_), stack(stack_) {}
 
-		//ƒ\[ƒg—p
+		//ã‚½ãƒ¼ãƒˆç”¨
 		bool operator<(const UniqueItem& right_) const noexcept { return item == right_.item ? stack < right_.stack : item < right_.item; }
 		bool operator>(const UniqueItem& left_) const noexcept { return item == left_.item ? stack > left_.stack : item > left_.item; }
 	};
 
 	constexpr UniqueItem aslib_unique_item_init;
 
-	//‚Á‚Ä‚¢‚éƒAƒCƒeƒ€‚Ìƒf[ƒ^‚ğŠÇ—‚·‚é
-	//size‚ªû”[‰Â”\Å‘åƒTƒCƒY
+	//æŒã£ã¦ã„ã‚‹ã‚¢ã‚¤ãƒ†ãƒ ã®ãƒ‡ãƒ¼ã‚¿ã‚’ç®¡ç†ã™ã‚‹
+	//sizeãŒåç´å¯èƒ½æœ€å¤§ã‚µã‚¤ã‚º
 	struct ShareItem {
 		std::vector<UniqueItem> unique{};
 
@@ -91,7 +91,7 @@ namespace AsLib
 			unique[id_].stack = item_.stack;
 			return *this;
 		}
-		//V‚µ‚¢ƒAƒCƒeƒ€‚ğ’Ç‰Á‚·‚é
+		//æ–°ã—ã„ã‚¢ã‚¤ãƒ†ãƒ ã‚’è¿½åŠ ã™ã‚‹
 		UniqueItem add(const size_t item_, const size_t stack_,const size_t max_) noexcept {
 			size_t add_stack{ stack_ };
 			size_t s{};
@@ -114,7 +114,7 @@ namespace AsLib
 		}
 		UniqueItem add(const UniqueItem& item_, const size_t max_) noexcept { return add(item_.item, item_.stack, max_); }
 
-		//’†g‚ğÁ‹‚·‚é
+		//ä¸­èº«ã‚’æ¶ˆå»ã™ã‚‹
 		UniqueItem clear(const size_t id_) noexcept {
 			if (id_ >= unique.size()) return aslib_unique_item_init;
 			const UniqueItem unique_item(unique[id_].item, unique[id_].stack);
@@ -123,7 +123,7 @@ namespace AsLib
 			return unique_item;
 		}
 	};
-	//ƒCƒ“ƒxƒ“ƒgƒŠ‹@”\‚ğŠÇ—‚·‚é
+	//ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªæ©Ÿèƒ½ã‚’ç®¡ç†ã™ã‚‹
 	struct Inventory {
 		AsTexture* frame{ nullptr };
 		AsTexture* select_frame_texture{ nullptr };

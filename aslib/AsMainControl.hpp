@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -11,21 +11,21 @@
 
 namespace AsLib
 {
-	//ƒƒCƒ“ŠÇ—ƒNƒ‰ƒX
+	//ãƒ¡ã‚¤ãƒ³ç®¡ç†ã‚¯ãƒ©ã‚¹
 	class MainControl
 	{
 	private:
 		int32_t init_true{ false };
-		//ƒEƒBƒ“ƒhƒEƒTƒCƒY
+		//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚º
 		Pos2 window_size;
-		//”wŒiF
+		//èƒŒæ™¯è‰²
 		Color color;
-		//ƒ^ƒCƒgƒ‹
+		//ã‚¿ã‚¤ãƒˆãƒ«
 		std::string title_name;
 	public:
 		MainControl(const char* const title_=u8"AsLib", const Pos2& window_size_ = aslib_default_window_size, const Color& c_ = aslib_bg_color) :window_size(asWindowSizeSave(true,window_size_)), color(c_), title_name(title_)
 		{
-			//OF—áŠO‘[’u
+			//OFä¾‹å¤–æªç½®
 #if defined(ASLIB_INCLUDE_OF)
 			asWindowSizeSave(true, window_size);
 			ofSetupOpenGL(window_size_.x, window_size_.y, OF_WINDOW);

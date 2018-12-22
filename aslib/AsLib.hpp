@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -17,11 +17,11 @@
 #pragma once
 #include <cstdint>
 
-//AsLibƒo[ƒWƒ‡ƒ“
+//AsLibãƒãƒ¼ã‚¸ãƒ§ãƒ³
 constexpr int32_t ASLIB_VERSION = 0x0400;
 const char* const ASLIB_VERSION_STR = "0.4.0.0 Alpha";
 
-//AsLibƒo[ƒWƒ‡ƒ“ (UTF)
+//AsLibãƒãƒ¼ã‚¸ãƒ§ãƒ³ (UTF)
 const char* const ASLIB_VERSION_STR8 = u8"0.4.0.0 Alpha";
 const char16_t* const ASLIB_VERSION_STR16 = u"0.4.0.0 Alpha";
 const char32_t* const ASLIB_VERSION_STR32 = U"0.4.0.0 Alpha";
@@ -34,7 +34,7 @@ enum:size_t{
 
 int32_t asMain();
 namespace AsLib { int32_t asEnd() noexcept; }
-//‘¼ƒ‰ƒCƒuƒ‰ƒŠƒCƒ“ƒNƒ‹[ƒh
+//ä»–ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 #if defined(__DXLIB)
 #if !defined(ASLIB_INCLUDE_DL)
 #defined ASLIB_INCLUDE_DL
@@ -61,7 +61,7 @@ int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int 
 #if defined(__WINDOWS__)
 #include <Windows.h>
 int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int i = int(asMain()); AsLib::asEnd(); return i; }
-//ƒvƒ‰ƒbƒgƒtƒH[ƒ€
+//ãƒ—ãƒ©ãƒƒãƒˆãƒ•ã‚©ãƒ¼ãƒ 
 #if !defined(AS_PLATFORM_WINDOWS)
 #define AS_PLATFORM_WINDOWS
 #endif
@@ -86,7 +86,7 @@ const float abs(const float f_) { return (f_ < 0.0f) ? -f_ : f_; }
 #define UINT64_MAX       0xffffffffffffffff
 #endif
 int android_main() { const int i = int(asMain()); AsLib::asEnd(); return i; }
-//ƒvƒ‰ƒbƒgƒtƒH[ƒ€
+//ãƒ—ãƒ©ãƒƒãƒˆãƒ•ã‚©ãƒ¼ãƒ 
 #if !defined(AS_PLATFORM_ANDROID)
 #define AS_PLATFORM_ANDROID
 #endif
@@ -130,10 +130,10 @@ int main() { return int(asMain()); }
 #define __MAIN_H__
 	//Exclude rarely-used stuff from Windows headers
 #define WIN32_LEAN_AND_MEAN
-	//Windowsƒwƒbƒ_[ƒtƒ@ƒCƒ‹
+	//Windowsãƒ˜ãƒƒãƒ€ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«
 #include <windows.h>
 #include <tchar.h>
-	// C RunTimeƒwƒbƒ_[ƒtƒ@ƒCƒ‹
+	// C RunTimeãƒ˜ãƒƒãƒ€ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«
 #include "platform/CCStdC.h"
 #endif//__MAIN_H__
 	USING_NS_CC;
@@ -157,11 +157,11 @@ int main() { return int(asMain()); }
 int main() { return int(asMain() && AsLib::asEnd()); }
 #define ANIME_TEXTURE_3
 #endif
-//#elif defined\(ASLIB_INCLUDE_T‚ P\)
-//#elif defined(ASLIB_INCLUDE_C2)\nreturn 0;\n#elif defined(ASLIB_INCLUDE_T‚ P)
+//#elif defined\(ASLIB_INCLUDE_Tã‚P\)
+//#elif defined(ASLIB_INCLUDE_C2)\nreturn 0;\n#elif defined(ASLIB_INCLUDE_Tã‚P)
 
 //--------------------------------------------------
-//Šî–{ƒCƒ“ƒNƒ‹[ƒh
+//åŸºæœ¬ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //--------------------------------------------------
 #include <cmath>
 #include <ctime>
@@ -177,115 +177,115 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 #include <sstream>
 
 //--------------------------------------------------
-//ŒÂ•ÊƒCƒ“ƒNƒ‹[ƒh
+//å€‹åˆ¥ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //--------------------------------------------------
 
-//Šî–{•Ï”Œ^ (T)
+//åŸºæœ¬å¤‰æ•°å‹ (T)
 #include "AsType.hpp"
 
-//ƒ‰ƒCƒZƒ“ƒX (T)
+//ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ (T)
 #include "AsLicense.hpp"
 
-//—”Œn(All) (N)
+//ä¹±æ•°ç³»(All) (N)
 #include "AsRand.hpp"
 
-//F\‘¢‘Ì(All) (N)
+//è‰²æ§‹é€ ä½“(All) (N)
 #include "AsColor.hpp"
 
-//Šî–{\‘¢‘Ì(All) (N)
+//åŸºæœ¬æ§‹é€ ä½“(All) (N)
 #include "AsPos.hpp"
 
-//Šî–{“I‚È’è”éŒ¾(All) (N)
+//åŸºæœ¬çš„ãªå®šæ•°å®£è¨€(All) (N)
 #include "AsConst.hpp"
 
-//•`‰æŠÇ—
+//æç”»ç®¡ç†
 #include "AsDraw.hpp"
 
 //Base64
 #include "AsBase64.hpp"
 
-//ƒNƒŠƒbƒvƒ{[ƒh
+//ã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰
 #include "AsClipboard.hpp"
 
-//ƒ^ƒbƒ`ƒJƒEƒ“ƒg(All) (N)
+//ã‚¿ãƒƒãƒã‚«ã‚¦ãƒ³ãƒˆ(All) (N)
 #include "AsCounter.hpp"
 
 //
 #include "AsEffect.hpp"
 
-//Šî–{ƒtƒ@ƒCƒ‹“Ç‚İ‘‚«(DL/S3/NO/All) (N)
+//åŸºæœ¬ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿æ›¸ã(DL/S3/NO/All) (N)
 #include "AsFile.hpp"
 
-//Šî–{Œn(DL/S3) (T)
+//åŸºæœ¬ç³»(DL/S3) (T)
 #include "AsStd.hpp"
 
-//ƒXƒNƒŠ[ƒ“
+//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³
 #include "AsScreen.hpp"
 
-//ƒ^ƒbƒ`Œn(DL/S3?) (T)
+//ã‚¿ãƒƒãƒç³»(DL/S3?) (T)
 #include "AsTouch.hpp"
 
-//ƒL[ƒ{[ƒh (T)
+//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ (T)
 #include "AsKey.hpp"
 
-//ƒ}ƒEƒX (T)
+//ãƒã‚¦ã‚¹ (T)
 #include "AsMouse.hpp"
 
 //UTF (N)
 #include "AsUTF.hpp"
 
-//‹——£ (T)
+//è·é›¢ (T)
 #include "AsDistance.hpp"
 
-//lŠpŒ` (T)
+//å››è§’å½¢ (T)
 #include "AsRect.hpp"
 
-//‰¹
+//éŸ³
 #include "AsSound.hpp"
 
-//ƒtƒHƒ“ƒg (T)
+//ãƒ•ã‚©ãƒ³ãƒˆ (T)
 #include "AsFont.hpp"
 
-//ƒeƒNƒXƒ`ƒƒ
+//ãƒ†ã‚¯ã‚¹ãƒãƒ£
 #include "AsTexture.hpp"
 
-//ƒ{ƒ^ƒ“
+//ãƒœã‚¿ãƒ³
 #include "AsButton.hpp"
 
-//‰ï˜bŠÖ˜A
+//ä¼šè©±é–¢é€£
 #include "AsTolk.hpp"
 
-//ƒCƒ“ƒxƒ“ƒgƒŠ
+//ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒª
 #include "AsInventory.hpp"
 
-//ƒƒCƒ“ƒ‹[ƒv(DL/S3/NO) (T)
+//ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—(DL/S3/NO) (T)
 #include "AsLoop.hpp"
 
-//ƒtƒ@ƒCƒ‹“Ç‚İ‘‚«(All) (N)
+//ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿æ›¸ã(All) (N)
 #include "AsAsFile.hpp"
 
-//ˆê’â~(DL/S3?/NO) (T)
+//ä¸€æ™‚åœæ­¢(DL/S3?/NO) (T)
 #include "AsStop.hpp"
 
-//ƒL[ƒ{[ƒh“ü—Í (T)
+//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰å…¥åŠ› (T)
 #include "AsKeyInput.hpp"
 
-//ƒQ[ƒ€ƒpƒbƒh (T)
+//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ (T)
 #include "AsGamePad.hpp"
 
-//–À˜HƒAƒ‹ƒSƒŠƒYƒ€
+//è¿·è·¯ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ 
 #include "AsMaze.hpp"
 
-//ƒ}ƒbƒvƒtƒ@ƒCƒ‹
+//ãƒãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«
 #include "AsMapFile.hpp"
 
-//‹óŠÔ‚ğˆµ‚¤(All) (N)
+//ç©ºé–“ã‚’æ‰±ã†(All) (N)
 #include "AsMap.hpp"
 
-//‰~•`‰æ (T)
+//å††æç”» (T)
 #include "AsCircle.hpp"
 
-//“dŒ¹ (T)
+//é›»æº (T)
 #include "AsBattery.hpp"
 
 //Wi-Fi (T)
@@ -294,16 +294,16 @@ int main() { return int(asMain() && AsLib::asEnd()); }
 //SNS (T)
 #include "AsSNS.hpp"
 
-//ƒƒCƒ“ŠÇ— (N)
+//ãƒ¡ã‚¤ãƒ³ç®¡ç† (N)
 #include "AsMainControl.hpp"
 
-//‹¤‘¶ƒ‰ƒCƒuƒ‰ƒŠ----------------------------------------
+//å…±å­˜ãƒ©ã‚¤ãƒ–ãƒ©ãƒª----------------------------------------
 
 #include "AsDL.hpp"
 
 #include "AsUsing.hpp"
 
-//namespaceg—p
+//namespaceä½¿ç”¨
 #ifndef AS_NON_USING_NAMESPACE
 using namespace AsLib;
 #endif

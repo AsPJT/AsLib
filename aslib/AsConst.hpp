@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -19,31 +19,31 @@ namespace AsLib
 		return (area_.x1 > p_.x || area_.y1 > p_.y || area_.x2 < p_.x || area_.y2 < p_.y) ? false : true;
 	}
 
-	//ƒfƒtƒHƒ‹ƒg”wŒiF
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆèƒŒæ™¯è‰²
 	constexpr uint8_t aslib_bg_color_r{ 230 };
 	constexpr uint8_t aslib_bg_color_g{ 230 };
 	constexpr uint8_t aslib_bg_color_b{ 230 };
 	constexpr ColorRGB aslib_bg_color(aslib_bg_color_r, aslib_bg_color_g, aslib_bg_color_b);
 	constexpr ColorRGB defaultColorBG() noexcept { return aslib_bg_color; }
 
-	//ƒfƒtƒHƒ‹ƒgƒEƒBƒ“ƒhƒEƒTƒCƒY
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚º
 	constexpr int32_t aslib_default_window_size_x{ 360 };
 	constexpr int32_t aslib_default_window_size_y{ 640 };
 	constexpr Pos2 aslib_default_window_size(aslib_default_window_size_x, aslib_default_window_size_y);
 	constexpr Pos2 defaultWindowSize() noexcept { return aslib_default_window_size; }
 
 
-	//F
+	//è‰²
 	constexpr ColorRGB aslib_color_white(250, 250, 250);
 	constexpr Color aslib_color_white_a(250, 250, 250, 255);
 
 	constexpr ColorRGB aslib_color_black(0, 0, 0);
 	constexpr Color aslib_color_black_a(0, 0, 0, 255);
 
-	//ƒtƒ‹ƒXƒNƒŠ[ƒ“
+	//ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³
 	constexpr Pos2 aslib_full_screen_pos(-1, -1);
 
-	//Œ´“_ˆÊ’u
+	//åŸç‚¹ä½ç½®
 	constexpr Pos2 pos2_0(0, 0);
 	constexpr Pos4 pos4_0(0, 0, 0, 0);
 	constexpr Pos2F pos2R_0(0.0f, 0.0f);
@@ -54,11 +54,11 @@ namespace AsLib
 	constexpr Pos8 pos8_100(0, 0, 100, 0, 0, 100, 100, 100);
 
 
-	//‘S‘I‘ğ
+	//å…¨é¸æŠ
 	constexpr Pos2F pos2R_all(1.0f, 1.0f);
 	constexpr Pos4F pos4R_all(0.0f, 0.0f, 1.0f, 1.0f);
 
-	//–³F
+	//ç„¡è‰²
 	constexpr Color color_0(0, 0, 0, 0);
 	constexpr ColorRGB colorRGB_0(0, 0, 0);
 	constexpr Color colorRGBA_0(0, 0, 0, 0);

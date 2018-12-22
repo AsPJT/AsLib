@@ -1,4 +1,4 @@
-//    ----------     ----------     ----------     ----------     ----------
+ï»¿//    ----------     ----------     ----------     ----------     ----------
 //
 //                             AsLib - AsProject Library
 //
@@ -64,7 +64,7 @@ constexpr int DEFAULT_FONT_EDGESIZE = 1;
 
 constexpr int MAX_USERIMAGEREAD_FUNCNUM = 10;
 
-	//‚v‚h‚m‚c‚n‚v‚r‚Ìƒo[ƒWƒ‡ƒ“ƒ}ƒNƒ
+	//ï¼·ï¼©ï¼®ï¼¤ï¼¯ï¼·ï¼³ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ãƒã‚¯ãƒ­
 constexpr int DX_WINDOWSVERSION_31 = 0x000;
 constexpr int DX_WINDOWSVERSION_95 = 0x001;
 constexpr int DX_WINDOWSVERSION_98 = 0x002;
@@ -80,7 +80,7 @@ constexpr int DX_WINDOWSVERSION_8_1 = 0x10B;
 constexpr int DX_WINDOWSVERSION_10 = 0x10C;
 constexpr int DX_WINDOWSVERSION_NT_TYPE = 0x100;
 
-	//DirectX‚Ìƒo[ƒWƒ‡ƒ“
+	//DirectXã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 constexpr int DX_DIRECTXVERSION_NON = 0;
 constexpr int DX_DIRECTXVERSION_1 = 0x10000;
 constexpr int DX_DIRECTXVERSION_2 = 0x20000;
@@ -93,7 +93,7 @@ constexpr int DX_DIRECTXVERSION_7 = 0x70000;
 constexpr int DX_DIRECTXVERSION_8 = 0x80000;
 constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 
-	//Direct3D‚Ìƒo[ƒWƒ‡ƒ“
+	//Direct3Dã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 	enum :int {
 		DX_DIRECT3D_NONE,
 		DX_DIRECT3D_9,
@@ -101,7 +101,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_DIRECT3D_11,
 	};
 
-	//Direct3D11 ‚Ì Feature Level
+	//Direct3D11 ã® Feature Level
 	constexpr int DX_DIRECT3D_11_FEATURE_LEVEL_9_1 = 0x9100;
 	constexpr int DX_DIRECT3D_11_FEATURE_LEVEL_9_2 = 0x9200;
 	constexpr int DX_DIRECT3D_11_FEATURE_LEVEL_9_3 = 0x9300;
@@ -110,7 +110,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int DX_DIRECT3D_11_FEATURE_LEVEL_11_0 = 0xb000;
 	constexpr int DX_DIRECT3D_11_FEATURE_LEVEL_11_1 = 0xb100;
 
-	//•¶šƒZƒbƒg
+	//æ–‡å­—ã‚»ãƒƒãƒˆ
 	enum :int {
 		DX_CHARSET_DEFAULT,
 		DX_CHARSET_SHFTJIS,
@@ -123,7 +123,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_CHARSET_NUM,
 	};
 
-	//•¶šƒR[ƒhŒ`®
+	//æ–‡å­—ã‚³ãƒ¼ãƒ‰å½¢å¼
 	constexpr int DX_CHARCODEFORMAT_SHIFTJIS = 932;
 	constexpr int DX_CHARCODEFORMAT_GB2312 = 936;
 	constexpr int DX_CHARCODEFORMAT_UHC = 949;
@@ -137,7 +137,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int DX_CHARCODEFORMAT_UTF32LE = 32766;
 	constexpr int DX_CHARCODEFORMAT_UTF32BE = 32767;
 
-	//‚l‚h‚c‚h‚Ì‰‰‘tƒ‚[ƒh’è‹`
+	//ï¼­ï¼©ï¼¤ï¼©ã®æ¼”å¥ãƒ¢ãƒ¼ãƒ‰å®šç¾©
 	enum :int {
 		DX_MIDIMODE_MCI,
 		DX_MIDIMODE_DM,
@@ -146,7 +146,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_MIDIMODE_NUM,
 	};
 
-	//•`‰æƒ‚[ƒh’è‹`
+	//æç”»ãƒ¢ãƒ¼ãƒ‰å®šç¾©
 	enum :int {
 		DX_DRAWMODE_NEAREST,
 		DX_DRAWMODE_BILINEAR,
@@ -155,7 +155,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_DRAWMODE_NUM,
 	};
 
-	//ƒtƒHƒ“ƒg‚Ìƒ^ƒCƒv
+	//ãƒ•ã‚©ãƒ³ãƒˆã®ã‚¿ã‚¤ãƒ—
 	constexpr int DX_FONTTYPE_NORMAL = 0x00;
 	constexpr int DX_FONTTYPE_EDGE = 0x01;
 	constexpr int DX_FONTTYPE_ANTIALIASING = 0x02;
@@ -167,21 +167,21 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 
 	constexpr int DEFAULT_FONT_TYPE = DX_FONTTYPE_NORMAL;
 
-	//ƒtƒHƒ“ƒg‰æ‘œ‚ÌŠK’²ƒrƒbƒg”
+	//ãƒ•ã‚©ãƒ³ãƒˆç”»åƒã®éšèª¿ãƒ“ãƒƒãƒˆæ•°
 	enum :int {
 		DX_FONTIMAGE_BIT_1,
 		DX_FONTIMAGE_BIT_4,
 		DX_FONTIMAGE_BIT_8,
 	};
 
-	//•`‰æƒuƒŒƒ“ƒhƒ‚[ƒh’è‹`
+	//æç”»ãƒ–ãƒ¬ãƒ³ãƒ‰ãƒ¢ãƒ¼ãƒ‰å®šç¾©
 	enum :int {
 		DX_BLENDMODE_NOBLEND,
 		DX_BLENDMODE_ALPHA,
 		DX_BLENDMODE_ADD,
 		DX_BLENDMODE_SUB,
 		DX_BLENDMODE_MUL,
-		//(“à•”ˆ——p)
+		//(å†…éƒ¨å‡¦ç†ç”¨)
 		DX_BLENDMODE_SUB2,
 		DX_BLENDMODE_XOR,
 		DX_BLENDMODE_BLINEALPHA,//
@@ -203,13 +203,13 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_BLENDMODE_NUM,
 	};
 
-	//DrawGraphF “™‚Ì•‚“®¬”“_’l‚ÅÀ•W‚ğw’è‚·‚éŠÖ”‚É‚¨‚¯‚éÀ•Wƒ^ƒCƒv
+	//DrawGraphF ç­‰ã®æµ®å‹•å°æ•°ç‚¹å€¤ã§åº§æ¨™ã‚’æŒ‡å®šã™ã‚‹é–¢æ•°ã«ãŠã‘ã‚‹åº§æ¨™ã‚¿ã‚¤ãƒ—
 	enum :int {
 		DX_DRAWFLOATCOORDTYPE_DIRECT3D9,
 		DX_DRAWFLOATCOORDTYPE_DIRECT3D10,
 	};
 
-	//‰æ‘œ‡¬ƒ^ƒCƒv
+	//ç”»åƒåˆæˆã‚¿ã‚¤ãƒ—
 	enum :int {
 		DX_BLENDGRAPHTYPE_NORMAL,
 		DX_BLENDGRAPHTYPE_WIPE,
@@ -217,14 +217,14 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_BLENDGRAPHTYPE_NUM,
 	};
 
-	//‰æ‘œ‡¬À•Wƒ^ƒCƒv
+	//ç”»åƒåˆæˆåº§æ¨™ã‚¿ã‚¤ãƒ—
 	enum :int {
 		DX_BLENDGRAPH_POSMODE_DRAWGRAPH,
 		DX_BLENDGRAPH_POSMODE_SCREEN,
 		DX_BLENDGRAPH_POSMODE_NUM,
 	};
 
-	//ƒOƒ‰ƒtƒBƒbƒNƒtƒBƒ‹ƒ^[ƒ^ƒCƒv
+	//ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ã‚¿ã‚¤ãƒ—
 	enum :int {
 		DX_GRAPH_FILTER_MONO,
 		DX_GRAPH_FILTER_GAUSS,
@@ -254,7 +254,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_GRAPH_FILTER_NUM,
 	};
 
-	//ƒOƒ‰ƒtƒBƒbƒNƒuƒŒƒ“ƒhƒ^ƒCƒv
+	//ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ãƒ–ãƒ¬ãƒ³ãƒ‰ã‚¿ã‚¤ãƒ—
 	enum :int {
 		DX_GRAPH_BLEND_NORMAL,
 		DX_GRAPH_BLEND_RGBA_SELECT_MIX,
@@ -293,7 +293,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_GRAPH_BLEND_NUM,
 	};
 
-	//DX_GRAPH_BLEND_RGBA_SELECT_MIX —p‚ÌF‘I‘ğ—p’è‹`
+	//DX_GRAPH_BLEND_RGBA_SELECT_MIX ç”¨ã®è‰²é¸æŠç”¨å®šç¾©
 	enum :int {
 		DX_RGBA_SELECT_SRC_R,
 		DX_RGBA_SELECT_SRC_G,
@@ -305,11 +305,11 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_RGBA_SELECT_BLEND_A,
 	};
 
-	//ƒtƒBƒ‹ƒ‚[ƒh
+	//ãƒ•ã‚£ãƒ«ãƒ¢ãƒ¼ãƒ‰
 	constexpr int DX_FILL_WIREFRAME=2;
 	constexpr int DX_FILL_SOLID=3;
 
-	//ƒ|ƒŠƒSƒ“ƒJƒŠƒ“ƒOƒ‚[ƒh
+	//ãƒãƒªã‚´ãƒ³ã‚«ãƒªãƒ³ã‚°ãƒ¢ãƒ¼ãƒ‰
 	enum :int {
 		DX_CULLING_NONE,
 		DX_CULLING_LEFT,
@@ -317,7 +317,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_CULLING_NUM,
 	};
 
-	//ƒNƒŠƒbƒsƒ“ƒO•ûŒü
+	//ã‚¯ãƒªãƒƒãƒ”ãƒ³ã‚°æ–¹å‘
 	constexpr int DX_CAMERACLIP_LEFT=0x01;
 	constexpr int DX_CAMERACLIP_RIGHT=0x02;
 	constexpr int DX_CAMERACLIP_BOTTOM=0x04;
@@ -325,7 +325,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int DX_CAMERACLIP_BACK=0x10;
 	constexpr int DX_CAMERACLIP_FRONT=0x20;
 
-	//MV1ƒ‚ƒfƒ‹‚Ì’¸“_ƒ^ƒCƒv
+	//MV1ãƒ¢ãƒ‡ãƒ«ã®é ‚ç‚¹ã‚¿ã‚¤ãƒ—
 	enum :int {
 		DX_MV1_VERTEX_TYPE_1FRAME,
 		DX_MV1_VERTEX_TYPE_4FRAME,
@@ -338,7 +338,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_MV1_VERTEX_TYPE_NUM,
 	};
 
-	//ƒƒbƒVƒ…‚Ìí—Ş
+	//ãƒ¡ãƒƒã‚·ãƒ¥ã®ç¨®é¡
 	enum :int {
 		DX_MV1_MESHCATEGORY_NORMAL,
 		DX_MV1_MESHCATEGORY_OUTLINE,
@@ -346,12 +346,12 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_MV1_MESHCATEGORY_NUM,
 	};
 
-	//MV1ƒtƒ@ƒCƒ‹‚Ì•Û‘¶ƒ^ƒCƒv
+	//MV1ãƒ•ã‚¡ã‚¤ãƒ«ã®ä¿å­˜ã‚¿ã‚¤ãƒ—
 	constexpr int MV1_SAVETYPE_MESH=0x0001;
 	constexpr int MV1_SAVETYPE_ANIM=0x0002;
 	constexpr int MV1_SAVETYPE_NORMAL=(MV1_SAVETYPE_MESH | MV1_SAVETYPE_ANIM);
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“ƒL[ƒf[ƒ^ƒ^ƒCƒv
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚­ãƒ¼ãƒ‡ãƒ¼ã‚¿ã‚¿ã‚¤ãƒ—
 	constexpr int MV1_ANIMKEY_DATATYPE_ROTATE = 0;
 	constexpr int MV1_ANIMKEY_DATATYPE_ROTATE_X = 1;
 	constexpr int MV1_ANIMKEY_DATATYPE_ROTATE_Y = 2;
@@ -369,13 +369,13 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int MV1_ANIMKEY_DATATYPE_SHAPE = 18;
 	constexpr int MV1_ANIMKEY_DATATYPE_OTHRE = 20;
 
-	//ƒ^ƒCƒ€ƒ^ƒCƒv
+	//ã‚¿ã‚¤ãƒ ã‚¿ã‚¤ãƒ—
 	enum :int {
 		MV1_ANIMKEY_TIME_TYPE_ONE,
 		MV1_ANIMKEY_TIME_TYPE_KEY,
 	};
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“ƒL[ƒ^ƒCƒv
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚­ãƒ¼ã‚¿ã‚¤ãƒ—
 	enum :int {
 		MV1_ANIMKEY_TYPE_QUATERNION_X,
 		MV1_ANIMKEY_TYPE_VECTOR,
@@ -387,7 +387,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		MV1_ANIMKEY_TYPE_QUATERNION_VMD,
 	};
 
-	//•`‰ææ‰æ–Êw’è—p’è‹`
+	//æç”»å…ˆç”»é¢æŒ‡å®šç”¨å®šç¾©
 	constexpr int DX_SCREEN_FRONT = 0xfffffffc;
 	constexpr int DX_SCREEN_BACK = 0xfffffffe;
 	constexpr int DX_SCREEN_WORK = 0xfffffffd;
@@ -395,14 +395,14 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int DX_SCREEN_OTHER = 0xfffffffa;
 	constexpr int DX_NONE_GRAPH = 0xfffffffb;
 
-	//ƒOƒ‰ƒtƒBƒbƒNŒ¸F‚Ì‰æ‘œ—ò‰»ŠÉ˜aˆ—ƒ‚[ƒh
+	//ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯æ¸›è‰²æ™‚ã®ç”»åƒåŠ£åŒ–ç·©å’Œå‡¦ç†ãƒ¢ãƒ¼ãƒ‰
 	enum :int {
 		DX_SHAVEDMODE_NONE,
 		DX_SHAVEDMODE_DITHER,
 		DX_SHAVEDMODE_DIFFUS,
 	};
 
-	//‰æ‘œ‚Ì•Û‘¶ƒ^ƒCƒv
+	//ç”»åƒã®ä¿å­˜ã‚¿ã‚¤ãƒ—
 	enum :int {
 		DX_IMAGESAVETYPE_BMP,
 		DX_IMAGESAVETYPE_JPEG,
@@ -410,7 +410,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_IMAGESAVETYPE_DDS,
 	};
 
-	//ƒTƒEƒ“ƒhÄ¶Œ`‘Ôw’è—p’è‹`
+	//ã‚µã‚¦ãƒ³ãƒ‰å†ç”Ÿå½¢æ…‹æŒ‡å®šç”¨å®šç¾©
 	constexpr int DX_PLAYTYPE_LOOPBIT = 0x0002;
 	constexpr int DX_PLAYTYPE_BACKBIT = 0x0001;
 
@@ -418,19 +418,19 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int DX_PLAYTYPE_BACK = DX_PLAYTYPE_BACKBIT;
 	constexpr int DX_PLAYTYPE_LOOP = (DX_PLAYTYPE_LOOPBIT | DX_PLAYTYPE_BACKBIT);
 
-	//“®‰æÄ¶ƒ^ƒCƒv’è‹`
+	//å‹•ç”»å†ç”Ÿã‚¿ã‚¤ãƒ—å®šç¾©
 	enum :int {
 		DX_MOVIEPLAYTYPE_BCANCEL,
 		DX_MOVIEPLAYTYPE_NORMAL,
 	};
 
-	//ƒTƒEƒ“ƒh‚Ìƒ^ƒCƒv
+	//ã‚µã‚¦ãƒ³ãƒ‰ã®ã‚¿ã‚¤ãƒ—
 	enum :int {
 		DX_SOUNDTYPE_NORMAL,
 		DX_SOUNDTYPE_STREAMSTYLE,
 	};
 
-	//ƒTƒEƒ“ƒhƒf[ƒ^ƒ^ƒCƒv‚Ìƒ}ƒNƒ
+	//ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒ¼ã‚¿ã‚¿ã‚¤ãƒ—ã®ãƒã‚¯ãƒ­
 	enum :int {
 		DX_SOUNDDATATYPE_MEMNOPRESS,
 		DX_SOUNDDATATYPE_MEMNOPRESS_PLUS,
@@ -438,13 +438,13 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_SOUNDDATATYPE_FILE,
 	};
 
-	//“Ç‚İ‚İˆ—‚Ìƒ^ƒCƒv
+	//èª­ã¿è¾¼ã¿å‡¦ç†ã®ã‚¿ã‚¤ãƒ—
 	constexpr int DX_READSOUNDFUNCTION_PCM=(1 << 0);
 	constexpr int DX_READSOUNDFUNCTION_OGG=(1 << 1);
 	constexpr int DX_READSOUNDFUNCTION_OPUS=(1 << 2);
 	constexpr int DX_READSOUNDFUNCTION_DEFAULT_NUM=3;
 
-	//‚R‚cƒTƒEƒ“ƒhƒŠƒo[ƒuƒGƒtƒFƒNƒg‚ÌƒvƒŠƒZƒbƒg
+	//ï¼“ï¼¤ã‚µã‚¦ãƒ³ãƒ‰ãƒªãƒãƒ¼ãƒ–ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒ—ãƒªã‚»ãƒƒãƒˆ
 	enum :int {
 		DX_REVERB_PRESET_DEFAULT,
 		DX_REVERB_PRESET_GENERIC,
@@ -479,14 +479,14 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_REVERB_PRESET_NUM,
 	};
 
-	//ƒ}ƒXƒN“§‰ßFƒ‚[ƒh
+	//ãƒã‚¹ã‚¯é€éè‰²ãƒ¢ãƒ¼ãƒ‰
 	enum :int {
 		DX_MASKTRANS_WHITE,
 		DX_MASKTRANS_BLACK,
 		DX_MASKTRANS_NONE,
 	};
 
-	//ƒ}ƒXƒN‰æ‘œƒ`ƒƒƒ“ƒlƒ‹
+	//ãƒã‚¹ã‚¯ç”»åƒãƒãƒ£ãƒ³ãƒãƒ«
 	enum :int {
 		DX_MASKGRAPH_CH_A,
 		DX_MASKGRAPH_CH_R,
@@ -494,13 +494,13 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_MASKGRAPH_CH_B,
 	};
 
-	//‚yƒoƒbƒtƒ@‘‚«‚İƒ‚[ƒh
+	//ï¼ºãƒãƒƒãƒ•ã‚¡æ›¸ãè¾¼ã¿ãƒ¢ãƒ¼ãƒ‰
 	enum :int {
 		DX_ZWRITE_MASK,
 		DX_ZWRITE_CLEAR,
 	};
 
-	//”äŠrƒ‚[ƒh
+	//æ¯”è¼ƒãƒ¢ãƒ¼ãƒ‰
 	enum :int {
 		DX_CMP_NEVER = 1,
 		DX_CMP_LESS,
@@ -514,13 +514,13 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int DX_ZCMP_DEFAULT=DX_CMP_LESSEQUAL;
 	constexpr int DX_ZCMP_REVERSE=DX_CMP_GREATEREQUAL;
 
-	//ƒVƒF[ƒfƒBƒ“ƒOƒ‚[ƒh
+	//ã‚·ã‚§ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ãƒ¢ãƒ¼ãƒ‰
 	enum :int {
 		DX_SHADEMODE_FLAT = 1,
 		DX_SHADEMODE_GOURAUD,
 	};
 
-	//ƒtƒHƒOƒ‚[ƒh
+	//ãƒ•ã‚©ã‚°ãƒ¢ãƒ¼ãƒ‰
 	enum :int {
 		DX_FOGMODE_NONE,
 		DX_FOGMODE_EXP,
@@ -528,7 +528,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_FOGMODE_LINEAR,
 	};
 
-	//ƒ}ƒeƒŠƒAƒ‹ƒ^ƒCƒv
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ã‚¿ã‚¤ãƒ—
 	enum :int {
 		DX_MATERIAL_TYPE_NORMAL,
 		DX_MATERIAL_TYPE_TOON,
@@ -542,7 +542,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_MATERIAL_TYPE_NUM,
 	};
 
-	//ƒ}ƒeƒŠƒAƒ‹ƒuƒŒƒ“ƒhƒ^ƒCƒv
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ãƒ–ãƒ¬ãƒ³ãƒ‰ã‚¿ã‚¤ãƒ—
 	enum :int {
 		DX_MATERIAL_BLENDTYPE_TRANSLUCENT,
 		DX_MATERIAL_BLENDTYPE_ADDITIVE,
@@ -550,7 +550,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_MATERIAL_BLENDTYPE_NONE,
 	};
 
-	//ƒeƒNƒXƒ`ƒƒƒAƒhƒŒƒXƒ^ƒCƒv
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚¿ã‚¤ãƒ—
 	enum :int {
 		DX_TEXADDRESS_WRAP = 1,
 		DX_TEXADDRESS_MIRROR,
@@ -559,7 +559,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_TEXADDRESS_NUM,
 	};
 
-	//ƒVƒF[ƒ_[ƒ^ƒCƒv
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚¿ã‚¤ãƒ—
 	enum :int {
 		DX_SHADERTYPE_VERTEX,
 		DX_SHADERTYPE_PIXEL,
@@ -569,47 +569,47 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_SHADERTYPE_HULL,
 	};
 
-	//’¸“_ƒf[ƒ^ƒ^ƒCƒv
+	//é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã‚¿ã‚¤ãƒ—
 	enum :int {
 		DX_VERTEX_TYPE_NORMAL_3D,
 		DX_VERTEX_TYPE_SHADER_3D,
 		DX_VERTEX_TYPE_NUM,
 	};
 
-	//ƒCƒ“ƒfƒbƒNƒXƒf[ƒ^ƒ^ƒCƒv
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿ã‚¿ã‚¤ãƒ—
 	enum :int {
 		DX_INDEX_TYPE_16BIT,
 		DX_INDEX_TYPE_32BIT,
 	};
 
-	//ƒ‚ƒfƒ‹ƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚Ì•¨—‰‰Zƒ‚[ƒh
+	//ãƒ¢ãƒ‡ãƒ«ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿æ™‚ã®ç‰©ç†æ¼”ç®—ãƒ¢ãƒ¼ãƒ‰
 	enum :int {
 		DX_LOADMODEL_PHYSICS_LOADCALC,
 		DX_LOADMODEL_PHYSICS_DISABLE,
 		DX_LOADMODEL_PHYSICS_REALTIME,
 	};
 
-	//ƒ‚ƒfƒ‹ƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚Ì•¨—‰‰Z–³Œø–¼‘Oƒ[ƒh‚Ìƒ‚[ƒh
+	//ãƒ¢ãƒ‡ãƒ«ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿æ™‚ã®ç‰©ç†æ¼”ç®—ç„¡åŠ¹åå‰ãƒ¯ãƒ¼ãƒ‰ã®ãƒ¢ãƒ¼ãƒ‰
 	enum :int {
 		DX_LOADMODEL_PHYSICS_DISABLENAMEWORD_ALWAYS,
 		DX_LOADMODEL_PHYSICS_DISABLENAMEWORD_DISABLEPHYSICSFILEONLY,
 		DX_LOADMODEL_PHYSICS_DISABLENAMEWORD_NUM,
 	};
 
-	//PMD, PMX ƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚Ì FPS ƒ‚[ƒh( å‚É IK •”•ª‚Ì¸“x‚É‰e‹¿‚µ‚Ü‚· )
+	//PMD, PMX ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿æ™‚ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã® FPS ãƒ¢ãƒ¼ãƒ‰( ä¸»ã« IK éƒ¨åˆ†ã®ç²¾åº¦ã«å½±éŸ¿ã—ã¾ã™ )
 	enum :int {
 		DX_LOADMODEL_PMD_PMX_ANIMATION_FPSMODE_30,
 		DX_LOADMODEL_PMD_PMX_ANIMATION_FPSMODE_60,
 	};
 
-	//ƒ‚ƒfƒ‹‚Ì”¼“§–¾—v‘f‚ª‚ ‚é‰ÓŠ‚ÉŠÖ‚·‚é•`‰æƒ‚[ƒh
+	//ãƒ¢ãƒ‡ãƒ«ã®åŠé€æ˜è¦ç´ ãŒã‚ã‚‹ç®‡æ‰€ã«é–¢ã™ã‚‹æç”»ãƒ¢ãƒ¼ãƒ‰
 	enum :int {
 		DX_SEMITRANSDRAWMODE_ALWAYS,
 		DX_SEMITRANSDRAWMODE_SEMITRANS_ONLY,
 		DX_SEMITRANSDRAWMODE_NOT_SEMITRANS_ONLY,
 	};
 
-	//ƒLƒ…[ƒuƒ}ƒbƒv‚Ì–Ê”Ô†
+	//ã‚­ãƒ¥ãƒ¼ãƒ–ãƒãƒƒãƒ—ã®é¢ç•ªå·
 	enum :int {
 		DX_CUBEMAP_FACE_POSITIVE_X,
 		DX_CUBEMAP_FACE_NEGATIVE_X,
@@ -619,7 +619,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_CUBEMAP_FACE_NEGATIVE_Z,
 	};
 
-	//ƒ|ƒŠƒSƒ“•`‰æƒ^ƒCƒv
+	//ãƒãƒªã‚´ãƒ³æç”»ã‚¿ã‚¤ãƒ—
 	constexpr int DX_PRIMTYPE_POINTLIST=1;
 	constexpr int DX_PRIMTYPE_LINELIST=2;
 	constexpr int DX_PRIMTYPE_LINESTRIP=3;
@@ -629,7 +629,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int DX_PRIMTYPE_MIN=1;
 	constexpr int DX_PRIMTYPE_MAX=6;
 
-	//ƒ‰ƒCƒgƒ^ƒCƒv
+	//ãƒ©ã‚¤ãƒˆã‚¿ã‚¤ãƒ—
 	constexpr int DX_LIGHTTYPE_D3DLIGHT_POINT=1;
 	constexpr int DX_LIGHTTYPE_D3DLIGHT_SPOT=2;
 	constexpr int DX_LIGHTTYPE_D3DLIGHT_DIRECTIONAL=3;
@@ -637,7 +637,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int DX_LIGHTTYPE_SPOT=2;
 	constexpr int DX_LIGHTTYPE_DIRECTIONAL=3;
 
-	//ƒOƒ‰ƒtƒBƒbƒNƒCƒ[ƒWƒtƒH[ƒ}ƒbƒg‚Ì’è‹`
+	//ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã‚¤ãƒ¡ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã®å®šç¾©
 	enum :int {
 		DX_GRAPHICSIMAGE_FORMAT_3D_PAL4,
 		DX_GRAPHICSIMAGE_FORMAT_3D_PAL8,
@@ -694,7 +694,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_GRAPHICSIMAGE_FORMAT_A8R8G8B8,
 		DX_GRAPHICSIMAGE_FORMAT_NUM,
 	};
-	//Šî–{ƒCƒ[ƒW‚ÌƒsƒNƒZƒ‹ƒtƒH[ƒ}ƒbƒg
+	//åŸºæœ¬ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ãƒ”ã‚¯ã‚»ãƒ«ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
 	enum :int {
 		DX_BASEIMAGE_FORMAT_NORMAL,
 		DX_BASEIMAGE_FORMAT_DXT1,
@@ -709,14 +709,14 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_BASEIMAGE_FORMAT_YUV,
 	};
 
-	//ƒ€[ƒr[‚ÌƒT[ƒtƒFƒXƒ‚[ƒh
+	//ãƒ ãƒ¼ãƒ“ãƒ¼ã®ã‚µãƒ¼ãƒ•ã‚§ã‚¹ãƒ¢ãƒ¼ãƒ‰
 	enum :int {
 		DX_MOVIESURFACE_NORMAL,
 		DX_MOVIESURFACE_OVERLAY,
 		DX_MOVIESURFACE_FULLCOLOR,
 	};
 
-	//ƒEƒCƒ“ƒhƒE‚Ì‰œs‚«ˆÊ’uİ’èƒ^ƒCƒv
+	//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®å¥¥è¡Œãä½ç½®è¨­å®šã‚¿ã‚¤ãƒ—
 	enum :int {
 		DX_WIN_ZTYPE_NORMAL,
 		DX_WIN_ZTYPE_BOTTOM,
@@ -724,7 +724,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_WIN_ZTYPE_TOPMOST,
 	};
 
-	//ƒc[ƒ‹ƒo[‚Ìƒ{ƒ^ƒ“‚Ìó‘Ô
+	//ãƒ„ãƒ¼ãƒ«ãƒãƒ¼ã®ãƒœã‚¿ãƒ³ã®çŠ¶æ…‹
 	enum :int {
 		TOOLBUTTON_STATE_ENABLE,
 		TOOLBUTTON_STATE_PRESSED,
@@ -733,7 +733,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		TOOLBUTTON_STATE_NUM,
 	};
 
-	//ƒc[ƒ‹ƒo[‚Ìƒ{ƒ^ƒ“‚Ìƒ^ƒCƒv
+	//ãƒ„ãƒ¼ãƒ«ãƒãƒ¼ã®ãƒœã‚¿ãƒ³ã®ã‚¿ã‚¤ãƒ—
 	enum :int {
 		TOOLBUTTON_TYPE_NORMAL,
 		TOOLBUTTON_TYPE_CHECK,
@@ -742,23 +742,23 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		TOOLBUTTON_TYPE_NUM,
 	};
 
-	//eƒƒjƒ…[‚Ì‚h‚c
+	//è¦ªãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®ï¼©ï¼¤
 	constexpr int MENUITEM_IDTOP = (int)0xabababab;
 
-	//ƒƒjƒ…[‚É’Ç‰Á‚·‚éÛ‚Ìƒ^ƒCƒv
+	//ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«è¿½åŠ ã™ã‚‹éš›ã®ã‚¿ã‚¤ãƒ—
 	enum :int {
 		MENUITEM_ADD_CHILD,
 		MENUITEM_ADD_INSERT,
 	};
 
-	//ƒƒjƒ…[‚Ì‰¡‚É•t‚­ƒ}[ƒNƒ^ƒCƒv
+	//ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®æ¨ªã«ä»˜ããƒãƒ¼ã‚¯ã‚¿ã‚¤ãƒ—
 	enum :int {
 		MENUITEM_MARK_NONE,
 		MENUITEM_MARK_CHECK,
 		MENUITEM_MARK_RADIO,
 	};
 
-	//•¶š•ÏŠ·ƒ^ƒCƒv’è‹`
+	//æ–‡å­—å¤‰æ›ã‚¿ã‚¤ãƒ—å®šç¾©
 	enum :int {
 		DX_NUMMODE_10,
 		DX_NUMMODE_16,
@@ -766,13 +766,13 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		DX_STRMODE_USE0,
 	};
 
-	//CheckHitKeyAll ‚Å’²‚×‚é“ü—Íƒ^ƒCƒv
+	//CheckHitKeyAll ã§èª¿ã¹ã‚‹å…¥åŠ›ã‚¿ã‚¤ãƒ—
 	constexpr int DX_CHECKINPUT_KEY = 0x0001;
 	constexpr int DX_CHECKINPUT_PAD = 0x0002;
 	constexpr int DX_CHECKINPUT_MOUSE = 0x0004;
 	constexpr int DX_CHECKINPUT_ALL = (DX_CHECKINPUT_KEY | DX_CHECKINPUT_PAD | DX_CHECKINPUT_MOUSE);
 
-	//ƒpƒbƒh“ü—Íæ“¾ƒpƒ‰ƒ[ƒ^
+	//ãƒ‘ãƒƒãƒ‰å…¥åŠ›å–å¾—ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 	constexpr int DX_INPUT_KEY_PAD1 = 0x1001;
 	constexpr int DX_INPUT_PAD1 = 0x0001;
 	constexpr int DX_INPUT_PAD2 = 0x0002;
@@ -792,10 +792,10 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int DX_INPUT_PAD16 = 0x0010;
 	constexpr int DX_INPUT_KEY = 0x1000;
 
-	//ƒ^ƒbƒ`‚Ì“¯ÚGŒŸo‘Î‰Å‘å”
+	//ã‚¿ãƒƒãƒã®åŒæ™‚æ¥è§¦æ¤œå‡ºå¯¾å¿œæœ€å¤§æ•°
 	constexpr int TOUCHINPUTPOINT_MAX = 16;
 
-	//ƒpƒbƒh“ü—Í’è‹`
+	//ãƒ‘ãƒƒãƒ‰å…¥åŠ›å®šç¾©
 	constexpr int PAD_INPUT_DOWN = 0x00000001;
 	constexpr int PAD_INPUT_LEFT = 0x00000002;
 	constexpr int PAD_INPUT_RIGHT = 0x00000004;
@@ -858,7 +858,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int PAD_INPUT_27 = 0x40000000;
 	constexpr int PAD_INPUT_28 = 0x80000000;
 
-	//XInputƒ{ƒ^ƒ““ü—Í’è‹`
+	//XInputãƒœã‚¿ãƒ³å…¥åŠ›å®šç¾©
 	enum :int {
 		XINPUT_BUTTON_DPAD_UP,
 		XINPUT_BUTTON_DPAD_DOWN,
@@ -876,7 +876,7 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 		XINPUT_BUTTON_Y,
 	};
 
-	//ƒ}ƒEƒX“ü—Í’è‹`
+	//ãƒã‚¦ã‚¹å…¥åŠ›å®šç¾©
 	constexpr int aslib_mouse_INPUT_LEFT = 0x0001;
 	constexpr int aslib_mouse_INPUT_RIGHT = 0x0002;
 	constexpr int aslib_mouse_INPUT_MIDDLE = 0x0004;
@@ -889,13 +889,13 @@ constexpr int DX_DIRECTXVERSION_8_1 = 0x80100;
 	constexpr int aslib_mouse_INPUT_7 = 0x0040;
 	constexpr int aslib_mouse_INPUT_8 = 0x0080;
 
-	//ƒ}ƒEƒX‚ÌƒƒOî•ñƒ^ƒCƒv
+	//ãƒã‚¦ã‚¹ã®ãƒ­ã‚°æƒ…å ±ã‚¿ã‚¤ãƒ—
 	enum :int {
 		aslib_mouse_INPUT_LOG_DOWN,
 		aslib_mouse_INPUT_LOG_UP,
 	};
 
-	//ƒL[’è‹`
+	//ã‚­ãƒ¼å®šç¾©
 enum :size_t {
 	KEY_INPUT_NON0
 	, KEY_INPUT_ESCAPE
@@ -1156,7 +1156,7 @@ enum :size_t {
 	, KEY_INPUT_NON256
 };
 
-	//ƒAƒXƒL[ƒRƒ“ƒgƒ[ƒ‹ƒL[ƒR[ƒh
+	//ã‚¢ã‚¹ã‚­ãƒ¼ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰
 constexpr int CTRL_CODE_BS=0x08;
 constexpr int CTRL_CODE_TAB=0x09;
 constexpr int CTRL_CODE_CR=0x0d;
@@ -1180,7 +1180,7 @@ constexpr int CTRL_CODE_PAGE_DOWN=0x15;
 constexpr int CTRL_CODE_ESC=0x1b;
 constexpr int CTRL_CODE_CMP=0x20;
 
-	//SetKeyInputStringColor2 ‚É“n‚·F•ÏX‘ÎÛ‚ğw’è‚·‚é‚½‚ß‚Ì¯•Êq
+	//SetKeyInputStringColor2 ã«æ¸¡ã™è‰²å¤‰æ›´å¯¾è±¡ã‚’æŒ‡å®šã™ã‚‹ãŸã‚ã®è­˜åˆ¥å­
 	enum :int {
 		DX_KEYINPSTRCOLOR_NORMAL_STR,
 		DX_KEYINPSTRCOLOR_NORMAL_STR_EDGE,
@@ -1208,32 +1208,32 @@ constexpr int CTRL_CODE_CMP=0x20;
 		DX_KEYINPSTRCOLOR_NUM,
 	};
 
-	//•¶š—ñ“ü—Íˆ—‚Ì“ü—Í•¶š”‚ªŒÀŠE‚É’B‚µ‚Ä‚¢‚éó‘Ô‚ÅA•¶š—ñ‚Ì––’[•”•ª‚Å“ü—Í‚ªs‚í‚ê‚½ê‡‚Ìˆ—ƒ‚[ƒh
+	//æ–‡å­—åˆ—å…¥åŠ›å‡¦ç†ã®å…¥åŠ›æ–‡å­—æ•°ãŒé™ç•Œã«é”ã—ã¦ã„ã‚‹çŠ¶æ…‹ã§ã€æ–‡å­—åˆ—ã®æœ«ç«¯éƒ¨åˆ†ã§å…¥åŠ›ãŒè¡Œã‚ã‚ŒãŸå ´åˆã®å‡¦ç†ãƒ¢ãƒ¼ãƒ‰
 	enum :int {
 		DX_KEYINPSTR_ENDCHARAMODE_OVERWRITE,
 		DX_KEYINPSTR_ENDCHARAMODE_NOTCHANGE,
 	};
 
-	//ƒtƒ‹ƒXƒNƒŠ[ƒ“‰ğ‘œ“xƒ‚[ƒh’è‹`
+	//ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³è§£åƒåº¦ãƒ¢ãƒ¼ãƒ‰å®šç¾©
 	enum :int {
 		DX_FSRESOLUTIONMODE_DESKTOP,
 		DX_FSRESOLUTIONMODE_NATIVE,
 		DX_FSRESOLUTIONMODE_MAXIMUM,
 	};
 
-	//ƒtƒ‹ƒXƒNƒŠ[ƒ“Šg‘åƒ‚[ƒh’è‹`
+	//ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³æ‹¡å¤§ãƒ¢ãƒ¼ãƒ‰å®šç¾©
 	enum :int {
 		DX_FSSCALINGMODE_BILINEAR,
 		DX_FSSCALINGMODE_NEAREST,
 	};
 
-	//SetGraphMode –ß‚è’l’è‹`
+	//SetGraphMode æˆ»ã‚Šå€¤å®šç¾©
 	constexpr int DX_CHANGESCREEN_OK = 0;
 	constexpr int DX_CHANGESCREEN_RETURN = -1;
 	constexpr int DX_CHANGESCREEN_DEFAULT = -2;
 	constexpr int DX_CHANGESCREEN_REFRESHNORMAL = -3;
 
-	//ƒXƒgƒŠ[ƒ€ƒf[ƒ^“Ç‚İ‚İˆ—ƒR[ƒhŠÈ—ª‰»ŠÖ˜A
+	//ã‚¹ãƒˆãƒªãƒ¼ãƒ ãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿å‡¦ç†ã‚³ãƒ¼ãƒ‰ç°¡ç•¥åŒ–é–¢é€£
 #define STTELL( st ) ((st)->ReadShred.Tell( (st)->DataPoint ))
 #define STSEEK( st, pos, type ) ((st)->ReadShred.Seek( (st)->DataPoint, (pos), (type) ))
 #define STREAD( buf, length, num, st ) ((st)->ReadShred.Read( (buf), (length), (num), (st)->DataPoint ))
@@ -1241,19 +1241,19 @@ constexpr int CTRL_CODE_CMP=0x20;
 #define STEOF( st ) ((st)->ReadShred.Eof( (st)->DataPoint ))
 #define STCLOSE( st )	 ((st)->ReadShred.Close( (st)->DataPoint ))
 
-	//ƒXƒgƒŠ[ƒ€ƒf[ƒ^§Œä‚ÌƒV[ƒNƒ^ƒCƒv’è‹`
+	//ã‚¹ãƒˆãƒªãƒ¼ãƒ ãƒ‡ãƒ¼ã‚¿åˆ¶å¾¡ã®ã‚·ãƒ¼ã‚¯ã‚¿ã‚¤ãƒ—å®šç¾©
 	constexpr int STREAM_SEEKTYPE_SET = SEEK_SET;
 	constexpr int STREAM_SEEKTYPE_END = SEEK_END;
 	constexpr int STREAM_SEEKTYPE_CUR = SEEK_CUR;
 
-	//ƒOƒ‰ƒtƒBƒbƒNƒ[ƒh‚ÌƒCƒ[ƒWƒ^ƒCƒv
+	//ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ãƒ­ãƒ¼ãƒ‰æ™‚ã®ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚¿ã‚¤ãƒ—
 	enum :int {
 		LOADIMAGE_TYPE_FILE,
 		LOADIMAGE_TYPE_MEM,
 		LOADIMAGE_TYPE_NONE = -1,
 	};
 
-	//HTTP ƒGƒ‰[
+	//HTTP ã‚¨ãƒ©ãƒ¼
 	enum :int {
 		HTTP_ERR_SERVER,
 		HTTP_ERR_NOTFOUND,
@@ -1262,7 +1262,7 @@ constexpr int CTRL_CODE_CMP=0x20;
 		HTTP_ERR_NONE = -1,
 	};
 
-	//HTTP ˆ—‚ÌŒ‹‰Ê
+	//HTTP å‡¦ç†ã®çµæœ
 	enum :int {
 		HTTP_RES_COMPLETE,
 		HTTP_RES_STOP,
@@ -1336,20 +1336,20 @@ constexpr int CTRL_CODE_CMP=0x20;
 			return input;
 		}
 
-		//g—p•K{ŠÖ”
+		//ä½¿ç”¨å¿…é ˆé–¢æ•°
 		inline const int DxLib_Init() { return 0; }
 		inline const int DxLib_End() { return 0; }
 		inline const bool ProcessMessageControl(const bool is_ = true, const bool on_ = false) { static bool is_message = false; if (on_) is_message = is_; return is_message; }
 		inline const int ProcessMessage() { return ProcessMessageControl(); }
 
-		//}Œ`•`‰æŠÖ”
+		//å›³å½¢æç”»é–¢æ•°
 		inline const int DrawBox(const int x1, const int y1, const int x2, const int y2, const unsigned int col_, const int flag = 1) { asRect(Pos4(int32_t(x1), int32_t(y1), int32_t(x2), int32_t(y2)), Color(col_)); return 0; }
 		inline const int DrawBox(const int x1, const int y1, const int x2, const int y2, const Color& col_, const int flag = 1) { asRect(Pos4(int32_t(x1), int32_t(y1), int32_t(x2), int32_t(y2)), col_); return 0; }
 		inline const int DrawBox(const Pos4& p_, const Color& col_, const int flag = 1) { asRect(Pos4(p_.x1, p_.y1, p_.x2, p_.y2), col_); return 0;}
 		inline const int DrawBox(const Color& col_, const Pos4& p_, const int flag = 1) { asRect(Pos4(p_.x1, p_.y1, p_.x2, p_.y2), col_); return 0;}
 		inline const int DrawBox(const Pos4& p_, const unsigned int col_, const int flag = 1) { asRect(Pos4(p_.x1, p_.y1, p_.x2, p_.y2), Color(col_)); return 0;}
 
-		//ƒOƒ‰ƒtƒBƒbƒNƒf[ƒ^§ŒäŠÖ”
+		//ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿åˆ¶å¾¡é–¢æ•°
 		inline const int LoadGraph(const char* const f_) { return ControlGraph(USING_DL_GRAPH_LOAD, -1, f_); }
 		inline const int DrawGraph(const int handle, const int flag = 1) { return ControlGraph(USING_DL_GRAPH_SIMPLE_DRAW, handle,nullptr); }
 		inline const int DrawGraph(const int x, const int y, const int handle, const int flag = 1) { return ControlGraph(USING_DL_GRAPH_DRAW, handle, nullptr, pos4_0, Pos2(int32_t(x), int32_t(y))); }//todo
@@ -1358,13 +1358,13 @@ constexpr int CTRL_CODE_CMP=0x20;
 		inline const int GetGraphSize(const int handle, int * const x_, int * const y_) { return ControlPixelGraph(handle, x_, y_); }
 		//const int LoadGraphScreen(const int x_, const int y_, const char* const f_, const int flag = 1) { AsTexture(1, asLoadTexture(f_, 1)).draw(0, Pos2(int32_t(x_), int32_t(y_))); return 0; }
 
-		//ŠÈˆÕ‰æ–Êo—ÍŠÖ”
+		//ç°¡æ˜“ç”»é¢å‡ºåŠ›é–¢æ•°
 		template<typename... Rest>inline const int printfDx(const char* const format_string, const Rest&... rest) { return int(asPrint(format_string, rest...)); }
 
-		//ƒ^ƒbƒ`ƒpƒlƒ‹“ü—ÍŠÖ˜AŠÖ”
+		//ã‚¿ãƒƒãƒãƒ‘ãƒãƒ«å…¥åŠ›é–¢é€£é–¢æ•°
 		inline const int GetTouchInputNum() { return int(asTouchNum()); }
 
-		//‚»‚Ì‘¼‰æ–Ê‘€ìŒnŠÖ”
+		//ãã®ä»–ç”»é¢æ“ä½œç³»é–¢æ•°
 		inline const int SetGraphMode(const int x_, const int y_, const int bit_ = 32) { asSetWindowSize(Pos2(int32_t(x_), int32_t(y_))); return 0; }
 		inline const int SetGraphMode(const Pos2& pos_, const int bit_ = 32) { asSetWindowSize(pos_); return 0; }
 		inline const int SetFullScreenResolutionMode(const int ResolutionMode = 1) { return 0; }
@@ -1386,14 +1386,14 @@ constexpr int CTRL_CODE_CMP=0x20;
 		inline const int SetDrawScreen(const int draw_screen = 1) { return 0; }
 		const int ScreenFlip() { if (asLoop() == false) { ProcessMessageControl(true, true); return -1; } return 0; }
 
-		//ƒEƒCƒ“ƒhƒEƒ‚[ƒhŠÖŒW
+		//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰é–¢ä¿‚
 		inline int ChangeWindowMode(const int flag = 1) { return 0; }
 		inline int SetMainWindowText(const char* const t_) { return int(asSetTitle(t_)); }
 		inline int SetWindowIconID(const int ID = 1) { return 0; }
 		inline int SetWindowSizeChangeEnableFlag(const int flag = 1) { return 0; }
 		inline int SetWindowSizeExtendRate(const double ExRate = 1.0) { return 0; }
 
-		//ƒ}ƒEƒX“ü—ÍŠÖ˜AŠÖ”
+		//ãƒã‚¦ã‚¹å…¥åŠ›é–¢é€£é–¢æ•°
 		inline int SetMouseDispFlag(const int DispFlag = 1) { return 0; }
 		const int GetMousePoint(int* const x_, int* const y_) { const Pos2 p = mousePos(); *x_ = int(p.x); *y_ = int(p.y); return 0; }
 		const int GetMousePoint(int& x_, int& y_) { const Pos2 p = mousePos(); x_ = int(p.x); y_ = int(p.y); return 0; }
@@ -1403,7 +1403,7 @@ constexpr int CTRL_CODE_CMP=0x20;
 		inline int GetMouseInputLog2(int* const Button, int* const ClickX, int* const ClickY, int* const LogType, const int LogDelete) { return 0; }
 		inline int GetMouseWheelRotVol() { return int(mouseWheel()); }
 
-		//—”æ“¾ŠÖ”
+		//ä¹±æ•°å–å¾—é–¢æ•°
 		inline int GetRand(const int rand_) noexcept { return int(asRand32(int32_t(rand_))); }
 		inline int asSRand32(const int seed_) noexcept { return int(asSRand32(int32_t(seed_))); }
 	}

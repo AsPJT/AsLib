@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -21,20 +21,20 @@ namespace AsLib
 #endif
 	}
 
-	//Œ¾ŒêƒŠƒXƒg
+	//è¨€èªãƒªã‚¹ãƒˆ
 	enum :size_t {
 		aslib_default_language_eng,
 		aslib_default_language_jpn,
 	};
 
-	//Œ¾Œê”‚ğ‹L˜^‚·‚éŠÖ”
+	//è¨€èªæ•°ã‚’è¨˜éŒ²ã™ã‚‹é–¢æ•°
 	size_t asLanguageNumSave(const bool b_, const size_t& num_ = 0) noexcept
 	{
 		static size_t num;
 		if (b_) num = num_;
 		return num;
 }
-	//Œ¾Œê”‚ğæ“¾‚·‚éŠÖ”
+	//è¨€èªæ•°ã‚’å–å¾—ã™ã‚‹é–¢æ•°
 	inline size_t asLanguageNum() noexcept { return asLanguageNumSave(false); }
 
 	struct AsWord {
@@ -64,17 +64,17 @@ namespace AsLib
 
 	};
 
-	//ƒ{ƒ^ƒ“í—Ş
+	//ãƒœã‚¿ãƒ³ç¨®é¡
 	enum :size_t {
 		aslib_button_type_normal,
 		aslib_button_type_number,
 	};
 
-	//‰æ‘œ‚Ì‚İ‚ğ•\¦‚·‚éƒVƒ“ƒvƒ‹‚Èƒ{ƒ^ƒ“
+	//ç”»åƒã®ã¿ã‚’è¡¨ç¤ºã™ã‚‹ã‚·ãƒ³ãƒ—ãƒ«ãªãƒœã‚¿ãƒ³
 	struct AsTextureButton {
-		//ˆÊ’u
+		//ä½ç½®
 		PosA4 pos;
-		//‰æ‘œ
+		//ç”»åƒ
 		AsTexture* texture{ nullptr };
 
 		bool on_off{ false };
@@ -87,7 +87,7 @@ namespace AsLib
 			texture = t_;
 		}
 
-		//ƒ^ƒbƒ`ƒJƒEƒ“ƒg
+		//ã‚¿ãƒƒãƒã‚«ã‚¦ãƒ³ãƒˆ
 		Counter counter;
 		void update() noexcept { counter.update(asTouch(pos) || asMouseL(pos)); }
 		bool down() const noexcept { return counter.down(); };
@@ -107,7 +107,7 @@ namespace AsLib
 		AsTextureButton& bit() noexcept { if (on_off) on_off = false; else on_off = true; return *this; }
 		AsTextureButton& bitSet(const bool is_) noexcept { on_off = is_; return *this; }
 	};
-	//”’lƒ{ƒ^ƒ“•t‚«
+	//æ•°å€¤ãƒœã‚¿ãƒ³ä»˜ã
 	struct AsTextureNumButton :public AsTextureButton {
 		PosA4 p_up;
 		PosA4 p_down;
@@ -125,7 +125,7 @@ namespace AsLib
 			font = p_.h / 2;
 		}
 		
-		//ƒ^ƒbƒ`ƒJƒEƒ“ƒg
+		//ã‚¿ãƒƒãƒã‚«ã‚¦ãƒ³ãƒˆ
 		Counter counter_up;
 		void updateUp() noexcept { counter_up.update(asTouch(p_up) || asMouseL(p_up)); }
 		bool downUp() const noexcept { return counter_up.down(); };
@@ -134,7 +134,7 @@ namespace AsLib
 		bool down0_Up() noexcept { return counter_up.down0(); };
 		bool up0_Up() noexcept { return counter_up.up0(); };
 		int32_t count0_Up() noexcept { return counter_up.count0(); };
-		//ƒ^ƒbƒ`ƒJƒEƒ“ƒg
+		//ã‚¿ãƒƒãƒã‚«ã‚¦ãƒ³ãƒˆ
 		Counter counter_down;
 		void updateDown() noexcept { counter_down.update(asTouch(p_down) || asMouseL(p_down)); }
 		bool downDown() const noexcept { return counter_down.down(); };
@@ -150,13 +150,13 @@ namespace AsLib
 	};
 
 	struct AsButton {
-		//í—Ş
+		//ç¨®é¡
 		size_t type;
-		//ˆÊ’u
+		//ä½ç½®
 		PosA4 pos;
-		//‰æ‘œ
+		//ç”»åƒ
 		AsTexture* texture{ nullptr };
-		//•¶š
+		//æ–‡å­—
 		AsLanguage* language{ nullptr };
 		std::string str;
 		AsFont font;
@@ -164,7 +164,7 @@ namespace AsLib
 		//
 		bool on_off{ false };
 
-		//F
+		//è‰²
 		Color button_color = aslib_color_white_a;
 		Color string_color = aslib_color_black_a;
 
@@ -186,7 +186,7 @@ namespace AsLib
 			else if (str.size() != 0) font.drawAt(str.c_str(), Pos2(pos.x, pos.y), string_color);
 		}
 
-		//ƒ^ƒbƒ`ƒJƒEƒ“ƒg
+		//ã‚¿ãƒƒãƒã‚«ã‚¦ãƒ³ãƒˆ
 		Counter counter;
 		void update() noexcept { counter.update(asTouch(pos) || asMouseL(pos)); }
 		bool down() const noexcept { return counter.down(); };

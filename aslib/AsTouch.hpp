@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -12,7 +12,7 @@
 namespace AsLib
 {
 
-	//ƒ^ƒbƒ`‚³‚ê‚Ä‚¢‚é”‚ð•Ô‚·
+	//ã‚¿ãƒƒãƒã•ã‚Œã¦ã„ã‚‹æ•°ã‚’è¿”ã™
 	inline size_t asTouchNum() noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
@@ -32,7 +32,7 @@ return 0;
 #endif
 	}
 
-	//ƒ^ƒbƒ`‚³‚ê‚Ä‚¢‚é
+	//ã‚¿ãƒƒãƒã•ã‚Œã¦ã„ã‚‹
 	int32_t asTouch(const size_t touch_id, Pos2& add_pos) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
@@ -181,16 +181,16 @@ return 0;
 		return is_touch;
 	}
 
-	//–ˆƒtƒŒ[ƒ€XV
+	//æ¯Žãƒ•ãƒ¬ãƒ¼ãƒ æ›´æ–°
 	void updateTouch() noexcept {
 		static size_t aslib_num{};
 
 		const size_t num{ asTouchNum() };
 		if (aslib_num != num && num != 0) updateTouchPos(true, asTouch(num - 1));
 
-		//ƒsƒ“ƒ`XV
+		//ãƒ”ãƒ³ãƒæ›´æ–°
 		asTouchPinch(true);
-		//ƒXƒ‰ƒCƒhXV
+		//ã‚¹ãƒ©ã‚¤ãƒ‰æ›´æ–°
 		asTouchSlide(true);
 		
 		static size_t before_num{};
@@ -200,7 +200,7 @@ return 0;
 		asTouchUp(true, before_num > num);
 		asTouchDown(true, before_num < num);
 
-		//¡‰ñ‚Ì‚ð“ü‚ê‚é
+		//ä»Šå›žã®ã‚’å…¥ã‚Œã‚‹
 		before_num = num;
 		if (before_num != 0) before_up_pos = asTouch(before_num - 1);
 	}

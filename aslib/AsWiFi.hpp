@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+Ôªø//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -15,7 +15,7 @@ namespace AsLib
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__ANDROID__)
-		//<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />í«â¡Ç†ÇË
+		//<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />ËøΩÂä†„ÅÇ„Çä
 		return int32_t(DxLib::GetWifiSignalLevel());
 #else
 		return 0;

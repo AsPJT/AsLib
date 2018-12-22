@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -16,7 +16,7 @@ namespace AsLib
 	public:
 		void update(const bool) noexcept;
 		void update(const int32_t u_) noexcept { (u_ == 0) ? this->update(false) : this->update(true); }
-		//o—Í
+		//å‡ºåŠ›
 		bool down() const noexcept { return this->key_down; };
 		bool up() const noexcept { return this->key_up; };
 		int32_t count() const noexcept { return this->key_count; };
@@ -32,19 +32,19 @@ namespace AsLib
 
 	inline void Counter::update(const bool is_down) noexcept
 	{
-		//‰Ÿ‚³‚ê‚½‚©
+		//æŠ¼ã•ã‚ŒãŸã‹
 		if (is_down) {
-			//‰Ÿ‚³‚ê‚½uŠÔ‚©
+			//æŠ¼ã•ã‚ŒãŸç¬é–“ã‹
 			if (key_count == 0) key_down = true;
 			else key_down = false;
-			//ƒJƒEƒ“ƒg‚ğ‘‚â‚·
+			//ã‚«ã‚¦ãƒ³ãƒˆã‚’å¢—ã‚„ã™
 			if (key_count < INT32_MAX) ++key_count;
 		}
 		else {
-			//—£‚³‚ê‚½uŠÔ‚©
+			//é›¢ã•ã‚ŒãŸç¬é–“ã‹
 			if (key_count != 0) key_up = true;
 			else key_up = false;
-			//ƒJƒEƒ“ƒg‚ğƒŠƒZƒbƒg
+			//ã‚«ã‚¦ãƒ³ãƒˆã‚’ãƒªã‚»ãƒƒãƒˆ
 			key_count = 0;
 		}
 	}

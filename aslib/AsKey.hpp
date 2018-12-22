@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+Ôªø//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -25,7 +25,7 @@ namespace AsLib
 		MOB_CENTER,
 	};
 
-	//ÉLÅ[É{Å[ÉhîzóÒID
+	//„Ç≠„Éº„Éú„Éº„ÉâÈÖçÂàóID
 	enum :size_t {
 		aslib_key_unknown,
 		aslib_key_grave_accentilde,
@@ -305,94 +305,94 @@ namespace AsLib
 
 	enum :size_t {
 bba0
-,KEY_INPUT_ESCAPE0x01//EscÉLÅ[D_DIK_ESCAPE
-,KEY_INPUT_10x02//ÇPÉLÅ[D_DIK_1
-,KEY_INPUT_20x03//ÇQÉLÅ[D_DIK_2
-,KEY_INPUT_30x04//ÇRÉLÅ[D_DIK_3
-,KEY_INPUT_40x05//ÇSÉLÅ[D_DIK_4
-,KEY_INPUT_50x06//ÇTÉLÅ[D_DIK_5
-,KEY_INPUT_60x07//ÇUÉLÅ[D_DIK_6
-,KEY_INPUT_70x08//ÇVÉLÅ[D_DIK_7
-,KEY_INPUT_80x09//ÇWÉLÅ[D_DIK_8
-,KEY_INPUT_90x0A//ÇXÉLÅ[D_DIK_9
-,KEY_INPUT_00x0B//ÇOÉLÅ[D_DIK_0
-,KEY_INPUT_MINUS0x0C//Å|ÉLÅ[D_DIK_MINUS
+,KEY_INPUT_ESCAPE0x01//Esc„Ç≠„ÉºD_DIK_ESCAPE
+,KEY_INPUT_10x02//Ôºë„Ç≠„ÉºD_DIK_1
+,KEY_INPUT_20x03//Ôºí„Ç≠„ÉºD_DIK_2
+,KEY_INPUT_30x04//Ôºì„Ç≠„ÉºD_DIK_3
+,KEY_INPUT_40x05//Ôºî„Ç≠„ÉºD_DIK_4
+,KEY_INPUT_50x06//Ôºï„Ç≠„ÉºD_DIK_5
+,KEY_INPUT_60x07//Ôºñ„Ç≠„ÉºD_DIK_6
+,KEY_INPUT_70x08//Ôºó„Ç≠„ÉºD_DIK_7
+,KEY_INPUT_80x09//Ôºò„Ç≠„ÉºD_DIK_8
+,KEY_INPUT_90x0A//Ôºô„Ç≠„ÉºD_DIK_9
+,KEY_INPUT_00x0B//Ôºê„Ç≠„ÉºD_DIK_0
+,KEY_INPUT_MINUS0x0C//Ôºç„Ç≠„ÉºD_DIK_MINUS
 ,bba13
-,KEY_INPUT_BACK0x0E//BackSpaceÉLÅ[D_DIK_BACK
-,KEY_INPUT_TAB0x0F//TabÉLÅ[D_DIK_TAB
-,KEY_INPUT_Q0x10//ÇpÉLÅ[D_DIK_Q
-,KEY_INPUT_W0x11//ÇvÉLÅ[D_DIK_W
-,KEY_INPUT_E0x12//ÇdÉLÅ[D_DIK_E
-,KEY_INPUT_R0x13//ÇqÉLÅ[D_DIK_R
-,KEY_INPUT_T0x14//ÇsÉLÅ[D_DIK_T
-,KEY_INPUT_Y0x15//ÇxÉLÅ[D_DIK_Y
-,KEY_INPUT_U0x16//ÇtÉLÅ[D_DIK_U
-,KEY_INPUT_I0x17//ÇhÉLÅ[D_DIK_I
-,KEY_INPUT_O0x18//ÇnÉLÅ[D_DIK_O
-,KEY_INPUT_P0x19//ÇoÉLÅ[D_DIK_P
-,KEY_INPUT_LBRACKET0x1A//ÅmÉLÅ[D_DIK_LBRACKET
-,KEY_INPUT_RBRACKET0x1B//ÅnÉLÅ[D_DIK_RBRACKET
-,KEY_INPUT_RETURN0x1C//EnterÉLÅ[D_DIK_RETURN
-,KEY_INPUT_LCONTROL0x1D//ç∂CtrlÉLÅ[D_DIK_LCONTROL
-,KEY_INPUT_A0x1E//Ç`ÉLÅ[D_DIK_A
-,KEY_INPUT_S0x1F//ÇrÉLÅ[D_DIK_S
-,KEY_INPUT_D0x20//ÇcÉLÅ[D_DIK_D
-,KEY_INPUT_F0x21//ÇeÉLÅ[D_DIK_F
-,KEY_INPUT_G0x22//ÇfÉLÅ[D_DIK_G
-,KEY_INPUT_H0x23//ÇgÉLÅ[D_DIK_H
-,KEY_INPUT_J0x24//ÇiÉLÅ[D_DIK_J
-,KEY_INPUT_K0x25//ÇjÉLÅ[D_DIK_K
-,KEY_INPUT_L0x26//ÇkÉLÅ[D_DIK_L
-,KEY_INPUT_SEMICOLON0x27//ÅGÉLÅ[D_DIK_SEMICOLON
+,KEY_INPUT_BACK0x0E//BackSpace„Ç≠„ÉºD_DIK_BACK
+,KEY_INPUT_TAB0x0F//Tab„Ç≠„ÉºD_DIK_TAB
+,KEY_INPUT_Q0x10//Ôº±„Ç≠„ÉºD_DIK_Q
+,KEY_INPUT_W0x11//Ôº∑„Ç≠„ÉºD_DIK_W
+,KEY_INPUT_E0x12//Ôº•„Ç≠„ÉºD_DIK_E
+,KEY_INPUT_R0x13//Ôº≤„Ç≠„ÉºD_DIK_R
+,KEY_INPUT_T0x14//Ôº¥„Ç≠„ÉºD_DIK_T
+,KEY_INPUT_Y0x15//Ôºπ„Ç≠„ÉºD_DIK_Y
+,KEY_INPUT_U0x16//Ôºµ„Ç≠„ÉºD_DIK_U
+,KEY_INPUT_I0x17//Ôº©„Ç≠„ÉºD_DIK_I
+,KEY_INPUT_O0x18//ÔºØ„Ç≠„ÉºD_DIK_O
+,KEY_INPUT_P0x19//Ôº∞„Ç≠„ÉºD_DIK_P
+,KEY_INPUT_LBRACKET0x1A//Ôºª„Ç≠„ÉºD_DIK_LBRACKET
+,KEY_INPUT_RBRACKET0x1B//ÔºΩ„Ç≠„ÉºD_DIK_RBRACKET
+,KEY_INPUT_RETURN0x1C//Enter„Ç≠„ÉºD_DIK_RETURN
+,KEY_INPUT_LCONTROL0x1D//Â∑¶Ctrl„Ç≠„ÉºD_DIK_LCONTROL
+,KEY_INPUT_A0x1E//Ôº°„Ç≠„ÉºD_DIK_A
+,KEY_INPUT_S0x1F//Ôº≥„Ç≠„ÉºD_DIK_S
+,KEY_INPUT_D0x20//Ôº§„Ç≠„ÉºD_DIK_D
+,KEY_INPUT_F0x21//Ôº¶„Ç≠„ÉºD_DIK_F
+,KEY_INPUT_G0x22//Ôºß„Ç≠„ÉºD_DIK_G
+,KEY_INPUT_H0x23//Ôº®„Ç≠„ÉºD_DIK_H
+,KEY_INPUT_J0x24//Ôº™„Ç≠„ÉºD_DIK_J
+,KEY_INPUT_K0x25//Ôº´„Ç≠„ÉºD_DIK_K
+,KEY_INPUT_L0x26//Ôº¨„Ç≠„ÉºD_DIK_L
+,KEY_INPUT_SEMICOLON0x27//Ôºõ„Ç≠„ÉºD_DIK_SEMICOLON
 ,bba40
 ,bba41
-,KEY_INPUT_LSHIFT0x2A//ç∂ShiftÉLÅ[D_DIK_LSHIFT
-,KEY_INPUT_BACKSLASH0x2B//Å_ÉLÅ[D_DIK_BACKSLASH
-,KEY_INPUT_Z0x2C//ÇyÉLÅ[D_DIK_Z
-,KEY_INPUT_X0x2D//ÇwÉLÅ[D_DIK_X
-,KEY_INPUT_C0x2E//ÇbÉLÅ[D_DIK_C
-,KEY_INPUT_V0x2F//ÇuÉLÅ[D_DIK_V
-,KEY_INPUT_B0x30//ÇaÉLÅ[D_DIK_B
-,KEY_INPUT_N0x31//ÇmÉLÅ[D_DIK_N
-,KEY_INPUT_M0x32//ÇlÉLÅ[D_DIK_M
-,KEY_INPUT_COMMA0x33//ÅCÉLÅ[D_DIK_COMMA
-,KEY_INPUT_PERIOD0x34//ÅDÉLÅ[D_DIK_PERIOD
-,KEY_INPUT_SLASH0x35//Å^ÉLÅ[D_DIK_SLASH
-,KEY_INPUT_RSHIFT0x36//âEShiftÉLÅ[D_DIK_RSHIFT
-,KEY_INPUT_MULTIPLY0x37//ÉeÉìÉLÅ[ÅñÉLÅ[D_DIK_MULTIPLY
-,KEY_INPUT_LALT0x38//ç∂AltÉLÅ[D_DIK_LALT
-,KEY_INPUT_SPACE0x39//ÉXÉyÅ[ÉXÉLÅ[D_DIK_SPACE
-,KEY_INPUT_CAPSLOCK0x3A//CaspLockÉLÅ[D_DIK_CAPSLOCK
-,KEY_INPUT_F10x3B//ÇeÇPÉLÅ[D_DIK_F1
-,KEY_INPUT_F20x3C//ÇeÇQÉLÅ[D_DIK_F2
-,KEY_INPUT_F30x3D//ÇeÇRÉLÅ[D_DIK_F3
-,KEY_INPUT_F40x3E//ÇeÇSÉLÅ[D_DIK_F4
-,KEY_INPUT_F50x3F//ÇeÇTÉLÅ[D_DIK_F5
-,KEY_INPUT_F60x40//ÇeÇUÉLÅ[D_DIK_F6
-,KEY_INPUT_F70x41//ÇeÇVÉLÅ[D_DIK_F7
-,KEY_INPUT_F80x42//ÇeÇWÉLÅ[D_DIK_F8
-,KEY_INPUT_F90x43//ÇeÇXÉLÅ[D_DIK_F9
-,KEY_INPUT_F100x44//ÇeÇPÇOÉLÅ[D_DIK_F10
-,KEY_INPUT_NUMLOCK0x45//ÉeÉìÉLÅ[NumLockÉLÅ[D_DIK_NUMLOCK
-,KEY_INPUT_SCROLL0x46//ScrollLockÉLÅ[D_DIK_SCROLL
-,KEY_INPUT_NUMPAD70x47//ÉeÉìÉLÅ[ÇVD_DIK_NUMPAD7
-,KEY_INPUT_NUMPAD80x48//ÉeÉìÉLÅ[ÇWD_DIK_NUMPAD8
-,KEY_INPUT_NUMPAD90x49//ÉeÉìÉLÅ[ÇXD_DIK_NUMPAD9
-,KEY_INPUT_SUBTRACT0x4A//ÉeÉìÉLÅ[Å|ÉLÅ[D_DIK_SUBTRACT
-,KEY_INPUT_NUMPAD40x4B//ÉeÉìÉLÅ[ÇSD_DIK_NUMPAD4
-,KEY_INPUT_NUMPAD50x4C//ÉeÉìÉLÅ[ÇTD_DIK_NUMPAD5
-,KEY_INPUT_NUMPAD60x4D//ÉeÉìÉLÅ[ÇUD_DIK_NUMPAD6
-,KEY_INPUT_ADD0x4E//ÉeÉìÉLÅ[Å{ÉLÅ[D_DIK_ADD
-,KEY_INPUT_NUMPAD10x4F//ÉeÉìÉLÅ[ÇPD_DIK_NUMPAD1
-,KEY_INPUT_NUMPAD20x50//ÉeÉìÉLÅ[ÇQD_DIK_NUMPAD2
-,KEY_INPUT_NUMPAD30x51//ÉeÉìÉLÅ[ÇRD_DIK_NUMPAD3
-,KEY_INPUT_NUMPAD00x52//ÉeÉìÉLÅ[ÇOD_DIK_NUMPAD0
-,KEY_INPUT_DECIMAL0x53//ÉeÉìÉLÅ[ÅDÉLÅ[D_DIK_DECIMAL
+,KEY_INPUT_LSHIFT0x2A//Â∑¶Shift„Ç≠„ÉºD_DIK_LSHIFT
+,KEY_INPUT_BACKSLASH0x2B//Ôºº„Ç≠„ÉºD_DIK_BACKSLASH
+,KEY_INPUT_Z0x2C//Ôº∫„Ç≠„ÉºD_DIK_Z
+,KEY_INPUT_X0x2D//Ôº∏„Ç≠„ÉºD_DIK_X
+,KEY_INPUT_C0x2E//Ôº£„Ç≠„ÉºD_DIK_C
+,KEY_INPUT_V0x2F//Ôº∂„Ç≠„ÉºD_DIK_V
+,KEY_INPUT_B0x30//Ôº¢„Ç≠„ÉºD_DIK_B
+,KEY_INPUT_N0x31//ÔºÆ„Ç≠„ÉºD_DIK_N
+,KEY_INPUT_M0x32//Ôº≠„Ç≠„ÉºD_DIK_M
+,KEY_INPUT_COMMA0x33//Ôºå„Ç≠„ÉºD_DIK_COMMA
+,KEY_INPUT_PERIOD0x34//Ôºé„Ç≠„ÉºD_DIK_PERIOD
+,KEY_INPUT_SLASH0x35//Ôºè„Ç≠„ÉºD_DIK_SLASH
+,KEY_INPUT_RSHIFT0x36//Âè≥Shift„Ç≠„ÉºD_DIK_RSHIFT
+,KEY_INPUT_MULTIPLY0x37//„ÉÜ„É≥„Ç≠„ÉºÔºä„Ç≠„ÉºD_DIK_MULTIPLY
+,KEY_INPUT_LALT0x38//Â∑¶Alt„Ç≠„ÉºD_DIK_LALT
+,KEY_INPUT_SPACE0x39//„Çπ„Éö„Éº„Çπ„Ç≠„ÉºD_DIK_SPACE
+,KEY_INPUT_CAPSLOCK0x3A//CaspLock„Ç≠„ÉºD_DIK_CAPSLOCK
+,KEY_INPUT_F10x3B//Ôº¶Ôºë„Ç≠„ÉºD_DIK_F1
+,KEY_INPUT_F20x3C//Ôº¶Ôºí„Ç≠„ÉºD_DIK_F2
+,KEY_INPUT_F30x3D//Ôº¶Ôºì„Ç≠„ÉºD_DIK_F3
+,KEY_INPUT_F40x3E//Ôº¶Ôºî„Ç≠„ÉºD_DIK_F4
+,KEY_INPUT_F50x3F//Ôº¶Ôºï„Ç≠„ÉºD_DIK_F5
+,KEY_INPUT_F60x40//Ôº¶Ôºñ„Ç≠„ÉºD_DIK_F6
+,KEY_INPUT_F70x41//Ôº¶Ôºó„Ç≠„ÉºD_DIK_F7
+,KEY_INPUT_F80x42//Ôº¶Ôºò„Ç≠„ÉºD_DIK_F8
+,KEY_INPUT_F90x43//Ôº¶Ôºô„Ç≠„ÉºD_DIK_F9
+,KEY_INPUT_F100x44//Ôº¶ÔºëÔºê„Ç≠„ÉºD_DIK_F10
+,KEY_INPUT_NUMLOCK0x45//„ÉÜ„É≥„Ç≠„ÉºNumLock„Ç≠„ÉºD_DIK_NUMLOCK
+,KEY_INPUT_SCROLL0x46//ScrollLock„Ç≠„ÉºD_DIK_SCROLL
+,KEY_INPUT_NUMPAD70x47//„ÉÜ„É≥„Ç≠„ÉºÔºóD_DIK_NUMPAD7
+,KEY_INPUT_NUMPAD80x48//„ÉÜ„É≥„Ç≠„ÉºÔºòD_DIK_NUMPAD8
+,KEY_INPUT_NUMPAD90x49//„ÉÜ„É≥„Ç≠„ÉºÔºôD_DIK_NUMPAD9
+,KEY_INPUT_SUBTRACT0x4A//„ÉÜ„É≥„Ç≠„ÉºÔºç„Ç≠„ÉºD_DIK_SUBTRACT
+,KEY_INPUT_NUMPAD40x4B//„ÉÜ„É≥„Ç≠„ÉºÔºîD_DIK_NUMPAD4
+,KEY_INPUT_NUMPAD50x4C//„ÉÜ„É≥„Ç≠„ÉºÔºïD_DIK_NUMPAD5
+,KEY_INPUT_NUMPAD60x4D//„ÉÜ„É≥„Ç≠„ÉºÔºñD_DIK_NUMPAD6
+,KEY_INPUT_ADD0x4E//„ÉÜ„É≥„Ç≠„ÉºÔºã„Ç≠„ÉºD_DIK_ADD
+,KEY_INPUT_NUMPAD10x4F//„ÉÜ„É≥„Ç≠„ÉºÔºëD_DIK_NUMPAD1
+,KEY_INPUT_NUMPAD20x50//„ÉÜ„É≥„Ç≠„ÉºÔºíD_DIK_NUMPAD2
+,KEY_INPUT_NUMPAD30x51//„ÉÜ„É≥„Ç≠„ÉºÔºìD_DIK_NUMPAD3
+,KEY_INPUT_NUMPAD00x52//„ÉÜ„É≥„Ç≠„ÉºÔºêD_DIK_NUMPAD0
+,KEY_INPUT_DECIMAL0x53//„ÉÜ„É≥„Ç≠„ÉºÔºé„Ç≠„ÉºD_DIK_DECIMAL
 ,bba84
 ,bba85
 ,bba86
-,KEY_INPUT_F110x57//ÇeÇPÇPÉLÅ[D_DIK_F11
-,KEY_INPUT_F120x58//ÇeÇPÇQÉLÅ[D_DIK_F12
+,KEY_INPUT_F110x57//Ôº¶ÔºëÔºë„Ç≠„ÉºD_DIK_F11
+,KEY_INPUT_F120x58//Ôº¶ÔºëÔºí„Ç≠„ÉºD_DIK_F12
 ,bba89
 ,bba90
 ,bba91
@@ -417,7 +417,7 @@ bba0
 ,bba110
 ,bba111
 ,bba112
-,KEY_INPUT_KANA0x70//ÉJÉiÉLÅ[D_DIK_KANA
+,KEY_INPUT_KANA0x70//„Ç´„Éä„Ç≠„ÉºD_DIK_KANA
 ,bba113
 ,bba114
 ,bba115
@@ -426,11 +426,11 @@ bba0
 ,bba118
 ,bba119
 ,bba120
-,KEY_INPUT_CONVERT0x79//ïœä∑ÉLÅ[D_DIK_CONVERT
+,KEY_INPUT_CONVERT0x79//Â§âÊèõ„Ç≠„ÉºD_DIK_CONVERT
 ,bba122
-,KEY_INPUT_NOCONVERT0x7B//ñ≥ïœä∑ÉLÅ[D_DIK_NOCONVERT
+,KEY_INPUT_NOCONVERT0x7B//ÁÑ°Â§âÊèõ„Ç≠„ÉºD_DIK_NOCONVERT
 ,bba124
-,KEY_INPUT_YEN0x7D//ÅèÉLÅ[D_DIK_YEN
+,KEY_INPUT_YEN0x7D//Ôø•„Ç≠„ÉºD_DIK_YEN
 ,bba126
 ,bba127
 ,bba128
@@ -449,11 +449,11 @@ bba0
 ,bba141
 ,bba142
 ,bba143
-,KEY_INPUT_PREVTRACK0x90//ÅOÉLÅ[D_DIK_PREVTRACK
-,KEY_INPUT_AT0x91//ÅóÉLÅ[D_DIK_AT
-,KEY_INPUT_COLON0x92//ÅFÉLÅ[D_DIK_COLON
+,KEY_INPUT_PREVTRACK0x90//Ôºæ„Ç≠„ÉºD_DIK_PREVTRACK
+,KEY_INPUT_AT0x91//Ôº†„Ç≠„ÉºD_DIK_AT
+,KEY_INPUT_COLON0x92//Ôºö„Ç≠„ÉºD_DIK_COLON
 ,bba147
-,KEY_INPUT_KANJI0x94//äøéöÉLÅ[D_DIK_KANJI
+,KEY_INPUT_KANJI0x94//Êº¢Â≠ó„Ç≠„ÉºD_DIK_KANJI
 ,bba149
 ,bba150
 ,bba151
@@ -461,8 +461,8 @@ bba0
 ,bba153
 ,bba154
 ,bba155
-,KEY_INPUT_NUMPADENTER0x9C//ÉeÉìÉLÅ[ÇÃÉGÉìÉ^Å[ÉLÅ[D_DIK_NUMPADENTER
-,KEY_INPUT_RCONTROL0x9D//âECtrlÉLÅ[D_DIK_RCONTROL
+,KEY_INPUT_NUMPADENTER0x9C//„ÉÜ„É≥„Ç≠„Éº„ÅÆ„Ç®„É≥„Çø„Éº„Ç≠„ÉºD_DIK_NUMPADENTER
+,KEY_INPUT_RCONTROL0x9D//Âè≥Ctrl„Ç≠„ÉºD_DIK_RCONTROL
 ,bba158
 ,bba159
 ,bba160
@@ -486,10 +486,10 @@ bba0
 ,bba178
 ,bba179
 ,bba180
-,KEY_INPUT_DIVIDE0xB5//ÉeÉìÉLÅ[Å^ÉLÅ[D_DIK_DIVIDE
+,KEY_INPUT_DIVIDE0xB5//„ÉÜ„É≥„Ç≠„ÉºÔºè„Ç≠„ÉºD_DIK_DIVIDE
 ,bba182
-,KEY_INPUT_SYSRQ0xB7//PrintScreenÉLÅ[D_DIK_SYSRQ
-,KEY_INPUT_RALT0xB8//âEAltÉLÅ[D_DIK_RALT
+,KEY_INPUT_SYSRQ0xB7//PrintScreen„Ç≠„ÉºD_DIK_SYSRQ
+,KEY_INPUT_RALT0xB8//Âè≥Alt„Ç≠„ÉºD_DIK_RALT
 ,bba185
 ,bba186
 ,bba187
@@ -502,21 +502,21 @@ bba0
 ,bba194
 ,bba195
 ,bba196
-,KEY_INPUT_PAUSE0xC5//PauseBreakÉLÅ[D_DIK_PAUSE
+,KEY_INPUT_PAUSE0xC5//PauseBreak„Ç≠„ÉºD_DIK_PAUSE
 ,bba198
-,KEY_INPUT_HOME0xC7//HomeÉLÅ[D_DIK_HOME
-,KEY_INPUT_UP0xC8//è„ÉLÅ[D_DIK_UP
-,KEY_INPUT_PGUP0xC9//PageUpÉLÅ[D_DIK_PGUP
+,KEY_INPUT_HOME0xC7//Home„Ç≠„ÉºD_DIK_HOME
+,KEY_INPUT_UP0xC8//‰∏ä„Ç≠„ÉºD_DIK_UP
+,KEY_INPUT_PGUP0xC9//PageUp„Ç≠„ÉºD_DIK_PGUP
 ,bba202
-,KEY_INPUT_LEFT0xCB//ç∂ÉLÅ[D_DIK_LEFT
+,KEY_INPUT_LEFT0xCB//Â∑¶„Ç≠„ÉºD_DIK_LEFT
 ,bba204
-,KEY_INPUT_RIGHT0xCD//âEÉLÅ[D_DIK_RIGHT
+,KEY_INPUT_RIGHT0xCD//Âè≥„Ç≠„ÉºD_DIK_RIGHT
 ,bba206
-,KEY_INPUT_END0xCF//EndÉLÅ[D_DIK_END
-,KEY_INPUT_DOWN0xD0//â∫ÉLÅ[D_DIK_DOWN
-,KEY_INPUT_PGDN0xD1//PageDownÉLÅ[D_DIK_PGDN
-,KEY_INPUT_INSERT0xD2//InsertÉLÅ[D_DIK_INSERT
-,KEY_INPUT_DELETE0xD3//DeleteÉLÅ[D_DIK_DELETE
+,KEY_INPUT_END0xCF//End„Ç≠„ÉºD_DIK_END
+,KEY_INPUT_DOWN0xD0//‰∏ã„Ç≠„ÉºD_DIK_DOWN
+,KEY_INPUT_PGDN0xD1//PageDown„Ç≠„ÉºD_DIK_PGDN
+,KEY_INPUT_INSERT0xD2//Insert„Ç≠„ÉºD_DIK_INSERT
+,KEY_INPUT_DELETE0xD3//Delete„Ç≠„ÉºD_DIK_DELETE
 ,bba212
 ,bba213
 ,bba214
@@ -524,9 +524,9 @@ bba0
 ,bba216
 ,bba217
 ,bba218
-,KEY_INPUT_LWIN0xDB//ç∂WinÉLÅ[D_DIK_LWIN
-,KEY_INPUT_RWIN0xDC//âEWinÉLÅ[D_DIK_RWIN
-,KEY_INPUT_APPS0xDD//ÉAÉvÉäÉPÅ[ÉVÉáÉìÉÅÉjÉÖÅ[ÉLÅ[D_DIK_APPS
+,KEY_INPUT_LWIN0xDB//Â∑¶Win„Ç≠„ÉºD_DIK_LWIN
+,KEY_INPUT_RWIN0xDC//Âè≥Win„Ç≠„ÉºD_DIK_RWIN
+,KEY_INPUT_APPS0xDD//„Ç¢„Éó„É™„Ç±„Éº„Ç∑„Éß„É≥„É°„Éã„É•„Éº„Ç≠„ÉºD_DIK_APPS
 ,bba222
 , bba223
 , bba224
@@ -1224,7 +1224,7 @@ struct AsKeyList {
 
 	AsKeyList() = default;
 
-	//ÉvÉåÉCÉÑÅ[ån
+	//„Éó„É¨„Ç§„É§„ÉºÁ≥ª
 	std::vector<size_t> player_move_down;
 	std::vector<size_t> player_move_up;
 	std::vector<size_t> player_move_left;
@@ -1234,7 +1234,7 @@ struct AsKeyList {
 	std::vector<size_t> player_move_left_down;
 	std::vector<size_t> player_move_right_down;
 
-	//í èÌån
+	//ÈÄöÂ∏∏Á≥ª
 	std::vector<size_t> ok;
 	std::vector<size_t> back;
 	std::vector<size_t> menu;
@@ -1387,94 +1387,94 @@ struct AsKeyList {
 //	bool* checkKey9() {
 //		constexpr std::array<size_t, 256> AS_DL_key{
 //			aslib_key_unknown,//Ka0 
-//			aslib_key_eSCAPE,//KESCAPE0x01//EscÉLÅ[D_DIK_ESCAPE 
-//			aslib_key_1,//K10x02//ÇPÉLÅ[D_DIK_1 
-//			aslib_key_2,//K20x03//ÇQÉLÅ[D_DIK_2 
-//			aslib_key_3,//K30x04//ÇRÉLÅ[D_DIK_3 
-//			aslib_key_4,//K40x05//ÇSÉLÅ[D_DIK_4 
-//			aslib_key_5,//K50x06//ÇTÉLÅ[D_DIK_5 
-//			aslib_key_6,//K60x07//ÇUÉLÅ[D_DIK_6 
-//			aslib_key_7,//K70x08//ÇVÉLÅ[D_DIK_7 
-//			aslib_key_8,//K80x09//ÇWÉLÅ[D_DIK_8 
-//			aslib_key_9,//K90x0A//ÇXÉLÅ[D_DIK_9 
-//			aslib_key_0,//K00x0B//ÇOÉLÅ[D_DIK_0 
-//			0,//KMINUS0x0C//Å|ÉLÅ[D_DIK_MINUS 
+//			aslib_key_eSCAPE,//KESCAPE0x01//Esc„Ç≠„ÉºD_DIK_ESCAPE 
+//			aslib_key_1,//K10x02//Ôºë„Ç≠„ÉºD_DIK_1 
+//			aslib_key_2,//K20x03//Ôºí„Ç≠„ÉºD_DIK_2 
+//			aslib_key_3,//K30x04//Ôºì„Ç≠„ÉºD_DIK_3 
+//			aslib_key_4,//K40x05//Ôºî„Ç≠„ÉºD_DIK_4 
+//			aslib_key_5,//K50x06//Ôºï„Ç≠„ÉºD_DIK_5 
+//			aslib_key_6,//K60x07//Ôºñ„Ç≠„ÉºD_DIK_6 
+//			aslib_key_7,//K70x08//Ôºó„Ç≠„ÉºD_DIK_7 
+//			aslib_key_8,//K80x09//Ôºò„Ç≠„ÉºD_DIK_8 
+//			aslib_key_9,//K90x0A//Ôºô„Ç≠„ÉºD_DIK_9 
+//			aslib_key_0,//K00x0B//Ôºê„Ç≠„ÉºD_DIK_0 
+//			0,//KMINUS0x0C//Ôºç„Ç≠„ÉºD_DIK_MINUS 
 //			aslib_key_unknown,//Ka13 
-//			0,//KBACK0x0E//BackSpaceÉLÅ[D_DIK_BACK 
-//			0,//KTAB0x0F//TabÉLÅ[D_DIK_TAB 
-//			aslib_key_q,//KQ0x10//ÇpÉLÅ[D_DIK_Q 
-//			aslib_key_w,//KW0x11//ÇvÉLÅ[D_DIK_W 
-//			aslib_key_e,//KE0x12//ÇdÉLÅ[D_DIK_E 
-//			aslib_key_r,//KR0x13//ÇqÉLÅ[D_DIK_R 
-//			aslib_key_t,//KT0x14//ÇsÉLÅ[D_DIK_T 
-//			aslib_key_y,//KY0x15//ÇxÉLÅ[D_DIK_Y 
-//			aslib_key_u,//KU0x16//ÇtÉLÅ[D_DIK_U 
-//			aslib_key_i,//KI0x17//ÇhÉLÅ[D_DIK_I 
-//			aslib_key_o,//KO0x18//ÇnÉLÅ[D_DIK_O 
-//			aslib_key_p,//KP0x19//ÇoÉLÅ[D_DIK_P 
-//			0,//KLBRACKET0x1A//ÅmÉLÅ[D_DIK_LBRACKET 
-//			0,//KRBRACKET0x1B//ÅnÉLÅ[D_DIK_RBRACKET 
-//			0,//KRETURN0x1C//EnterÉLÅ[D_DIK_RETURN 
-//			0,//KLCONTROL0x1D//ç∂CtrlÉLÅ[D_DIK_LCONTROL 
-//			aslib_key_a,//KA0x1E//Ç`ÉLÅ[D_DIK_A 
-//			aslib_key_s,//KS0x1F//ÇrÉLÅ[D_DIK_S 
-//			aslib_key_d,//KD0x20//ÇcÉLÅ[D_DIK_D 
-//			aslib_key_f,//KF0x21//ÇeÉLÅ[D_DIK_F 
-//			aslib_key_g,//KG0x22//ÇfÉLÅ[D_DIK_G 
-//			aslib_key_h,//KH0x23//ÇgÉLÅ[D_DIK_H 
-//			aslib_key_j,//KJ0x24//ÇiÉLÅ[D_DIK_J 
-//			aslib_key_k,//KK0x25//ÇjÉLÅ[D_DIK_K 
-//			aslib_key_l,//KL0x26//ÇkÉLÅ[D_DIK_L 
-//			aslib_key_semicolon,//KSEMICOLON0x27//ÅGÉLÅ[D_DIK_SEMICOLON 
+//			0,//KBACK0x0E//BackSpace„Ç≠„ÉºD_DIK_BACK 
+//			0,//KTAB0x0F//Tab„Ç≠„ÉºD_DIK_TAB 
+//			aslib_key_q,//KQ0x10//Ôº±„Ç≠„ÉºD_DIK_Q 
+//			aslib_key_w,//KW0x11//Ôº∑„Ç≠„ÉºD_DIK_W 
+//			aslib_key_e,//KE0x12//Ôº•„Ç≠„ÉºD_DIK_E 
+//			aslib_key_r,//KR0x13//Ôº≤„Ç≠„ÉºD_DIK_R 
+//			aslib_key_t,//KT0x14//Ôº¥„Ç≠„ÉºD_DIK_T 
+//			aslib_key_y,//KY0x15//Ôºπ„Ç≠„ÉºD_DIK_Y 
+//			aslib_key_u,//KU0x16//Ôºµ„Ç≠„ÉºD_DIK_U 
+//			aslib_key_i,//KI0x17//Ôº©„Ç≠„ÉºD_DIK_I 
+//			aslib_key_o,//KO0x18//ÔºØ„Ç≠„ÉºD_DIK_O 
+//			aslib_key_p,//KP0x19//Ôº∞„Ç≠„ÉºD_DIK_P 
+//			0,//KLBRACKET0x1A//Ôºª„Ç≠„ÉºD_DIK_LBRACKET 
+//			0,//KRBRACKET0x1B//ÔºΩ„Ç≠„ÉºD_DIK_RBRACKET 
+//			0,//KRETURN0x1C//Enter„Ç≠„ÉºD_DIK_RETURN 
+//			0,//KLCONTROL0x1D//Â∑¶Ctrl„Ç≠„ÉºD_DIK_LCONTROL 
+//			aslib_key_a,//KA0x1E//Ôº°„Ç≠„ÉºD_DIK_A 
+//			aslib_key_s,//KS0x1F//Ôº≥„Ç≠„ÉºD_DIK_S 
+//			aslib_key_d,//KD0x20//Ôº§„Ç≠„ÉºD_DIK_D 
+//			aslib_key_f,//KF0x21//Ôº¶„Ç≠„ÉºD_DIK_F 
+//			aslib_key_g,//KG0x22//Ôºß„Ç≠„ÉºD_DIK_G 
+//			aslib_key_h,//KH0x23//Ôº®„Ç≠„ÉºD_DIK_H 
+//			aslib_key_j,//KJ0x24//Ôº™„Ç≠„ÉºD_DIK_J 
+//			aslib_key_k,//KK0x25//Ôº´„Ç≠„ÉºD_DIK_K 
+//			aslib_key_l,//KL0x26//Ôº¨„Ç≠„ÉºD_DIK_L 
+//			aslib_key_semicolon,//KSEMICOLON0x27//Ôºõ„Ç≠„ÉºD_DIK_SEMICOLON 
 //			aslib_key_unknown,//Ka40 
 //			aslib_key_unknown,//Ka41 
-//			0,//KLSHIFT0x2A//ç∂ShiftÉLÅ[D_DIK_LSHIFT 
-//			0,//KBACKSLASH0x2B//Å_ÉLÅ[D_DIK_BACKSLASH 
-//			aslib_key_z,//KZ0x2C//ÇyÉLÅ[D_DIK_Z 
-//			aslib_key_x,//KX0x2D//ÇwÉLÅ[D_DIK_X 
-//			aslib_key_c,//KC0x2E//ÇbÉLÅ[D_DIK_C 
-//			aslib_key_v,//KV0x2F//ÇuÉLÅ[D_DIK_V 
-//			aslib_key_b,//KB0x30//ÇaÉLÅ[D_DIK_B 
-//			aslib_key_n,//KN0x31//ÇmÉLÅ[D_DIK_N 
-//			aslib_key_m,//KM0x32//ÇlÉLÅ[D_DIK_M 
-//			0,//KCOMMA0x33//ÅCÉLÅ[D_DIK_COMMA 
-//			0,//KPERIOD0x34//ÅDÉLÅ[D_DIK_PERIOD 
-//			0,//KSLASH0x35//Å^ÉLÅ[D_DIK_SLASH 
-//			0,//KRSHIFT0x36//âEShiftÉLÅ[D_DIK_RSHIFT 
-//			0,//KMULTIPLY0x37//ÉeÉìÉLÅ[ÅñÉLÅ[D_DIK_MULTIPLY 
-//			0,//KLALT0x38//ç∂AltÉLÅ[D_DIK_LALT 
-//			0,//KSPACE0x39//ÉXÉyÅ[ÉXÉLÅ[D_DIK_SPACE 
-//			0,//KCAPSLOCK0x3A//CaspLockÉLÅ[D_DIK_CAPSLOCK 
-//			aslib_key_f1,//KF10x3B//ÇeÇPÉLÅ[D_DIK_F1 
-//			aslib_key_f2,//KF20x3C//ÇeÇQÉLÅ[D_DIK_F2 
-//			aslib_key_f3,//KF30x3D//ÇeÇRÉLÅ[D_DIK_F3 
-//			aslib_key_f4,//KF40x3E//ÇeÇSÉLÅ[D_DIK_F4 
-//			aslib_key_f5,//KF50x3F//ÇeÇTÉLÅ[D_DIK_F5 
-//			aslib_key_f6,//KF60x40//ÇeÇUÉLÅ[D_DIK_F6 
-//			aslib_key_f7,//KF70x41//ÇeÇVÉLÅ[D_DIK_F7 
-//			aslib_key_f8,//KF80x42//ÇeÇWÉLÅ[D_DIK_F8 
-//			aslib_key_f9,//KF90x43//ÇeÇXÉLÅ[D_DIK_F9 
-//			aslib_key_f10,//KF100x44//ÇeÇPÇOÉLÅ[D_DIK_F10 
-//			0,//KNUMLOCK0x45//ÉeÉìÉLÅ[NumLockÉLÅ[D_DIK_NUMLOCK 
-//			0,//KSCROLL0x46//ScrollLockÉLÅ[D_DIK_SCROLL 
-//			Keypad_7,//KNUMPAD70x47//ÉeÉìÉLÅ[ÇVD_DIK_NUMPAD7 
-//			Keypad_8,//KNUMPAD80x48//ÉeÉìÉLÅ[ÇWD_DIK_NUMPAD8 
-//			Keypad_9,//KNUMPAD90x49//ÉeÉìÉLÅ[ÇXD_DIK_NUMPAD9 
-//			0,//KSUBTRACT0x4A//ÉeÉìÉLÅ[Å|ÉLÅ[D_DIK_SUBTRACT 
-//			Keypad_4,//KNUMPAD40x4B//ÉeÉìÉLÅ[ÇSD_DIK_NUMPAD4 
-//			Keypad_5,//KNUMPAD50x4C//ÉeÉìÉLÅ[ÇTD_DIK_NUMPAD5 
-//			Keypad_6,//KNUMPAD60x4D//ÉeÉìÉLÅ[ÇUD_DIK_NUMPAD6 
-//			aslib_key_unknown,//KaDD0x4E//ÉeÉìÉLÅ[Å{ÉLÅ[D_DIK_ADD 
-//			Keypad_1,//KNUMPAD10x4F//ÉeÉìÉLÅ[ÇPD_DIK_NUMPAD1 
-//			Keypad_2,//KNUMPAD20x50//ÉeÉìÉLÅ[ÇQD_DIK_NUMPAD2 
-//			Keypad_3,//KNUMPAD30x51//ÉeÉìÉLÅ[ÇRD_DIK_NUMPAD3 
-//			Keypad_0,//KNUMPAD00x52//ÉeÉìÉLÅ[ÇOD_DIK_NUMPAD0 
-//			0,//KDECIMAL0x53//ÉeÉìÉLÅ[ÅDÉLÅ[D_DIK_DECIMAL 
+//			0,//KLSHIFT0x2A//Â∑¶Shift„Ç≠„ÉºD_DIK_LSHIFT 
+//			0,//KBACKSLASH0x2B//Ôºº„Ç≠„ÉºD_DIK_BACKSLASH 
+//			aslib_key_z,//KZ0x2C//Ôº∫„Ç≠„ÉºD_DIK_Z 
+//			aslib_key_x,//KX0x2D//Ôº∏„Ç≠„ÉºD_DIK_X 
+//			aslib_key_c,//KC0x2E//Ôº£„Ç≠„ÉºD_DIK_C 
+//			aslib_key_v,//KV0x2F//Ôº∂„Ç≠„ÉºD_DIK_V 
+//			aslib_key_b,//KB0x30//Ôº¢„Ç≠„ÉºD_DIK_B 
+//			aslib_key_n,//KN0x31//ÔºÆ„Ç≠„ÉºD_DIK_N 
+//			aslib_key_m,//KM0x32//Ôº≠„Ç≠„ÉºD_DIK_M 
+//			0,//KCOMMA0x33//Ôºå„Ç≠„ÉºD_DIK_COMMA 
+//			0,//KPERIOD0x34//Ôºé„Ç≠„ÉºD_DIK_PERIOD 
+//			0,//KSLASH0x35//Ôºè„Ç≠„ÉºD_DIK_SLASH 
+//			0,//KRSHIFT0x36//Âè≥Shift„Ç≠„ÉºD_DIK_RSHIFT 
+//			0,//KMULTIPLY0x37//„ÉÜ„É≥„Ç≠„ÉºÔºä„Ç≠„ÉºD_DIK_MULTIPLY 
+//			0,//KLALT0x38//Â∑¶Alt„Ç≠„ÉºD_DIK_LALT 
+//			0,//KSPACE0x39//„Çπ„Éö„Éº„Çπ„Ç≠„ÉºD_DIK_SPACE 
+//			0,//KCAPSLOCK0x3A//CaspLock„Ç≠„ÉºD_DIK_CAPSLOCK 
+//			aslib_key_f1,//KF10x3B//Ôº¶Ôºë„Ç≠„ÉºD_DIK_F1 
+//			aslib_key_f2,//KF20x3C//Ôº¶Ôºí„Ç≠„ÉºD_DIK_F2 
+//			aslib_key_f3,//KF30x3D//Ôº¶Ôºì„Ç≠„ÉºD_DIK_F3 
+//			aslib_key_f4,//KF40x3E//Ôº¶Ôºî„Ç≠„ÉºD_DIK_F4 
+//			aslib_key_f5,//KF50x3F//Ôº¶Ôºï„Ç≠„ÉºD_DIK_F5 
+//			aslib_key_f6,//KF60x40//Ôº¶Ôºñ„Ç≠„ÉºD_DIK_F6 
+//			aslib_key_f7,//KF70x41//Ôº¶Ôºó„Ç≠„ÉºD_DIK_F7 
+//			aslib_key_f8,//KF80x42//Ôº¶Ôºò„Ç≠„ÉºD_DIK_F8 
+//			aslib_key_f9,//KF90x43//Ôº¶Ôºô„Ç≠„ÉºD_DIK_F9 
+//			aslib_key_f10,//KF100x44//Ôº¶ÔºëÔºê„Ç≠„ÉºD_DIK_F10 
+//			0,//KNUMLOCK0x45//„ÉÜ„É≥„Ç≠„ÉºNumLock„Ç≠„ÉºD_DIK_NUMLOCK 
+//			0,//KSCROLL0x46//ScrollLock„Ç≠„ÉºD_DIK_SCROLL 
+//			Keypad_7,//KNUMPAD70x47//„ÉÜ„É≥„Ç≠„ÉºÔºóD_DIK_NUMPAD7 
+//			Keypad_8,//KNUMPAD80x48//„ÉÜ„É≥„Ç≠„ÉºÔºòD_DIK_NUMPAD8 
+//			Keypad_9,//KNUMPAD90x49//„ÉÜ„É≥„Ç≠„ÉºÔºôD_DIK_NUMPAD9 
+//			0,//KSUBTRACT0x4A//„ÉÜ„É≥„Ç≠„ÉºÔºç„Ç≠„ÉºD_DIK_SUBTRACT 
+//			Keypad_4,//KNUMPAD40x4B//„ÉÜ„É≥„Ç≠„ÉºÔºîD_DIK_NUMPAD4 
+//			Keypad_5,//KNUMPAD50x4C//„ÉÜ„É≥„Ç≠„ÉºÔºïD_DIK_NUMPAD5 
+//			Keypad_6,//KNUMPAD60x4D//„ÉÜ„É≥„Ç≠„ÉºÔºñD_DIK_NUMPAD6 
+//			aslib_key_unknown,//KaDD0x4E//„ÉÜ„É≥„Ç≠„ÉºÔºã„Ç≠„ÉºD_DIK_ADD 
+//			Keypad_1,//KNUMPAD10x4F//„ÉÜ„É≥„Ç≠„ÉºÔºëD_DIK_NUMPAD1 
+//			Keypad_2,//KNUMPAD20x50//„ÉÜ„É≥„Ç≠„ÉºÔºíD_DIK_NUMPAD2 
+//			Keypad_3,//KNUMPAD30x51//„ÉÜ„É≥„Ç≠„ÉºÔºìD_DIK_NUMPAD3 
+//			Keypad_0,//KNUMPAD00x52//„ÉÜ„É≥„Ç≠„ÉºÔºêD_DIK_NUMPAD0 
+//			0,//KDECIMAL0x53//„ÉÜ„É≥„Ç≠„ÉºÔºé„Ç≠„ÉºD_DIK_DECIMAL 
 //			aslib_key_unknown,//Ka84 
 //			aslib_key_unknown,//Ka85 
 //			aslib_key_unknown,//Ka86 
-//			aslib_key_f11,//KF110x57//ÇeÇPÇPÉLÅ[D_DIK_F11 
-//			aslib_key_f12,//KF120x58//ÇeÇPÇQÉLÅ[D_DIK_F12 
+//			aslib_key_f11,//KF110x57//Ôº¶ÔºëÔºë„Ç≠„ÉºD_DIK_F11 
+//			aslib_key_f12,//KF120x58//Ôº¶ÔºëÔºí„Ç≠„ÉºD_DIK_F12 
 //			aslib_key_unknown,//Ka89 
 //			aslib_key_unknown,//Ka90 
 //			aslib_key_unknown,//Ka91 
@@ -1498,7 +1498,7 @@ struct AsKeyList {
 //			aslib_key_unknown,//Ka109 
 //			aslib_key_unknown,//Ka110 
 //			aslib_key_unknown,//Ka111 
-//			0,//KKANA0x70//ÉJÉiÉLÅ[D_DIK_KANA 
+//			0,//KKANA0x70//„Ç´„Éä„Ç≠„ÉºD_DIK_KANA 
 //			aslib_key_unknown,//Ka113 
 //			aslib_key_unknown,//Ka114 
 //			aslib_key_unknown,//Ka115 
@@ -1507,11 +1507,11 @@ struct AsKeyList {
 //			aslib_key_unknown,//Ka118 
 //			aslib_key_unknown,//Ka119 
 //			aslib_key_unknown,//Ka120 
-//			0,//KCONVERT0x79//ïœä∑ÉLÅ[D_DIK_CONVERT 
+//			0,//KCONVERT0x79//Â§âÊèõ„Ç≠„ÉºD_DIK_CONVERT 
 //			aslib_key_unknown,//Ka122 
-//			0,//KNOCONVERT0x7B//ñ≥ïœä∑ÉLÅ[D_DIK_NOCONVERT 
+//			0,//KNOCONVERT0x7B//ÁÑ°Â§âÊèõ„Ç≠„ÉºD_DIK_NOCONVERT 
 //			aslib_key_unknown,//Ka124 
-//			0,//KYEN0x7D//ÅèÉLÅ[D_DIK_YEN 
+//			0,//KYEN0x7D//Ôø•„Ç≠„ÉºD_DIK_YEN 
 //			aslib_key_unknown,//Ka126 
 //			aslib_key_unknown,//Ka127 
 //			aslib_key_unknown,//Ka128 
@@ -1530,11 +1530,11 @@ struct AsKeyList {
 //			aslib_key_unknown,//Ka141 
 //			aslib_key_unknown,//Ka142 
 //			aslib_key_unknown,//Ka143 
-//			0,//KPREVTRACK0x90//ÅOÉLÅ[D_DIK_PREVTRACK 
-//			aslib_key_unknown,//KaT0x91//ÅóÉLÅ[D_DIK_AT 
-//			0,//KCOLON0x92//ÅFÉLÅ[D_DIK_COLON 
+//			0,//KPREVTRACK0x90//Ôºæ„Ç≠„ÉºD_DIK_PREVTRACK 
+//			aslib_key_unknown,//KaT0x91//Ôº†„Ç≠„ÉºD_DIK_AT 
+//			0,//KCOLON0x92//Ôºö„Ç≠„ÉºD_DIK_COLON 
 //			aslib_key_unknown,//Ka147 
-//			aslib_key_grave_accentilde,//KKANJI0x94//äøéöÉLÅ[D_DIK_KANJI 
+//			aslib_key_grave_accentilde,//KKANJI0x94//Êº¢Â≠ó„Ç≠„ÉºD_DIK_KANJI 
 //			aslib_key_unknown,//Ka149 
 //			aslib_key_unknown,//Ka150 
 //			aslib_key_unknown,//Ka151 
@@ -1542,8 +1542,8 @@ struct AsKeyList {
 //			aslib_key_unknown,//Ka153 
 //			aslib_key_unknown,//Ka154 
 //			aslib_key_unknown,//Ka155 
-//			Keypad_ENTER,//KNUMPADENTER0x9C//ÉeÉìÉLÅ[ÇÃÉGÉìÉ^Å[ÉLÅ[D_DIK_NUMPADENTER 
-//			0,//KRCONTROL0x9D//âECtrlÉLÅ[D_DIK_RCONTROL 
+//			Keypad_ENTER,//KNUMPADENTER0x9C//„ÉÜ„É≥„Ç≠„Éº„ÅÆ„Ç®„É≥„Çø„Éº„Ç≠„ÉºD_DIK_NUMPADENTER 
+//			0,//KRCONTROL0x9D//Âè≥Ctrl„Ç≠„ÉºD_DIK_RCONTROL 
 //			aslib_key_unknown,//Ka158 
 //			aslib_key_unknown,//Ka159 
 //			aslib_key_unknown,//Ka160 
@@ -1567,10 +1567,10 @@ struct AsKeyList {
 //			aslib_key_unknown,//Ka178 
 //			aslib_key_unknown,//Ka179 
 //			aslib_key_unknown,//Ka180 
-//			0,//KDIVIDE0xB5//ÉeÉìÉLÅ[Å^ÉLÅ[D_DIK_DIVIDE 
+//			0,//KDIVIDE0xB5//„ÉÜ„É≥„Ç≠„ÉºÔºè„Ç≠„ÉºD_DIK_DIVIDE 
 //			aslib_key_unknown,//Ka182 
-//			0,//KSYSRQ0xB7//PrintScreenÉLÅ[D_DIK_SYSRQ 
-//			0,//KRALT0xB8//âEAltÉLÅ[D_DIK_RALT 
+//			0,//KSYSRQ0xB7//PrintScreen„Ç≠„ÉºD_DIK_SYSRQ 
+//			0,//KRALT0xB8//Âè≥Alt„Ç≠„ÉºD_DIK_RALT 
 //			aslib_key_unknown,//Ka185 
 //			aslib_key_unknown,//Ka186 
 //			aslib_key_unknown,//Ka187 
@@ -1583,21 +1583,21 @@ struct AsKeyList {
 //			aslib_key_unknown,//Ka194 
 //			aslib_key_unknown,//Ka195 
 //			aslib_key_unknown,//Ka196 
-//			0,//KPAUSE0xC5//PauseBreakÉLÅ[D_DIK_PAUSE 
+//			0,//KPAUSE0xC5//PauseBreak„Ç≠„ÉºD_DIK_PAUSE 
 //			aslib_key_unknown,//Ka198 
-//			0,//KHOME0xC7//HomeÉLÅ[D_DIK_HOME 
-//				aslib_key_up,//KUP0xC8//è„ÉLÅ[D_DIK_UP 
-//			0,//KPGUP0xC9//PageUpÉLÅ[D_DIK_PGUP 
+//			0,//KHOME0xC7//Home„Ç≠„ÉºD_DIK_HOME 
+//				aslib_key_up,//KUP0xC8//‰∏ä„Ç≠„ÉºD_DIK_UP 
+//			0,//KPGUP0xC9//PageUp„Ç≠„ÉºD_DIK_PGUP 
 //			aslib_key_unknown,//Ka202 
-//				aslib_key_left,//KLEFT0xCB//ç∂ÉLÅ[D_DIK_LEFT 
+//				aslib_key_left,//KLEFT0xCB//Â∑¶„Ç≠„ÉºD_DIK_LEFT 
 //			aslib_key_unknown,//Ka204 
-//				aslib_key_right,//KRIGHT0xCD//âEÉLÅ[D_DIK_RIGHT 
+//				aslib_key_right,//KRIGHT0xCD//Âè≥„Ç≠„ÉºD_DIK_RIGHT 
 //			aslib_key_unknown,//Ka206 
-//			0,//KEND0xCF//EndÉLÅ[D_DIK_END 
-//				aslib_key_down,//KDOWN0xD0//â∫ÉLÅ[D_DIK_DOWN 
-//			0,//KPGDN0xD1//PageDownÉLÅ[D_DIK_PGDN 
-//			0,//KINSERT0xD2//InsertÉLÅ[D_DIK_INSERT 
-//			0,//KDELETE0xD3//DeleteÉLÅ[D_DIK_DELETE 
+//			0,//KEND0xCF//End„Ç≠„ÉºD_DIK_END 
+//				aslib_key_down,//KDOWN0xD0//‰∏ã„Ç≠„ÉºD_DIK_DOWN 
+//			0,//KPGDN0xD1//PageDown„Ç≠„ÉºD_DIK_PGDN 
+//			0,//KINSERT0xD2//Insert„Ç≠„ÉºD_DIK_INSERT 
+//			0,//KDELETE0xD3//Delete„Ç≠„ÉºD_DIK_DELETE 
 //			aslib_key_unknown,//Ka212 
 //			aslib_key_unknown,//Ka213 
 //			aslib_key_unknown,//Ka214 
@@ -1605,9 +1605,9 @@ struct AsKeyList {
 //			aslib_key_unknown,//Ka216 
 //			aslib_key_unknown,//Ka217 
 //			aslib_key_unknown,//Ka218 
-//			0,//KLWIN0xDB//ç∂WinÉLÅ[D_DIK_LWIN 
-//			0,//KRWIN0xDC//âEWinÉLÅ[D_DIK_RWIN 
-//			aslib_key_unknown,//KaPPS0xDD//ÉAÉvÉäÉPÅ[ÉVÉáÉìÉÅÉjÉÖÅ[ÉLÅ[D_DIK_APPS 
+//			0,//KLWIN0xDB//Â∑¶Win„Ç≠„ÉºD_DIK_LWIN 
+//			0,//KRWIN0xDC//Âè≥Win„Ç≠„ÉºD_DIK_RWIN 
+//			aslib_key_unknown,//KaPPS0xDD//„Ç¢„Éó„É™„Ç±„Éº„Ç∑„Éß„É≥„É°„Éã„É•„Éº„Ç≠„ÉºD_DIK_APPS 
 //			aslib_key_unknown,//Ka222 
 //			aslib_key_unknown,//Ka223 
 //			aslib_key_unknown,//Ka224 

@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -14,13 +14,13 @@ namespace AsLib
 	constexpr int32_t BIT_SHIFT_DIV_2{ 1 };
 	constexpr int32_t BIT_SHIFT_DIV_256{ 8 };
 
-	//F
+	//è‰²
 	struct ColorRGB;
 	struct Color;
 
 	constexpr uint8_t COLOR_MAX{ 255 };
 
-	//‚RF
+	//ï¼“è‰²
 	struct ColorRGB
 	{
 		ColorRGB& operator++() noexcept;
@@ -43,7 +43,7 @@ namespace AsLib
 		constexpr explicit ColorRGB(const uint8_t r_, const uint8_t g_, const uint8_t b_, const uint8_t a_) :r(r_), g(g_), b(b_) { };
 		constexpr explicit ColorRGB(const uint8_t r_, const uint8_t g_, const uint8_t b_) :r(r_), g(g_), b(b_) {};
 
-		//‘¼‚Ìƒ‰ƒCƒuƒ‰ƒŠ‘Î‰ž
+		//ä»–ã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªå¯¾å¿œ
 		const unsigned int uint() noexcept { return ((unsigned int)(this->r << 0x10) + (unsigned int)(this->g << 0x8) + (unsigned int)(this->b & 0xff)); }
 		constexpr explicit ColorRGB(const unsigned int col_) :r(uint8_t((col_ & 0xffffff) >> 0x10)), g(uint8_t((col_ & 0xffff) >> 0x8)), b(uint8_t(col_ & 0xff)) {}
 #if defined(ASLIB_INCLUDE_DL)
@@ -57,7 +57,7 @@ namespace AsLib
 #endif
 	};
 
-	//‚RF{“§‰ß
+	//ï¼“è‰²ï¼‹é€éŽ
 	struct Color
 	{
 		Color& operator++() noexcept;
@@ -83,7 +83,7 @@ namespace AsLib
 		constexpr Color(const uint8_t r_, const uint8_t g_, const uint8_t b_, const uint8_t a_) :r(r_), g(g_), b(b_), a(a_) {};
 		constexpr Color(const uint8_t r_, const uint8_t g_, const uint8_t b_) :r(r_), g(g_), b(b_), a(COLOR_MAX) {};
 
-		//‘¼‚Ìƒ‰ƒCƒuƒ‰ƒŠ‘Î‰ž
+		//ä»–ã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªå¯¾å¿œ
 		const unsigned int uint() noexcept { return ((unsigned int)(this->r << 0x10) + (unsigned int)(this->g << 0x8) + (unsigned int)(this->b & 0xff)); }
 		constexpr Color(const unsigned int col_) :r(uint8_t((col_ & 0xffffff) >> 0x10)), g(uint8_t((col_ & 0xffff) >> 0x8)), b(uint8_t(col_ & 0xff)) {}
 #if defined(ASLIB_INCLUDE_DL)

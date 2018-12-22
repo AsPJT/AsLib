@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -14,12 +14,12 @@ namespace AsLib
 	bool asIsDraw(const PosL4& p_) noexcept {
 		return (p_.x == 0 && p_.y == 0 && p_.w == 0 && p_.h == 0) ? true : false;
 	}
-	//•`‰æˆÊ’u‚ğ‹L˜^‚·‚éŠÖ”
+	//æç”»ä½ç½®ã‚’è¨˜éŒ²ã™ã‚‹é–¢æ•°
 	PosL4 asDrawPosSave(const bool b_=false, const PosL4& p_ = pos4_0) noexcept
 	{
-		//‹L˜^•Û‘¶•Ï”
+		//è¨˜éŒ²ä¿å­˜å¤‰æ•°
 		static thread_local PosL4 p(0, 0, 0, 0);
-		//“Ç‚İæ‚è
+		//èª­ã¿å–ã‚Šæ™‚
 		if (b_) {
 			p = p_;
 			return p;
@@ -31,12 +31,12 @@ namespace AsLib
 	inline PosL4 asSetDrawPosSave(const PosL4& p_ = pos4_0) noexcept {
 		return asDrawPosSave(true, p_);
 	}
-	//•`‰æID‚ğ‹L˜^‚·‚éŠÖ”
+	//æç”»IDã‚’è¨˜éŒ²ã™ã‚‹é–¢æ•°
 	size_t asDrawNumSave(const bool b_ = false, const size_t& p_ = 0) noexcept
 	{
-		//‹L˜^•Û‘¶•Ï”
+		//è¨˜éŒ²ä¿å­˜å¤‰æ•°
 		static thread_local size_t p{};
-		//“Ç‚İæ‚è
+		//èª­ã¿å–ã‚Šæ™‚
 		if (b_) {
 			p = p_;
 			return p;
@@ -48,12 +48,12 @@ namespace AsLib
 	inline size_t asSetDrawNumSave(const size_t p_ = 0) noexcept {
 		return asDrawNumSave(true, p_);
 	}
-	//•`‰æ“§‰ß“x‚ğ‹L˜^‚·‚éŠÖ”
+	//æç”»é€éåº¦ã‚’è¨˜éŒ²ã™ã‚‹é–¢æ•°
 	uint8_t asDrawAlphaSave(const bool b_ = false, const uint8_t& p_ = (uint8_t)255) noexcept
 	{
-		//‹L˜^•Û‘¶•Ï”
+		//è¨˜éŒ²ä¿å­˜å¤‰æ•°
 		static thread_local uint8_t p{ 255 };
-		//“Ç‚İæ‚è
+		//èª­ã¿å–ã‚Šæ™‚
 		if (b_) {
 			p = p_;
 			return p;

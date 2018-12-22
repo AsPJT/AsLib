@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -11,7 +11,7 @@
 
 namespace AsLib
 {
-	//‚Q“_ŠÔ‚Ì‹——£‚ğ‹‚ß‚é
+	//ï¼’ç‚¹é–“ã®è·é›¢ã‚’æ±‚ã‚ã‚‹
 	inline float asHypot(const Pos2F& p_1, const Pos2F& p_2) noexcept { return hypot(p_1.x - p_2.x, p_1.y - p_2.y); }
 
 	inline void asHypot(float& dis_, const Pos2F& p_1, const Pos2F& p_2) noexcept { dis_ = asHypot(p_1, p_2); }
@@ -21,13 +21,13 @@ namespace AsLib
 	inline void asHypot(const Pos2F& p_1, const Pos2F& p_2, float& dis_) noexcept { dis_ = asHypot(p_1, p_2); }
 	inline void asHypot(const Pos2F& p_1, const Pos2F& p_2, float* dis_) noexcept { *dis_ = asHypot(p_1, p_2); }
 
-	//‚Q“_ŠÔ‚Ì‹——£‚ÆÅ¬’l‚ğ”äŠr‚µ‚Ä¬‚³‚¢’l‚ğ•Ô‚·
+	//ï¼’ç‚¹é–“ã®è·é›¢ã¨æœ€å°å€¤ã‚’æ¯”è¼ƒã—ã¦å°ã•ã„å€¤ã‚’è¿”ã™
 	inline void asHypotMin(const Pos2F& p_1, const Pos2F& p_2, float& now_) noexcept
 	{
 		const float dis{ asHypot(p_1, p_2) };
 		if (dis < now_) now_ = dis;
 	}
-	//‚Q“_ŠÔ‚Ì‹——£‚ÆÅ¬’l‚ğ”äŠr‚µ‚Ä‘å‚«‚¢’l‚ğ•Ô‚·
+	//ï¼’ç‚¹é–“ã®è·é›¢ã¨æœ€å°å€¤ã‚’æ¯”è¼ƒã—ã¦å¤§ãã„å€¤ã‚’è¿”ã™
 	inline void asHypotMax(const Pos2F& p_1, const Pos2F& p_2, float& now_) noexcept
 	{
 		const float dis{ asHypot(p_1, p_2) };

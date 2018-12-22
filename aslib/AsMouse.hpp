@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -12,7 +12,7 @@
 namespace AsLib
 {
 
-	//ƒ}ƒEƒXID
+	//ãƒã‚¦ã‚¹ID
 	enum :size_t {
 		aslib_mouse_left,
 		aslib_mouse_right,
@@ -26,11 +26,11 @@ namespace AsLib
 		aslib_mouse_10,
 	};
 
-	//ƒ}ƒEƒX‚Ìƒ{ƒ^ƒ“”
+	//ãƒã‚¦ã‚¹ã®ãƒœã‚¿ãƒ³æ•°
 	constexpr size_t mouse_button_num{ 10 };
 
 
-	//ƒ}ƒEƒXˆÊ’u‚ğ‹L˜^‚·‚éŠÖ”
+	//ãƒã‚¦ã‚¹ä½ç½®ã‚’è¨˜éŒ²ã™ã‚‹é–¢æ•°
 	Pos2 asMousePosSave(const bool b_, const Pos2& p_ = pos2_0) noexcept
 	{
 		static Pos2 p;
@@ -38,7 +38,7 @@ namespace AsLib
 		return p;
 	}
 
-	//ƒ}ƒEƒX‚ÌˆÊ’u
+	//ãƒã‚¦ã‚¹ã®ä½ç½®
 	Pos2 mousePos() noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
@@ -63,7 +63,7 @@ return 0;
 	inline PosA4 mousePos(const int32_t l_) noexcept { return PosA4(mousePos(), l_); }
 	inline PosA4 mousePos(const int32_t w_, const int32_t h_) noexcept { return PosA4(mousePos(), w_, h_); }
 
-	//ƒ}ƒEƒX‚ÌƒzƒC[ƒ‹‰ñ“]—Ê(‰œ:•‰ è‘O:³)
+	//ãƒã‚¦ã‚¹ã®ãƒ›ã‚¤ãƒ¼ãƒ«å›è»¢é‡(å¥¥:è²  æ‰‹å‰:æ­£)
 	inline int32_t mouseWheel() noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
@@ -111,7 +111,7 @@ return 0;
 		if (int32_t(add_.h) >= view_max_) add_.h = float(view_max_);
 	}
 
-	//ƒEƒBƒ“ƒhƒEƒTƒCƒY‚ğ‹L˜^‚·‚éŠÖ”
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã‚’è¨˜éŒ²ã™ã‚‹é–¢æ•°
 	bool* const asMouseButtonSave(const bool b_, const bool c_ = false, const bool p_ = false, const size_t s_ = 0) noexcept
 	{
 		static bool p[mouse_button_num];
@@ -155,7 +155,7 @@ return 0;
 
 #endif
 	}
-	//ƒ}ƒEƒX¶ƒNƒŠƒbƒN
+	//ãƒã‚¦ã‚¹å·¦ã‚¯ãƒªãƒƒã‚¯
 	bool asMouseL(Pos2* const p_=nullptr) noexcept {
 		if (p_ != nullptr) *p_ = mousePos();
 #if defined(ASLIB_INCLUDE_DL) //DxLib
@@ -180,7 +180,7 @@ return 0;
 		static bool hit{ false };
 
 		if (!is_) return hit;
-		//‰Ÿ‚µ‚½‚Æ‚«
+		//æŠ¼ã—ãŸã¨ã
 		if (!is_down &&asMouseL()) hit = true;
 		else hit = false;
 		is_down = asMouseL();
@@ -235,7 +235,7 @@ return 0;
 
 	bool updateMouse() noexcept
 	{
-		//ƒXƒ‰ƒCƒhXV
+		//ã‚¹ãƒ©ã‚¤ãƒ‰æ›´æ–°
 		asMouseSlide(true);
 		asMouseL_Down(true);
 		return true;

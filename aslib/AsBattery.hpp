@@ -1,4 +1,4 @@
-//     ----------     ----------     ----------     ----------     ----------
+ï»¿//     ----------     ----------     ----------     ----------     ----------
 //
 //                              AsLib - AsProject Library
 //
@@ -11,7 +11,7 @@
 
 namespace AsLib
 {
-	//ƒoƒbƒeƒŠ[æ“¾
+	//ãƒãƒƒãƒ†ãƒªãƒ¼å–å¾—
 	inline int32_t asBattery() noexcept {
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return int32_t(DxLib::GetBatteryLifePercent());
@@ -35,23 +35,23 @@ return 0;
 #endif
 	}
 
-	//ƒoƒbƒeƒŠ[•`‰æ
+	//ãƒãƒƒãƒ†ãƒªãƒ¼æç”»
 	int32_t asBatteryDraw(const PosL4 pos_, const Color battery_col = { 0,192,32,255 }, const Color out_col = { 75,75,75,255 }) noexcept
 	{
 		const Color empty_col{ 255,255,255,out_col.a };
 
-		//ƒoƒbƒeƒŠ[ŠO˜g
+		//ãƒãƒƒãƒ†ãƒªãƒ¼å¤–æ 
 		PosL4 out_pos{ pos_ };
 		out_pos.h = pos_.w / 2;
 
-		//ƒoƒbƒeƒŠ[+
+		//ãƒãƒƒãƒ†ãƒªãƒ¼+
 		PosL4 plus_pos;
 		plus_pos.x = pos_.x + pos_.w;
 		plus_pos.h = (out_pos.w >> 2);
 		plus_pos.y = pos_.y + ((out_pos.h - plus_pos.h) >> 1);
 		plus_pos.w = (pos_.w >> 3);
 
-		//ƒoƒbƒeƒŠ[‹ó
+		//ãƒãƒƒãƒ†ãƒªãƒ¼ç©º
 		PosL4 empty_pos;
 		empty_pos.x = pos_.x + pos_.w / 10;
 		empty_pos.y = pos_.y + out_pos.w * 9 / 100;
@@ -60,7 +60,7 @@ return 0;
 
 		const int32_t battery_power{ asBattery() };
 
-		//ƒoƒbƒeƒŠ[—e—Ê
+		//ãƒãƒƒãƒ†ãƒªãƒ¼å®¹é‡
 		PosL4 battery_pos{ empty_pos };
 		battery_pos.w = empty_pos.w*battery_power / 100;
 
@@ -87,16 +87,16 @@ return 0;
 
 			empty_col = Color( 255,255,255,out_col.a );
 
-			//ƒoƒbƒeƒŠ[ŠO˜g
+			//ãƒãƒƒãƒ†ãƒªãƒ¼å¤–æ 
 			out_pos.h = pos_.w / 2;
 
-			//ƒoƒbƒeƒŠ[+
+			//ãƒãƒƒãƒ†ãƒªãƒ¼+
 			plus_pos.x = pos_.x + pos_.w;
 			plus_pos.h = (out_pos.w >> 2);
 			plus_pos.y = pos_.y + ((out_pos.h - plus_pos.h) >> 1);
 			plus_pos.w = (pos_.w >> 3);
 
-			//ƒoƒbƒeƒŠ[‹ó
+			//ãƒãƒƒãƒ†ãƒªãƒ¼ç©º
 			empty_pos.x = pos_.x + pos_.w / 10;
 			empty_pos.y = pos_.y + out_pos.w * 9 / 100;
 			empty_pos.w = (pos_.w << 2) / 5;
@@ -104,11 +104,11 @@ return 0;
 
 			battery_power = asBattery();
 
-			//ƒoƒbƒeƒŠ[—e—Ê
+			//ãƒãƒƒãƒ†ãƒªãƒ¼å®¹é‡
 			battery_pos = empty_pos;
 			battery_pos.w = empty_pos.w*battery_power / 100;
 
-			//ƒ^ƒbƒ`‚ÌÀ•W
+			//ã‚¿ãƒƒãƒã®åº§æ¨™
 			touch_pos.x1 = out_pos.x;
 			touch_pos.y1 = out_pos.y;
 			touch_pos.x2 = out_pos.x + out_pos.w + plus_pos.w;
@@ -127,7 +127,7 @@ return 0;
 			return *this;
 		}
 
-		//ƒJƒEƒ“ƒ^[o—Í
+		//ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼å‡ºåŠ›
 		bool down() const noexcept { return counter.down(); };
 		bool up() const noexcept { return counter.up(); };
 		int32_t count() const noexcept { return counter.count(); };
@@ -141,20 +141,20 @@ return 0;
 			bool is_touch{ false };
 			const Pos4 p{ this->touch_pos.x1 - add_pos.x ,this->touch_pos.y1 - add_pos.y ,this->touch_pos.x2 - add_pos.x ,this->touch_pos.y2 - add_pos.y };
 
-			//ƒ^ƒbƒ`‚Ì‚ ‚½‚è”»’è
+			//ã‚¿ãƒƒãƒã®ã‚ãŸã‚Šåˆ¤å®š
 			if (p.x1 <= 0 && p.y1 <= 0 && p.x2 >= 0 && p.y2 >= 0) is_touch = true;
 			else if (p.x1 > 0 && p.y1 > 0 && p.x2 < 0 && p.y2 < 0) is_touch = true;
 
-			//ƒ^ƒbƒ`‚Ì”‚ğƒJƒEƒ“ƒg
+			//ã‚¿ãƒƒãƒã®æ•°ã‚’ã‚«ã‚¦ãƒ³ãƒˆ
 			if (is_touch && this->touch_num != INT32_MAX) this->touch_num++;
 			return *this;
 		}
-		//ƒ^ƒbƒ`‰Šú‰»
+		//ã‚¿ãƒƒãƒåˆæœŸåŒ–
 		Battery& initTouch() noexcept { this->touch_num = 0; return *this; };
-		//ƒ^ƒbƒ`ƒJƒEƒ“ƒg
+		//ã‚¿ãƒƒãƒã‚«ã‚¦ãƒ³ãƒˆ
 		Battery& update() noexcept { this->counter.update(this->touch_num); return *this; };
 
-		//ƒoƒbƒeƒŠ[ê—p‚Ìo—Í
+		//ãƒãƒƒãƒ†ãƒªãƒ¼å°‚ç”¨ã®å‡ºåŠ›
 		int32_t Power() noexcept { return this->battery_power = asBattery(); }
 
 	private:
@@ -171,10 +171,10 @@ return 0;
 
 		int32_t battery_power;
 
-		//‚ ‚½‚è”»’è
+		//ã‚ãŸã‚Šåˆ¤å®š
 		Counter counter;
 
-		//ƒ^ƒbƒ`”
+		//ã‚¿ãƒƒãƒæ•°
 		int32_t touch_num{};
 
 	};
