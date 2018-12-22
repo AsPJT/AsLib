@@ -26,13 +26,13 @@ struct Base64 {
 	const char* str_table = nullptr;
 
 	Base64() = default;
-	constexpr Base64(const size_t type_, const char* str_table_, const char empty_char_ = '=')
+	constexpr explicit Base64(const size_t type_, const char* str_table_, const char empty_char_ = '=')
 		:empty_char(empty_char_), type(type_), str_table(str_table_) {}
 };
 constexpr Base64 base64_default(base64_type_default, base64_str_table_default);
 constexpr Base64 base64_url(base64_type_url, base64_str_table_url, 0);
 //Base64で文字列をエンコードする
-const std::string base64_Encode(const char* const str_, const size_t length_, const size_t type_ = base64_type_default)
+std::string base64_Encode(const char* const str_, const size_t length_, const size_t type_ = base64_type_default) noexcept
 {
 	if (str_ == nullptr) return nullptr;
 	const Base64 base64 = (type_ == base64_type_default) ? base64_default : base64_url;
@@ -71,12 +71,12 @@ const std::string base64_Encode(const char* const str_, const size_t length_, co
 	final_str = std::string(str.get());
 	return 	final_str;
 }
-inline const std::string base64_EncodeURL(const char* const str_, const size_t length_, const size_t type_ = base64_type_url) { return base64_Encode(str_, length_, type_); }
-inline const std::string base64_Encode(const std::string& str_, const size_t type_ = base64_type_default) { return base64_Encode(str_.c_str(), str_.size(), type_); }
-inline const std::string base64_EncodeURL(const std::string& str_, const size_t type_ = base64_type_url) { return base64_Encode(str_.c_str(), str_.size(), type_); }
+inline std::string base64_EncodeURL(const char* const str_, const size_t length_, const size_t type_ = base64_type_url) noexcept { return base64_Encode(str_, length_, type_); }
+inline std::string base64_Encode(const std::string& str_, const size_t type_ = base64_type_default) noexcept { return base64_Encode(str_.c_str(), str_.size(), type_); }
+inline std::string base64_EncodeURL(const std::string& str_, const size_t type_ = base64_type_url) noexcept { return base64_Encode(str_.c_str(), str_.size(), type_); }
 
 //Base64で文字列をデコードする
-const std::string base64_Decode(const char* const str_, const size_t type_ = base64_type_default)
+std::string base64_Decode(const char* const str_, const size_t type_ = base64_type_default) noexcept
 {
 	if (str_ == nullptr) return nullptr;
 	const Base64 base64 = (type_ == base64_type_default) ? base64_default : base64_url;

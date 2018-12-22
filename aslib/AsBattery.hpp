@@ -11,11 +11,8 @@
 
 namespace AsLib
 {
-
-
-
 	//バッテリー取得
-	inline const int32_t asBattery() {
+	inline int32_t asBattery() noexcept {
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return int32_t(DxLib::GetBatteryLifePercent());
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
@@ -39,7 +36,7 @@ return 0;
 	}
 
 	//バッテリー描画
-	const int32_t asBatteryDraw(const PosL4 pos_, const Color battery_col = { 0,192,32,255 }, const Color out_col = { 75,75,75,255 })
+	int32_t asBatteryDraw(const PosL4 pos_, const Color battery_col = { 0,192,32,255 }, const Color out_col = { 75,75,75,255 }) noexcept
 	{
 		const Color empty_col = { 255,255,255,out_col.a };
 
@@ -78,11 +75,11 @@ return 0;
 
 	struct Battery {
 	public:
-		Battery(const PosL4 pos_ = { 0,0,100,0 }, const Color in_col_ = { 0,192,32,255 }, const Color out_col_ = { 75,75,75,255 })
+		explicit Battery(const PosL4 pos_ = { 0,0,100,0 }, const Color in_col_ = { 0,192,32,255 }, const Color out_col_ = { 75,75,75,255 })
 		{
 			this->make(pos_, in_col_, out_col_);
 		};
-		Battery& make(const PosL4 pos_ = { 0,0,100,0 }, const Color in_col_ = { 0,192,32,255 }, const Color out_col_ = { 75,75,75,255 })
+		Battery& make(const PosL4 pos_ = { 0,0,100,0 }, const Color in_col_ = { 0,192,32,255 }, const Color out_col_ = { 75,75,75,255 }) noexcept
 		{
 			out_pos = pos_;
 			battery_col = in_col_;
@@ -118,7 +115,7 @@ return 0;
 			touch_pos.y2 = out_pos.y + out_pos.h;
 			return *this;
 		}
-		Battery& draw()
+		Battery& draw() noexcept
 		{
 			battery_power = asBattery();
 			battery_pos.w = empty_pos.w*battery_power / 100;
@@ -131,15 +128,15 @@ return 0;
 		}
 
 		//カウンター出力
-		bool down() const { return counter.down(); };
-		bool up() const { return counter.up(); };
-		int32_t count() const { return counter.count(); };
-		bool down0() { return counter.down0(); };
-		bool up0() { return counter.up0(); };
-		int32_t count0() { return counter.count0(); };
-		int32_t Touch() const { return this->touch_num; };
-		int32_t Touch0() { const int32_t num = this->touch_num; this->touch_num = 0; return num; };
-		Battery& touch(const Pos2& add_pos)
+		bool down() const noexcept { return counter.down(); };
+		bool up() const noexcept { return counter.up(); };
+		int32_t count() const noexcept { return counter.count(); };
+		bool down0() noexcept { return counter.down0(); };
+		bool up0() noexcept { return counter.up0(); };
+		int32_t count0() noexcept { return counter.count0(); };
+		int32_t Touch() const noexcept { return this->touch_num; };
+		int32_t Touch0() noexcept { const int32_t num = this->touch_num; this->touch_num = 0; return num; };
+		Battery& touch(const Pos2& add_pos) noexcept
 		{
 			bool is_touch = false;
 			const Pos4 p = { this->touch_pos.x1 - add_pos.x ,this->touch_pos.y1 - add_pos.y ,this->touch_pos.x2 - add_pos.x ,this->touch_pos.y2 - add_pos.y };
@@ -153,12 +150,12 @@ return 0;
 			return *this;
 		}
 		//タッチ初期化
-		Battery& initTouch() { this->touch_num = 0; return *this; };
+		Battery& initTouch() noexcept { this->touch_num = 0; return *this; };
 		//タッチカウント
-		Battery& update() { this->counter.update(this->touch_num); return *this; };
+		Battery& update() noexcept { this->counter.update(this->touch_num); return *this; };
 
 		//バッテリー専用の出力
-		int32_t Power() { return this->battery_power = asBattery(); }
+		int32_t Power() noexcept { return this->battery_power = asBattery(); }
 
 	private:
 
