@@ -17,8 +17,8 @@ namespace AsLib
 	struct AsScreen {
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 	private:
-		size_t s_x{};
-		size_t s_y{};
+		std::size_t s_x{};
+		std::size_t s_y{};
 		OriginatorScreen screen;
 		bool is_alpha{ false };
 		bool is_error{ true };
@@ -35,10 +35,10 @@ namespace AsLib
 		AsScreen(const Pos2& p_, const bool is_alpha = true) :s_x(p_.x),s_y(p_.y),screen(DxLib::MakeScreen(int(p_.x), int(p_.y), (is_alpha == true) ? 1 : 0)), is_alpha(is_alpha), is_error(checkScreen(screen)) {}
 		~AsScreen() { DxLib::DeleteGraph(screen); }
 
-		const size_t x() const noexcept {
+		const std::size_t x() const noexcept {
 			return s_x;
 		}
-		const size_t y() const noexcept {
+		const std::size_t y() const noexcept {
 			return s_y;
 		}
 

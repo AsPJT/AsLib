@@ -12,7 +12,7 @@
 namespace AsLib
 {
 	//dir
-	enum :size_t
+	enum :std::size_t
 	{
 		MOB_DOWN,
 		MOB_UP,
@@ -26,7 +26,7 @@ namespace AsLib
 	};
 
 	//キーボード配列ID
-	enum :size_t {
+	enum :std::size_t {
 		aslib_key_unknown,
 		aslib_key_grave_accentilde,
 		aslib_key_1,
@@ -298,12 +298,12 @@ namespace AsLib
 	//public:
 
 	//private:
-	//	std::array<int32_t, 256>aslib_update_key = {};
-	//	//std::array<int32_t, 256>config = {};
+	//	std::array<std::int32_t, 256>aslib_update_key = {};
+	//	//std::array<std::int32_t, 256>config = {};
 	//	//std::array<Counter, 256> counter = {};
 	//};
 
-	enum :size_t {
+	enum :std::size_t {
 bba0
 ,KEY_INPUT_ESCAPE0x01//EscキーD_DIK_ESCAPE
 ,KEY_INPUT_10x02//１キーD_DIK_1
@@ -569,7 +569,7 @@ bba0
 	
 void checkKey(bool* const AS_key,Counter* const AS_count) noexcept
 {
-	constexpr std::array<size_t, aslib_key_keyLast> DL_AS_key{
+	constexpr std::array<std::size_t, aslib_key_keyLast> DL_AS_key{
 		0,
 		KEY_INPUT_KANJI,
 		KEY_INPUT_1,
@@ -708,7 +708,7 @@ void checkKey(bool* const AS_key,Counter* const AS_count) noexcept
 
 	std::array<char, 256> DL_key;
 	DxLib::GetHitKeyStateAll(DL_key.data());
-	for (size_t i{}; i < aslib_key_keyLast; ++i) {
+	for (std::size_t i{}; i < aslib_key_keyLast; ++i) {
 		if (DL_key[DL_AS_key[i]] != 0) AS_key[i] = true;
 		else AS_key[i] = false;
 		AS_count[i].update(bool(AS_key[i]));
@@ -720,7 +720,7 @@ void checkKey(bool* const AS_key,Counter* const AS_count) noexcept
 
 void checkKey(bool* const AS_key, Counter* const AS_count) noexcept
 {
-	for (size_t i{}; i < aslib_key_keyLast; ++i) {
+	for (std::size_t i{}; i < aslib_key_keyLast; ++i) {
 		AS_key[i] = false;
 	}
 	AS_key[aslib_key_1] = bool(s3d::Key1.pressed());
@@ -783,7 +783,7 @@ void checkKey(bool* const AS_key, Counter* const AS_count) noexcept
 	AS_key[aslib_key_right_alt] = bool(s3d::KeyRAlt.pressed());
 	AS_key[aslib_key_enter] = bool(s3d::KeyEnter.pressed());
 
-	for (size_t i{}; i < aslib_key_keyLast; ++i) {
+	for (std::size_t i{}; i < aslib_key_keyLast; ++i) {
 		AS_count[i].update(bool(AS_key[i]));
 	}
 	return;
@@ -812,7 +812,7 @@ void checkKey(bool* const AS_key, Counter* const AS_count) noexcept
 }
 #endif
 
-enum :size_t {
+enum :std::size_t {
 	aslib_counter_empty,
 	aslib_counter_touch,
 	aslib_counter_up,
@@ -822,7 +822,7 @@ enum :size_t {
 	aslib_counter_down0,
 };
 
-const bool updateKey_(const size_t id_ = 0, const bool is_update = false, const size_t count_id = aslib_counter_empty,const bool is_set=false) noexcept
+const bool updateKey_(const std::size_t id_ = 0, const bool is_update = false, const std::size_t count_id = aslib_counter_empty,const bool is_set=false) noexcept
 {
 	static bool aslib_update_key[aslib_key_keyLast];
 	static Counter aslib_update_count[aslib_key_keyLast];
@@ -844,14 +844,14 @@ const bool updateKey_(const size_t id_ = 0, const bool is_update = false, const 
 	return aslib_update_key[id_];
 }
 
-inline bool asKeySet(const size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_empty, true); }
-inline bool asKey(const size_t& id_) noexcept { return updateKey_(id_, false); }
-inline bool asKeyTouch(const size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_touch); }
-inline bool asKeyTouch0(const size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_touch0); }
-inline bool asKeyUp(const size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_up); }
-inline bool asKeyUp0(const size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_up0); }
-inline bool asKeyDown(const size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_down); }
-inline bool asKeyDown0(const size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_down0); }
+inline bool asKeySet(const std::size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_empty, true); }
+inline bool asKey(const std::size_t& id_) noexcept { return updateKey_(id_, false); }
+inline bool asKeyTouch(const std::size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_touch); }
+inline bool asKeyTouch0(const std::size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_touch0); }
+inline bool asKeyUp(const std::size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_up); }
+inline bool asKeyUp0(const std::size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_up0); }
+inline bool asKeyDown(const std::size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_down); }
+inline bool asKeyDown0(const std::size_t& id_) noexcept { return updateKey_(id_, false, aslib_counter_down0); }
 
 inline bool asKeyA() noexcept { return updateKey_(aslib_key_a, false); }
 inline bool asKeyA_Touch() noexcept { return updateKey_(aslib_key_a, false, aslib_counter_touch); }
@@ -1225,22 +1225,22 @@ struct AsKeyList {
 	AsKeyList() = default;
 
 	//プレイヤー系
-	std::vector<size_t> player_move_down;
-	std::vector<size_t> player_move_up;
-	std::vector<size_t> player_move_left;
-	std::vector<size_t> player_move_right;
-	std::vector<size_t> player_move_left_up;
-	std::vector<size_t> player_move_right_up;
-	std::vector<size_t> player_move_left_down;
-	std::vector<size_t> player_move_right_down;
+	std::vector<std::size_t> player_move_down;
+	std::vector<std::size_t> player_move_up;
+	std::vector<std::size_t> player_move_left;
+	std::vector<std::size_t> player_move_right;
+	std::vector<std::size_t> player_move_left_up;
+	std::vector<std::size_t> player_move_right_up;
+	std::vector<std::size_t> player_move_left_down;
+	std::vector<std::size_t> player_move_right_down;
 
 	//通常系
-	std::vector<size_t> ok;
-	std::vector<size_t> back;
-	std::vector<size_t> menu;
+	std::vector<std::size_t> ok;
+	std::vector<std::size_t> back;
+	std::vector<std::size_t> menu;
 
 	const bool is_ok() const noexcept {
-		for (size_t i{}; i < ok.size(); ++i) {
+		for (std::size_t i{}; i < ok.size(); ++i) {
 			if (ok[i] < 256 && asKeyUp(ok[i])) return true;
 		}
 		return false;
@@ -1284,7 +1284,7 @@ struct AsKeyList {
 		return *this;
 	}
 
-	const bool isTouch(const size_t is_) const noexcept {
+	const bool isTouch(const std::size_t is_) const noexcept {
 		switch (is_)
 		{
 		case aslib_key_w_a:
@@ -1315,29 +1315,29 @@ struct AsKeyList {
 		return false;
 	}
 
-	const size_t playerMove4() const noexcept {
-		for (size_t i{}; i < player_move_down.size(); ++i) {
+	const std::size_t playerMove4() const noexcept {
+		for (std::size_t i{}; i < player_move_down.size(); ++i) {
 			if (player_move_down[i] > 255) {
 				if (isTouch(player_move_down[i])) return MOB_DOWN;
 				else continue;
 			}
 			if (asKeyTouch(player_move_down[i])) return MOB_DOWN;
 		}
-		for (size_t i{}; i < player_move_up.size(); ++i) {
+		for (std::size_t i{}; i < player_move_up.size(); ++i) {
 			if (player_move_up[i] > 255) {
 				if (isTouch(player_move_up[i])) return MOB_UP;
 				else continue;
 			}
 			if (asKeyTouch(player_move_up[i])) return MOB_UP;
 		}
-		for (size_t i{}; i < player_move_left.size(); ++i) {
+		for (std::size_t i{}; i < player_move_left.size(); ++i) {
 			if (player_move_left[i] > 255) {
 				if (isTouch(player_move_left[i])) return MOB_LEFT;
 				else continue;
 			}
 			if (asKeyTouch(player_move_left[i])) return MOB_LEFT;
 		}
-		for (size_t i{}; i < player_move_right.size(); ++i) {
+		for (std::size_t i{}; i < player_move_right.size(); ++i) {
 			if (player_move_right[i] > 255) {
 				if (isTouch(player_move_right[i])) return MOB_RIGHT;
 				else continue;
@@ -1347,29 +1347,29 @@ struct AsKeyList {
 		return MOB_CENTER;
 	}
 
-	const size_t playerMove8() const noexcept {
-		for (size_t i{}; i < player_move_left_up.size(); ++i) {
+	const std::size_t playerMove8() const noexcept {
+		for (std::size_t i{}; i < player_move_left_up.size(); ++i) {
 			if (player_move_left_up[i] > 255) {
 				if (isTouch(player_move_left_up[i])) return MOB_LEFT_UP;
 				else continue;
 			}
 			if (asKeyTouch(player_move_left_up[i])) return MOB_LEFT_UP;
 		}
-		for (size_t i{}; i < player_move_right_up.size(); ++i) {
+		for (std::size_t i{}; i < player_move_right_up.size(); ++i) {
 			if (player_move_right_up[i] > 255) {
 				if (isTouch(player_move_right_up[i])) return MOB_RIGHT_UP;
 				else continue;
 			}
 			if (asKeyTouch(player_move_right_up[i])) return MOB_RIGHT_UP;
 		}
-		for (size_t i{}; i < player_move_left_down.size(); ++i) {
+		for (std::size_t i{}; i < player_move_left_down.size(); ++i) {
 			if (player_move_left_down[i] > 255) {
 				if (isTouch(player_move_left_down[i])) return MOB_LEFT_DOWN;
 				else continue;
 			}
 			if (asKeyTouch(player_move_left_down[i])) return MOB_LEFT_DOWN;
 		}
-		for (size_t i{}; i < player_move_right_down.size(); ++i) {
+		for (std::size_t i{}; i < player_move_right_down.size(); ++i) {
 			if (player_move_right_down[i] > 255) {
 				if (isTouch(player_move_right_down[i])) return MOB_RIGHT_DOWN;
 				else continue;
@@ -1385,7 +1385,7 @@ struct AsKeyList {
 }
 
 //	bool* checkKey9() {
-//		constexpr std::array<size_t, 256> AS_DL_key{
+//		constexpr std::array<std::size_t, 256> AS_DL_key{
 //			aslib_key_unknown,//Ka0 
 //			aslib_key_eSCAPE,//KESCAPE0x01//EscキーD_DIK_ESCAPE 
 //			aslib_key_1,//K10x02//１キーD_DIK_1 
@@ -1647,7 +1647,7 @@ struct AsKeyList {
 //
 //		std::array<char,256> DL_key;
 //		DxLib::GetHitKeyStateAll(DL_key.data());
-//		for (size_t i{}; i < 256; ++i) {
+//		for (std::size_t i{}; i < 256; ++i) {
 //			if (DL_key[i] != 0) {
 //				//AS_key[AS_DL_key[i]] = true;
 //			}

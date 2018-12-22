@@ -16,9 +16,10 @@
 
 #pragma once
 #include <cstdint>
+#include <cstddef>
 
 //AsLibバージョン
-constexpr int32_t ASLIB_VERSION = 0x0400;
+constexpr std::int32_t ASLIB_VERSION = 0x0400;
 const char* const ASLIB_VERSION_STR = "0.4.0.0 Alpha";
 
 //AsLibバージョン (UTF)
@@ -26,14 +27,14 @@ const char* const ASLIB_VERSION_STR8 = u8"0.4.0.0 Alpha";
 const char16_t* const ASLIB_VERSION_STR16 = u"0.4.0.0 Alpha";
 const char32_t* const ASLIB_VERSION_STR32 = U"0.4.0.0 Alpha";
 
-enum:size_t{
+enum:std::size_t{
 	aslib_platform_empty,
 	aslib_platform_pc,
 	aslib_platform_sp,
 };
 
-int32_t asMain();
-namespace AsLib { int32_t asEnd() noexcept; }
+std::int32_t asMain();
+namespace AsLib { std::int32_t asEnd() noexcept; }
 //他ライブラリインクルード
 #if defined(__DXLIB)
 #if !defined(ASLIB_INCLUDE_DL)
@@ -60,12 +61,12 @@ int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int 
 #endif
 #if defined(__WINDOWS__)
 #include <Windows.h>
-int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int i = int(asMain()); AsLib::asEnd(); return i; }
+int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int i{ int(asMain()) }; AsLib::asEnd(); return i; }
 //プラットフォーム
 #if !defined(AS_PLATFORM_WINDOWS)
 #define AS_PLATFORM_WINDOWS
 #endif
-constexpr size_t aslib_platform = aslib_platform_pc;
+constexpr std::size_t aslib_platform = aslib_platform_pc;
 #if !defined(AS_PLATFORM_PC)
 #define AS_PLATFORM_PC
 #endif
@@ -90,7 +91,7 @@ int android_main() { const int i = int(asMain()); AsLib::asEnd(); return i; }
 #if !defined(AS_PLATFORM_ANDROID)
 #define AS_PLATFORM_ANDROID
 #endif
-constexpr size_t aslib_platform = aslib_platform_sp;
+constexpr std::size_t aslib_platform = aslib_platform_sp;
 #if !defined(AS_PLATFORM_SP)
 #define AS_PLATFORM_SP
 #endif
@@ -107,24 +108,24 @@ constexpr size_t aslib_platform = aslib_platform_sp;
 #define ANIME_TEXTURE_1
 #endif
 #if defined(SIV3D_TARGET_WINDOWS)
-	constexpr size_t aslib_platform = aslib_platform_pc;
+	constexpr std::size_t aslib_platform = aslib_platform_pc;
 #include <Windows.h>
 #endif
 void Main() { asMain(); AsLib::asEnd(); return; }
 
 #elif defined(ASLIB_INCLUDE_NO)
-	constexpr size_t aslib_platform = aslib_platform_empty;
+	constexpr std::size_t aslib_platform = aslib_platform_empty;
 int main() { return int(asMain() && AsLib::asEnd()); }
 #define ANIME_TEXTURE_3
 #elif defined(ASLIB_INCLUDE_OF)
-	constexpr size_t aslib_platform = aslib_platform_pc;
+	constexpr std::size_t aslib_platform = aslib_platform_pc;
 #include <ofMain.h>
 int main() { return int(asMain()); }
 #define ANIME_TEXTURE_1
 #elif defined(ASLIB_INCLUDE_C2)
 #include "cocos2d.h"
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	constexpr size_t aslib_platform = aslib_platform_pc;
+	constexpr std::size_t aslib_platform = aslib_platform_pc;
 #define ANIME_TEXTURE_4
 #ifndef __MAIN_H__
 #define __MAIN_H__
@@ -146,14 +147,14 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 #elif defined(ASLIB_INCLUDE_SF)
 
 #elif defined(ASLIB_INCLUDE_TP)
-	constexpr size_t aslib_platform = aslib_platform_empty;
+	constexpr std::size_t aslib_platform = aslib_platform_empty;
 int main() { return int(asMain()); }
 #define ANIME_TEXTURE_3
 #else
 #if !defined(ASLIB_INCLUDE_NO)
 #define ASLIB_INCLUDE_NO
 #endif
-	constexpr size_t aslib_platform = aslib_platform_empty;
+	constexpr std::size_t aslib_platform = aslib_platform_empty;
 int main() { return int(asMain() && AsLib::asEnd()); }
 #define ANIME_TEXTURE_3
 #endif

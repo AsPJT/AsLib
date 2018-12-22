@@ -15,7 +15,7 @@ namespace AsLib
 	class MainControl
 	{
 	private:
-		int32_t init_true{ false };
+		std::int32_t init_true{ false };
 		//ウィンドウサイズ
 		Pos2 window_size;
 		//背景色

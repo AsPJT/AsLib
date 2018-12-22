@@ -20,15 +20,15 @@ namespace AsLib
 	}
 
 	//デフォルト背景色
-	constexpr uint8_t aslib_bg_color_r{ 230 };
-	constexpr uint8_t aslib_bg_color_g{ 230 };
-	constexpr uint8_t aslib_bg_color_b{ 230 };
+	constexpr std::uint8_t aslib_bg_color_r{ 230 };
+	constexpr std::uint8_t aslib_bg_color_g{ 230 };
+	constexpr std::uint8_t aslib_bg_color_b{ 230 };
 	constexpr ColorRGB aslib_bg_color(aslib_bg_color_r, aslib_bg_color_g, aslib_bg_color_b);
 	constexpr ColorRGB defaultColorBG() noexcept { return aslib_bg_color; }
 
 	//デフォルトウィンドウサイズ
-	constexpr int32_t aslib_default_window_size_x{ 360 };
-	constexpr int32_t aslib_default_window_size_y{ 640 };
+	constexpr std::int32_t aslib_default_window_size_x{ 360 };
+	constexpr std::int32_t aslib_default_window_size_y{ 640 };
 	constexpr Pos2 aslib_default_window_size(aslib_default_window_size_x, aslib_default_window_size_y);
 	constexpr Pos2 defaultWindowSize() noexcept { return aslib_default_window_size; }
 
@@ -65,19 +65,19 @@ namespace AsLib
 
 	Pos4 toPos4(const Pos4F& add_pos, const Pos2& window_size) noexcept
 	{
-		return Pos4(int32_t(add_pos.x1 * float(window_size.x)), int32_t(add_pos.y1 * float(window_size.y)), int32_t(add_pos.x2 * float(window_size.x)), int32_t(add_pos.y2 * float(window_size.y)));
+		return Pos4(std::int32_t(add_pos.x1 * float(window_size.x)), std::int32_t(add_pos.y1 * float(window_size.y)), std::int32_t(add_pos.x2 * float(window_size.x)), std::int32_t(add_pos.y2 * float(window_size.y)));
 	}
 
 	Pos4 toPos4X(const Pos4F& add_pos, const Pos2& window_size, const Pos2& add_pixel) noexcept
 	{
 		const float pixel_size{ float(add_pixel.x) / float(add_pixel.y) };
-		return Pos4(int32_t(add_pos.x1 * float(window_size.x)), int32_t(add_pos.y1 * float(window_size.y)), int32_t(add_pos.x2 * float(window_size.x)), int32_t(add_pos.x2 * pixel_size * float(window_size.y)));
+		return Pos4(std::int32_t(add_pos.x1 * float(window_size.x)), std::int32_t(add_pos.y1 * float(window_size.y)), std::int32_t(add_pos.x2 * float(window_size.x)), std::int32_t(add_pos.x2 * pixel_size * float(window_size.y)));
 	}
 
 	Pos4 toPos4Y(const Pos4F& add_pos, const Pos2& window_size, const Pos2& add_pixel) noexcept
 	{
 		const float pixel_size{ float(add_pixel.y) / float(add_pixel.x) };
-		return 		Pos4(int32_t(add_pos.x1 * float(window_size.x)), int32_t(add_pos.y1 * float(window_size.y)), int32_t(add_pos.y2 * pixel_size * float(window_size.x)), int32_t(add_pos.y2 * float(window_size.y)));
+		return 		Pos4(std::int32_t(add_pos.x1 * float(window_size.x)), std::int32_t(add_pos.y1 * float(window_size.y)), std::int32_t(add_pos.y2 * pixel_size * float(window_size.x)), std::int32_t(add_pos.y2 * float(window_size.y)));
 	}
 
 }

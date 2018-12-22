@@ -11,12 +11,12 @@
 
 namespace AsLib
 {
-	inline int32_t asWifi() noexcept
+	inline std::int32_t asWifi() noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__ANDROID__)
 		//<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />追加あり
-		return int32_t(DxLib::GetWifiSignalLevel());
+		return std::int32_t(DxLib::GetWifiSignalLevel());
 #else
 		return 0;
 #endif

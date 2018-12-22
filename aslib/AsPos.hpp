@@ -14,7 +14,7 @@ namespace AsLib
 #if defined(AS_CHANGE_VAR_POS_INT)
 	using pos_int = AS_CHANGE_VAR_POS;
 #else
-	using pos_int = int_least32_t;
+	using pos_int = std::int_least32_t;
 #endif
 #if defined(AS_CHANGE_VAR_POS_FLOAT)
 	using pos_float = AS_CHANGE_VAR_POS_FLOAT;
@@ -113,10 +113,10 @@ namespace AsLib
 		const Pos2& operator()(const pos_int pos_x, const pos_int pos_y) { *this = Pos2(pos_x, pos_y); return *this; }
 		const Pos2& operator()(const double pos_) { this->x = pos_int(this->x*pos_); this->y = pos_int(this->y*pos_); return *this; }
 		const Pos2& operator()(const double pos_x, const double pos_y) { this->x = pos_int(this->x*pos_x); this->y = pos_int(this->y*pos_y); return *this; }
-		const Pos2& copy(int32_t& x_, int32_t& y_) const { x_ = this->x; y_ = this->y; return *this; }
-		const Pos2& copy(int32_t* const x_, int32_t* const y_) const { if (x_ != nullptr)*x_ = this->x; if (y_ != nullptr)*y_ = this->y; return *this; }
+		const Pos2& copy(std::int32_t& x_, std::int32_t& y_) const { x_ = this->x; y_ = this->y; return *this; }
+		const Pos2& copy(std::int32_t* const x_, std::int32_t* const y_) const { if (x_ != nullptr)*x_ = this->x; if (y_ != nullptr)*y_ = this->y; return *this; }
 		const Pos2& rand(const Pos2&);
-		const Pos2& randPlus(const uint32_t);
+		const Pos2& randPlus(const std::uint32_t);
 		const Pos2& operator()(Pos2* const p_) const { if (p_ != nullptr)*p_ = *this; return *this; }
 		const Pos2& operator()(pos_int* const x_, pos_int* const y_) const { *x_ = this->x; *y_ = this->y; return *this; }
 		const bool is_minus() const { return (this->x < 0 || this->y < 0) ? true : false; };
@@ -398,10 +398,10 @@ namespace AsLib
 		const PosA4& operator()(const double pos_) { this->w = pos_int(this->w*pos_); this->h = pos_int(this->h*pos_); return *this; }
 		const PosA4& operator()(const double pos_x, const double pos_y) { this->w = pos_int(this->w*pos_x); this->h = pos_int(this->h*pos_y); return *this; }
 		const PosA4& rand(const Pos2&);
-		const PosA4& randPlus(const uint32_t);
+		const PosA4& randPlus(const std::uint32_t);
 		const PosA4& operator()(PosA4* const p_) const { if (p_ != nullptr)*p_ = *this; return *this; }
 	};
-	inline const PosA4 & PosA4::randPlus(const uint32_t add_pos)
+	inline const PosA4 & PosA4::randPlus(const std::uint32_t add_pos)
 	{
 		this->x += (asRand32(add_pos) - (add_pos >> 1));
 		this->y += (asRand32(add_pos) - (add_pos >> 1));
@@ -846,7 +846,7 @@ namespace AsLib
 		this->y = asRand32(add_pos.y);
 		return *this;
 	}
-	inline const Pos2 & Pos2::randPlus(const uint32_t add_pos)
+	inline const Pos2 & Pos2::randPlus(const std::uint32_t add_pos)
 	{
 		this->x += (asRand32(add_pos) - (add_pos >> 1));
 		this->y += (asRand32(add_pos) - (add_pos >> 1));
@@ -1300,26 +1300,26 @@ namespace AsLib
 	inline void asRand(PosA4F& p_) { p_.x = pos_float(asRand()); p_.y = pos_float(asRand()); p_.w = pos_float(asRand()); p_.h = pos_float(asRand()); }
 	inline void asRand(Pos8& p_) { p_.x1 = asRand(); p_.y1 = asRand(); p_.x2 = asRand(); p_.y2 = asRand(); p_.x3 = asRand(); p_.y3 = asRand(); p_.x4 = asRand(); p_.y4 = asRand(); }
 	inline void asRand(Pos8F& p_) { p_.x1 = pos_float(asRand()); p_.y1 = pos_float(asRand()); p_.x2 = pos_float(asRand()); p_.y2 = pos_float(asRand()); p_.x3 = pos_float(asRand()); p_.y3 = pos_float(asRand()); p_.x4 = pos_float(asRand()); p_.y4 = pos_float(asRand()); }
-	inline void asRand(Pos2* const array_, const size_t s_) { for (size_t i{}; i < s_; ++i) asRand(array_[i]); }
-	inline void asRand(std::vector<Pos2>& array_) { const size_t s = array_.size(); for (size_t i{}; i < s; ++i) asRand(array_[i]); }
-	inline void asRand(Pos2F* const array_, const size_t s_) { for (size_t i{}; i < s_; ++i) asRand(array_[i]); }
-	inline void asRand(std::vector<Pos2F>& array_) { const size_t s = array_.size(); for (size_t i{}; i < s; ++i) asRand(array_[i]); }
-	inline void asRand(Pos4* const array_, const size_t s_) { for (size_t i{}; i < s_; ++i) asRand(array_[i]); }
-	inline void asRand(std::vector<Pos4>& array_) { const size_t s = array_.size(); for (size_t i{}; i < s; ++i) asRand(array_[i]); }
-	inline void asRand(Pos4F* const array_, const size_t s_) { for (size_t i{}; i < s_; ++i) asRand(array_[i]); }
-	inline void asRand(std::vector<Pos4F>& array_) { const size_t s = array_.size(); for (size_t i{}; i < s; ++i) asRand(array_[i]); }
-	inline void asRand(PosL4* const array_, const size_t s_) { for (size_t i{}; i < s_; ++i) asRand(array_[i]); }
-	inline void asRand(std::vector<PosL4>& array_) { const size_t s = array_.size(); for (size_t i{}; i < s; ++i) asRand(array_[i]); }
-	inline void asRand(PosL4F* const array_, const size_t s_) { for (size_t i{}; i < s_; ++i) asRand(array_[i]); }
-	inline void asRand(std::vector<PosL4F>& array_) { const size_t s = array_.size(); for (size_t i{}; i < s; ++i) asRand(array_[i]); }
-	inline void asRand(PosA4* const array_, const size_t s_) { for (size_t i{}; i < s_; ++i) asRand(array_[i]); }
-	inline void asRand(std::vector<PosA4>& array_) { const size_t s = array_.size(); for (size_t i{}; i < s; ++i) asRand(array_[i]); }
-	inline void asRand(PosA4F* const array_, const size_t s_) { for (size_t i{}; i < s_; ++i) asRand(array_[i]); }
-	inline void asRand(std::vector<PosA4F>& array_) { const size_t s = array_.size(); for (size_t i{}; i < s; ++i) asRand(array_[i]); }
-	inline void asRand(Pos8* const array_, const size_t s_) { for (size_t i{}; i < s_; ++i) asRand(array_[i]); }
-	inline void asRand(std::vector<Pos8>& array_) { const size_t s = array_.size(); for (size_t i{}; i < s; ++i) asRand(array_[i]); }
-	inline void asRand(Pos8F* const array_, const size_t s_) { for (size_t i{}; i < s_; ++i) asRand(array_[i]); }
-	inline void asRand(std::vector<Pos8F>& array_) { const size_t s = array_.size(); for (size_t i{}; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(Pos2* const array_, const std::size_t s_) { for (std::size_t i{}; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<Pos2>& array_) { const std::size_t s = array_.size(); for (std::size_t i{}; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(Pos2F* const array_, const std::size_t s_) { for (std::size_t i{}; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<Pos2F>& array_) { const std::size_t s = array_.size(); for (std::size_t i{}; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(Pos4* const array_, const std::size_t s_) { for (std::size_t i{}; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<Pos4>& array_) { const std::size_t s = array_.size(); for (std::size_t i{}; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(Pos4F* const array_, const std::size_t s_) { for (std::size_t i{}; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<Pos4F>& array_) { const std::size_t s = array_.size(); for (std::size_t i{}; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(PosL4* const array_, const std::size_t s_) { for (std::size_t i{}; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<PosL4>& array_) { const std::size_t s = array_.size(); for (std::size_t i{}; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(PosL4F* const array_, const std::size_t s_) { for (std::size_t i{}; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<PosL4F>& array_) { const std::size_t s = array_.size(); for (std::size_t i{}; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(PosA4* const array_, const std::size_t s_) { for (std::size_t i{}; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<PosA4>& array_) { const std::size_t s = array_.size(); for (std::size_t i{}; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(PosA4F* const array_, const std::size_t s_) { for (std::size_t i{}; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<PosA4F>& array_) { const std::size_t s = array_.size(); for (std::size_t i{}; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(Pos8* const array_, const std::size_t s_) { for (std::size_t i{}; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<Pos8>& array_) { const std::size_t s = array_.size(); for (std::size_t i{}; i < s; ++i) asRand(array_[i]); }
+	inline void asRand(Pos8F* const array_, const std::size_t s_) { for (std::size_t i{}; i < s_; ++i) asRand(array_[i]); }
+	inline void asRand(std::vector<Pos8F>& array_) { const std::size_t s = array_.size(); for (std::size_t i{}; i < s; ++i) asRand(array_[i]); }
 	constexpr Pos2 aslib_full_screen(-1, -1);
 	const Pos2 asPlatformPos(const Pos2& pc_= aslib_full_screen, const Pos2& sp_= aslib_full_screen) {
 		switch (aslib_platform)
@@ -1389,9 +1389,9 @@ namespace AsLib
 	struct AsPosFArray {
 	private:
 		PosL4F pos;
-		size_t num_x;
-		size_t num_y;
-		size_t num;
+		std::size_t num_x;
+		std::size_t num_y;
+		std::size_t num;
 
 		bool is_x = false;
 		bool is_y = false;
@@ -1401,18 +1401,18 @@ namespace AsLib
 		void setY(const float f_) { is_x = false; is_y = true; }
 
 		AsPosFArray() = default;
-		constexpr AsPosFArray(const PosL4F& p_, const size_t x_ = 1, const size_t y_ = 1) :pos(p_), num_x((x_ == 0) ? 1 : x_), num_y((y_ == 0) ? 1 : y_), num((x_*y_ == 0) ? 1 : x_ * y_) {}
+		constexpr AsPosFArray(const PosL4F& p_, const std::size_t x_ = 1, const std::size_t y_ = 1) :pos(p_), num_x((x_ == 0) ? 1 : x_), num_y((y_ == 0) ? 1 : y_), num((x_*y_ == 0) ? 1 : x_ * y_) {}
 
-		void reset(const PosL4F& p_, const size_t x_ = 1, const size_t y_ = 1) {
+		void reset(const PosL4F& p_, const std::size_t x_ = 1, const std::size_t y_ = 1) {
 			pos = p_;
 			num_x = ((x_ == 0) ? 1 : x_);
 			num_y = ((y_ == 0) ? 1 : y_);
 			num = ((x_*y_ == 0) ? 1 : x_ * y_);
 		}
 
-		const PosL4F operator[](const size_t num_) {
-			const size_t num_x_ = num_ % num_x;
-			const size_t num_y_ = num_ / num_x;
+		const PosL4F operator[](const std::size_t num_) {
+			const std::size_t num_x_ = num_ % num_x;
+			const std::size_t num_y_ = num_ / num_x;
 
 			if (is_x) return PosL4F(pos.x + pos.h*num_x_ / num_y, pos.y + pos.h*num_y_ / num_y, pos.h / num_y, pos.h / num_y);
 			if (is_y) return PosL4F(pos.x + pos.w*num_x_ / num_x, pos.y + pos.w*num_y_ / num_x, pos.w / num_x, pos.w / num_x);

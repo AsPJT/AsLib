@@ -13,7 +13,7 @@ namespace AsLib
 {
 
 	//円を描画
-	inline void asCircle(const Pos2& pos_, const int32_t& r_,const Color& col_) noexcept
+	inline void asCircle(const Pos2& pos_, const std::int32_t& r_,const Color& col_) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		DxLib::SetDrawBlendMode(1, int(col_.a)); 
@@ -38,13 +38,13 @@ return 0;
 	struct Circle
 	{
 		Circle() = default;
-		constexpr explicit Circle(const Pos2& pos_, const int32_t r_, const Color& col_ = aslib_color_black_a) :pos(pos_), r(r_), col(col_) {};
+		constexpr explicit Circle(const Pos2& pos_, const std::int32_t r_, const Color& col_ = aslib_color_black_a) :pos(pos_), r(r_), col(col_) {};
 		//const only
 		const Circle& draw() const noexcept { asCircle(pos, r, col); return *this; }
 		const Circle& draw(const Pos2& pos_) const noexcept { asCircle(pos_, r, col); return *this; }
 		const Circle& draw(const Color& col_) const noexcept { asCircle(pos, r, col_); return *this; }
 		Pos2 pos;
-		int32_t r;
+		std::int32_t r;
 		Color col;
 	};
 

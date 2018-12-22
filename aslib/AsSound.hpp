@@ -37,7 +37,7 @@ return 0;
 		AsBGM& set(const char* const name_) noexcept { if (name_ != nullptr) sound = asLoadBGM(name_); return *this; }
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		AsBGM& stop() noexcept { DxLib::StopSoundMem(sound); return *this; }
-		AsBGM& volume(const uint8_t vol_) noexcept { DxLib::ChangeVolumeSoundMem(vol_, sound); return *this; }
+		AsBGM& volume(const std::uint8_t vol_) noexcept { DxLib::ChangeVolumeSoundMem(vol_, sound); return *this; }
 		AsBGM& playStart() noexcept { DxLib::PlaySoundMem(sound, DX_PLAYTYPE_BACK, TRUE); return *this; }
 		AsBGM& playStartLoop() noexcept { DxLib::PlaySoundMem(sound, DX_PLAYTYPE_LOOP, TRUE); return *this; }
 		AsBGM& play() noexcept { DxLib::PlaySoundMem(sound, DX_PLAYTYPE_BACK, FALSE); return *this; }
@@ -49,21 +49,21 @@ return 0;
 		AsBGM& playStart() noexcept { sound.stop(); return this->play(); }
 		AsBGM& playStartLoop() noexcept { sound.stop(); sound.setLoop(true); return this->play(); }
 		AsBGM& playLoop() noexcept { sound.setLoop(true); return this->play(); }
-		AsBGM& volume(const uint8_t vol_) noexcept { sound.setVolume(double(vol_) / 255.0); return *this; }
+		AsBGM& volume(const std::uint8_t vol_) noexcept { sound.setVolume(double(vol_) / 255.0); return *this; }
 #elif defined(ASLIB_INCLUDE_OF)
 		AsBGM& stop() noexcept { return *this; }
 		AsBGM& play() noexcept { return *this; }
 		AsBGM& playStart() noexcept { return *this; }
 		AsBGM& playStartLoop() noexcept { return *this; }
 		AsBGM& playLoop() noexcept { return *this; }
-		AsBGM& volume(const uint8_t vol_) noexcept { return *this; }
+		AsBGM& volume(const std::uint8_t vol_) noexcept { return *this; }
 #else //Console
 		AsBGM& stop() noexcept { return *this; }
 		AsBGM& play() noexcept { return *this; }
 		AsBGM& playStart() noexcept { return *this; }
 		AsBGM& playStartLoop() noexcept { return *this; }
 		AsBGM& playLoop() noexcept { return *this; }
-		AsBGM& volume(const uint8_t vol_) noexcept { return *this; }
+		AsBGM& volume(const std::uint8_t vol_) noexcept { return *this; }
 #endif
 	};
 

@@ -44,7 +44,7 @@ return 0;
 	std::string printString(const char *FormatString, const Rest&... rest) noexcept
 	{
 
-		constexpr int32_t PRINT_STRING_MAX{ 1024 };
+		constexpr std::int32_t PRINT_STRING_MAX{ 1024 };
 		char snString[PRINT_STRING_MAX];
 		snprintf(snString, sizeof(snString), FormatString, rest...);
 		return std::string(snString);
@@ -96,10 +96,10 @@ return 0;
 	}
 
 	//背景色変更
-	inline int32_t asSetBackGround(const ColorRGB& BG_color = aslib_bg_color) noexcept
+	inline std::int32_t asSetBackGround(const ColorRGB& BG_color = aslib_bg_color) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-		return int32_t(DxLib::SetBackgroundColor(BG_color.r, BG_color.g, BG_color.b));
+		return std::int32_t(DxLib::SetBackgroundColor(BG_color.r, BG_color.g, BG_color.b));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		s3d::Graphics::SetBackground(s3d::Color(BG_color));
 		return 0;
@@ -128,12 +128,12 @@ return 0;
 	inline std::string asTitle() noexcept { return asTitleSave(false); }
 
 	//タイトル変更
-	inline int32_t asSetTitle(const char* const title) noexcept
+	inline std::int32_t asSetTitle(const char* const title) noexcept
 	{
 		asTitleSave(true, title);
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__WINDOWS__)
-		return int32_t(DxLib::SetMainWindowText(title));
+		return std::int32_t(DxLib::SetMainWindowText(title));
 #else
 		return 0;
 #endif
@@ -154,7 +154,7 @@ return 0;
 #endif
 	}
 	//タイトル変更
-	inline int32_t asSetTitle(const std::string& title) noexcept
+	inline std::int32_t asSetTitle(const std::string& title) noexcept
 	{
 		return asSetTitle(title.c_str());
 	}
@@ -190,7 +190,7 @@ return 0;
 		RECT rc;
 		GetWindowRect(GetDesktopWindow(), &rc);
 		Pos2 full_pos;
-		full_pos(int32_t(rc.right - rc.left), int32_t(rc.bottom - rc.top));
+		full_pos(std::int32_t(rc.right - rc.left), std::int32_t(rc.bottom - rc.top));
 		return full_pos;
 #elif defined(__ANDROID__)
 		int window_x;
@@ -200,7 +200,7 @@ return 0;
 		if (DxLib::GetAndroidDisplayResolution(&window_x, &window_y) == -1) return pos2;
 
 		Pos2 pos;
-		pos(int32_t(window_x), int32_t(window_y));
+		pos(std::int32_t(window_x), std::int32_t(window_y));
 
 		return pos;
 #endif
@@ -266,7 +266,7 @@ return 0;
 		//if (DxLib::GetAndroidDisplayResolution(&window_x, &window_y) == -1) return pos2;
 
 		//Pos2 pos;
-		//pos(int32_t(window_x), int32_t(window_y));
+		//pos(std::int32_t(window_x), std::int32_t(window_y));
 
 		return { -1,-1 };
 #endif
@@ -284,7 +284,7 @@ return 0;
 	}
 
 
-	int32_t makeLog(const std::string& str_) noexcept
+	std::int32_t makeLog(const std::string& str_) noexcept
 	{
 		asWrite(str_, u8"<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"/>");
 		asAddWrite(str_, u8"<title>");
@@ -298,7 +298,7 @@ return 0;
 		std::string license_name = u8"";
 		std::vector<Copyright> license_copyright;
 		std::string license_str = u8"";
-		for (size_t i{}; i < aslib_license_size; ++i) {
+		for (std::size_t i{}; i < aslib_license_size; ++i) {
 			license_copyright.clear();
 			asLicense(aslib_license[i], license_name, license_copyright, license_str);
 
@@ -306,7 +306,7 @@ return 0;
 			asAddWrite(str_, license_name.c_str());
 			asAddWrite(str_, u8"</main>");
 
-			for (size_t j{}; j < license_copyright.size(); ++j) {
+			for (std::size_t j{}; j < license_copyright.size(); ++j) {
 				asAddWrite(str_, u8"<main class=\"copyright\">");
 				asAddWrite(str_, license_copyright[j].write());
 				asAddWrite(str_, u8"</main>");
@@ -321,12 +321,12 @@ return 0;
 		return 0;
 	}
 
-	int32_t makeLog() noexcept {
+	std::int32_t makeLog() noexcept {
 		return makeLog(asTitle() + u8"_Licenses.html");
 	}
 
 	//初期化
-	int32_t AsInit(const Pos2& p_ = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color) noexcept
+	std::int32_t AsInit(const Pos2& p_ = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		DxLib::SetOutApplicationLogValidFlag(FALSE);
@@ -343,7 +343,7 @@ return 0;
 			RECT rc;
 			GetWindowRect(GetDesktopWindow(), &rc);
 			Pos2 full_pos;
-			full_pos(int32_t(rc.right - rc.left), int32_t(rc.bottom - rc.top));
+			full_pos(std::int32_t(rc.right - rc.left), std::int32_t(rc.bottom - rc.top));
 			asSetWindowSize(full_pos);
 		}
 		else {//通常のモード
@@ -410,17 +410,17 @@ return 0;
 #if !defined(ASLIB_DONOT_USE_LOG)
 		makeLog();
 #endif
-		asSRand8(uint8_t(std::time(nullptr) & 0xff));
-		asSRand32(uint32_t(std::time(nullptr) & 0xffffffff));
+		asSRand8(std::uint8_t(std::time(nullptr) & 0xff));
+		asSRand32(std::uint32_t(std::time(nullptr) & 0xffffffff));
 		asIsInitSave(true, true);
 		return 0;
 	}
 
 	//終了処理
-	inline int32_t asEnd() noexcept
+	inline std::int32_t asEnd() noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-		return int32_t(DxLib::DxLib_End());
+		return std::int32_t(DxLib::DxLib_End());
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
@@ -438,10 +438,10 @@ return 0;
 
 	//文字出力
 	template<typename... Rest>
-	inline int32_t asPrint(const char* const format_string, const Rest&... rest) noexcept
+	inline std::int32_t asPrint(const char* const format_string, const Rest&... rest) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-		return int32_t(DxLib::printfDx(format_string, rest...));
+		return std::int32_t(DxLib::printfDx(format_string, rest...));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		s3d::Print(s3d::Unicode::UTF8ToUTF32(printString(format_string, rest...)));
 		return 0;
@@ -458,10 +458,10 @@ return 0;
 #endif
 	}
 
-	inline int32_t asPrint(const char* const format_string) noexcept
+	inline std::int32_t asPrint(const char* const format_string) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-		return int32_t(DxLib::printfDx("%s", format_string));
+		return std::int32_t(DxLib::printfDx("%s", format_string));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		s3d::Print(s3d::Unicode::UTF8ToUTF32(format_string));
 		return 0;
@@ -480,38 +480,38 @@ return 0;
 
 //以降は他ライブラリ依存なし----------
 
-	int32_t AsInit(const char* const title = u8"", const Pos2& window_size = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color) noexcept
+	std::int32_t AsInit(const char* const title = u8"", const Pos2& window_size = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color) noexcept
 	{
 		if (asSetTitle(title) == -1) return -1;
 		return AsInit(window_size, BG_color);
 	}
 
-	int32_t AsInit(const std::string& title = u8"", const Pos2& window_size = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color) noexcept
+	std::int32_t AsInit(const std::string& title = u8"", const Pos2& window_size = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color) noexcept
 	{
 		if (asSetTitle(title.c_str()) == -1) return -1;
 		return AsInit(window_size, BG_color);
 	}
 
 	template<typename... Rest>
-	inline int32_t asPrint(const std::string& format_string, const Rest&... rest) noexcept
+	inline std::int32_t asPrint(const std::string& format_string, const Rest&... rest) noexcept
 	{
 		return asPrint(format_string.c_str(), rest...);
 	}
 
-	inline int32_t asPrint(const std::string& format_string) noexcept
+	inline std::int32_t asPrint(const std::string& format_string) noexcept
 	{
 		return asPrint(format_string.c_str());
 	}
 
 //	template<typename p_>
-//	const Coordinate_L4<p_> Coordinate_4<p_>::ratio() { return Pos4(int32_t(this->x1*asWindowSizeF().x), int32_t(this->y1*asWindowSizeF().y), int32_t(this->x2*asWindowSizeF().x), int32_t(this->y2*asWindowSizeF().y)); }
+//	const Coordinate_L4<p_> Coordinate_4<p_>::ratio() { return Pos4(std::int32_t(this->x1*asWindowSizeF().x), std::int32_t(this->y1*asWindowSizeF().y), std::int32_t(this->x2*asWindowSizeF().x), std::int32_t(this->y2*asWindowSizeF().y)); }
 //	template<typename p_>
-//	const Coordinate_L4<p_> Coordinate_4<p_>::ratio(const Coordinate_2<p_> p_) { return Pos4(int32_t(this->x1*p_.x), int32_t(this->y1*p_.y), int32_t(this->x2*p_.x), int32_t(this->y2*p_.y)); }
+//	const Coordinate_L4<p_> Coordinate_4<p_>::ratio(const Coordinate_2<p_> p_) { return Pos4(std::int32_t(this->x1*p_.x), std::int32_t(this->y1*p_.y), std::int32_t(this->x2*p_.x), std::int32_t(this->y2*p_.y)); }
 
 
-	const PosL4 Pos4F::ratio() { return Pos4(int32_t(this->x1*asWindowSizeF().x), int32_t(this->y1*asWindowSizeF().y), int32_t(this->x2*asWindowSizeF().x), int32_t(this->y2*asWindowSizeF().y)); }
+	const PosL4 Pos4F::ratio() { return Pos4(std::int32_t(this->x1*asWindowSizeF().x), std::int32_t(this->y1*asWindowSizeF().y), std::int32_t(this->x2*asWindowSizeF().x), std::int32_t(this->y2*asWindowSizeF().y)); }
 
-	const PosL4 Pos4F::ratio(const Pos2F p_) { return Pos4(int32_t(this->x1*p_.x), int32_t(this->y1*p_.y), int32_t(this->x2*p_.x), int32_t(this->y2*p_.y)); }
+	const PosL4 Pos4F::ratio(const Pos2F p_) { return Pos4(std::int32_t(this->x1*p_.x), std::int32_t(this->y1*p_.y), std::int32_t(this->x2*p_.x), std::int32_t(this->y2*p_.y)); }
 
 
 }

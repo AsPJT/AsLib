@@ -12,7 +12,7 @@
 namespace AsLib
 {
 	//ライセンス一覧
-	enum :size_t {
+	enum :std::size_t {
 		AsLib_LICENSE,
 		Abseil_LICENSE,
 		AngelCode_Scripting_Library_LICENSE,
@@ -77,7 +77,7 @@ namespace AsLib
 	};
 
 	//使用中のライセンス
-	constexpr size_t aslib_license[] = {
+	constexpr std::size_t aslib_license[] = {
 		AsLib_LICENSE,
 #if defined(ASLIB_INCLUDE_S3) //Siv3D
 		Abseil_LICENSE,
@@ -257,13 +257,13 @@ namespace AsLib
 #endif
 	};
 
-	constexpr size_t aslib_license_size{ sizeof(aslib_license) / sizeof(size_t) };
+	constexpr std::size_t aslib_license_size{ sizeof(aslib_license) / sizeof(std::size_t) };
 
 	struct Copyright {
 		const char* const c;
-		const int32_t start_year;
-		const int32_t end_year;
-		constexpr Copyright(const char* const c_, const int32_t s_, const int32_t e_) :c(c_), start_year(s_), end_year(e_) {};
+		const std::int32_t start_year;
+		const std::int32_t end_year;
+		constexpr Copyright(const char* const c_, const std::int32_t s_, const std::int32_t e_) :c(c_), start_year(s_), end_year(e_) {};
 
 		const char* const write() const noexcept {
 			if (start_year == 0) return c;
@@ -294,7 +294,7 @@ namespace AsLib
 		}
 	};
 
-	void asLicense(const size_t i, std::string& name_, std::vector<Copyright>& copyright_, std::string& str_) noexcept
+	void asLicense(const std::size_t i, std::string& name_, std::vector<Copyright>& copyright_, std::string& str_) noexcept
 	{
 		switch (i)
 		{

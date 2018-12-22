@@ -13,10 +13,10 @@ namespace AsLib
 {
 
 	//タッチされている数を返す
-	inline size_t asTouchNum() noexcept
+	inline std::size_t asTouchNum() noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-		return size_t(DxLib::GetTouchInputNum());
+		return std::size_t(DxLib::GetTouchInputNum());
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
@@ -33,12 +33,12 @@ return 0;
 	}
 
 	//タッチされている
-	int32_t asTouch(const size_t touch_id, Pos2& add_pos) noexcept
+	std::int32_t asTouch(const std::size_t touch_id, Pos2& add_pos) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		int touch_x{}, touch_y{};
 		if (DxLib::GetTouchInput(int(touch_id), &touch_x, &touch_y, nullptr, nullptr) == -1) return -1;
-		add_pos(int32_t(touch_x), int32_t(touch_y));
+		add_pos(std::int32_t(touch_x), std::int32_t(touch_y));
 		return 0;
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return 0;
@@ -55,12 +55,12 @@ return 0;
 #endif
 	}
 
-	Pos2 asTouch(const size_t touch_id) noexcept
+	Pos2 asTouch(const std::size_t touch_id) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		int touch_x{}, touch_y{};
 		DxLib::GetTouchInput(int(touch_id), &touch_x, &touch_y, nullptr, nullptr);
-		return Pos2(int32_t(touch_x), int32_t(touch_y));
+		return Pos2(std::int32_t(touch_x), std::int32_t(touch_y));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		return 0;
 #elif defined(ASLIB_INCLUDE_OF)
@@ -76,8 +76,8 @@ return 0;
 #endif
 	}
 
-	int32_t asTouchPinch(const bool is_update = false) noexcept {
-		static int32_t total_p{};
+	std::int32_t asTouchPinch(const bool is_update = false) noexcept {
+		static std::int32_t total_p{};
 		if (!is_update) return total_p;
 
 		static bool is_pinch{ false };
@@ -85,11 +85,11 @@ return 0;
 			is_pinch = false;
 			return total_p = 0;
 		}
-		static int32_t before_p{};
+		static std::int32_t before_p{};
 
 		const Pos2 after_p0{ asTouch(0) };
 		const Pos2 after_p1{ asTouch(1) };
-		const int32_t after_p{ int32_t(hypot(abs(after_p0.x - after_p1.x), abs(after_p0.y - after_p1.y))) };
+		const std::int32_t after_p{ std::int32_t(hypot(abs(after_p0.x - after_p1.x), abs(after_p0.y - after_p1.y))) };
 
 		if (!is_pinch) {
 			is_pinch = true;
@@ -101,13 +101,13 @@ return 0;
 		before_p = after_p;
 		return total_p;
 	}
-	int32_t asTouchPinch(const Pos4& area_) noexcept {
+	std::int32_t asTouchPinch(const Pos4& area_) noexcept {
 		if (asTouchNum() != 2) return 0;
 		if (!isArea(area_, asTouch(0)) || !isArea(area_, asTouch(1))) return 0;
 		return asTouchPinch();
 	}
 
-	inline void asTouchPinch(int32_t& add_) noexcept {
+	inline void asTouchPinch(std::int32_t& add_) noexcept {
 		add_ += asTouchPinch();
 		if (add_ < 0) add_ = 0;
 	}
@@ -116,7 +116,7 @@ return 0;
 		return (asTouchPinch() == 0) ? false : true;
 	}
 	//
-	inline void asTouchPinch(PosA4F& add_, const float f_ = 5.0, const int32_t view_max_ = 0, Pos4 area_ = aslib_default_area) noexcept {
+	inline void asTouchPinch(PosA4F& add_, const float f_ = 5.0, const std::int32_t view_max_ = 0, Pos4 area_ = aslib_default_area) noexcept {
 		if (!isArea(area_)) area_ = asWindowSize4();
 		float pinch{ asTouchPinch(area_) / f_ };
 		add_.w -= pinch;
@@ -124,8 +124,8 @@ return 0;
 		if (add_.w < 1.0f) add_.w = 1.0f;
 		if (add_.h < 1.0f) add_.h = 1.0f;
 		if (view_max_ == 0) return;
-		if (int32_t(add_.w) >= view_max_) add_.w = float(view_max_);
-		if (int32_t(add_.h) >= view_max_) add_.h = float(view_max_);
+		if (std::int32_t(add_.w) >= view_max_) add_.w = float(view_max_);
+		if (std::int32_t(add_.h) >= view_max_) add_.h = float(view_max_);
 	}
 
 	Pos2 asTouchSlide(const bool is_update = false) noexcept {
@@ -183,9 +183,9 @@ return 0;
 
 	//毎フレーム更新
 	void updateTouch() noexcept {
-		static size_t aslib_num{};
+		static std::size_t aslib_num{};
 
-		const size_t num{ asTouchNum() };
+		const std::size_t num{ asTouchNum() };
 		if (aslib_num != num && num != 0) updateTouchPos(true, asTouch(num - 1));
 
 		//ピンチ更新
@@ -193,7 +193,7 @@ return 0;
 		//スライド更新
 		asTouchSlide(true);
 		
-		static size_t before_num{};
+		static std::size_t before_num{};
 		static Pos2 before_up_pos(0, 0);
 
 		asTouchUpPos(true, before_up_pos);
@@ -208,9 +208,9 @@ return 0;
 	inline bool asTouch() noexcept { return (asTouchNum() == 0) ? false : true; }
 
 	bool asTouch(const Pos4& p_) noexcept {
-		const size_t num{ asTouchNum() };
+		const std::size_t num{ asTouchNum() };
 		Pos2 touch_p;
-		for (size_t i{}; i < num; ++i) {
+		for (std::size_t i{}; i < num; ++i) {
 			touch_p = asTouch(i);
 			if (touch_p.x > p_.x1&&touch_p.y > p_.y1&&touch_p.x < p_.x2&&touch_p.y < p_.y2) return true;
 		}

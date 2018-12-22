@@ -34,7 +34,7 @@ namespace AsLib
 		if (dis > now_) now_ = dis;
 	}
 
-	inline void asHypotMin(const Pos2F& p_1, const Pos2F& p_2, float& now_, size_t& id_, const size_t& id2_) noexcept
+	inline void asHypotMin(const Pos2F& p_1, const Pos2F& p_2, float& now_, std::size_t& id_, const std::size_t& id2_) noexcept
 	{
 		const float dis{ asHypot(p_1, p_2) };
 		if (dis < now_) {
@@ -42,7 +42,7 @@ namespace AsLib
 			id_ = id2_;
 		}
 	}
-	inline void asHypotMax(const Pos2F& p_1, const Pos2F& p_2, float& now_, size_t& id_, const size_t& id2_) noexcept
+	inline void asHypotMax(const Pos2F& p_1, const Pos2F& p_2, float& now_, std::size_t& id_, const std::size_t& id2_) noexcept
 	{
 		const float dis{ asHypot(p_1, p_2) };
 		if (dis > now_) {
@@ -52,12 +52,12 @@ namespace AsLib
 	}
 
 	template<typename T>
-	const int32_t searchMin(const std::vector<T>& t_, const Pos2& p_, size_t& dis_id, float* const dis_ = nullptr) noexcept
+	const std::int32_t searchMin(const std::vector<T>& t_, const Pos2& p_, std::size_t& dis_id, float* const dis_ = nullptr) noexcept
 	{
 		if (t_.size() == 0) return -1;
 
 		float dis{ FLT_MAX };
-		for (size_t i{}; i < t_.size(); ++i) { asHypotMin(p_, t_[i].PosF(), dis, dis_id, i); }
+		for (std::size_t i{}; i < t_.size(); ++i) { asHypotMin(p_, t_[i].PosF(), dis, dis_id, i); }
 		if (dis_ != nullptr) *dis_ = dis;
 		return 0;
 	}

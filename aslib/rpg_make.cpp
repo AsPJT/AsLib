@@ -2,7 +2,7 @@
 #include "AsLib.hpp"
 
 //ペイントツール種類
-enum :size_t {
+enum :std::size_t {
 	aslib_paint_tool_pen,
 	aslib_paint_tool_eraser,
 	aslib_paint_tool_empty,
@@ -16,7 +16,7 @@ enum :size_t {
 	aslib_paint_tool_option,
 };
 
-int32_t asMain()
+std::int32_t asMain()
 {
 	//1280, 800
 	//タイトル
@@ -31,8 +31,8 @@ int32_t asMain()
 	//kb.on();
 
 	//マップサイズを決める
-	//size_t map_x = size_t(asKeyInputNum(Pos2(0, 0), 2048, 1));
-	//size_t map_y = size_t(asKeyInputNum(Pos2(0, 0), 2048, 1));
+	//std::size_t map_x = std::size_t(asKeyInputNum(Pos2(0, 0), 2048, 1));
+	//std::size_t map_y = std::size_t(asKeyInputNum(Pos2(0, 0), 2048, 1));
 
 	//キー
 	AsKeyList kl;
@@ -58,11 +58,11 @@ int32_t asMain()
 	select_main_map.push(nullptr);
 
 	//マップ個数 読み込み
-	size_t as_t_size = 0;
+	std::size_t as_t_size{};
 	//マップデータ読み込み
 	const std::unique_ptr<AsTexture[]> as_t = select_main_map.readMapCSV(u8"Picture/map_tile.csv", &as_t_size);
 	if (as_t_size != 0) select_world_p.y = (select_main_map.t.size() + 1) / 8;
-	AsTextureMapArray paint_main_map = select_main_map;
+	AsTextureMapArray paint_main_map{ select_main_map };
 
 	//ペイントツールテクスチャ
 	AsTexture pen_tool_te(u8"p/pen_tool.png");
@@ -113,7 +113,7 @@ int32_t asMain()
 		paint_main_map.setLayer(2, 1);
 	}
 	//大きさ設定
-	paint_world_p(int32_t(paint_main_map.s_x), int32_t(paint_main_map.s_y));
+	paint_world_p(std::int32_t(paint_main_map.s_x), std::int32_t(paint_main_map.s_y));
 
 	//paint_main_map.worldMap(2, 4, 8, 9);
 	//paint_main_map.randMap(1);
@@ -168,19 +168,19 @@ int32_t asMain()
 	paint_map_view.setMap(paint_world_p);
 
 	//選択しているマップのID
-	size_t select_id = 0;
+	std::size_t select_id{};
 	Pos2 select_pos;
 	//ツールのID
-	size_t tool_id = 0;
+	std::size_t tool_id{};
 
-	size_t select_layer = 1;
-	bool is_select = false;
+	std::size_t select_layer{ 1 };
+	bool is_select{ false };
 
 	//セーブタイマー
-	constexpr size_t auto_save_timer = 60 * 22;
-	size_t auto_save_counter = 0;
-	constexpr size_t auto_backup_timer = 60 * 55;
-	size_t auto_backup_counter = 0;
+	constexpr std::size_t auto_save_timer{ 60 * 22 };
+	std::size_t auto_save_counter{};
+	constexpr std::size_t auto_backup_timer{ 60 * 55 };
+	std::size_t auto_backup_counter{};
 
 	Pos2 paint_touch_pos;
 

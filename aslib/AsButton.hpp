@@ -11,7 +11,7 @@
 
 namespace AsLib
 {
-	std::string asSizeToString(const size_t s_) noexcept {
+	std::string asSizeToString(const std::size_t s_) noexcept {
 #if defined(__ANDROID__)
 		std::stringstream ss;
 		ss << s_;
@@ -22,20 +22,20 @@ namespace AsLib
 	}
 
 	//言語リスト
-	enum :size_t {
+	enum :std::size_t {
 		aslib_default_language_eng,
 		aslib_default_language_jpn,
 	};
 
 	//言語数を記録する関数
-	size_t asLanguageNumSave(const bool b_, const size_t& num_ = 0) noexcept
+	std::size_t asLanguageNumSave(const bool b_, const std::size_t& num_ = 0) noexcept
 	{
-		static size_t num;
+		static std::size_t num;
 		if (b_) num = num_;
 		return num;
 }
 	//言語数を取得する関数
-	inline size_t asLanguageNum() noexcept { return asLanguageNumSave(false); }
+	inline std::size_t asLanguageNum() noexcept { return asLanguageNumSave(false); }
 
 	struct AsWord {
 	private:
@@ -48,15 +48,15 @@ namespace AsLib
 	};
 
 	//todo
-	inline size_t asLanguage() noexcept { return 0; }
+	inline std::size_t asLanguage() noexcept { return 0; }
 
 	struct AsLanguage {
 	private:
 		std::unique_ptr<AsWord[]> str;
-		size_t num{};
+		std::size_t num{};
 	public:
 		explicit AsLanguage() :num(asLanguageNum()) { str.reset(new AsWord[asLanguageNum()]); }
-		void set(const size_t id_, const std::string& str_) noexcept {
+		void set(const std::size_t id_, const std::string& str_) noexcept {
 			if (id_ >= num || str_.size() == 0) return;
 			str[id_].set(str_);
 		}
@@ -65,7 +65,7 @@ namespace AsLib
 	};
 
 	//ボタン種類
-	enum :size_t {
+	enum :std::size_t {
 		aslib_button_type_normal,
 		aslib_button_type_number,
 	};
@@ -92,10 +92,10 @@ namespace AsLib
 		void update() noexcept { counter.update(asTouch(pos) || asMouseL(pos)); }
 		bool down() const noexcept { return counter.down(); };
 		bool up() const noexcept { return counter.up(); };
-		int32_t count() const noexcept { return counter.count(); };
+		std::int32_t count() const noexcept { return counter.count(); };
 		bool down0() noexcept { return counter.down0(); };
 		bool up0() noexcept { return counter.up0(); };
-		int32_t count0() noexcept { return counter.count0(); };
+		std::int32_t count0() noexcept { return counter.count0(); };
 
 		AsTextureButton& draw() noexcept {
 			if (texture == nullptr) return *this;
@@ -130,28 +130,28 @@ namespace AsLib
 		void updateUp() noexcept { counter_up.update(asTouch(p_up) || asMouseL(p_up)); }
 		bool downUp() const noexcept { return counter_up.down(); };
 		bool upUp() const noexcept { return counter_up.up(); };
-		int32_t countUp() const noexcept { return counter_up.count(); };
+		std::int32_t countUp() const noexcept { return counter_up.count(); };
 		bool down0_Up() noexcept { return counter_up.down0(); };
 		bool up0_Up() noexcept { return counter_up.up0(); };
-		int32_t count0_Up() noexcept { return counter_up.count0(); };
+		std::int32_t count0_Up() noexcept { return counter_up.count0(); };
 		//タッチカウント
 		Counter counter_down;
 		void updateDown() noexcept { counter_down.update(asTouch(p_down) || asMouseL(p_down)); }
 		bool downDown() const noexcept { return counter_down.down(); };
 		bool upDown() const noexcept { return counter_down.up(); };
-		int32_t countDown() const noexcept { return counter_down.count(); };
+		std::int32_t countDown() const noexcept { return counter_down.count(); };
 		bool down0_Down() noexcept { return counter_down.down0(); };
 		bool up0_Down() noexcept { return counter_down.up0(); };
-		int32_t count0_Down() noexcept { return counter_down.count0(); };
+		std::int32_t count0_Down() noexcept { return counter_down.count0(); };
 
-		void drawNum(const size_t var_,const Color& c_=aslib_color_black_a) noexcept {
+		void drawNum(const std::size_t var_,const Color& c_=aslib_color_black_a) noexcept {
 			font.drawAt(asSizeToString(var_).c_str(), Pos2(pos.x, pos.y), c_);
 		}
 	};
 
 	struct AsButton {
 		//種類
-		size_t type;
+		std::size_t type;
 		//位置
 		PosA4 pos;
 		//画像
@@ -160,7 +160,7 @@ namespace AsLib
 		AsLanguage* language{ nullptr };
 		std::string str;
 		AsFont font;
-		size_t number{};
+		std::size_t number{};
 		//
 		bool on_off{ false };
 
@@ -169,9 +169,9 @@ namespace AsLib
 		Color string_color = aslib_color_black_a;
 
 		AsButton() = default;
-		explicit AsButton(const PosA4& p_, const int32_t add_size, const char* const str_) :pos(p_), font((add_size == 0) ? (p_.h * 3 / 5) : add_size, str_) {}
+		explicit AsButton(const PosA4& p_, const std::int32_t add_size, const char* const str_) :pos(p_), font((add_size == 0) ? (p_.h * 3 / 5) : add_size, str_) {}
 		explicit AsButton(const PosA4& p_, const char* const str_) :pos(p_), font(p_.h * 3 / 5, str_) {}
-		explicit AsButton(const PosA4& p_, const int32_t add_size) :pos(p_), font((add_size == 0) ? (p_.h * 3 / 5) : add_size) {}
+		explicit AsButton(const PosA4& p_, const std::int32_t add_size) :pos(p_), font((add_size == 0) ? (p_.h * 3 / 5) : add_size) {}
 		explicit AsButton(const PosA4& p_) :pos(p_), font(p_.h * 3 / 5) {}
 		explicit AsButton(AsTexture* const t_) :texture(t_) {}
 
@@ -181,7 +181,7 @@ namespace AsLib
 		void setString(AsLanguage* const l_) noexcept { language = l_; }
 
 		void draw() noexcept {
-			if (button_color.a != (uint8_t)0) asRect(pos, button_color);
+			if (button_color.a != (std::uint8_t)0) asRect(pos, button_color);
 			if (language != nullptr) font.drawAt(language->get().c_str(), Pos2(pos.x, pos.y), string_color);
 			else if (str.size() != 0) font.drawAt(str.c_str(), Pos2(pos.x, pos.y), string_color);
 		}
@@ -191,10 +191,10 @@ namespace AsLib
 		void update() noexcept { counter.update(asTouch(pos) || asMouseL(pos)); }
 		bool down() const noexcept { return counter.down(); };
 		bool up() const noexcept { return counter.up(); };
-		int32_t count() const noexcept { return counter.count(); };
+		std::int32_t count() const noexcept { return counter.count(); };
 		bool down0() noexcept { return counter.down0(); };
 		bool up0() noexcept { return counter.up0(); };
-		int32_t count0() noexcept { return counter.count0(); };
+		std::int32_t count0() noexcept { return counter.count0(); };
 	};
 
 }

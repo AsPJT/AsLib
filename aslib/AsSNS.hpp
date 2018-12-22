@@ -14,7 +14,7 @@ namespace AsLib
 
 
 
-	inline int32_t asBrowser(const char* const url_str) noexcept
+	inline std::int32_t asBrowser(const char* const url_str) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__WINDOWS__)
@@ -22,7 +22,7 @@ namespace AsLib
 		ShellExecute(hWnd, "open", url_str, NULL, NULL, SW_SHOW);
 		return 0;
 #elif defined(__ANDROID__)
-		return int32_t(DxLib::AndroidJumpURL(url_str));
+		return std::int32_t(DxLib::AndroidJumpURL(url_str));
 #endif
 
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
@@ -48,7 +48,7 @@ return 0;
 #endif
 	}
 
-	inline int32_t asTwitter(const char* const url_str) noexcept
+	inline std::int32_t asTwitter(const char* const url_str) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 #if defined(__WINDOWS__)
@@ -56,7 +56,7 @@ return 0;
 		ShellExecute(hWnd, "open", url_str, NULL, NULL, SW_SHOW);
 		return 0;
 #elif defined(__ANDROID__)
-		return int32_t(DxLib::AndroidJumpURL(url_str, u8"com.twitter.android"));
+		return std::int32_t(DxLib::AndroidJumpURL(url_str, u8"com.twitter.android"));
 #endif
 
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
@@ -99,7 +99,7 @@ return 0;
 		Twitter& hashtags(const char* const add_str) noexcept { this->url_str += u8"&hashtags="; this->url_str += add_str; return *this; };
 		Twitter& send() noexcept { asTwitter(url_str.c_str()); return *this; };
 		const char* const c_str() const noexcept { return url_str.c_str(); };
-		size_t length() const noexcept { return url_str.length(); };
+		std::size_t length() const noexcept { return url_str.length(); };
 	private:
 		std::string url_str;
 	};

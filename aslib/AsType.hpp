@@ -63,32 +63,32 @@ namespace AsLib
 	//描画画像系
 	using OriginatorTexture = ofImage;
 	//CPU画像系
-	using OriginatorImage = int32_t;
+	using OriginatorImage = std::int32_t;
 	//主音声系
-	using OriginatorBGM = int32_t;
+	using OriginatorBGM = std::int32_t;
 	//副音声系
-	using OriginatorSE = int32_t;
+	using OriginatorSE = std::int32_t;
 	//動画系
-	using OriginatorMovie = int32_t;
+	using OriginatorMovie = std::int32_t;
 	//文字系
 	using OriginatorFont = ofTrueTypeFont;
 	//背景画像系
-	using OriginatorScreen = int32_t;
+	using OriginatorScreen = std::int32_t;
 #elif defined(ASLIB_INCLUDE_C2)
 	//描画画像系
 	using OriginatorTexture = cocos2d::Sprite*;
 	//CPU画像系
-	using OriginatorImage = int32_t;
+	using OriginatorImage = std::int32_t;
 	//主音声系
-	using OriginatorBGM = int32_t;
+	using OriginatorBGM = std::int32_t;
 	//副音声系
-	using OriginatorSE = int32_t;
+	using OriginatorSE = std::int32_t;
 	//動画系
-	using OriginatorMovie = int32_t;
+	using OriginatorMovie = std::int32_t;
 	//文字系
-	using OriginatorFont = int32_t;
+	using OriginatorFont = std::int32_t;
 	//背景画像系
-	using OriginatorScreen = int32_t;
+	using OriginatorScreen = std::int32_t;
 
 	inline bool checkTexture(const OriginatorTexture& ori_) noexcept { return (ori_ == nullptr) ? false : true; }
 	inline bool checkImage(const OriginatorImage& ori_) noexcept { return (ori_ == -1) ? false : true; }
@@ -99,19 +99,19 @@ namespace AsLib
 	inline bool checkScreen(const OriginatorScreen& ori_) noexcept { return (ori_ == -1) ? false : true; }
 #elif defined(ASLIB_INCLUDE_SF)
 	//描画画像系
-	using OriginatorTexture = int32_t;
+	using OriginatorTexture = std::int32_t;
 	//CPU画像系
-	using OriginatorImage = int32_t;
+	using OriginatorImage = std::int32_t;
 	//主音声系
-	using OriginatorBGM = int32_t;
+	using OriginatorBGM = std::int32_t;
 	//副音声系
-	using OriginatorSE = int32_t;
+	using OriginatorSE = std::int32_t;
 	//動画系
-	using OriginatorMovie = int32_t;
+	using OriginatorMovie = std::int32_t;
 	//文字系
-	using OriginatorFont = int32_t;
+	using OriginatorFont = std::int32_t;
 	//背景画像系
-	using OriginatorScreen = int32_t;
+	using OriginatorScreen = std::int32_t;
 
 	inline bool checkTexture(const OriginatorTexture& ori_) noexcept { return (ori_ == -1) ? false : true; }
 	inline bool checkImage(const OriginatorImage& ori_) noexcept { return (ori_ == -1) ? false : true; }
@@ -122,19 +122,19 @@ namespace AsLib
 	inline bool checkScreen(const OriginatorScreen& ori_) noexcept { return (ori_ == -1) ? false : true; }
 #elif defined(ASLIB_INCLUDE_TP)
 	//描画画像系
-	using OriginatorTexture = int32_t;
+	using OriginatorTexture = std::int32_t;
 	//CPU画像系
-	using OriginatorImage = int32_t;
+	using OriginatorImage = std::int32_t;
 	//主音声系
-	using OriginatorBGM = int32_t;
+	using OriginatorBGM = std::int32_t;
 	//副音声系
-	using OriginatorSE = int32_t;
+	using OriginatorSE = std::int32_t;
 	//動画系
-	using OriginatorMovie = int32_t;
+	using OriginatorMovie = std::int32_t;
 	//文字系
-	using OriginatorFont = int32_t;
+	using OriginatorFont = std::int32_t;
 	//背景画像系
-	using OriginatorScreen = int32_t;
+	using OriginatorScreen = std::int32_t;
 
 	inline bool checkTexture(const OriginatorTexture& ori_) noexcept { return (ori_ == -1) ? false : true; }
 	inline bool checkImage(const OriginatorImage& ori_) noexcept { return (ori_ == -1) ? false : true; }
@@ -146,19 +146,19 @@ namespace AsLib
 
 #else //Console
 	//描画画像系
-	using OriginatorTexture = int32_t;
+	using OriginatorTexture = std::int32_t;
 	//CPU画像系
-	using OriginatorImage = int32_t;
+	using OriginatorImage = std::int32_t;
 	//主音声系
-	using OriginatorBGM = int32_t;
+	using OriginatorBGM = std::int32_t;
 	//副音声系
-	using OriginatorSE = int32_t;
+	using OriginatorSE = std::int32_t;
 	//動画系
-	using OriginatorMovie = int32_t;
+	using OriginatorMovie = std::int32_t;
 	//文字系
-	using OriginatorFont = int32_t;
+	using OriginatorFont = std::int32_t;
 	//背景画像系
-	using OriginatorScreen = int32_t;
+	using OriginatorScreen = std::int32_t;
 
 	inline bool checkTexture(const OriginatorTexture& ori_) noexcept { return (ori_ == -1) ? false : true; }
 	inline bool checkImage(const OriginatorImage& ori_) noexcept { return (ori_ == -1) ? false : true; }

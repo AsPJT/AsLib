@@ -15,19 +15,19 @@ namespace AsLib
 	{
 	public:
 		void update(const bool) noexcept;
-		void update(const int32_t u_) noexcept { (u_ == 0) ? this->update(false) : this->update(true); }
+		void update(const std::int32_t u_) noexcept { (u_ == 0) ? this->update(false) : this->update(true); }
 		//出力
 		bool down() const noexcept { return this->key_down; };
 		bool up() const noexcept { return this->key_up; };
-		int32_t count() const noexcept { return this->key_count; };
+		std::int32_t count() const noexcept { return this->key_count; };
 		bool down0() noexcept { const bool isDown = key_down; this->key_down = false; return isDown; };
 		bool up0() noexcept { const bool isUp = key_up; this->key_up = false; return isUp; };
-		int32_t count0() noexcept { const int32_t isCount = key_count; this->key_count = 0; return isCount; };
+		std::int32_t count0() noexcept { const std::int32_t isCount = key_count; this->key_count = 0; return isCount; };
 
 	private:
 		bool key_down{ false };
 		bool key_up{ false };
-		int32_t key_count{};
+		std::int32_t key_count{};
 	};
 
 	inline void Counter::update(const bool is_down) noexcept

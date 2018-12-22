@@ -15,7 +15,7 @@ namespace AsLib
 
 
 	//イベント起動
-	enum :size_t {
+	enum :std::size_t {
 		aslib_event_init_touch,
 		aslib_event_init_tolk,
 		aslib_event_auto,
@@ -23,7 +23,7 @@ namespace AsLib
 	};
 
 	//イベントタイプ
-	enum :size_t {
+	enum :std::size_t {
 	aslib_event_type_empty,
 	aslib_event_type_talk,
 	};
@@ -32,13 +32,13 @@ namespace AsLib
 
 
 	//属性
-	enum :size_t {
+	enum :std::size_t {
 		aslib_pass_true,
 		aslib_pass_false,
 		aslib_pass_no_wall_false,
 	};
 	//デフォルト属性
-	enum :size_t {
+	enum :std::size_t {
 		aslib_attribute_human,
 		aslib_attribute_fish,
 		aslib_attribute_bird,
@@ -48,14 +48,14 @@ namespace AsLib
 		aslib_attribute_num
 	};
 	//フィールドタイプ
-	enum :size_t {
+	enum :std::size_t {
 		aslib_texture_map_field_type_empty,
 		aslib_texture_map_field_type_wall,
 		aslib_texture_map_field_type_water,
 		aslib_texture_map_field_type_keep_out,
 	};
 
-	constexpr size_t aslib_default_field_attribute_empty[aslib_attribute_num] = {
+	constexpr std::size_t aslib_default_field_attribute_empty[aslib_attribute_num] = {
 		aslib_pass_true,
 		aslib_pass_true,
 		aslib_pass_true,
@@ -63,7 +63,7 @@ namespace AsLib
 		aslib_pass_true,
 		aslib_pass_false
 	};
-	constexpr size_t aslib_default_field_attribute_wall[aslib_attribute_num] = {
+	constexpr std::size_t aslib_default_field_attribute_wall[aslib_attribute_num] = {
 		aslib_pass_false,
 		aslib_pass_false,
 		aslib_pass_false,
@@ -71,7 +71,7 @@ namespace AsLib
 		aslib_pass_false,
 		aslib_pass_false
 	};
-	constexpr size_t aslib_default_field_attribute_water[aslib_attribute_num] = {
+	constexpr std::size_t aslib_default_field_attribute_water[aslib_attribute_num] = {
 		aslib_pass_no_wall_false,
 		aslib_pass_true,
 		aslib_pass_true,
@@ -79,7 +79,7 @@ namespace AsLib
 		aslib_pass_no_wall_false,
 		aslib_pass_false
 	};
-	constexpr size_t aslib_default_field_attribute_keep_out[aslib_attribute_num] = {
+	constexpr std::size_t aslib_default_field_attribute_keep_out[aslib_attribute_num] = {
 		aslib_pass_false,
 		aslib_pass_false,
 		aslib_pass_false,
@@ -87,7 +87,7 @@ namespace AsLib
 		aslib_pass_false,
 		aslib_pass_false
 	};
-	constexpr size_t aslib_default_field_attribute_magma[aslib_attribute_num] = {
+	constexpr std::size_t aslib_default_field_attribute_magma[aslib_attribute_num] = {
 		aslib_pass_no_wall_false,
 		aslib_pass_no_wall_false,
 		aslib_pass_true,
@@ -97,7 +97,7 @@ namespace AsLib
 	};
 
 	//dir_move
-	enum :size_t
+	enum :std::size_t
 	{
 		MOB_DOWN_MOVE1,
 		MOB_DOWN_STOP,
@@ -126,7 +126,7 @@ namespace AsLib
 	};
 
 	//move
-	enum :size_t
+	enum :std::size_t
 	{
 		MOB_STOP,//静止
 		MOB_MOVE1,//左足
@@ -135,35 +135,35 @@ namespace AsLib
 		MOB_MOVE4,//真ん中
 	};
 
-	enum :size_t {
+	enum :std::size_t {
 		aslib_mob_walk_type_small,
 		aslib_mob_walk_type_big,
 	};
 
-	enum :size_t {
+	enum :std::size_t {
 		aslib_texture_map_type_empty,
 		aslib_texture_map_type_1n,
 		aslib_texture_map_type_1n_n,
 		aslib_texture_map_type_20n,
 	};
 	//描画タイプ
-	enum :size_t {
+	enum :std::size_t {
 		MAP_VIEW_DRAW_COLOR,
 		MAP_VIEW_DRAW_ANIME,
 	};
 
 	//属性数を記録
-	size_t asAttributeSave(const bool b_, const size_t p_ = 0) noexcept
+	std::size_t asAttributeSave(const bool b_, const std::size_t p_ = 0) noexcept
 	{
-		static thread_local size_t p{ 1 };
+		static thread_local std::size_t p{ 1 };
 		if (b_) p = p_;
 		return p;
 	}
 	//属性数を取得する関数
-	inline size_t asAttribute() noexcept { return asAttributeSave(false); }
-	inline size_t asSetAttribute(const size_t p_ = 0) noexcept { return asAttributeSave(true, p_); }
+	inline std::size_t asAttribute() noexcept { return asAttributeSave(false); }
+	inline std::size_t asSetAttribute(const std::size_t p_ = 0) noexcept { return asAttributeSave(true, p_); }
 
-	size_t mobMoveDirect(const size_t mob_direct_id, const size_t mob_move_id) noexcept
+	std::size_t mobMoveDirect(const std::size_t mob_direct_id, const std::size_t mob_move_id) noexcept
 	{
 		switch (mob_move_id)
 		{
@@ -241,17 +241,17 @@ namespace AsLib
 	template<typename Map_> void mapSize(const Pos2& b_, const Pos2& a_, Map_* m_, const Map_ count_ = Map_(0)) noexcept
 	{
 		if (b_.is_minus() || a_.is_minus()) return;
-		const int32_t b_max{ b_.x*b_.y };
-		const int32_t a_max{ a_.x*a_.y };
+		const std::int32_t b_max{ b_.x*b_.y };
+		const std::int32_t a_max{ a_.x*a_.y };
 
 		//空白部分を任意の数字で埋める
-		for (int32_t i{ b_max }; i < a_max; ++i) m_[i] = count_;
+		for (std::int32_t i{ b_max }; i < a_max; ++i) m_[i] = count_;
 
 		if (a_.x > b_.x) {
 			//値を移動
-			const int32_t f{ ((a_.x < b_.x) ? (a_.x - 1) : (b_.x - 1)) };
-			for (int32_t i{ b_max - b_.x }, ii{ (a_.x*b_.y) - a_.x }; i > 0; i -= b_.x, ii -= a_.x) {
-				for (int32_t j{ f }; j >= 0; --j) {
+			const std::int32_t f{ ((a_.x < b_.x) ? (a_.x - 1) : (b_.x - 1)) };
+			for (std::int32_t i{ b_max - b_.x }, ii{ (a_.x*b_.y) - a_.x }; i > 0; i -= b_.x, ii -= a_.x) {
+				for (std::int32_t j{ f }; j >= 0; --j) {
 					m_[ii + j] = m_[i + j];
 					m_[i + j] = count_;
 				}
@@ -259,9 +259,9 @@ namespace AsLib
 		}
 		else if (a_.x < b_.x) {
 			//値を移動
-			const int32_t f{ ((a_.x < b_.x) ? (a_.x) : (b_.x)) };
-			for (int32_t i{ b_.x }, ii{ a_.x }; i < b_max; i += b_.x, ii += a_.x) {
-				for (int32_t j{}; j < f; ++j) {
+			const std::int32_t f{ ((a_.x < b_.x) ? (a_.x) : (b_.x)) };
+			for (std::int32_t i{ b_.x }, ii{ a_.x }; i < b_max; i += b_.x, ii += a_.x) {
+				for (std::int32_t j{}; j < f; ++j) {
 					m_[ii + j] = m_[i + j];
 					m_[i + j] = count_;
 				}
@@ -273,8 +273,8 @@ namespace AsLib
 	template<typename Map_> void mapSize(const Pos2& b_, const Pos2& a_, std::vector<Map_>& m_, const Map_ count_ = Map_(0)) noexcept
 	{
 		if (b_.is_minus() || a_.is_minus()) return;
-		//const int32_t b_max = b_.x*b_.y;
-		//const int32_t a_max = a_.x*a_.y;
+		//const std::int32_t b_max = b_.x*b_.y;
+		//const std::int32_t a_max = a_.x*a_.y;
 		if (a_.x >= b_.x) {
 			m_.resize(a_.x*a_.y);
 			mapSize(b_, a_, m_.data(), count_);
@@ -288,7 +288,7 @@ namespace AsLib
 	//動く判定
 	bool moveMob(const bool d_, const bool u_, const bool l_, const bool r_, const float s_, PosA4F& p_) noexcept
 	{
-		size_t count{};
+		std::size_t count{};
 		if (d_) ++count;
 		if (u_) ++count;
 		if (l_) ++count;
@@ -313,7 +313,7 @@ namespace AsLib
 		return false;
 	}
 	//動く判定
-	size_t moveMobCross(const bool d_, const bool u_, const bool l_, const bool r_, const float s_, PosA4F& p_) noexcept
+	std::size_t moveMobCross(const bool d_, const bool u_, const bool l_, const bool r_, const float s_, PosA4F& p_) noexcept
 	{
 		if (d_) {
 			p_.y += s_; return MOB_DOWN;
@@ -330,7 +330,7 @@ namespace AsLib
 		return MOB_CENTER;
 	}
 
-	size_t moveMobCross(const size_t id_, const float s_, PosA4F& p_) noexcept
+	std::size_t moveMobCross(const std::size_t id_, const float s_, PosA4F& p_) noexcept
 	{
 		switch (id_)
 		{
@@ -370,7 +370,7 @@ namespace AsLib
 		return (moveMobCross(asKey(aslib_key_down), asKey(aslib_key_up), asKey(aslib_key_left), asKey(aslib_key_right), s_, p_) == MOB_CENTER) ? false : true;
 	}
 
-	bool directionMobCross(const bool d_, const bool u_, const bool l_, const bool r_, size_t& dir_) noexcept
+	bool directionMobCross(const bool d_, const bool u_, const bool l_, const bool r_, std::size_t& dir_) noexcept
 	{
 		if (d_) {
 			dir_ = MOB_DOWN; return true;
@@ -387,7 +387,7 @@ namespace AsLib
 		return false;
 	}
 
-	bool directionMobCross(size_t& dir_) noexcept {
+	bool directionMobCross(std::size_t& dir_) noexcept {
 		return directionMobCross(asKey(aslib_key_down), asKey(aslib_key_up), asKey(aslib_key_left), asKey(aslib_key_right), dir_);
 	}
 
@@ -395,29 +395,29 @@ namespace AsLib
 		//通過設定
 
 		//各属性のID
-		std::vector<size_t> id;
+		std::vector<std::size_t> id;
 		AsAttribute() { id.resize(asAttribute(), 0); }
 
-		void add(const size_t* const type_) noexcept {
+		void add(const std::size_t* const type_) noexcept {
 			if (type_ == nullptr) return;
-			for (size_t i{}; i < id.size(); ++i) {
+			for (std::size_t i{}; i < id.size(); ++i) {
 				id[i]=type_[i];
 			}
 
 		}
-		AsAttribute(const size_t* const type_) { id.resize(asAttribute(), 0); add(type_); }
+		AsAttribute(const std::size_t* const type_) { id.resize(asAttribute(), 0); add(type_); }
 
 	};
 	struct AsAllAttribute {
 		std::vector<AsAttribute> all_id;
 		AsAllAttribute() = default;
-		void push(const size_t* const id_) noexcept {
+		void push(const std::size_t* const id_) noexcept {
 			all_id.emplace_back(id_);
 		}
 	};
 
 	//斜め移動あたり判定
-	size_t asMoveMobDiagonal(const size_t lr_, const size_t uw_, const size_t dia_) noexcept {
+	std::size_t asMoveMobDiagonal(const std::size_t lr_, const std::size_t uw_, const std::size_t dia_) noexcept {
 
 		//asPrint("(%d,%d,%d)", lr_, uw_, dia_);
 
@@ -487,11 +487,11 @@ namespace AsLib
 		return 3;
 	}
 	//縦横あたり判定
-	inline bool asMoveMobCross(const size_t lruw_) noexcept {
+	inline bool asMoveMobCross(const std::size_t lruw_) noexcept {
 		return (lruw_ == aslib_pass_true) ? true : false;
 	}
 
-	size_t map20n_Number(const bool lr_, const bool ud_, const bool dia_) noexcept {
+	std::size_t map20n_Number(const bool lr_, const bool ud_, const bool dia_) noexcept {
 		if (lr_) {
 			if (ud_) {//ooo
 				if (dia_) return 4;
@@ -507,53 +507,53 @@ namespace AsLib
 
 	struct AsTextureMap {
 		//マップタイプ
-		size_t type = aslib_texture_map_type_empty;
-		size_t array_num{};//配列番号
-		size_t total_num{};
+		std::size_t type = aslib_texture_map_type_empty;
+		std::size_t array_num{};//配列番号
+		std::size_t total_num{};
 		//アニメーションフレーム
-		size_t anime_count{ 60 };
-		size_t anime_counter{};
-		size_t anime_show_id{};
+		std::size_t anime_count{ 60 };
+		std::size_t anime_counter{};
+		std::size_t anime_show_id{};
 
 		//地形タイプ
-		size_t field_type{ aslib_texture_map_field_type_empty };
+		std::size_t field_type{ aslib_texture_map_field_type_empty };
 		//通過設定
-		size_t pass{ aslib_pass_true };
+		std::size_t pass{ aslib_pass_true };
 
 		AsAllAttribute* att{ nullptr };
 		AsTextureMap() = default;
-		AsTextureMap(const size_t type_, const size_t array_, const size_t ftype_, const size_t anime_) :type(type_),array_num(array_), anime_count(anime_), field_type(ftype_) {}
-		//AsTextureMap(const size_t type_, const size_t ftype_, const size_t anime_) :type(type_), field_type(ftype_), anime_counter(anime_),att(asAttribute()) {}
+		AsTextureMap(const std::size_t type_, const std::size_t array_, const std::size_t ftype_, const std::size_t anime_) :type(type_),array_num(array_), anime_count(anime_), field_type(ftype_) {}
+		//AsTextureMap(const std::size_t type_, const std::size_t ftype_, const std::size_t anime_) :type(type_), field_type(ftype_), anime_counter(anime_),att(asAttribute()) {}
 	};
 
 	struct AsTextureMapArray {
 		//地形データ
-		size_t s_x{};
-		size_t s_y{};
-		size_t s_layer{ 1 };
+		std::size_t s_x{};
+		std::size_t s_y{};
+		std::size_t s_layer{ 1 };
 		std::string s_name{ u8"main" };
-		std::vector<size_t> s;
+		std::vector<std::size_t> s;
 		//地面のテクスチャデータ
 		std::vector<AsTexture*> t;
 		std::vector<AsTextureMap> tm;
 
 		AsTextureMapArray() = default;
 
-		std::unique_ptr<AsTexture[]> readMapCSV(const std::string str_, size_t* const s_ = nullptr, size_t* const var_ = nullptr) noexcept {
+		std::unique_ptr<AsTexture[]> readMapCSV(const std::string str_, std::size_t* const s_ = nullptr, std::size_t* const var_ = nullptr) noexcept {
 			std::unique_ptr<AsTexture[]> as_t;
-			size_t read_x = 0;
-			size_t read_y = 0;
+			std::size_t read_x = 0;
+			std::size_t read_y = 0;
 			std::vector<std::string> name_;
-			std::vector<size_t> vec_;
-			std::vector<size_t> type_;
-			std::vector<size_t> field_;
+			std::vector<std::size_t> vec_;
+			std::vector<std::size_t> type_;
+			std::vector<std::size_t> field_;
 			if (asSize_t_MapReadCSV(str_, name_, vec_, type_, field_, &read_x, &read_y) != 0) {
 				if (s_ != nullptr) *s_ = 0;
 				if (var_ != nullptr) *var_ = this->t.size();
 				return as_t;
 			}
 			as_t.reset(new AsTexture[read_y]);
-			for (size_t i{}; i < name_.size(); ++i) {
+			for (std::size_t i{}; i < name_.size(); ++i) {
 				switch (type_[i])
 				{
 				case 1://基本タイル単体
@@ -567,7 +567,7 @@ namespace AsLib
 				case 3://基本タイル複数
 					AsTexture ast(name_[i].c_str());
 					as_t[i](name_[i].c_str(), 8, (ast.pixelSize().x == 0) ? 1 : (ast.pixelSize().y * 8 / ast.pixelSize().x));
-					for (size_t j = 0, as_t_num = as_t[i].Num(); j < as_t_num; ++j) {
+					for (std::size_t j = 0, as_t_num = as_t[i].Num(); j < as_t_num; ++j) {
 						this->push(&as_t[i], j, field_[i]);//field属性//todo
 					}
 					break;
@@ -577,43 +577,43 @@ namespace AsLib
 			if (var_ != nullptr) *var_ = this->t.size();
 			return as_t;
 		}
-		int32_t readCSV() noexcept {
+		std::int32_t readCSV() noexcept {
 			return asMapRead(s_name, s, &s_x, &s_y, &s_layer);
 		}
-		int32_t readBackupCSV() noexcept {
+		std::int32_t readBackupCSV() noexcept {
 			return asMapRead(u8"backup_" + s_name, s, &s_x, &s_y, &s_layer);
 		}
-		int32_t readCSV(const std::string& str_) noexcept {
+		std::int32_t readCSV(const std::string& str_) noexcept {
 			return asMapRead(str_, s, &s_x, &s_y, &s_layer);
 		}
-		int32_t writeCSV() noexcept {
+		std::int32_t writeCSV() noexcept {
 			return asMapWrite(s_name, s, s_x, s_y, s_layer);
 		}
-		int32_t writeBackupCSV() noexcept {
+		std::int32_t writeBackupCSV() noexcept {
 			return asMapWrite(u8"backup_" + s_name, s, s_x, s_y, s_layer);
 		}
-		int32_t writeCSV(const std::string& str_) noexcept {
+		std::int32_t writeCSV(const std::string& str_) noexcept {
 			return asMapWrite(str_, s, s_x, s_y, s_layer);
 		}
 
-		void putTexture(const size_t layer_ = 0) noexcept {
+		void putTexture(const std::size_t layer_ = 0) noexcept {
 			if (layer_ >= s_layer) return;
 
-			const size_t t_total{ t.size() };
+			const std::size_t t_total{ t.size() };
 
-			const size_t layer_min{ s_x * s_y*layer_ };
-			const size_t layer_max{ layer_min + s_x * s_y };
-			for (size_t i{ layer_min }, k{}; i < layer_max && k < t_total; ++i, ++k) {//
+			const std::size_t layer_min{ s_x * s_y*layer_ };
+			const std::size_t layer_max{ layer_min + s_x * s_y };
+			for (std::size_t i{ layer_min }, k{}; i < layer_max && k < t_total; ++i, ++k) {//
 				s[i] = k;
 			}
 		}
-		void putBlock(const size_t s_, const Pos2 p_, const size_t layer_ = 0) noexcept {
+		void putBlock(const std::size_t s_, const Pos2 p_, const std::size_t layer_ = 0) noexcept {
 			if (p_.is_minus() || p_.x >= (signed)s_x || p_.y >= (signed)s_y || layer_ >= s_layer) return;
 			this->s[layer_*this->s_x*this->s_y + p_.y*this->s_x + p_.x] = s_;
 		}
 		void update() noexcept {
 			if (tm.size() != t.size()) return;
-			for (size_t i{}; i < tm.size(); ++i) {
+			for (std::size_t i{}; i < tm.size(); ++i) {
 				if (t[i] == nullptr || t[i]->Num() < 2) continue;
 
 				++tm[i].anime_counter;
@@ -639,8 +639,8 @@ namespace AsLib
 
 			}
 		}
-		void push(AsTexture* const t_, const size_t array_=0,const size_t ftype_= aslib_texture_map_field_type_empty, const size_t anime_=10) noexcept {
-			size_t ltype{};
+		void push(AsTexture* const t_, const std::size_t array_=0,const std::size_t ftype_= aslib_texture_map_field_type_empty, const std::size_t anime_=10) noexcept {
+			std::size_t ltype{};
 			if (t_ == nullptr) {
 				ltype = aslib_texture_map_type_empty;
 			}
@@ -660,69 +660,69 @@ namespace AsLib
 			t.emplace_back(t_);
 		}
 
-		void resizeID(const size_t size_) noexcept {
-			size_t t_size{ t.size() };
+		void resizeID(const std::size_t size_) noexcept {
+			std::size_t t_size{ t.size() };
 			tm.resize(size_);
 			t.resize(size_);
-			for (size_t i{ t_size }; i < size_; ++i) t[i] = nullptr;
+			for (std::size_t i{ t_size }; i < size_; ++i) t[i] = nullptr;
 		}
-		void resizeMap(const Pos2& p_, const size_t layer_ = 1) noexcept {
+		void resizeMap(const Pos2& p_, const std::size_t layer_ = 1) noexcept {
 			s_x = p_.x;
 			s_y = p_.y;
 			s_layer = layer_;
 			s.resize(p_.x*p_.y*layer_, 0);
 		}
-		void setLayer(const size_t layer_ = 1, const size_t var_ = 0) noexcept {
+		void setLayer(const std::size_t layer_ = 1, const std::size_t var_ = 0) noexcept {
 			s.resize(s_x*s_y*layer_);
-			const size_t layer_max{ s_x * s_y };
-			for (size_t i{}; i < layer_max; ++i) {
+			const std::size_t layer_max{ s_x * s_y };
+			for (std::size_t i{}; i < layer_max; ++i) {
 				s[i] = var_;
 			}
-			for (size_t i{ layer_max }; i < s.size(); ++i) {
+			for (std::size_t i{ layer_max }; i < s.size(); ++i) {
 				s[i] = 0;
 			}
 			s_layer = layer_;
 		}
-		void putMap(const size_t id_ = 0, const size_t layer_ = 0) noexcept {
+		void putMap(const std::size_t id_ = 0, const std::size_t layer_ = 0) noexcept {
 			if (tm.size() < 2 || layer_ >= s_layer) return;
-			const size_t layer_min{ s_x * s_y*layer_ };
-			const size_t layer_max{ layer_min + s_x * s_y };
-			for (size_t i{ layer_min }; i < layer_max; ++i) {
+			const std::size_t layer_min{ s_x * s_y*layer_ };
+			const std::size_t layer_max{ layer_min + s_x * s_y };
+			for (std::size_t i{ layer_min }; i < layer_max; ++i) {
 				s[i] = id_;
 			}
 		}
-		void randMap(const size_t layer_ = 0) noexcept {
+		void randMap(const std::size_t layer_ = 0) noexcept {
 			if (tm.size() < 2 || layer_ >= s_layer) return;
-			const size_t layer_min{ s_x * s_y*layer_ };
-			const size_t layer_max{ layer_min + s_x * s_y };
-			for (size_t i{ layer_min }; i < layer_max; ++i) {
-				s[i] = size_t(1 + asRand32(uint32_t(tm.size() - 2)));
+			const std::size_t layer_min{ s_x * s_y*layer_ };
+			const std::size_t layer_max{ layer_min + s_x * s_y };
+			for (std::size_t i{ layer_min }; i < layer_max; ++i) {
+				s[i] = std::size_t(1 + asRand32(std::uint32_t(tm.size() - 2)));
 			}
 		}
-		void randMap(const size_t tile1_, const size_t tile2_, const size_t layer_ = 0) noexcept {
+		void randMap(const std::size_t tile1_, const std::size_t tile2_, const std::size_t layer_ = 0) noexcept {
 			if (tm.size() < 2 || layer_ >= s_layer || tile1_ >= tm.size() || tile2_ >= tm.size()) return;
-			const size_t layer_min{ s_x * s_y*layer_ };
-			const size_t layer_max{ layer_min + s_x * s_y };
-			for (size_t i{ layer_min }; i < layer_max; ++i) {
+			const std::size_t layer_min{ s_x * s_y*layer_ };
+			const std::size_t layer_max{ layer_min + s_x * s_y };
+			for (std::size_t i{ layer_min }; i < layer_max; ++i) {
 				s[i] = (asRand8(1) == 0) ? tile1_ : tile2_;
 			}
 		}
-		void mazeMap(const size_t wall_, const size_t empty_ = 0, const size_t layer_ = 0) noexcept {
+		void mazeMap(const std::size_t wall_, const std::size_t empty_ = 0, const std::size_t layer_ = 0) noexcept {
 			if (tm.size() < 2 || s_x % 2 == 0 || s_y % 2 == 0 || layer_ >= s_layer) return;
-			const std::vector<size_t>& v2v1{ vector2ToVector1(asMazeMapMake(s_y, s_x, wall_, empty_)) };
-			const size_t layer_min{ s_x * s_y*layer_ };
-			const size_t layer_max{ layer_min + s_x * s_y };
-			for (size_t i{ layer_min }, k{}; i < layer_max; ++i, ++k) {
+			const std::vector<std::size_t>& v2v1{ vector2ToVector1(asMazeMapMake(s_y, s_x, wall_, empty_)) };
+			const std::size_t layer_min{ s_x * s_y*layer_ };
+			const std::size_t layer_max{ layer_min + s_x * s_y };
+			for (std::size_t i{ layer_min }, k{}; i < layer_max; ++i, ++k) {
 				s[i] = v2v1[k];
 			}	
 		}
-		void worldMap(const size_t under_, const size_t sea_, const size_t green_, const size_t snow_, const size_t seed_ = 0) noexcept {
+		void worldMap(const std::size_t under_, const std::size_t sea_, const std::size_t green_, const std::size_t snow_, const std::size_t seed_ = 0) noexcept {
 			asWorldMapSimplePaint(s, s_x, s_y, s_layer, under_, sea_, green_, snow_, seed_);
 		}
 
 	};
 
-	enum :size_t {
+	enum :std::size_t {
 		aslib_map_return_empty,
 		aslib_map_return_paint,
 		aslib_map_return_bucket,
@@ -730,40 +730,40 @@ namespace AsLib
 
 	struct AsmapReturn {
 		//巻き戻しのタイプ
-		size_t type{ aslib_map_return_empty };
+		std::size_t type{ aslib_map_return_empty };
 		//巻き戻しするマップID
-		size_t id{};
+		std::size_t id{};
 		//変換後のマップID
-		size_t after_id{};
+		std::size_t after_id{};
 		//座標X
-		size_t size_x{};
+		std::size_t size_x{};
 		//座標Y
-		size_t size_y{};
+		std::size_t size_y{};
 		//巻き戻しするレイヤー
-		size_t layer{};
+		std::size_t layer{};
 		AsmapReturn() = default;
 	};
 
 	struct AsMapReturnControl {
 		//登録数の最大の長さ
-		size_t max_len{};
+		std::size_t max_len{};
 		//登録数の今の長さ
-		size_t now_len{};
+		std::size_t now_len{};
 		//登録数の最小数
-		size_t min_len{};
+		std::size_t min_len{};
 		//最大の長さ
-		size_t return_map_num;
+		std::size_t return_map_num;
 		std::unique_ptr<AsmapReturn[]> return_map;
 
 		AsMapReturnControl() = default;
-		AsMapReturnControl(const size_t num_) :return_map_num(num_), return_map(new AsmapReturn[num_]) {}
-		void reset(const size_t num_) noexcept {
+		AsMapReturnControl(const std::size_t num_) :return_map_num(num_), return_map(new AsmapReturn[num_]) {}
+		void reset(const std::size_t num_) noexcept {
 			return_map_num = num_;
 			return_map.reset(new AsmapReturn[num_]);
 		}
 
 		//登録するものを入れる
-		AsMapReturnControl& push(const size_t type_, const size_t id_, const size_t after_id_, const size_t x_, const size_t y_, const size_t layer_) noexcept {
+		AsMapReturnControl& push(const std::size_t type_, const std::size_t id_, const std::size_t after_id_, const std::size_t x_, const std::size_t y_, const std::size_t layer_) noexcept {
 			if (id_ == after_id_) return *this;
 			AsmapReturn* b{ &return_map[(max_len - 1 + return_map_num) % return_map_num] };
 			if (b->size_x == x_ && b->size_y == y_ && b->layer == layer_ && b->after_id == after_id_) return *this;
@@ -794,7 +794,7 @@ namespace AsLib
 			--now_len;
 			now_len += return_map_num;
 			now_len %= return_map_num;
-			size_t x, y, id, layer;
+			std::size_t x, y, id, layer;
 
 			switch (return_map[now_len].type)
 			{
@@ -812,14 +812,14 @@ namespace AsLib
 				id = return_map[now_len].id;
 				layer = return_map[now_len].layer;
 
-				const size_t wp = tma_->s_x*tma_->s_y*layer;
-				const size_t wpm = tma_->s_x*tma_->s_y*(layer + 1);
+				const std::size_t wp = tma_->s_x*tma_->s_y*layer;
+				const std::size_t wpm = tma_->s_x*tma_->s_y*(layer + 1);
 
-				std::vector<size_t> vmap;
+				std::vector<std::size_t> vmap;
 				vmap.resize(tma_->s_x*tma_->s_y);
-				for (size_t i = wp, k = 0; i < wpm; ++i, ++k) vmap[k] = tma_->s[i];
+				for (std::size_t i = wp, k = 0; i < wpm; ++i, ++k) vmap[k] = tma_->s[i];
 				asPaintTool(vmap, tma_->s_x, x, y, id);
-				for (size_t i = wp, k = 0; i < wpm; ++i, ++k) tma_->s[i] = vmap[k];
+				for (std::size_t i = wp, k = 0; i < wpm; ++i, ++k) tma_->s[i] = vmap[k];
 				return *this;
 			}
 
@@ -827,7 +827,7 @@ namespace AsLib
 		}
 		AsMapReturnControl& right(AsTextureMapArray* const tma_) noexcept {
 			if (tma_ == nullptr || now_len == max_len) return *this;
-			size_t x, y, id, layer;
+			std::size_t x, y, id, layer;
 
 			switch (return_map[now_len].type)
 			{
@@ -845,14 +845,14 @@ namespace AsLib
 				id = return_map[now_len].after_id;
 				layer = return_map[now_len].layer;
 
-				const size_t wp = tma_->s_x*tma_->s_y*layer;
-				const size_t wpm = tma_->s_x*tma_->s_y*(layer + 1);
+				const std::size_t wp = tma_->s_x*tma_->s_y*layer;
+				const std::size_t wpm = tma_->s_x*tma_->s_y*(layer + 1);
 
-				std::vector<size_t> vmap;
+				std::vector<std::size_t> vmap;
 				vmap.resize(tma_->s_x*tma_->s_y);
-				for (size_t i = wp, k = 0; i < wpm; ++i, ++k) vmap[k] = tma_->s[i];
+				for (std::size_t i = wp, k = 0; i < wpm; ++i, ++k) vmap[k] = tma_->s[i];
 				asPaintTool(vmap, tma_->s_x, x, y, id);
-				for (size_t i = wp, k = 0; i < wpm; ++i, ++k) tma_->s[i] = vmap[k];
+				for (std::size_t i = wp, k = 0; i < wpm; ++i, ++k) tma_->s[i] = vmap[k];
 				break;
 			}
 			++now_len;
@@ -865,15 +865,15 @@ namespace AsLib
 
 
 	//あたり判定
-	bool movingCollisionDetection(const AsAllAttribute& att_, const AsTextureMapArray& tma_, const Pos2& p_, size_t& is_move_, const size_t player_id_ = aslib_attribute_human) noexcept {
+	bool movingCollisionDetection(const AsAllAttribute& att_, const AsTextureMapArray& tma_, const Pos2& p_, std::size_t& is_move_, const std::size_t player_id_ = aslib_attribute_human) noexcept {
 
-		const size_t map_total{ tma_.s_x*tma_.s_y };
-		size_t move_array{};
-		size_t move_array_lr{};
-		size_t move_array_uw{};
+		const std::size_t map_total{ tma_.s_x*tma_.s_y };
+		std::size_t move_array{};
+		std::size_t move_array_lr{};
+		std::size_t move_array_uw{};
 
 		bool is_moving{ false };
-		size_t moving_id{ 4 };
+		std::size_t moving_id{ 4 };
 
 		switch (is_move_)
 		{
@@ -912,7 +912,7 @@ namespace AsLib
 		default:return false;
 		}
 
-		for (size_t i{}; i < tma_.s_layer; ++i) {
+		for (std::size_t i{}; i < tma_.s_layer; ++i) {
 
 			switch (is_move_)
 			{
@@ -984,7 +984,7 @@ namespace AsLib
 		return is_moving;
 	}
 	//向きを決定する
-	bool directionMob(const size_t& moving_, size_t& dir_) noexcept {
+	bool directionMob(const std::size_t& moving_, std::size_t& dir_) noexcept {
 		switch (moving_)
 		{
 		case MOB_DOWN:case MOB_UP:case MOB_LEFT:case MOB_RIGHT:
@@ -994,7 +994,7 @@ namespace AsLib
 		}
 		return false;
 	}
-	bool movingMob8_true(const AsKeyList& kl_, const float s_, PosA4F& p_, size_t& is_move_, size_t& dir_id_) noexcept {
+	bool movingMob8_true(const AsKeyList& kl_, const float s_, PosA4F& p_, std::size_t& is_move_, std::size_t& dir_id_) noexcept {
 		if (is_move_ != MOB_CENTER) return true;
 		is_move_ = kl_.playerMove8();
 		if (is_move_ == MOB_CENTER) return false;
@@ -1004,7 +1004,7 @@ namespace AsLib
 
 		return true;
 	}
-	bool movingMob8(const AsAllAttribute& att_, const AsTextureMapArray& tma_, const AsKeyList& kl_, const float s_, PosA4F& p_, size_t& is_move_, size_t& dir_id_) noexcept {
+	bool movingMob8(const AsAllAttribute& att_, const AsTextureMapArray& tma_, const AsKeyList& kl_, const float s_, PosA4F& p_, std::size_t& is_move_, std::size_t& dir_id_) noexcept {
 		if (is_move_ != MOB_CENTER) return true;
 		is_move_ = kl_.playerMove8();
 		if (is_move_ == MOB_CENTER) return false;
@@ -1018,7 +1018,7 @@ namespace AsLib
 
 		return true;
 	}
-	bool movingMob8_AI(const AsAllAttribute& att_, const AsTextureMapArray& tma_, const float s_, PosA4F& p_, size_t& is_move_, size_t& dir_id_) noexcept {
+	bool movingMob8_AI(const AsAllAttribute& att_, const AsTextureMapArray& tma_, const float s_, PosA4F& p_, std::size_t& is_move_, std::size_t& dir_id_) noexcept {
 		if (is_move_ != MOB_CENTER) return true;
 		is_move_ = asRand8(7);
 		if (is_move_ == MOB_CENTER) return false;
@@ -1038,13 +1038,13 @@ namespace AsLib
 	}
 
 	//イベントの属性
-	enum :size_t {
+	enum :std::size_t {
 		aslib_map_event_type_empty,
 		aslib_map_event_type_mob,
 		aslib_map_event_type_move,
 	};
 	//イベントの知能
-	enum :size_t {
+	enum :std::size_t {
 		aslib_map_event_ai_empty,
 		aslib_map_event_ai_human,
 		aslib_map_event_ai_ai,
@@ -1065,7 +1065,7 @@ namespace AsLib
 	};
 	//イベント管理
 	struct AsMapEventData {
-		size_t event_type{ aslib_event_type_empty };
+		std::size_t event_type{ aslib_event_type_empty };
 		AsEventMessageWindow* emw{ nullptr };
 
 		AsMapEventData() = default;
@@ -1074,20 +1074,20 @@ namespace AsLib
 	//マップ上のイベント管理
 	struct AsMapEvent {
 		//イベントタイプ
-		size_t type{ aslib_map_event_type_empty };
+		std::size_t type{ aslib_map_event_type_empty };
 		//行動
-		size_t ai{ aslib_map_event_ai_ai };
+		std::size_t ai{ aslib_map_event_ai_ai };
 		//向き
-		size_t dir_id{ MOB_DOWN };
+		std::size_t dir_id{ MOB_DOWN };
 		//移動ID
-		size_t move_id{ MOB_STOP };
+		std::size_t move_id{ MOB_STOP };
 		//移動状態
-		size_t moving{ MOB_CENTER };
+		std::size_t moving{ MOB_CENTER };
 		//移動属性(あたり判定の種類)
-		size_t pl_field_type{ aslib_attribute_human };
+		std::size_t pl_field_type{ aslib_attribute_human };
 		//アニメーションフレーム
-		size_t count{};
-		size_t move_count_max{ 6 };
+		std::size_t count{};
+		std::size_t move_count_max{ 6 };
 		//位置と大きさ
 		PosA4F pl;
 		//移動する距離(移動速度)
@@ -1099,20 +1099,20 @@ namespace AsLib
 		//あたり判定
 		bool is_collision_detection{ true };
 		//イベント中
-		size_t is_event{};
+		std::size_t is_event{};
 
 		//イベント開始条件
-		size_t event_init{ aslib_event_init_touch };
+		std::size_t event_init{ aslib_event_init_touch };
 		//イベント開始範囲
 		PosA4F event_init_pos;
 
 		//イベントデータ
 		std::vector<AsMapEventData> med;
 
-		AsMapEvent(AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const size_t& type_ = aslib_map_event_type_empty, const size_t ai_ = aslib_map_event_ai_ai) :type(type_), ai(ai_), pl(p_), t(t_) {}
+		AsMapEvent(AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const std::size_t& type_ = aslib_map_event_type_empty, const std::size_t ai_ = aslib_map_event_ai_ai) :type(type_), ai(ai_), pl(p_), t(t_) {}
 	};
 
-	size_t movingMob(AsMapEvent* const me_,const size_t x_,const size_t y_) noexcept {
+	std::size_t movingMob(AsMapEvent* const me_,const std::size_t x_,const std::size_t y_) noexcept {
 		if (me_ == nullptr) return MOB_CENTER;
 
 		const Pos2F p2f(me_->pl.x, me_->pl.y);
@@ -1122,36 +1122,36 @@ namespace AsLib
 			me_->pl.y += me_->fps;
 			if (floor(p2f.y) == floor(me_->pl.y)) return me_->moving;
 				me_->moving = MOB_CENTER;
-				me_->pl.y = float((int32_t(floor(me_->pl.y)) + y_) % y_);
+				me_->pl.y = float((std::int32_t(floor(me_->pl.y)) + y_) % y_);
 			return me_->moving;
 		case MOB_UP:
 			me_->pl.y -= me_->fps;
 			if (floor(p2f.y) == floor(me_->pl.y)) return me_->moving;
 				me_->moving = MOB_CENTER;
-				me_->pl.y = float((int32_t(floor(me_->pl.y) + 1.0f) + y_) % y_);
+				me_->pl.y = float((std::int32_t(floor(me_->pl.y) + 1.0f) + y_) % y_);
 			return me_->moving;
 		case MOB_LEFT:
 			me_->pl.x -= me_->fps;
 			if (floor(p2f.x) == floor(me_->pl.x)) return me_->moving;
 				me_->moving = MOB_CENTER;
-				me_->pl.x = float((int32_t(floor(me_->pl.x) + 1.0f) + x_) % x_);
+				me_->pl.x = float((std::int32_t(floor(me_->pl.x) + 1.0f) + x_) % x_);
 			return me_->moving;
 		case MOB_RIGHT:
 			me_->pl.x += me_->fps;
 			if (floor(p2f.x) == floor(me_->pl.x)) return me_->moving;
 				me_->moving = MOB_CENTER;
-				me_->pl.x = float((int32_t(floor(me_->pl.x)) + x_) % x_);
+				me_->pl.x = float((std::int32_t(floor(me_->pl.x)) + x_) % x_);
 			return me_->moving;
 		case MOB_LEFT_UP:
 			me_->pl.x -= me_->fps;
 			me_->pl.y -= me_->fps;
 			if (floor(p2f.x) != floor(me_->pl.x)) {
 				me_->moving = MOB_UP;
-				me_->pl.x = float((int32_t(floor(me_->pl.x) + 1.0f) + x_) % x_);
+				me_->pl.x = float((std::int32_t(floor(me_->pl.x) + 1.0f) + x_) % x_);
 			}
 			if (floor(p2f.y) != floor(me_->pl.y)) {
 				me_->moving = (me_->moving == MOB_UP) ? MOB_CENTER : MOB_LEFT;
-				me_->pl.y = float((int32_t(floor(me_->pl.y) + 1.0f) + y_) % y_);
+				me_->pl.y = float((std::int32_t(floor(me_->pl.y) + 1.0f) + y_) % y_);
 			}
 			return me_->moving;
 		case MOB_RIGHT_UP:
@@ -1159,11 +1159,11 @@ namespace AsLib
 			me_->pl.y -= me_->fps;
 			if (floor(p2f.x) != floor(me_->pl.x)) {
 				me_->moving = MOB_UP;
-				me_->pl.x = float((int32_t(floor(me_->pl.x)) + x_) % x_);
+				me_->pl.x = float((std::int32_t(floor(me_->pl.x)) + x_) % x_);
 			}
 			if (floor(p2f.y) != floor(me_->pl.y)) {
 				me_->moving = (me_->moving == MOB_UP) ? MOB_CENTER : MOB_RIGHT;
-				me_->pl.y = float((int32_t(floor(me_->pl.y) + 1.0f) + y_) % y_);
+				me_->pl.y = float((std::int32_t(floor(me_->pl.y) + 1.0f) + y_) % y_);
 			}
 			return me_->moving;
 		case MOB_LEFT_DOWN:
@@ -1171,11 +1171,11 @@ namespace AsLib
 			me_->pl.y += me_->fps;
 			if (floor(p2f.x) != floor(me_->pl.x)) {
 				me_->moving = MOB_DOWN;
-				me_->pl.x = float((int32_t(floor(me_->pl.x) + 1.0f) + x_) % x_);
+				me_->pl.x = float((std::int32_t(floor(me_->pl.x) + 1.0f) + x_) % x_);
 			}
 			if (floor(p2f.y) != floor(me_->pl.y)) {
 				me_->moving = (me_->moving == MOB_DOWN) ? MOB_CENTER : MOB_LEFT;
-				me_->pl.y = float((int32_t(floor(me_->pl.y)) + y_) % y_);
+				me_->pl.y = float((std::int32_t(floor(me_->pl.y)) + y_) % y_);
 			}
 			return me_->moving;
 		case MOB_RIGHT_DOWN:
@@ -1183,11 +1183,11 @@ namespace AsLib
 			me_->pl.y += me_->fps;
 			if (floor(p2f.x) != floor(me_->pl.x)) {
 				me_->moving = MOB_DOWN;
-				me_->pl.x = float((int32_t(floor(me_->pl.x)) + x_) % x_);
+				me_->pl.x = float((std::int32_t(floor(me_->pl.x)) + x_) % x_);
 			}
 			if (floor(p2f.y) != floor(me_->pl.y)) {
 				me_->moving = (me_->moving == MOB_DOWN) ? MOB_CENTER : MOB_RIGHT;
-				me_->pl.y = float((int32_t(floor(me_->pl.y)) + y_) % y_);
+				me_->pl.y = float((std::int32_t(floor(me_->pl.y)) + y_) % y_);
 			}
 			return me_->moving;
 		}
@@ -1223,16 +1223,16 @@ namespace AsLib
 	}
 	struct AsMapEventControl {
 		Pos2 size{ 1,1 };
-		size_t view_id{};
-		size_t walk_type{ aslib_mob_walk_type_small };
+		std::size_t view_id{};
+		std::size_t walk_type{ aslib_mob_walk_type_small };
 
 		bool is_spawn{ true };
 
 		AsMapEventControl() = default;
 		std::vector<AsMapEvent> me;
-		AsMapEventControl(const Pos2 size_,const size_t walk_type_, AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const size_t& type_ = aslib_map_event_type_empty) :size(size_),walk_type(walk_type_) { me.emplace_back(t_,p_, type_, aslib_map_event_ai_human); }
+		AsMapEventControl(const Pos2 size_,const std::size_t walk_type_, AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const std::size_t& type_ = aslib_map_event_type_empty) :size(size_),walk_type(walk_type_) { me.emplace_back(t_,p_, type_, aslib_map_event_ai_human); }
 
-		void reset(const Pos2 size_, const size_t walk_type_, AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const size_t& type_ = aslib_map_event_type_empty) noexcept {
+		void reset(const Pos2 size_, const std::size_t walk_type_, AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const std::size_t& type_ = aslib_map_event_type_empty) noexcept {
 			size=size_; 
 			walk_type = walk_type_;
 			
@@ -1240,11 +1240,11 @@ namespace AsLib
 			me.emplace_back(t_, p_, type_, aslib_map_event_ai_human);
 		}
 
-		void add(AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const size_t& type_ = aslib_map_event_type_empty, const size_t ai_ = aslib_map_event_ai_ai) noexcept {
+		void add(AsTexture* const t_ = nullptr, const PosA4F& p_ = { 0.0f,0.0f,1.0f,1.0f }, const std::size_t& type_ = aslib_map_event_type_empty, const std::size_t ai_ = aslib_map_event_ai_ai) noexcept {
 			if(is_spawn) me.emplace_back(t_, p_, type_, ai_);
 		}
 		//初期イベント管理・実行
-		AsMapEventControl& start_event(size_t me_id_) noexcept {
+		AsMapEventControl& start_event(std::size_t me_id_) noexcept {
 			if (me_id_ >= me.size()) return *this;
 			me[me_id_].is_event = 1;
 			//イベント種類分け
@@ -1272,7 +1272,7 @@ namespace AsLib
 		}
 		//イベント管理・実行
 		AsMapEventControl& play_event() noexcept {
-			for (size_t i{}; i < me.size(); ++i) {
+			for (std::size_t i{}; i < me.size(); ++i) {
 				//イベントOFFの時
 				if (me[i].is_event == 0) continue;
 				//イベント種類分け
@@ -1301,47 +1301,47 @@ namespace AsLib
 		AsMapEventControl& talk(const bool is_true) noexcept {
 			//会話キーが押されていない・視点が配列外・視点キャラが移動中
 			if (!is_true || view_id >= me.size() || me[view_id].moving != MOB_CENTER) return *this;
-			Pos2 player_pos(int32_t(me[view_id].pl.x), int32_t(me[view_id].pl.y));
+			Pos2 player_pos(std::int32_t(me[view_id].pl.x), std::int32_t(me[view_id].pl.y));
 			switch (me[view_id].dir_id)
 			{
 			case MOB_DOWN:
-				player_pos.x = int32_t(me[view_id].pl.x);
-				player_pos.y = (int32_t(me[view_id].pl.y) + 1) % size.y;
+				player_pos.x = std::int32_t(me[view_id].pl.x);
+				player_pos.y = (std::int32_t(me[view_id].pl.y) + 1) % size.y;
 				break;
 			case MOB_UP:
-				player_pos.x = int32_t(me[view_id].pl.x);
-				player_pos.y = (int32_t(me[view_id].pl.y) - 1 + size.y) % size.y;
+				player_pos.x = std::int32_t(me[view_id].pl.x);
+				player_pos.y = (std::int32_t(me[view_id].pl.y) - 1 + size.y) % size.y;
 				break;
 			case MOB_LEFT:
-				player_pos.x = (int32_t(me[view_id].pl.x) - 1 + size.x) % size.x;
-				player_pos.y = int32_t(me[view_id].pl.y);
+				player_pos.x = (std::int32_t(me[view_id].pl.x) - 1 + size.x) % size.x;
+				player_pos.y = std::int32_t(me[view_id].pl.y);
 				break;
 			case MOB_RIGHT:
-				player_pos.x = (int32_t(me[view_id].pl.x) + 1) % size.x;
-				player_pos.y = int32_t(me[view_id].pl.y);
+				player_pos.x = (std::int32_t(me[view_id].pl.x) + 1) % size.x;
+				player_pos.y = std::int32_t(me[view_id].pl.y);
 				break;
 			case MOB_LEFT_UP:
-				player_pos.x = (int32_t(me[view_id].pl.x) - 1 + size.x) % size.x;
-				player_pos.y = (int32_t(me[view_id].pl.y) - 1 + size.y) % size.y;
+				player_pos.x = (std::int32_t(me[view_id].pl.x) - 1 + size.x) % size.x;
+				player_pos.y = (std::int32_t(me[view_id].pl.y) - 1 + size.y) % size.y;
 				break;
 			case MOB_RIGHT_UP:
-				player_pos.x = (int32_t(me[view_id].pl.x) + 1) % size.x;
-				player_pos.y = (int32_t(me[view_id].pl.y) - 1 + size.y) % size.y;
+				player_pos.x = (std::int32_t(me[view_id].pl.x) + 1) % size.x;
+				player_pos.y = (std::int32_t(me[view_id].pl.y) - 1 + size.y) % size.y;
 				break;
 			case MOB_LEFT_DOWN:
-				player_pos.x = (int32_t(me[view_id].pl.x) - 1 + size.x) % size.x;
-				player_pos.y = (int32_t(me[view_id].pl.y) + 1) % size.y;
+				player_pos.x = (std::int32_t(me[view_id].pl.x) - 1 + size.x) % size.x;
+				player_pos.y = (std::int32_t(me[view_id].pl.y) + 1) % size.y;
 				break;
 			case MOB_RIGHT_DOWN:
-				player_pos.x = (int32_t(me[view_id].pl.x) + 1) % size.x;
-				player_pos.y = (int32_t(me[view_id].pl.y) + 1) % size.y;
+				player_pos.x = (std::int32_t(me[view_id].pl.x) + 1) % size.x;
+				player_pos.y = (std::int32_t(me[view_id].pl.y) + 1) % size.y;
 				break;
 			}
-			for (size_t i{}; i < me.size(); ++i) {
+			for (std::size_t i{}; i < me.size(); ++i) {
 				//選択イベントの開始条件が会話じゃない・選択イベントが移動中・イベントがONになっている・イベント数が0
 				if (me[i].event_init != aslib_event_init_tolk || me[i].moving != MOB_CENTER || me[i].is_event > 0 || me[i].med.size() == 0) continue;
 				//視点キャラの向いている方向にいるかどうか
-				if (int32_t(me[i].pl.x) != player_pos.x || int32_t(me[i].pl.y) != player_pos.y) continue;
+				if (std::int32_t(me[i].pl.x) != player_pos.x || std::int32_t(me[i].pl.y) != player_pos.y) continue;
 				//イベントON
 				this->start_event(i);
 
@@ -1361,7 +1361,7 @@ namespace AsLib
 			return *this;
 		}
 		AsMapEventControl& spawn(const float rand_) noexcept {
-			if (uint32_t(UINT32_MAX*(rand_/100.0f)) >= asRand32()) is_spawn = true;
+			if (std::uint32_t(UINT32_MAX*(rand_/100.0f)) >= asRand32()) is_spawn = true;
 			else is_spawn = false;
 			return *this;
 		}
@@ -1372,12 +1372,12 @@ namespace AsLib
 		}
 		AsMapEventControl& setLandSpawn(const AsTextureMapArray& tma_, AsAllAttribute& att_) noexcept {
 			if (view_id >= me.size()) return *this;
-			const size_t xy_{ tma_.s_x*tma_.s_y };
-			const size_t pl_field{ me[view_id].pl_field_type };
+			const std::size_t xy_{ tma_.s_x*tma_.s_y };
+			const std::size_t pl_field{ me[view_id].pl_field_type };
 
-			for (size_t i{}, k{}; i < xy_; ++i) {
+			for (std::size_t i{}, k{}; i < xy_; ++i) {
 				if (att_.all_id[tma_.tm[tma_.s[i]].field_type].id[pl_field] != aslib_pass_true) continue;
-				for (size_t j{ 1 }; j < tma_.s_layer; ++j) {
+				for (std::size_t j{ 1 }; j < tma_.s_layer; ++j) {
 					if (att_.all_id[tma_.tm[tma_.s[i + xy_ * j]].field_type].id[pl_field] != aslib_pass_true) {
 						k = 0;
 						break;
@@ -1395,7 +1395,7 @@ namespace AsLib
 		AsMapEventControl& spawn() noexcept { is_spawn = true; return *this; }
 
 		void update(const AsTextureMapArray& tma_, const AsAllAttribute& att_, const AsKeyList& kl_) noexcept {
-			for (size_t i{}; i < me.size(); ++i) {
+			for (std::size_t i{}; i < me.size(); ++i) {
 				switch (me[i].ai)
 				{
 				case aslib_map_event_ai_human:
@@ -1485,32 +1485,32 @@ namespace AsLib
 		Pos2 p2;
 
 		//チップを描画
-		AsMapView& drawChip(AsTexture* const t_, const size_t id_, const Pos4& p_, const uint8_t a_, const Pos4& area_) noexcept {
+		AsMapView& drawChip(AsTexture* const t_, const std::size_t id_, const Pos4& p_, const std::uint8_t a_, const Pos4& area_) noexcept {
 			if (t_ == nullptr) return *this;
 			t_->drawArea(id_, p_, a_, area_);
 			return *this;
 		}
 
 		//マップ描画・分岐
-		AsMapView& drawMapBranch(const AsTextureMapArray* const a_, const size_t s_num, const Pos2F& draw_map, const Pos4& area_, const size_t draw_layer_plus, const Pos2& select_map, const Pos2F& m) noexcept {
+		AsMapView& drawMapBranch(const AsTextureMapArray* const a_, const std::size_t s_num, const Pos2F& draw_map, const Pos4& area_, const std::size_t draw_layer_plus, const Pos2& select_map, const Pos2F& m) noexcept {
 			if (a_ == nullptr) return *this;
 			AsTexture* const texture_id{ a_->t[s_num] };
 			if (texture_id == nullptr) return *this;
 			switch (a_->tm[s_num].type)
 			{
 			case aslib_texture_map_type_1n:
-				this->drawChip(texture_id, a_->tm[s_num].anime_show_id, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), 255, area_);
+				this->drawChip(texture_id, a_->tm[s_num].anime_show_id, Pos4(std::int32_t(draw_map.x), std::int32_t(draw_map.y), std::int32_t(draw_map.x + m.x), std::int32_t(draw_map.y + m.y)), 255, area_);
 				break;
 			case aslib_texture_map_type_1n_n:
-				this->drawChip(texture_id, a_->tm[s_num].array_num, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), 255, area_);
+				this->drawChip(texture_id, a_->tm[s_num].array_num, Pos4(std::int32_t(draw_map.x), std::int32_t(draw_map.y), std::int32_t(draw_map.x + m.x), std::int32_t(draw_map.y + m.y)), 255, area_);
 				break;
 			case aslib_texture_map_type_20n:
-				const size_t pym{ size_t(((select_map.y - 1 + p2.y) % p2.y)*p2.x) };
-				const size_t pxm{ size_t(((select_map.x - 1 + p2.x) % p2.x)) };
+				const std::size_t pym{ std::size_t(((select_map.y - 1 + p2.y) % p2.y)*p2.x) };
+				const std::size_t pxm{ std::size_t(((select_map.x - 1 + p2.x) % p2.x)) };
 				if (pym + pxm + draw_layer_plus >= a_->s.size()) return *this;
-				const size_t pyp{ size_t(((select_map.y + 1) % p2.y)*p2.x) };
-				const size_t pxp{ size_t(((select_map.x + 1) % p2.x)) };
-				const size_t tm_id{ a_->tm[s_num].anime_show_id };
+				const std::size_t pyp{ std::size_t(((select_map.y + 1) % p2.y)*p2.x) };
+				const std::size_t pxp{ std::size_t(((select_map.x + 1) % p2.x)) };
+				const std::size_t tm_id{ a_->tm[s_num].anime_show_id };
 
 				const bool map_left_up{ (a_->s[pym + pxm + draw_layer_plus] == s_num) };
 				const bool map_up{ (a_->s[pym + select_map.x + draw_layer_plus] == s_num) };
@@ -1521,22 +1521,22 @@ namespace AsLib
 				const bool map_down{ (a_->s[pyp + select_map.x + draw_layer_plus] == s_num) };
 				const bool map_right_down{ (a_->s[pyp + pxp + draw_layer_plus] == s_num) };
 
-				this->drawChip(texture_id, texture_id->NumX() * 2 * map20n_Number(map_left, map_up, map_left_up) + tm_id, Pos4(int32_t(draw_map.x), int32_t(draw_map.y), int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f)), 255, area_);
-				this->drawChip(texture_id, texture_id->NumX() * 2 * map20n_Number(map_right, map_up, map_right_up) + tm_id + 1, Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y / 2.0f)), 255, area_);
-				this->drawChip(texture_id, texture_id->NumX() * 2 * map20n_Number(map_left, map_down, map_left_down) + tm_id + texture_id->NumX(), Pos4(int32_t(draw_map.x), int32_t(draw_map.y + m.y / 2.0f), int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y)), 255, area_);
-				this->drawChip(texture_id, texture_id->NumX() * 2 * map20n_Number(map_right, map_down, map_right_down) + tm_id + 1 + texture_id->NumX(), Pos4(int32_t(draw_map.x + m.x / 2.0f), int32_t(draw_map.y + m.y / 2.0f), int32_t(draw_map.x + m.x), int32_t(draw_map.y + m.y)), 255, area_);
+				this->drawChip(texture_id, texture_id->NumX() * 2 * map20n_Number(map_left, map_up, map_left_up) + tm_id, Pos4(std::int32_t(draw_map.x), std::int32_t(draw_map.y), std::int32_t(draw_map.x + m.x / 2.0f), std::int32_t(draw_map.y + m.y / 2.0f)), 255, area_);
+				this->drawChip(texture_id, texture_id->NumX() * 2 * map20n_Number(map_right, map_up, map_right_up) + tm_id + 1, Pos4(std::int32_t(draw_map.x + m.x / 2.0f), std::int32_t(draw_map.y), std::int32_t(draw_map.x + m.x), std::int32_t(draw_map.y + m.y / 2.0f)), 255, area_);
+				this->drawChip(texture_id, texture_id->NumX() * 2 * map20n_Number(map_left, map_down, map_left_down) + tm_id + texture_id->NumX(), Pos4(std::int32_t(draw_map.x), std::int32_t(draw_map.y + m.y / 2.0f), std::int32_t(draw_map.x + m.x / 2.0f), std::int32_t(draw_map.y + m.y)), 255, area_);
+				this->drawChip(texture_id, texture_id->NumX() * 2 * map20n_Number(map_right, map_down, map_right_down) + tm_id + 1 + texture_id->NumX(), Pos4(std::int32_t(draw_map.x + m.x / 2.0f), std::int32_t(draw_map.y + m.y / 2.0f), std::int32_t(draw_map.x + m.x), std::int32_t(draw_map.y + m.y)), 255, area_);
 				return *this;
 			}
 			return *this;
 		}
 
 		//マップ描画・X座標
-		AsMapView& drawMapX(const AsTextureMapArray* const a_, const Pos4& in_map, Pos2F& draw_map, const Pos4& area_, const size_t draw_layer_plus, Pos2& select_map, const Pos2F& m) noexcept {
+		AsMapView& drawMapX(const AsTextureMapArray* const a_, const Pos4& in_map, Pos2F& draw_map, const Pos4& area_, const std::size_t draw_layer_plus, Pos2& select_map, const Pos2F& m) noexcept {
 			if (a_ == nullptr) return *this;
-			size_t array_num{};
-			size_t s_num{};
+			std::size_t array_num{};
+			std::size_t s_num{};
 			//X軸指定
-			for (int32_t j{ in_map.x1 }; j < in_map.x2; ++j) {
+			for (std::int32_t j{ in_map.x1 }; j < in_map.x2; ++j) {
 				draw_map.x += m.x;
 				select_map.x = j;
 				while (select_map.x < 0) select_map.x += p2.x;
@@ -1553,11 +1553,11 @@ namespace AsLib
 		}
 
 		//マップ描画・Y座標
-		AsMapView& drawMapY(const AsTextureMapArray* const a_, const Pos2F& in_draw,const Pos4& in_map, Pos2F& draw_map, const Pos4& area_, const size_t draw_layer_plus, const Pos2F& m) noexcept {
+		AsMapView& drawMapY(const AsTextureMapArray* const a_, const Pos2F& in_draw,const Pos4& in_map, Pos2F& draw_map, const Pos4& area_, const std::size_t draw_layer_plus, const Pos2F& m) noexcept {
 			if (a_ == nullptr) return *this;
 			Pos2 select_map;
 			//Y軸指定
-			for (int32_t i{ in_map.y1 }; i < in_map.y2; ++i) {
+			for (std::int32_t i{ in_map.y1 }; i < in_map.y2; ++i) {
 				draw_map.x = in_draw.x;
 				draw_map.y += m.y;
 				select_map.y = i;
@@ -1568,13 +1568,13 @@ namespace AsLib
 			return *this;
 		}
 		//マップ描画・レイヤー
-		AsMapView& drawMapLayer(const size_t min_,const size_t max_,const AsTextureMapArray* const a_, const Pos2F& in_draw, const Pos4& in_map, const Pos4& area_, const Pos2F& m) noexcept {
+		AsMapView& drawMapLayer(const std::size_t min_,const std::size_t max_,const AsTextureMapArray* const a_, const Pos2F& in_draw, const Pos4& in_map, const Pos4& area_, const Pos2F& m) noexcept {
 			if (a_ == nullptr) return *this;
-			const size_t layer_plus{ size_t(p2.x*p2.y) };
-			size_t draw_layer_plus{ layer_plus };
+			const std::size_t layer_plus{ std::size_t(p2.x*p2.y) };
+			std::size_t draw_layer_plus{ layer_plus };
 			Pos2F draw_map(in_draw);
 			//レイヤー指定
-			for (size_t layer{ min_ }; layer < max_; ++layer) {
+			for (std::size_t layer{ min_ }; layer < max_; ++layer) {
 				draw_layer_plus = layer_plus * layer;
 				draw_map = in_draw;
 				this->drawMapY(a_, in_draw, in_map, draw_map, area_, draw_layer_plus, m);
@@ -1582,7 +1582,7 @@ namespace AsLib
 			return *this;
 		}
 
-		AsMapView& drawMap(const size_t* const min_ = nullptr, const size_t* const max_ = nullptr, AsTextureMapArray* const a_ = nullptr, Pos4 area_ = aslib_default_area) noexcept
+		AsMapView& drawMap(const std::size_t* const min_ = nullptr, const std::size_t* const max_ = nullptr, AsTextureMapArray* const a_ = nullptr, Pos4 area_ = aslib_default_area) noexcept
 		{
 			if (a_ == nullptr) return *this;
 			if (!isArea(area_)) area_ = asWindowSize4();
@@ -1600,8 +1600,8 @@ namespace AsLib
 			
 			//開始から終了まで
 			const Pos4 in_map{ Pos4(Pos4F(floor(be_pos.x), floor(be_pos.y), ceil(af_pos.x), ceil(af_pos.y))) };
-			const size_t&& draw_layer_min{ (min_ == nullptr) ? 0 : *min_ };
-			const size_t&& draw_layer_max{ (max_ == nullptr) ? ((min_ == nullptr) ? a_->s_layer : (*min_ + 1)) : *max_ };
+			const std::size_t&& draw_layer_min{ (min_ == nullptr) ? 0 : *min_ };
+			const std::size_t&& draw_layer_max{ (max_ == nullptr) ? ((min_ == nullptr) ? a_->s_layer : (*min_ + 1)) : *max_ };
 			this->drawMapLayer(draw_layer_min, draw_layer_max, a_, in_draw, in_map, area_, m);
 			return *this;
 		}
@@ -1618,12 +1618,12 @@ namespace AsLib
 		}
 
 		//視点変更
-		AsMapView& setMobView(PosA4F& p_, const size_t type_ = aslib_mob_walk_type_small) noexcept {
+		AsMapView& setMobView(PosA4F& p_, const std::size_t type_ = aslib_mob_walk_type_small) noexcept {
 			const Pos2F p2f{ p2 };
 			while (p_.x < 0.0f) { p_.x += p2f.x; }
 			while (p_.y < 0.0f) { p_.y += p2f.y; }
-			p.x = p_.x += float(int32_t(p_.x) % p2.x) - floor(p_.x);
-			p.y = p_.y += float(int32_t(p_.y) % p2.y) - floor(p_.y);
+			p.x = p_.x += float(std::int32_t(p_.x) % p2.x) - floor(p_.x);
+			p.y = p_.y += float(std::int32_t(p_.y) % p2.y) - floor(p_.y);
 
 			if (type_ == aslib_mob_walk_type_big) {
 				p.x += 0.5f;
@@ -1658,24 +1658,24 @@ namespace AsLib
 			const Pos2F p2f{ p2 };
 			while (p_.x < 0.0f) { p_.x += p2f.x; }
 			while (p_.y < 0.0f) { p_.y += p2f.y; }
-			p_.x += float(int32_t(p_.x) % p2.x) - floor(p_.x);
-			p_.y += float(int32_t(p_.y) % p2.y) - floor(p_.y);
+			p_.x += float(std::int32_t(p_.x) % p2.x) - floor(p_.x);
+			p_.y += float(std::int32_t(p_.y) % p2.y) - floor(p_.y);
 			return *this;
 		}
 		AsMapView& setMobPos(std::vector<PosA4F>& p_) noexcept {
 			const Pos2F p2f{ p2 };
-			for (size_t i{}; i < p_.size(); ++i) {
+			for (std::size_t i{}; i < p_.size(); ++i) {
 				while (p_[i].x < 0.0f) { p_[i].x += p2f.x; }
 				while (p_[i].y < 0.0f) { p_[i].y += p2f.y; }
-				p_[i].x += float(int32_t(p_[i].x) % p2.x) - floor(p_[i].x);
-				p_[i].y += float(int32_t(p_[i].y) % p2.y) - floor(p_[i].y);
+				p_[i].x += float(std::int32_t(p_[i].x) % p2.x) - floor(p_[i].x);
+				p_[i].y += float(std::int32_t(p_[i].y) % p2.y) - floor(p_[i].y);
 			}
 			return *this;
 		}
 		AsMapView& setMap(const PosA4F& p_) noexcept { p = p_; return *this; }
 		AsMapView& setMapX(const PosA4F& p_) noexcept { p = p_; p.h = p.w*(float(asWindowSize().y) / float(asWindowSize().x)); return *this; }
 		
-		enum :size_t {
+		enum :std::size_t {
 			aslib_map_view_type_paint,
 			aslib_map_view_type_select,
 			aslib_map_view_type_bucket,
@@ -1683,7 +1683,7 @@ namespace AsLib
 			aslib_map_view_type_event_select,
 		};
 		//鉛筆ツール
-		bool allSelect(const size_t type_, AsTextureMapArray* const t_ = nullptr, AsMapEventControl* const mec_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, Pos2* const p_=nullptr, size_t* const id_ = 0, Pos4 area_ = aslib_default_area) noexcept
+		bool allSelect(const std::size_t type_, AsTextureMapArray* const t_ = nullptr, AsMapEventControl* const mec_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const std::size_t layer_ = 0, Pos2* const p_=nullptr, std::size_t* const id_ = 0, Pos4 area_ = aslib_default_area) noexcept
 		{
 			switch (type_)
 			{
@@ -1708,16 +1708,16 @@ namespace AsLib
 			const Pos2 pos(area_.x1 + (area_.x2 - area_.x1) / 2, area_.y1 + (area_.y2 - area_.y1) / 2);
 			Pos2 t_p;
 			Pos2 draw_p;
-			size_t draw_id{};
+			std::size_t draw_id{};
 			bool is_touch{ false };
 
-			const size_t wp{ p2.x*p2.y*layer_ };
-			const size_t wpm{ p2.x*p2.y*(layer_ + 1) };
+			const std::size_t wp{ p2.x*p2.y*layer_ };
+			const std::size_t wpm{ p2.x*p2.y*(layer_ + 1) };
 
-			std::vector<size_t> vmap;
+			std::vector<std::size_t> vmap;
 
-			size_t touch_num{ asTouchNum() };
-			for (size_t i{}; i <= touch_num; ++i) {
+			std::size_t touch_num{ asTouchNum() };
+			for (std::size_t i{}; i <= touch_num; ++i) {
 				if (i == touch_num) {
 					if (type_ != aslib_map_view_type_mouse_select && !asMouseL()) return false;
 					t_p = mousePos();
@@ -1727,8 +1727,8 @@ namespace AsLib
 				if (!isArea(area_, t_p)) continue;
 				is_touch = true;
 
-				draw_p.y = int32_t(floor(this->p.y + float(t_p.y - pos.y) / m.y));
-				draw_p.x = int32_t(floor(this->p.x + float(t_p.x - pos.x) / m.x));
+				draw_p.y = std::int32_t(floor(this->p.y + float(t_p.y - pos.y) / m.y));
+				draw_p.x = std::int32_t(floor(this->p.x + float(t_p.x - pos.x) / m.x));
 
 				while (draw_p.x < 0) { draw_p.x += p2.x; }
 				while (draw_p.y < 0) { draw_p.y += p2.y; }
@@ -1749,9 +1749,9 @@ namespace AsLib
 						//書き換え
 						if (mrc_ != nullptr) mrc_->push(aslib_map_return_bucket, t_->s[draw_id = draw_p.y*p2.x + draw_p.x + wp], *id_, draw_p.x, draw_p.y, layer_);
 						vmap.resize(t_->s_x*t_->s_y);
-						for (size_t ii{ wp }, k{}; ii < wpm; ++ii, ++k) vmap[k] = t_->s[ii];
+						for (std::size_t ii{ wp }, k{}; ii < wpm; ++ii, ++k) vmap[k] = t_->s[ii];
 						asPaintTool(vmap, t_->s_x, draw_p.x, draw_p.y, *id_);
-						for (size_t ii{ wp }, k{}; ii < wpm; ++ii, ++k) t_->s[ii] = vmap[k];
+						for (std::size_t ii{ wp }, k{}; ii < wpm; ++ii, ++k) t_->s[ii] = vmap[k];
 					return true;
 				case aslib_map_view_type_select:
 				case aslib_map_view_type_mouse_select:
@@ -1759,8 +1759,8 @@ namespace AsLib
 					if (id_ != nullptr) *id_ = t_->s[draw_p.y*p2.x + draw_p.x + wp];
 					return true;
 				case aslib_map_view_type_event_select:
-					for (size_t i{ 1 }; i < mec_->me.size(); ++i) {
-						if (int32_t(floor(mec_->me[i].pl.x)) != draw_p.x || int32_t(floor(mec_->me[i].pl.y)) != draw_p.y) continue;
+					for (std::size_t i{ 1 }; i < mec_->me.size(); ++i) {
+						if (std::int32_t(floor(mec_->me[i].pl.x)) != draw_p.x || std::int32_t(floor(mec_->me[i].pl.y)) != draw_p.y) continue;
 						mec_->me[i].pl.x += 1.0f;
 						return true;
 					}
@@ -1770,44 +1770,44 @@ namespace AsLib
 			return is_touch;
 		}
 		//イベント選択ツール
-		const bool eventSelect(AsMapEventControl* const mec_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, Pos2* const p_ = nullptr, size_t* const id_ = 0, Pos4 area_ = aslib_default_area) noexcept
+		const bool eventSelect(AsMapEventControl* const mec_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const std::size_t layer_ = 0, Pos2* const p_ = nullptr, std::size_t* const id_ = 0, Pos4 area_ = aslib_default_area) noexcept
 		{
 			return this->allSelect(aslib_map_view_type_event_select, nullptr, mec_, mrc_, layer_, p_, id_, area_);
 		}
 		//塗りツール
-		const bool bucket(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, size_t id_ = 0, Pos4 area_ = aslib_default_area) noexcept
+		const bool bucket(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const std::size_t layer_ = 0, std::size_t id_ = 0, Pos4 area_ = aslib_default_area) noexcept
 		{
 			return this->allSelect(aslib_map_view_type_bucket, t_, nullptr, mrc_, layer_, nullptr, &id_, area_);
 		}
 		//鉛筆ツール
-		const bool paint(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_=nullptr, const size_t layer_ = 0, size_t id_ = 0,Pos4 area_=aslib_default_area) noexcept
+		const bool paint(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_=nullptr, const std::size_t layer_ = 0, std::size_t id_ = 0,Pos4 area_=aslib_default_area) noexcept
 		{
 			return this->allSelect(aslib_map_view_type_paint, t_, nullptr, mrc_, layer_, nullptr, &id_, area_);
 		}
 		//選択ツール
-		const bool select(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, Pos2* const p_=nullptr, size_t* const id_ = 0,Pos4 area_ = aslib_default_area) noexcept
+		const bool select(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const std::size_t layer_ = 0, Pos2* const p_=nullptr, std::size_t* const id_ = 0,Pos4 area_ = aslib_default_area) noexcept
 		{
 			return this->allSelect(aslib_map_view_type_select, t_, nullptr, mrc_, layer_, p_, id_, area_);
 		}
 		//マウス位置ツール
-		const bool mouseSelect(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const size_t layer_ = 0, Pos2* const p_ = nullptr, size_t* const id_ = 0, Pos4 area_ = aslib_default_area) noexcept
+		const bool mouseSelect(AsTextureMapArray* const t_ = nullptr, AsMapReturnControl* const mrc_ = nullptr, const std::size_t layer_ = 0, Pos2* const p_ = nullptr, std::size_t* const id_ = 0, Pos4 area_ = aslib_default_area) noexcept
 		{
 			return this->allSelect(aslib_map_view_type_mouse_select, t_, nullptr, mrc_, layer_, p_, id_, area_);
 		}
 		//イベント描画
 		AsMapView& drawEvent(AsMapEventControl* const mec_, const Pos2F& draw_map, const Pos2& select_map, const Pos4& area_, const Pos2F& m) noexcept {
 			if (mec_ == nullptr || mec_->me.size() == 0) return *this;
-			size_t id_{};
+			std::size_t id_{};
 			Pos2 player_p;
 			PosA4F p_a4f;
-			for (size_t k{}; k < mec_->me.size(); ++k) {
+			for (std::size_t k{}; k < mec_->me.size(); ++k) {
 				if (mec_->me[k].t == nullptr) continue;
 				if (mec_->me[k].type == aslib_map_event_type_mob) id_ = mobMoveDirect(mec_->me[k].dir_id, mec_->me[k].move_id);
 				if (mec_->me[k].t->Num() <= id_) continue;
 
 				p_a4f = (mec_->walk_type == aslib_mob_walk_type_big) ? PosA4F(mec_->me[k].pl.x + 0.5f, mec_->me[k].pl.y + 0.6f - 0.3f*mec_->me[k].pl.h, mec_->me[k].pl.w, mec_->me[k].pl.h) : mec_->me[k].pl;
 
-				player_p = Pos2(int32_t(floor(p_a4f.x)), int32_t(floor(p_a4f.y)));
+				player_p = Pos2(std::int32_t(floor(p_a4f.x)), std::int32_t(floor(p_a4f.y)));
 				while (player_p.x < 0) player_p.x += p2.x;
 				while (player_p.y < 0) player_p.y += p2.y;
 
@@ -1818,7 +1818,7 @@ namespace AsLib
 
 				//描画するデータのある配列の場所
 				const PosA4F&& draw_mob{ PosA4F(draw_map.x + (p_a4f.x - floor(p_a4f.x))*m.x, draw_map.y + (p_a4f.y - floor(p_a4f.y))*m.y, m.x*p_a4f.w, m.y*p_a4f.h) };
-				this->drawChip(mec_->me[k].t, id_, draw_mob, (uint8_t)255, area_);
+				this->drawChip(mec_->me[k].t, id_, draw_mob, (std::uint8_t)255, area_);
 			}
 			return *this;
 		}
@@ -1826,7 +1826,7 @@ namespace AsLib
 		AsMapView& drawEventX(AsMapEventControl* const mec_, const Pos4& in_map, Pos2F& draw_map, Pos2& select_map, const Pos4& area_, const Pos2F& m) noexcept {
 			if (mec_ == nullptr || mec_->me.size() == 0) return *this;
 			//X軸指定
-			for (int32_t j{ in_map.x1 }; j < in_map.x2; ++j) {
+			for (std::int32_t j{ in_map.x1 }; j < in_map.x2; ++j) {
 				draw_map.x += m.x;
 				select_map.x = j;
 				while (select_map.x < 0) { select_map.x += p2.x; }
@@ -1841,7 +1841,7 @@ namespace AsLib
 			Pos2F draw_map(in_draw);
 			Pos2 select_map;
 			//Y軸指定
-			for (int32_t i{ in_map.y1 }; i < in_map.y2; ++i) {
+			for (std::int32_t i{ in_map.y1 }; i < in_map.y2; ++i) {
 				draw_map.x = in_draw.x;
 				draw_map.y += m.y;
 				select_map.y = i;
@@ -1874,8 +1874,8 @@ namespace AsLib
 			return *this;
 		}
 		//画像の全体描画
-		AsMapView& draw(AsTextureMapArray* const t_, const size_t* const min_, const size_t* const max_, Pos4 area_ = aslib_default_area) noexcept { return this->drawMap(min_,max_,t_,area_); }
-		AsMapView& draw(AsTextureMapArray* const t_, const size_t* const min_, Pos4 area_ = aslib_default_area) noexcept { return this->drawMap(min_, nullptr, t_, area_); }
+		AsMapView& draw(AsTextureMapArray* const t_, const std::size_t* const min_, const std::size_t* const max_, Pos4 area_ = aslib_default_area) noexcept { return this->drawMap(min_,max_,t_,area_); }
+		AsMapView& draw(AsTextureMapArray* const t_, const std::size_t* const min_, Pos4 area_ = aslib_default_area) noexcept { return this->drawMap(min_, nullptr, t_, area_); }
 		AsMapView& draw(AsTextureMapArray* const t_, Pos4 area_ = aslib_default_area) noexcept { return this->drawMap(nullptr, nullptr, t_, area_); }
 
 	};

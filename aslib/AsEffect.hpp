@@ -25,18 +25,18 @@ namespace AsLib
 		float floatOut() const noexcept { return this->out; }
 		double doubleIn() const noexcept { return double(this->in); }
 		double doubleOut() const noexcept { return double(this->out); }
-		uint8_t uint8_In() const noexcept { return uint8_t(this->in*255.0f); }
-		uint8_t uint8_Out() const noexcept { return uint8_t(this->out*255.0f); }
-		int32_t int32_In() const noexcept { return int32_t(this->in*255.0f); }
-		int32_t int32_Out() const noexcept { return int32_t(this->out*255.0f); }
+		std::uint8_t uint8_In() const noexcept { return std::uint8_t(this->in*255.0f); }
+		std::uint8_t uint8_Out() const noexcept { return std::uint8_t(this->out*255.0f); }
+		std::int32_t int32_In() const noexcept { return std::int32_t(this->in*255.0f); }
+		std::int32_t int32_Out() const noexcept { return std::int32_t(this->out*255.0f); }
 
-		Effect& setIn(const uint8_t var_) noexcept { this->in = float(var_) / 255.0f; return *this; }
-		Effect& setIn(const int32_t var_) noexcept { this->in = float(var_) / 255.0f; return *this; }
+		Effect& setIn(const std::uint8_t var_) noexcept { this->in = float(var_) / 255.0f; return *this; }
+		Effect& setIn(const std::int32_t var_) noexcept { this->in = float(var_) / 255.0f; return *this; }
 		Effect& setIn(const float var_) noexcept { this->in = var_; return *this; }
 		Effect& setIn(const double var_) noexcept { this->in = float(var_); return *this; }
 
-		Effect& setOut(const uint8_t var_) noexcept { this->out = float(var_) / 255.0f; return *this; }
-		Effect& setOut(const int32_t var_) noexcept { this->out = float(var_) / 255.0f; return *this; }
+		Effect& setOut(const std::uint8_t var_) noexcept { this->out = float(var_) / 255.0f; return *this; }
+		Effect& setOut(const std::int32_t var_) noexcept { this->out = float(var_) / 255.0f; return *this; }
 		Effect& setOut(const float var_) noexcept { this->out = var_; return *this; }
 		Effect& setOut(const double var_) noexcept { this->out = float(var_); return *this; }
 

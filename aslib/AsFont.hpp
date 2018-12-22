@@ -11,7 +11,7 @@
 
 namespace AsLib
 {
-	constexpr int32_t FONT_THICK{ 7 };
+	constexpr std::int32_t FONT_THICK{ 7 };
 
 	inline Pos2 asMiddle(const OriginatorFont& id_, const char* const str_, const Pos2& pos_) noexcept
 	{
@@ -33,7 +33,7 @@ return 0;
 #endif
 	}
 
-	OriginatorFont asMakeFont(const int32_t& font_size = 10, const char* const font_name = u8"Meiryo UI") noexcept
+	OriginatorFont asMakeFont(const std::int32_t& font_size = 10, const char* const font_name = u8"Meiryo UI") noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return DxLib::CreateFontToHandle(font_name, font_size, FONT_THICK);
@@ -62,13 +62,13 @@ return 0;
 #endif
 	}
 
-	inline OriginatorFont asMakeFont(const int32_t& font_size, const std::string& font_name) noexcept
+	inline OriginatorFont asMakeFont(const std::int32_t& font_size, const std::string& font_name) noexcept
 	{
 		return asMakeFont(font_size, font_name.c_str());
 	}
 
 
-	int32_t asPrint(const OriginatorFont font, const char* const format_string = u8"", const Pos2& pos2 = pos2_0, const ColorRGB& color_rgb = aslib_color_white) noexcept
+	std::int32_t asPrint(const OriginatorFont font, const char* const format_string = u8"", const Pos2& pos2 = pos2_0, const ColorRGB& color_rgb = aslib_color_white) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255) == -1) return -1;
@@ -89,7 +89,7 @@ return 0;
 #endif
 	}
 
-	int32_t asPrint(const OriginatorFont font, const char* const format_string = u8"", const Pos2& pos2 = pos2_0, const Color& color_rgba = aslib_color_white_a) noexcept
+	std::int32_t asPrint(const OriginatorFont font, const char* const format_string = u8"", const Pos2& pos2 = pos2_0, const Color& color_rgba = aslib_color_white_a) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, color_rgba.a) == -1) return -1;
@@ -113,7 +113,7 @@ return 0;
 	template<typename... Rest>
 	std::string printStringS3(const char* const format_string, const Rest&... rest) noexcept
 	{
-		constexpr size_t PRINT_STRING_MAX{ 1024 };
+		constexpr std::size_t PRINT_STRING_MAX{ 1024 };
 		char sn_string[PRINT_STRING_MAX];
 		snprintf(sn_string, sizeof(sn_string), format_string, rest...);
 		return std::string(sn_string);
@@ -223,17 +223,17 @@ return 0;
 		//フォントデータのID
 		OriginatorFont id;
 		//大きさ
-		int32_t size{ 10 };
+		std::int32_t size{ 10 };
 		//太さ
-		int32_t thick{ FONT_THICK };
+		std::int32_t thick{ FONT_THICK };
 		//フォント名
 		std::string fontname{ u8"Meiryo UI" };
 	public:
 		//no explicit 
 		AsFont(){}
-		AsFont(const int32_t add_size, const char* const str_ = u8"Meiryo UI", const int32_t add_thick = FONT_THICK) :id(asMakeFont(add_size,str_)), size(add_size), thick(add_thick), fontname(std::string(str_)) {}//stdmovea
+		AsFont(const std::int32_t add_size, const char* const str_ = u8"Meiryo UI", const std::int32_t add_thick = FONT_THICK) :id(asMakeFont(add_size,str_)), size(add_size), thick(add_thick), fontname(std::string(str_)) {}//stdmovea
 
-		AsFont& operator()(const int32_t add_size = 10, const char* const str_ = u8"Meiryo UI", const int32_t add_thick = FONT_THICK) noexcept
+		AsFont& operator()(const std::int32_t add_size = 10, const char* const str_ = u8"Meiryo UI", const std::int32_t add_thick = FONT_THICK) noexcept
 		{
 			id = asMakeFont(add_size, str_);
 			size = add_size;
@@ -274,10 +274,10 @@ return 0;
 
 		//出力
 		OriginatorFont ID() const noexcept { return this->id; };
-		int32_t Size() const noexcept { return this->size; };
+		std::int32_t Size() const noexcept { return this->size; };
 		const char* const fontName() const noexcept { return this->fontname.c_str(); };
 
-		AsFont& changeSize(const int32_t& size_) noexcept {
+		AsFont& changeSize(const std::int32_t& size_) noexcept {
 			this->size += size_;
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 			DxLib::DeleteFontToHandle(this->id);

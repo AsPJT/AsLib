@@ -13,7 +13,7 @@ namespace AsLib
 {
 
 	//マウスID
-	enum :size_t {
+	enum :std::size_t {
 		aslib_mouse_left,
 		aslib_mouse_right,
 		aslib_mouse_middle,
@@ -27,7 +27,7 @@ namespace AsLib
 	};
 
 	//マウスのボタン数
-	constexpr size_t mouse_button_num{ 10 };
+	constexpr std::size_t mouse_button_num{ 10 };
 
 
 	//マウス位置を記録する関数
@@ -44,9 +44,9 @@ namespace AsLib
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		int mouse_x{}, mouse_y{};
 		DxLib::GetMousePoint(&mouse_x, &mouse_y);
-		return Pos2(int32_t(mouse_x), int32_t(mouse_y));
+		return Pos2(std::int32_t(mouse_x), std::int32_t(mouse_y));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		return Pos2(int32_t(s3d::Cursor::Pos().x), int32_t(s3d::Cursor::Pos().y));
+		return Pos2(std::int32_t(s3d::Cursor::Pos().x), std::int32_t(s3d::Cursor::Pos().y));
 #elif defined(ASLIB_INCLUDE_OF)
 		return asMousePosSave(false);
 #elif defined(ASLIB_INCLUDE_C2)
@@ -60,16 +60,16 @@ return 0;
 #endif
 	}
 
-	inline PosA4 mousePos(const int32_t l_) noexcept { return PosA4(mousePos(), l_); }
-	inline PosA4 mousePos(const int32_t w_, const int32_t h_) noexcept { return PosA4(mousePos(), w_, h_); }
+	inline PosA4 mousePos(const std::int32_t l_) noexcept { return PosA4(mousePos(), l_); }
+	inline PosA4 mousePos(const std::int32_t w_, const std::int32_t h_) noexcept { return PosA4(mousePos(), w_, h_); }
 
 	//マウスのホイール回転量(奥:負 手前:正)
-	inline int32_t mouseWheel() noexcept
+	inline std::int32_t mouseWheel() noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-		return int32_t(DxLib::GetMouseWheelRotVol(TRUE));
+		return std::int32_t(DxLib::GetMouseWheelRotVol(TRUE));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
-		return int32_t(s3d::Mouse::Wheel());
+		return std::int32_t(s3d::Mouse::Wheel());
 #elif defined(ASLIB_INCLUDE_OF)
 		return 0;
 #elif defined(ASLIB_INCLUDE_C2)
@@ -90,8 +90,8 @@ return 0;
 		return 0;
 	}
 
-	int32_t asMouseWheel(const Pos4& p_) noexcept {
-		const int32_t wheel{ mouseWheel() };
+	std::int32_t asMouseWheel(const Pos4& p_) noexcept {
+		const std::int32_t wheel{ mouseWheel() };
 		if (wheel == 0) return 0;
 
 		const Pos2 touch_p{ mousePos() };
@@ -99,7 +99,7 @@ return 0;
 		return 0;
 	}
 
-	inline void asMouseWheel(PosA4F& add_, const float f_ = 5.0, const int32_t view_max_ = 0, Pos4 area_ = aslib_default_area) noexcept {
+	inline void asMouseWheel(PosA4F& add_, const float f_ = 5.0, const std::int32_t view_max_ = 0, Pos4 area_ = aslib_default_area) noexcept {
 		if (!isArea(area_)) area_ = asWindowSize4();
 		float pinch{ asMouseWheel(area_) / f_ };
 		add_.w -= pinch;
@@ -107,15 +107,15 @@ return 0;
 		if (add_.w < 1.0f) add_.w = 1.0f;
 		if (add_.h < 1.0f) add_.h = 1.0f;
 		if (view_max_ == 0) return;
-		if (int32_t(add_.w) >= view_max_) add_.w = float(view_max_);
-		if (int32_t(add_.h) >= view_max_) add_.h = float(view_max_);
+		if (std::int32_t(add_.w) >= view_max_) add_.w = float(view_max_);
+		if (std::int32_t(add_.h) >= view_max_) add_.h = float(view_max_);
 	}
 
 	//ウィンドウサイズを記録する関数
-	bool* const asMouseButtonSave(const bool b_, const bool c_ = false, const bool p_ = false, const size_t s_ = 0) noexcept
+	bool* const asMouseButtonSave(const bool b_, const bool c_ = false, const bool p_ = false, const std::size_t s_ = 0) noexcept
 	{
 		static bool p[mouse_button_num];
-		if (c_) for (size_t i{}; i < mouse_button_num; ++i) p[i] = false;
+		if (c_) for (std::size_t i{}; i < mouse_button_num; ++i) p[i] = false;
 		if (b_) p[s_] = p_;
 		return p;
 	}
@@ -142,7 +142,7 @@ return 0;
 		count[aslib_mouse_7].update(s3d::MouseX4.pressed() != 0);
 		count[aslib_mouse_8].update(s3d::MouseX5.pressed() != 0);
 #elif defined(ASLIB_INCLUDE_OF)
-		for (size_t i{}; i < mouse_button_num; ++i) {
+		for (std::size_t i{}; i < mouse_button_num; ++i) {
 			count[i].update(asMouseButtonSave(false)[i]);
 		}
 #elif defined(ASLIB_INCLUDE_C2)
@@ -246,44 +246,44 @@ return 0;
 	{
 	public:
 		Pos2 Pos() const noexcept { return this->pos; };
-		int32_t Wheel() const noexcept { return this->wheel; };
-		Counter count(const size_t count_num) const noexcept { return this->counter[count_num]; };
+		std::int32_t Wheel() const noexcept { return this->wheel; };
+		Counter count(const std::size_t count_num) const noexcept { return this->counter[count_num]; };
 
 		bool down() const noexcept { return this->counter[aslib_mouse_left].down(); };
 		bool up() const noexcept { return this->counter[aslib_mouse_left].up(); };
-		int32_t count() const noexcept { return this->counter[aslib_mouse_left].count(); };
+		std::int32_t count() const noexcept { return this->counter[aslib_mouse_left].count(); };
 
 		bool downL() const noexcept { return this->counter[aslib_mouse_left].down(); };
 		bool upL() const noexcept { return this->counter[aslib_mouse_left].up(); };
-		int32_t countL() const noexcept { return this->counter[aslib_mouse_left].count(); };
+		std::int32_t countL() const noexcept { return this->counter[aslib_mouse_left].count(); };
 
 		bool downR() const noexcept { return this->counter[aslib_mouse_right].down(); };
 		bool upR() const noexcept { return this->counter[aslib_mouse_right].up(); };
-		int32_t countR() const noexcept { return this->counter[aslib_mouse_right].count(); };
+		std::int32_t countR() const noexcept { return this->counter[aslib_mouse_right].count(); };
 
 		bool downM() const noexcept { return this->counter[aslib_mouse_middle].down(); };
 		bool upM() const noexcept { return this->counter[aslib_mouse_middle].up(); };
-		int32_t countM() const noexcept { return this->counter[aslib_mouse_middle].count(); };
+		std::int32_t countM() const noexcept { return this->counter[aslib_mouse_middle].count(); };
 
 		bool down4() const noexcept { return this->counter[aslib_mouse_4].down(); };
 		bool up4() const noexcept { return this->counter[aslib_mouse_4].up(); };
-		int32_t count4() const noexcept { return this->counter[aslib_mouse_4].count(); };
+		std::int32_t count4() const noexcept { return this->counter[aslib_mouse_4].count(); };
 
 		bool down5() const noexcept { return this->counter[aslib_mouse_5].down(); };
 		bool up5() const noexcept { return this->counter[aslib_mouse_5].up(); };
-		int32_t count5() const noexcept { return this->counter[aslib_mouse_5].count(); };
+		std::int32_t count5() const noexcept { return this->counter[aslib_mouse_5].count(); };
 
 		bool down6() const noexcept { return this->counter[aslib_mouse_6].down(); };
 		bool up6() const noexcept { return this->counter[aslib_mouse_6].up(); };
-		int32_t count6() const noexcept { return this->counter[aslib_mouse_6].count(); };
+		std::int32_t count6() const noexcept { return this->counter[aslib_mouse_6].count(); };
 
 		bool down7() const noexcept { return this->counter[aslib_mouse_7].down(); };
 		bool up7() const noexcept { return this->counter[aslib_mouse_7].up(); };
-		int32_t count7() const noexcept { return this->counter[aslib_mouse_7].count(); };
+		std::int32_t count7() const noexcept { return this->counter[aslib_mouse_7].count(); };
 
 		bool down8() const noexcept { return this->counter[aslib_mouse_8].down(); };
 		bool up8() const noexcept { return this->counter[aslib_mouse_8].up(); };
-		int32_t count8() const noexcept { return this->counter[aslib_mouse_8].count(); };
+		std::int32_t count8() const noexcept { return this->counter[aslib_mouse_8].count(); };
 
 		Mouse() :pos(mousePos()), wheel(mouseWheel()), counter(mouseButton()) {}
 
@@ -295,7 +295,7 @@ return 0;
 
 	private:
 		Pos2 pos;
-		int32_t wheel;
+		std::int32_t wheel;
 		Counter* const counter;
 	};
 }

@@ -12,9 +12,9 @@
 namespace AsLib
 {
 	//バッテリー取得
-	inline int32_t asBattery() noexcept {
+	inline std::int32_t asBattery() noexcept {
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-		return int32_t(DxLib::GetBatteryLifePercent());
+		return std::int32_t(DxLib::GetBatteryLifePercent());
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 #if defined(SIV3D_TARGET_WINDOWS)
 		SYSTEM_POWER_STATUS sps;
@@ -36,7 +36,7 @@ return 0;
 	}
 
 	//バッテリー描画
-	int32_t asBatteryDraw(const PosL4 pos_, const Color battery_col = { 0,192,32,255 }, const Color out_col = { 75,75,75,255 }) noexcept
+	std::int32_t asBatteryDraw(const PosL4 pos_, const Color battery_col = { 0,192,32,255 }, const Color out_col = { 75,75,75,255 }) noexcept
 	{
 		const Color empty_col{ 255,255,255,out_col.a };
 
@@ -58,7 +58,7 @@ return 0;
 		empty_pos.w = (pos_.w << 2) / 5;
 		empty_pos.h = (out_pos.w << 3) / 25;
 
-		const int32_t battery_power{ asBattery() };
+		const std::int32_t battery_power{ asBattery() };
 
 		//バッテリー容量
 		PosL4 battery_pos{ empty_pos };
@@ -130,12 +130,12 @@ return 0;
 		//カウンター出力
 		bool down() const noexcept { return counter.down(); };
 		bool up() const noexcept { return counter.up(); };
-		int32_t count() const noexcept { return counter.count(); };
+		std::int32_t count() const noexcept { return counter.count(); };
 		bool down0() noexcept { return counter.down0(); };
 		bool up0() noexcept { return counter.up0(); };
-		int32_t count0() noexcept { return counter.count0(); };
-		int32_t Touch() const noexcept { return this->touch_num; };
-		int32_t Touch0() noexcept { const int32_t num = this->touch_num; this->touch_num = 0; return num; };
+		std::int32_t count0() noexcept { return counter.count0(); };
+		std::int32_t Touch() const noexcept { return this->touch_num; };
+		std::int32_t Touch0() noexcept { const std::int32_t num = this->touch_num; this->touch_num = 0; return num; };
 		Battery& touch(const Pos2& add_pos) noexcept
 		{
 			bool is_touch{ false };
@@ -155,7 +155,7 @@ return 0;
 		Battery& update() noexcept { this->counter.update(this->touch_num); return *this; };
 
 		//バッテリー専用の出力
-		int32_t Power() noexcept { return this->battery_power = asBattery(); }
+		std::int32_t Power() noexcept { return this->battery_power = asBattery(); }
 
 	private:
 
@@ -169,13 +169,13 @@ return 0;
 		Color battery_col;
 		Color out_col;
 
-		int32_t battery_power;
+		std::int32_t battery_power;
 
 		//あたり判定
 		Counter counter;
 
 		//タッチ数
-		int32_t touch_num{};
+		std::int32_t touch_num{};
 
 	};
 

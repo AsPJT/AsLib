@@ -32,37 +32,37 @@ namespace AsLib
 		return asDrawPosSave(true, p_);
 	}
 	//描画IDを記録する関数
-	size_t asDrawNumSave(const bool b_ = false, const size_t& p_ = 0) noexcept
+	std::size_t asDrawNumSave(const bool b_ = false, const std::size_t& p_ = 0) noexcept
 	{
 		//記録保存変数
-		static thread_local size_t p{};
+		static thread_local std::size_t p{};
 		//読み取り時
 		if (b_) {
 			p = p_;
 			return p;
 		}
-		size_t p2{ p };
+		std::size_t p2{ p };
 		p = 0;
 		return p2;
 	}
-	inline size_t asSetDrawNumSave(const size_t p_ = 0) noexcept {
+	inline std::size_t asSetDrawNumSave(const std::size_t p_ = 0) noexcept {
 		return asDrawNumSave(true, p_);
 	}
 	//描画透過度を記録する関数
-	uint8_t asDrawAlphaSave(const bool b_ = false, const uint8_t& p_ = (uint8_t)255) noexcept
+	std::uint8_t asDrawAlphaSave(const bool b_ = false, const std::uint8_t& p_ = (std::uint8_t)255) noexcept
 	{
 		//記録保存変数
-		static thread_local uint8_t p{ 255 };
+		static thread_local std::uint8_t p{ 255 };
 		//読み取り時
 		if (b_) {
 			p = p_;
 			return p;
 		}
-		uint8_t p2{ p };
-		p = (uint8_t)255;
+		std::uint8_t p2{ p };
+		p = (std::uint8_t)255;
 		return p2;
 	}
-	inline uint8_t asSetDrawAlphaSave(const uint8_t p_ = (uint8_t)255) noexcept {
+	inline std::uint8_t asSetDrawAlphaSave(const std::uint8_t p_ = (std::uint8_t)255) noexcept {
 		return asDrawAlphaSave(true, p_);
 	}
 

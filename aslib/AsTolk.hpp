@@ -27,7 +27,7 @@ namespace AsLib
 
 	};
 
-	enum :size_t {
+	enum :std::size_t {
 		aslib_effect_event_empty,
 		aslib_effect_event_zoom,
 		aslib_effect_event_over_r_slide,
@@ -48,15 +48,15 @@ namespace AsLib
 		Pos2 end_pos{};
 		PosL4 size_pos{};
 
-		int32_t timer{};
+		std::int32_t timer{};
 		bool is_timer{ false };
 
 		std::u32string in32_str{};
-		size_t str32_timer{};
+		std::size_t str32_timer{};
 		bool is_str32{ false };
 
 		bool is_end_timer{ false };
-		int32_t end_timer{};
+		std::int32_t end_timer{};
 		bool is_end_str{ true };
 
 		//
@@ -65,7 +65,7 @@ namespace AsLib
 		//ウィンドウとともに流される音
 		AsBGM sound;
 		//何番目の音を流すか
-		int32_t count_sound{};
+		std::int32_t count_sound{};
 		//音のファイル名
 		std::string sound_name{};
 		//音の拡張子
@@ -80,7 +80,7 @@ namespace AsLib
 		std::string out_str{};
 
 		//ウィンドウ内の最大行数
-		int32_t number_of_lines{ 5 };
+		std::int32_t number_of_lines{ 5 };
 
 		//ウィンドウのデフォルトサイズ
 		Pos4 pos_default{};
@@ -108,16 +108,16 @@ namespace AsLib
 
 		AsTexture* end_anime{ nullptr };
 
-		int32_t update_count{};
-		int32_t update_end_count{};
+		std::int32_t update_count{};
+		std::int32_t update_end_count{};
 
 		//名前リスト
 		WindowEvent* window_event{ nullptr };
 
 		//エフェクト
-		size_t effect_event{ aslib_effect_event_empty };
-		int32_t effect_count_max{};
-		int32_t effect_count{};
+		std::size_t effect_event{ aslib_effect_event_empty };
+		std::int32_t effect_count_max{};
+		std::int32_t effect_count{};
 
 	public:
 #if defined(ANIME_TEXTURE_1)
@@ -131,7 +131,7 @@ namespace AsLib
 		MessageWindow& setFastForward(const bool fast_) noexcept { is_fast_forward = fast_; return *this; }
 		MessageWindow& setOnFastForward(const bool fast_) noexcept { is_on_fast_forward = fast_; return *this; }
 		MessageWindow& setFont(AsFont& font_) noexcept { font = &font_; return *this; }
-		MessageWindow& setLine(const int32_t var_) noexcept {
+		MessageWindow& setLine(const std::int32_t var_) noexcept {
 			number_of_lines = var_ + 1;
 			*font = AsFont((PosL4(pos_draw_default).h - frame_default.y * 2) / number_of_lines, font->fontName());
 			return *this;
@@ -161,8 +161,8 @@ namespace AsLib
 			is_sound = false;
 			return *this;
 		}
-		MessageWindow& setEffectTimer(const int32_t var_) noexcept { effect_count_max = var_; return *this; }
-		MessageWindow& setEffect(const size_t var_) noexcept { effect_event = var_; return *this; }
+		MessageWindow& setEffectTimer(const std::int32_t var_) noexcept { effect_count_max = var_; return *this; }
+		MessageWindow& setEffect(const std::size_t var_) noexcept { effect_event = var_; return *this; }
 		MessageWindow& playEffect() noexcept {
 			if (effect_count_max == 0) return *this;
 			if (effect_count < effect_count_max) ++effect_count;
@@ -181,7 +181,7 @@ namespace AsLib
 			case aslib_effect_event_over_r_slide:
 
 				//asPrint("%d+(%d-%d)*(1-%d/%d)", pos_a4.x, asWindowSize().x, pos_a4.x, effect_count, effect_count_max);
-				pos_l4.x = this->pos_default.x1 + int32_t((asWindowSize().x - this->pos_default.x1)*(1.0f - (float(effect_count) / effect_count_max)));
+				pos_l4.x = this->pos_default.x1 + std::int32_t((asWindowSize().x - this->pos_default.x1)*(1.0f - (float(effect_count) / effect_count_max)));
 				this->pos_draw_default = pos_l4;
 				break;
 			}
@@ -261,7 +261,7 @@ namespace AsLib
 			is_str32 = false;
 			return *this;
 		}
-		MessageWindow& update(const int32_t count_) noexcept {
+		MessageWindow& update(const std::int32_t count_) noexcept {
 			++timer;
 			if (timer >= count_) {
 				timer = 0;
@@ -273,7 +273,7 @@ namespace AsLib
 			return *this;
 		}
 		MessageWindow& update() noexcept { return this->update(this->update_count); return *this; }
-		MessageWindow& setUpdate(const int32_t var_) noexcept { this->update_count = var_; return *this; }
+		MessageWindow& setUpdate(const std::int32_t var_) noexcept { this->update_count = var_; return *this; }
 		MessageWindow& endString() noexcept {
 			is_str32 = false;
 			is_end_str = true;
@@ -285,14 +285,14 @@ namespace AsLib
 		MessageWindow& writeString() noexcept {
 			if (!is_timer || !is_str32 || effect_count < effect_count_max) return *this;
 
-			enum :size_t {
+			enum :std::size_t {
 				aslib_string_number_empty,
 				aslib_string_number_player_name,
 			};
 
-			static size_t string_number{};
+			static std::size_t string_number{};
 			static bool is_string_number{ false };
-			static size_t string_number_id{ aslib_string_number_empty };
+			static std::size_t string_number_id{ aslib_string_number_empty };
 
 			do {
 				switch (in32_str[str32_timer]) {
@@ -392,7 +392,7 @@ namespace AsLib
 			return *this;
 		}
 		//終端記号をつける
-		MessageWindow& updateEnd(const int32_t count_) noexcept {
+		MessageWindow& updateEnd(const std::int32_t count_) noexcept {
 			++end_timer;
 			//タイマーがたまったら
 			if (end_timer >= count_) {
@@ -411,11 +411,11 @@ namespace AsLib
 			return *this;
 		}
 		MessageWindow& updateEnd() noexcept { return this->updateEnd(this->update_end_count); return *this; }
-		MessageWindow& setUpdateEnd(const int32_t var_) noexcept { this->update_end_count = var_; return *this; }
+		MessageWindow& setUpdateEnd(const std::int32_t var_) noexcept { this->update_end_count = var_; return *this; }
 		MessageWindow& writeEndString(const char* const end_str_) noexcept {
 			if (!is_end_timer || is_str32) return *this;
-			const size_t str_count{ std::strlen(end_str_) };
-			if (is_end_str) { for (size_t i{}; i < str_count; ++i) out_str.pop_back(); }
+			const std::size_t str_count{ std::strlen(end_str_) };
+			if (is_end_str) { for (std::size_t i{}; i < str_count; ++i) out_str.pop_back(); }
 			else out_str += end_str_;
 			return *this;
 		}
@@ -433,7 +433,7 @@ namespace AsLib
 		}
 		MessageWindow& drawEndAnime(AsTexture& texture_, const Pos2& p_) noexcept {
 			if (is_str32) return *this;
-			static size_t draw_id{};
+			static std::size_t draw_id{};
 			//指定した画像を描画
 			texture_.draw(draw_id, Pos4(end_pos.x - p_.x, end_pos.y - p_.y, end_pos.x, end_pos.y));
 			if (!is_end_timer) return *this;
@@ -475,8 +475,8 @@ namespace AsLib
 			is_end_texture = false;
 			return *this;
 		}
-		MessageWindow& next(const std::vector<bool>& is_next) noexcept { for (size_t i{}; i < is_next.size(); ++i) this->next(is_next[i]); return *this; }
-		MessageWindow& next(const bool* const is_next, const size_t size_) noexcept { if (is_next == nullptr) return *this; for (size_t i{}; i < size_; ++i) this->next(is_next[i]); return *this; }
+		MessageWindow& next(const std::vector<bool>& is_next) noexcept { for (std::size_t i{}; i < is_next.size(); ++i) this->next(is_next[i]); return *this; }
+		MessageWindow& next(const bool* const is_next, const std::size_t size_) noexcept { if (is_next == nullptr) return *this; for (std::size_t i{}; i < size_; ++i) this->next(is_next[i]); return *this; }
 		MessageWindow& drawPerson(AsTexture& t_) noexcept {
 			if (!is_person) return *this;
 

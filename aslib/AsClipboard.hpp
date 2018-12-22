@@ -19,7 +19,7 @@ namespace AsLib
 	inline void asClipboard(const std::string& str_) noexcept { asClipboard(str_.c_str()); }
 
 	std::string asClipboard() noexcept {
-		const size_t b{ size_t(DxLib::GetClipboardText(NULL) + 1) };
+		const std::size_t b{ std::size_t(DxLib::GetClipboardText(NULL) + 1) };
 		if (b == 0) return std::string(u8"Error");
 		const std::unique_ptr<char[]> ptr(new char[b]);
 		DxLib::GetClipboardText(ptr.get());
@@ -28,7 +28,7 @@ namespace AsLib
 
 	std::string asDrag() noexcept {
 		if (DxLib::GetDragFileNum() < 1) return u8"";
-		const size_t b{ size_t(DxLib::GetDragFilePath(NULL) + 1) };
+		const std::size_t b{ std::size_t(DxLib::GetDragFilePath(NULL) + 1) };
 		if (b == 0) return std::string(u8"Error");
 		const std::unique_ptr<char[]> ptr(new char[b]);
 		DxLib::GetDragFilePath(ptr.get());

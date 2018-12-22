@@ -37,7 +37,7 @@ namespace AsLib
 #if defined(ASLIB_INCLUDE_OF)
 		void setup() { asStart(); asInit(); asSetup(); }
 		void update() {
-			asMousePosSave(true, Pos2(int32_t(mouseX), int32_t(mouseY)));
+			asMousePosSave(true, Pos2(std::int32_t(mouseX), std::int32_t(mouseY)));
 			asUpdateStart();
 			asUpdate();
 		}
@@ -47,14 +47,14 @@ namespace AsLib
 			asMouseButtonSave(false, true); //todo
 		}
 		void mousePressed(int x, int y, int button) {
-			asMouseButtonSave(true, false, true, size_t(button));
+			asMouseButtonSave(true, false, true, std::size_t(button));
 		}
 #endif
 
 	};
 
 	template<typename AsApp>
-	int32_t asRunApp(MainControl& mc, AsApp* const as_app) noexcept
+	std::int32_t asRunApp(MainControl& mc, AsApp* const as_app) noexcept
 	{
 #if defined(ASLIB_INCLUDE_OF)
 		if (as_app == nullptr) return -1;
