@@ -55,3 +55,11 @@ These codes are licensed under CC0.
 | UTF | UTF | Good | Good | Good | Good | Good | Good |
 | Main Control | MainControl | Average | Average | Average | Average | Bad | Bad |
 |  |  |  |  |  |  |  |  |
+
+## Contact
+
+|E-mail:|wanotaitei@gmail.com|
+|:---|:---|
+|Twitter:|@wanotaitei|
+|![svg](https://github.com/Kasugaccho/DungeonTemplateLibrary/blob/master/Picture/as_logo.svg)|**As Project**|
+|![gaccho](https://github.com/Kasugaccho/DungeonTemplateLibrary/blob/master/Picture/gaccho_icon.svg)|Made by Gaccho.|
