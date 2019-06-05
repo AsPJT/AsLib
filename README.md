@@ -60,6 +60,5 @@ These codes are licensed under CC0.
 
 |E-mail:|wanotaitei@gmail.com|
 |:---|:---|
-|Twitter:|[@wanotaitei](https://twitter.com/wanotaitei)|
-|![svg](https://github.com/Kasugaccho/DungeonTemplateLibrary/blob/master/Picture/as_logo.svg)|**As Project**|
-|![gaccho](https://github.com/Kasugaccho/DungeonTemplateLibrary/blob/master/Picture/gaccho_icon.svg)|Made by Gaccho.|
+|![svg](https://Kasugaccho.github.io/DungeonPicture/Picture/as_logo.svg)|Made by **As Project**.|
+|![gaccho](https://Kasugaccho.github.io/DungeonPicture/Picture/gaccho_icon.svg)|Made by Gaccho.|
