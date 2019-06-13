@@ -1,6 +1,6 @@
 ﻿# As Library <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.ja"><img src="https://img.shields.io/badge/license-CC0-blue.svg"></a> <a href="https://github.com/Kasugaccho/AsLib"><img src="https://img.shields.io/badge/0.4.0.0-passing-brightgreen.svg"></a>
-This library supports multi platform development in C ++.
-[![AsLib](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/aslib/Picture/Title/aslib150.png "AsLib")](https://github.com/Kasugaccho/AsLib)
+This library supports multi platform development in C++.
+[![AsLib](https://github.com/Kasugaccho/AsLib/blob/master/aslib/Picture/aslib_logo.svg "AsLib")](https://github.com/Kasugaccho/AsLib)
 
 [>>Japanese](https://github.com/Kasugaccho/AsLib/blob/master/README_JP.md)
 
@@ -8,7 +8,7 @@ This library supports multi platform development in C ++.
 
 These codes are licensed under CC0.
 
-[![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png "CC0")](http://creativecommons.org/publicdomain/zero/1.0/deed.ja)
+[![CC0](https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/cc-zero.svg "CC0")](http://creativecommons.org/publicdomain/zero/1.0/deed.ja)
 
 ## Overview
 
@@ -55,3 +55,10 @@ These codes are licensed under CC0.
 | UTF | UTF | Good | Good | Good | Good | Good | Good |
 | Main Control | MainControl | Average | Average | Average | Average | Bad | Bad |
 |  |  |  |  |  |  |  |  |
+
+## Contact
+
+|E-mail:|wanotaitei@gmail.com|
+|:---|:---|
+|![svg](https://Kasugaccho.github.io/DungeonPicture/Picture/as_logo.svg)|Made by **As Project**.|
+|![gaccho](https://Kasugaccho.github.io/DungeonPicture/Picture/gaccho_icon.svg)|Made by Gaccho.|
