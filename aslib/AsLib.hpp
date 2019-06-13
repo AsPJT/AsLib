@@ -1,12 +1,11 @@
-﻿//     ----------     ----------     ----------     ----------     ----------
-//
-//                              AsLib - AsProject Library
-//
-//                    Created by Gaccho (wanotaitei@gmail.com)
-//
-//                                   Ver 0.2.1.0 Alpha
-//
-//     ----------     ----------     ----------     ----------     ----------
+﻿/*#######################################################################################
+	Made by Kasugaccho
+	Made by As Project
+	https://github.com/Kasugaccho/AsLib
+	wanotaitei@gmail.com
+
+	This code is licensed under CC0.
+#######################################################################################*/
 #ifndef INCLUDED_AS_PROJECT_LIBRARY
 #define INCLUDED_AS_PROJECT_LIBRARY
 

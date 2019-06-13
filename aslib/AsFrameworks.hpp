@@ -1,12 +1,11 @@
-﻿//     ----------     ----------     ----------     ----------     ----------
-//
-//                                   AsFrameworks
-//
-//                    Created by Gaccho (wanotaitei@gmail.com)
-//
-//                                   Ver 0.0.0.0 Alpha
-//
-//     ----------     ----------     ----------     ----------     ----------
+﻿/*#######################################################################################
+	Made by Kasugaccho
+	Made by As Project
+	https://github.com/Kasugaccho/AsLib
+	wanotaitei@gmail.com
+
+	This code is licensed under CC0.
+#######################################################################################*/
 #ifndef INCLUDED_AS_PROJECT_LIBRARY_FRAMEWORKS
 #define INCLUDED_AS_PROJECT_LIBRARY_FRAMEWORKS
 
