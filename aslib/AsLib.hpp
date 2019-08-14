@@ -46,7 +46,7 @@ namespace AsLib { std::int32_t asEnd() noexcept; }
 #endif
 #if defined(ASLIB_INCLUDE_AS)
 #include <Windows.h>
-int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int i = int(asMain()); AsLib::asEnd(); return i; }
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) { const int i = int(asMain()); AsLib::asEnd(); return i; }
 
 #elif defined(ASLIB_INCLUDE_DL)
 #if !defined(DX_NON_USING_NAMESPACE_DXLIB)
@@ -60,7 +60,7 @@ int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int 
 #endif
 #if defined(__WINDOWS__)
 #include <Windows.h>
-int WINAPI WinMain(HINSTANCE hI, HINSTANCE hPI, LPSTR lCL, int nCS) { const int i{ int(asMain()) }; AsLib::asEnd(); return i; }
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) { const int i{ int(asMain()) }; AsLib::asEnd(); return i; }
 //プラットフォーム
 #if !defined(AS_PLATFORM_WINDOWS)
 #define AS_PLATFORM_WINDOWS

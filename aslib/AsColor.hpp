@@ -41,7 +41,7 @@ namespace AsLib
 		std::uint8_t b{ COLOR_MAX };
 
 		ColorRGB() = default;
-		constexpr explicit ColorRGB(const std::uint8_t r_, const std::uint8_t g_, const std::uint8_t b_, const std::uint8_t a_) :r(r_), g(g_), b(b_) { };
+		constexpr explicit ColorRGB(const std::uint8_t r_, const std::uint8_t g_, const std::uint8_t b_, const std::uint8_t) :r(r_), g(g_), b(b_) { };
 		constexpr explicit ColorRGB(const std::uint8_t r_, const std::uint8_t g_, const std::uint8_t b_) :r(r_), g(g_), b(b_) {};
 
 		//他のライブラリ対応

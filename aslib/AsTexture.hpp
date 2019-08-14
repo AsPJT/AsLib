@@ -16,7 +16,7 @@ namespace AsLib
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 	//DxLibは画像を分割ロードした方が描画しやすい
 	//(ファイル名、横の分割数、縦の分割数、透過の有無)
-	std::unique_ptr<OriginatorTexture[]> asLoadTexture(const char* const name_, const std::size_t num_x_ = 1, const std::size_t num_y_ = 1,const bool a_=true) noexcept
+	std::unique_ptr<OriginatorTexture[]> asLoadTexture(const char* const name_, const std::size_t num_x_ = 1, const std::size_t num_y_ = 1,const bool = true) noexcept
 	{
 		//画像の枚数分 配列を作成
 		const std::size_t aslib_load_texture_xy{ num_x_ * num_y_ };

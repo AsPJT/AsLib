@@ -1398,8 +1398,8 @@ namespace AsLib
 		bool is_y = false;
 
 	public:
-		void setX(const float f_) { is_x = true; is_y = false; }
-		void setY(const float f_) { is_x = false; is_y = true; }
+		void setX(const float) { is_x = true; is_y = false; }
+		void setY(const float) { is_x = false; is_y = true; }
 
 		AsPosFArray() = default;
 		constexpr AsPosFArray(const PosL4F& p_, const std::size_t x_ = 1, const std::size_t y_ = 1) :pos(p_), num_x((x_ == 0) ? 1 : x_), num_y((y_ == 0) ? 1 : y_), num((x_*y_ == 0) ? 1 : x_ * y_) {}

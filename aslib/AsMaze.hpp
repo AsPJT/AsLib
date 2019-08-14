@@ -393,7 +393,7 @@ namespace AsLib
 					asPaintScanLine(map_, size_x_, buffer, map_xy, rxsav, rx, ly + 1, ly, col);
 				}
 				else {
-					asPaintScanLine(map_, size_x_, buffer, map_xy, lx, rx, ly + 1, ly, col);
+					asPaintScanLine(map_, size_x_, buffer, map_xy, static_cast<std::int32_t>(lx), rx, static_cast<std::int32_t>(ly) + 1, ly, col);
 				}
 			}
 

@@ -171,7 +171,7 @@ namespace AsLib
 	}
 
 
-	std::int32_t asSize_t_MapNameRead(const std::string& str_, std::vector<std::string>& name_) noexcept {
+	std::int32_t asSize_t_MapNameRead(const std::string& str_, std::vector<std::string>&) noexcept {
 		std::string str;
 		//ファイル読み込み
 		std::ifstream ifs;

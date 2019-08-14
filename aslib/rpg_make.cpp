@@ -61,7 +61,7 @@ std::int32_t asMain()
 	std::size_t as_t_size{};
 	//マップデータ読み込み
 	const std::unique_ptr<AsTexture[]> as_t = select_main_map.readMapCSV(u8"Picture/map_tile.csv", &as_t_size);
-	if (as_t_size != 0) select_world_p.y = (select_main_map.t.size() + 1) / 8;
+	if (as_t_size != 0) select_world_p.y = static_cast<std::int_least32_t>((select_main_map.t.size() + 1) / 8);
 	AsTextureMapArray paint_main_map{ select_main_map };
 
 	//ペイントツールテクスチャ

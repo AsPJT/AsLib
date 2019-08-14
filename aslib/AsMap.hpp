@@ -1760,9 +1760,9 @@ namespace AsLib
 					if (id_ != nullptr) *id_ = t_->s[draw_p.y*p2.x + draw_p.x + wp];
 					return true;
 				case aslib_map_view_type_event_select:
-					for (std::size_t i{ 1 }; i < mec_->me.size(); ++i) {
-						if (std::int32_t(floor(mec_->me[i].pl.x)) != draw_p.x || std::int32_t(floor(mec_->me[i].pl.y)) != draw_p.y) continue;
-						mec_->me[i].pl.x += 1.0f;
+					for (std::size_t ii{ 1 }; ii < mec_->me.size(); ++ii) {
+						if (std::int32_t(floor(mec_->me[ii].pl.x)) != draw_p.x || std::int32_t(floor(mec_->me[ii].pl.y)) != draw_p.y) continue;
+						mec_->me[ii].pl.x += 1.0f;
 						return true;
 					}
 					return false;
