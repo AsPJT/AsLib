@@ -1,4 +1,4 @@
-# RPG-MapMaker [![BSL-1.0](https://img.shields.io/badge/license-BSL--1.0-blue.svg)](https://github.com/Kasugaccho/DungeonTemplateLibrary/blob/master/LICENSE_1_0.txt)
+# RPG-MapMaker [![BSL-1.0](https://qiita-image-store.s3.amazonaws.com/0/213065/82334964-37ef-e21c-79c9-e3afc2fd3b47.png)](https://github.com/Kasugaccho/DungeonTemplateLibrary/blob/master/LICENSE_1_0.txt)
 
 [![Logo-GIF](https://kasugaccho.github.io/DungeonPicture/Picture/Logo/logo_color800_2.gif)](https://github.com/Kasugaccho/DungeonTemplateLibrary/wiki/API-reference)
 
