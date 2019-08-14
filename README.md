@@ -1,64 +1,29 @@
-﻿# As Library <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.ja"><img src="https://img.shields.io/badge/license-CC0-blue.svg"></a> <a href="https://github.com/Kasugaccho/AsLib"><img src="https://img.shields.io/badge/0.4.0.0-passing-brightgreen.svg"></a>
-This library supports multi platform development in C++.
-[![AsLib](https://github.com/Kasugaccho/AsLib/blob/master/aslib/Picture/aslib_logo.svg "AsLib")](https://github.com/Kasugaccho/AsLib)
+# RPG-MapMaker [![BSL-1.0](https://img.shields.io/badge/license-BSL--1.0-blue.svg)](https://github.com/Kasugaccho/DungeonTemplateLibrary/blob/master/LICENSE_1_0.txt)
 
-[>>Japanese](https://github.com/Kasugaccho/AsLib/blob/master/README_JP.md)
+[![Logo-GIF](https://kasugaccho.github.io/DungeonPicture/Picture/Logo/logo_color800_2.gif)](https://github.com/Kasugaccho/DungeonTemplateLibrary/wiki/API-reference)
 
-## License
+---
 
-These codes are licensed under CC0.
+# Overview 💬
 
-[![CC0](https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/cc-zero.svg "CC0")](http://creativecommons.org/publicdomain/zero/1.0/deed.ja)
+---
 
-## Overview
+## [License 💳](https://github.com/Kasugaccho/RPG-MapMaker/blob/master/LICENSE_1_0.txt)
 
-| Engine Name | Abbreviation | Support Version | Type |
-|:---:|:---:|:---:|:---:|
-| Default | TP | None | Library |
-| openFrameworks | OF | 0.10.0 | Framework |
-| DxLib | DL | 3.19b | Library |
-| OpenSiv3D | S3 | 0.2.7 | Library |
-| Cocos2d-x | C2 | 3.17 | Framework |
-| SFML | SF | 2.5.0 | Library |
+[**>> View License 💳**](https://github.com/Kasugaccho/RPG-MapMaker/blob/master/LICENSE_1_0.txt)
 
-| Implementation | Header Name | TP | OF | DL | S3 | C2 | SF |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Library | Lib | Excellent | Good | Excellent | Excellent | Good | Bad |
-| Touch Input | Touch | Bad | Bad | Good | Average | Bad | Bad |
-| Mouse Input | Mouse | Bad | Good | Good | Good | Bad | Bad |
-| Keyboard Input | Key | Bad | Bad | Good | Good | Bad | Bad |
-| GamePad Input | GamePad | Bad | Bad | Bad | Bad | Bad | Bad |
-| String Input | KeyInput | Bad | Bad | Good | Bad | Bad | Bad |
-| Texture Draw | AsTexture | Bad | Good | Good | Good | Bad | Bad |
-| Sound | Sound | Bad | Bad | Good | Good | Bad | Bad |
-| String Draw | Font | Bad | Average | Good | Good | Bad | Bad |
-| Rect Draw | Rect | Bad | Good | Good | Good | Bad | Bad |
-| Circle Draw | Circle | Bad | Good | Good | Good | Bad | Bad |
-| Special I/O | AsFile | Excellent | Excellent | Excellent | Excellent | Excellent | Excellent |
-| Battery | Battery | Bad | Bad | Good | Good | Bad | Bad |
-| Main Class | Class | Excellent | Excellent | Excellent | Excellent | Excellent | Excellent |
-| Color Class | Color | Excellent | Excellent | Excellent | Excellent | Excellent | Excellent |
-| Position Class | Struct | Excellent | Excellent | Excellent | Excellent | Excellent | Excellent |
-| Constant | Const | Excellent | Excellent | Excellent | Excellent | Excellent | Excellent |
-| Mouse Counter | Counter | Excellent | Excellent | Excellent | Excellent | Excellent | Excellent |
-| I/O | File | Excellent | Excellent | Excellent | Excellent | Excellent | Excellent |
-| License | License | Excellent | Good | Excellent | Excellent | Bad | Bad |
-| Main Loop | Loop | Bad | Bad | Good | Good | Bad | Bad |
-| 2D Map | Map | Good | Good | Good | Good | Good | Good |
-| Random | Rand | Good | Good | Good | Good | Good | Good |
-| SNS | SNS | Bad | Bad | Good | Good | Bad | Bad |
-| Init | Std | Good | Average | Good | Good | Bad | Bad |
-| Wait | Stop | Bad | Bad | Good | Average | Bad | Bad |
-| Variable Type | Type | Good | Good | Good | Good | Bad | Bad |
-| Wi-Fi | WiFi | Bad | Bad | Average | Average | Bad | Bad |
-| Effect | Effect | Average | Average | Average | Average | Bad | Bad |
-| UTF | UTF | Good | Good | Good | Good | Good | Good |
-| Main Control | MainControl | Average | Average | Average | Average | Bad | Bad |
-|  |  |  |  |  |  |  |  |
+Copyright (c) 2017-2019 Kasugaccho.
+Copyright (c) 2018-2019 As Project.
 
-## Contact
+Distributed under the Boost Software License, Version 1.0.(See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+---
+
+## Contact 📮
 
 |E-mail:|wanotaitei@gmail.com|
 |:---|:---|
+|Twitter:|[@wanotaitei](https://twitter.com/wanotaitei)|
 |![svg](https://Kasugaccho.github.io/DungeonPicture/Picture/as_logo.svg)|Made by **As Project**.|
 |![gaccho](https://Kasugaccho.github.io/DungeonPicture/Picture/gaccho_icon.svg)|Made by Gaccho.|
+
