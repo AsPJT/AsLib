@@ -4,16 +4,12 @@
 
 ---
 
-## RPG-MapMaker Download👾
+# RPG-MapMaker Download👾
 
 ### **[Android](http://bit.ly/2EcDFvP)**
 ### **[Windows](http://bit.ly/2UekarB)**
 
-# Overview 💬
-
----
-
-## [License 💳](https://github.com/Kasugaccho/AsLib/blob/master/LICENSE_1_0.txt)
+# [License 💳](https://github.com/Kasugaccho/AsLib/blob/master/LICENSE_1_0.txt)
 
 [**>> View License 💳**](https://github.com/Kasugaccho/AsLib/blob/master/LICENSE_1_0.txt)
 
