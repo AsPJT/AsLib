@@ -1,17 +1,17 @@
-# RPG-MapMaker [![BSL-1.0](https://img.shields.io/badge/license-BSL--1.0-blue.svg)](https://github.com/Kasugaccho/DungeonTemplateLibrary/blob/master/LICENSE_1_0.txt)
+# AsLib - RPG Map Maker [![BSL-1.0](https://img.shields.io/badge/license-BSL--1.0-blue.svg)](https://github.com/Kasugaccho/DungeonTemplateLibrary/blob/master/LICENSE_1_0.txt)
 
 ![Logo-GIF](https://raw.githubusercontent.com/Kasugaccho/Kasugaccho/master/Picture/aslib.png)
 
 ---
 
-# RPG-MapMaker Download👾
+# RPG Map Maker Download👾
 
-### **[Android](http://bit.ly/2EcDFvP)**
-### **[Windows](http://bit.ly/2UekarB)**
+### **[>> Android](http://bit.ly/2EcDFvP)**
+### **[>> Windows](http://bit.ly/2UekarB)**
 
 ---
 
-# Implementation Features
+# Implementation Features 💡
 
 ![GIF](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/pen.gif)
 ![GIF](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/eraser.gif)
@@ -26,7 +26,7 @@
 
 ---
 
-# Screenshot
+# Screenshots 🖼️
 
 ![Screenshot](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/tile1.png)
 ![Screenshot](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/tile2.png)
@@ -46,7 +46,7 @@ Distributed under the Boost Software License, Version 1.0.(See accompanying file
 
 ---
 
-# Related Item 🎮
+# Related Items 🎮
 
 [![DTL](https://raw.githubusercontent.com/Kasugaccho/Kasugaccho/master/Picture/dungeon_template_library.png)](https://github.com/Kasugaccho/DungeonTemplateLibrary)
 [![GenkaiSyuraku](https://raw.githubusercontent.com/Kasugaccho/Kasugaccho/master/Picture/genkai_syuraku.png)](https://github.com/Kasugaccho/GenkaiSyuraku)
