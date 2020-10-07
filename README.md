@@ -19,11 +19,19 @@
 ![GIF](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/pipette.gif)
 ![GIF](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/move.gif)
 ![GIF](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/layer_view.gif)
-![GIF](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/layer_move.gif)
 ![GIF](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/undo.gif)
 ![GIF](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/redo.gif)
 
 ![GIF](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/tile.gif)
+
+---
+
+# Screenshot
+
+![Screenshot](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/tile1.png)
+![Screenshot](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/tile2.png)
+![Screenshot](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/tile3.png)
+![Screenshot](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/tile4.png)
 
 ---
 
