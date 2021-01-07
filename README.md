@@ -1,4 +1,4 @@
-# AsLib - RPG Map Maker [![BSL-1.0](https://img.shields.io/badge/license-BSL--1.0-blue.svg)](https://github.com/Kasugaccho/DungeonTemplateLibrary/blob/master/LICENSE_1_0.txt)
+# AsLib - RPG Map Maker
 
 ![Logo-GIF](https://raw.githubusercontent.com/Kasugaccho/Kasugaccho/master/Picture/aslib.png)
 
@@ -8,6 +8,14 @@
 
 ### **[>> Android](http://bit.ly/2EcDFvP)**
 ### **[>> Windows](http://bit.ly/2UekarB)**
+
+---
+
+# License
+
+These codes are licensed under CC0.
+
+[![CC0](https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/cc-zero.svg "CC0")](http://creativecommons.org/publicdomain/zero/1.0/deed.en)
 
 ---
 
@@ -32,17 +40,6 @@
 ![Screenshot](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/tile2.png)
 ![Screenshot](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/tile3.png)
 ![Screenshot](https://raw.githubusercontent.com/Kasugaccho/AsLib/master/picture/tile4.png)
-
----
-
-# [License 💳](https://github.com/Kasugaccho/AsLib/blob/master/LICENSE_1_0.txt)
-
-[**>> View License 💳**](https://github.com/Kasugaccho/AsLib/blob/master/LICENSE_1_0.txt)
-
-Copyright (c) 2017-2019 Kasugaccho.
-Copyright (c) 2018-2019 As Project.
-
-Distributed under the Boost Software License, Version 1.0.(See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 ---
 
