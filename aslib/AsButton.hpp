@@ -170,11 +170,11 @@ namespace AsLib
 		Color string_color = aslib_color_black_a;
 
 		AsButton() = default;
-		explicit AsButton(const PosA4& p_, const std::int32_t add_size, const char* const str_) :pos(p_), font((add_size == 0) ? (p_.h * 3 / 5) : add_size, str_) {}
-		explicit AsButton(const PosA4& p_, const char* const str_) :pos(p_), font(p_.h * 3 / 5, str_) {}
-		explicit AsButton(const PosA4& p_, const std::int32_t add_size) :pos(p_), font((add_size == 0) ? (p_.h * 3 / 5) : add_size) {}
-		explicit AsButton(const PosA4& p_) :pos(p_), font(p_.h * 3 / 5) {}
-		explicit AsButton(AsTexture* const t_) :texture(t_) {}
+		explicit AsButton(const PosA4& p_, const std::int32_t add_size, const char* const str_) :type(0), pos(p_), font((add_size == 0) ? (p_.h * 3 / 5) : add_size, str_) {}
+		explicit AsButton(const PosA4& p_, const char* const str_) :type(0), pos(p_), font(p_.h * 3 / 5, str_) {}
+		explicit AsButton(const PosA4& p_, const std::int32_t add_size) :type(0), pos(p_), font((add_size == 0) ? (p_.h * 3 / 5) : add_size) {}
+		explicit AsButton(const PosA4& p_) :type(0), pos(p_), font(p_.h * 3 / 5) {}
+		explicit AsButton(AsTexture* const t_) :type(0), texture(t_) {}
 
 		void setString(const std::string& str_) noexcept { str = str_; }
 		void setButtonColor(const Color& c_) noexcept { button_color = c_; }

@@ -532,7 +532,7 @@ namespace AsLib
 		std::size_t s_x{};
 		std::size_t s_y{};
 		std::size_t s_layer{ 1 };
-		std::string s_name{ u8"main" };
+		std::string s_name{ "main" };
 		std::vector<std::size_t> s;
 		//地面のテクスチャデータ
 		std::vector<AsTexture*> t;
@@ -582,7 +582,7 @@ namespace AsLib
 			return asMapRead(s_name, s, &s_x, &s_y, &s_layer);
 		}
 		std::int32_t readBackupCSV() noexcept {
-			return asMapRead(u8"backup_" + s_name, s, &s_x, &s_y, &s_layer);
+			return asMapRead("backup_" + s_name, s, &s_x, &s_y, &s_layer);
 		}
 		std::int32_t readCSV(const std::string& str_) noexcept {
 			return asMapRead(str_, s, &s_x, &s_y, &s_layer);
@@ -591,7 +591,7 @@ namespace AsLib
 			return asMapWrite(s_name, s, s_x, s_y, s_layer);
 		}
 		std::int32_t writeBackupCSV() noexcept {
-			return asMapWrite(u8"backup_" + s_name, s, s_x, s_y, s_layer);
+			return asMapWrite("backup_" + s_name, s, s_x, s_y, s_layer);
 		}
 		std::int32_t writeCSV(const std::string& str_) noexcept {
 			return asMapWrite(str_, s, s_x, s_y, s_layer);

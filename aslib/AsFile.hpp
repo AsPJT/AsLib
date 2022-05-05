@@ -22,6 +22,8 @@ namespace AsLib
 		if (FileHandle == 0) return -1;
 		DxLib::FileRead_read(read_buf, int(read_size), int(FileHandle));
 		DxLib::FileRead_close(FileHandle);
+#else
+		file_name; read_buf; read_size;
 #endif
 		return 0;
 	}
@@ -66,7 +68,7 @@ namespace AsLib
 		FILE  *cfp_fp;
 		char FilePath[file_path_max];
 		DxLib::GetInternalDataPath(FilePath, sizeof(FilePath));
-		const std::string fp_name = std::string(FilePath) + u8"\\" + std::string(file_name);
+		const std::string fp_name = std::string(FilePath) + "\\" + std::string(file_name);
 		cfp_fp = fopen(fp_name.c_str(), "rb");
 
 		if (cfp_fp == nullptr) return -1;
@@ -83,7 +85,7 @@ namespace AsLib
 		FILE  *cfp_fp;
 		char FilePath[file_path_max];
 		DxLib::GetInternalDataPath(FilePath, sizeof(FilePath));
-		const std::string fp_name = std::string(FilePath) + u8"\\" + std::string(file_name);
+		const std::string fp_name = std::string(FilePath) + "\\" + std::string(file_name);
 		cfp_fp = fopen(fp_name.c_str(), "wb");
 
 		if (cfp_fp == nullptr) return -1;
@@ -156,7 +158,7 @@ namespace AsLib
 		char FilePath[file_path_max];
 		DxLib::GetInternalDataPath(FilePath, sizeof(FilePath));
 
-		const std::string fp_name = std::string(FilePath) + u8"\\" + file_name;
+		const std::string fp_name = std::string(FilePath) + "\\" + file_name;
 		FILE* const cfp_fp = fopen(fp_name.c_str(), "w");
 
 		if (cfp_fp == nullptr) return -1;
@@ -173,7 +175,7 @@ namespace AsLib
 		char FilePath[file_path_max];
 		DxLib::GetInternalDataPath(FilePath, sizeof(FilePath));
 
-		const std::string fp_name = std::string(FilePath) + u8"\\" + file_name;
+		const std::string fp_name = std::string(FilePath) + "\\" + file_name;
 		FILE* const cfp_fp = fopen(fp_name.c_str(), "a");
 
 		if (cfp_fp == nullptr) return -1;
@@ -216,7 +218,7 @@ namespace AsLib
 		char String[256];
 		int FileHandle = DxLib::FileRead_open(str_);
 		static std::string str;
-		str = u8"";
+		str = "";
 		while (DxLib::FileRead_eof(FileHandle) == 0)
 		{
 			DxLib::FileRead_gets(String, 256, FileHandle);
@@ -231,7 +233,7 @@ namespace AsLib
 	std::string asAllRead(const char* const str_) noexcept
 	{
 		std::ifstream ifs(str_);
-		if (ifs.fail()) return std::string(u8"(データを読み込めませんでした)");
+		if (ifs.fail()) return std::string("(データを読み込めませんでした)");
 		std::istreambuf_iterator<char> it(ifs);
 		std::istreambuf_iterator<char> last;
 

@@ -16,8 +16,8 @@ enum :std::size_t {
 };
 
 //Base64の文字列を定義
-constexpr char base64_str_table_default[] = u8"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-constexpr char base64_str_table_url[] = u8"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+constexpr char base64_str_table_default[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+constexpr char base64_str_table_url[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 constexpr std::size_t base64_str_table_length = sizeof(base64_str_table_default) / sizeof(base64_str_table_default[0]) - 1;
 
 //Base64管理構造体
@@ -35,7 +35,7 @@ constexpr Base64 base64_url(base64_type_url, base64_str_table_url, 0);
 //Base64で文字列をエンコードする
 std::string base64_Encode(const char* const str_, const std::size_t length_, const std::size_t type_ = base64_type_default) noexcept
 {
-	if (str_ == nullptr) return nullptr;
+	if (str_ == nullptr) return std::string();
 	const Base64 base64{ (type_ == base64_type_default) ? base64_default : base64_url };
 
 	const std::size_t length{ length_ * 4 / 3 + 3 + 1 };
@@ -79,7 +79,7 @@ inline std::string base64_EncodeURL(const std::string& str_, const std::size_t t
 //Base64で文字列をデコードする
 std::string base64_Decode(const char* const str_, const std::size_t type_ = base64_type_default) noexcept
 {
-	if (str_ == nullptr) return nullptr;
+	if (str_ == nullptr) return std::string();
 	const Base64 base64{ (type_ == base64_type_default) ? base64_default : base64_url };
 
 	const std::size_t length{ std::strlen(str_) };

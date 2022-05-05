@@ -65,11 +65,11 @@ namespace AsLib
 		std::unique_ptr<char[]> file_path(new char[file_path_max]);
 		//アプリ内(内部データ)を調べる
 		DxLib::GetExternalDataPath(file_path.get(), file_path_max);
-		ifs_.open(std::string(file_path.get()) + u8"\\" + str_);
+		ifs_.open(std::string(file_path.get()) + "\\" + str_);
 		if (!ifs_) {
 			//本体内(外部データ)を調べる
 			DxLib::GetInternalDataPath(file_path.get(), file_path_max);
-			ifs_.open(std::string(file_path.get()) + u8"\\" + str_);
+			ifs_.open(std::string(file_path.get()) + "\\" + str_);
 			if (!ifs_) return 1;
 		}
 #else
@@ -84,11 +84,11 @@ namespace AsLib
 		std::unique_ptr<char[]> file_path(new char[file_path_max]);
 		//アプリ内(内部データ)を調べる
 		DxLib::GetExternalDataPath(file_path.get(), file_path_max);
-		ofs_.open(std::string(file_path.get()) + u8"\\" + str_);
+		ofs_.open(std::string(file_path.get()) + "\\" + str_);
 		if (!ofs_) {
 			//本体内(外部データ)を調べる
 			DxLib::GetInternalDataPath(file_path.get(), file_path_max);
-			ofs_.open(std::string(file_path.get()) + u8"\\" + str_);
+			ofs_.open(std::string(file_path.get()) + "\\" + str_);
 			if (!ofs_) return 1;
 		}
 #else
@@ -145,9 +145,9 @@ namespace AsLib
 #if defined(__ANDROID__)
 			std::stringstream ss;
 			ss << layer;
-			if (asSize_t_ReadCSV(u8"asrpg_map_" + str_ + u8"_" + ss.str() + u8".csv", vec_, x_, y_) == 1) break;
+			if (asSize_t_ReadCSV("asrpg_map_" + str_ + "_" + ss.str() + ".csv", vec_, x_, y_) == 1) break;
 #else
-			if (asSize_t_ReadCSV(u8"asrpg_map_" + str_ + u8"_" + std::to_string(layer) + u8".csv", vec_, x_, y_) == 1) break;
+			if (asSize_t_ReadCSV("asrpg_map_" + str_ + "_" + std::to_string(layer) + ".csv", vec_, x_, y_) == 1) break;
 #endif
 			++layer;
 		}
@@ -162,9 +162,9 @@ namespace AsLib
 #if defined(__ANDROID__)
 			std::stringstream ss;
 			ss << i;
-			if (asSize_t_WriteCSV(u8"asrpg_map_" + str_ + u8"_" + ss.str() + u8".csv", vec_, x_, y_, x_*y_*i) == 1) return 1;
+			if (asSize_t_WriteCSV("asrpg_map_" + str_ + "_" + ss.str() + ".csv", vec_, x_, y_, x_*y_*i) == 1) return 1;
 #else
-			if (asSize_t_WriteCSV(u8"asrpg_map_" + str_ + u8"_" + asSizeToString(i) + u8".csv", vec_, x_, y_, x_*y_*i) == 1) return 1;
+			if (asSize_t_WriteCSV("asrpg_map_" + str_ + "_" + asSizeToString(i) + ".csv", vec_, x_, y_, x_*y_*i) == 1) return 1;
 #endif
 		}
 		return 0;
@@ -181,6 +181,7 @@ namespace AsLib
 		while (getline(ifs, str)) {
 
 		}
+		return 0;
 	}
 
 	std::int32_t asSize_t_MapReadCSV(const std::string& str_, std::vector<std::string>& name_, std::vector<std::size_t>& vec_, std::vector<std::size_t>& type_, std::vector<std::size_t>& field_, std::size_t* const x_ = nullptr, std::size_t* const y_ = nullptr) noexcept {
@@ -216,7 +217,7 @@ namespace AsLib
 			}
 			switch (type_id)
 			{
-			case 0:name_.emplace_back(u8"Empty");
+			case 0:name_.emplace_back("Empty");
 			case 1:vec_.emplace_back(0);
 			case 2:type_.emplace_back(0);
 			case 3:field_.emplace_back(0); break;
@@ -253,7 +254,7 @@ namespace AsLib
 			}
 			switch (type_id)
 			{
-			case 0:name_.emplace_back(u8"Empty");
+			case 0:name_.emplace_back("Empty");
 			case 1:vec_.emplace_back(0);
 			case 2:type_.emplace_back(0);
 			case 3:field_.emplace_back(0); break;

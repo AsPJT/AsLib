@@ -422,14 +422,14 @@ return 0;
 		TextureUI& drawF() noexcept { this->id->draw(anime_count, Pos4(pR), alpha); return *this; };
 		TextureUI& drawF(const std::uint8_t alpha_) noexcept { this->id->draw(anime_count, Pos4(pR), alpha_); return *this; };
 		TextureUI& drawF(const std::uint8_t alpha_, const PosA4F pR_) noexcept { this->id->draw(anime_count, Pos4(pR_), alpha_); return *this; };
-		TextureUI& drawF(const PosA4F pR_) noexcept { this->id->draw(anime_count, Pos4(pR), alpha); return *this; };
-		TextureUI& drawF(const PosA4F pR_, const std::uint8_t alpha_) noexcept { this->id->draw(anime_count, Pos4(pR), alpha_); return *this; };
+		TextureUI& drawF(const PosA4F pR_) noexcept { this->id->draw(anime_count, Pos4(pR_), alpha); return *this; };
+		TextureUI& drawF(const PosA4F pR_, const std::uint8_t alpha_) noexcept { this->id->draw(anime_count, Pos4(pR_), alpha_); return *this; };
 
 		TextureUI& drawRF() noexcept { this->id->draw(anime_count, Pos4(pR), rota, alpha); return *this; };
 		TextureUI& drawRF(const std::uint8_t alpha_) noexcept { this->id->draw(anime_count, Pos4(pR), rota, alpha_); return *this; };
 		TextureUI& drawRF(const std::uint8_t alpha_, const PosA4F pR_) noexcept { this->id->draw(anime_count, Pos4(pR_), rota, alpha_); return *this; };
-		TextureUI& drawRF(const PosA4F pR_) noexcept { this->id->draw(anime_count, Pos4(pR), rota, alpha); return *this; };
-		TextureUI& drawRF(const PosA4F pR_, const std::uint8_t alpha_) noexcept { this->id->draw(anime_count, Pos4(pR), rota, alpha_); return *this; };
+		TextureUI& drawRF(const PosA4F pR_) noexcept { this->id->draw(anime_count, Pos4(pR_), rota, alpha); return *this; };
+		TextureUI& drawRF(const PosA4F pR_, const std::uint8_t alpha_) noexcept { this->id->draw(anime_count, Pos4(pR_), rota, alpha_); return *this; };
 
 		TextureUI& drawA(const Pos2 pos2, const std::uint8_t alpha_) noexcept {
 			static Pos4 aspect_pos;

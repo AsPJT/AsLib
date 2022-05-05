@@ -22,7 +22,7 @@ std::int32_t asMain()
 {
 	//1280, 800
 	//タイトル
-	MainControl mc(u8"AsRPG", asPlatformPos(Pos2(960, 540)), Color(66, 66, 66));
+	MainControl mc("AsRPG", asPlatformPos(Pos2(960, 540)), Color(66, 66, 66));
 
 	//戻る登録数
 	AsMapReturnControl mrc(128);
@@ -52,7 +52,7 @@ std::int32_t asMain()
 
 	//モンスター
 	//AsTexture feri(u8"p/ikari.png", 6, 4);
-	AsTexture sui(u8"Picture/Tool/select_ui.png");
+	AsTexture sui("Picture/Tool/select_ui.png");
 	//AsTexture sta(u8"p/start_ui.png");
 
 	//マップ管理
@@ -62,23 +62,23 @@ std::int32_t asMain()
 	//マップ個数 読み込み
 	std::size_t as_t_size{};
 	//マップデータ読み込み
-	const std::unique_ptr<AsTexture[]> as_t = select_main_map.readMapCSV(u8"Picture/map_tile.csv", &as_t_size);
+	const std::unique_ptr<AsTexture[]> as_t = select_main_map.readMapCSV("Picture/map_tile.csv", &as_t_size);
 	if (as_t_size != 0) select_world_p.y = static_cast<std::int_least32_t>((select_main_map.t.size() + 1) / 8);
 	AsTextureMapArray paint_main_map{ select_main_map };
 
 	//ペイントツールテクスチャ
-	AsTexture pen_tool_te(u8"Picture/Tool/pen_tool.png");
-	AsTexture eraser_tool_te(u8"Picture/Tool/eraser_tool.png");
-	AsTexture empty_tool_te(u8"Picture/Tool/move_tool.png");
-	AsTexture pipette_tool_te(u8"Picture/Tool/pipette_tool.png");
-	AsTexture bucket_tool_te(u8"Picture/Tool/bucket_tool.png");
-	AsTexture see_tool_te(u8"Picture/Tool/see_tool.png");
-	AsTexture up_down_layer_tool_te(u8"Picture/Tool/layer_tool.png");
-	AsTexture event_tool_te(u8"Picture/Tool/event_tool.png");
-	AsTexture left_tool_te(u8"Picture/Tool/left_tool.png");
-	AsTexture right_tool_te(u8"Picture/Tool/right_tool.png");
-	AsTexture option_tool_te(u8"Picture/Tool/option_tool.png");
-	AsTexture white_ascll(u8"Picture/white_ascll.png");
+	AsTexture pen_tool_te("Picture/Tool/pen_tool.png");
+	AsTexture eraser_tool_te("Picture/Tool/eraser_tool.png");
+	AsTexture empty_tool_te("Picture/Tool/move_tool.png");
+	AsTexture pipette_tool_te("Picture/Tool/pipette_tool.png");
+	AsTexture bucket_tool_te("Picture/Tool/bucket_tool.png");
+	AsTexture see_tool_te("Picture/Tool/see_tool.png");
+	AsTexture up_down_layer_tool_te("Picture/Tool/layer_tool.png");
+	AsTexture event_tool_te("Picture/Tool/event_tool.png");
+	AsTexture left_tool_te("Picture/Tool/left_tool.png");
+	AsTexture right_tool_te("Picture/Tool/right_tool.png");
+	AsTexture option_tool_te("Picture/Tool/option_tool.png");
+	AsTexture white_ascll("Picture/white_ascll.png");
 
 	//ペイントツールボタン
 	AsPosFArray button_p(Pos4F(0.02f, 0.415f, 0.285f, 1.0f).ratio(), 6, 100);

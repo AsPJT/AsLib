@@ -66,7 +66,7 @@ namespace AsLib
 	const char* const utf8(const char32_t* const src) noexcept
 	{
 		static std::string u8str;
-		u8str = u8"";
+		u8str = "";
 
 		for (std::size_t j{};; ++j) {
 
@@ -80,7 +80,7 @@ namespace AsLib
 	const char* const utf8(const std::u32string& src) noexcept
 	{
 		static std::string u8str;
-		u8str = u8"";
+		u8str = "";
 
 		const std::size_t src_len = src.length();
 		for (std::size_t j{}; j < src_len; ++j) {

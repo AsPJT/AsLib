@@ -34,7 +34,7 @@ return 0;
 #endif
 	}
 
-	OriginatorFont asMakeFont(const std::int32_t& font_size = 10, const char* const font_name = u8"Meiryo UI") noexcept
+	OriginatorFont asMakeFont(const std::int32_t& font_size = 10, const char* const font_name = "Meiryo UI") noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		return DxLib::CreateFontToHandle(font_name, font_size, FONT_THICK);
@@ -47,7 +47,7 @@ return 0;
 		ofTrueTypeFont font;
 		std::string str{};
 		str += font_name;
-		str += u8".ttf";
+		str += ".ttf";
 		font.load(str.c_str(), 70);
 		font.setLineHeight(24);
 		font.setLetterSpacing(1.0);
@@ -69,7 +69,7 @@ return 0;
 	}
 
 
-	std::int32_t asPrint(const OriginatorFont font, const char* const format_string = u8"", const Pos2& pos2 = pos2_0, const ColorRGB& color_rgb = aslib_color_white) noexcept
+	std::int32_t asPrint(const OriginatorFont font, const char* const format_string = "", const Pos2& pos2 = pos2_0, const ColorRGB& color_rgb = aslib_color_white) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255) == -1) return -1;
@@ -90,7 +90,7 @@ return 0;
 #endif
 	}
 
-	std::int32_t asPrint(const OriginatorFont font, const char* const format_string = u8"", const Pos2& pos2 = pos2_0, const Color& color_rgba = aslib_color_white_a) noexcept
+	std::int32_t asPrint(const OriginatorFont font, const char* const format_string = "", const Pos2& pos2 = pos2_0, const Color& color_rgba = aslib_color_white_a) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
 		if (DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, color_rgba.a) == -1) return -1;
@@ -228,13 +228,13 @@ return 0;
 		//太さ
 		std::int32_t thick{ FONT_THICK };
 		//フォント名
-		std::string fontname{ u8"Meiryo UI" };
+		std::string fontname{ "Meiryo UI" };
 	public:
 		//no explicit 
 		AsFont(){}
-		AsFont(const std::int32_t add_size, const char* const str_ = u8"Meiryo UI", const std::int32_t add_thick = FONT_THICK) :id(asMakeFont(add_size,str_)), size(add_size), thick(add_thick), fontname(std::string(str_)) {}//stdmovea
+		AsFont(const std::int32_t add_size, const char* const str_ = "Meiryo UI", const std::int32_t add_thick = FONT_THICK) :id(asMakeFont(add_size,str_)), size(add_size), thick(add_thick), fontname(std::string(str_)) {}//stdmovea
 
-		AsFont& operator()(const std::int32_t add_size = 10, const char* const str_ = u8"Meiryo UI", const std::int32_t add_thick = FONT_THICK) noexcept
+		AsFont& operator()(const std::int32_t add_size = 10, const char* const str_ = "Meiryo UI", const std::int32_t add_thick = FONT_THICK) noexcept
 		{
 			id = asMakeFont(add_size, str_);
 			size = add_size;

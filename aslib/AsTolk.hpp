@@ -144,7 +144,7 @@ namespace AsLib
 			speaker_name = name_;
 			return *this;
 		}
-		MessageWindow& setSound(const char* const name_, const char* const name2_ = u8"mp3") noexcept {
+		MessageWindow& setSound(const char* const name_, const char* const name2_ = "mp3") noexcept {
 			sound_name = name_;
 			sound_extension = name2_;
 			is_sound = true;
@@ -234,7 +234,7 @@ namespace AsLib
 
 			effect_count=0;
 
-			out_str = u8"";
+			out_str = "";
 			return *this;
 		}
 		MessageWindow& initWindow(const bool is_init_) noexcept { return (is_init_) ? this->initWindow() : *this; }
@@ -469,7 +469,7 @@ namespace AsLib
 			}
 			else is_sound = true;
 
-			if (on_str_clear) this->out_str = u8"";
+			if (on_str_clear) this->out_str = "";
 			on_str_clear = true;
 			is_str32 = true;
 			is_end_str = true;

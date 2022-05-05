@@ -287,43 +287,43 @@ return 0;
 
 	std::int32_t makeLog(const std::string& str_) noexcept
 	{
-		asWrite(str_, u8"<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"/>");
-		asAddWrite(str_, u8"<title>");
+		asWrite(str_, "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"/>");
+		asAddWrite(str_, "<title>");
 		asAddWrite(str_, asTitle().c_str());
-		asAddWrite(str_, u8"</title>");
-		asAddWrite(str_, u8"<style>body{background-color:#f9f9f9;font-family:'SegoeUI','メイリオ','Meiryo','ヒラギノ角ゴProW3','HiraginoKakuGothicPro','Osaka','ＭＳＰゴシック','MSPGothic','Arial',sans-serif;}h2{color:#333333;text-align:center;font-size:28px;}h3{color:#333333;text-align:center;font-size:24px;}main{font-size:14px;line-height:2;word-wrap:break-word;}main.name{color:#333333;text-align:center;font-size:20px;}main.copyright{padding-bottom:8px;color:#555555;text-align:center;font-size:12px;}main.license{padding-bottom:24px;color:#888888;text-align:center;font-size:9px;}</style></head><body>");
-		asAddWrite(str_, u8"<h2>");
+		asAddWrite(str_, "</title>");
+		asAddWrite(str_, "<style>body{background-color:#f9f9f9;font-family:'SegoeUI','メイリオ','Meiryo','ヒラギノ角ゴProW3','HiraginoKakuGothicPro','Osaka','ＭＳＰゴシック','MSPGothic','Arial',sans-serif;}h2{color:#333333;text-align:center;font-size:28px;}h3{color:#333333;text-align:center;font-size:24px;}main{font-size:14px;line-height:2;word-wrap:break-word;}main.name{color:#333333;text-align:center;font-size:20px;}main.copyright{padding-bottom:8px;color:#555555;text-align:center;font-size:12px;}main.license{padding-bottom:24px;color:#888888;text-align:center;font-size:9px;}</style></head><body>");
+		asAddWrite(str_, "<h2>");
 		asAddWrite(str_, asTitle().c_str());
-		asAddWrite(str_, u8"</h2><br><h3>Licenses</h3>");
+		asAddWrite(str_, "</h2><br><h3>Licenses</h3>");
 
-		std::string license_name = u8"";
+		std::string license_name = "";
 		std::vector<Copyright> license_copyright;
-		std::string license_str = u8"";
+		std::string license_str = "";
 		for (std::size_t i{}; i < aslib_license_size; ++i) {
 			license_copyright.clear();
 			asLicense(aslib_license[i], license_name, license_copyright, license_str);
 
-			asAddWrite(str_, u8"<main class=\"name\">");
+			asAddWrite(str_, "<main class=\"name\">");
 			asAddWrite(str_, license_name.c_str());
-			asAddWrite(str_, u8"</main>");
+			asAddWrite(str_, "</main>");
 
 			for (std::size_t j{}; j < license_copyright.size(); ++j) {
-				asAddWrite(str_, u8"<main class=\"copyright\">");
+				asAddWrite(str_, "<main class=\"copyright\">");
 				asAddWrite(str_, license_copyright[j].write());
-				asAddWrite(str_, u8"</main>");
+				asAddWrite(str_, "</main>");
 			}
 
-			asAddWrite(str_, u8"<main class=\"license\">");
+			asAddWrite(str_, "<main class=\"license\">");
 			asAddWrite(str_, license_str.c_str());
-			asAddWrite(str_, u8"</main>");
+			asAddWrite(str_, "</main>");
 		}
 
-		asAddWrite(str_, u8"</body></html>");
+		asAddWrite(str_, "</body></html>");
 		return 0;
 	}
 
 	std::int32_t makeLog() noexcept {
-		return makeLog(asTitle() + u8"_Licenses.html");
+		return makeLog(asTitle() + "_Licenses.html");
 	}
 
 	//初期化
@@ -357,7 +357,7 @@ return 0;
 		//ここで初期化
 		if (DxLib::DxLib_Init() == -1) return -1;
 		//描画
-		DxLib::DrawExtendGraph(p_.x / 4, p_.y / 4, p_.x * 3 / 4, p_.y * 3 / 4, DxLib::LoadGraph(u8"Picture/aslib.png"), TRUE);
+		DxLib::DrawExtendGraph(p_.x / 4, p_.y / 4, p_.x * 3 / 4, p_.y * 3 / 4, DxLib::LoadGraph("Picture/aslib.png"), TRUE);
 #if defined(__WINDOWS__)
 		//フルスクリーンモード
 		if (is_asFullScreenSize(p_)) {
@@ -462,7 +462,7 @@ return 0;
 	inline std::int32_t asPrint(const char* const format_string) noexcept
 	{
 #if defined(ASLIB_INCLUDE_DL) //DxLib
-		return std::int32_t(DxLib::printfDx("%s", format_string));
+		return static_cast<std::int32_t>(DxLib::printfDx("%s", format_string));
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
 		s3d::Print(s3d::Unicode::UTF8ToUTF32(format_string));
 		return 0;
@@ -481,13 +481,13 @@ return 0;
 
 //以降は他ライブラリ依存なし----------
 
-	std::int32_t AsInit(const char* const title = u8"", const Pos2& window_size = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color) noexcept
+	std::int32_t AsInit(const char* const title = "", const Pos2& window_size = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color) noexcept
 	{
 		if (asSetTitle(title) == -1) return -1;
 		return AsInit(window_size, BG_color);
 	}
 
-	std::int32_t AsInit(const std::string& title = u8"", const Pos2& window_size = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color) noexcept
+	std::int32_t AsInit(const std::string& title = "", const Pos2& window_size = aslib_default_window_size, const ColorRGB& BG_color = aslib_bg_color) noexcept
 	{
 		if (asSetTitle(title.c_str()) == -1) return -1;
 		return AsInit(window_size, BG_color);

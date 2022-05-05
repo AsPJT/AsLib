@@ -21,16 +21,16 @@ namespace AsLib
 
 	std::string asClipboard() noexcept {
 		const std::size_t b{ std::size_t(DxLib::GetClipboardText(NULL) + 1) };
-		if (b == 0) return std::string(u8"Error");
+		if (b == 0) return std::string("Error");
 		const std::unique_ptr<char[]> ptr(new char[b]);
 		DxLib::GetClipboardText(ptr.get());
 		return std::string(ptr.get());
 	}
 
 	std::string asDrag() noexcept {
-		if (DxLib::GetDragFileNum() < 1) return u8"";
+		if (DxLib::GetDragFileNum() < 1) return "";
 		const std::size_t b{ std::size_t(DxLib::GetDragFilePath(NULL) + 1) };
-		if (b == 0) return std::string(u8"Error");
+		if (b == 0) return std::string("Error");
 		const std::unique_ptr<char[]> ptr(new char[b]);
 		DxLib::GetDragFilePath(ptr.get());
 		DxLib::DragFileInfoClear();

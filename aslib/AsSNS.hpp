@@ -57,7 +57,7 @@ return 0;
 		ShellExecute(hWnd, "open", url_str, NULL, NULL, SW_SHOW);
 		return 0;
 #elif defined(__ANDROID__)
-		return std::int32_t(DxLib::AndroidJumpURL(url_str, u8"com.twitter.android"));
+		return std::int32_t(DxLib::AndroidJumpURL(url_str, "com.twitter.android"));
 #endif
 
 #elif defined(ASLIB_INCLUDE_S3) //Siv3D
@@ -87,17 +87,17 @@ return 0;
 
 	struct Twitter
 	{
-		Twitter& make() noexcept { this->url_str = u8"https://twitter.com/share?"; return *this; };
-		Twitter& makeUrl(const char* const add_str) noexcept { this->make(); this->url_str += u8"url="; this->url_str += add_str; return *this; };
-		Twitter& makeText(const char* const add_str) noexcept { this->make(); this->url_str += u8"text="; this->url_str += add_str; return *this; };
-		Twitter& makeVia(const char* const add_str) noexcept { this->make(); this->url_str += u8"via="; this->url_str += add_str; return *this; };
-		Twitter& makeRelated(const char* const add_str) noexcept { this->make(); this->url_str += u8"related="; this->url_str += add_str; return *this; };
-		Twitter& makeHashtags(const char* const add_str) noexcept { this->make(); this->url_str += u8"hashtags="; this->url_str += add_str; return *this; };
-		Twitter& url(const char* const add_str) noexcept { this->url_str += u8"&url="; this->url_str += add_str; return *this; };
-		Twitter& text(const char* const add_str) noexcept { this->url_str += u8"&text="; this->url_str += add_str; return *this; };
-		Twitter& via(const char* const add_str) noexcept { this->url_str += u8"&via="; this->url_str += add_str; return *this; };
-		Twitter& related(const char* const add_str) noexcept { this->url_str += u8"&related="; this->url_str += add_str; return *this; };
-		Twitter& hashtags(const char* const add_str) noexcept { this->url_str += u8"&hashtags="; this->url_str += add_str; return *this; };
+		Twitter& make() noexcept { this->url_str = "https://twitter.com/share?"; return *this; };
+		Twitter& makeUrl(const char* const add_str) noexcept { this->make(); this->url_str += "url="; this->url_str += add_str; return *this; };
+		Twitter& makeText(const char* const add_str) noexcept { this->make(); this->url_str += "text="; this->url_str += add_str; return *this; };
+		Twitter& makeVia(const char* const add_str) noexcept { this->make(); this->url_str += "via="; this->url_str += add_str; return *this; };
+		Twitter& makeRelated(const char* const add_str) noexcept { this->make(); this->url_str += "related="; this->url_str += add_str; return *this; };
+		Twitter& makeHashtags(const char* const add_str) noexcept { this->make(); this->url_str += "hashtags="; this->url_str += add_str; return *this; };
+		Twitter& url(const char* const add_str) noexcept { this->url_str += "&url="; this->url_str += add_str; return *this; };
+		Twitter& text(const char* const add_str) noexcept { this->url_str += "&text="; this->url_str += add_str; return *this; };
+		Twitter& via(const char* const add_str) noexcept { this->url_str += "&via="; this->url_str += add_str; return *this; };
+		Twitter& related(const char* const add_str) noexcept { this->url_str += "&related="; this->url_str += add_str; return *this; };
+		Twitter& hashtags(const char* const add_str) noexcept { this->url_str += "&hashtags="; this->url_str += add_str; return *this; };
 		Twitter& send() noexcept { asTwitter(url_str.c_str()); return *this; };
 		const char* const c_str() const noexcept { return url_str.c_str(); };
 		std::size_t length() const noexcept { return url_str.length(); };

@@ -90,9 +90,9 @@ namespace AsLib
 		const std::size_t j_max{ map.data()->size() };
 		for (std::size_t i{}; i < i_max; ++i) {
 			for (std::size_t j{}; j < j_max; ++j) {
-				if (map[i][j] == aslib_maze_empty)std::cout << u8"　";
-				else if (map[i][j] == aslib_maze_wall)std::cout << u8"■";
-				else if (map[i][j] == 2)std::cout << u8"・";
+				if (map[i][j] == aslib_maze_empty)std::cout << "　";
+				else if (map[i][j] == aslib_maze_wall)std::cout << "■";
+				else if (map[i][j] == 2)std::cout << "・";
 			}
 			std::cout << std::endl;
 		}
@@ -175,7 +175,7 @@ namespace AsLib
 		//再起の終了処理
 		if (size_ == 0) return;
 		//頂点の高さを決める
-		const std::size_t mapPlus{ ((t1_ + t2_ + t3_ + t4_) >> 2) + asRand(size_) };
+		const std::size_t mapPlus{ ((t1_ + t2_ + t3_ + t4_) >> 2) + asRand(static_cast<std::uint32_t>(size_)) };
 		map_[x_][y_] = (mapPlus >= 255) ? 255 : mapPlus;
 		//四角形の2点同士の中点の高さを決定
 		const std::size_t s1{ ((t1_ + t2_) >> 1) };
@@ -224,13 +224,13 @@ namespace AsLib
 			for (std::size_t j{}; j < chunk_y; ++j) {
 
 				//四角形の4点の高さを決定
-				asSRand32(seed_ + i + (j * aslib_world_make_seed1) + ((i^j) * aslib_world_make_seed2));
+				asSRand32(static_cast<std::uint32_t>(seed_ + i + (j * aslib_world_make_seed1) + ((i^j) * aslib_world_make_seed2)));
 				map_[0][0] = asRand(255);
-				asSRand32(seed_ + ((i + 1) % chunk_x) + (j * aslib_world_make_seed1) + ((((i + 1) % chunk_x) ^ j) * aslib_world_make_seed2));
+				asSRand32(static_cast<std::uint32_t>(seed_ + ((i + 1) % chunk_x) + (j * aslib_world_make_seed1) + ((((i + 1) % chunk_x) ^ j) * aslib_world_make_seed2)));
 				map_[16][0] = asRand(255);
-				asSRand32(seed_ + i + (((j + 1) % chunk_y) * aslib_world_make_seed1) + ((i ^ ((j + 1) % chunk_y)) * aslib_world_make_seed2));
+				asSRand32(static_cast<std::uint32_t>(seed_ + i + (((j + 1) % chunk_y) * aslib_world_make_seed1) + ((i ^ ((j + 1) % chunk_y)) * aslib_world_make_seed2)));
 				map_[0][16] = asRand(255);
-				asSRand32(seed_ + ((i + 1) % chunk_x) + (((j + 1) % chunk_y) * aslib_world_make_seed1) + ((((i + 1) % chunk_x) ^ ((j + 1) % chunk_y)) * aslib_world_make_seed2));
+				asSRand32(static_cast<std::uint32_t>(seed_ + ((i + 1) % chunk_x) + (((j + 1) % chunk_y) * aslib_world_make_seed1) + ((((i + 1) % chunk_x) ^ ((j + 1) % chunk_y)) * aslib_world_make_seed2)));
 				map_[16][16] = asRand(255);
 
 				//チャンク生成
@@ -379,21 +379,21 @@ namespace AsLib
 
 			if (ly >= 1) {//y_
 				if (ly == oy + 1) {
-					asPaintScanLine(map_, size_x_, buffer, map_xy, lx, lxsav, ly - 1, ly, col);
-					asPaintScanLine(map_, size_x_, buffer, map_xy, rxsav, rx, ly - 1, ly, col);
+					asPaintScanLine(map_, size_x_, buffer, map_xy, static_cast<std::int32_t>(lx), static_cast<std::int32_t>(lxsav), ly - 1, ly, col);
+					asPaintScanLine(map_, size_x_, buffer, map_xy, static_cast<std::int32_t>(rxsav), static_cast<std::int32_t>(rx), ly - 1, ly, col);
 				}
 				else {
-					asPaintScanLine(map_, size_x_, buffer, map_xy, lx, rx, ly - 1, ly, col);
+					asPaintScanLine(map_, size_x_, buffer, map_xy, static_cast<std::int32_t>(lx), static_cast<std::int32_t>(rx), ly - 1, ly, col);
 				}
 			}
 
 			if (ly + 1 <= map_y) {
 				if (ly + 1 == oy) {
-					asPaintScanLine(map_, size_x_, buffer, map_xy, lx, lxsav, ly + 1, ly, col);
-					asPaintScanLine(map_, size_x_, buffer, map_xy, rxsav, rx, ly + 1, ly, col);
+					asPaintScanLine(map_, size_x_, buffer, map_xy, static_cast<std::int32_t>(lx), static_cast<std::int32_t>(lxsav), ly + 1, ly, col);
+					asPaintScanLine(map_, size_x_, buffer, map_xy, static_cast<std::int32_t>(rxsav), static_cast<std::int32_t>(rx), ly + 1, ly, col);
 				}
 				else {
-					asPaintScanLine(map_, size_x_, buffer, map_xy, static_cast<std::int32_t>(lx), rx, static_cast<std::int32_t>(ly) + 1, ly, col);
+					asPaintScanLine(map_, size_x_, buffer, map_xy, static_cast<std::int32_t>(lx), static_cast<std::int32_t>(rx), static_cast<std::int32_t>(ly) + 1, ly, col);
 				}
 			}
 

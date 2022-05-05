@@ -22,7 +22,7 @@ constexpr std::int32_t ASLIB_VERSION = 0x0400;
 const char* const ASLIB_VERSION_STR = "0.4.0.0 Alpha";
 
 //AsLibバージョン (UTF)
-const char* const ASLIB_VERSION_STR8 = u8"0.4.0.0 Alpha";
+const char* const ASLIB_VERSION_STR8 = "0.4.0.0 Alpha";
 const char16_t* const ASLIB_VERSION_STR16 = u"0.4.0.0 Alpha";
 const char32_t* const ASLIB_VERSION_STR32 = U"0.4.0.0 Alpha";
 
@@ -37,11 +37,11 @@ namespace AsLib { std::int32_t asEnd() noexcept; }
 //他ライブラリインクルード
 #if defined(__DXLIB)
 #if !defined(ASLIB_INCLUDE_DL)
-#defined ASLIB_INCLUDE_DL
+#define ASLIB_INCLUDE_DL
 #endif
 #elif defined(SIV3D_INCLUDED)
 #if !defined(ASLIB_INCLUDE_S3)
-#defined ASLIB_INCLUDE_S3
+#define ASLIB_INCLUDE_S3
 #endif
 #endif
 #if defined(ASLIB_INCLUDE_AS)
@@ -54,6 +54,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) { const int i = int(asMain(
 #endif
 #if !defined(__DXLIB)
 #include <DxLib.h>
+#if !defined(__DXLIB)
+#define __DXLIB
+#endif
 #endif
 #if !defined(ANIME_TEXTURE_2)
 #define ANIME_TEXTURE_2

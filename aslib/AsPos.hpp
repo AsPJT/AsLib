@@ -168,7 +168,7 @@ namespace AsLib
 		//コンストラクタ----------
 		Pos4() = default;
 		constexpr Pos4(const pos_int xy_) :x1(0), y1(0), x2(xy_), y2(xy_) {};
-		constexpr Pos4(const pos_int x_, const pos_int y_, const Pos2& p_) :x1(0), y1(0), x2(p_.x), y2(p_.y) {};
+		constexpr Pos4(const pos_int x_, const pos_int y_, const Pos2& p_) :x1(x_), y1(y_), x2(p_.x), y2(p_.y) {};
 		constexpr Pos4(const pos_int x_, const pos_int y_) :x1(0), y1(0), x2(x_), y2(y_) {};
 		constexpr Pos4(const pos_int x_, const pos_int y_, const pos_int l_) :x1(x_), y1(y_), x2(x_ + l_), y2(y_ + l_) {};
 		constexpr Pos4(const pos_int x1_, const pos_int y1_, const pos_int x2_, const pos_int y2_) :x1(x1_), y1(y1_), x2(x2_), y2(y2_) {};
@@ -584,7 +584,7 @@ namespace AsLib
 		//コンストラクタ----------
 		Pos4F() = default;
 		constexpr Pos4F(const pos_float xy_) :x1(0.0f), y1(0.0f), x2(xy_), y2(xy_) {};
-		constexpr Pos4F(const pos_float x_, const pos_float y_, const Pos2F& p_) :x1(0.0f), y1(0.0f), x2(p_.x), y2(p_.y) {};
+		constexpr Pos4F(const pos_float x_, const pos_float y_, const Pos2F& p_) :x1(x_), y1(y_), x2(p_.x), y2(p_.y) {};
 		constexpr Pos4F(const pos_float x_, const pos_float y_) :x1(0.0f), y1(0.0f), x2(x_), y2(y_) {};
 		constexpr Pos4F(const pos_float x_, const pos_float y_, const pos_float l_) :x1(x_), y1(y_), x2(x_ + l_), y2(y_ + l_) {};
 		constexpr Pos4F(const pos_float x1_, const pos_float y1_, const pos_float x2_, const pos_float y2_) :x1(x1_), y1(y1_), x2(x2_), y2(y2_) {};
@@ -1005,6 +1005,7 @@ namespace AsLib
 	//回転
 	inline Pos8::Pos8(const Pos4& p_, const double r_) {
 		//todo
+		p_; r_;
 	}
 	inline const Pos8 Pos8::rotation3D(const Pos4& p_, const double r_) {
 		constexpr double pos_pi = 3.141592653589793238462643383279502884197;

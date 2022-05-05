@@ -21,7 +21,7 @@ namespace AsLib
 	const char* const asKeyInputAndroid() noexcept
 	{
 		static std::string InputString;
-		InputString = u8"Error!";
+		InputString = "Error!";
 
 		JNIEnv* env;
 		const ANativeActivity* const NativeActivity = DxLib::GetNativeActivity();
@@ -29,7 +29,7 @@ namespace AsLib
 
 		if (NativeActivity->vm->AttachCurrentThreadAsDaemon(&env, NULL) != JNI_OK) return InputString.c_str();
 		const jclass jclass_ = env->GetObjectClass(NativeActivity->clazz);
-		const jmethodID jmethodID_StartInputDialog = env->GetMethodID(jclass_, u8"StartInputStringDialog", u8"()V");
+		const jmethodID jmethodID_StartInputDialog = env->GetMethodID(jclass_, "StartInputStringDialog", "()V");
 		env->CallVoidMethod(NativeActivity->clazz, jmethodID_StartInputDialog);
 		env->DeleteLocalRef(jclass_);
 		NativeActivity->vm->DetachCurrentThread();
@@ -41,11 +41,11 @@ namespace AsLib
 			if (NativeActivity->vm->AttachCurrentThreadAsDaemon(&env, NULL) != JNI_OK) return InputString.c_str();
 
 			const jclass jclass_ = env->GetObjectClass(NativeActivity->clazz);
-			const jfieldID jfieldID_InputEnd = env->GetFieldID(jclass_, u8"InputEnd", u8"I");
+			const jfieldID jfieldID_InputEnd = env->GetFieldID(jclass_, "InputEnd", "I");
 			InputEnd = std::int32_t(env->GetIntField(NativeActivity->clazz, jfieldID_InputEnd));
 
 			if (InputEnd == 1) {
-				const jfieldID jfieldID_InputString = env->GetFieldID(jclass_, u8"InputString", u8"Ljava/lang/String;");
+				const jfieldID jfieldID_InputString = env->GetFieldID(jclass_, "InputString", "Ljava/lang/String;");
 				const jstring jstring_InputString = (jstring)env->GetObjectField(NativeActivity->clazz, jfieldID_InputString);
 				const char* const chars_InputString = env->GetStringUTFChars(jstring_InputString, NULL);
 
@@ -84,7 +84,7 @@ namespace AsLib
 #if defined(DXLIB_ANDROID_MAKE_FUNCTION)
 		return asKeyInputAndroid();
 #else
-		return u8"";
+		return "";
 #endif
 	}
 
@@ -286,7 +286,7 @@ return 0;
 		void off() noexcept { ki.off(); }
 
 		void drawString() noexcept {
-			if(ki.is_on) f.draw(std::string(ki.output()+u8"|").c_str(), Pos2(p.x1, p.y1), Color(0,0,0));
+			if(ki.is_on) f.draw(std::string(ki.output()+"|").c_str(), Pos2(p.x1, p.y1), Color(0,0,0));
 			else f.draw(ki.output().c_str(), Pos2(p.x1, p.y1), Color(0, 0, 0));
 		}
 
