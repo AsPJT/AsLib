@@ -15,6 +15,8 @@
 
 These codes are licensed under CC0.
 
+Third party content is copyrighted by its respective owners.
+
 [![CC0](https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/cc-zero.svg "CC0")](http://creativecommons.org/publicdomain/zero/1.0/deed.en)
 
 ---

@@ -9,6 +9,7 @@
 #ifndef INCLUDED_AS_PROJECT_LIBRARY_INVENTORY
 #define INCLUDED_AS_PROJECT_LIBRARY_INVENTORY
 
+#include <algorithm> // sort 用 ( 2022/05/04 )
 
 namespace AsLib
 {
@@ -75,8 +76,8 @@ namespace AsLib
 		}
 
 #if !defined(__ANDROID__)
-		ShareItem& sortUp() noexcept { sort(unique.begin(), unique.end()); return *this; }
-		ShareItem& sortDown() noexcept { sort(unique.begin(), unique.end(), std::greater<UniqueItem>()); return *this; }
+		ShareItem& sortUp() noexcept { std::sort(unique.begin(), unique.end()); return *this; }
+		ShareItem& sortDown() noexcept { std::sort(unique.begin(), unique.end(), std::greater<UniqueItem>()); return *this; }
 #else
 		ShareItem& sortUp() { return *this; }
 		ShareItem& sortDown() { return *this; }

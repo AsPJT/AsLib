@@ -1,4 +1,6 @@
 ﻿#define ASLIB_INCLUDE_DL
+#define __WINDOWS__
+
 #include "AsLib.hpp"
 
 //ペイントツール種類
@@ -50,7 +52,7 @@ std::int32_t asMain()
 
 	//モンスター
 	//AsTexture feri(u8"p/ikari.png", 6, 4);
-	AsTexture sui(u8"p/select_ui.png");
+	AsTexture sui(u8"Picture/Tool/select_ui.png");
 	//AsTexture sta(u8"p/start_ui.png");
 
 	//マップ管理
@@ -65,17 +67,17 @@ std::int32_t asMain()
 	AsTextureMapArray paint_main_map{ select_main_map };
 
 	//ペイントツールテクスチャ
-	AsTexture pen_tool_te(u8"p/pen_tool.png");
-	AsTexture eraser_tool_te(u8"p/eraser_tool.png");
-	AsTexture empty_tool_te(u8"p/move_tool.png");
-	AsTexture pipette_tool_te(u8"p/pipette_tool.png");
-	AsTexture bucket_tool_te(u8"p/bucket_tool.png");
-	AsTexture see_tool_te(u8"p/see_tool.png");
-	AsTexture up_down_layer_tool_te(u8"p/layer_tool.png");
-	AsTexture event_tool_te(u8"p/event_tool.png");
-	AsTexture left_tool_te(u8"p/left_tool.png");
-	AsTexture right_tool_te(u8"p/right_tool.png");
-	AsTexture option_tool_te(u8"p/option_tool.png");
+	AsTexture pen_tool_te(u8"Picture/Tool/pen_tool.png");
+	AsTexture eraser_tool_te(u8"Picture/Tool/eraser_tool.png");
+	AsTexture empty_tool_te(u8"Picture/Tool/move_tool.png");
+	AsTexture pipette_tool_te(u8"Picture/Tool/pipette_tool.png");
+	AsTexture bucket_tool_te(u8"Picture/Tool/bucket_tool.png");
+	AsTexture see_tool_te(u8"Picture/Tool/see_tool.png");
+	AsTexture up_down_layer_tool_te(u8"Picture/Tool/layer_tool.png");
+	AsTexture event_tool_te(u8"Picture/Tool/event_tool.png");
+	AsTexture left_tool_te(u8"Picture/Tool/left_tool.png");
+	AsTexture right_tool_te(u8"Picture/Tool/right_tool.png");
+	AsTexture option_tool_te(u8"Picture/Tool/option_tool.png");
 	AsTexture white_ascll(u8"Picture/white_ascll.png");
 
 	//ペイントツールボタン
