@@ -47,6 +47,6 @@ Third party content is copyrighted by its respective owners.
 
 # Related Items 🎮
 
-[![PAX_SAPIENTICA](https://raw.githubusercontent.com/Asukana/pax-picture/main/pax_title_2.png)](https://github.com/AsPJT/PAX_SAPIENTICA)
+[![PAX_SAPIENTICA](https://raw.githubusercontent.com/AsPJT/PAX_SAPIENTICA/main/Image/Poster/TitleLogoScreenshot.png)](https://github.com/AsPJT/PAX_SAPIENTICA)
 [![DTL](https://raw.githubusercontent.com/AsPJT/AsPJT/master/Picture/dungeon_template_library.png)](https://github.com/AsPJT/DungeonTemplateLibrary)
 [![GenkaiSyuraku](https://raw.githubusercontent.com/AsPJT/AsPJT/master/Picture/genkai_syuraku.png)](https://github.com/AsPJT/GenkaiSyuraku)
